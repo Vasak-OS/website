@@ -1,4 +1,4 @@
-baseURL = "http://lynxos.patojad.com.ar/"
+baseURL = "https://lynxos.patojad.com.ar/"
 languageCode = "es-ES"
 defaultContentLanguage = "es"
 title = "LynxOS"
