@@ -1,0 +1,11 @@
+{{ define "main" }}
+  {{ $paginator := .Paginate .Data.Pages.ByDate.Reverse }}
+
+  {{ range $paginator.Pages }}
+
+    {{ .Render "card" }}
+
+  {{ end }}
+
+  {{- partial "pagination.html" $paginator -}}
+{{ end }}

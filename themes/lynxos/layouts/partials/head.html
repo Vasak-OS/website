@@ -1,0 +1,39 @@
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>LynxOS</title>
+  <link rel="icon" href="/img/logo.png" />
+
+  <link rel="stylesheet" href="/css/main.css" />
+	<noscript>
+    <link rel="stylesheet" href="/css/noscript.css" />
+  </noscript>
+
+  <!-- METADATA -->
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site'/>
+  <meta content='@PatoJADOficial' name='twitter:creator'/>
+  <meta property="og:url" content="https://lynxos.patojad.com.ar{{ .RelPermalink }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ .Title }}" />
+  <meta property="og:image" content='{{ if isset .Params "img" }}{{ .Params.img }}{{else}}https://lynxos.patojad.com.ar/img/logo.png{{ end }}' />
+  <meta property="og:locale" content="es-ES" />
+  <meta
+    name="description"
+    content="{{ .Summary }} LynxOS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta content='{{ range .Params.tags }}{{ . }}, {{ end }} Linux, GNU, LynxOS, Lynx' name='keywords' />
+
+  <!-- CANONICAL LINK -->
+  <link rel="canonical" href="https://lynxos.patojad.com.ar{{ .RelPermalink }}"/>
+
+  <!-- RSS -->
+  {{ if .RSSLink }}
+    <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+    <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+  {{ end }}
+</head>

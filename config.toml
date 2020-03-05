@@ -1,0 +1,22 @@
+baseURL = "http://lynxos.patojad.com.ar/"
+languageCode = "es-ES"
+defaultContentLanguage = "es"
+title = "LynxOS"
+
+canonifyurls = true
+
+Paginate=6
+
+theme = "lynxos"
+
+[outputs]
+  page = ["HTML"]
+  section = ["HTML"]
+  home = ["JSON","HTML","RSS"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[permalinks]
+  Juegos = "/post/:year/:month/:title"

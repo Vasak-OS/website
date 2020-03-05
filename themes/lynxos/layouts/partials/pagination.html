@@ -1,0 +1,23 @@
+{{ if gt .TotalPages 1 }}
+  <nav class="blog-pagination justify-content-center d-flex">
+    <ul class="pagination">
+
+      {{ if .HasPrev }}
+        <li class="page-item">
+          <a href="{{ .Prev.URL }}" class="page-link" aria-label="Previous">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </a>
+        </li>
+      {{ end }}
+
+      {{if .HasNext }}
+        <li class="page-item">
+          <a href="{{ .Next.URL }}" class="page-link" aria-label="Next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </a>
+        </li>
+      {{ end }}
+
+    </ul>
+  </nav>
+{{ end }}

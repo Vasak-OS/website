@@ -1,0 +1,15 @@
+<a href="/tags/{{ . }}">
+  {{ if eq . "steam" }}
+    <i class="fa fa-steam" aria-hidden="true"></i>
+  {{ else }}
+    {{ if eq . "gog" }}
+      <img src="/img/plataforms/gog.png" alt="GOG" style="height: 20px;" />
+    {{ else }}
+      {{ if eq . "epicgames" }}
+        <img src="/img/plataforms/epicgames.png" alt="EpicGames" style="height: 20px;" />
+      {{ else }}
+        {{ . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</a>
