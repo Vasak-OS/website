@@ -1,145 +1,415 @@
-/*
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+(function ($) {
+"use strict";
+// TOP Menu Sticky
+$(window).on('scroll', function () {
+	var scroll = $(window).scrollTop();
+	if (scroll < 400) {
+    $("#sticky-header").removeClass("sticky");
+    $('#back-top').fadeIn(500);
+	} else {
+    $("#sticky-header").addClass("sticky");
+    $('#back-top').fadeIn(500);
+	}
+});
 
-(function($) {
 
-	var	$window = $(window),
-		$body = $('body'),
-		$header = $('#header'),
-		$banner = $('#banner');
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:	'(max-width: 1680px)',
-			large:	'(max-width: 1280px)',
-			medium:	'(max-width: 980px)',
-			small:	'(max-width: 736px)',
-			xsmall:	'(max-width: 480px)'
-		});
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
 
-	// Header.
-		if ($banner.length > 0
-		&&	$header.hasClass('alt')) {
+$(document).ready(function(){
 
-			$window.on('resize', function() { $window.trigger('scroll'); });
+// mobile_menu
+var menu = $('ul#navigation');
+if(menu.length){
+	menu.slicknav({
+		prependTo: ".mobile_menu",
+		closedSymbol: '+',
+		openedSymbol:'-'
+	});
+};
+// blog-menu
+  // $('ul#blog-menu').slicknav({
+  //   prependTo: ".blog_menu"
+  // });
 
-			$banner.scrollex({
-				bottom:		$header.outerHeight(),
-				terminate:	function() { $header.removeClass('alt'); },
-				enter:		function() { $header.addClass('alt'); },
-				leave:		function() { $header.removeClass('alt'); }
-			});
+// review-active
+$('.slider_active').owlCarousel({
+  loop:true,
+  margin:0,
+items:1,
+autoplay:true,
+navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
+  nav:true,
+dots:false,
+autoplayHoverPause: true,
+autoplaySpeed: 800,
+  responsive:{
+      0:{
+          items:1,
+          nav:false,
+      },
+      767:{
+          items:1,
+          nav:false,
+      },
+      992:{
+          items:1,
+          nav:false
+      },
+      1200:{
+          items:1,
+          nav:false
+      },
+      1600:{
+          items:1,
+          nav:true
+      }
+  }
+});
 
+// review-active
+$('.testmonial_active').owlCarousel({
+  loop:true,
+  margin:0,
+items:1,
+autoplay:true,
+navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
+  nav:true,
+dots:false,
+autoplayHoverPause: true,
+autoplaySpeed: 800,
+  responsive:{
+      0:{
+          items:1,
+          dots:false,
+          nav:false,
+      },
+      767:{
+          items:1,
+          dots:false,
+          nav:false,
+      },
+      992:{
+          items:1,
+          nav:false
+      },
+      1200:{
+          items:1,
+          nav:false
+      },
+      1500:{
+          items:1
+      }
+  }
+});
+
+// review-active
+$('.financial_active').owlCarousel({
+  loop:true,
+  margin:0,
+items:1,
+autoplay:true,
+navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
+  nav:true,
+dots:false,
+autoplayHoverPause: true,
+autoplaySpeed: 800,
+
+  responsive:{
+      0:{
+          items:1,
+          nav:false
+      },
+      767:{
+          items:1,
+          nav:false
+      },
+      992:{
+          items:1
+      },
+      1200:{
+          items:1
+      },
+      1500:{
+          items:1
+      }
+  }
+});
+
+// review-active
+$('.testmonial_active2').owlCarousel({
+  loop:true,
+  margin:0,
+items:1,
+autoplay:false,
+navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
+  nav:false,
+dots:true,
+autoplayHoverPause: true,
+autoplaySpeed: 800,
+// dotsData: true,
+center: true,
+  responsive:{
+      0:{
+          items:1,
+          nav:false
+      },
+      767:{
+          items:1,
+          nav:false
+      },
+      992:{
+          items:1
+      },
+      1200:{
+          items:1
+      },
+      1500:{
+          items:1
+      }
+  }
+});
+
+// for filter
+  // init Isotope
+  var $grid = $('.grid').isotope({
+    itemSelector: '.grid-item',
+    percentPosition: true,
+    masonry: {
+      // use outer width of grid-sizer for columnWidth
+      columnWidth: 1
+    }
+  });
+
+  // filter items on button click
+  $('.portfolio-menu').on('click', 'button', function () {
+    var filterValue = $(this).attr('data-filter');
+    $grid.isotope({ filter: filterValue });
+  });
+
+  //for menu active class
+  $('.portfolio-menu button').on('click', function (event) {
+    $(this).siblings('.active').removeClass('active');
+    $(this).addClass('active');
+    event.preventDefault();
+	});
+  
+  // wow js
+  new WOW().init();
+
+  // counter 
+  $('.counter').counterUp({
+    delay: 10,
+    time: 10000
+  });
+
+/* magnificPopup img view */
+$('.popup-image').magnificPopup({
+	type: 'image',
+	gallery: {
+	  enabled: true
+	}
+});
+
+/* magnificPopup img view */
+$('.img-pop-up').magnificPopup({
+	type: 'image',
+	gallery: {
+	  enabled: true
+	}
+});
+
+/* magnificPopup video view */
+$('.popup-video').magnificPopup({
+	type: 'iframe'
+});
+
+
+  // scrollIt for smoth scroll
+  $.scrollIt({
+    upKey: 38,             // key code to navigate to the next section
+    downKey: 40,           // key code to navigate to the previous section
+    easing: 'linear',      // the easing function for animation
+    scrollTime: 600,       // how long (in ms) the animation takes
+    activeClass: 'active', // class given to the active nav element
+    onPageChange: null,    // function(pageIndex) that is called when page is changed
+    topOffset: 0           // offste (in px) for fixed top navigation
+  });
+
+  // scrollup bottom to top
+  $.scrollUp({
+    scrollName: 'scrollUp', // Element ID
+    topDistance: '4500', // Distance from top before showing element (px)
+    topSpeed: 300, // Speed back to top (ms)
+    animation: 'fade', // Fade, slide, none
+    animationInSpeed: 200, // Animation in speed (ms)
+    animationOutSpeed: 200, // Animation out speed (ms)
+    scrollText: '<i class="fa fa-angle-double-up"></i>', // Text for element
+    activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+  });
+
+
+  // blog-page
+
+  //brand-active
+$('.brand-active').owlCarousel({
+  loop:true,
+  margin:30,
+items:1,
+autoplay:true,
+  nav:false,
+dots:false,
+autoplayHoverPause: true,
+autoplaySpeed: 800,
+  responsive:{
+      0:{
+          items:1,
+          nav:false
+
+      },
+      767:{
+          items:4
+      },
+      992:{
+          items:7
+      }
+  }
+});
+
+// blog-dtails-page
+
+  //project-active
+$('.project-active').owlCarousel({
+  loop:true,
+  margin:30,
+items:1,
+// autoplay:true,
+navText:['<i class="Flaticon flaticon-left-arrow"></i>','<i class="Flaticon flaticon-right-arrow"></i>'],
+nav:true,
+dots:false,
+// autoplayHoverPause: true,
+// autoplaySpeed: 800,
+  responsive:{
+      0:{
+          items:1,
+          nav:false
+
+      },
+      767:{
+          items:1,
+          nav:false
+      },
+      992:{
+          items:2,
+          nav:false
+      },
+      1200:{
+          items:1,
+      },
+      1501:{
+          items:2,
+      }
+  }
+});
+
+if (document.getElementById('default-select')) {
+  $('select').niceSelect();
+}
+
+  //about-pro-active
+$('.details_active').owlCarousel({
+  loop:true,
+  margin:0,
+items:1,
+// autoplay:true,
+navText:['<i class="ti-angle-left"></i>','<i class="ti-angle-right"></i>'],
+nav:true,
+dots:false,
+// autoplayHoverPause: true,
+// autoplaySpeed: 800,
+  responsive:{
+      0:{
+          items:1,
+          nav:false
+
+      },
+      767:{
+          items:1,
+          nav:false
+      },
+      992:{
+          items:1,
+          nav:false
+      },
+      1200:{
+          items:1,
+      }
+  }
+});
+
+});
+
+// resitration_Form
+$(document).ready(function() {
+	$('.popup-with-form').magnificPopup({
+		type: 'inline',
+		preloader: false,
+		focus: '#name',
+
+		// When elemened is focused, some mobile browsers in some cases zoom in
+		// It looks not nice, so we disable it:
+		callbacks: {
+			beforeOpen: function() {
+				if($(window).width() < 700) {
+					this.st.focus = false;
+				} else {
+					this.st.focus = '#name';
+				}
+			}
 		}
+  });
+  var wow = new WOW(
+    {
+      boxClass:     'wow',      // animated element css class (default is wow)
+      animateClass: 'animated', // animation css class (default is animated)
+      offset:       0,          // distance to the element when triggering the animation (default is 0)
+      mobile:       true,       // trigger animations on mobile devices (default is true)
+      live:         true,       // act on asynchronously loaded content (default is true)
+      callback:     function(box) {
+        // the callback is fired every time an animation is started
+        // the argument that is passed in is the DOM node being animated
+      },
+      scrollContainer: null,    // optional scroll container selector, otherwise use window,
+      resetAnimation: true,     // reset animation on end (default is true)
+    }
+  );
+  wow.init();
+});
 
-	// Menu.
-		var $menu = $('#menu');
 
-		$menu._locked = false;
 
-		$menu._lock = function() {
+//------- Mailchimp js --------//  
+function mailChimp() {
+  $('#mc_embed_signup').find('form').ajaxChimp();
+}
+mailChimp();
 
-			if ($menu._locked)
-				return false;
 
-			$menu._locked = true;
 
-			window.setTimeout(function() {
-				$menu._locked = false;
-			}, 350);
+        // Search Toggle
+        $("#search_input_box").hide();
+        $("#search").on("click", function () {
+            $("#search_input_box").slideToggle();
+            $("#search_input").focus();
+        });
+        $("#close_search").on("click", function () {
+            $('#search_input_box').slideUp(500);
+        });
+        // Search Toggle
+        $("#search_input_box").hide();
+        $("#search_1").on("click", function () {
+            $("#search_input_box").slideToggle();
+            $("#search_input").focus();
+        });
 
-			return true;
-
-		};
-
-		$menu._show = function() {
-
-			if ($menu._lock())
-				$body.addClass('is-menu-visible');
-
-		};
-
-		$menu._hide = function() {
-
-			if ($menu._lock())
-				$body.removeClass('is-menu-visible');
-
-		};
-
-		$menu._toggle = function() {
-
-			if ($menu._lock())
-				$body.toggleClass('is-menu-visible');
-
-		};
-
-		$menu
-			.appendTo($body)
-			.on('click', function(event) {
-
-				event.stopPropagation();
-
-				// Hide.
-					$menu._hide();
-
-			})
-			.find('.inner')
-				.on('click', '.close', function(event) {
-
-					event.preventDefault();
-					event.stopPropagation();
-					event.stopImmediatePropagation();
-
-					// Hide.
-						$menu._hide();
-
-				})
-				.on('click', function(event) {
-					event.stopPropagation();
-				})
-				.on('click', 'a', function(event) {
-
-					var href = $(this).attr('href');
-
-					event.preventDefault();
-					event.stopPropagation();
-
-					// Hide.
-						$menu._hide();
-
-					// Redirect.
-						window.setTimeout(function() {
-							window.location.href = href;
-						}, 350);
-
-				});
-
-		$body
-			.on('click', 'a[href="#menu"]', function(event) {
-
-				event.stopPropagation();
-				event.preventDefault();
-
-				// Toggle.
-					$menu._toggle();
-
-			})
-			.on('keydown', function(event) {
-
-				// Hide on escape.
-					if (event.keyCode == 27)
-						$menu._hide();
-
-			});
-
-})(jQuery);
+})(jQuery);	
