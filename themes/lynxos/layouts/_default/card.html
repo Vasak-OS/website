@@ -1,6 +1,21 @@
-<article>
-	<a href="{{ .RelPermalink }}" class="image"><img src="{{ .Params.img }}" alt="{{ .Title }}" /></a>
-	<h3 class="major">{{ .Title }}</h3>
-	<p>{{ .Summary }}</p>
-	<a href="{{ .RelPermalink }}" class="special">Ver mas...</a>
+<article class="blog_item">
+  <div class="blog_item_img">
+    <img class="card-img rounded-0" src="{{ .Params.img }}" alt="{{ .Title }}">
+    <a href="{{ .RelPermalink }}" class="blog_item_date">
+      <h3>{{ .Date.Day }}</h3>
+      {{ $monthNumber := .Date.Month }}
+      {{ $monthNumber = index site.Data.mesesc (printf "%d" .Date.Month) }}
+      <p>{{ $monthNumber }}</p>
+    </a>
+  </div>
+
+  <div class="blog_details">
+    <a class="d-inline-block" href="{{ .RelPermalink }}">
+      <h2>{{ .Title }}</h2>
+    </a>
+    <p>{{ .Summary }}</p>
+    <ul class="blog-info-link">
+      <li>{{ range .Params.category }} {{- partial "format/cardtag.html" . -}} {{ end }}</li>
+    </ul>
+  </div>
 </article>
