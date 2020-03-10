@@ -1,22 +1,72 @@
 {{ define "main" }}
 
-  <section id="wrapper">
-    <header>
-      <div class="inner">
-        <h2>{{ .Title }}</h2>
+<div id="content">
+
+  <!-- bradcam_area  -->
+      <div class="bradcam_area bradcam_bg_1">
+          <div class="container">
+              <div class="row">
+                  <div class="col-xl-12">
+                      <div class="bradcam_text">
+                          <h3>{{ .Title }}</h3>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </header>
-    <div class="wrapper">
-      <div class="inner">
+      <!-- /bradcam_area  -->
+      <div class="container">
+        <div class="row">
+      <div class="col-lg-8 mb-5 mb-lg-0">
+        <div class="single-post">
+          <div class="container">
+            <div class="row">
+              <div class="blog_details">
 
-        {{ .Content }}
+                {{ .Content }}
 
-        <section class="features">
-          <script async src="https://comments.app/js/widget.js?2" data-comments-app-website="3PRYOl9n" data-limit="5" data-color="FF0000"></script>
-        </section>
+                <ul class="blog-info-link mt-3 mb-4">
+                  <li>{{ range .Params.category }} {{- partial "format/cardtag.html" . -}} {{ end }}</li>
+                 </ul>
+              </div>
 
+              <div class="comments-area">
+                <script async src="https://comments.app/js/widget.js?2" data-comments-app-website="3PRYOl9n" data-limit="5" data-color="42B3FA"></script>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Lateral Bar -->
+        <div class="col-lg-4">
+          <div class="blog_right_sidebar">
+
+              {{- partial "widgets/search.html" -}}
+
+              <!-- Ultimas Publicaciones -->
+              <aside class="single_sidebar_widget popular_post_widget">
+                <h3 class="widget_title">Ultimas Publicaciones</h3>
+                {{ range first 4 .Site.RegularPages.ByDate.Reverse }}
+                  <div class="media post_item">
+                    <img src="{{ .Params.img }}" alt="{{ .Title }}" class="img-recent">
+                    <div class="media-body">
+                      <a href="single-blog.html">
+                        <h3>{{ .Title }}</h3>
+                      </a>
+                      <p>{{ partial "date.html" .Date }}</p>
+                    </div>
+                  </div>
+
+                {{ end }}
+              </aside>
+
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
-  </section>
+  </div>
 
 {{ end }}

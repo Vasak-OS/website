@@ -50,7 +50,7 @@
             <div class="thumb">
               <img src="img/icon/1.svg" alt="">
             </div>
-            <h3>El sistema es muy ligero<br> pero hermoso</h3>
+            <h3>No queremos tener SystemD en nuestro sistema</h3>
           </div>
         </div>
         <div class="col-lg-4 col-md-4">
@@ -163,72 +163,6 @@
 
 
 
-
-
-
-
-
-  <section id="banner">
-    <div class="inner">
-      <div class="logo"><img src="https://gitlab.com/LynxOS/logo/raw/master/svg/Lynx-icon.svg" alt="LyxnOS" style="max-width:64px"></div>
-      <h2>LynxOS</h2>
-      <p>Un sistema operativo basado en linux creado por <a href="https://patojad.com.ar">PatoJAD</a> y <a href="https://lynxsoftwaredesign.gitlab.io">Lynx Software Design</a> pensando en todos los usaurios</p>
-    </div>
-  </section>
-
-  <section id="wrapper">
-
-  <!-- One -->
-  	<section id="one" class="wrapper spotlight style1">
-  		<div class="inner">
-  			<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-  			<div class="content">
-  				<h2 class="major">MATE Desktop</h2>
-  				<p>MATE Desktop es uno de los escritorios mas editables y performante, aprovechamos todo el potencial de este escritorio Argentino para llevar el rendimiento de nuestra distribucion al maximo sin descuidar su estilo, el cual esta configurado bajo muchas pruebas</p>
-  			</div>
-  		</div>
-  	</section>
-
-  <!-- Two -->
-  	<section id="two" class="wrapper alt spotlight style2">
-  		<div class="inner">
-  			<a href="#" class="image"><img src="https://i.ytimg.com/vi/GRM4qWq1S6M/maxresdefault.jpg" alt="" /></a>
-  			<div class="content">
-  				<h2 class="major">Liquorix Kernel</h2>
-  				<p>Aprovechamos todo el potencial de los desarrolladores de Liquorix incluyendo nativamente su Kernel mejorando la performance en Juegos, Remasterizado de videos y demas. ¡Vos preocupate por jugar, nosotros nos preocupamos por el rendimiento!</p>
-  			</div>
-  		</div>
-  	</section>
-
-  <!-- Three -->
-  	<section id="three" class="wrapper spotlight style3">
-  		<div class="inner">
-  			<a href="#" class="image"><img src="https://live.mrf.io/statics/i/ps/www.muylinux.com/wp-content/uploads/2019/05/MXLinux.png" alt="" /></a>
-  			<div class="content">
-  				<h2 class="major">NON SystemD</h2>
-  				<p>Gracias a nuesta base (MX Linux) no tenemos que preocuparnos por la prececia de SystemD en nuestro sistema (Como init del sistema) asegurandonos la mayor estabilidad y rendimiento de nuestro sistema.</p>
-  			</div>
-  		</div>
-  	</section>
-
-    <section id="four" class="wrapper alt style1">
-			<div class="inner">
-				<h2 class="major">Novedades sobre LynxOS</h2>
-				<p>No te pierdas las novedades sobre tu distribucion favorita, aqui podras ver las ultimas novedades sobre LynxOS y estar al dia sobre nuestros cambios</p>
-				<section class="features">
-          {{ $paginator := .Paginate .Site.RegularPages.ByDate.Reverse }}
-
-          {{ range $paginator.Pages }}
-
-            {{ .Render "card" }}
-
-          {{ end }}
-				<ul class="actions">
-					<li><a href="/noticias/" class="button">Todas Las noticias</a></li>
-				</ul>
-			</div>
-		</section>
-  </section>
 
 
   <!-- productivity_area  -->
