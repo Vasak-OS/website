@@ -25,9 +25,6 @@
 
                 {{ .Content }}
 
-                <ul class="blog-info-link mt-3 mb-4">
-                  <li>{{ range .Params.category }} {{- partial "format/cardtag.html" . -}} {{ end }}</li>
-                 </ul>
               </div>
 
               <div class="comments-area col-12">
