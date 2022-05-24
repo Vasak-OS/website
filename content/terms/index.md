@@ -1,6 +1,7 @@
 ---
 Title: "Terms & Conditions"
 tags: ["Terms & Conditions", "terms", "conditions", "terminos", "condiciones", "terminos y condiciones", "condiciones y terminos"]
+date: "2022-05-24"
 ---
 
 # Terms and Conditions

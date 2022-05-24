@@ -1,6 +1,7 @@
 ---
 Title: "Privacy policy"
 tags: ["privacy policy", "privacy", "policy", "privacidad", "politica de privacidad", "politica"]
+date: "2022-05-24"
 ---
 
 # POLÍTICA DE PRIVACIDAD
