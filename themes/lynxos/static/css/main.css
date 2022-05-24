@@ -493,6 +493,7 @@
   }
   .hero-animated .animated {
     margin-bottom: 60px;
+    border-radius: var(--radius);
     animation: up-down 2s ease-in-out infinite alternate-reverse both;
   }
   @media (min-width: 992px) {
@@ -2225,15 +2226,37 @@
     border-radius: var(--radius)
   }
   .blog .blog-details .post-img {
-    margin: -30px -30px 20px -30px;
+    margin: -50px -30px 20px -30px;
     overflow: hidden;
   }
+
+  .blog .blog-details table {
+    width: 100%;
+    border-radius: var(--radius) !important;
+    margin-bottom: 1rem;
+    background: rgba(157,157,157, 0.3);
+  }
+
+  .blog .blog-details thead{
+    color: rgb(var(--color-primary-rgb));
+  }
+
+  .blog .blog-details th, .blog .blog-details td {
+    padding: 10px;
+  }
+
+  .blog .blog-details img {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: var(--radius)
+  }
+
   .blog .blog-details .title {
     font-size: 28px;
     font-weight: 700;
     padding: 0;
     margin: 20px 0 0 0;
-    color: rgb(var(--color-secondary-rgb));
+    color: rgb(var(--color-primary-rgb));
   }
   .blog .blog-details .content {
     margin-top: 20px;
@@ -2466,6 +2489,7 @@
   .blog .sidebar .recent-posts img {
     width: 80px;
     margin-right: 15px;
+    border-radius: var(--radius);
   }
   .blog .sidebar .recent-posts h4 {
     font-size: 18px;
