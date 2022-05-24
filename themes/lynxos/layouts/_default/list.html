@@ -1,68 +1,33 @@
 {{ define "main" }}
 
-<div id="content">
+  {{- partial "sections/breadcrumbs.html" . -}}
 
-  <!-- bradcam_area  -->
-      <div class="bradcam_area bradcam_bg_1">
-          <div class="container">
-              <div class="row">
-                  <div class="col-xl-12">
-                      <div class="bradcam_text">
-                          <h3>{{ .Title }}</h3>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- /bradcam_area  -->
+  <main id="main">
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <div class="row g-5">
 
-<section class="blog_area section_padding">
-  <div class="container">
-    <div class="row">
+          <div class="col-lg-8">
+            <div class="row gy-4 posts-list">
+              {{ $paginator := .Paginate .Data.Pages.ByDate.Reverse }}
 
-      <!-- Contenido Main -->
-      <div class="col-lg-8 mb-5 mb-lg-0">
-        <div class="blog_left_sidebar">
-          {{ $paginator := .Paginate .Data.Pages.ByDate.Reverse }}
+              {{ range $paginator.Pages }}
 
-          {{ range $paginator.Pages }}
-
-            {{ .Render "card" }}
-
-          {{ end }}
-
-          {{- partial "pagination.html" $paginator -}}
-        </div>
-      </div>
-
-      <!-- Lateral Bar -->
-      <div class="col-lg-4">
-        <div class="blog_right_sidebar">
-
-            {{- partial "widgets/search.html" -}}
-
-            <!-- Ultimas Publicaciones -->
-            <aside class="single_sidebar_widget popular_post_widget">
-              <h3 class="widget_title">Ultimas Publicaciones</h3>
-              {{ range first 4 .Site.RegularPages.ByDate.Reverse }}
-                <div class="media post_item">
-                  <img src="{{ .Params.img }}" alt="{{ .Title }}" class="img-recent">
-                  <div class="media-body">
-                    <a href="single-blog.html">
-                      <h3>{{ .Title }}</h3>
-                    </a>
-                    <p>{{ partial "date.html" .Date }}</p>
-                  </div>
-                </div>
+                {{ .Render "card" }}
 
               {{ end }}
-            </aside>
 
+              {{- partial "pagination.html" $paginator -}}
+            </div>
           </div>
-        </div>
 
+          <div class="col-lg-4">
+            {{ partial "sections/sidebar.html" . -}}
+          </div>
+
+        </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </main>
+
 {{ end }}
