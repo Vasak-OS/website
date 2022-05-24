@@ -2,34 +2,45 @@
 
   <main id="main">
     {{- partial "sections/breadcrumbs.html" . -}}
+
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <div class="row g-5">
+          <div class="col-lg-8">
+
+            <article class="blog-details">
+              {{ .Content }}
+            </article>
+
+            <div class="comments">
+              <script
+                  async
+                  src="https://comments.app/js/widget.js?2"
+                  data-comments-app-website="3PRYOl9n"
+                  data-limit="10"
+                  data-color="42B3FA">
+                </script>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+            {{ partial "sections/sidebar.html" . -}}
+          </div>
+
+        </div>
+      </div>
+    </section>
   </main>
 
 <div id="content">
 
-  <!-- bradcam_area  -->
-      <div class="bradcam_area bradcam_bg_1">
-          <div class="container">
-              <div class="row">
-                  <div class="col-xl-12">
-                      <div class="bradcam_text">
-                          <h3>{{ .Title }}</h3>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- /bradcam_area  -->
       <div class="container">
         <div class="row">
       <div class="col-lg-8 mb-5 mb-lg-0">
         <div class="single-post">
           <div class="container">
             <div class="row">
-              <div class="blog_details">
-
-                {{ .Content }}
-
-              </div>
 
               <div class="comments-area col-12">
                 <script
