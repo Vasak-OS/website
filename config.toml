@@ -2,6 +2,7 @@ baseURL = "https://lynxos.patojad.com.ar/"
 languageCode = "es-ES"
 defaultContentLanguage = "es"
 title = "LynxOS"
+summaryLength = 20
 
 canonifyurls = true
 
