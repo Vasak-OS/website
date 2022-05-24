@@ -1,6 +1,7 @@
 ---
 Title: "Donaciones"
 tags: ["donar","donaciones"]
+img: "/img/posts/donate.svg"
 ---
 
 Antes que nada MUCHAS GRACIAS por llegar hasta aca, realmente no es obligatorio y sabemos que muchas veces es dificil donar a un proyecto. Hoy LynxOS se encuentra echo pura y exclusivamente a pulmon. Nuestros repositorios estan alojados en sitios gratuitos y no contamos con el apoyo de ninguna institucion.
