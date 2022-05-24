@@ -5,9 +5,14 @@
     <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row g-5">
-          <div class="col-lg-12">
+          <div class="col-lg-8">
 
             <article class="blog-details">
+              <div class="post-img text-center">
+                <img src="{{ .Params.img }}" alt="" class="img-fluid" />
+              </div>
+
+              <h2 class="title text-center">{{ .Title }}</h2>
               
               <div class="meta-top">
                 <ul>
@@ -20,6 +25,20 @@
               </div>
             </article>
 
+            <div class="comments">
+              <script
+                  async
+                  src="https://comments.app/js/widget.js?2"
+                  data-comments-app-website="3PRYOl9n"
+                  data-limit="10"
+                  data-color="42B3FA">
+                </script>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+            {{ partial "sections/sidebar.html" . -}}
           </div>
 
         </div>
