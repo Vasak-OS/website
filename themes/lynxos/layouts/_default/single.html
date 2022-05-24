@@ -1,15 +1,14 @@
 {{ define "main" }}
+  {{- partial "sections/breadcrumbs.html" . -}}
 
   <main id="main">
-    {{- partial "sections/breadcrumbs.html" . -}}
-
     <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row g-5">
           <div class="col-lg-8">
 
             <article class="blog-details">
-              <div class="post-img">
+              <div class="post-img text-center">
                 <img src="{{ .Params.img }}" alt="" class="img-fluid" />
               </div>
 
