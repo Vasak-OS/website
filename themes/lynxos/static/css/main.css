@@ -2237,11 +2237,23 @@
   .blog .blog-details .content {
     margin-top: 20px;
   }
+
   .blog .blog-details .content h3 {
     font-size: 22px;
     margin-top: 30px;
+    margin-bottom: 10px;
     font-weight: bold;
+    color: rgb(var(--color-secondary-rgb));
   }
+
+  .blog .blog-details .content h2 {
+    font-size: 29px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: rgb(var(--color-primary-rgb));
+  }
+
   .blog .blog-details .content blockquote {
     overflow: hidden;
     background-color: rgba(var(--color-secondary-rgb), 0.06);
