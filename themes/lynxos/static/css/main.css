@@ -2222,6 +2222,7 @@
   .blog .blog-details {
     box-shadow: 0 4px 16px rgba(var(--color-black-rgb), 0.1);
     padding: 30px;
+    border-radius: var(--radius)
   }
   .blog .blog-details .post-img {
     margin: -30px -30px 20px -30px;
@@ -2387,6 +2388,7 @@
   .blog .sidebar {
     padding: 30px;
     box-shadow: 0 4px 16px rgba(var(--color-black-rgb), 0.1);
+    border-radius: var(--radius);
   }
   .blog .sidebar .sidebar-title {
     font-size: 20px;
