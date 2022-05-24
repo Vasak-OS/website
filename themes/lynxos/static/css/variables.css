@@ -22,22 +22,22 @@
     --color-links-hover: #1ec3e0;
   
     /* Primay colors */
-    --color-primary: #0ea2bd;
-    --color-primary-light: #1ec3e0;
-    --color-primary-dark: #0189a1;
+    --color-primary: linear-gradient(150deg, rgba(11,201,140,1) 0%, rgba(217,222,72,1) 100%);
+    --color-primary-light: linear-gradient(150deg, rgba(11,201,140,1) 0%, rgba(217,222,72,1) 100%);
+    --color-primary-dark: linear-gradient(150deg, rgba(11,201,140,1) 0%, rgba(217,222,72,1) 100%);
   
-    --color-primary-rgb: 14, 162, 189;
-    --color-primary-light-rgb: 30, 195, 224;
-    --color-primary-dark-rgb: 1, 137, 161;
+    --color-primary-rgb: 11,201,140;
+    --color-primary-light-rgb: 11,201,140;
+    --color-primary-dark-rgb: 11,201,140;
   
     /* Secondary colors */
-    --color-secondary: #485664;
-    --color-secondary-light: #8f9fae;
-    --color-secondary-dark: #3a4753;
+    --color-secondary: linear-gradient(150deg, rgba(180,141,255,1) 0%, rgba(0,123,195,1) 10%, rgba(0,195,195,1) 90%, rgba(180,141,255,1) 100%);
+    --color-secondary-light: linear-gradient(150deg, rgba(180,141,255,1) 0%, rgba(0,123,195,1) 10%, rgba(0,195,195,1) 90%, rgba(180,141,255,1) 100%);
+    --color-secondary-dark: linear-gradient(150deg, rgba(180,141,255,1) 0%, rgba(0,123,195,1) 10%, rgba(0,195,195,1) 90%, rgba(180,141,255,1) 100%);
   
-    --color-secondary-rgb: 72, 86, 100;
-    --color-secondary-light-rgb: 143, 159, 174;
-    --color-secondary-dark-rgb: 58, 71, 83;
+    --color-secondary-rgb: 0,123,195;
+    --color-secondary-light-rgb: 0,123,195;
+    --color-secondary-dark-rgb: 0,123,195;
   
     /* General colors */
     --color-blue: #0d6efd;
