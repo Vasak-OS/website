@@ -2623,16 +2623,19 @@
   # Footer
   --------------------------------------------------------------*/
   .footer {
+    background: var(--color-secondary);
     color: var(--color-white);
     font-size: 14px;
   }
+
   .footer .footer-content {
-    background: var(--color-secondary);
     padding: 60px 0 30px 0;
   }
+
   .footer .footer-content .footer-info {
     margin-bottom: 30px;
   }
+
   .footer .footer-content .footer-info h3 {
     font-size: 28px;
     margin: 0 0 20px 0;
@@ -2641,9 +2644,11 @@
     font-weight: 700;
     text-transform: uppercase;
   }
+
   .footer .footer-content .footer-info h3 span {
     color: var(--color-primary);
   }
+
   .footer .footer-content .footer-info p {
     font-size: 14px;
     line-height: 24px;
@@ -2651,6 +2656,7 @@
     font-family: var(--font-primary);
     color: var(--color-white);
   }
+
   .footer .footer-content h4 {
     font-size: 16px;
     font-weight: 600;
@@ -2659,6 +2665,7 @@
     padding-bottom: 12px;
     margin-bottom: 15px;
   }
+
   .footer .footer-content h4::after {
     content: "";
     position: absolute;
@@ -2669,6 +2676,7 @@
     bottom: 0;
     left: 0;
   }
+
   .footer .footer-content .footer-links {
     margin-bottom: 30px;
   }
@@ -2734,7 +2742,7 @@
   }
   .footer .footer-legal {
     padding: 30px 0;
-    background: var(--color-secondary-dark);
+    background: rgba(5,5,5,.3);
   }
   .footer .footer-legal .credits {
     padding-top: 4px;
