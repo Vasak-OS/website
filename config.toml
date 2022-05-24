@@ -21,3 +21,6 @@ theme = "lynxos"
 
 [permalinks]
   News = "/news/:year/:month/:title"
+
+[markup.goldmark.renderer]
+  unsafe= true
