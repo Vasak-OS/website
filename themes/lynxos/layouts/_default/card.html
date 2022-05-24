@@ -1,21 +1,29 @@
-<article class="blog_item">
-  <div class="blog_item_img">
-    <img class="card-img rounded-0" src="{{ .Params.img }}" alt="{{ .Title }}">
-    <a href="{{ .RelPermalink }}" class="blog_item_date">
-      <h3>{{ .Date.Day }}</h3>
-      {{ $monthNumber := .Date.Month }}
-      {{ $monthNumber = index site.Data.mesesc (printf "%d" .Date.Month) }}
-      <p>{{ $monthNumber }}</p>
-    </a>
-  </div>
+<div class="col-lg-6">
+  <article class="d-flex flex-column">
 
-  <div class="blog_details">
-    <a class="d-inline-block" href="{{ .RelPermalink }}">
-      <h2>{{ .Title }}</h2>
-    </a>
-    <p>{{ .Summary }}</p>
-    <ul class="blog-info-link">
-      <li>{{ range .Params.category }} {{- partial "format/cardtag.html" . -}} {{ end }}</li>
-    </ul>
-  </div>
-</article>
+    <div class="post-img">
+      <img src="{{ .Params.img }}" alt="{{ .Title }}" class="img-fluid">
+    </div>
+
+    <h2 class="title">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h2>
+
+    <div class="meta-top">
+      <ul>
+        <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{{ .RelPermalink }}"><time datetime='{{ partial "date.html" .Date }}'>{{ partial "date.html" .Date }}</time></a></li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <p>
+        {{ .Summary }}
+      </p>
+    </div>
+
+    <div class="read-more mt-auto align-self-end">
+      <a href="{{ .RelPermalink }}">Leer mas</a>
+    </div>
+
+  </article>
+</div><!-- End post list item -->
