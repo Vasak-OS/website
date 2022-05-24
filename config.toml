@@ -20,4 +20,4 @@ theme = "lynxos"
   category = "categories"
 
 [permalinks]
-  Juegos = "/post/:year/:month/:title"
+  News = "/news/:year/:month/:title"
