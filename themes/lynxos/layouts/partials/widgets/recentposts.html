@@ -1,0 +1,19 @@
+<div class="sidebar-item recent-posts">
+    <h3 class="sidebar-title">Publicaciones Recientes</h3>
+    <div class="mt-3">
+        
+        {{ with .Site.RegularPages.ByDate.Reverse }}
+            {{ range first 4 . }}
+                <div class="post-item mt-3">
+                    <img src="{{ .Params.img }}" alt="{{ .Title }}" class="flex-shrink-0">
+                    <div>
+                    <h4><a href="{{ .Permalink }}">{{ .Title }}</a></h4>
+                    <time datetime='{{ partial "date.html" .Date }}'>{{ partial "date.html" .Date }}</time>
+                    </div>
+                </div>
+            {{ end }}
+        {{ end }}
+
+    </div>
+</div>
+<!-- End sidebar recent posts-->
