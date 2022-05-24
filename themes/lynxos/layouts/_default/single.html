@@ -9,7 +9,21 @@
           <div class="col-lg-8">
 
             <article class="blog-details">
-              {{ .Content }}
+              <div class="post-img">
+                <img src="{{ .Params.img }}" alt="" class="img-fluid" />
+              </div>
+
+              <h2 class="title text-center">{{ .Title }}</h2>
+              
+              <div class="meta-top">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="fa fa-clock-o"></i> <a href="#"><time datetime='{{ partial "date.html" .Date }}'>{{ partial "date.html" .Date }}</time></a></li>
+                </ul>
+              </div>
+
+              <div class="content">
+                {{ .Content }}
+              </div>
             </article>
 
             <div class="comments">
@@ -32,59 +46,5 @@
       </div>
     </section>
   </main>
-
-<div id="content">
-
-      <div class="container">
-        <div class="row">
-      <div class="col-lg-8 mb-5 mb-lg-0">
-        <div class="single-post">
-          <div class="container">
-            <div class="row">
-
-              <div class="comments-area col-12">
-                <script
-                  async
-                  src="https://comments.app/js/widget.js?2"
-                  data-comments-app-website="3PRYOl9n"
-                  data-limit="10"
-                  data-color="42B3FA">
-                </script>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <!-- Lateral Bar -->
-        <div class="col-lg-4">
-          <div class="blog_right_sidebar">
-
-              {{- partial "widgets/search.html" -}}
-
-              <!-- Ultimas Publicaciones -->
-              <aside class="single_sidebar_widget popular_post_widget">
-                <h3 class="widget_title">Ultimas Publicaciones</h3>
-                {{ range first 4 .Site.RegularPages.ByDate.Reverse }}
-                  <div class="media post_item">
-                    <img src="{{ .Params.img }}" alt="{{ .Title }}" class="img-recent">
-                    <div class="media-body">
-                      <a href="single-blog.html">
-                        <h3>{{ .Title }}</h3>
-                      </a>
-                      <p>{{ partial "date.html" .Date }}</p>
-                    </div>
-                  </div>
-
-                {{ end }}
-              </aside>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-  </div>
 
 {{ end }}
