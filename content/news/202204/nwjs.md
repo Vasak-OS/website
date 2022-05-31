@@ -2,7 +2,7 @@
 Title: "NWJS el camino claro"
 tags: ["neutralino", "nwjs", "electron", "lynxos"]
 date: "2022-04-12"
-img: "https://blog.logrocket.com/wp-content/uploads/2021/04/cross-platform-apps-nw-js.png"
+img: "https://programmerclick.com/images/783/dee67ad106fab0df8044f161abf54e57.png"
 ---
 
 Desde la separación con JADE el camino de descubrimiento fue largo y plagado de trabas. Sin embargo tras realizar muchas pruebas decidimos concluir en el uso de NWJS pero antes de contar el motivo vamos a hablar del camino recorrido.
