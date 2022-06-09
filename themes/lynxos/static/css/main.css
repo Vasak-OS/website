@@ -4,21 +4,21 @@
 :root {
     scroll-behavior: smooth;
   }
-  
+
   a {
     color: var(--color-links);
     text-decoration: none;
   }
-  
+
   a:hover {
     color: var(--color-links-hover);
     text-decoration: none;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-primary);
   }
-  
+
   /*--------------------------------------------------------------
   # Preloader
   --------------------------------------------------------------*/
@@ -44,7 +44,7 @@
     -webkit-animation-delay: -0.5s;
     animation-delay: -0.5s;
   }
-  
+
   @-webkit-keyframes animate-preloader {
     0% {
       width: 10px;
@@ -61,7 +61,7 @@
       opacity: 0;
     }
   }
-  
+
   @keyframes animate-preloader {
     0% {
       width: 10px;
@@ -85,7 +85,7 @@
     padding: 60px 0;
     overflow: hidden;
   }
-  
+
   .section-header {
     text-align: center;
     padding-bottom: 40px;
@@ -105,7 +105,7 @@
       max-width: 80%;
     }
   }
-  
+
   /*--------------------------------------------------------------
   # Breadcrumbs
   --------------------------------------------------------------*/
@@ -152,7 +152,7 @@
       display: inline-block;
     }
   }
-  
+
   /*--------------------------------------------------------------
   # Scroll top button
   --------------------------------------------------------------*/
@@ -182,7 +182,7 @@
     visibility: visible;
     opacity: 1;
   }
-  
+
   /*--------------------------------------------------------------
   # Disable aos animation delay on mobile devices
   --------------------------------------------------------------*/
@@ -235,9 +235,9 @@
       margin-right: 50px;
     }
   }
-  
+
   /*--------------------------------------------------------------
-  # Desktop Navigation 
+  # Desktop Navigation
   --------------------------------------------------------------*/
   @media (min-width: 1280px) {
     .navbar {
@@ -428,7 +428,7 @@
     .navbar .dropdown > .dropdown-active, .navbar .dropdown .dropdown > .dropdown-active {
       display: block;
     }
-  
+
     .mobile-nav-toggle {
       display: block !important;
       color: rgb(var(--color-secondary-rgb));
@@ -444,7 +444,7 @@
     .mobile-nav-toggle.bi-x {
       color: var(--color-white);
     }
-  
+
     .mobile-nav-active {
       overflow: hidden;
       z-index: 9995;
@@ -558,7 +558,7 @@
       font-size: 14px;
     }
   }
-  
+
   @-webkit-keyframes up-down {
     0% {
       transform: translateY(10px);
@@ -567,7 +567,7 @@
       transform: translateY(-10px);
     }
   }
-  
+
   @keyframes up-down {
     0% {
       transform: translateY(10px);
@@ -701,7 +701,7 @@
     opacity: 1;
     background: var(--color-primary);
   }
-  
+
   @-webkit-keyframes fadeIn {
     from {
       opacity: 0;
@@ -710,7 +710,7 @@
       opacity: 1;
     }
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -864,7 +864,7 @@
       font-size: 14px;
     }
   }
-  
+
   /*--------------------------------------------------------------
   # Static Hero Section
   --------------------------------------------------------------*/
@@ -939,7 +939,7 @@
       font-size: 14px;
     }
   }
-  
+
   /*--------------------------------------------------------------
   # Featured Services Section
   --------------------------------------------------------------*/
@@ -979,7 +979,7 @@
   .featured-services .service-item:hover h4 a {
     color: rgb(var(--color-primary-rgb));
   }
-  
+
   /*--------------------------------------------------------------
   # About Section
   --------------------------------------------------------------*/
@@ -1053,7 +1053,7 @@
     margin-right: 8px;
     color: rgb(var(--color-primary-rgb));
   }
-  
+
   /*--------------------------------------------------------------
   # Clients Section
   --------------------------------------------------------------*/
@@ -1069,7 +1069,7 @@
     filter: none;
     opacity: 1;
   }
-  
+
   /*--------------------------------------------------------------
   # Call To Action Section
   --------------------------------------------------------------*/
@@ -1149,7 +1149,7 @@
     z-index: 3;
     border-radius: var(--radius);
   }
-  
+
   /*--------------------------------------------------------------
   # On Focus Section
   --------------------------------------------------------------*/
@@ -1287,7 +1287,7 @@
     border-left: 15px solid var(--color-primary);
     transform: scale(20);
   }
-  
+
   @-webkit-keyframes pulsate-btn {
     0% {
       transform: scale(0.6, 0.6);
@@ -1298,7 +1298,7 @@
       opacity: 0;
     }
   }
-  
+
   @keyframes pulsate-btn {
     0% {
       transform: scale(0.6, 0.6);
@@ -1381,7 +1381,7 @@
   .features .tab-pane p:last-child {
     margin-bottom: 0;
   }
-  
+
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -1454,7 +1454,7 @@
   .services .service-item:hover .img img {
     transform: scale(1.2);
   }
-  
+
   /*--------------------------------------------------------------
   # Testimonials Section
   --------------------------------------------------------------*/
@@ -1545,7 +1545,7 @@
       width: 80%;
     }
   }
-  
+
   /*--------------------------------------------------------------
   # Pricing Section
   --------------------------------------------------------------*/
@@ -1644,7 +1644,7 @@
     background: var(--color-primary);
     color: var(--color-white);
   }
-  
+
   /*--------------------------------------------------------------
   # F.A.Q Section
   --------------------------------------------------------------*/
@@ -1717,7 +1717,7 @@
     background: var(--color-white);
     box-shadow: none;
   }
-  
+
   /*--------------------------------------------------------------
   # Portfolio Section
   --------------------------------------------------------------*/
@@ -1813,7 +1813,7 @@
     opacity: 1;
     inset: auto 10px 0 10px;
   }
-  
+
   /*--------------------------------------------------------------
   # Team Section
   --------------------------------------------------------------*/
@@ -1886,7 +1886,7 @@
   .team .team-member:hover .social {
     opacity: 1;
   }
-  
+
   /*--------------------------------------------------------------
   # Recent Blog Posts
   --------------------------------------------------------------*/
@@ -1950,7 +1950,7 @@
   .recent-blog-posts .post-box:hover .post-img img {
     transform: scale(1.1);
   }
-  
+
   /*--------------------------------------------------------------
   # Contact Section
   --------------------------------------------------------------*/
@@ -1966,6 +1966,7 @@
     padding: 40px;
     box-shadow: 0px 2px 15px rgba(var(--color-black-rgb), 0.1);
     overflow: hidden;
+    border-radius: var(--radius);
   }
   .contact .info h3 {
     font-weight: 600;
@@ -2087,7 +2088,7 @@
       transform: rotate(360deg);
     }
   }
-  
+
   /*--------------------------------------------------------------
   # Portfolio Details
   --------------------------------------------------------------*/
@@ -2141,7 +2142,7 @@
   .portfolio-details .portfolio-description p {
     padding: 0;
   }
-  
+
   /*--------------------------------------------------------------
   # Blog Stylings
   --------------------------------------------------------------*/
@@ -2218,7 +2219,7 @@
   .blog .posts-list .read-more a:hover {
     background: rgba(var(--color-primary-rgb), 0.8);
   }
-  
+
   /*--------------------------------------------------------------
   # Blog Details Page
   --------------------------------------------------------------*/
@@ -2406,7 +2407,7 @@
     color: rgba(var(--color-gray-rgb), 0.8);
     margin-bottom: 0;
   }
-  
+
   /*--------------------------------------------------------------
   # Blog Sidebar
   --------------------------------------------------------------*/
@@ -2539,7 +2540,7 @@
     color: rgba(var(--color-secondary-light-rgb), 0.8);
     font-size: 14px;
   }
-  
+
   /*--------------------------------------------------------------
   # Blog Comments
   --------------------------------------------------------------*/
@@ -2629,7 +2630,7 @@
   .blog .comments .reply-form .btn-primary:hover {
     background-color: rgba(var(--color-secondary-rgb), 0.8);
   }
-  
+
   /*--------------------------------------------------------------
   # Blog Home Pagination
   --------------------------------------------------------------*/
@@ -2661,7 +2662,7 @@
   .blog .blog-pagination li.active a, .blog .blog-pagination li:hover a {
     color: var(--color-white);
   }
-  
+
   /*--------------------------------------------------------------
   # Footer
   --------------------------------------------------------------*/
