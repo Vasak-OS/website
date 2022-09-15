@@ -4,9 +4,9 @@
 {{ $dayNumber := .Weekday }}
 
 {{ if eq site.Language.Lang "es" }}
-  {{ $monthNumber = index site.Data.meses (printf "%d" .Month) }}
-  {{ $dayNumber = index site.Data.dias (printf "%d" .Weekday) }}
-  {{ $formattedDate = delimit (slice $dayNumber (printf "%d" .Day) "de" $monthNumber "de" (printf "%d" .Year)) " "}}
+{{ $monthNumber = index site.Data.meses (printf "%d" .Month) }}
+{{ $dayNumber = index site.Data.dias (printf "%d" .Weekday) }}
+{{ $formattedDate = delimit (slice $dayNumber (printf "%d" .Day) "de" $monthNumber "de" (printf "%d" .Year)) " "}}
 {{ end }}
 
 {{ return $formattedDate }}

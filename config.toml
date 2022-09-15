@@ -1,7 +1,7 @@
-baseURL = "https://os.lynx.net.ar/"
+baseURL = "https://os.vasak.net.ar/"
 languageCode = "es-ES"
 defaultContentLanguage = "es"
-title = "LynxOS"
+title = "VasakOS"
 summaryLength = 20
 
 canonifyurls = true
