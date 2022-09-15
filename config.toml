@@ -8,7 +8,7 @@ canonifyurls = true
 
 Paginate=6
 
-theme = "lynxos"
+theme = "vasakos"
 
 [outputs]
   page = ["HTML"]
