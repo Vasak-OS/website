@@ -2830,3 +2830,12 @@ Aditionals
   background: var(--color-secondary);
   border-color: rgb(var(--color-secondary-rgb));
 }
+
+@font-face {
+  font-family: ChailceNoggin;
+  src: url(/fonts/ChailceNogginRegular.ttf);
+}
+
+.v-font {
+  font-family: "ChailceNoggin", sans-serif;
+}

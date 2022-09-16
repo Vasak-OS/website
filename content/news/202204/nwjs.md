@@ -1,6 +1,6 @@
 ---
 Title: "NWJS el camino claro"
-tags: ["neutralino", "nwjs", "electron", "lynxos"]
+tags: ["neutralino", "nwjs", "electron", "lynxos", "vasakos", "node", "vasak"]
 date: "2022-04-12"
 img: "https://programmerclick.com/images/783/dee67ad106fab0df8044f161abf54e57.png"
 ---

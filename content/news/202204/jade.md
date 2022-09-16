@@ -1,6 +1,6 @@
 ---
 Title: "JADE no es mas nuestra base"
-tags: ["jade", "de", "manjaro", "desktop"]
+tags: ["jade", "de", "manjaro", "desktop","escritorio","node"]
 date: "2022-04-04"
 img: "https://github.com/Manjaro-WebDad/jde/raw/master/jade.jpg"
 ---
@@ -10,11 +10,11 @@ Sin embargo después de mucho trabajo sobre este Desktop, llegamos a la conclusi
 
 ### JADE ¿Un mal Desktop?
 
-No, no y no. Simplemente el rumbo de este escritorio no era el mismo que Lynx buscaba posicionar. Por lo cual la independencia de una base es útil cuando la base misma y el proyecto en si no van dirigidos a lados similares.
+No, no y no. Simplemente el rumbo de este escritorio no era el mismo que Vasak buscaba posicionar. Por lo cual la independencia de una base es útil cuando la base misma y el proyecto en si no van dirigidos a lados similares.
 
 ## Nuevo rumbo
 
-Como nuevo rumbo seguimos planeando el uso de las tecnologías webs, creemos que el poder aprovechar sus bondades en un escritorio nos permitirán obtener una experiencia de usuario más acorde a la que busca LynxOS.
+Como nuevo rumbo seguimos planeando el uso de las tecnologías webs, creemos que el poder aprovechar sus bondades en un escritorio nos permitirán obtener una experiencia de usuario más acorde a la que busca Vasak OS.
 
 {{< img src="https://github.com/neutralinojs/evaluation/raw/master/media/linux-apps.JPG">}}
 

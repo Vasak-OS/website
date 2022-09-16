@@ -1,7 +1,7 @@
 baseURL = "https://os.vasak.net.ar/"
 languageCode = "es-ES"
 defaultContentLanguage = "es"
-title = "VasakOS"
+title = "Vasak OS"
 summaryLength = 20
 
 canonifyurls = true
