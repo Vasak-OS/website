@@ -7,7 +7,7 @@ img: "https://www.linuxinfo.org/wp-content/uploads/2018/12/enso-os-e154600517995
 
 Durante la construcción de un **OS** uno prueba muchas cosas. Y en la construcción de un escritorio aún más. Es difícil buscar software que cumpla con las expectativas que uno tiene sobre su Escritorio. Siempre pensando en la utilidad final.
 
-Para todos los que vieron ya alguna iso alpha están acostumbrados a ver de fondo a **openbox** con todas sus bondades. Sin embargo después de muchas pruebas realizadas decidimos realizar nuestra propia compilación de **Gala** (llamada *lynx-gala* que solo provee los paquetes de gala con las dependencias necesarias para no sobrecargar el escritorio) para no tener un **wm** del cual no saquemos todo su potencial (sabiendo que muchas de las bondades de **openbox** estaba siendo desaprovechadas por **Lynx**)
+Para todos los que vieron ya alguna iso alpha están acostumbrados a ver de fondo a **openbox** con todas sus bondades. Sin embargo después de muchas pruebas realizadas decidimos realizar nuestra propia compilación de **Gala** (llamada *vasak-gala* que solo provee los paquetes de gala con las dependencias necesarias para no sobrecargar el escritorio) para no tener un **wm** del cual no saquemos todo su potencial (sabiendo que muchas de las bondades de **openbox** estaba siendo desaprovechadas por **Vasak**)
 
 ### No todo es color de rosas
 

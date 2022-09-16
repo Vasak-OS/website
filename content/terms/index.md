@@ -131,6 +131,6 @@ By continuing to access or use Our Service after those revisions become effectiv
 
 If you have any questions about these Terms and Conditions, You can contact us:
 
-- By email: lynx.software.design@gmail.com
+- By email: info@vasak.net.ar
 
 - By visiting this page on our website: [https://vasak.net.ar/](https://vasak.net.ar/)
