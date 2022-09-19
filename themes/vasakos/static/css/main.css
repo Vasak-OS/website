@@ -192,7 +192,7 @@ section {
   transition: all 0.4s;
 }
 
-.scroll-top i {
+.scroll-top em {
   font-size: 24px;
   color: var(--color-white);
   line-height: 0;
@@ -314,7 +314,7 @@ section {
   }
 
   .navbar a i,
-  .navbar a:focus i {
+  .navbar a:focus em {
     font-size: 12px;
     line-height: 0;
     margin-left: 5px;
@@ -387,7 +387,7 @@ section {
     color: rgba(var(--color-white-rgb), 0.5);
   }
 
-  .navbar .dropdown ul a i {
+  .navbar .dropdown ul a em {
     font-size: 12px;
   }
 
@@ -494,7 +494,7 @@ section {
   }
 
   .navbar a i,
-  .navbar a:focus i {
+  .navbar a:focus em {
     font-size: 12px;
     line-height: 0;
     margin-left: 5px;
@@ -641,7 +641,7 @@ section {
   font-weight: 600;
 }
 
-.hero-animated .btn-watch-video i {
+.hero-animated .btn-watch-video em {
   color: rgb(var(--color-primary-rgb));
   font-size: 32px;
   transition: 0.3s;
@@ -653,7 +653,7 @@ section {
   color: rgb(var(--color-primary-rgb));
 }
 
-.hero-animated .btn-watch-video:hover i {
+.hero-animated .btn-watch-video:hover em {
   color: rgba(var(--color-primary-rgb), 0.8);
 }
 
@@ -1001,7 +1001,7 @@ section {
   font-weight: 600;
 }
 
-.hero-fullscreen .btn-watch-video i {
+.hero-fullscreen .btn-watch-video em {
   color: rgb(var(--color-primary-rgb));
   font-size: 32px;
   transition: 0.3s;
@@ -1013,7 +1013,7 @@ section {
   color: rgb(var(--color-primary-rgb));
 }
 
-.hero-fullscreen .btn-watch-video:hover i {
+.hero-fullscreen .btn-watch-video:hover em {
   color: rgba(var(--color-primary-rgb), 0.8);
 }
 
@@ -1089,7 +1089,7 @@ section {
   font-weight: 600;
 }
 
-.hero-static .btn-watch-video i {
+.hero-static .btn-watch-video em {
   color: rgb(var(--color-primary-rgb));
   font-size: 32px;
   transition: 0.3s;
@@ -1101,7 +1101,7 @@ section {
   color: rgb(var(--color-primary-rgb));
 }
 
-.hero-static .btn-watch-video:hover i {
+.hero-static .btn-watch-video:hover em {
   color: rgba(var(--color-primary-rgb), 0.8);
 }
 
@@ -1136,7 +1136,7 @@ section {
   margin-bottom: 10px;
 }
 
-.featured-services .service-item .icon i {
+.featured-services .service-item .icon em {
   color: rgb(var(--color-primary-rgb));
   font-size: 36px;
   transition: 0.3s;
@@ -1247,7 +1247,7 @@ section {
   color: rgb(var(--color-secondary-rgb));
 }
 
-.about .tab-content i {
+.about .tab-content em {
   font-size: 22px;
   line-height: 0;
   margin-right: 8px;
@@ -1405,7 +1405,7 @@ section {
   padding-bottom: 10px;
 }
 
-.onfocus .content ul i {
+.onfocus .content ul em {
   font-size: 20px;
   padding-right: 4px;
   color: rgb(var(--color-primary-rgb));
@@ -1430,7 +1430,7 @@ section {
   background: var(--color-primary);
 }
 
-.onfocus .content .read-more i {
+.onfocus .content .read-more em {
   font-size: 18px;
   margin-left: 5px;
   line-height: 0;
@@ -1442,7 +1442,7 @@ section {
   padding-right: 19px;
 }
 
-.onfocus .content .read-more:hover i {
+.onfocus .content .read-more:hover em {
   margin-left: 10px;
 }
 
@@ -1565,7 +1565,7 @@ section {
   height: 100%;
 }
 
-.features .nav-link i {
+.features .nav-link em {
   font-size: 32px;
   line-height: 0;
   margin: 30px 0 0 0;
@@ -1592,7 +1592,7 @@ section {
   color: var(--color-white);
 }
 
-.features .nav-link.active i {
+.features .nav-link.active em {
   color: var(--color-white) !important;
 }
 
@@ -1620,7 +1620,7 @@ section {
   padding-bottom: 10px;
 }
 
-.features .tab-pane ul i {
+.features .tab-pane ul em {
   font-size: 24px;
   margin-right: 4px;
   color: rgb(var(--color-primary-rgb));
@@ -1705,7 +1705,7 @@ section {
   border: 2px solid var(--color-primary);
 }
 
-.services .service-item:hover .details .icon i {
+.services .service-item:hover .details .icon em {
   color: rgb(var(--color-primary-rgb));
 }
 
@@ -1769,7 +1769,7 @@ section {
   margin-bottom: 15px;
 }
 
-.testimonials .testimonial-item .stars i {
+.testimonials .testimonial-item .stars em {
   color: var(--color-yellow);
   margin: 0 1px;
 }
@@ -1888,7 +1888,7 @@ section {
   align-items: center;
 }
 
-.pricing ul i {
+.pricing ul em {
   color: rgb(var(--color-primary-rgb));
   font-size: 36px;
   padding-right: 3px;
@@ -1899,7 +1899,7 @@ section {
   color: rgba(var(--color-gray-rgb), 0.5);
 }
 
-.pricing ul .na i {
+.pricing ul .na em {
   color: rgba(var(--color-gray-rgb), 0.5);
   font-size: 24px;
   padding-left: 4px;
@@ -2170,7 +2170,7 @@ section {
   transition: 0.3s;
 }
 
-.team .team-member .social a i {
+.team .team-member .social a em {
   line-height: 0;
   font-size: 16px;
 }
@@ -2179,7 +2179,7 @@ section {
   background: var(--color-primary-light);
 }
 
-.team .team-member .social i {
+.team .team-member .social em {
   font-size: 18px;
   margin: 0 2px;
 }
@@ -2280,7 +2280,7 @@ section {
   margin-top: 15px;
 }
 
-.recent-blog-posts .post-box .readmore i {
+.recent-blog-posts .post-box .readmore em {
   line-height: 0;
   margin-left: 4px;
   font-size: 18px;
@@ -2331,7 +2331,7 @@ section {
   border-top: 1px solid rgba(var(--color-secondary-rgb), 0.15);
 }
 
-.contact .info-item i {
+.contact .info-item em {
   font-size: 24px;
   color: rgb(var(--color-primary-rgb));
   transition: all 0.3s ease-in-out;
@@ -2589,7 +2589,7 @@ section {
   padding-left: 20px;
 }
 
-.blog .posts-list .meta-top i {
+.blog .posts-list .meta-top em {
   font-size: 16px;
   margin-right: 8px;
   line-height: 0;
@@ -2733,7 +2733,7 @@ section {
   padding-left: 20px;
 }
 
-.blog .blog-details .meta-top i {
+.blog .blog-details .meta-top em {
   font-size: 16px;
   margin-right: 8px;
   line-height: 0;
@@ -2752,7 +2752,7 @@ section {
   border-top: 1px solid rgba(var(--color-secondary-rgb), 0.15);
 }
 
-.blog .blog-details .meta-bottom i {
+.blog .blog-details .meta-bottom em {
   color: var(--color-secondary-light);
   display: inline;
 }
@@ -2798,7 +2798,7 @@ section {
   font-size: 16px;
 }
 
-.blog .blog-details .meta-bottom .share i {
+.blog .blog-details .meta-bottom .share em {
   padding-left: 5px;
 }
 
@@ -2892,7 +2892,7 @@ section {
   line-height: 0;
 }
 
-.blog .sidebar .search-form form button i {
+.blog .sidebar .search-form form button em {
   line-height: 0;
 }
 
@@ -3038,7 +3038,7 @@ section {
   color: rgb(var(--color-secondary-rgb));
 }
 
-.blog .comments .comment h5 .reply i {
+.blog .comments .comment h5 .reply em {
   font-size: 20px;
 }
 
@@ -3212,7 +3212,7 @@ section {
   margin: 0;
 }
 
-.footer .footer-content .footer-links ul i {
+.footer .footer-content .footer-links ul em {
   padding-right: 2px;
   color: var(--color-white);
   font-size: 12px;
