@@ -51,7 +51,7 @@ const displayResults = (results) => {
     results.forEach((el, i) => {
         var template = document.createRange().createContextualFragment(`
           <div class="col-12">
-            <a href="${el.item.permalink}" class="container-fluid" title="${el.item.title}" >
+            <a rel="noopener" href="${el.item.permalink}" class="container-fluid" title="${el.item.title}" >
               <div class="row g-0">
                 <div class="col-md-3">
                   <img

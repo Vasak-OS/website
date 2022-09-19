@@ -7,7 +7,7 @@
                 <div class="post-item mt-3">
                     <img src="{{ .Params.img }}" alt="{{ .Title }}" class="flex-shrink-0">
                     <div>
-                    <h4><a href="{{ .Permalink }}">{{ .Title }}</a></h4>
+                    <h4><a rel="noopener" href="{{ .Permalink }}">{{ .Title }}</a></h4>
                     <time datetime='{{ partial "date.html" .Date }}'>{{ partial "date.html" .Date }}</time>
                     </div>
                 </div>
