@@ -1,10 +1,11 @@
 <section id="hero-animated" class="hero-animated d-flex align-items-center">
-    <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
-      <img src="{{ .Params.img }}" class="img-fluid animated">
-      <h2><span>{{ .Title }}</span></h2>
-      <p>{{ .Params.description }}</p>
-      <div class="d-flex">
-        <a href="#blog" class="btn-get-started scrollto">Leer</a>
-      </div>
+  <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative"
+    data-aos="zoom-out">
+    <img src="{{ .Params.img }}" alt="{{ .Title }}" title="{{ .Title }}" class="img-fluid animated" />
+    <h2><span>{{ .Title }}</span></h2>
+    <p>{{ .Params.description }}</p>
+    <div class="d-flex">
+      <a href="#blog" class="btn-get-started scrollto">Leer</a>
     </div>
-  </section>
+  </div>
+</section>
