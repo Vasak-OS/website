@@ -20,7 +20,8 @@ theme = "vasakos"
   category = "categories"
 
 [permalinks]
-  News = "/news/:year/:month/:title"
+  Blog = "/blog/:year/:month/:title"
+  Apps = "/apps/:title"
 
 [markup.goldmark.renderer]
   unsafe= true
