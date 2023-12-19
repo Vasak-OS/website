@@ -1,4 +1,4 @@
 ---
-Title: "Noticias"
+Title: "Blog"
 img: "/img/posts/news.svg"
 ---
