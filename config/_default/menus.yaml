@@ -1,0 +1,29 @@
+main:
+    - identifier: inicio
+      name: Inicio
+      url: /
+      weight: 1
+      params:
+          newTab: false
+          haveChildren: false
+    - identifier: blog
+      name: Blog
+      url: /blog
+      weight: 2
+      params:
+          newTab: false
+          haveChildren: false
+    - identifier: sobre
+      name: Sobre
+      url: /about
+      weight: 3
+      params:
+          haveChildren: false
+          children: false
+    - identifier: contacto
+      name: Contacto
+      url: /contact
+      weight: 4
+      params:
+          newTab: false
+          haveChildren: false
