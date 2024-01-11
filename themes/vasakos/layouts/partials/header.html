@@ -1,71 +1,68 @@
-<!-- ======= Header ======= -->
-<header id="header" class="header fixed-top" data-scrollto-offset="0">
-  <div class="container-fluid d-flex align-items-center justify-content-between">
-
-    <a rel="noopener" href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-      <img src="/img/logo.svg" alt="">
-    </a>
-
-    <nav id="navbar" class="navbar">
-      <ul>
-
-        <li><a rel="noopener" href="/"><span>Inicio</span></a></li>
-
-        <li><a rel="noopener" class="nav-link scrollto" href="/#about">About</a></li>
-        <li><a rel="noopener" class="nav-link scrollto" href="/#pricing">Precios</a></li>
-        <!--<li><a rel="noopener" class="nav-link scrollto" href="index.html#services">Services</a></li>-->
-        <!--<li><a rel="noopener" class="nav-link scrollto" href="index.html#portfolio">Portfolio</a></li>-->
-        <!--<li><a rel="noopener" class="nav-link scrollto" href="index.html#team">Team</a></li>-->
-        <!--<li><a rel="noopener" href="blog.html">Blog</a></li>-->
-        <!--<li class="dropdown megamenu"><a rel="noopener" href="#"><span>Mega Menu</span> <em class="fa fa-chevron-down dropdown-indicator"></em></a>
-          <ul>
-            <li>
-              <a rel="noopener" href="#">Column 1 link 1</a>
-              <a rel="noopener" href="#">Column 1 link 2</a>
-              <a rel="noopener" href="#">Column 1 link 3</a>
-            </li>
-            <li>
-              <a rel="noopener" href="#">Column 2 link 1</a>
-              <a rel="noopener" href="#">Column 2 link 2</a>
-              <a rel="noopener" href="#">Column 3 link 3</a>
-            </li>
-            <li>
-              <a rel="noopener" href="#">Column 3 link 1</a>
-              <a rel="noopener" href="#">Column 3 link 2</a>
-              <a rel="noopener" href="#">Column 3 link 3</a>
-            </li>
-            <li>
-              <a rel="noopener" href="#">Column 4 link 1</a>
-              <a rel="noopener" href="#">Column 4 link 2</a>
-              <a rel="noopener" href="#">Column 4 link 3</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown"><a rel="noopener" href="#"><span>Drop Down</span> <em class="bi bi-chevron-down dropdown-indicator"></em></a>
-          <ul>
-            <li><a rel="noopener" href="#">Drop Down 1</a></li>
-            <li class="dropdown"><a rel="noopener" href="#"><span>Deep Drop Down</span> <em class="bi bi-chevron-down dropdown-indicator"></em></a>
-              <ul>
-                <li><a rel="noopener" href="#">Deep Drop Down 1</a></li>
-                <li><a rel="noopener" href="#">Deep Drop Down 2</a></li>
-                <li><a rel="noopener" href="#">Deep Drop Down 3</a></li>
-                <li><a rel="noopener" href="#">Deep Drop Down 4</a></li>
-                <li><a rel="noopener" href="#">Deep Drop Down 5</a></li>
-              </ul>
-            </li>
-            <li><a rel="noopener" href="#">Drop Down 2</a></li>
-            <li><a rel="noopener" href="#">Drop Down 3</a></li>
-            <li><a rel="noopener" href="#">Drop Down 4</a></li>
-          </ul>
-        </li>-->
-        <li><a rel="noopener" class="nav-link scrollto" href="/blog/">Blog</a></li>
-        <li><a rel="noopener" class="nav-link scrollto" href="/#contact">Contacto</a></li>
-      </ul>
-      <em class="fa fa-list mobile-nav-toggle d-none"></em>
-    </nav><!-- .navbar -->
-
-    <a rel="noopener" class="btn-getstarted scrollto" href="/downloads/">Descargar</a>
-
+<header class="bg-white">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="#" class="-m-1.5 p-1.5">
+        <span class="sr-only">Your Company</span>
+        <img class="h-8 w-auto" src="/img/logo.svg" alt="">
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL | relLangURL }}" {{ if eq .Params.newtab true }}target="_blank" {{ end }} title="{{- .Name -}}"
+        class="text-sm font-semibold leading-6 text-gray-900">
+        {{- .Name -}}
+      </a>
+      {{ end }}
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+      <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
+          aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+  <div class="lg:hidden" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 z-10"></div>
+    <div
+      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+      <div class="flex items-center justify-between">
+        <a href="#" class="-m-1.5 p-1.5">
+          <span class="sr-only">Your Company</span>
+          <img class="h-8 w-auto" src="/img/logo.svg" alt="">
+        </a>
+        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+          <span class="sr-only">Close menu</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="mt-6 flow-root">
+        <div class="-my-6 divide-y divide-gray-500/10">
+          <div class="space-y-2 py-6">
+            {{ range .Site.Menus.main }}
+            <a href="{{ .URL | relLangURL }}" {{ if eq .Params.newtab true }}target="_blank" {{ end }}
+              title="{{- .Name -}}"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+              {{- .Name -}}
+            </a>
+            {{ end }}
+          </div>
+          <div class="py-6">
+            <a href="#"
+              class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
+              in</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
-<!-- End Header -->
