@@ -1,0 +1,22 @@
+social:
+    enabled: true
+    title: Redes Sociales
+    main:
+        - identifier: telegram
+          name: Comunidad Telegram
+          url: https://t.me/VasakOS
+          weight: 1
+          params:
+              icon: fab fa-telegram
+        - identifier: twitter
+          name: Twitter
+          url: https://twitter.com/VasakOSLinux
+          weight: 6
+          params:
+              icon: fab fa-twitter
+        - identifier: github
+          name: GitHub
+          url: https://github.com/Vasak-OS
+          weight: 10
+          params:
+              icon: fab fa-github
