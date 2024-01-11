@@ -1,0 +1,17 @@
+<script src="/js/aos.js"></script>
+<script src="/js/glightbox.min.js"></script>
+<script src="/js/isotope.pkgd.min.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+{{ $taildwindconf := resources.Get "js/taildwindconf.js" }}
+{{ $fontawesome := resources.GetRemote "https://kit.fontawesome.com/02f5a0ef7c.js" }}
+{{ $pageclip := resources.GetRemote "https://s.pageclip.co/v1/pageclip.js" }}
+{{ $fuse := resources.GetRemote "https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js" }}
+{{ $search := resources.Get "js/search.js" }}
+
+{{- $opts := dict "minify" hugo.IsProduction -}}
+
+{{ $fullscript := slice $taildwindconf $fuse $fontawesome $pageclip $search | resources.Concat "/js/bundle.js" | minify | fingerprint }}
+<script async src="{{ $fullscript.RelPermalink }}"></script>

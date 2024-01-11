@@ -1,94 +1,42 @@
-<!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-
-  <div class="footer-content">
-    <div class="container">
-      <div class="row">
-
-        <div class="col-lg-3 col-md-6">
-          <div class="footer-info">
-            <h3 class="v-font">Vasak OS</h3>
-            <p>
-              GBA Sur <br>
-              Buenos Aires, ARG<br><br>
-              <strong><em class="fa fa-phone"></em></strong> +54 9 11 2388-2753<br>
-              <strong><em class="fa fa-envelope"></em></strong> info@vasak.net.ar<br>
-            </p>
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6 mb-8">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="/contact" class="text-gray-500 hover:text-vsk-1">Contacto</a>
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk-1">Desarrollo de Software</a>
+            <a href="/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk-1">Privacy policy</a>
+            <a href="/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk-1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            {{ range .Site.Params.social.main }}
+            <a href="{{ .url }}" alt="{{ .name }}" aria-label="{{ .name }}" target="_blank"
+              class="text-grey-700 dark:text-gray-300 hover:text-vsk2">
+              <em class="{{ .params.icon }}"></em>
+            </a>
+            {{ end }}
           </div>
         </div>
-
-        <div class="col-lg-2 col-md-6 footer-links">
-          <h4>Links Utiles</h4>
-          <ul>
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="/">Inicio</a></li>
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="/#about">Sobre Nosotros</a></li>
-            <!--<li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="#">Services</a></li>-->
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="/terms/">Terms of service</a></li>
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="/privacy/">Privacy policy</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Servicios</h4>
-          <ul>
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="https://vasak.net.ar/">Soporte Técnico</a></li>
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="https://vasak.net.ar/">Desarrollo de Software</a></li>
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="https://qrgenerator.vasak.net.ar/">QR Generator</a></li>
-            <li><em class="fa fa-chevron-right"></em> <a rel="noopener" href="https://wppgenerator.vasak.net.ar/">WPP Link Generator</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-md-6 footer-newsletter">
-          <h4>Novedades</h4>
-
-          <div class="mb-3">
-            <a rel="noopener" href="https://t.me/VasakOSNews" target="_blank" class="btn btn-primary"
-              style="width: 100%; margin: 20px; padding: 20px;">Noticias en
-              Telegram</a>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
+</div>
 
-  <div class="footer-legal text-center">
-    <div
-      class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
-
-      <div class="d-flex flex-column align-items-center align-items-lg-start">
-        <div class="copyright">
-          &copy; Copyleft <strong><span class="v-font">Vasak OS</span></strong>. All Rights Public
-        </div>
-        <div class="credits">
-          Creado por <a rel="noopener" class="v-font" href="https://vasak.net.ar/">Vasak group</a>
-        </div>
-      </div>
-
-      <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-        <a rel="noopener" href="https://t.me/VasakOS" target="_blank"><em class="fa fa-paper-plane"></em></a>
-        <a rel="noopener" href="https://t.me/VasakOSNews" target="_blank"><em class="fa fa-newspaper-o"></em></a>
-        <a rel="noopener" href="https://github.com/Vasak-OS" target="_blank"><em class="fa fa-github"></em></a>
-        <a rel="noopener" href="https://twitter.com/VasakOSLinux" target="_blank"><em class="fa fa-twitter"></em></a>
-      </div>
-
-    </div>
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-sm text-slate-500 py-1"><a href="/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-bl from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
   </div>
+</div>
 
-</footer><!-- End Footer -->
+<a rel="noopener" href="#" class="scroll-top d-flex align-items-center justify-content-center">
+  <em class="fa fa-arrow-up"></em>
+</a>
 
-<a rel="noopener" href="#" class="scroll-top d-flex align-items-center justify-content-center"><em class="fa fa-arrow-up"></em></a>
-
-<div id="preloader"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
-<script src="/js/aos.js"></script>
-<script src="/js/glightbox.min.js"></script>
-<script src="/js/isotope.pkgd.min.js"></script>
-<script src="/js/swiper-bundle.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script>
-<script src="/js/search.js"></script>
+{{ partialCached "footer/scripts.html" . }}
