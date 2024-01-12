@@ -60,3 +60,59 @@ advantages:
       weight: 1
       params:
         icon: fab fa-python
+
+prices:
+  enabled: true
+  main:
+    - identifier: free
+      name: Usuarios
+      text: Nuestro sistema es totalmente gratuito y de código abierto.
+      features:
+        - name: Vasak OS para equipos ilimitados.
+          class: text-body-emphasis
+        - name: Actualizaciones constantes.
+          class: text-body-emphasis
+        - name: Soporte comunitario.
+          class: text-body-emphasis
+        - name: Soporte de los desarrolladores.
+          class: line-through
+        - name: Plan de migración.
+          class: line-through
+      weight: 1
+      params:
+        icon: fas fa-user
+    - identifier: donations
+      class: md:scale-110 z-10
+      name: Donaciones
+      text: Puedes donar para ayudar a mantener el proyecto.
+      features:
+        - name: Vasak OS para equipos ilimitados.
+          class: text-body-emphasis
+        - name: Actualizaciones constantes.
+          class: text-body-emphasis
+        - name: Soporte comunitario.
+          class: text-body-emphasis
+        - name: Soporte de los desarrolladores.
+          class: text-body-emphasis
+        - name: Plan de migración.
+          class: line-through
+      weight: 1
+      params:
+        icon: fas fa-donate
+    - identifier: premium
+      name: Plan Negocios
+      text: Puedes comprar una licencia premium para obtener ventajas.
+      features:
+        - name: Vasak OS para equipos ilimitados.
+          class: text-body-emphasis
+        - name: Actualizaciones constantes.
+          class: text-body-emphasis
+        - name: Soporte comunitario.
+          class: text-body-emphasis
+        - name: Soporte de Vasak Group.
+          class: text-body-emphasis
+        - name: Plan de migración.
+          class: text-body-emphasis
+      weight: 1
+      params:
+        icon: fas fa-user-tie
