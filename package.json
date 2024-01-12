@@ -1,0 +1,8 @@
+{ 
+  "scripts": {
+    "build": "tailwindcss build -i themes/vasakos/assets/css/tailwind.css -o themes/vasakos/assets/css/vsk.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
