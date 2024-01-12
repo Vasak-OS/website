@@ -11,8 +11,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        vsk1: '#0BC98C',
-        vsk2: '#007CC3',
+        vsk1: '#0bc98c',
+        vsk2: '#d9de48',
       }
     },
     fontFamily: {
