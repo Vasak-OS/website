@@ -1,0 +1,12 @@
+@font-face {
+  font-family: VSKRegular;
+  src: url(/fonts/VSKRegular.ttf);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  @apply transition-colors duration-200;
+}
