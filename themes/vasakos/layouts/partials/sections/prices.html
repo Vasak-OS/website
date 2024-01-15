@@ -10,7 +10,7 @@
   <div class="flex flex-wrap items-center justify-center w-full mx-auto mb-20">
     {{ range .Site.Params.prices.main }}
     <div
-      class="flex flex-col flex-grow mt-8 overflow-hidden max-w-sm transform bg-white dark:bg-gray-800 rounded-xl drop-shadow-lg mx-2 {{ .class }}"
+      class="flex flex-col flex-grow mt-8 overflow-hidden max-w-sm transform bg-white dark:bg-gray-800 rounded-xl drop-shadow-lg mx-2 {{ .class }} hover:z-30 hover:shadow-2xl hover:-translate-y-5 duration-700"
       id="1">
       <div class="flex flex-col items-center p-10 bg-gradient-to-br from-vsk2 to-vsk1"><span
           class="font-semibold text-white">{{ .name }}</span>
