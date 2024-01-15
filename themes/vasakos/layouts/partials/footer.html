@@ -8,15 +8,15 @@
         <div class="flex flex-col items-center gap-6 mb-8">
           <div
             class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
-            <a href="/contact" class="text-gray-500 hover:text-vsk-1">Contacto</a>
-            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk-1">Desarrollo de Software</a>
-            <a href="/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk-1">Privacy policy</a>
-            <a href="/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk-1">Terms of service</a>
+            <a href="/contact" class="text-gray-500 hover:text-vsk1">Contacto</a>
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
           </div>
           <div class="flex items-center gap-8">
             {{ range .Site.Params.social.main }}
             <a href="{{ .url }}" alt="{{ .name }}" aria-label="{{ .name }}" target="_blank"
-              class="text-grey-700 dark:text-gray-300 hover:text-vsk2">
+              class="text-vsk1 hover:text-vsk2">
               <em class="{{ .params.icon }}"></em>
             </a>
             {{ end }}
@@ -35,8 +35,8 @@
   </div>
 </div>
 
-<a rel="noopener" href="#" class="scroll-top d-flex align-items-center justify-content-center">
-  <em class="fa fa-arrow-up"></em>
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
 </a>
 
 {{ partialCached "footer/scripts.html" . }}

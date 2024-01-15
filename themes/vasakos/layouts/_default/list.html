@@ -1,33 +1,28 @@
 {{ define "main" }}
 
-  {{- partial "sections/breadcrumbs.html" . -}}
+{{- partial "sections/breadcrumbs.html" . -}}
 
-  <main id="main">
-    <section id="blog" class="blog">
-      <div class="container" data-aos="fade-up">
-        <div class="row g-5">
+<main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
 
-          <div class="col-lg-8">
-            <div class="row gy-4 posts-list">
-              {{ $paginator := .Paginate .Data.Pages.ByDate.Reverse }}
+      {{ $paginator := .Paginate .Data.Pages.ByDate.Reverse }}
 
-              {{ range $paginator.Pages }}
+      {{ range $paginator.Pages }}
 
-                {{ .Render "card" }}
+      {{ .Render "card" }}
 
-              {{ end }}
+      {{ end }}
 
-              {{- partial "pagination.html" $paginator -}}
-            </div>
-          </div>
+      {{- partial "pagination.html" $paginator -}}
 
-          <div class="col-lg-4">
-            {{ partial "sections/sidebar.html" . -}}
-          </div>
+    </div>
 
-        </div>
-      </div>
-    </section>
-  </main>
+    <div class="hidden w-4/12 -mx-8 lg:block">
+      {{ partial "sections/sidebar.html" . -}}
+    </div>
+
+  </div>
+</main>
 
 {{ end }}
