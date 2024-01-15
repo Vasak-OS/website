@@ -66,7 +66,9 @@ prices:
   main:
     - identifier: free
       name: Usuarios
-      text: Nuestro sistema es totalmente gratuito y de código abierto.
+      cta:
+        label: Descargar
+        url: /downloads/
       features:
         - name: Vasak OS para equipos ilimitados.
           class: text-body-emphasis
@@ -84,7 +86,9 @@ prices:
     - identifier: donations
       class: md:scale-110 z-10
       name: Donaciones
-      text: Puedes donar para ayudar a mantener el proyecto.
+      cta:
+        label: Donar
+        url: /donate/
       features:
         - name: Vasak OS para equipos ilimitados.
           class: text-body-emphasis
@@ -101,7 +105,9 @@ prices:
         icon: fas fa-donate
     - identifier: premium
       name: Plan Negocios
-      text: Puedes comprar una licencia premium para obtener ventajas.
+      cta:
+        label: Contactar
+        url: /contact/
       features:
         - name: Vasak OS para equipos ilimitados.
           class: text-body-emphasis

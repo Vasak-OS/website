@@ -25,9 +25,11 @@
           {{ end }}
         </ul>
       </div>
-      <div class="flex px-10 pb-10 justfy-center"><a
-          href="https://wa.me/541123882753?text=Hola,%20me%20comunico%20por%20el%20Plan%20Web%20Básica%20que%20vi%20en%20https://lynx.net.ar"
-          class="flex items-center justify-center text-gray-950 dark:text-gray-100 w-full h-12 px-6 text-sm uppercase bg-gray-200 dark:bg-gray-700 rounded-xl hover:bg-vsk1 hover:text-white">Contáctanos</a>
+      <div class="flex px-10 pb-10 justfy-center">
+        <a href="{{ .cta.url }}"
+          class="flex items-center justify-center text-gray-950 dark:text-gray-100 w-full h-12 px-6 text-sm uppercase bg-gray-200 dark:bg-gray-700 rounded-xl hover:bg-vsk1 hover:text-white">
+          {{ .cta.label }}
+        </a>
       </div>
     </div>
     {{ end }}
