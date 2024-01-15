@@ -5,5 +5,5 @@
 
 {{- $opts := dict "minify" hugo.IsProduction -}}
 
-{{ $fullscript := slice $fuse $fontawesome $pageclip $search | resources.Concat "/js/bundle.js" | minify | fingerprint }}
+{{ $fullscript := slice $fontawesome $pageclip | resources.Concat "/js/bundle.js" | minify | fingerprint }}
 <script async src="{{ $fullscript.RelPermalink }}"></script>
