@@ -9,6 +9,8 @@ Desde Vasak creemos que es importante mantener informada a la comunidad de los c
 
 Para unirte al canal, puedes hacerlo desde el siguiente enlace: [https://t.me/VasakOSNews](https://t.me/VasakOSNews)
 
+## Contenido
+
 En el canal se publicarán las novedades más importantes del proyecto, como por ejemplo:
 
 - Nuevas versiones de VasakOS
