@@ -1,18 +1,9 @@
-<section>
-  <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
-    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-      <div class="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
-        <img alt="Party" src="{{ .Params.img }}" alt="{{ .Title }}" title="{{ .Title }}" class="absolute inset-0 h-full w-full object-cover" />
-      </div>
-
-      <div class="lg:py-24">
-        <h2 class="text-3xl font-bold sm:text-4xl text-gray-900 dark:text-white">{{ .Title }}</h2>
-
-        <p class="mt-4 text-gray-600 dark:text-gray-300">
-          {{ .Params.description }}
-        </p>
-
-      </div>
+<section class="aspect-video bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center"
+  style="background-image: url('{{ .Params.img }}');">
+  <div class="flex flex-col justify-center content-center text-center">
+    <div class="bg-white opacity-80 dark:bg-gray-900 p-10 rounded-xl">
+      <h2 class="text-gray-900 dark:text-white text-4xl mb-3">{{ .Title }}</h2>
+      <p class="text-gray-800 dark:text-gray-100 mb-6">{{ .Summary }}</p>
     </div>
   </div>
 </section>
