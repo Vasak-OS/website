@@ -1,6 +1,19 @@
 ---
 Title: "Donaciones"
-tags: ["donar","donaciones"]
+tags:
+  [
+    donar,
+    donaciones,
+    colaborar,
+    ayudar,
+    vasak,
+    vasakos,
+    vasak donatcion,
+    donate,
+    donations,
+    donadores,
+    donators,
+  ]
 img: "/img/posts/donate.svg"
 ---
 
