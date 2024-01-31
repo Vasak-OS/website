@@ -7,11 +7,13 @@
 @tailwind components;
 @tailwind utilities;
 
-#article, h1 {
+#article,
+h1 {
   font-size: 2rem;
   margin-bottom: 2rem;
 }
-#article, h2 {
+#article,
+h2 {
   font-size: 1.75rem;
   margin-bottom: 2rem;
 }
@@ -38,7 +40,6 @@
 
 #article li {
   list-style: disc;
-  margin-left: 2.5rem;
 }
 
 #article ul {
@@ -48,6 +49,8 @@
 
 ol {
   list-style: decimal;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+}
+
+li {
+  margin-left: 2.5rem;
 }
