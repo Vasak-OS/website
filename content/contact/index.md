@@ -1,6 +1,6 @@
 ---
 Title: "Contacto"
-img: "/img/about.svg"
+img: "/img/contact.svg"
 type: contact
 ---
 
