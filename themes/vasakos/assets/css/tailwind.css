@@ -7,6 +7,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body * {
+  @apply transition-colors duration-200;
+}
+
 #article,
 h1 {
   font-size: 2rem;
