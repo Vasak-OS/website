@@ -3,6 +3,7 @@
 {{ $fuse := resources.GetRemote "https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js" }}
 {{ $search := resources.Get "js/search.js" }}
 {{ $darkmode := resources.Get "js/darkmode.js" }}
+{{ $menu := resources.Get "js/menu.js" }}
 
-{{ $fullscript := slice $fontawesome $pageclip $darkmode | resources.Concat "/js/bundle.js" | minify | fingerprint }}
+{{ $fullscript := slice $fontawesome $pageclip $darkmode $menu | resources.Concat "/js/bundle.js" | minify | fingerprint }}
 <script async src="{{ $fullscript.RelPermalink }}"></script>
