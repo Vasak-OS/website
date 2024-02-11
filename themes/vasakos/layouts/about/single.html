@@ -2,8 +2,8 @@
 {{ partial "sections/breadcrumbs.html" . -}}
 <div class="relative flex min-h-screen flex-col justify-center overflow-hidden py-3 sm:py-6">
   <div class="w-full items-center mx-auto max-w-screen-lg">
-    <div class="group grid w-full grid-cols-2">
-      <div class="pl-16 relative flex items-end flex-col overflow-hidden">
+    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
+      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
         <div
           class="absolute top-0 left-0 bg-gradient-to-br from-vsk2 to-vsk1 w-4/6 px-12 py-14 flex flex-col justify-center rounded-xl transition-all ">
           <span class="block mb-10 font-bold text-gray-100">DOMESTICO</span>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div>
-        <div class="pl-12">
+        <div class="pl-12 pr-12 md:pr-0">
           <p class="peer mb-6 text-gray-600 dark:text-gray-200">
             Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
             librerías y aplicaciones para su uso domestico.
@@ -40,9 +40,9 @@
 
 <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-white dark:bg-gray-900 py-3 sm:py-6">
   <div class="w-full items-center mx-auto max-w-screen-lg">
-    <div class="group grid w-full grid-cols-2">
-      <div>
-        <div class="pr-12 pt-12">
+    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
+      <div class="order-last md:order-first">
+        <div class="pr-12 pl-12 md:pl-0 pt-12">
           <p class="mb-6 text-gray-600 dark:text-gray-200">
             Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
             librerías y aplicaciones para poder estudiar.
@@ -57,8 +57,8 @@
               (Teams, Discord, Zoom y más).</li>
           </ul>
         </div>
-      </div>
-      <div class="pl-16 relative flex items-end flex-col overflow-hidden">
+      </div class="md:order-last">
+      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
         <div
           class="absolute top-0 left-0 bg-gradient-to-br from-vsk2 to-vsk1 w-4/6 px-12 py-14 flex flex-col justify-center rounded-xl group-hover:bg-sky-600 transition-all ">
           <span class="block mb-10 font-bold text-gray-100">ESTUDIANTIL</span>
@@ -79,8 +79,8 @@
 
 <div class="relative flex min-h-screen flex-col justify-center overflow-hidden py-3 sm:py-6">
   <div class="w-full items-center mx-auto max-w-screen-lg">
-    <div class="group grid w-full grid-cols-2">
-      <div class="pl-16 relative flex items-end flex-col overflow-hidden">
+    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
+      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
         <div
           class="absolute top-0 left-0 bg-gradient-to-br from-vsk2 to-vsk1 w-4/6 px-12 py-14 flex flex-col justify-center rounded-xl transition-all ">
           <span class="block mb-10 font-bold text-gray-100">LABORAL</span>
@@ -96,7 +96,7 @@
         </div>
       </div>
       <div>
-        <div class="pl-12">
+        <div class="pl-12 pr-12 md:pr-0">
           <p class="peer mb-6 text-gray-600 dark:text-gray-200">
             Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
             librerías y aplicaciones para poder trabajar.
