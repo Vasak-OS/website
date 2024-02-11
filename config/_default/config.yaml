@@ -1,0 +1,27 @@
+baseURL: "https://os.vasak.net.ar/"
+languageCode: "es-ES"
+defaultContentLanguage: "es"
+title: "Vasak OS"
+summaryLength: 20
+
+canonifyurls: true
+
+Paginate: 6
+
+theme: "vasakos"
+
+outputs:
+  page: ["HTML"]
+  section: ["HTML"]
+  home: ["JSON","HTML","RSS"]
+
+taxonomies:
+  tag: "tags"
+  category: "categories"
+
+permalinks:
+  Blog: "/blog/:year/:month/:title"
+  Apps: "/apps/:title"
+
+markup.goldmark.renderer:
+  unsafe: true

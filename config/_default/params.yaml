@@ -1,0 +1,124 @@
+social:
+  enabled: true
+  title: Redes Sociales
+  main:
+    - identifier: telegram
+      name: Comunidad Telegram
+      url: https://t.me/VasakOS
+      weight: 1
+      params:
+        icon: fab fa-telegram
+    - identifier: twitter
+      name: Twitter
+      url: https://twitter.com/VasakOSLinux
+      weight: 6
+      params:
+        icon: fab fa-twitter
+    - identifier: github
+      name: GitHub
+      url: https://github.com/Vasak-OS
+      weight: 10
+      params:
+        icon: fab fa-github
+
+advantages:
+  enabled: true
+  main:
+    - identifier: linux
+      name: Linux
+      text: Utilizamos todo el potencial y la seguridad de Linux para ofrecerte una experiencia única.
+      weight: 1
+      params:
+        icon: fab fa-linux
+    - identifier: github
+      name: Open Source
+      text: Todo nuestro código es abierto y puedes verlo en GitHub. ¡Incluso puedes contribuir!
+      weight: 1
+      params:
+        icon: fab fa-github
+    - identifier: vuejs
+      name: Framework VueJS
+      text: Nuestra Interfaz de Usuario está desarrollada con VueJS, un framework moderno y potente.
+      weight: 1
+      params:
+        icon: fab fa-vuejs
+    - identifier: bootstrap
+      name: Responsive
+      text: Nuestro sistema se adapta a cualquier dispositivo, ya sea un móvil, una tablet o un ordenador.
+      weight: 1
+      params:
+        icon: fab fa-bootstrap
+    - identifier: css
+      name: Personalizable
+      text: Al usar CSS para el estilo, el sistema es altamente personalizable y puedes cambiarlo a tu gusto.
+      weight: 1
+      params:
+        icon: fab fa-css3
+    - identifier: python
+      name: Python
+      text: Python es un lenguaje relativamente sencillo y potente, por lo que es ideal para el desarrollo de aplicaciones.
+      weight: 1
+      params:
+        icon: fab fa-python
+
+prices:
+  enabled: true
+  main:
+    - identifier: free
+      name: Usuarios
+      cta:
+        label: Descargar
+        url: /downloads/
+      features:
+        - name: Vasak OS para equipos ilimitados.
+          class: text-body-emphasis
+        - name: Actualizaciones constantes.
+          class: text-body-emphasis
+        - name: Soporte comunitario.
+          class: text-body-emphasis
+        - name: Soporte de los desarrolladores.
+          class: line-through
+        - name: Plan de migración.
+          class: line-through
+      weight: 1
+      params:
+        icon: fas fa-user
+    - identifier: donations
+      class: md:scale-110 z-10
+      name: Donaciones
+      cta:
+        label: Donar
+        url: /donate/
+      features:
+        - name: Vasak OS para equipos ilimitados.
+          class: text-body-emphasis
+        - name: Actualizaciones constantes.
+          class: text-body-emphasis
+        - name: Soporte comunitario.
+          class: text-body-emphasis
+        - name: Soporte de los desarrolladores.
+          class: text-body-emphasis
+        - name: Plan de migración.
+          class: line-through
+      weight: 1
+      params:
+        icon: fas fa-donate
+    - identifier: premium
+      name: Plan Negocios
+      cta:
+        label: Contactar
+        url: /contact/
+      features:
+        - name: Vasak OS para equipos ilimitados.
+          class: text-body-emphasis
+        - name: Actualizaciones constantes.
+          class: text-body-emphasis
+        - name: Soporte comunitario.
+          class: text-body-emphasis
+        - name: Soporte de Vasak Group.
+          class: text-body-emphasis
+        - name: Plan de migración.
+          class: text-body-emphasis
+      weight: 1
+      params:
+        icon: fas fa-user-tie

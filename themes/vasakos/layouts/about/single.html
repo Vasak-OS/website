@@ -1,0 +1,120 @@
+{{ define "main" }}
+{{ partial "sections/breadcrumbs.html" . -}}
+<div class="relative flex min-h-screen flex-col justify-center overflow-hidden py-3 sm:py-6">
+  <div class="w-full items-center mx-auto max-w-screen-lg">
+    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
+      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
+        <div
+          class="absolute top-0 left-0 bg-gradient-to-br from-vsk2 to-vsk1 w-4/6 px-12 py-14 flex flex-col justify-center rounded-xl transition-all ">
+          <span class="block mb-10 font-bold text-gray-100">DOMESTICO</span>
+          <h2 class="text-white font-bold text-3xl">
+            Usa <span class="font-vsk">VasakOS</span> en tu casa...
+          </h2>
+        </div>
+        <span class="font-bold text-sm flex mt-2 mb-8 items-center gap-2">
+          &nbsp;
+        </span>
+        <div class="rounded-xl overflow-hidden">
+          <img src="/img/features/home.svg" alt="">
+        </div>
+      </div>
+      <div>
+        <div class="pl-12 pr-12 md:pr-0">
+          <p class="peer mb-6 text-gray-600 dark:text-gray-200">
+            Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
+            librerías y aplicaciones para su uso domestico.
+          </p>
+          <ul role="list" class="marker:text-vsk1 list-disc pl-5 space-y-3 text-gray-500">
+            <li>Tienes a tu disposición los mejores navegadores (Firefox, Google Chrome, Vivaldi, etc.) Con los cuales
+              puedes navegar por tus redes sociales favoritas o páginas multimedias como Netflix.</li>
+            <li>Tienes a tu disposición Steam con miles de juegos nativos y con Protón, la solución para jugar en
+              GNU/Linux. También hay muchas tiendas más repletas de juegos.</li>
+            <li>Reproducí, creá, y divertite. Todos tus contenidos multimedias están disponibles en nuestro sistema
+              operativo.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-white dark:bg-gray-900 py-3 sm:py-6">
+  <div class="w-full items-center mx-auto max-w-screen-lg">
+    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
+      <div class="order-last md:order-first">
+        <div class="pr-12 pl-12 md:pl-0 pt-12">
+          <p class="mb-6 text-gray-600 dark:text-gray-200">
+            Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
+            librerías y aplicaciones para poder estudiar.
+          </p>
+          <ul role="list" class="marker:text-vsk1 list-disc pl-5 space-y-3 text-gray-500">
+            <li>Accede a los mejores paquetes de Ofimática completamente gratis, LibreOffice uno de los más populares,
+              WPS para una mejor compatibilidad con MS-Office.</li>
+            <li>En la actualidad la virtualidad aumentó la cantidad de lectura digital. Tenemos soporte para todos los
+              formatos de archivos para que puedas estudiar sin límites. Y todas las herramientas para crear tus
+              trabajos y presentaciones.</li>
+            <li>Todas las aplicaciones que necesitas para conectarte con tus profesores podes encontrarlas en Vasak OS
+              (Teams, Discord, Zoom y más).</li>
+          </ul>
+        </div>
+      </div class="md:order-last">
+      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
+        <div
+          class="absolute top-0 left-0 bg-gradient-to-br from-vsk2 to-vsk1 w-4/6 px-12 py-14 flex flex-col justify-center rounded-xl group-hover:bg-sky-600 transition-all ">
+          <span class="block mb-10 font-bold text-gray-100">ESTUDIANTIL</span>
+          <h2 class="text-white font-bold text-3xl">
+            Usa <span class="font-vsk">VasakOS</span> en tu estudio...
+          </h2>
+        </div>
+        <span class="font-bold text-sm flex mt-2 mb-8 items-center gap-2">
+          &nbsp;
+        </span>
+        <div class="rounded-xl overflow-hidden">
+          <img src="/img/features/study.svg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="relative flex min-h-screen flex-col justify-center overflow-hidden py-3 sm:py-6">
+  <div class="w-full items-center mx-auto max-w-screen-lg">
+    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
+      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
+        <div
+          class="absolute top-0 left-0 bg-gradient-to-br from-vsk2 to-vsk1 w-4/6 px-12 py-14 flex flex-col justify-center rounded-xl transition-all ">
+          <span class="block mb-10 font-bold text-gray-100">LABORAL</span>
+          <h2 class="text-white font-bold text-3xl">
+            Usa <span class="font-vsk">VasakOS</span> en tu trabajo...
+          </h2>
+        </div>
+        <a class="font-bold text-sm flex mt-2 mb-8 items-center gap-2">
+          &nbsp;
+        </a>
+        <div class="rounded-xl overflow-hidden">
+          <img src="/img/features/work.svg" alt="">
+        </div>
+      </div>
+      <div>
+        <div class="pl-12 pr-12 md:pr-0">
+          <p class="peer mb-6 text-gray-600 dark:text-gray-200">
+            Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
+            librerías y aplicaciones para poder trabajar.
+          </p>
+          <ul role="list" class="marker:text-vsk1 list-disc pl-5 space-y-3 text-gray-500">
+            <li>Accede a los mejores paquetes de Ofimática completamente gratis, LibreOffice uno de los más populares,
+              WPS para una
+              mejor compatibilidad con MS-Office.</li>
+            <li>Puedes acceder a los mejores programas, bibliotecas, IDE y siempre mantenerlos actualizados. Sin
+              importar el lenguaje
+              que uses.</li>
+            <li>Gracias a nuestra base GNU/Linux tenemos compatibilidad con una inmensa cantidad de software dirigido a
+              empresas y
+              trabajadores.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

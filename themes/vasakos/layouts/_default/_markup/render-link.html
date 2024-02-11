@@ -1,0 +1,22 @@
+<a href="{{ .Destination | safeURL }}" {{ with .Title}} title="{{ . }}" {{ end }}{{ if strings.HasPrefix
+  .Destination "http" }} target="_blank" rel="noopener noreferrer" {{ end }}>
+  {{ if strings.HasPrefix .Destination "https://github" }}<i class="fab fa-github"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://gist.github" }}<i class="fab fa-github"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://gitlab" }}<i class="fab fa-gitlab"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://t.me" }}<i class="fab fa-telegram"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://steam" }}<i class="fab fa-steam"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://twitter" }}<i class="fab fa-twitter"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://instagram" }}<i class="fab fa-instagram"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://facebook" }}<i class="fab fa-facebook"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://linkedin" }}<i class="fab fa-linkedin"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://youtube" }}<i class="fab fa-youtube"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://twitch" }}<i class="fab fa-twitch"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://mastodon" }}<i class="fab fa-mastodon"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://os.vasak" }}<i class="fas fa-link"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "http://os.vasak" }}<i class="fas fa-link"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "/" }}<i class="fas fa-link"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://" }}<i class="fas fa-up-right-from-square"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "http://" }}<i class="fas fa-up-right-from-square"></i>&nbsp;
+  {{ end }}
+  {{ .Text | safeHTML }}
+</a>

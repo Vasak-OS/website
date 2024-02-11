@@ -1,0 +1,9 @@
+<div class="px-8 mb-3">
+  <div class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <ul>
+      <li><em class="fas fa-calendar"></em> <time datetime='{{ partial "date.html" .Date }}'>{{ partial "date.html" .Date }}</time></li>
+      <li><em class="fas fa-clock"></em> {{ .ReadingTime }}m</li>
+      <li><em class="fas fa-pen"></em> {{ .WordCount }}</li>
+    </ul>
+  </div>
+</div>

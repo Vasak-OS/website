@@ -1,0 +1,5 @@
+{{ $vsk := resources.Get "css/vsk.css" | minify | fingerprint "sha512" }}
+{{ $pageclip := resources.GetRemote "https://s.pageclip.co/v1/pageclip.css" | minify | fingerprint "sha512" }}
+
+{{ $allcss := slice $vsk $pageclip | resources.Concat "/css/vendor.css" | minify | fingerprint "sha512" }}
+<link rel="stylesheet" href="{{ $allcss.RelPermalink }}" />

@@ -1,0 +1,60 @@
+@font-face {
+  font-family: VSKRegular;
+  src: url(/fonts/VSKRegular.ttf);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body * {
+  @apply transition-colors duration-200;
+}
+
+#article,
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+#article,
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+#article h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#article h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+#article p,
+#article li {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+#article a {
+  @apply text-vsk1;
+}
+
+#article li {
+  list-style: disc;
+}
+
+#article ul {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+ol {
+  list-style: decimal;
+}
+
+li {
+  margin-left: 2.5rem;
+}

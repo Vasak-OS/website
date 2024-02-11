@@ -1,90 +1,38 @@
-<!-- ======= Pricing Section ======= -->
-<section id="pricing" class="pricing">
-  <div class="container" data-aos="fade-up">
-
-    <div class="section-header">
-      <h2>Nuestros Precios</h2>
-      <p><span class="v-font">Vasak OS</span> es un sistema operativo completamente gratuito. Sin embargo, intentamos
-        recaudar fondos para poder
-        extender el sistema y los servicios que ofrecemos.</p>
-    </div>
-
-    <div class="row gy-4">
-
-      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-        <div class="pricing-item">
-
-          <div class="pricing-header">
-            <h3>Usuarios</h3>
-            <h4><sup>$</sup>0<span> / month</span></h4>
-          </div>
-
-          <ul>
-            <li><em class="fa fa-check"></em> <span><span class="v-font">Vasak OS</span> para equipos ilimitados.</span>
-            </li>
-            <li><em class="fa fa-check"></em> <span>Actualizaciones constantes.</span></li>
-            <li><em class="fa fa-check"></em> <span>Soporte comunitario.</span></li>
-            <li class="na"><em class="fa fa-times"></em> <span>Soporte de los desarrolladores.</span></li>
-            <li class="na"><em class="fa fa-times"></em> <span>Plan de migración.</span></li>
-          </ul>
-
-          <div class="text-center mt-auto">
-            <a rel="noopener" href="/downloads/" class="buy-btn">Obtener <span class="v-font">Vasak OS</span></a>
-          </div>
-
-        </div>
-      </div><!-- End Pricing Item -->
-
-      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="400">
-        <div class="pricing-item featured">
-
-          <div class="pricing-header">
-            <h3>Donadores</h3>
-            <h4><sup>$</sup>5+<span> / month</span></h4>
-          </div>
-
-          <ul>
-            <li><em class="fa fa-check"></em> <span><span class="v-font">Vasak OS</span> para equipos ilimitados.</span>
-            </li>
-            <li><em class="fa fa-check"></em> <span>Actualizaciones constantes.</span></li>
-            <li><em class="fa fa-check"></em> <span>Soporte comunitario.</span></li>
-            <li><em class="fa fa-check"></em> <span>Soporte de los desarrolladores.</span></li>
-            <li class="na"><em class="fa fa-times"></em> <span>Plan de migración.</span></li>
-          </ul>
-
-          <div class="text-center mt-auto">
-            <a rel="noopener" href="/donate/" class="buy-btn">Donar</a>
-          </div>
-
-        </div>
-      </div><!-- End Pricing Item -->
-
-      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="600">
-        <div class="pricing-item">
-
-          <div class="pricing-header">
-            <h3>Plan Negocios</h3>
-            <h4>&nbsp;</h4>
-          </div>
-
-          <ul>
-            <li><em class="fa fa-check"></em> <span><span class="v-font">Vasak OS</span> para equipos ilimitados.</span>
-            </li>
-            <li><em class="fa fa-check"></em> <span>Actualizaciones constantes.</span></li>
-            <li><em class="fa fa-check"></em> <span>Soporte comunitario.</span></li>
-            <li><em class="fa fa-check"></em> <span>Soporte de los desarrolladores (y de <span class="v-font">Vasak
-                  group</span>).</span></li>
-            <li><em class="fa fa-check"></em> <span>Plan de migración.</span></li>
-          </ul>
-
-          <div class="text-center mt-auto">
-            <a rel="noopener" href="https://vasak.net.ar/" target="_blank" class="buy-btn">Quiero migrar mi negocio</a>
-          </div>
-
-        </div>
-      </div><!-- End Pricing Item -->
-
-    </div>
-
+<section class="my-20">
+  <div class="flex flex-col items-center justify-center">
+    <h2 class="text-vsk1 text-5xl font-bold text-center">Nuestros Precios</h2>
+    <p class="py-5 max-w-md text-center text-gray-800 dark:text-gray-200">
+      Vasak OS es un sistema operativo completamente
+      gratuito. Sin embargo, intentamos recaudar fondos para poder extender el
+      sistema y los servicios que ofrecemos.
+    </p>
   </div>
-</section><!-- End Pricing Section -->
+  <div class="flex flex-wrap items-center justify-center w-full mx-auto mb-20">
+    {{ range .Site.Params.prices.main }}
+    <div
+      class="flex flex-col flex-grow mt-8 overflow-hidden max-w-sm transform bg-white dark:bg-gray-800 rounded-xl drop-shadow-lg mx-2 {{ .class }} hover:z-30 hover:shadow-2xl hover:-translate-y-5 duration-700"
+      id="1">
+      <div class="flex flex-col items-center p-10 bg-gradient-to-br from-vsk2 to-vsk1"><span
+          class="font-semibold text-white">{{ .name }}</span>
+        <div class="flex items-center pt-3"><span class="text-6xl font-bold text-white">
+            <em class="{{ .params.icon }}"></em>
+          </span></div>
+      </div>
+      <div class="p-10">
+        <ul class="text-center">
+          {{ range .features }}
+          <li><span class="{{ .class }} text-gray-900 dark:text-gray-200">{{ .name }}</span></li>
+          {{ end }}
+        </ul>
+      </div>
+      <div class="flex px-10 pb-10 justfy-center">
+        <a href="{{ .cta.url }}"
+          class="flex items-center justify-center text-gray-950 dark:text-gray-100 w-full h-12 px-6 text-sm uppercase bg-gray-200 dark:bg-gray-700 rounded-xl hover:bg-vsk1 hover:text-white">
+          {{ .cta.label }}
+        </a>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  <div class="text-body-emphasis line-through md:scale-110 z-10 hidden"></div>
+</section>

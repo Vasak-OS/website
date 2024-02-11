@@ -1,93 +1,33 @@
-<!-- ======= Contact Section ======= -->
-<section id="contact" class="contact">
-  <div class="container">
-
-    <div class="section-header">
-      <h2>Contáctanos</h2>
-      <p>Contacta con el encargado del proyecto <span class="v-font">Vasak OS</span> dentro de <span
-          class="v-font">Vasak group</span> para
-        cualquier pregunta que tengas sobre el
-        sistema.</p>
-    </div>
-
-  </div>
-
-  <div class="map">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13110.717568717331!2d-58.2723616560644!3d-34.76366825892824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a32ebddc917dc1%3A0x58a98a6572c477ad!2sEzpeleta%20Oeste%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1654793280684!5m2!1ses-419!2sar"
-      frameborder="0" allowfullscreen title="Google Maps"></iframe>
-  </div><!-- End Google Maps -->
-
-  <div class="container">
-
-    <div class="row gy-5 gx-lg-5">
-
-      <div class="col-lg-4">
-
-        <div class="info">
-          <h3>Más información</h3>
-          <p>Más información de contacto con el encargado del proyecto <span class="v-font">Vasak OS</span>. Todas las
-            dudas puedes tener la respuesta
-            oficial de él.</p>
-
-          <div class="info-item d-flex">
-            <em class="fa fa-map-marker flex-shrink-0"></em>
-            <div>
-              <h4>Ubicación:</h4>
-              <p><a rel="noopener" href="https://goo.gl/maps/LW5pY5ph1PKsNMkE6" target="_blank">Ezpeleta, Buenos Aires, Argentina</a>
-              </p>
-            </div>
-          </div><!-- End Info Item -->
-
-          <div class="info-item d-flex">
-            <em class="fa fa-envelope flex-shrink-0"></em>
-            <div>
-              <h4>Email:</h4>
-              <p><a rel="noopener" href="mailto:jdecima@vasak.net.ar?subject=VasakOSWeb" target="_blank">jdecima@vasak.net.ar</a></p>
-            </div>
-          </div><!-- End Info Item -->
-
-          <div class="info-item d-flex">
-            <em class="fa fa-paper-plane flex-shrink-0"></em>
-            <div>
-              <h4>Telegram:</h4>
-              <p><a rel="noopener" href="https://t.me/PatoJAD" target="_blank">@PatoJAD</a></p>
-            </div>
-          </div><!-- End Info Item -->
-
-        </div>
-
+<form action="https://send.pageclip.co/5MCjmuteuMhqeXYun78rhaZVTiafPXRz/LynxOS" method="POST"
+  class="mx-auto max-w-xl py-8">
+  <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+    <div>
+      <label for="name" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">Nombre</label>
+      <div class="mt-2.5">
+        <input type="text" name="name" id="name" autocomplete="given-name"
+          class="block w-full rounded-xl border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-vsk1 sm:text-sm sm:leading-6">
       </div>
-
-      <div class="col-lg-8">
-        <form action="https://send.pageclip.co/5MCjmuteuMhqeXYun78rhaZVTiafPXRz/LynxOS"
-          class="pageclip-form contact-form" method="post">
-          <!-- Replace these inputs with your own. Make sure they have a "name" attribute! -->
-          <div class="mb-3">
-            <label for="name" class="form-label">Nombre:</label>
-            <input class="form-control" type="text" name="name" id="name" />
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input class="form-control" type="email" name="email" id="email" />
-          </div>
-
-          <div class="mb-3">
-            <label for="message" class="form-label">Mensaje:</label>
-            <textarea class="form-control" name="message" rows="5" id="message"></textarea>
-          </div>
-
-
-          <!-- This button will have a loading spinner. Keep the inner span for best results. -->
-          <button type="submit" class="pageclip-form__submit btn btn-primary">
-            <span>Enviar</span>
-          </button>
-        </form>
-      </div><!-- End Contact Form -->
-
     </div>
-
+    <div>
+      <label for="email" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">Email</label>
+      <div class="mt-2.5">
+        <input type="email" name="email" id="email" autocomplete="email"
+          class="block w-full rounded-xl border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-vsk1 sm:text-sm sm:leading-6">
+      </div>
+    </div>
+    <div class="sm:col-span-2">
+      <label for="message"
+        class="block text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">Mensaje</label>
+      <div class="mt-2.5">
+        <textarea name="message" id="message" rows="4"
+          class="block w-full rounded-xl border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-vsk1 sm:text-sm sm:leading-6"></textarea>
+      </div>
+    </div>
   </div>
-</section>
-<!-- End Contact Section -->
+  <div class="mt-10">
+    <button type="submit"
+      class="pageclip-form__submit block w-full rounded-xl bg-vsk1 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-vsk2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vsk1">
+      Contactar
+    </button>
+  </div>
+</form>
