@@ -1,0 +1,42 @@
+{{ define "main" }}
+{{ partial "sections/breadcrumbs.html" . }}
+
+<main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">{{.Title}}</h1>
+          {{ .Content }}
+          <pre class="mermaid w-full mt-3">
+            gantt
+            dateFormat YYYY-MM-DD
+            section Papilio (alpha)
+            Navale (0.1.4) :a1, 2022-10-22 ,20d
+            Hydriam (0.0.10) :a2, 2022-10-27, 2023-06-27
+            Vasak Desktop (0.2.12) :a3, 2022-10-27, 2023-06-26
+            Occasum (0.0.1) :a4, 2023-12-15, 300d
+            Vasak Welcome (0.0.1) :a5, 2024-05-10, 30d
+            Vasak Installer (0.0.1) :a6, 2024-06-01, 80d
+            section Axolot (Beta)
+            Navale (0.2.0) :after a1, 600d
+            Hydriam (0.1.0) :after a2, 600d
+            Vasak Desktop (0.3.0) :after a3, 600d
+            section Sofia (stable)
+            Navale (1.0.0) :s1, 2025-03-10, 100d
+            Hydriam (1.0.0) :s2, 2025-03-10, 100d
+          </pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+{{ $roadmap := resources.GetRemote "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" | minify | fingerprint }}
+<script src="{{ $roadmap.RelPermalink }}"></script>
+
+
+{{ end }}
