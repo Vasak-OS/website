@@ -9,7 +9,7 @@ tags:
     proyeccion,
     vasakos,
   ]
-img: "/img/posts/download.svg"
+img: "/img/posts/roadmap.svg"
 type: "roadmap"
 ---
 
