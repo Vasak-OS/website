@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vasak OS</title>
+    <link>https://os.vasak.net.ar/index.json</link>
+    <description>Recent content on Vasak OS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Wed, 14 Feb 2024 14:30:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RoadMap</title>
+      <link>https://os.vasak.net.ar/roadmap/</link>
+      <pubDate>Wed, 14 Feb 2024 14:30:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/roadmap/</guid>
+      <description>Precentamos el RoadMap de Vasak OS, el cual es un plan de trabajo que se ha establecido para el desarrollo de Vasak OS.</description>
+    </item>
+    <item>
+      <title>Hydriam 0.0.10</title>
+      <link>https://os.vasak.net.ar/apps/hydriam-0.0.10/</link>
+      <pubDate>Tue, 27 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/apps/hydriam-0.0.10/</guid>
+      <description> Move styles to new library Fix code style &amp;nbsp; Mas información </description>
+    </item>
+    <item>
+      <title>Hydriam 0.0.9</title>
+      <link>https://os.vasak.net.ar/apps/hydriam-0.0.9/</link>
+      <pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/apps/hydriam-0.0.9/</guid>
+      <description> Fix menu data get Fix version </description>
+    </item>
+    <item>
+      <title>Hydriam 0.0.8</title>
+      <link>https://os.vasak.net.ar/apps/hydriam-0.0.8/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/apps/hydriam-0.0.8/</guid>
+      <description> implement new service to menu &amp;nbsp; Mas información </description>
+    </item>
+    <item>
+      <title>Hydriam 0.0.7</title>
+      <link>https://os.vasak.net.ar/apps/hydriam-0.0.7/</link>
+      <pubDate>Mon, 17 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/apps/hydriam-0.0.7/</guid>
+      <description> Fix libs Update Menu Style &amp;nbsp; Mas información </description>
+    </item>
+    <item>
+      <title>Nuestro canal de Noticias oficial en Telegram</title>
+      <link>https://os.vasak.net.ar/blog/2022/05/nuestro-canal-de-noticias-oficial-en-telegram/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2022/05/nuestro-canal-de-noticias-oficial-en-telegram/</guid>
+      <description>Desde Vasak creemos que es importante mantener informada a la comunidad de los cambios que se realizan en el proyecto, por eso hemos creado un canal de noticias en Telegram, donde se publicarán las novedades más importantes del proyecto.</description>
+    </item>
+    <item>
+      <title>Privacy policy</title>
+      <link>https://os.vasak.net.ar/privacy/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/privacy/</guid>
+      <description>El presente Política de Privacidad establece los términos en que Vasak Group usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web.</description>
+    </item>
+    <item>
+      <title>Terms &amp; Conditions</title>
+      <link>https://os.vasak.net.ar/terms/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/terms/</guid>
+      <description>Terms and Conditions Last updated: May 24, 2022&#xA;Please read these terms and conditions carefully before using Our Service.&#xA;Interpretation and Definitions Interpretation The words of which the initial letter is capitalized have meanings defined under the following conditions.</description>
+    </item>
+    <item>
+      <title>Descargas</title>
+      <link>https://os.vasak.net.ar/downloads/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/downloads/</guid>
+      <description>En la actualidad no disponemos de una ISO estable del proyecto porque se encuentra en desarrollo. Como el desarrollo es comunitario y recién está iniciando no contamos con un roadmap como para saber en qué momento vamos a tener una ISO Beta o Estable funcional como para poder dejarla en esta sección.</description>
+    </item>
+    <item>
+      <title>Contacto</title>
+      <link>https://os.vasak.net.ar/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/contact/</guid>
+      <description>Contacta con el encargado del proyecto Vasak OS dentro de Vasak group para cualquier pregunta que tengas sobre el sistema. Si tienes alguna duda, sugerencia, o simplemente quieres colaborar con el proyecto, no dudes en contactar con nosotros.</description>
+    </item>
+    <item>
+      <title>Donaciones</title>
+      <link>https://os.vasak.net.ar/donate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/donate/</guid>
+      <description> </description>
+    </item>
+    <item>
+      <title>Sobre Nosotros</title>
+      <link>https://os.vasak.net.ar/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/about/</guid>
+      <description>Vasak OS es un sistema creado en el entorno de Vasak y la comunidad. Buscamos crear un sistema íntegro multiutilitario que nos permita obtener una alternativa completamente GRATUITA para los sistemas comerciales con todas las ventajas del Software Libre.</description>
+    </item>
+  </channel>
+</rss>

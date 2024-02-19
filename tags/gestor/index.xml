@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gestor on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/gestor/</link>
+    <description>Recent content in Gestor on Vasak OS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Wed, 14 Feb 2024 14:30:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/gestor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Occasum</title>
+      <link>https://os.vasak.net.ar/apps/occasum/</link>
+      <pubDate>Wed, 14 Feb 2024 14:30:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/apps/occasum/</guid>
+      <description>Gestor de configuracion de Vasak OS. Un gestor de configuraciones simple y facil de usar. Busca ser un gestor de configuraciones practico y facil de usar para el usuario.</description>
+    </item>
+  </channel>
+</rss>
