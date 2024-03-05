@@ -20,7 +20,6 @@ El muelle (dock o panel) de Vasak OS. Busca ser un panel simple de utilizar y co
 ## Dependencias
 
 - [hydriam](/apps/hydriam)
-- libvasak-bootstrap
 - [libvasak-ui](/apps/libvasak-ui)
 - python-libvasak
 - python-gobject
