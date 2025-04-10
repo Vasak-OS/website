@@ -1,5 +1,23 @@
-{{ $vsk := resources.Get "css/vsk.css" | minify | fingerprint "sha512" }}
+{{ $t := debug.Timer "tailwindcss" }}
+{{ with resources.Get "css/styles.css" }}
+{{ $opts := dict
+"inlineImports" true
+"optimize" (not hugo.IsDevelopment)
+}}
+{{ with . | css.TailwindCSS $opts }}
+{{ if hugo.IsDevelopment }}
+<link rel="stylesheet" href="{{ .RelPermalink }}" />
+{{ else }}
+{{ with . | minify | fingerprint }}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" />
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ $t.Stop }}
+
 {{ $pageclip := resources.GetRemote "https://s.pageclip.co/v1/pageclip.css" | minify | fingerprint "sha512" }}
 
-{{ $allcss := slice $vsk $pageclip | resources.Concat "/css/vendor.css" | minify | fingerprint "sha512" }}
+{{ $allcss := slice $pageclip | resources.Concat "/css/vendor.css" | minify | fingerprint "sha512" }}
 <link rel="stylesheet" href="{{ $allcss.RelPermalink }}" />

@@ -1,11 +1,16 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
   font-family: VSKRegular;
   src: url(/fonts/VSKRegular.ttf);
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-vsk1: #0bc98c;
+  --color-vsk2: #d9de48;
+}
 
 body * {
   @apply transition-colors duration-200;
