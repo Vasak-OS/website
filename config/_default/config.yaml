@@ -6,7 +6,7 @@ summaryLength: 20
 
 canonifyurls: true
 
-Paginate: 6
+pagerSize: 6
 
 theme: "vasakos"
 
