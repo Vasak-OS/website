@@ -34,10 +34,3 @@ main:
       params:
           newTab: false
           haveChildren: false
-    - identifier: roadmap
-      name: Roadmap
-      url: /roadmap
-      weight: 6
-      params:
-          newTab: false
-          haveChildren: false
