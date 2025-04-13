@@ -5,7 +5,7 @@ date: "2022-05-24"
 img: "https://i.postimg.cc/bYM9bYz9/tgvasakos.webp"
 ---
 
-Desde Vasak creemos que es importante mantener informada a la comunidad de los cambios que se realizan en el proyecto, por eso hemos creado un canal de noticias en Telegram, donde se publicarán las novedades más importantes del proyecto. El mismo es completamente público y cualquiera puede unirse. 
+Desde Vasak creemos que es importante mantener informada a la comunidad de los cambios que se realizan en el proyecto, por eso hemos creado un canal de noticias en **Telegram**, donde se publicarán las novedades más importantes del proyecto. El mismo es completamente público y cualquiera puede unirse. 
 
 Para unirte al canal, puedes hacerlo desde el siguiente enlace: [https://t.me/VasakOSNews](https://t.me/VasakOSNews)
 
