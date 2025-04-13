@@ -7,8 +7,13 @@
   {{ else if strings.HasPrefix .Destination "https://steam" }}<i class="fab fa-steam"></i>&nbsp;
   {{ else if strings.HasPrefix .Destination "https://twitter" }}<i class="fab fa-twitter"></i>&nbsp;
   {{ else if strings.HasPrefix .Destination "https://instagram" }}<i class="fab fa-instagram"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://www.instagram" }}<i class="fab fa-instagram"></i>&nbsp;
   {{ else if strings.HasPrefix .Destination "https://facebook" }}<i class="fab fa-facebook"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://www.facebook" }}<i class="fab fa-facebook"></i>&nbsp;
   {{ else if strings.HasPrefix .Destination "https://linkedin" }}<i class="fab fa-linkedin"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://www.linkedin" }}<i class="fab fa-linkedin"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://npmjs" }}<i class="fab fa-npm"></i>&nbsp;
+  {{ else if strings.HasPrefix .Destination "https://www.npmjs" }}<i class="fab fa-npm"></i>&nbsp;
   {{ else if strings.HasPrefix .Destination "https://youtube" }}<i class="fab fa-youtube"></i>&nbsp;
   {{ else if strings.HasPrefix .Destination "https://twitch" }}<i class="fab fa-twitch"></i>&nbsp;
   {{ else if strings.HasPrefix .Destination "https://mastodon" }}<i class="fab fa-mastodon"></i>&nbsp;
