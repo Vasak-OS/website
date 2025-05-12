@@ -4,7 +4,7 @@ tags:
   [
     "tauri",
     "rust",
-    "typescript",
+    "typescript", 
     "icons",
     "linux",
     "vasakos",
@@ -26,7 +26,7 @@ Hoy publicamos nuestro primer plugin para **Tauri**. El mismo es una simple abst
 
 ## ¿Como usarlo?
 
-Toda la informacion para poder usarlo lo obtendra en la documentacion o en su [README]() De **GitHub**. La misma contiene ejemplos de como usarlo y como instalarlo. La misma es muy sencilla de usar y no requiere de conocimientos avanzados de **Tauri** o **Rust**.
+Toda la informacion para poder usarlo lo obtendra en la documentacion o en su [README](https://github.com/Vasak-OS/tauri-plugin-vicons#README.md) De **GitHub**. La misma contiene ejemplos de como usarlo y como instalarlo. La misma es muy sencilla de usar y no requiere de conocimientos avanzados de **Tauri** o **Rust**.
 
 ## ¿Donde lo puedo encontrar?
 
