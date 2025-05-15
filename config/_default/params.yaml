@@ -42,12 +42,12 @@ advantages:
       weight: 1
       params:
         icon: fab fa-vuejs
-    - identifier: bootstrap
+    - identifier: tailwind
       name: Responsive
       text: Nuestro sistema se adapta a cualquier dispositivo, ya sea un móvil, una tablet o un ordenador.
       weight: 1
       params:
-        icon: fab fa-tailwind
+        icon: fab fa-desktop
     - identifier: css
       name: Personalizable
       text: Al usar CSS para el estilo, el sistema es altamente personalizable y puedes cambiarlo a tu gusto.
