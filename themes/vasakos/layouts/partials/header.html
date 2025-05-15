@@ -18,7 +18,7 @@
     <div class="hidden lg:flex lg:gap-x-12">
       {{ range .Site.Menus.main }}
       <a href="{{ .URL | relLangURL }}" {{ if eq .Params.newtab true }}target="_blank" {{ end }} title="{{- .Name -}}"
-        class="text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">
         {{- .Name -}}
       </a>
       {{ end }}
