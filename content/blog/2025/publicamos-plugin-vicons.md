@@ -13,7 +13,7 @@ tags:
     "plugin-vicons",
   ]
 date: "2025-04-12"
-img: "https://i.postimg.cc/bYM9bYz9/tgvasakos.webp"
+img: "https://i.postimg.cc/L8tBDYcv/image.png"
 ---
 
 Hoy publicamos nuestro primer plugin para **Tauri**. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama **tauri-plugin-vicons** y permite usar iconos de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.

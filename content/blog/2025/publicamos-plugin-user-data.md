@@ -13,7 +13,7 @@ tags:
     "plugin-user-data",
   ]
 date: "2025-05-11"
-img: "https://i.postimg.cc/bYM9bYz9/tgvasakos.webp"
+img: "https://i.postimg.cc/XJkYD3VR/image.png"
 ---
 
 Hoy publicamos nuestro segundo plugin para **Tauri**. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama **tauri-plugin-user-data** y permite usar datos de usuario de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.
