@@ -20,13 +20,6 @@ main:
       params:
           haveChildren: false
           children: false
-    - identifier: contacto
-      name: Contacto
-      url: /contact
-      weight: 4
-      params:
-          newTab: false
-          haveChildren: false
     - identifier: apps
       name: Apps
       url: /apps
