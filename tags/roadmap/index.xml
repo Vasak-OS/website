@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Roadmap on Vasak OS</title>
+    <link>http://localhost:1313/tags/roadmap/</link>
+    <description>Recent content in Roadmap on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Wed, 14 Feb 2024 14:30:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/roadmap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RoadMap</title>
+      <link>http://localhost:1313/roadmap/</link>
+      <pubDate>Wed, 14 Feb 2024 14:30:00 +0000</pubDate>
+      <guid>http://localhost:1313/roadmap/</guid>
+      <description>&lt;p&gt;Precentamos el RoadMap de Vasak OS, el cual es un plan de trabajo que se ha establecido para el desarrollo de Vasak OS. Este plan de trabajo se ha establecido con el fin de tener una proyección clara de los objetivos de desarrollo de Vasak OS.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

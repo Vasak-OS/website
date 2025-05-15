@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="http://localhost:1313/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/apps/python-libvasak-1.0.0/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="python-libvasak 1.0.0" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="All notable changes to this project will be documented in this file.
+Release 0.1.0
+🚀 Features
+
+Agregar funcionalidad para obtener la dirección IP del interfaz de red predeterminado y actualizar el estado y el icono de la red.
+Agregado VSKConfigManager para administrar la configuración de Vasak
+Agregado el archivo VSKDisks.py para obtener información sobre los discos.
+Add unit tests for VSKDisks and VSKJavaScript classes
+Add VSKNotifyManager unit test for initialization
+Add unit tests for VSKPackageManager
+Add unit tests for VSKIconManager and VSKMenuManager classes
+Add unit tests for VSKNetworkManager, VSKNotifyManager, and VSKPowerManager classes
+
+🐛 Bug Fixes
+
+Actualizar la generación de datos JSON en VSKDisks.py
+
+🚜 Refactor
+
+Rename files to follow Python naming conventions
+
+📚 Documentation
+
+Añadir archivo de configuración predeterminado para git-cliff.
+
+⚙️ Miscellaneous Tasks
+
+Actualizar .gitignore para incluir archivos generados y directorios de caché
+
+What&rsquo;s Changed
+
+Feature/power managment by @JoaquinDecima in 
+  &nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/pull/1
+
+
+New Contributors
+
+@JoaquinDecima made their first contribution in 
+  &nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/pull/1
+
+
+Full Changelog: 
+  &nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/compare/0.0.1...0.1.0
+ Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/apps/python-libvasak-1.0.0/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="http://localhost:1313/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:1313/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="http://localhost:1313/"  title="Inicio"
+        class="text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="http://localhost:1313/blog"  title="Blog"
+        class="text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="http://localhost:1313/about"  title="Sobre"
+        class="text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="http://localhost:1313/contact"  title="Contacto"
+        class="text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Contacto</a>
+      
+      <a href="http://localhost:1313/apps"  title="Apps"
+        class="text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Apps</a>
+      
+      <a href="http://localhost:1313/roadmap"  title="Roadmap"
+        class="text-sm font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Roadmap</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="http://localhost:1313/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:1313/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="http://localhost:1313/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="http://localhost:1313/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="http://localhost:1313/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="http://localhost:1313/contact" 
+            title="Contacto"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Contacto</a>
+          
+          <a href="http://localhost:1313/apps" 
+            title="Apps"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Apps</a>
+          
+          <a href="http://localhost:1313/roadmap" 
+            title="Roadmap"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Roadmap</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div><section class="aspect-video bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center"
+  style="background-image: url('');">
+  <div class="flex flex-col justify-center content-center text-center">
+    <div class="bg-white/20 dark:bg-gray-900/20 backdrop-blur-md p-10 rounded-xl max-w-5xl">
+      <h2 class="text-gray-900 dark:text-white text-4xl mb-3">python-libvasak 1.0.0</h2>
+      <p class="text-gray-800 dark:text-gray-100 mb-6"><p>All notable changes to this project will be documented in this file.</p>
+<h2 id="release-010">Release 0.1.0</h2>
+<h3 id="-features">🚀 Features</h3>
+<ul>
+<li>Agregar funcionalidad para obtener la dirección IP del interfaz de red predeterminado y actualizar el estado y el icono de la red.</li>
+<li>Agregado VSKConfigManager para administrar la configuración de Vasak</li>
+<li>Agregado el archivo VSKDisks.py para obtener información sobre los discos.</li>
+<li>Add unit tests for VSKDisks and VSKJavaScript classes</li>
+<li>Add VSKNotifyManager unit test for initialization</li>
+<li>Add unit tests for VSKPackageManager</li>
+<li>Add unit tests for VSKIconManager and VSKMenuManager classes</li>
+<li>Add unit tests for VSKNetworkManager, VSKNotifyManager, and VSKPowerManager classes</li>
+</ul>
+<h3 id="-bug-fixes">🐛 Bug Fixes</h3>
+<ul>
+<li>Actualizar la generación de datos JSON en VSKDisks.py</li>
+</ul>
+<h3 id="-refactor">🚜 Refactor</h3>
+<ul>
+<li>Rename files to follow Python naming conventions</li>
+</ul>
+<h3 id="-documentation">📚 Documentation</h3>
+<ul>
+<li>Añadir archivo de configuración predeterminado para git-cliff.</li>
+</ul>
+<h3 id="-miscellaneous-tasks">⚙️ Miscellaneous Tasks</h3>
+<ul>
+<li>Actualizar .gitignore para incluir archivos generados y directorios de caché</li>
+</ul>
+<h2 id="whats-changed">What&rsquo;s Changed</h2>
+<ul>
+<li>Feature/power managment by @JoaquinDecima in <a href="https://github.com/Vasak-OS/python-libvasak/pull/1"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/pull/1
+</a></li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>@JoaquinDecima made their first contribution in <a href="https://github.com/Vasak-OS/python-libvasak/pull/1"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/pull/1
+</a></li>
+</ul>
+<p><strong>Full Changelog</strong>: <a href="https://github.com/Vasak-OS/python-libvasak/compare/0.0.1...0.1.0"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/compare/0.0.1...0.1.0
+</a></p></p>
+    </div>
+  </div>
+</section><main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">python-libvasak 1.0.0</h1>
+          <p>All notable changes to this project will be documented in this file.</p>
+<h2 id="release-010">Release 0.1.0</h2>
+<h3 id="-features">🚀 Features</h3>
+<ul>
+<li>Agregar funcionalidad para obtener la dirección IP del interfaz de red predeterminado y actualizar el estado y el icono de la red.</li>
+<li>Agregado VSKConfigManager para administrar la configuración de Vasak</li>
+<li>Agregado el archivo VSKDisks.py para obtener información sobre los discos.</li>
+<li>Add unit tests for VSKDisks and VSKJavaScript classes</li>
+<li>Add VSKNotifyManager unit test for initialization</li>
+<li>Add unit tests for VSKPackageManager</li>
+<li>Add unit tests for VSKIconManager and VSKMenuManager classes</li>
+<li>Add unit tests for VSKNetworkManager, VSKNotifyManager, and VSKPowerManager classes</li>
+</ul>
+<h3 id="-bug-fixes">🐛 Bug Fixes</h3>
+<ul>
+<li>Actualizar la generación de datos JSON en VSKDisks.py</li>
+</ul>
+<h3 id="-refactor">🚜 Refactor</h3>
+<ul>
+<li>Rename files to follow Python naming conventions</li>
+</ul>
+<h3 id="-documentation">📚 Documentation</h3>
+<ul>
+<li>Añadir archivo de configuración predeterminado para git-cliff.</li>
+</ul>
+<h3 id="-miscellaneous-tasks">⚙️ Miscellaneous Tasks</h3>
+<ul>
+<li>Actualizar .gitignore para incluir archivos generados y directorios de caché</li>
+</ul>
+<h2 id="whats-changed">What&rsquo;s Changed</h2>
+<ul>
+<li>Feature/power managment by @JoaquinDecima in <a href="https://github.com/Vasak-OS/python-libvasak/pull/1"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/pull/1
+</a></li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>@JoaquinDecima made their first contribution in <a href="https://github.com/Vasak-OS/python-libvasak/pull/1"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/pull/1
+</a></li>
+</ul>
+<p><strong>Full Changelog</strong>: <a href="https://github.com/Vasak-OS/python-libvasak/compare/0.0.1...0.1.0"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/python-libvasak/compare/0.0.1...0.1.0
+</a></p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <ul>
+      <li><em class="fas fa-calendar"></em> <time datetime='Sábado 8 de Junio de 2024'>Sábado 8 de Junio de 2024</time></li>
+      <li><em class="fas fa-clock"></em> 1m</li>
+      <li><em class="fas fa-pen"></em> 157</li>
+    </ul>
+  </div>
+</div><div class="px-8 mb-3">
+  <div
+    class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#release-010">Release 0.1.0</a>
+      <ol>
+        <li><a href="#-features">🚀 Features</a></li>
+        <li><a href="#-bug-fixes">🐛 Bug Fixes</a></li>
+        <li><a href="#-refactor">🚜 Refactor</a></li>
+        <li><a href="#-documentation">📚 Documentation</a></li>
+        <li><a href="#-miscellaneous-tasks">⚙️ Miscellaneous Tasks</a></li>
+      </ol>
+    </li>
+    <li><a href="#whats-changed">What&rsquo;s Changed</a></li>
+    <li><a href="#new-contributors">New Contributors</a></li>
+  </ol>
+</nav>
+  </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="http://localhost:1313/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="http://localhost:1313/contact" class="text-gray-500 hover:text-vsk1">Contacto</a>
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="http://localhost:1313/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="http://localhost:1313/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-sm text-slate-500 py-1"><a href="http://localhost:1313/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="http://localhost:1313/js/bundle.min.f9bc6773977ab53ecf96a54a448f941e38c9e29c72a759375902337b54ad46f2.js"></script></body>
+
+</html>

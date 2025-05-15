@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vpanel on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/vpanel/</link>
+    <description>Recent content in Vpanel on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <atom:link href="https://os.vasak.net.ar/tags/vpanel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VPanel</title>
+      <link>https://os.vasak.net.ar/apps/vpanel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/apps/vpanel/</guid>
+      <description>&lt;p&gt;VPanel es el panel por defecto de VasakOS y su escritorio. Es un panel simple que permite acceder de forma rapida a los lanzadores mas importantes para qeu pueda navegar en su sistema operativo. Mantiene una estetica cuidada y es muy facil de usar. Se integra correctamente con el entorno de VasakOS y se encuentra en desarrollo constante. Si bien en su estado &lt;strong&gt;ALPHA&lt;/strong&gt; no cuenta con todas las funcionalidades de un panel completo, se espera que en un futuro se convierta en un panel completo y funcional.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

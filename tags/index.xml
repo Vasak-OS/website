@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/</link>
+    <description>Recent content in Tags on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Sun, 11 May 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Icons</title>
+      <link>https://os.vasak.net.ar/tags/icons/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/icons/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://os.vasak.net.ar/tags/linux/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Npm</title>
+      <link>https://os.vasak.net.ar/tags/npm/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/npm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Plugin</title>
+      <link>https://os.vasak.net.ar/tags/plugin/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/plugin/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Plugin-User-Data</title>
+      <link>https://os.vasak.net.ar/tags/plugin-user-data/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/plugin-user-data/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rust</title>
+      <link>https://os.vasak.net.ar/tags/rust/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/rust/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tauri</title>
+      <link>https://os.vasak.net.ar/tags/tauri/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/tauri/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Typescript</title>
+      <link>https://os.vasak.net.ar/tags/typescript/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/typescript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos</title>
+      <link>https://os.vasak.net.ar/tags/vasakos/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Plugin-Vicons</title>
+      <link>https://os.vasak.net.ar/tags/plugin-vicons/</link>
+      <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/plugin-vicons/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Demo</title>
+      <link>https://os.vasak.net.ar/tags/demo/</link>
+      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/demo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak</title>
+      <link>https://os.vasak.net.ar/tags/vasak/</link>
+      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak-Desktop</title>
+      <link>https://os.vasak.net.ar/tags/vasak-desktop/</link>
+      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-desktop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Video</title>
+      <link>https://os.vasak.net.ar/tags/video/</link>
+      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/video/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Canal</title>
+      <link>https://os.vasak.net.ar/tags/canal/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/canal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Comunidad</title>
+      <link>https://os.vasak.net.ar/tags/comunidad/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/comunidad/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Condiciones</title>
+      <link>https://os.vasak.net.ar/tags/condiciones/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/condiciones/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Condiciones Y Terminos</title>
+      <link>https://os.vasak.net.ar/tags/condiciones-y-terminos/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/condiciones-y-terminos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Conditions</title>
+      <link>https://os.vasak.net.ar/tags/conditions/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/conditions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Feed</title>
+      <link>https://os.vasak.net.ar/tags/feed/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/feed/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Informacion</title>
+      <link>https://os.vasak.net.ar/tags/informacion/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/informacion/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Noticias</title>
+      <link>https://os.vasak.net.ar/tags/noticias/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/noticias/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Novedades</title>
+      <link>https://os.vasak.net.ar/tags/novedades/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/novedades/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Policy</title>
+      <link>https://os.vasak.net.ar/tags/policy/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/policy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Politica</title>
+      <link>https://os.vasak.net.ar/tags/politica/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/politica/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Politica De Privacidad</title>
+      <link>https://os.vasak.net.ar/tags/politica-de-privacidad/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/politica-de-privacidad/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Privacidad</title>
+      <link>https://os.vasak.net.ar/tags/privacidad/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/privacidad/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Privacy</title>
+      <link>https://os.vasak.net.ar/tags/privacy/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/privacy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Privacy Policy</title>
+      <link>https://os.vasak.net.ar/tags/privacy-policy/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/privacy-policy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rss</title>
+      <link>https://os.vasak.net.ar/tags/rss/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/rss/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Telegem</title>
+      <link>https://os.vasak.net.ar/tags/telegem/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/telegem/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terminos</title>
+      <link>https://os.vasak.net.ar/tags/terminos/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/terminos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terminos Y Condiciones</title>
+      <link>https://os.vasak.net.ar/tags/terminos-y-condiciones/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/terminos-y-condiciones/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terms</title>
+      <link>https://os.vasak.net.ar/tags/terms/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/terms/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terms &amp; Conditions</title>
+      <link>https://os.vasak.net.ar/tags/terms--conditions/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/terms--conditions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Desacargar Vasakos</title>
+      <link>https://os.vasak.net.ar/tags/desacargar-vasakos/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/desacargar-vasakos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Descargar</title>
+      <link>https://os.vasak.net.ar/tags/descargar/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/descargar/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Descargar Iso</title>
+      <link>https://os.vasak.net.ar/tags/descargar-iso/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/descargar-iso/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Descargas</title>
+      <link>https://os.vasak.net.ar/tags/descargas/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/descargas/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Download</title>
+      <link>https://os.vasak.net.ar/tags/download/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/download/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Download Vasak</title>
+      <link>https://os.vasak.net.ar/tags/download-vasak/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/download-vasak/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Iso</title>
+      <link>https://os.vasak.net.ar/tags/iso/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/iso/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Iso</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-iso/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-iso/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Iso Descarga</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-iso-descarga/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-iso-descarga/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Iso Descargas</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-iso-descargas/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-iso-descargas/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Iso Download</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-iso-download/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-iso-download/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>https://os.vasak.net.ar/tags/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/about/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>About Vasakos</title>
+      <link>https://os.vasak.net.ar/tags/about-vasakos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/about-vasakos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Aplicaciones</title>
+      <link>https://os.vasak.net.ar/tags/aplicaciones/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/aplicaciones/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>App</title>
+      <link>https://os.vasak.net.ar/tags/app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/app/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Applications</title>
+      <link>https://os.vasak.net.ar/tags/applications/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/applications/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Apps</title>
+      <link>https://os.vasak.net.ar/tags/apps/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/apps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ayudar</title>
+      <link>https://os.vasak.net.ar/tags/ayudar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/ayudar/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Center</title>
+      <link>https://os.vasak.net.ar/tags/center/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/center/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Colaborar</title>
+      <link>https://os.vasak.net.ar/tags/colaborar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/colaborar/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Control Center</title>
+      <link>https://os.vasak.net.ar/tags/control-center/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/control-center/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Css</title>
+      <link>https://os.vasak.net.ar/tags/css/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/css/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dock</title>
+      <link>https://os.vasak.net.ar/tags/dock/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/dock/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Donaciones</title>
+      <link>https://os.vasak.net.ar/tags/donaciones/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/donaciones/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Donadores</title>
+      <link>https://os.vasak.net.ar/tags/donadores/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/donadores/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Donar</title>
+      <link>https://os.vasak.net.ar/tags/donar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/donar/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Donate</title>
+      <link>https://os.vasak.net.ar/tags/donate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/donate/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Donations</title>
+      <link>https://os.vasak.net.ar/tags/donations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/donations/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Donators</title>
+      <link>https://os.vasak.net.ar/tags/donators/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/donators/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Herramientas</title>
+      <link>https://os.vasak.net.ar/tags/herramientas/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/herramientas/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Html</title>
+      <link>https://os.vasak.net.ar/tags/html/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/html/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Javascript</title>
+      <link>https://os.vasak.net.ar/tags/javascript/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/javascript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Menu</title>
+      <link>https://os.vasak.net.ar/tags/menu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/menu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Menu De Aplicaciones</title>
+      <link>https://os.vasak.net.ar/tags/menu-de-aplicaciones/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/menu-de-aplicaciones/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Nosotros</title>
+      <link>https://os.vasak.net.ar/tags/nosotros/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/nosotros/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Panel</title>
+      <link>https://os.vasak.net.ar/tags/panel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/panel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programas</title>
+      <link>https://os.vasak.net.ar/tags/programas/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/programas/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Nosotros</title>
+      <link>https://os.vasak.net.ar/tags/sobre-nosotros/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-nosotros/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Vasak</title>
+      <link>https://os.vasak.net.ar/tags/sobre-vasak/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-vasak/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Vasak Linux</title>
+      <link>https://os.vasak.net.ar/tags/sobre-vasak-linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-vasak-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Vasakos</title>
+      <link>https://os.vasak.net.ar/tags/sobre-vasakos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-vasakos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Vasakos Linux</title>
+      <link>https://os.vasak.net.ar/tags/sobre-vasakos-linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-vasakos-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Vasakos Linux Os</title>
+      <link>https://os.vasak.net.ar/tags/sobre-vasakos-linux-os/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-vasakos-linux-os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Vasakos Os</title>
+      <link>https://os.vasak.net.ar/tags/sobre-vasakos-os/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-vasakos-os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sobre Vasakos Os Linux</title>
+      <link>https://os.vasak.net.ar/tags/sobre-vasakos-os-linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/sobre-vasakos-os-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Software</title>
+      <link>https://os.vasak.net.ar/tags/software/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/software/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tailwindcss</title>
+      <link>https://os.vasak.net.ar/tags/tailwindcss/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/tailwindcss/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tools</title>
+      <link>https://os.vasak.net.ar/tags/tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Utilidades</title>
+      <link>https://os.vasak.net.ar/tags/utilidades/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/utilidades/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Utilities</title>
+      <link>https://os.vasak.net.ar/tags/utilities/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/utilities/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak Donatcion</title>
+      <link>https://os.vasak.net.ar/tags/vasak-donatcion/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-donatcion/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak Linux</title>
+      <link>https://os.vasak.net.ar/tags/vasak-linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak Os</title>
+      <link>https://os.vasak.net.ar/tags/vasak-os/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak-Control-Center</title>
+      <link>https://os.vasak.net.ar/tags/vasak-control-center/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-control-center/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Linux</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Linux Os</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-linux-os/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-linux-os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Os</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-os/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos Os Linux</title>
+      <link>https://os.vasak.net.ar/tags/vasakos-os-linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos-os-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vite</title>
+      <link>https://os.vasak.net.ar/tags/vite/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vite/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vmenu</title>
+      <link>https://os.vasak.net.ar/tags/vmenu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vmenu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vpanel</title>
+      <link>https://os.vasak.net.ar/tags/vpanel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vpanel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vuejs</title>
+      <link>https://os.vasak.net.ar/tags/vuejs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vuejs/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
