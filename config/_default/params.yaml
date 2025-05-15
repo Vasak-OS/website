@@ -47,7 +47,7 @@ advantages:
       text: Nuestro sistema se adapta a cualquier dispositivo, ya sea un móvil, una tablet o un ordenador.
       weight: 1
       params:
-        icon: fab fa-desktop
+        icon: fa fa-desktop
     - identifier: css
       name: Personalizable
       text: Al usar CSS para el estilo, el sistema es altamente personalizable y puedes cambiarlo a tu gusto.
