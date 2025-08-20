@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Demo on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/demo/</link>
+    <description>Recent content in Demo on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Tue, 08 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/demo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Primera demo pública de VasakOS</title>
+      <link>https://os.vasak.net.ar/blog/2025/04/primera-demo-p%C3%BAblica-de-vasakos/</link>
+      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/04/primera-demo-p%C3%BAblica-de-vasakos/</guid>
+      <description>&lt;p&gt;Hoy definimoas lanzar una especie de DEMO visual de lo que es VasakOS. La misma, si bien no esta accesible para el publico en general, es una especie de video que muestra como es el entorno de VasakOS y como se comporta. La misma fue grabada en una computadora real y no en una maquina virtual, por lo que se puede ver el rendimiento real del sistema operativo. La misma fue grabada en una computadora con un procesador &lt;strong&gt;Rayzen 5&lt;/strong&gt; y &lt;strong&gt;16GB de RAM&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

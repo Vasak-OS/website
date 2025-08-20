@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Privacy on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/privacy/</link>
+    <description>Recent content in Privacy on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Tue, 24 May 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Privacy policy</title>
+      <link>https://os.vasak.net.ar/privacy/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/privacy/</guid>
+      <description>&lt;p&gt;El presente Política de Privacidad establece los términos en que &lt;strong&gt;Vasak Group&lt;/strong&gt; usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

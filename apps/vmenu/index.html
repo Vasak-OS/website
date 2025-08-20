@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.9a17824f75540fb292d33d5bb3fc2d1e5c34d9078aada8a5eaf239d164b1dae6.css" integrity="sha256-mheCT3VUD7KS0z1bs/wtHlw02QeKrail6vI50WSx2uY=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/apps/vmenu/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="VMenu" />
+  <meta property="og:image"
+    content='' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="VMenu es una aplicacíon de escritorio que permite acceder al menu de aplicaciones de Vasakos, y a su vez permite acceder a las aplicaciones de escritorio de la computadora. Contiene algunas funcionalidades extras como la posibilidad de buscar aplicaciones, o tener una vista rapida del cliema. Contiene una estetica muy cuidada y es muy facil de usar. Se integra correctamente con el entorno de VasakOS y se encuentra en desarrollo constante. Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content='aplicaciones, vasakos, vasak, applications, apps, app, menu, vmenu, menu de aplicaciones, html, css, javascript, tauri, vuejs, tailwindcss, typescript, rust, vite,  Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/apps/vmenu/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div><section class="aspect-video bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center"
+  style="background-image: url('');">
+  <div class="flex flex-col justify-center content-center text-center">
+    <div class="bg-white/20 dark:bg-gray-900/20 text-gray-800 dark:text-gray-100 backdrop-blur-md p-10 rounded-xl max-w-5xl">
+      <h2 class="text-gray-900 dark:text-white text-4xl mb-3">VMenu</h2>
+      <p>VMenu es una aplicacíon de escritorio que permite acceder al menu de aplicaciones de Vasakos, y a su vez permite acceder a las aplicaciones de escritorio de la computadora. Contiene algunas funcionalidades extras como la posibilidad de buscar aplicaciones, o tener una vista rapida del cliema. Contiene una estetica muy cuidada y es muy facil de usar. Se integra correctamente con el entorno de VasakOS y se encuentra en desarrollo constante.</p>
+    </div>
+  </div>
+</section><main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">VMenu</h1>
+          <p>VMenu es una aplicacíon de escritorio que permite acceder al menu de aplicaciones de Vasakos, y a su vez permite acceder a las aplicaciones de escritorio de la computadora. Contiene algunas funcionalidades extras como la posibilidad de buscar aplicaciones, o tener una vista rapida del cliema. Contiene una estetica muy cuidada y es muy facil de usar. Se integra correctamente con el entorno de VasakOS y se encuentra en desarrollo constante.</p>
+<h2 id="características">Características</h2>
+<ul>
+<li>Acceso al menu de aplicaciones.</li>
+<li>Navegacion por categorias.</li>
+<li>Buscador de aplicaciones.</li>
+<li>Widget del clima.</li>
+</ul>
+<h2 id="tecnologías">Tecnologías</h2>
+<ul>
+<li>Tauri</li>
+<li>VueJS</li>
+<li>TailwindCSS</li>
+<li>TypeScript</li>
+<li>Rust</li>
+<li>Vite</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <ul>
+      <li><em class="fas fa-calendar"></em> <time datetime='Lunes 1 de Enero de 1'>Lunes 1 de Enero de 1</time></li>
+      <li><em class="fas fa-clock"></em> 1m</li>
+      <li><em class="fas fa-pen"></em> 93</li>
+    </ul>
+  </div>
+</div><div class="px-8 mb-3">
+  <div
+    class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#características">Características</a></li>
+    <li><a href="#tecnologías">Tecnologías</a></li>
+  </ol>
+</nav>
+  </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.abd2670efd3308c41632004c120afcbfb6eb712cc6b23cbb48e8b4a91ccbe871.js"></script></body>
+
+</html>

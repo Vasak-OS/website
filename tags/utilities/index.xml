@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Utilities on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/utilities/</link>
+    <description>Recent content in Utilities on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <atom:link href="https://os.vasak.net.ar/tags/utilities/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Apps</title>
+      <link>https://os.vasak.net.ar/apps/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/apps/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

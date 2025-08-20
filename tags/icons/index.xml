@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Icons on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/icons/</link>
+    <description>Recent content in Icons on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Sun, 11 May 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/icons/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Publicamos en Plugin User Data para Tauri</title>
+      <link>https://os.vasak.net.ar/blog/2025/05/publicamos-en-plugin-user-data-para-tauri/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/05/publicamos-en-plugin-user-data-para-tauri/</guid>
+      <description>&lt;p&gt;Hoy publicamos nuestro segundo plugin para &lt;strong&gt;Tauri&lt;/strong&gt;. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama &lt;strong&gt;tauri-plugin-user-data&lt;/strong&gt; y permite usar datos de usuario de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Publicamos en Plugin Vicons para Tauri</title>
+      <link>https://os.vasak.net.ar/blog/2025/04/publicamos-en-plugin-vicons-para-tauri/</link>
+      <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/04/publicamos-en-plugin-vicons-para-tauri/</guid>
+      <description>&lt;p&gt;Hoy publicamos nuestro primer plugin para &lt;strong&gt;Tauri&lt;/strong&gt;. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama &lt;strong&gt;tauri-plugin-vicons&lt;/strong&gt; y permite usar iconos de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
