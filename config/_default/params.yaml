@@ -54,12 +54,12 @@ advantages:
       weight: 1
       params:
         icon: fab fa-css3
-    - identifier: python
-      name: Python
-      text: Python es un lenguaje relativamente sencillo y potente, por lo que es ideal para el desarrollo de aplicaciones.
+    - identifier: rust
+      name: Rust
+      text: Rust es un lenguaje de programación de sistemas que enfatiza la seguridad y el rendimiento.
       weight: 1
       params:
-        icon: fab fa-python
+        icon: fab fa-rust
 
 prices:
   enabled: true
