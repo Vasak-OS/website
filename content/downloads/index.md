@@ -23,10 +23,26 @@ En la actualidad no disponemos de una ISO estable del proyecto porque se _encuen
 
 {{< img src="https://www.psicoactiva.com/wp-content/uploads/2020/04/test-de-actitudes-disfuncionales-de-weismman-768x413.png" >}}
 
-Sin embargo si estas interesado en probar el sistema en su estado **Alpha** _(sabiendo que no es un producto final y con muchos errores y partes que aún no están desarrolladas)_ podes ingresar en el grupo de Telegram donde vamos compartiendo compilaciones **Alpha** para poder probar y dar el feedback o incluso colaborar.
+Sin embargo si estas interesado en probar el sistema en su estado **Alpha** _(sabiendo que no es un producto final y con muchos errores y partes que aún no están desarrolladas)_ podes [unirte al grupo de Telegram](https://t.me/VasakOS) donde vamos compartiendo compilaciones **Alpha** para poder probar y dar el feedback o incluso colaborar.
 
-<div class="text-center">
-    <a rel="noopener" href="https://t.me/VasakOS" target="_blank">
-        <img src="https://www.freepnglogos.com/uploads/telegram-png/circle-messenger-round-icon-telegram-icon-8.png" class="img-fluid" style="max-height:100px;" />
-    </a>
-</div>
+
+## Requisitos
+
+**VasakOS** es un sistema operativo basado en **Arch Linux** pensado para una experiencia óptima, por lo cual requiere de ciertos requisitos mínimos para su instalación y funcionamiento:
+
+- Procesador de 64 bits
+- 4 GB de RAM (se recomiendan 4 GB o más)
+- 20 GB de espacio en disco duro
+- Conexión a Internet para la instalación y actualizaciones
+
+## ISO
+
+Actualmente estamos en desarrollo de su desktop que se basa en **Rust** y **VueJS**. Por lo tanto, no hay una ISO estable disponible para descargar. Sin embargo, hay una ISO **Alpha** que se puede probar. Esta ISO es una versión preliminar del sistema operativo y puede contener errores y características incompletas. De momento esta ISO **Alpha** está disponible para su descarga en el siguiente enlace pero no cuenta con un instalador dado a su proto estado de desarrollo:
+
+* [Descargar ISO Alpha](https://www.mediafire.com/file/mysx49rwos7bgf6/vasakos-2025.08.20-x86_64.iso/file)
+
+## Cómo colaborar
+
+Puedes unirte a nuestro grupo de Telegram para recibir actualizaciones y participar en el desarrollo de **VasakOS**. También puedes contribuir reportando errores, sugiriendo mejoras o incluso colaborando en el código.
+
+Puedes [unirte al grupo de Telegram](https://t.me/VasakOS) para estar al tanto de las últimas novedades y participar en la comunidad. O realizar reportes de errores mediante [Taiga](https://tree.taiga.io/project/joaquindecima-vasakos/issues)
