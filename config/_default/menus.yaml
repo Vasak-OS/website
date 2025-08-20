@@ -20,10 +20,10 @@ main:
       params:
           haveChildren: false
           children: false
-    - identifier: apps
-      name: Apps
-      url: /apps
-      weight: 5
-      params:
-          newTab: false
-          haveChildren: false
+    # - identifier: apps
+    #   name: Apps
+    #   url: /apps
+    #   weight: 5
+    #   params:
+    #       newTab: false
+    #       haveChildren: false
