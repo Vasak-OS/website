@@ -6,8 +6,15 @@
     <description>Recent content in Vasak-Desktop on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Tue, 08 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/vasak-desktop/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Buscamos pack de Iconos por Defecto</title>
+      <link>https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/</guid>
+      <description>&lt;p&gt;Actualmente estamos en una etapa de desarrollo temprana, el sueño de tener iconos propios esta aun muy lejos, no solo por la cantidad de trabajo que nos falta con el escritorio propiamente dicho, sino también por la falta de un diseñador que nos ayude a crear un pack de iconos por defecto.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Primera demo pública de VasakOS</title>
       <link>https://os.vasak.net.ar/blog/2025/04/primera-demo-p%C3%BAblica-de-vasakos/</link>
