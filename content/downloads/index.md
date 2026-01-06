@@ -39,7 +39,7 @@ Sin embargo si estas interesado en probar el sistema en su estado **Alpha** _(sa
 
 Actualmente estamos en desarrollo de su desktop que se basa en **Rust** y **VueJS**. Por lo tanto, no hay una ISO estable disponible para descargar. Sin embargo, hay una ISO **Alpha** que se puede probar. Esta ISO es una versión preliminar del sistema operativo y puede contener errores y características incompletas. De momento esta ISO **Alpha** está disponible para su descarga en el siguiente enlace pero no cuenta con un instalador dado a su proto estado de desarrollo:
 
-* [Descargar ISO Alpha](https://www.mediafire.com/file/mysx49rwos7bgf6/vasakos-2025.08.20-x86_64.iso/file)
+* [Descargar ISO Alpha v2](https://www.mediafire.com/file/6hz269m1qmmepcf/vasakos-2026.01.06-x86_64.iso/file)
 
 ## Cómo colaborar
 
