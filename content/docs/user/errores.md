@@ -1,4 +1,7 @@
-# Visualización de Errores - Vasak Desktop
+---
+title: "Visualización de Errores"
+weight: 10
+---
 
 ## Cómo ver errores en tiempo real
 

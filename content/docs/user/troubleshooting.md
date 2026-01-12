@@ -1,4 +1,7 @@
-# Solución de Problemas - Vasak Desktop
+---
+title: "Solucion a Problemas"
+weight: 25
+---
 
 ## Problemas de Inicio
 

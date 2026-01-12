@@ -1,4 +1,7 @@
-# Logs y Depuración - Vasak Desktop
+---
+title: "Logs y Debugging [Para usuarios]"
+weight: 5
+---
 
 ## Sistema de Logging
 

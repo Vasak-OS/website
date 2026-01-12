@@ -1,4 +1,7 @@
-# Cómo Reportar Errores - Vasak Desktop
+---
+title: "Como reportar errores"
+weight: 15
+---
 
 ## Antes de Reportar
 

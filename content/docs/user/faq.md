@@ -1,3 +1,8 @@
+---
+title: "Preguntas Frecuentes"
+weight: 20
+---
+
 # Preguntas Frecuentes - Vasak Desktop
 
 ## Instalación y Configuración
@@ -10,7 +15,7 @@ Consulta el README principal del proyecto para instrucciones de instalación. La
 
 - **Sistema Operativo**: Linux (cualquier distribución moderna)
 - **Gestor de Pantallas**: X11 o Wayland
-- **Memoria RAM**: Mínimo 2GB (recomendado 4GB)
+- **Memoria RAM**: Mínimo 4GB (recomendado 8GB)
 - **Almacenamiento**: 200MB de espacio libre
 - **Compositor**: Composición de ventanas habilitada (normalmente por defecto)
 
