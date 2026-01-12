@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vasak OS</title>
+    <link>https://os.vasak.net.ar/index.json</link>
+    <description>Recent content on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Sun, 11 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vendefoul Linux Vasak Version</title>
+      <link>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</guid>
+      <description>&lt;p&gt;La gente de &lt;strong&gt;Vendefoul Linux&lt;/strong&gt; decidio realizar una version de su distribucion con nuestro desktop. La misma cuenta con un estado experimental aun debido a que de momento &lt;code&gt;vasak-desktop&lt;/code&gt; no cuenta con una compatibilidad elevada a otros inits &lt;code&gt;non-systemd&lt;/code&gt; sin embargo trabajaremos en conjunto para poder facilitar la integracion del desktop&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Alpha 2 de VasakOS</title>
+      <link>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</guid>
+      <description>&lt;p&gt;Tratamos de iniciar 2026 con todo, y decidimos sacar el alpha 2, y realizar muchos cambios en como venimos trabajando&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Changelogs 06-01-2026 [Alpha]</title>
+      <link>https://os.vasak.net.ar/changelogs/06012026/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/changelogs/06012026/</guid>
+      <description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder enconrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Votá por el siguiente pack de Iconos por Defecto</title>
+      <link>https://os.vasak.net.ar/blog/2025/08/vot%C3%A1-por-el-siguiente-pack-de-iconos-por-defecto/</link>
+      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/08/vot%C3%A1-por-el-siguiente-pack-de-iconos-por-defecto/</guid>
+      <description>&lt;p&gt;El otro dia comentamos que &lt;a href=&#34;https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/&#34; &gt;&#xA;  &lt;i class=&#34;fas fa-link&#34;&gt;&lt;/i&gt;&amp;nbsp;&#xA;  &#xA;  &amp;ldquo;Buscamos pack de Iconos por Defecto&amp;rdquo;&#xA;&lt;/a&gt; y que estábamos revisando todos los packs de iconos que nos enviaron. Hoy queremos invitarte a participar en la votación del pack de iconos que consideramos más adecuado para el escritorio de VasakOS.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Buscamos pack de Iconos por Defecto</title>
+      <link>https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/</guid>
+      <description>&lt;p&gt;Actualmente estamos en una etapa de desarrollo temprana, el sueño de tener iconos propios esta aun muy lejos, no solo por la cantidad de trabajo que nos falta con el escritorio propiamente dicho, sino también por la falta de un diseñador que nos ayude a crear un pack de iconos por defecto.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Publicamos en Plugin User Data para Tauri</title>
+      <link>https://os.vasak.net.ar/blog/2025/05/publicamos-en-plugin-user-data-para-tauri/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/05/publicamos-en-plugin-user-data-para-tauri/</guid>
+      <description>&lt;p&gt;Hoy publicamos nuestro segundo plugin para &lt;strong&gt;Tauri&lt;/strong&gt;. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama &lt;strong&gt;tauri-plugin-user-data&lt;/strong&gt; y permite usar datos de usuario de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Publicamos en Plugin Vicons para Tauri</title>
+      <link>https://os.vasak.net.ar/blog/2025/04/publicamos-en-plugin-vicons-para-tauri/</link>
+      <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/04/publicamos-en-plugin-vicons-para-tauri/</guid>
+      <description>&lt;p&gt;Hoy publicamos nuestro primer plugin para &lt;strong&gt;Tauri&lt;/strong&gt;. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama &lt;strong&gt;tauri-plugin-vicons&lt;/strong&gt; y permite usar iconos de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Primera demo pública de VasakOS</title>
+      <link>https://os.vasak.net.ar/blog/2025/04/primera-demo-p%C3%BAblica-de-vasakos/</link>
+      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2025/04/primera-demo-p%C3%BAblica-de-vasakos/</guid>
+      <description>&lt;p&gt;Hoy definimoas lanzar una especie de DEMO visual de lo que es VasakOS. La misma, si bien no esta accesible para el publico en general, es una especie de video que muestra como es el entorno de VasakOS y como se comporta. La misma fue grabada en una computadora real y no en una maquina virtual, por lo que se puede ver el rendimiento real del sistema operativo. La misma fue grabada en una computadora con un procesador &lt;strong&gt;Rayzen 5&lt;/strong&gt; y &lt;strong&gt;16GB de RAM&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Nuestro canal de Noticias oficial en Telegram</title>
+      <link>https://os.vasak.net.ar/blog/2022/05/nuestro-canal-de-noticias-oficial-en-telegram/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2022/05/nuestro-canal-de-noticias-oficial-en-telegram/</guid>
+      <description>&lt;p&gt;Desde Vasak creemos que es importante mantener informada a la comunidad de los cambios que se realizan en el proyecto, por eso hemos creado un canal de noticias en &lt;strong&gt;Telegram&lt;/strong&gt;, donde se publicarán las novedades más importantes del proyecto. El mismo es completamente público y cualquiera puede unirse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Privacy policy</title>
+      <link>https://os.vasak.net.ar/privacy/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/privacy/</guid>
+      <description>&lt;p&gt;El presente Política de Privacidad establece los términos en que &lt;strong&gt;Vasak Group&lt;/strong&gt; usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Terms &amp; Conditions</title>
+      <link>https://os.vasak.net.ar/terms/</link>
+      <pubDate>Tue, 24 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/terms/</guid>
+      <description>&lt;h2 id=&#34;terms-and-conditions&#34;&gt;Terms and Conditions&lt;/h2&gt;&#xA;&lt;p&gt;Last updated: May 24, 2022&lt;/p&gt;&#xA;&lt;p&gt;Please read these terms and conditions carefully before using Our Service.&lt;/p&gt;&#xA;&lt;h2 id=&#34;interpretation-and-definitions&#34;&gt;Interpretation and Definitions&lt;/h2&gt;&#xA;&lt;h3 id=&#34;interpretation&#34;&gt;Interpretation&lt;/h3&gt;&#xA;&lt;p&gt;The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Descargas</title>
+      <link>https://os.vasak.net.ar/downloads/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/downloads/</guid>
+      <description>&lt;p&gt;En la actualidad no disponemos de una ISO estable del proyecto porque se &lt;em&gt;encuentra en desarrollo&lt;/em&gt;. Como el desarrollo es comunitario y recién está iniciando no contamos con un roadmap como para saber en qué momento vamos a tener una ISO &lt;strong&gt;Beta&lt;/strong&gt; o &lt;strong&gt;Estable&lt;/strong&gt; funcional como para poder dejarla en esta sección.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Donaciones</title>
+      <link>https://os.vasak.net.ar/donate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/donate/</guid>
+      <description>&lt;iframe id=&#39;kofiframe&#39; src=&#39;https://ko-fi.com/lynxoslinux/?hidefeed=true&amp;widget=true&amp;embed=true&amp;preview=true&#39; style=&#39;border:none;width:100%;padding:4px;background:#f9f9f9;border-radius:10px;&#39; height=&#39;712&#39; title=&#39;lynxoslinux&#39;&gt;&lt;/iframe&gt;</description>
+    </item>
+    <item>
+      <title>Sobre Nosotros</title>
+      <link>https://os.vasak.net.ar/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/about/</guid>
+      <description>&lt;p&gt;Vasak OS es un sistema creado en el entorno de Vasak y la comunidad. Buscamos crear un sistema íntegro multiutilitario que nos permita obtener una alternativa completamente GRATUITA para los sistemas comerciales con todas las ventajas del Software Libre.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

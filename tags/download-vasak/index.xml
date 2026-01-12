@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Download Vasak on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/download-vasak/</link>
+    <description>Recent content in Download Vasak on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Sat, 19 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/download-vasak/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Descargas</title>
+      <link>https://os.vasak.net.ar/downloads/</link>
+      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/downloads/</guid>
+      <description>&lt;p&gt;En la actualidad no disponemos de una ISO estable del proyecto porque se &lt;em&gt;encuentra en desarrollo&lt;/em&gt;. Como el desarrollo es comunitario y recién está iniciando no contamos con un roadmap como para saber en qué momento vamos a tener una ISO &lt;strong&gt;Beta&lt;/strong&gt; o &lt;strong&gt;Estable&lt;/strong&gt; funcional como para poder dejarla en esta sección.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
