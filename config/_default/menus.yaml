@@ -27,6 +27,13 @@ main:
       params:
           newTab: false
           haveChildren: false
+    - identifier: docs
+      name: Documentación
+      url: /docs
+      weight: 6
+      params:
+          newTab: false
+          haveChildren: false
     # - identifier: apps
     #   name: Apps
     #   url: /apps
