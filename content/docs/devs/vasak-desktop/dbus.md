@@ -21,18 +21,23 @@ D-Bus (Desktop Bus) es un sistema de comunicación entre procesos (IPC) estánda
 
 ## Arquitectura D-Bus
 
-```
-┌─────────────────────────────────────────┐
-│        D-Bus Daemon (dbus-daemon)       │
-└──────────────────┬──────────────────────┘
-                   │
-    ┌──────────────┼──────────────┐
-    │              │              │
-┌───▼──┐      ┌───▼──┐     ┌────▼────┐
-│  App │      │ DBus │     │  Service│
-│      │      │ Srv  │     │         │
-└──────┘      └──────┘     └─────────┘
-```
+{{< mermaid >}}
+graph TB
+    Daemon["D-Bus Daemon<br/>(dbus-daemon)"]
+    
+    App1["App 1"]
+    DBusSrv["D-Bus<br/>Service"]
+    Service["Servicio"]
+    
+    Daemon --> App1
+    Daemon --> DBusSrv
+    Daemon --> Service
+    
+    style Daemon fill:#ffe0b2
+    style App1 fill:#c8e6c9
+    style DBusSrv fill:#c8e6c9
+    style Service fill:#c8e6c9
+{{< /mermaid >}}
 
 ### Tipos de Buses
 

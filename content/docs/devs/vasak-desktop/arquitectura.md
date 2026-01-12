@@ -23,51 +23,47 @@ Se ejecuta como varias ventanas de Tauri independientes que se comunican vía IP
 
 ## Arquitectura de Alto Nivel
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    USUARIO FINAL                         │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-         ┌─────────────┴─────────────┐
-         │                           │
-    ┌────▼────────┐          ┌──────▼─────────┐
-    │  Ventana    │          │   Ventana      │
-    │  PANEL      │          │   DESKTOP      │
-    │  (Top Bar)  │          │   (Background) │
-    └────┬────────┘          └────┬───────────┘
-         │                        │
-         └────────┬───────────────┘
-                  │
-         ┌────────▼────────────┐
-         │  Frontend Vue.js    │
-         │  (TypeScript + CSS) │
-         └────────┬────────────┘
-                  │
-         ┌────────▼────────────────────┐
-         │  IPC (Tauri Bridge)         │
-         │  Frontend ←→ Backend        │
-         └────────┬────────────────────┘
-                  │
-         ┌────────▼────────────────────┐
-         │  Backend Rust (Tauri)       │
-         │  - Comandos de sistema      │
-         │  - Integración D-Bus        │
-         │  - Gestión de ventanas      │
-         └────────┬────────────────────┘
-                  │
-    ┌─────────────┼──────────────┐
-    │             │              │
-┌───▼───┐   ┌────▼────┐   ┌────▼────┐
-│ D-Bus │   │ GTK     │   │ System  │
-│ (IPC) │   │ (Theme) │   │ (FS/IO) │
-└───┬───┘   └─────────┘   └─────────┘
-    │
-┌───▼──────────────────────────────┐
-│ Servicios del Sistema            │
-│ (PulseAudio, NetworkManager,     │
-│  BlueZ, MPRIS, gsettings...)     │
-└──────────────────────────────────┘
-```
+{{< mermaid >}}
+graph TD
+    User["👤 USUARIO FINAL"]
+    
+    Panel["🪟 Ventana PANEL<br/>(Top Bar)"]
+    Desktop["🖥️ Ventana DESKTOP<br/>(Background)"]
+    
+    Frontend["🎨 Frontend Vue.js<br/>(TypeScript + CSS)"]
+    
+    IPC["🔗 IPC Tauri Bridge<br/>(Frontend ↔ Backend)"]
+    
+    Backend["⚙️ Backend Rust<br/>- Comandos de sistema<br/>- Integración D-Bus<br/>- Gestión de ventanas"]
+    
+    DBus["🔌 D-Bus<br/>(IPC)"]
+    GTK["🎭 GTK<br/>(Theme)"]
+    System["📁 System<br/>(FS/IO)"]
+    
+    Services["🔧 Servicios del Sistema<br/>(PulseAudio, NetworkManager,<br/>BlueZ, MPRIS, gsettings...)"]
+    
+    User --> Panel
+    User --> Desktop
+    Panel --> Frontend
+    Desktop --> Frontend
+    Frontend --> IPC
+    IPC --> Backend
+    Backend --> DBus
+    Backend --> GTK
+    Backend --> System
+    DBus --> Services
+    
+    style User fill:#e1f5ff
+    style Panel fill:#fff3e0
+    style Desktop fill:#fff3e0
+    style Frontend fill:#f3e5f5
+    style IPC fill:#ffe0b2
+    style Backend fill:#c8e6c9
+    style DBus fill:#ffccbc
+    style GTK fill:#ffccbc
+    style System fill:#ffccbc
+    style Services fill:#b3e5fc
+{{< /mermaid >}}
 
 ## Ventanas de la Aplicación
 
@@ -221,22 +217,52 @@ Ver [D-Bus](dbus.md) para más detalles.
 
 ### Ejemplo: Cambiar Volumen
 
-```
-1. Usuario: Mueve slider de volumen en Control Center
-2. Vue Component: emit('volume-changed', newValue)
-3. Pinia Store: actualiza estado local
-4. Backend Handler: invoke('set_audio_volume', {level: 50})
-5. IPC Bridge: Tauri envía comando al backend
-6. Backend Rust: 
-   - Conecta a D-Bus (PulseAudio/PipeWire)
-   - Ejecuta: pactl set-sink-volume @DEFAULT_SINK@ 50%
-7. Sistema OS: Cambia volumen real
-8. D-Bus Event: Emite evento de cambio
-9. Backend escucha: Recibe confirmación
-10. Backend emite: event('audio_volume_changed', newValue)
-11. Vue escucha: Recibe evento
-12. Vue actualiza: Refleja el cambio visual
-```
+{{< mermaid >}}
+sequenceDiagram
+    participant Usuario
+    participant VueComponent as Vue Component
+    participant PiniaStore as Pinia Store
+    participant BackendHandler as Backend Handler
+    participant IPCBridge as IPC Bridge
+    participant BackendRust as Backend Rust
+    participant SystemOS as Sistema OS
+    participant DBusEvent as D-Bus Event
+    
+    Usuario->>VueComponent: Mueve slider de volumen
+    activate VueComponent
+    VueComponent->>PiniaStore: emit('volume-changed', newValue)
+    activate PiniaStore
+    PiniaStore->>PiniaStore: actualiza estado local
+    deactivate PiniaStore
+    
+    VueComponent->>BackendHandler: invoke('set_audio_volume', {level: 50})
+    deactivate VueComponent
+    
+    activate BackendHandler
+    BackendHandler->>IPCBridge: envía comando
+    deactivate BackendHandler
+    
+    activate IPCBridge
+    IPCBridge->>BackendRust: ejecuta set_audio_volume
+    deactivate IPCBridge
+    
+    activate BackendRust
+    BackendRust->>SystemOS: pactl set-sink-volume @DEFAULT_SINK@ 50%
+    activate SystemOS
+    SystemOS->>SystemOS: Cambia volumen real
+    deactivate SystemOS
+    
+    SystemOS->>DBusEvent: Emite evento de cambio
+    activate DBusEvent
+    DBusEvent->>BackendRust: Recibe confirmación
+    deactivate DBusEvent
+    deactivate BackendRust
+    
+    BackendRust->>VueComponent: event('audio_volume_changed', newValue)
+    activate VueComponent
+    VueComponent->>Usuario: Refleja el cambio visual
+    deactivate VueComponent
+{{< /mermaid >}}
 
 ## Estructura de Directorios
 
