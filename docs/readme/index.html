@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=36333&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="http://localhost:36333/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:36333/css/styles.css" />
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="http://localhost:36333/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/readme/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Documentación de Vasak Desktop
+Bienvenido a la documentación completa de Vasak Desktop en español.
+Esta documentación está dividida en dos secciones principales: Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/readme/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="http://localhost:36333/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:36333/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="http://localhost:36333/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="http://localhost:36333/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="http://localhost:36333/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="http://localhost:36333/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="http://localhost:36333/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:36333/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="http://localhost:36333/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="http://localhost:36333/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="http://localhost:36333/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="http://localhost:36333/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1"></h1>
+          <h1 id="documentación-de-vasak-desktop">Documentación de Vasak Desktop</h1>
+<p>Bienvenido a la documentación completa de <strong>Vasak Desktop</strong> en español.</p>
+<p>Esta documentación está dividida en dos secciones principales:</p>
+<h2 id="-para-usuarios-finales">👥 Para Usuarios Finales</h2>
+<p>Guías prácticas sobre cómo usar Vasak Desktop, resolver problemas comunes y reportar errores.</p>
+<p><strong>Acceso rápido</strong>:</p>
+<ul>
+<li>📍 <strong><a href="docs/user/logs.md" >
+  
+  Dónde encontrar logs
+</a></strong> - Ubicación de archivos de registro del sistema</li>
+<li>⚠️ <strong><a href="docs/user/errores.md" >
+  
+  Cómo ver errores
+</a></strong> - Visualización y entendimiento de errores</li>
+<li>🐛 <strong><a href="docs/user/reporte-errores.md" >
+  
+  Cómo reportar bugs
+</a></strong> - Guía completa para reportar problemas</li>
+<li>❓ <strong><a href="docs/user/faq.md" >
+  
+  Preguntas frecuentes
+</a></strong> - Respuestas a 20+ preguntas comunes</li>
+<li>🔧 <strong><a href="docs/user/troubleshooting.md" >
+  
+  Solución de problemas
+</a></strong> - Guías detalladas para resolver problemas</li>
+</ul>
+<p>→ <strong><a href="docs/user/README.md" >
+  
+  Ver toda la documentación de usuario
+</a></strong></p>
+<hr>
+<h2 id="-para-desarrolladores">👨‍💻 Para Desarrolladores</h2>
+<p>Guías técnicas completas para desarrollar, entender la arquitectura y contribuir a Vasak Desktop.</p>
+<p><strong>Empezando</strong>:</p>
+<ul>
+<li>🚀 <strong><a href="docs/devs/setup-proyecto.md" >
+  
+  Setup del proyecto
+</a></strong> - Configurar tu entorno de desarrollo</li>
+<li>🔨 <strong><a href="docs/devs/compilacion.md" >
+  
+  Compilación
+</a></strong> - Cómo compilar Vasak Desktop</li>
+<li>📦 <strong><a href="docs/devs/dependencias.md" >
+  
+  Dependencias
+</a></strong> - Gestión de paquetes y librerías</li>
+</ul>
+<p><strong>Entendimiento del sistema</strong>:</p>
+<ul>
+<li>🏗️ <strong><a href="docs/devs/arquitectura.md" >
+  
+  Arquitectura general
+</a></strong> - Visión general de la estructura</li>
+<li>📁 <strong><a href="docs/devs/carpetas.md" >
+  
+  Sistema de carpetas
+</a></strong> - Descripción detallada de directorios</li>
+<li>🔌 <strong><a href="docs/devs/dbus.md" >
+  
+  D-Bus
+</a></strong> - Integración con el sistema Linux</li>
+</ul>
+<p><strong>Desarrollo</strong>:</p>
+<ul>
+<li>💻 <strong><a href="docs/devs/componentes-vue.md" >
+  
+  Componentes Vue
+</a></strong> - Desarrollo frontend</li>
+<li>🦀 <strong><a href="docs/devs/comandos-rust.md" >
+  
+  Comandos Rust
+</a></strong> - Desarrollo backend</li>
+<li>📏 <strong><a href="docs/devs/lineamientos.md" >
+  
+  Lineamientos de código
+</a></strong> - Estándares y mejores prácticas</li>
+</ul>
+<p><strong>Herramientas</strong>:</p>
+<ul>
+<li>🐛 <strong><a href="docs/devs/debugging.md" >
+  
+  Debugging
+</a></strong> - Técnicas de depuración</li>
+<li>🤝 <strong><a href="docs/devs/contribucion.md" >
+  
+  Cómo contribuir
+</a></strong> - Proceso de contribución</li>
+</ul>
+<p>→ <strong><a href="docs/devs/README.md" >
+  
+  Ver toda la documentación de desarrolladores
+</a></strong></p>
+<hr>
+<h2 id="-índice-completo">🗂️ Índice Completo</h2>
+<p>Para una visión general de toda la documentación disponible:</p>
+<p>→ <strong><a href="docs/INDEX.md" >
+  
+  Ver INDEX.md
+</a></strong></p>
+<hr>
+<h2 id="-guía-rápida">🎯 Guía Rápida</h2>
+<h3 id="dónde-empiezo">&ldquo;¿Dónde empiezo?&rdquo;</h3>
+<p><strong>Si eres usuario</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Documentación → Preguntas Frecuentes → Solución de Problemas
+</span></span><span class="line"><span class="cl">docs/user/README.md → docs/user/faq.md → docs/user/troubleshooting.md
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Si eres desarrollador</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Setup → Compilación → Arquitectura → Lineamientos
+</span></span><span class="line"><span class="cl">docs/devs/setup-proyecto.md → docs/devs/compilacion.md → 
+</span></span><span class="line"><span class="cl">docs/devs/arquitectura.md → docs/devs/lineamientos.md
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="tengo-un-problema">&ldquo;Tengo un problema&rdquo;</h3>
+<p><strong>Usuario</strong>: → <a href="docs/user/troubleshooting.md" >
+  
+  Solución de Problemas
+</a></p>
+<p><strong>Desarrollador</strong>: → <a href="docs/devs/debugging.md" >
+  
+  Debugging
+</a></p>
+<h3 id="encontré-un-bug">&ldquo;Encontré un bug&rdquo;</h3>
+<p>→ <a href="docs/user/reporte-errores.md" >
+  
+  Cómo Reportar Errores
+</a></p>
+<h3 id="quiero-contribuir">&ldquo;Quiero contribuir&rdquo;</h3>
+<p>→ <a href="docs/devs/contribucion.md" >
+  
+  Cómo Contribuir
+</a></p>
+<hr>
+<h2 id="-contenido">📊 Contenido</h2>
+<h3 id="documentación-de-usuario-6-documentos">Documentación de Usuario (6 documentos)</h3>
+<ul>
+<li>Logs y monitoreo</li>
+<li>Visualización de errores</li>
+<li>Reporte de bugs</li>
+<li>Preguntas frecuentes</li>
+<li>Solución de problemas</li>
+</ul>
+<h3 id="documentación-de-desarrollador-12-documentos">Documentación de Desarrollador (12 documentos)</h3>
+<ul>
+<li>Setup y configuración</li>
+<li>Compilación y build</li>
+<li>Gestión de dependencias</li>
+<li>Arquitectura del sistema</li>
+<li>Estructura de carpetas</li>
+<li>Integración D-Bus</li>
+<li>Lineamientos de código</li>
+<li>Desarrollo frontend</li>
+<li>Desarrollo backend</li>
+<li>Debugging</li>
+<li>Contribución</li>
+</ul>
+<hr>
+<h2 id="-información-del-proyecto">🌐 Información del Proyecto</h2>
+<ul>
+<li><strong>Nombre</strong>: Vasak Desktop</li>
+<li><strong>Versión</strong>: 0.5.2</li>
+<li><strong>Lenguaje de documentación</strong>: Español</li>
+<li><strong>Tecnologías</strong>: Vue.js + Rust + Tauri</li>
+<li><strong>Repositorio</strong>: <a href="https://github.com/Vasak-OS/vasak-desktop"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/vasak-desktop
+</a></li>
+</ul>
+<hr>
+<h2 id="-características-de-la-documentación">✨ Características de la Documentación</h2>
+<ul>
+<li>✅ <strong>Completa</strong>: Cubre usuarios y desarrolladores</li>
+<li>✅ <strong>En español</strong>: Totalmente localizada</li>
+<li>✅ <strong>Práctica</strong>: Ejemplos y comandos listos para usar</li>
+<li>✅ <strong>Conectada</strong>: Links entre documentos relacionados</li>
+<li>✅ <strong>Actualizada</strong>: Versión 0.5.2</li>
+<li>✅ <strong>Mantenible</strong>: Fácil de actualizar y versionear</li>
+</ul>
+<hr>
+<h2 id="-necesitas-ayuda">📞 Necesitas Ayuda?</h2>
+<h3 id="como-usuario">Como Usuario</h3>
+<ol>
+<li>Consulta <a href="docs/user/faq.md" >
+  
+  Preguntas Frecuentes
+</a></li>
+<li>Busca en <a href="docs/user/troubleshooting.md" >
+  
+  Solución de Problemas
+</a></li>
+<li>Si no encuentras tu respuesta: <a href="docs/user/reporte-errores.md" >
+  
+  Cómo reportar
+</a></li>
+</ol>
+<h3 id="como-desarrollador">Como Desarrollador</h3>
+<ol>
+<li>Revisa el documento relevante</li>
+<li>Consulta la sección de troubleshooting del documento</li>
+<li>Revisa <a href="docs/devs/debugging.md" >
+  
+  Debugging
+</a></li>
+<li>Abre una discusión o issue en GitHub</li>
+</ol>
+<hr>
+<h2 id="-próximos-pasos">🚀 Próximos Pasos</h2>
+<p><strong>Si eres usuario</strong>: Comienza con <a href="docs/user/README.md" >
+  
+  Documentación de Usuario
+</a></p>
+<p><strong>Si eres desarrollador</strong>: Comienza con <a href="docs/devs/README.md" >
+  
+  Documentación de Desarrollador
+</a></p>
+<p><strong>Si necesitas un índice completo</strong>: Ve a <a href="docs/INDEX.md" >
+  
+  INDEX.md
+</a></p>
+<hr>
+<p>¡Bienvenido a Vasak Desktop! Si tienes preguntas, no dudes en abrir un issue en GitHub. 🎉</p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <ul>
+      <li><em class="fas fa-calendar"></em> <time datetime='Lunes 1 de Enero de 1'>Lunes 1 de Enero de 1</time></li>
+      <li><em class="fas fa-clock"></em> 3m</li>
+      <li><em class="fas fa-pen"></em> 494</li>
+    </ul>
+  </div>
+</div><div class="px-8 mb-3">
+  <div
+    class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#-para-usuarios-finales">👥 Para Usuarios Finales</a></li>
+    <li><a href="#-para-desarrolladores">👨‍💻 Para Desarrolladores</a></li>
+    <li><a href="#-índice-completo">🗂️ Índice Completo</a></li>
+    <li><a href="#-guía-rápida">🎯 Guía Rápida</a>
+      <ol>
+        <li><a href="#dónde-empiezo">&ldquo;¿Dónde empiezo?&rdquo;</a></li>
+        <li><a href="#tengo-un-problema">&ldquo;Tengo un problema&rdquo;</a></li>
+        <li><a href="#encontré-un-bug">&ldquo;Encontré un bug&rdquo;</a></li>
+        <li><a href="#quiero-contribuir">&ldquo;Quiero contribuir&rdquo;</a></li>
+      </ol>
+    </li>
+    <li><a href="#-contenido">📊 Contenido</a>
+      <ol>
+        <li><a href="#documentación-de-usuario-6-documentos">Documentación de Usuario (6 documentos)</a></li>
+        <li><a href="#documentación-de-desarrollador-12-documentos">Documentación de Desarrollador (12 documentos)</a></li>
+      </ol>
+    </li>
+    <li><a href="#-información-del-proyecto">🌐 Información del Proyecto</a></li>
+    <li><a href="#-características-de-la-documentación">✨ Características de la Documentación</a></li>
+    <li><a href="#-necesitas-ayuda">📞 Necesitas Ayuda?</a>
+      <ol>
+        <li><a href="#como-usuario">Como Usuario</a></li>
+        <li><a href="#como-desarrollador">Como Desarrollador</a></li>
+      </ol>
+    </li>
+    <li><a href="#-próximos-pasos">🚀 Próximos Pasos</a></li>
+  </ol>
+</nav>
+  </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="http://localhost:36333/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="http://localhost:36333/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="http://localhost:36333/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="http://localhost:36333/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="http://localhost:36333/js/bundle.min.126d497b047e43c21a1141f8038e985c164038a59ef1dc07130dc5e924ef780a.js"></script></body>
+
+</html>

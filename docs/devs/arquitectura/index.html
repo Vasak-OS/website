@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="http://localhost:1313/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/styles.css" />
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/devs/arquitectura/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Arquitectura General - Vasak Desktop
+Visión general de la arquitectura de Vasak Desktop y cómo se estructuran los componentes.
+¿Qué es Vasak Desktop?
+Vasak Desktop NO es un entorno de escritorio completo (como GNOME o KDE). Es una interfaz de escritorio ligera que no cuenta con un WM propio pero que proporciona: Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/devs/arquitectura/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="http://localhost:1313/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:1313/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="http://localhost:1313/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="http://localhost:1313/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="http://localhost:1313/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="http://localhost:1313/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="http://localhost:1313/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:1313/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="http://localhost:1313/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="http://localhost:1313/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="http://localhost:1313/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="http://localhost:1313/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div><section class="aspect-video bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center"
+  style="background-image: url('');">
+  <div class="flex flex-col justify-center content-center text-center">
+    <div class="bg-white/20 dark:bg-gray-900/20 text-gray-800 dark:text-gray-100 backdrop-blur-md p-10 rounded-xl max-w-5xl">
+      <h2 class="text-gray-900 dark:text-white text-4xl mb-3"></h2>
+      <h1 id="arquitectura-general---vasak-desktop">Arquitectura General - Vasak Desktop</h1>
+<p>Visión general de la arquitectura de Vasak Desktop y cómo se estructuran los componentes.</p>
+<h2 id="qué-es-vasak-desktop">¿Qué es Vasak Desktop?</h2>
+<p>Vasak Desktop NO es un entorno de escritorio completo (como GNOME o KDE). Es una <strong>interfaz de escritorio ligera</strong> que no cuenta con un <strong>WM</strong> propio pero que proporciona:</p>
+    </div>
+  </div>
+</section><main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1"></h1>
+          <h1 id="arquitectura-general---vasak-desktop">Arquitectura General - Vasak Desktop</h1>
+<p>Visión general de la arquitectura de Vasak Desktop y cómo se estructuran los componentes.</p>
+<h2 id="qué-es-vasak-desktop">¿Qué es Vasak Desktop?</h2>
+<p>Vasak Desktop NO es un entorno de escritorio completo (como GNOME o KDE). Es una <strong>interfaz de escritorio ligera</strong> que no cuenta con un <strong>WM</strong> propio pero que proporciona:</p>
+<ul>
+<li><strong>Panel Superior</strong> - Barra de tareas con applets de sistema</li>
+<li><strong>Vista de Escritorio</strong> - Fondo con widgets opcionales</li>
+<li><strong>Control Center</strong> - Acceso rápido a configuración</li>
+<li><strong>Menú de Aplicaciones</strong> - Búsqueda y lanzamiento de apps</li>
+<li><strong>File Manager</strong> - Herramienta para revisar archivos</li>
+<li><strong>Search Launcher</strong> - Herramienta de busqueda rapida</li>
+<li><strong>Config Manager</strong> - Herramienta de configuracion del sistema operativo</li>
+</ul>
+<p>Se ejecuta como varias ventanas de Tauri independientes que se comunican vía IPC.</p>
+<blockquote>
+<p>El resto de herramientas de VasakOS que no comparten el Backend con el desktop comparten una arquitectura similar y pueden integrarse de la misma manera con las configuraciones del desktop</p>
+</blockquote>
+<h2 id="arquitectura-de-alto-nivel">Arquitectura de Alto Nivel</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                    USUARIO FINAL                         │
+</span></span><span class="line"><span class="cl">└──────────────────────┬──────────────────────────────────┘
+</span></span><span class="line"><span class="cl">                       │
+</span></span><span class="line"><span class="cl">         ┌─────────────┴─────────────┐
+</span></span><span class="line"><span class="cl">         │                           │
+</span></span><span class="line"><span class="cl">    ┌────▼────────┐          ┌──────▼─────────┐
+</span></span><span class="line"><span class="cl">    │  Ventana    │          │   Ventana      │
+</span></span><span class="line"><span class="cl">    │  PANEL      │          │   DESKTOP      │
+</span></span><span class="line"><span class="cl">    │  (Top Bar)  │          │   (Background) │
+</span></span><span class="line"><span class="cl">    └────┬────────┘          └────┬───────────┘
+</span></span><span class="line"><span class="cl">         │                        │
+</span></span><span class="line"><span class="cl">         └────────┬───────────────┘
+</span></span><span class="line"><span class="cl">                  │
+</span></span><span class="line"><span class="cl">         ┌────────▼────────────┐
+</span></span><span class="line"><span class="cl">         │  Frontend Vue.js    │
+</span></span><span class="line"><span class="cl">         │  (TypeScript + CSS) │
+</span></span><span class="line"><span class="cl">         └────────┬────────────┘
+</span></span><span class="line"><span class="cl">                  │
+</span></span><span class="line"><span class="cl">         ┌────────▼────────────────────┐
+</span></span><span class="line"><span class="cl">         │  IPC (Tauri Bridge)         │
+</span></span><span class="line"><span class="cl">         │  Frontend ←→ Backend        │
+</span></span><span class="line"><span class="cl">         └────────┬────────────────────┘
+</span></span><span class="line"><span class="cl">                  │
+</span></span><span class="line"><span class="cl">         ┌────────▼────────────────────┐
+</span></span><span class="line"><span class="cl">         │  Backend Rust (Tauri)       │
+</span></span><span class="line"><span class="cl">         │  - Comandos de sistema      │
+</span></span><span class="line"><span class="cl">         │  - Integración D-Bus        │
+</span></span><span class="line"><span class="cl">         │  - Gestión de ventanas      │
+</span></span><span class="line"><span class="cl">         └────────┬────────────────────┘
+</span></span><span class="line"><span class="cl">                  │
+</span></span><span class="line"><span class="cl">    ┌─────────────┼──────────────┐
+</span></span><span class="line"><span class="cl">    │             │              │
+</span></span><span class="line"><span class="cl">┌───▼───┐   ┌────▼────┐   ┌────▼────┐
+</span></span><span class="line"><span class="cl">│ D-Bus │   │ GTK     │   │ System  │
+</span></span><span class="line"><span class="cl">│ (IPC) │   │ (Theme) │   │ (FS/IO) │
+</span></span><span class="line"><span class="cl">└───┬───┘   └─────────┘   └─────────┘
+</span></span><span class="line"><span class="cl">    │
+</span></span><span class="line"><span class="cl">┌───▼──────────────────────────────┐
+</span></span><span class="line"><span class="cl">│ Servicios del Sistema            │
+</span></span><span class="line"><span class="cl">│ (PulseAudio, NetworkManager,     │
+</span></span><span class="line"><span class="cl">│  BlueZ, MPRIS, gsettings...)     │
+</span></span><span class="line"><span class="cl">└──────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="ventanas-de-la-aplicación">Ventanas de la Aplicación</h2>
+<p>Vasak Desktop se compone de <strong>2 ventanas independientes</strong>:</p>
+<h3 id="ventana-1-panel-top-bar">Ventana 1: Panel (Top Bar)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;panel&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Vasak Panel&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="p">[</span><span class="err">ancho</span> <span class="err">de</span> <span class="err">pantalla</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;height&#34;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;y&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;decorations&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;alwaysOnTop&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Muestra:</p>
+<ul>
+<li>Menú de aplicaciones</li>
+<li>Widgets (reloj, música)</li>
+<li>Applets de sistema (audio, red, bluetooth, batería)</li>
+<li>Control center</li>
+</ul>
+<h3 id="ventana-2-desktop-background">Ventana 2: Desktop (Background)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;desktop&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Vasak Desktop&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;fullscreen&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;decorations&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;alwaysOnBottom&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;skipTaskbar&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Muestra:</p>
+<ul>
+<li>Fondo de escritorio</li>
+<li>Widgets opcionales (clima, reloj)</li>
+</ul>
+<h2 id="capas-de-la-aplicación">Capas de la Aplicación</h2>
+<h3 id="1-capa-de-presentación-frontend">1. Capa de Presentación (Frontend)</h3>
+<p><strong>Tecnología</strong>: Vue.js 3.5.18, TypeScript, Tailwind CSS 4.1</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">src</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">components</span><span class="o">/</span>          <span class="c1"># Componentes Vue reutilizables</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">buttons</span><span class="o">/</span>        <span class="c1"># Botones de interfaz</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">cards</span><span class="o">/</span>          <span class="c1"># Tarjetas de información</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">controls</span><span class="o">/</span>       <span class="c1"># Controles interactivos (audio, brillo, etc.)</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">areas</span><span class="o">/</span>          <span class="c1"># Áreas completas (panel, control-center, menu)</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">views</span><span class="o">/</span>              <span class="c1"># Páginas principales</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">PanelView</span><span class="o">.</span><span class="n">vue</span>       <span class="c1"># Ventana panel superior</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">DesktopView</span><span class="o">.</span><span class="n">vue</span>     <span class="c1"># Ventana fondo escritorio</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">MenuView</span><span class="o">.</span><span class="n">vue</span>        <span class="c1"># Vista del menú de apps</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">ControlCenterView</span><span class="o">.</span><span class="n">vue</span> <span class="c1"># Centro de control</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">routes</span><span class="o">/</span>             <span class="c1"># Configuración de rutas</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">tools</span><span class="o">/</span>              <span class="c1"># Controllers (battery, network, bluetooth, tray)</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">main</span><span class="o">.</span><span class="n">ts</span>             <span class="c1"># Punto de entrada</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Flujo de Datos</strong>:</p>
+<ul>
+<li>Componentes → <code>invoke('command')</code> → Backend</li>
+<li>Backend → <code>emit('event')</code> → Componentes actualizan</li>
+</ul>
+<h3 id="2-capa-de-comunicación-ipc">2. Capa de Comunicación (IPC)</h3>
+<p><strong>Tecnología</strong>: Tauri IPC Bridge</p>
+<p>Conecta Frontend y Backend:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Vue Component → 
+</span></span><span class="line"><span class="cl">  invoke(&#39;get_audio_volume&#39;) →
+</span></span><span class="line"><span class="cl">    Backend Command Handler →
+</span></span><span class="line"><span class="cl">      D-Bus / System Call →
+</span></span><span class="line"><span class="cl">        Resultado →
+</span></span><span class="line"><span class="cl">          Retorna a Frontend
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Seguridad</strong>: Solo comandos explícitamente registrados pueden ser invocados.</p>
+<h3 id="3-capa-de-lógica-backend">3. Capa de Lógica (Backend)</h3>
+<p><strong>Tecnología</strong>: Rust 1.70+, Tauri 2.x</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">src-tauri/src/
+</span></span><span class="line"><span class="cl">├── main.rs              # Punto de entrada, setup de ventanas
+</span></span><span class="line"><span class="cl">├── lib.rs              # Registro de comandos y módulos
+</span></span><span class="line"><span class="cl">├── commands/           # Manejadores de comandos IPC
+</span></span><span class="line"><span class="cl">│   ├── audio.rs        # Control de audio (volumen, mute, dispositivos)
+</span></span><span class="line"><span class="cl">│   ├── bluetooth.rs    # Control de bluetooth
+</span></span><span class="line"><span class="cl">│   ├── network.rs      # Control de red
+</span></span><span class="line"><span class="cl">│   ├── brightness.rs   # Control de brillo
+</span></span><span class="line"><span class="cl">│   ├── notifications.rs # Sistema de notificaciones
+</span></span><span class="line"><span class="cl">│   ├── shortcuts.rs    # Gestión de atajos de teclado
+</span></span><span class="line"><span class="cl">│   ├── search.rs       # Búsqueda global de aplicaciones
+</span></span><span class="line"><span class="cl">│   ├── system_config.rs # Configuración del sistema (tema, iconos)
+</span></span><span class="line"><span class="cl">│   ├── theme.rs        # Temas GTK, iconos, cursores
+</span></span><span class="line"><span class="cl">│   └── session.rs      # Logout, shutdown, reboot, suspend
+</span></span><span class="line"><span class="cl">├── window_manager/     # Gestión de ventanas Tauri
+</span></span><span class="line"><span class="cl">├── monitor_manager.rs  # Gestión de monitores
+</span></span><span class="line"><span class="cl">├── dbus_service.rs     # Integración D-Bus
+</span></span><span class="line"><span class="cl">├── audio.rs           # Módulo de audio (backend)
+</span></span><span class="line"><span class="cl">├── brightness.rs      # Módulo de brillo (backend)
+</span></span><span class="line"><span class="cl">├── notifications.rs   # Sistema de notificaciones (backend)
+</span></span><span class="line"><span class="cl">├── tray/              # Implementación de tray icons
+</span></span><span class="line"><span class="cl">├── utils/             # Funciones de utilidad
+</span></span><span class="line"><span class="cl">│   ├── shortcuts/     # Sistema de atajos
+</span></span><span class="line"><span class="cl">│   └── search/        # Motor de búsqueda
+</span></span><span class="line"><span class="cl">└── structs.rs         # Estructuras compartidas
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Responsabilidades del Backend</strong>:</p>
+<ul>
+<li>Ejecutar comandos del sistema vía shell o APIs nativas</li>
+<li>Comunicar con servicios del sistema vía D-Bus</li>
+<li>Gestionar eventos de hardware y notificaciones</li>
+<li>Aplicar configuración del sistema (gsettings, archivos de config)</li>
+<li>Manejar las ventanas de Tauri</li>
+</ul>
+<h3 id="4-capa-de-integración-del-sistema-d-bus">4. Capa de Integración del Sistema (D-Bus)</h3>
+<p><strong>Tecnología</strong>: Zbus (Rust) + D-Bus</p>
+<p>Interfaz estándar de Linux para:</p>
+<ul>
+<li>Control de audio (PulseAudio/PipeWire)</li>
+<li>Bluetooth (BlueZ)</li>
+<li>Red (NetworkManager)</li>
+<li>Notificaciones (Freedesktop)</li>
+<li>Energía (UPower)</li>
+</ul>
+<p>Ver <a href="dbus.md" >
+  
+  D-Bus
+</a> para más detalles.</p>
+<h3 id="5-capa-de-hardwareso">5. Capa de Hardware/SO</h3>
+<p><strong>Componentes del Sistema</strong>:</p>
+<ul>
+<li>PulseAudio / PipeWire (Audio)</li>
+<li>BlueZ (Bluetooth)</li>
+<li>NetworkManager (Red)</li>
+<li>X11 / Wayland (Ventanas)</li>
+<li>Compositor (Efectos visuales)</li>
+</ul>
+<blockquote>
+<p>El soporte actual sobre Wayland es <strong>EXPERIMENTAL</strong></p>
+</blockquote>
+<h2 id="flujo-de-datos-típico">Flujo de Datos Típico</h2>
+<h3 id="ejemplo-cambiar-volumen">Ejemplo: Cambiar Volumen</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. Usuario: Mueve slider de volumen en Control Center
+</span></span><span class="line"><span class="cl">2. Vue Component: emit(&#39;volume-changed&#39;, newValue)
+</span></span><span class="line"><span class="cl">3. Pinia Store: actualiza estado local
+</span></span><span class="line"><span class="cl">4. Backend Handler: invoke(&#39;set_audio_volume&#39;, {level: 50})
+</span></span><span class="line"><span class="cl">5. IPC Bridge: Tauri envía comando al backend
+</span></span><span class="line"><span class="cl">6. Backend Rust: 
+</span></span><span class="line"><span class="cl">   - Conecta a D-Bus (PulseAudio/PipeWire)
+</span></span><span class="line"><span class="cl">   - Ejecuta: pactl set-sink-volume @DEFAULT_SINK@ 50%
+</span></span><span class="line"><span class="cl">7. Sistema OS: Cambia volumen real
+</span></span><span class="line"><span class="cl">8. D-Bus Event: Emite evento de cambio
+</span></span><span class="line"><span class="cl">9. Backend escucha: Recibe confirmación
+</span></span><span class="line"><span class="cl">10. Backend emite: event(&#39;audio_volume_changed&#39;, newValue)
+</span></span><span class="line"><span class="cl">11. Vue escucha: Recibe evento
+</span></span><span class="line"><span class="cl">12. Vue actualiza: Refleja el cambio visual
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="estructura-de-directorios">Estructura de Directorios</h2>
+<h3 id="frontend-src">Frontend (<code>src/</code>)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">src</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">App</span><span class="o">.</span><span class="n">vue</span>                    <span class="c1"># Componente raíz</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">main</span><span class="o">.</span><span class="n">ts</span>                   <span class="c1"># Entry point</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">style</span><span class="o">.</span><span class="n">css</span>                 <span class="c1"># Estilos globales</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">vite</span><span class="o">-</span><span class="n">env</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">ts</span>            <span class="c1"># Tipos Vite</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">assets</span><span class="o">/</span>                   <span class="c1"># Recursos estáticos</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">img</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">vectors</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">components</span><span class="o">/</span>              <span class="c1"># Componentes reutilizables</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">SearchMenuComponent</span><span class="o">.</span><span class="n">vue</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">areas</span><span class="o">/</span>              <span class="c1"># Áreas grandes</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">panel</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">control</span><span class="o">-</span><span class="n">center</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">menu</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">buttons</span><span class="o">/</span>            <span class="c1"># Componentes de botones</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">cards</span><span class="o">/</span>              <span class="c1"># Componentes de tarjetas</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">controls</span><span class="o">/</span>           <span class="c1"># Controles interactivos</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">icon</span><span class="o">/</span>              <span class="c1"># Iconos</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">widgets</span><span class="o">/</span>           <span class="c1"># Widgets reutilizables</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">interfaces</span><span class="o">/</span>             <span class="c1"># Interfaces TypeScript</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">battery</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">notifications</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">tray</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">layouts</span><span class="o">/</span>               <span class="c1"># Layouts de página</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">ConfigAppLayout</span><span class="o">.</span><span class="n">vue</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">routes</span><span class="o">/</span>               <span class="c1"># Enrutamiento Vue Router</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">index</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">tools</span><span class="o">/</span>                <span class="c1"># Controladores (lógica)</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">battery</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">bluetooth</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">network</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">tray</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">types</span><span class="o">/</span>               <span class="c1"># Tipos TypeScript</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">vue</span><span class="o">-</span><span class="n">libvasak</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">ts</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">views</span><span class="o">/</span>              <span class="c1"># Vistas/Páginas principales</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">ControlCenterView</span><span class="o">.</span><span class="n">vue</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">DesktopView</span><span class="o">.</span><span class="n">vue</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">MenuView</span><span class="o">.</span><span class="n">vue</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">PanelView</span><span class="o">.</span><span class="n">vue</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">applets</span><span class="o">/</span>       <span class="c1"># Vistas de pequeñas app</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="n">apps</span><span class="o">/</span>          <span class="c1"># Vistas de apps</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="backend-src-taurisrc">Backend (<code>src-tauri/src/</code>)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">src</span><span class="o">-</span><span class="n">tauri</span><span class="o">/</span><span class="n">src</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">lib</span><span class="o">.</span><span class="n">rs</span>                    <span class="c1"># Módulos principales</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">main</span><span class="o">.</span><span class="n">rs</span>                   <span class="c1"># Entry point</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">error</span><span class="o">.</span><span class="n">rs</span>                 <span class="c1"># Manejador de errores</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">structs</span><span class="o">.</span><span class="n">rs</span>               <span class="c1"># Estructuras compartidas</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">constants</span><span class="o">.</span><span class="n">rs</span>             <span class="c1"># Constantes</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">commands</span><span class="o">/</span>                <span class="c1"># Comandos IPC</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">audio_commands</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">bluetooth_commands</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">network_commands</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">window_manager</span><span class="o">/</span>          <span class="c1"># Gestión de ventanas</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">mod</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">window_controller</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">monitor_handler</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">audio</span><span class="o">.</span><span class="n">rs</span>                <span class="c1"># Control de audio</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">brightness</span><span class="o">.</span><span class="n">rs</span>           <span class="c1"># Control de brillo</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">bluetooth</span><span class="o">.</span><span class="n">rs</span>            <span class="c1"># Bluetooth control</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">network</span><span class="o">.</span><span class="n">rs</span>              <span class="c1"># Network control</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">notifications</span><span class="o">.</span><span class="n">rs</span>        <span class="c1"># Sistema notificaciones</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">dbus_service</span><span class="o">.</span><span class="n">rs</span>         <span class="c1"># D-Bus integration</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">eventloops</span><span class="o">.</span><span class="n">rs</span>           <span class="c1"># Bucles de eventos</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">platform_shortcuts</span><span class="o">.</span><span class="n">rs</span>   <span class="c1"># Atajos de teclado</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">menu_manager</span><span class="o">.</span><span class="n">rs</span>         <span class="c1"># Gestión de menús</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">tray</span><span class="o">/</span>                   <span class="c1"># Bandeja del sistema</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">mod</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">tray_icon</span><span class="o">.</span><span class="n">rs</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">applets</span><span class="o">/</span>                <span class="c1"># Mini-aplicaciones</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">utils</span><span class="o">/</span>                  <span class="c1"># Funciones de utilidad</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">windows_apps</span><span class="o">/</span>          <span class="c1"># Manejo de aplicaciones</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="patrones-de-diseño">Patrones de Diseño</h2>
+<h3 id="1-mvc-model-view-controller">1. MVC (Model-View-Controller)</h3>
+<p><strong>Frontend</strong>:</p>
+<ul>
+<li><strong>Model</strong>: Pinia stores</li>
+<li><strong>View</strong>: Vue components</li>
+<li><strong>Controller</strong>: Métodos en componentes</li>
+</ul>
+<p><strong>Backend</strong>:</p>
+<ul>
+<li><strong>Model</strong>: Estructuras en <code>structs.rs</code></li>
+<li><strong>Controller</strong>: Funciones en <code>commands/</code></li>
+<li><strong>Business Logic</strong>: Módulos especializados</li>
+</ul>
+<h3 id="2-pub-sub-publicar-suscribirse">2. Pub-Sub (Publicar-Suscribirse)</h3>
+<p>Para eventos del sistema:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Backend: Emitir evento
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">window</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#34;audio_volume_changed&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">level</span>: <span class="mi">50</span><span class="p">})</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// Frontend: Escuchar evento
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">onMounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">listen</span><span class="p">(</span><span class="s1">&#39;audio_volume_changed&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">state</span><span class="p">.</span><span class="nx">volume</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">level</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-service-layer">3. Service Layer</h3>
+<p>Cada funcionalidad tiene su capa de servicio:</p>
+<ul>
+<li><code>audio.rs</code> - Servicio de audio</li>
+<li><code>network.rs</code> - Servicio de red</li>
+<li><code>bluetooth.rs</code> - Servicio de Bluetooth</li>
+</ul>
+<h2 id="flujos-de-información">Flujos de Información</h2>
+<h3 id="comando-frontend--backend">Comando (Frontend → Backend)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Frontend
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">invoke</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@tauri-apps/api/tauri&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;set_brightness&#39;</span><span class="p">,</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">level</span>: <span class="kt">75</span> 
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Backend
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">set_brightness</span><span class="p">(</span><span class="n">level</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">brightness</span>::<span class="n">set_level</span><span class="p">(</span><span class="n">level</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="evento-backend--frontend">Evento (Backend → Frontend)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Backend
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">window</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#34;brightness_changed&#34;</span><span class="p">,</span><span class="w"> </span><span class="fm">json!</span><span class="p">({</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;level&#34;</span>: <span class="mi">75</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Frontend
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">listen</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@tauri-apps/api/event&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">listen</span><span class="p">(</span><span class="s1">&#39;brightness_changed&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Brillo:&#39;</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">level</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuración-y-manifiestos">Configuración y Manifiestos</h2>
+<h3 id="tauriconfjson"><code>tauri.conf.json</code></h3>
+<p>Define permisos y configuración de Tauri:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;beforeDevCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;bun run dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;devUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;http://localhost:5173&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;app&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;windows&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Vasak Desktop&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;main&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;height&#34;</span><span class="p">:</span> <span class="mi">768</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cargotoml"><code>Cargo.toml</code></h3>
+<p>Dependencias y configuración de Rust.</p>
+<h3 id="tsconfigjson"><code>tsconfig.json</code></h3>
+<p>Configuración de TypeScript.</p>
+<h3 id="viteconfigts"><code>vite.config.ts</code></h3>
+<p>Configuración de build del frontend.</p>
+<h2 id="siguientes-pasos">Siguientes Pasos</h2>
+<ul>
+<li><a href="dbus.md" >
+  
+  D-Bus
+</a> - Sistema de comunicación</li>
+<li><a href="carpetas.md" >
+  
+  Sistema de Carpetas
+</a> - Detalles de estructura</li>
+<li><a href="comandos-rust.md" >
+  
+  Comandos Rust
+</a> - Desarrollo backend</li>
+<li><a href="componentes-vue.md" >
+  
+  Componentes Vue
+</a> - Desarrollo frontend</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <ul>
+      <li><em class="fas fa-calendar"></em> <time datetime='Lunes 1 de Enero de 1'>Lunes 1 de Enero de 1</time></li>
+      <li><em class="fas fa-clock"></em> 9m</li>
+      <li><em class="fas fa-pen"></em> 1734</li>
+    </ul>
+  </div>
+</div><div class="px-8 mb-3">
+  <div
+    class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#qué-es-vasak-desktop">¿Qué es Vasak Desktop?</a></li>
+    <li><a href="#arquitectura-de-alto-nivel">Arquitectura de Alto Nivel</a></li>
+    <li><a href="#ventanas-de-la-aplicación">Ventanas de la Aplicación</a>
+      <ol>
+        <li><a href="#ventana-1-panel-top-bar">Ventana 1: Panel (Top Bar)</a></li>
+        <li><a href="#ventana-2-desktop-background">Ventana 2: Desktop (Background)</a></li>
+      </ol>
+    </li>
+    <li><a href="#capas-de-la-aplicación">Capas de la Aplicación</a>
+      <ol>
+        <li><a href="#1-capa-de-presentación-frontend">1. Capa de Presentación (Frontend)</a></li>
+        <li><a href="#2-capa-de-comunicación-ipc">2. Capa de Comunicación (IPC)</a></li>
+        <li><a href="#3-capa-de-lógica-backend">3. Capa de Lógica (Backend)</a></li>
+        <li><a href="#4-capa-de-integración-del-sistema-d-bus">4. Capa de Integración del Sistema (D-Bus)</a></li>
+        <li><a href="#5-capa-de-hardwareso">5. Capa de Hardware/SO</a></li>
+      </ol>
+    </li>
+    <li><a href="#flujo-de-datos-típico">Flujo de Datos Típico</a>
+      <ol>
+        <li><a href="#ejemplo-cambiar-volumen">Ejemplo: Cambiar Volumen</a></li>
+      </ol>
+    </li>
+    <li><a href="#estructura-de-directorios">Estructura de Directorios</a>
+      <ol>
+        <li><a href="#frontend-src">Frontend (<code>src/</code>)</a></li>
+        <li><a href="#backend-src-taurisrc">Backend (<code>src-tauri/src/</code>)</a></li>
+      </ol>
+    </li>
+    <li><a href="#patrones-de-diseño">Patrones de Diseño</a>
+      <ol>
+        <li><a href="#1-mvc-model-view-controller">1. MVC (Model-View-Controller)</a></li>
+        <li><a href="#2-pub-sub-publicar-suscribirse">2. Pub-Sub (Publicar-Suscribirse)</a></li>
+        <li><a href="#3-service-layer">3. Service Layer</a></li>
+      </ol>
+    </li>
+    <li><a href="#flujos-de-información">Flujos de Información</a>
+      <ol>
+        <li><a href="#comando-frontend--backend">Comando (Frontend → Backend)</a></li>
+        <li><a href="#evento-backend--frontend">Evento (Backend → Frontend)</a></li>
+      </ol>
+    </li>
+    <li><a href="#configuración-y-manifiestos">Configuración y Manifiestos</a>
+      <ol>
+        <li><a href="#tauriconfjson"><code>tauri.conf.json</code></a></li>
+        <li><a href="#cargotoml"><code>Cargo.toml</code></a></li>
+        <li><a href="#tsconfigjson"><code>tsconfig.json</code></a></li>
+        <li><a href="#viteconfigts"><code>vite.config.ts</code></a></li>
+      </ol>
+    </li>
+    <li><a href="#siguientes-pasos">Siguientes Pasos</a></li>
+  </ol>
+</nav>
+  </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="http://localhost:1313/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="http://localhost:1313/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="http://localhost:1313/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="http://localhost:1313/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="http://localhost:1313/js/bundle.min.126d497b047e43c21a1141f8038e985c164038a59ef1dc07130dc5e924ef780a.js"></script></body>
+
+</html>

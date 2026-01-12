@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.6239bca6c263d06a4c150bda6b7f81ba964d9ab144435944cde2d7c1d07b8d33.css" integrity="sha256-Yjm8psJj0GpMFQvaa3&#43;BupZNmrFEQ1lEzeLXwdB7jTM=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/devs/vasak-desktop/setup-proyecto/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Setup del Proyecto | vasak-desktop" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Setup del Proyecto - Vasak Desktop
+Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.
+Requisitos Previos
+1. Requisitos del Sistema
+
+OS: Linux (Fedora, Ubuntu, Debian, Arch, etc.)
+RAM: Mínimo 4GB (8GB recomendado)
+Almacenamiento: 5GB espacio libre
+Internet: Conexión para descargar dependencias
+
+2. Herramientas Necesarias
+Bun (Frontend)
+
+
+1
+
+
+curl -fsSL https://bun.sh/install | bash
+
+
+
+Mas informacion sobre la instalacion de Bun en 
+  &nbsp;
+  
+  su sitio web
+ Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/devs/vasak-desktop/setup-proyecto/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white dark:bg-gray-800 z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+      <a href="https://os.vasak.net.ar/docs"  title="Documentación"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+          <a href="https://os.vasak.net.ar/docs" 
+            title="Documentación"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  <div class="flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">Setup del Proyecto | vasak-desktop</h1>
+          <h1 id="setup-del-proyecto---vasak-desktop">Setup del Proyecto - Vasak Desktop</h1>
+<p>Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.</p>
+<h2 id="requisitos-previos">Requisitos Previos</h2>
+<h3 id="1-requisitos-del-sistema">1. Requisitos del Sistema</h3>
+<ul>
+<li><strong>OS</strong>: Linux (Fedora, Ubuntu, Debian, Arch, etc.)</li>
+<li><strong>RAM</strong>: Mínimo 4GB (8GB recomendado)</li>
+<li><strong>Almacenamiento</strong>: 5GB espacio libre</li>
+<li><strong>Internet</strong>: Conexión para descargar dependencias</li>
+</ul>
+<h3 id="2-herramientas-necesarias">2. Herramientas Necesarias</h3>
+<h4 id="bun-frontend">Bun (Frontend)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -fsSL https://bun.sh/install <span class="p">|</span> bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Mas informacion sobre la instalacion de Bun en <a href="https://bun.com/docs/installation"  target="_blank" rel="noopener noreferrer" >
+  <i class="fas fa-up-right-from-square"></i>&nbsp;
+  
+  su sitio web
+</a></p>
+</blockquote>
+<h4 id="rust-backend">Rust (Backend)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Instalar Rust (si aún no lo tienes)</span>
+</span></span><span class="line"><span class="cl">curl --proto <span class="s1">&#39;=https&#39;</span> --tlsv1.2 -sSf https://sh.rustup.rs <span class="p">|</span> sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Actualizar a la versión mínima requerida</span>
+</span></span><span class="line"><span class="cl">rustup update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verificar versión (debe ser 1.70+)</span>
+</span></span><span class="line"><span class="cl">rustc --version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="tauri-cli">Tauri CLI</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Después de instalar Rust</span>
+</span></span><span class="line"><span class="cl">cargo install tauri-cli
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O usar bun</span>
+</span></span><span class="line"><span class="cl">bun add -g @tauri-apps/cli
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-dependencias-del-sistema">3. Dependencias del Sistema</h3>
+<h4 id="fedora--centos--rhel">Fedora / CentOS / RHEL</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo dnf groupinstall <span class="s2">&#34;Development Tools&#34;</span>
+</span></span><span class="line"><span class="cl">sudo dnf install gtk3-devel glib2-devel cairo-devel dbus-devel libxkbcommon-devel
+</span></span><span class="line"><span class="cl">sudo dnf install libwayland-devel libxcb-devel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Para desarrollo de Wayland</span>
+</span></span><span class="line"><span class="cl">sudo dnf install wayland-devel wayland-protocols-devel
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="ubuntu--debian">Ubuntu / Debian</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install build-essential
+</span></span><span class="line"><span class="cl">sudo apt install libgtk-3-dev libglib2.0-dev libcairo-dev libdbus-1-dev libxkbcommon-dev
+</span></span><span class="line"><span class="cl">sudo apt install libwayland-dev libxcb-xfixes0-dev libxcb-shape0-dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Para desarrollo de Wayland</span>
+</span></span><span class="line"><span class="cl">sudo apt install wayland-protocols libwayland-dev
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="arch">Arch</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S base-devel
+</span></span><span class="line"><span class="cl">sudo pacman -S gtk3 glib2 cairo dbus libxkbcommon
+</span></span><span class="line"><span class="cl">sudo pacman -S wayland wayland-protocols libxcb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-herramientas-opcionales-recomendadas">4. Herramientas Opcionales (Recomendadas)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Git</span>
+</span></span><span class="line"><span class="cl">sudo dnf install git  <span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl">sudo apt-get install git  <span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Editor/IDE</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># VS Code</span>
+</span></span><span class="line"><span class="cl">sudo dnf install code  <span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># O descarga desde https://code.visualstudio.com</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Herramientas de debug</span>
+</span></span><span class="line"><span class="cl">sudo dnf install gdb valgrind  <span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl">sudo apt-get install gdb valgrind  <span class="c1"># Ubuntu/Debian</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="clonar-el-repositorio">Clonar el Repositorio</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Clonar el repositorio</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/Vasak-OS/vasak-desktop.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Crear una rama para desarrollo</span>
+</span></span><span class="line"><span class="cl">git checkout -b feature/mi-feature
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="instalar-dependencias">Instalar Dependencias</h2>
+<h3 id="frontend-javascripttypescript">Frontend (JavaScript/TypeScript)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bun install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="backend-rust">Backend (Rust)</h3>
+<p>Las dependencias de Rust se manejan automáticamente con Cargo.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verificar que se descargan correctamente</span>
+</span></span><span class="line"><span class="cl">cargo check
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Descargar e indexar dependencias</span>
+</span></span><span class="line"><span class="cl">cargo build --release  <span class="c1"># (Esto toma tiempo la primera vez)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="verificar-instalación">Verificar Instalación</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verificar Bun/Node</span>
+</span></span><span class="line"><span class="cl">bun --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verificar Rust</span>
+</span></span><span class="line"><span class="cl">rustc --version
+</span></span><span class="line"><span class="cl">cargo --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verificar Tauri CLI</span>
+</span></span><span class="line"><span class="cl">cargo tauri --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verificar herramientas del sistema</span>
+</span></span><span class="line"><span class="cl">pkg-config --version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="estructura-inicial">Estructura Inicial</h2>
+<p>Después de clonar, deberías tener:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vasak-desktop/
+</span></span><span class="line"><span class="cl">├── src/                    # Frontend (Vue.js)
+</span></span><span class="line"><span class="cl">│   ├── components/        # Componentes Vue
+</span></span><span class="line"><span class="cl">│   ├── views/            # Vistas/Páginas
+</span></span><span class="line"><span class="cl">│   ├── App.vue           # Componente raíz
+</span></span><span class="line"><span class="cl">│   └── main.ts           # Punto de entrada
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── src-tauri/            # Backend (Rust)
+</span></span><span class="line"><span class="cl">│   ├── src/              # Código Rust
+</span></span><span class="line"><span class="cl">│   │   ├── lib.rs       # Módulos del backend
+</span></span><span class="line"><span class="cl">│   │   ├── main.rs      # Punto de entrada
+</span></span><span class="line"><span class="cl">│   │   ├── commands/    # Comandos IPC
+</span></span><span class="line"><span class="cl">│   │   └── ...          # Otros módulos
+</span></span><span class="line"><span class="cl">│   └── Cargo.toml        # Dependencias Rust
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── package.json          # Dependencias Frontend
+</span></span><span class="line"><span class="cl">├── tsconfig.json         # Configuración TypeScript
+</span></span><span class="line"><span class="cl">├── vite.config.ts        # Configuración Vite
+</span></span><span class="line"><span class="cl">└── tauri.conf.json       # Configuración Tauri
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="verificar-que-todo-está-correcto">Verificar que Todo Está Correcto</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Comprobar que todo compila correctamente</span>
+</span></span><span class="line"><span class="cl">bun run tauri build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si finaliza sin errores, ¡estás listo!</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="próximos-pasos">Próximos Pasos</h2>
+<ol>
+<li><strong>Ejecutar en desarrollo</strong>: Ver <a href="compilacion.md" >
+  
+  Compilación
+</a></li>
+<li><strong>Entender arquitectura</strong>: Ver <a href="arquitectura.md" >
+  
+  Arquitectura General
+</a></li>
+<li><strong>Conocer estructura</strong>: Ver <a href="carpetas.md" >
+  
+  Sistema de Carpetas
+</a></li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="error-rust-toolchain-not-found">Error: &ldquo;Rust toolchain not found&rdquo;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Asegúrate de que Rust está en tu PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> <span class="nv">$HOME</span>/.cargo/env
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica nuevamente</span>
+</span></span><span class="line"><span class="cl">rustc --version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="error-gtk-development-libraries-not-found">Error: &ldquo;GTK development libraries not found&rdquo;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl">sudo dnf install gtk3-devel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">sudo apt-get install libgtk-3-dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arch</span>
+</span></span><span class="line"><span class="cl">sudo pacman -S gtk3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="error-d-bus-development-libraries-not-found">Error: &ldquo;D-Bus development libraries not found&rdquo;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl">sudo dnf install dbus-devel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">sudo apt-get install libdbus-1-dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arch</span>
+</span></span><span class="line"><span class="cl">sudo pacman -S dbus
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="bunnpm-no-instala-paquetes">Bun/npm no instala paquetes</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Limpia caché</span>
+</span></span><span class="line"><span class="cl">bun pm cache rm --all  <span class="c1"># Para Bun</span>
+</span></span><span class="line"><span class="cl">npm cache clean --force  <span class="c1"># Para npm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Intenta nuevamente</span>
+</span></span><span class="line"><span class="cl">bun install  <span class="c1"># o npm install</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cargo-tarda-mucho-en-compilar">Cargo tarda mucho en compilar</h3>
+<p>Esto es normal la primera vez (puede tomar 10-30 minutos).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Para compilaciones más rápidas, usa mold si está disponible</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl">sudo dnf install mold
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Configura Cargo para usar mold</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Edita ~/.cargo/config.toml</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>build<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">rustflags</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;-C&#34;</span>, <span class="s2">&#34;link-arg=-fuse-ld=mold&#34;</span><span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuración-recomendada-del-ide">Configuración Recomendada del IDE</h2>
+<p>Ver <a href="setup-proyecto.md" >
+  
+  Iniciar Proyecto
+</a> en la sección de IDE.</p>
+<h2 id="verificación-final">Verificación Final</h2>
+<p>Ejecuta esto para confirmar que todo está correcto:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt; &#39;EOF&#39; &gt; verify-setup.sh
+</span></span></span><span class="line"><span class="cl"><span class="s">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;=== Verificando Setup de Vasak Desktop ===&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">echo
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;✓ Node/Bun:&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">bun --version 2&gt;/dev/null || npm --version
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;✓ Rust:&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">rustc --version
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;✓ Cargo:&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">cargo --version
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;✓ Tauri CLI:&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">cargo tauri --version
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;✓ TypeScript:&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">npx tsc --version
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;=== Verificando compilación ===&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;Frontend...&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">bun run build --dry-run 2&gt;&amp;1 | grep -q &#34;error&#34; &amp;&amp; echo &#34;❌ Error en Frontend&#34; || echo &#34;✓ Frontend OK&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;Backend...&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">cargo check 2&gt;&amp;1 | grep -q &#34;error&#34; &amp;&amp; echo &#34;❌ Error en Backend&#34; || echo &#34;✓ Backend OK&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">echo
+</span></span></span><span class="line"><span class="cl"><span class="s">echo &#34;=== Setup completado ===&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod +x verify-setup.sh
+</span></span><span class="line"><span class="cl">./verify-setup.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="siguientes-pasos">Siguientes Pasos</h2>
+<ul>
+<li><a href="compilacion.md" >
+  
+  Compilación
+</a> - Cómo ejecutar en desarrollo</li>
+<li><a href="dependencias.md" >
+  
+  Dependencias
+</a> - Gestionar dependencias</li>
+<li><a href="arquitectura.md" >
+  
+  Arquitectura General
+</a> - Entender la estructura</li>
+</ul>
+
+        </div>
+
+        
+        <div class="flex justify-between mt-8 gap-4">
+          
+          
+          
+          
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+
+          
+          
+            <div class="flex-1"></div>
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/compilacion/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors text-right">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
+              <div class="font-semibold">Compilacion| vasak-desktop</div>
+            </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div
+    class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#requisitos-previos">Requisitos Previos</a>
+      <ol>
+        <li><a href="#1-requisitos-del-sistema">1. Requisitos del Sistema</a></li>
+        <li><a href="#2-herramientas-necesarias">2. Herramientas Necesarias</a>
+          <ol>
+            <li><a href="#bun-frontend">Bun (Frontend)</a></li>
+            <li><a href="#rust-backend">Rust (Backend)</a></li>
+            <li><a href="#tauri-cli">Tauri CLI</a></li>
+          </ol>
+        </li>
+        <li><a href="#3-dependencias-del-sistema">3. Dependencias del Sistema</a>
+          <ol>
+            <li><a href="#fedora--centos--rhel">Fedora / CentOS / RHEL</a></li>
+            <li><a href="#ubuntu--debian">Ubuntu / Debian</a></li>
+            <li><a href="#arch">Arch</a></li>
+          </ol>
+        </li>
+        <li><a href="#4-herramientas-opcionales-recomendadas">4. Herramientas Opcionales (Recomendadas)</a></li>
+      </ol>
+    </li>
+    <li><a href="#clonar-el-repositorio">Clonar el Repositorio</a></li>
+    <li><a href="#instalar-dependencias">Instalar Dependencias</a>
+      <ol>
+        <li><a href="#frontend-javascripttypescript">Frontend (JavaScript/TypeScript)</a></li>
+        <li><a href="#backend-rust">Backend (Rust)</a></li>
+      </ol>
+    </li>
+    <li><a href="#verificar-instalación">Verificar Instalación</a></li>
+    <li><a href="#estructura-inicial">Estructura Inicial</a></li>
+    <li><a href="#verificar-que-todo-está-correcto">Verificar que Todo Está Correcto</a></li>
+    <li><a href="#próximos-pasos">Próximos Pasos</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ol>
+        <li><a href="#error-rust-toolchain-not-found">Error: &ldquo;Rust toolchain not found&rdquo;</a></li>
+        <li><a href="#error-gtk-development-libraries-not-found">Error: &ldquo;GTK development libraries not found&rdquo;</a></li>
+        <li><a href="#error-d-bus-development-libraries-not-found">Error: &ldquo;D-Bus development libraries not found&rdquo;</a></li>
+        <li><a href="#bunnpm-no-instala-paquetes">Bun/npm no instala paquetes</a></li>
+        <li><a href="#cargo-tarda-mucho-en-compilar">Cargo tarda mucho en compilar</a></li>
+      </ol>
+    </li>
+    <li><a href="#configuración-recomendada-del-ide">Configuración Recomendada del IDE</a></li>
+    <li><a href="#verificación-final">Verificación Final</a></li>
+    <li><a href="#siguientes-pasos">Siguientes Pasos</a></li>
+  </ol>
+</nav>
+  </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.126d497b047e43c21a1141f8038e985c164038a59ef1dc07130dc5e924ef780a.js"></script></body>
+
+</html>

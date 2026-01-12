@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.6239bca6c263d06a4c150bda6b7f81ba964d9ab144435944cde2d7c1d07b8d33.css" integrity="sha256-Yjm8psJj0GpMFQvaa3&#43;BupZNmrFEQ1lEzeLXwdB7jTM=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/user/reporte-errores/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Como reportar errores" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Antes de Reportar
+Antes de reportar un error, verifica si ya ha sido reportado:
+
+Visita 
+  &nbsp;
+  
+  GitHub Issues de Vasak Desktop
+
+Usa la búsqueda para encontrar problemas similares
+Si encuentras un issue parecido, añade un comentario con tu información
+
+Información Necesaria para un Buen Reporte
+Un buen reporte de error debe incluir: Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/user/reporte-errores/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white dark:bg-gray-800 z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+      <a href="https://os.vasak.net.ar/docs"  title="Documentación"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+          <a href="https://os.vasak.net.ar/docs" 
+            title="Documentación"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  <div class="flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">Como reportar errores</h1>
+          <h2 id="antes-de-reportar">Antes de Reportar</h2>
+<p>Antes de reportar un error, verifica si ya ha sido reportado:</p>
+<ol>
+<li>Visita <a href="https://github.com/Vasak-OS/vasak-desktop/issues"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  GitHub Issues de Vasak Desktop
+</a></li>
+<li>Usa la búsqueda para encontrar problemas similares</li>
+<li>Si encuentras un issue parecido, añade un comentario con tu información</li>
+</ol>
+<h2 id="información-necesaria-para-un-buen-reporte">Información Necesaria para un Buen Reporte</h2>
+<p>Un buen reporte de error debe incluir:</p>
+<h3 id="1-descripción-del-problema">1. Descripción del Problema</h3>
+<ul>
+<li>Qué intentabas hacer cuando ocurrió el error</li>
+<li>Qué esperabas que sucediera</li>
+<li>Qué sucedió realmente</li>
+<li>¿Se puede reproducir? (Sí/No/A veces)</li>
+</ul>
+<h3 id="2-información-del-sistema">2. Información del Sistema</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Copia y pega el resultado de estos comandos</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== SISTEMA ===&#34;</span> 
+</span></span><span class="line"><span class="cl">uname -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== DISTRIBUCIÓN ===&#34;</span>
+</span></span><span class="line"><span class="cl">cat /etc/os-release <span class="p">|</span> grep PRETTY_NAME
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== VERSIÓN DE VASAK DESKTOP ===&#34;</span>
+</span></span><span class="line"><span class="cl">vasak-desktop --version 2&gt;/dev/null <span class="o">||</span> <span class="nb">echo</span> <span class="s2">&#34;No instalada globalmente&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== GESTOR DE SESIÓN ===&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$XDG_SESSION_TYPE</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== PANTALLAS ===&#34;</span>
+</span></span><span class="line"><span class="cl">xrandr --query 2&gt;/dev/null <span class="p">|</span> grep connected <span class="o">||</span> wayland-info 2&gt;/dev/null <span class="p">|</span> head -20
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-pasos-para-reproducir">3. Pasos para Reproducir</h3>
+<p>Lista los pasos exactos para reproducir el error:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. Abre la aplicación
+</span></span><span class="line"><span class="cl">2. Ve a [Menú/Opción]
+</span></span><span class="line"><span class="cl">3. Haz clic en [Botón]
+</span></span><span class="line"><span class="cl">4. El error ocurre aquí
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-logs-relevantes">4. Logs Relevantes</h3>
+<p>Recopila los logs siguiendo esta guía:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ejecutar la aplicación con logs detallados</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee ~/vasak-debug-<span class="k">$(</span>date +%Y%m%d-%H%M%S<span class="k">)</span>.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reproducer el error, luego captura el archivo de log</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Incluye tanto:</p>
+<ul>
+<li>El archivo de log generado</li>
+<li>La salida de la terminal donde ejecutaste el comando</li>
+</ul>
+<h3 id="5-adjuntos-útiles">5. Adjuntos Útiles</h3>
+<p>Si es relevante, incluye:</p>
+<ul>
+<li><strong>Captura de pantalla</strong> - Muestra el estado visual del error</li>
+<li><strong>Video</strong> - Si es difícil de reproducir en texto</li>
+<li><strong>Archivo de configuración</strong> - Si el error está relacionado con configuración
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat ~/.config/vasak/system_config.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="plantilla-para-reporte">Plantilla para Reporte</h2>
+<p>Usa esta plantilla al crear un issue:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Descripción del Problema
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>[Describe aquí qué está mal]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Pasos para Reproducir
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span><span class="k">1.</span> [Primer paso]
+</span></span><span class="line"><span class="cl"><span class="k">2.</span> [Segundo paso]
+</span></span><span class="line"><span class="cl"><span class="k">3.</span> [Paso donde ocurre el error]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Comportamiento Esperado
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>[Qué debería suceder]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Comportamiento Actual
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>[Qué sucede realmente]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Información del Sistema
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span><span class="k">-</span> OS: [ej: Linux - Fedora 40]
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Versión Vasak Desktop: [ej: 0.5.2]
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Tipo de Sesión: [X11 / Wayland]
+</span></span><span class="line"><span class="cl"><span class="k">-</span> GPU: [ej: NVIDIA / AMD / Intel]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Logs
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>[Adjunta los logs relevantes aquí]
+</span></span><span class="line"><span class="cl">\`\`\`
+</span></span><span class="line"><span class="cl">[Contenido del log]
+</span></span><span class="line"><span class="cl">\`\`\`
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Adjuntos
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span><span class="k">- [ ]</span> Captura de pantalla
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Video
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Archivo de configuración
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="crear-un-issue-en-github">Crear un Issue en GitHub</h2>
+<h3 id="paso-1-reúne-tu-información">Paso 1: Reúne tu Información</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Crea un archivo con toda la información</span>
+</span></span><span class="line"><span class="cl">cat &gt; ~/vasak-reporte.md <span class="s">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">## Descripción
+</span></span></span><span class="line"><span class="cl"><span class="s">[Tu descripción aquí]
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">## Sistema
+</span></span></span><span class="line"><span class="cl"><span class="s">$(uname -a)
+</span></span></span><span class="line"><span class="cl"><span class="s">$(cat /etc/os-release | grep PRETTY_NAME)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">## Versión
+</span></span></span><span class="line"><span class="cl"><span class="s">$(vasak-desktop --version 2&gt;/dev/null || echo &#34;Desconocida&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">## Logs
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="paso-2-ve-a-github">Paso 2: Ve a GitHub</h3>
+<ol>
+<li>Abre <a href="https://github.com/Vasak-OS/vasak-desktop/issues/new"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/vasak-desktop/issues/new
+</a></li>
+<li>Haz clic en &ldquo;New Issue&rdquo;</li>
+<li>Selecciona &ldquo;Bug Report&rdquo; (si hay plantillas)</li>
+<li>Rellena la información</li>
+</ol>
+<h3 id="paso-3-proporciona-contexto">Paso 3: Proporciona Contexto</h3>
+<ul>
+<li>
+<p><strong>Título claro:</strong> No usar &ldquo;Error&rdquo;, &ldquo;Bug&rdquo; o &ldquo;No funciona&rdquo;</p>
+<ul>
+<li>❌ Malo: &ldquo;Error con el panel&rdquo;</li>
+<li>✅ Bueno: &ldquo;Panel desaparece cuando se conecta monitor externo&rdquo;</li>
+</ul>
+</li>
+<li>
+<p><strong>Descripción detallada:</strong> Más detalles = más fácil de arreglar</p>
+</li>
+<li>
+<p><strong>Logs:</strong> Copia los logs relevantes entre triple backticks</p>
+</li>
+</ul>
+<h2 id="errores-críticos-crash-de-la-aplicación">Errores Críticos (Crash de la Aplicación)</h2>
+<p>Si la aplicación se cierra inesperadamente:</p>
+<h3 id="1-captura-el-core-dump">1. Captura el Core Dump</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Habilitar core dumps</span>
+</span></span><span class="line"><span class="cl"><span class="nb">ulimit</span> -c unlimited
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ejecutar Vasak Desktop</span>
+</span></span><span class="line"><span class="cl">vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si se crashea, captura el core dump</span>
+</span></span><span class="line"><span class="cl">coredumpctl list
+</span></span><span class="line"><span class="cl">coredumpctl info <span class="o">[</span>number<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-recolecta-información-de-debug">2. Recolecta Información de Debug</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ejecutar con máxima verbosidad</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>trace <span class="nv">RUST_BACKTRACE</span><span class="o">=</span><span class="m">1</span> vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee crash-<span class="k">$(</span>date +%s<span class="k">)</span>.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reproduce el crash</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-adjunta-al-reporte">3. Adjunta al Reporte</h3>
+<ul>
+<li>El archivo de log completo</li>
+<li>Salida de <code>coredumpctl info</code></li>
+<li>Información del sistema</li>
+</ul>
+<h2 id="errores-de-hardwareperiféricos">Errores de Hardware/Periféricos</h2>
+<p>Si el error es relacionado con:</p>
+<h3 id="bluetooth">Bluetooth</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Captura información de Bluetooth</span>
+</span></span><span class="line"><span class="cl">hciconfig -a
+</span></span><span class="line"><span class="cl">bluetoothctl show
+</span></span><span class="line"><span class="cl">journalctl --user -u bluetooth -n <span class="m">100</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="audio-pulseaudio">Audio (PulseAudio)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Información de audio</span>
+</span></span><span class="line"><span class="cl">pactl info
+</span></span><span class="line"><span class="cl">pactl list sinks short
+</span></span><span class="line"><span class="cl">pactl list sources short
+</span></span><span class="line"><span class="cl">journalctl --user <span class="p">|</span> grep -i pulse <span class="p">|</span> tail -50
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="redwifi">Red/WiFi</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Información de red</span>
+</span></span><span class="line"><span class="cl">nmcli device
+</span></span><span class="line"><span class="cl">nmcli radio
+</span></span><span class="line"><span class="cl">journalctl --user <span class="p">|</span> grep -i network <span class="p">|</span> tail -50
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="seguimiento-del-reporte">Seguimiento del Reporte</h2>
+<p>Después de reportar:</p>
+<ol>
+<li><strong>Responde preguntas</strong> - Los desarrolladores pueden pedir más información</li>
+<li><strong>Prueba soluciones</strong> - Si sugieren una, pruébala y reporta el resultado</li>
+<li><strong>Verifica en versiones nuevas</strong> - El error podría estar arreglado en la siguiente versión</li>
+<li><strong>Cierra si se resuelve</strong> - Cuando se arregle, puedes cerrar el issue</li>
+</ol>
+<h2 id="consejos-para-mejores-reportes">Consejos para Mejores Reportes</h2>
+<p>✅ <strong>Haz:</strong></p>
+<ul>
+<li>Ser específico y detallado</li>
+<li>Incluir logs relevantes</li>
+<li>Ser cortés y respetuoso</li>
+<li>Actualizar con información nueva</li>
+<li>Probar con versiones nuevas</li>
+</ul>
+<p>❌ <strong>No hagas:</strong></p>
+<ul>
+<li>Reportar &ldquo;no funciona&rdquo; sin detalles</li>
+<li>Incluir logs de 10,000 líneas sin filtrar</li>
+<li>Ser grosero o exigente</li>
+<li>Reportar el mismo error múltiples veces</li>
+<li>Cambiar completamente el tema del issue</li>
+</ul>
+<h2 id="canales-de-reporte-alternativos">Canales de Reporte Alternativos</h2>
+<ul>
+<li><strong>GitHub Issues</strong> (Recomendado): <a href="https://github.com/Vasak-OS/vasak-desktop/issues"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/vasak-desktop/issues
+</a></li>
+<li><strong>Foro de Vasak OS</strong>: [Si existe]</li>
+<li><strong>Matrix/Discord</strong>: [Si existe canal oficial]</li>
+</ul>
+<h2 id="información-de-contacto">Información de Contacto</h2>
+<p>Para errores de seguridad críticos, contacta a:</p>
+<ul>
+<li><strong>Security Email</strong>: [Si existe]</li>
+<li><strong>No crear issue público</strong> para vulnerabilidades de seguridad</li>
+</ul>
+
+        </div>
+
+        
+        <div class="flex justify-between mt-8 gap-4">
+          
+          
+          
+          
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/user/errores/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div>
+              <div class="font-semibold">Visualización de Errores</div>
+            </a>
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/user/faq/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors text-right">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
+              <div class="font-semibold">Preguntas Frecuentes</div>
+            </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div
+    class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#antes-de-reportar">Antes de Reportar</a></li>
+    <li><a href="#información-necesaria-para-un-buen-reporte">Información Necesaria para un Buen Reporte</a>
+      <ol>
+        <li><a href="#1-descripción-del-problema">1. Descripción del Problema</a></li>
+        <li><a href="#2-información-del-sistema">2. Información del Sistema</a></li>
+        <li><a href="#3-pasos-para-reproducir">3. Pasos para Reproducir</a></li>
+        <li><a href="#4-logs-relevantes">4. Logs Relevantes</a></li>
+        <li><a href="#5-adjuntos-útiles">5. Adjuntos Útiles</a></li>
+      </ol>
+    </li>
+    <li><a href="#plantilla-para-reporte">Plantilla para Reporte</a></li>
+    <li><a href="#crear-un-issue-en-github">Crear un Issue en GitHub</a>
+      <ol>
+        <li><a href="#paso-1-reúne-tu-información">Paso 1: Reúne tu Información</a></li>
+        <li><a href="#paso-2-ve-a-github">Paso 2: Ve a GitHub</a></li>
+        <li><a href="#paso-3-proporciona-contexto">Paso 3: Proporciona Contexto</a></li>
+      </ol>
+    </li>
+    <li><a href="#errores-críticos-crash-de-la-aplicación">Errores Críticos (Crash de la Aplicación)</a>
+      <ol>
+        <li><a href="#1-captura-el-core-dump">1. Captura el Core Dump</a></li>
+        <li><a href="#2-recolecta-información-de-debug">2. Recolecta Información de Debug</a></li>
+        <li><a href="#3-adjunta-al-reporte">3. Adjunta al Reporte</a></li>
+      </ol>
+    </li>
+    <li><a href="#errores-de-hardwareperiféricos">Errores de Hardware/Periféricos</a>
+      <ol>
+        <li><a href="#bluetooth">Bluetooth</a></li>
+        <li><a href="#audio-pulseaudio">Audio (PulseAudio)</a></li>
+        <li><a href="#redwifi">Red/WiFi</a></li>
+      </ol>
+    </li>
+    <li><a href="#seguimiento-del-reporte">Seguimiento del Reporte</a></li>
+    <li><a href="#consejos-para-mejores-reportes">Consejos para Mejores Reportes</a></li>
+    <li><a href="#canales-de-reporte-alternativos">Canales de Reporte Alternativos</a></li>
+    <li><a href="#información-de-contacto">Información de Contacto</a></li>
+  </ol>
+</nav>
+  </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.126d497b047e43c21a1141f8038e985c164038a59ef1dc07130dc5e924ef780a.js"></script></body>
+
+</html>

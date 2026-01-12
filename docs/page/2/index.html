@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=36333&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="http://localhost:36333/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:36333/css/styles.css" />
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="http://localhost:36333/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docs" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content=" Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="http://localhost:36333/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:36333/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="http://localhost:36333/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="http://localhost:36333/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="http://localhost:36333/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="http://localhost:36333/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="http://localhost:36333/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="http://localhost:36333/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="http://localhost:36333/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="http://localhost:36333/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="http://localhost:36333/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="http://localhost:36333/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+
+      
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/dbus/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">D-Bus - Integracion con el sistema | vasak-desktop</a>
+        <p class="mt-2"><h1 id="d-bus---integración-del-sistema---vasak-desktop">D-Bus - Integración del Sistema - Vasak Desktop</h1>
+<p>Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux.</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/dbus/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/componentes-vue/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Componentes de VueJS | vasak-desktop</a>
+        <p class="mt-2"><p>Guía para desarrollar componentes Vue en Vasak Desktop.</p>
+<h2 id="estructura-base-de-un-componente">Estructura Base de un Componente</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span><span class="lnt">98
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;audio-control&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;{{</span> <span class="nx">title</span> <span class="p">}}&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">v-model</span><span class="o">=</span><span class="s">&#34;volume&#34;</span><span class="p">
+</span></span></span><span class="line"><span class="cl"><span class="p"></span>      <span class="na">type</span><span class="o">=</span><span class="s">&#34;range&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">min</span><span class="o">=</span><span class="s">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">max</span><span class="o">=</span><span class="s">&#34;100&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">@change</span><span class="s">=&#34;handleVolumeChange&#34;</span><span class="p">
+</span></span></span><span class="line"><span class="cl"><span class="p"></span>    <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;{{</span> <span class="nx">volume</span> <span class="p">}}</span><span class="o">%</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">computed</span><span class="p">,</span> <span class="nx">onMounted</span><span class="p">,</span> <span class="nx">onUnmounted</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">invoke</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@tauri-apps/api/tauri&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">listen</span><span class="p">,</span> <span class="nx">UnlistenFn</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@tauri-apps/api/event&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">type</span> <span class="p">{</span> <span class="nx">Device</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@/interfaces/device&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Props
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">interface</span> <span class="nx">Props</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span><span class="o">?:</span> <span class="nx">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">disabled</span><span class="o">?:</span> <span class="kr">boolean</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">withDefaults</span><span class="p">(</span><span class="nx">defineProps</span><span class="p">&lt;</span><span class="nt">Props</span><span class="p">&gt;(),</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Audio Control&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">disabled</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// State
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">volume</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">devices</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">Device</span><span class="err">[]</span><span class="p">&gt;([]);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">isLoading</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Computed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">isActive</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="o">!</span><span class="nx">props</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isLoading</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Métodos
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">async</span> <span class="kd">function</span> <span class="nx">loadVolume</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isLoading</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">volume</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">invoke</span><span class="p">&lt;</span><span class="nt">number</span><span class="p">&gt;(</span><span class="s1">&#39;get_volume&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error loading volume:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isLoading</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">async</span> <span class="kd">function</span> <span class="nx">handleVolumeChange</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;set_volume&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">level</span><span class="o">:</span> <span class="nx">volume</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error setting volume:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Lifecycle
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">onMounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">loadVolume</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Escuchar cambios del sistema
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">listen</span><span class="p">(</span><span class="s1">&#39;volume_changed&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">volume</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span> <span class="nx">as</span> <span class="nx">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onUnmounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Cleanup si es necesario
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">audio</span><span class="o">-</span><span class="nx">control</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">:</span> <span class="mi">1</span><span class="nx">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">border</span><span class="o">:</span> <span class="mi">1</span><span class="nx">px</span> <span class="nx">solid</span> <span class="err">#</span><span class="nx">ddd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mf">0.5</span><span class="nx">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">audio</span><span class="o">-</span><span class="nx">control</span> <span class="nx">h2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">margin</span><span class="o">:</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="nx">rem</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">font</span><span class="o">-</span><span class="nx">size</span><span class="o">:</span> <span class="mf">1.25</span><span class="nx">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">audio</span><span class="o">-</span><span class="nx">control</span> <span class="nx">input</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">margin</span><span class="o">-</span><span class="nx">bottom</span><span class="o">:</span> <span class="mf">0.5</span><span class="nx">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">audio</span><span class="o">-</span><span class="nx">control</span> <span class="nx">span</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">display</span><span class="o">:</span> <span class="nx">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">text</span><span class="o">-</span><span class="nx">align</span><span class="o">:</span> <span class="nx">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">666</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="tipos-de-componentes">Tipos de Componentes</h2>
+<h3 id="1-componentes-presentacionales-dumb">1. Componentes Presentacionales (Dumb)</h3>
+<p>Solo reciben props y emiten eventos:</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/componentes-vue/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/carpetas/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Sistema de Carpetas | vasak-desktop</a>
+        <p class="mt-2"><p>Guía detallada sobre la estructura de carpetas del proyecto.</p>
+<h2 id="estructura-raíz">Estructura Raíz</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vasak-desktop/
+</span></span><span class="line"><span class="cl">├── src/                          # Frontend (Vue.js)
+</span></span><span class="line"><span class="cl">├── src-tauri/                    # Backend (Rust)
+</span></span><span class="line"><span class="cl">├── docs/                         # Documentación (Este directorio)
+</span></span><span class="line"><span class="cl">├── index.html                    # Punto de entrada HTML
+</span></span><span class="line"><span class="cl">├── package.json                  # Dependencias Frontend
+</span></span><span class="line"><span class="cl">├── tsconfig.json                 # Configuración TypeScript
+</span></span><span class="line"><span class="cl">├── tsconfig.node.json            # TypeScript para Node
+</span></span><span class="line"><span class="cl">├── vite.config.ts                # Configuración Vite
+</span></span><span class="line"><span class="cl">├── postcss.config.js             # Configuración PostCSS
+</span></span><span class="line"><span class="cl">├── tailwind.config.js            # Configuración Tailwind
+</span></span><span class="line"><span class="cl">├── LICENSE                       # Licencia del proyecto
+</span></span><span class="line"><span class="cl">├── README.md                     # Documentación principal
+</span></span><span class="line"><span class="cl">└── .gitignore                    # Archivos a ignorar en Git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="frontend-src">Frontend (<code>src/</code>)</h2>
+<h3 id="raíz-de-frontend">Raíz de Frontend</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">src</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">App</span><span class="o">.</span><span class="n">vue</span>                       <span class="c1"># Componente raíz</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">main</span><span class="o">.</span><span class="n">ts</span>                       <span class="c1"># Punto de entrada</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">style</span><span class="o">.</span><span class="n">css</span>                     <span class="c1"># Estilos globales</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">vite</span><span class="o">-</span><span class="n">env</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">ts</span>                <span class="c1"># Tipos de entorno Vite</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">assets</span><span class="o">/</span>                       <span class="c1"># Recursos estáticos</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">components</span><span class="o">/</span>                   <span class="c1"># Componentes reutilizables</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">interfaces</span><span class="o">/</span>                   <span class="c1"># Interfaces TypeScript</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">layouts</span><span class="o">/</span>                      <span class="c1"># Layouts/Plantillas</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">routes</span><span class="o">/</span>                       <span class="c1"># Enrutamiento</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">tools</span><span class="o">/</span>                        <span class="c1"># Controladores/Servicios</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">types</span><span class="o">/</span>                        <span class="c1"># Tipos TypeScript</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">views</span><span class="o">/</span>                        <span class="c1"># Vistas/Páginas</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="srcassets"><code>src/assets/</code></h3>
+<p>Recursos estáticos (imágenes, vectores):</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/carpetas/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/arquitectura/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Arquitectura General | vasak-desktop</a>
+        <p class="mt-2"><p>Visión general de la arquitectura de Vasak Desktop y cómo se estructuran los componentes.</p>
+<h2 id="qué-es-vasak-desktop">¿Qué es Vasak Desktop?</h2>
+<p>Vasak Desktop NO es un entorno de escritorio completo (como GNOME o KDE). Es una <strong>interfaz de escritorio ligera</strong> que no cuenta con un <strong>WM</strong> propio pero que proporciona:</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/arquitectura/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/lineamientos/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Lineamientos de codigo | vasak-desktop</a>
+        <p class="mt-2"><p>Estándares y mejores prácticas para mantener la calidad del código.</p>
+<h2 id="principios-generales">Principios Generales</h2>
+<h3 id="1-claridad-primero">1. Claridad Primero</h3>
+<p>El código debe ser fácil de entender:</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/lineamientos/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/dependencias/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Gestion de dependencias | vasak-desktop</a>
+        <p class="mt-2"><p>Guía completa para gestionar dependencias del proyecto.</p>
+<h2 id="dependencias-del-frontend-javascripttypescript">Dependencias del Frontend (JavaScript/TypeScript)</h2>
+<h3 id="archivo-packagejson">Archivo: <code>package.json</code></h3>
+<p>Las dependencias se definen en este archivo:</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/dependencias/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/contribucion/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Contribucion al Proyecto</a>
+        <p class="mt-2"><p>Guía para contribuir al desarrollo de Vasak Desktop.</p>
+<h2 id="antes-de-empezar">Antes de Empezar</h2>
+<ol>
+<li>Familiarízate con <a href="arquitectura.md" >
+  
+  Arquitectura General
+</a></li>
+<li>Lee los <a href="lineamientos.md" >
+  
+  Lineamientos de Código
+</a></li>
+<li>Configura tu <a href="setup-proyecto.md" >
+  
+  Entorno de Desarrollo
+</a></li>
+<li>Compila el proyecto (Ver <a href="compilacion.md" >
+  
+  Compilación
+</a>)</li>
+</ol>
+<h2 id="proceso-de-contribución">Proceso de Contribución</h2>
+<h3 id="1-fork-y-clone">1. Fork y Clone</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># En GitHub, haz Fork del repositorio</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/Vasak-OS/vasak-desktop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Clone tu fork</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/TU_USUARIO/vasak-desktop.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añade el repositorio original como remote</span>
+</span></span><span class="line"><span class="cl">git remote add upstream https://github.com/Vasak-OS/vasak-desktop.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-crea-una-rama">2. Crea una Rama</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Actualiza main desde upstream</span>
+</span></span><span class="line"><span class="cl">git fetch upstream
+</span></span><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">git merge upstream/main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Crea una rama para tu feature</span>
+</span></span><span class="line"><span class="cl">git checkout -b feature/descripcion-corta
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O para bugfix</span>
+</span></span><span class="line"><span class="cl">git checkout -b bugfix/descripcion-corta
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O para docs</span>
+</span></span><span class="line"><span class="cl">git checkout -b docs/descripcion-corta
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Convención de nombres</strong>:</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/contribucion/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/compilacion/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Compilacion| vasak-desktop</a>
+        <p class="mt-2"><p>Guía para compilar y ejecutar Vasak Desktop en diferentes modos.</p>
+<h2 id="modo-desarrollo">Modo Desarrollo</h2>
+<h3 id="ejecutar-aplicación-completa-en-desarrollo">Ejecutar Aplicación Completa en Desarrollo</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /path/to/vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ejecutar en modo desarrollo (con hot reload)</span>
+</span></span><span class="line"><span class="cl">bun run tauri dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O con Tauri CLI directamente</span>
+</span></span><span class="line"><span class="cl">cargo tauri dev
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Esto abrirá:</p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/compilacion/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+      <div class="mt-6">
+  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-xl shadow-md"
+    style="background-image: url('');">
+    <div class="bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md p-3">
+      <div class="flex items-center justify-between">
+        <span class="font-light text-gray-600 dark:text-gray-400">
+          Lunes 1 de Enero de 1
+        </span>
+        
+      </div>
+      <div class="mt-2 text-gray-600 dark:text-gray-300">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/setup-proyecto/" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">Setup del Proyecto | vasak-desktop</a>
+        <p class="mt-2"><h1 id="setup-del-proyecto---vasak-desktop">Setup del Proyecto - Vasak Desktop</h1>
+<p>Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.</p>
+<h2 id="requisitos-previos">Requisitos Previos</h2>
+<h3 id="1-requisitos-del-sistema">1. Requisitos del Sistema</h3>
+<ul>
+<li><strong>OS</strong>: Linux (Fedora, Ubuntu, Debian, Arch, etc.)</li>
+<li><strong>RAM</strong>: Mínimo 4GB (8GB recomendado)</li>
+<li><strong>Almacenamiento</strong>: 5GB espacio libre</li>
+<li><strong>Internet</strong>: Conexión para descargar dependencias</li>
+</ul>
+<h3 id="2-herramientas-necesarias">2. Herramientas Necesarias</h3>
+<h4 id="bun-frontend">Bun (Frontend)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -fsSL https://bun.sh/install <span class="p">|</span> bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Mas informacion sobre la instalacion de Bun en <a href="https://bun.com/docs/installation"  target="_blank" rel="noopener noreferrer" >
+  <i class="fas fa-up-right-from-square"></i>&nbsp;
+  
+  su sitio web
+</a></p></p>
+      </div>
+      <div class="flex items-center justify-end m-4">
+        <a href="http://localhost:36333/docs/devs/vasak-desktop/setup-proyecto/" class="text-vsk1 hover:underline">Ver <em class="fas fa-eye"></em></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+<div class="blog-pagination">
+  <ul class="justify-content-center">
+    
+    <li><a rel="noopener" href="http://localhost:36333/docs/" aria-label="Previous"><em class="fa fa-chevron-left" aria-hidden="true"></em></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8">
+    <div class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-900 rounded-xl shadow-md">
+        <h1 class="mb-4 text-xl font-bold text-gray-700 dark:text-gray-200">Publicaciones Recientes</h1>
+        
+        
+        <article
+            class="relative w-full h-40 bg-cover bg-center group rounded-lg overflow-hidden shadow-xl hover:shadow-2xl  transition duration-300 mb-3 ease-in-out"
+            style="background-image: url('https://i.postimg.cc/XJ2WY756/image.png');">
+            <div
+                class="absolute inset-0 bg-black bg-opacity-50 group-hover:opacity-75 transition duration-300 ease-in-out">
+            </div>
+            <div class="relative w-full h-full px-4 sm:px-6 lg:px-4 flex justify-center items-center">
+                <h3 class="text-center">
+                    <a class="text-white text-2xl font-bold text-center" href="http://localhost:36333/blog/2026/01/vendefoul-linux-vasak-version/">
+                        <span class="absolute inset-0"></span>
+                        Vendefoul Linux Vasak Version
+                    </a>
+                </h3>
+            </div>
+        </article>
+        
+        <article
+            class="relative w-full h-40 bg-cover bg-center group rounded-lg overflow-hidden shadow-xl hover:shadow-2xl  transition duration-300 mb-3 ease-in-out"
+            style="background-image: url('');">
+            <div
+                class="absolute inset-0 bg-black bg-opacity-50 group-hover:opacity-75 transition duration-300 ease-in-out">
+            </div>
+            <div class="relative w-full h-full px-4 sm:px-6 lg:px-4 flex justify-center items-center">
+                <h3 class="text-center">
+                    <a class="text-white text-2xl font-bold text-center" href="http://localhost:36333/changelogs/06012026/">
+                        <span class="absolute inset-0"></span>
+                        Changelogs 06-01-2026 [Alpha]
+                    </a>
+                </h3>
+            </div>
+        </article>
+        
+        <article
+            class="relative w-full h-40 bg-cover bg-center group rounded-lg overflow-hidden shadow-xl hover:shadow-2xl  transition duration-300 mb-3 ease-in-out"
+            style="background-image: url('https://i.postimg.cc/3xXpdPxG/image.png');">
+            <div
+                class="absolute inset-0 bg-black bg-opacity-50 group-hover:opacity-75 transition duration-300 ease-in-out">
+            </div>
+            <div class="relative w-full h-full px-4 sm:px-6 lg:px-4 flex justify-center items-center">
+                <h3 class="text-center">
+                    <a class="text-white text-2xl font-bold text-center" href="http://localhost:36333/blog/2026/01/alpha-2-de-vasakos/">
+                        <span class="absolute inset-0"></span>
+                        Alpha 2 de VasakOS
+                    </a>
+                </h3>
+            </div>
+        </article>
+        
+        <article
+            class="relative w-full h-40 bg-cover bg-center group rounded-lg overflow-hidden shadow-xl hover:shadow-2xl  transition duration-300 mb-3 ease-in-out"
+            style="background-image: url('https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/198823909/original/0636a767358eb189c2263c613146ece9fa6b8b12/android-app-icon-for-any-kind.jpg');">
+            <div
+                class="absolute inset-0 bg-black bg-opacity-50 group-hover:opacity-75 transition duration-300 ease-in-out">
+            </div>
+            <div class="relative w-full h-full px-4 sm:px-6 lg:px-4 flex justify-center items-center">
+                <h3 class="text-center">
+                    <a class="text-white text-2xl font-bold text-center" href="http://localhost:36333/blog/2025/08/vot%C3%A1-por-el-siguiente-pack-de-iconos-por-defecto/">
+                        <span class="absolute inset-0"></span>
+                        Votá por el siguiente pack de Iconos por Defecto
+                    </a>
+                </h3>
+            </div>
+        </article>
+        
+        
+
+    </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="http://localhost:36333/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="http://localhost:36333/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="http://localhost:36333/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="http://localhost:36333/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="http://localhost:36333/js/bundle.min.126d497b047e43c21a1141f8038e985c164038a59ef1dc07130dc5e924ef780a.js"></script></body>
+
+</html>

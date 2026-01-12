@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.6239bca6c263d06a4c150bda6b7f81ba964d9ab144435944cde2d7c1d07b8d33.css" integrity="sha256-Yjm8psJj0GpMFQvaa3&#43;BupZNmrFEQ1lEzeLXwdB7jTM=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/vendor.min.16645c550e68e4c51ef8b3c1b94a5d4cb1cb183ab9fcd2e18c7108e8206bf970f84c0e61429547167735bbba715a7395a87db373ae13f8e5386061f86668c5fb.css" />
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/devs/vasak-desktop/dependencias/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Gestion de dependencias | vasak-desktop" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Guía completa para gestionar dependencias del proyecto.
+Dependencias del Frontend (JavaScript/TypeScript)
+Archivo: package.json
+Las dependencias se definen en este archivo: Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/devs/vasak-desktop/dependencias/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white dark:bg-gray-800 z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+      <a href="https://os.vasak.net.ar/docs"  title="Documentación"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+          <a href="https://os.vasak.net.ar/docs" 
+            title="Documentación"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  <div class="flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">Gestion de dependencias | vasak-desktop</h1>
+          <p>Guía completa para gestionar dependencias del proyecto.</p>
+<h2 id="dependencias-del-frontend-javascripttypescript">Dependencias del Frontend (JavaScript/TypeScript)</h2>
+<h3 id="archivo-packagejson">Archivo: <code>package.json</code></h3>
+<p>Las dependencias se definen en este archivo:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dependencies&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vue&#34;</span><span class="p">:</span> <span class="s2">&#34;^3.5.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vue-router&#34;</span><span class="p">:</span> <span class="s2">&#34;^4.6.4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;pinia&#34;</span><span class="p">:</span> <span class="s2">&#34;^3.0.4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@tauri-apps/api&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.9.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@vasakgroup/plugin-bluetooth-manager&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.0.0&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;devDependencies&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;typescript&#34;</span><span class="p">:</span> <span class="s2">&#34;^5.9.3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vite&#34;</span><span class="p">:</span> <span class="s2">&#34;^7.3.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;tailwindcss&#34;</span><span class="p">:</span> <span class="s2">&#34;^4.1.18&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="instalar-todas-las-dependencias">Instalar Todas las Dependencias</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bun install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="añadir-una-nueva-dependencia">Añadir una Nueva Dependencia</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bun add nombre-paquete
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># dev dependency</span>
+</span></span><span class="line"><span class="cl">bun add -D nombre-paquete
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="actualizar-dependencias">Actualizar Dependencias</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver qué paquetes tienen actualizaciones</span>
+</span></span><span class="line"><span class="cl">bun outdated
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Actualizar todos</span>
+</span></span><span class="line"><span class="cl">bun update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Actualizar paquete específico</span>
+</span></span><span class="line"><span class="cl">bun add nombre-paquete@latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Actualizar versión major (cambios incompatibles)</span>
+</span></span><span class="line"><span class="cl">bun add nombre-paquete@^5.0.0  <span class="c1"># Si está en v4</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="remover-dependencia">Remover Dependencia</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Bun</span>
+</span></span><span class="line"><span class="cl">bun remove nombre-paquete
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="limpiar-dependencias-no-utilizadas">Limpiar Dependencias No Utilizadas</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Bun</span>
+</span></span><span class="line"><span class="cl">bun install --frozen-lockfile  <span class="c1"># Después de eliminar de package.json</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="dependencias-del-backend-rust">Dependencias del Backend (Rust)</h2>
+<h3 id="archivo-src-tauricargotoml">Archivo: <code>src-tauri/Cargo.toml</code></h3>
+<p>Ejemplo de estructura:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">package</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;vasak-desktop&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">version</span> <span class="p">=</span> <span class="s2">&#34;0.5.2&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">dependencies</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">tauri</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">version</span> <span class="p">=</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span> <span class="nx">features</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;protocol-asset&#34;</span><span class="p">]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">serde</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">version</span> <span class="p">=</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="nx">features</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;derive&#34;</span><span class="p">]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">tokio</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">version</span> <span class="p">=</span> <span class="s2">&#34;1.0&#34;</span><span class="p">,</span> <span class="nx">features</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;full&#34;</span><span class="p">]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">zbus</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">version</span> <span class="p">=</span> <span class="s2">&#34;4&#34;</span><span class="p">,</span> <span class="nx">features</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;tokio&#34;</span><span class="p">]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">dev-dependencies</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">tokio-test</span> <span class="p">=</span> <span class="s2">&#34;0.4&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="estructura-de-versiones">Estructura de Versiones</h3>
+<ul>
+<li><code>1.0</code> - Exacto: versión 1.0.0</li>
+<li><code>^1.0</code> - Compatible: 1.0 a 1.999</li>
+<li><code>~1.0</code> - Parche: 1.0.x solamente</li>
+<li><code>1.0.*</code> - Parche: 1.0.x solamente</li>
+<li><code>&gt;=1.0, &lt;2.0</code> - Rango: desde 1.0 hasta antes de 2.0</li>
+</ul>
+<h3 id="añadir-dependencia-rust">Añadir Dependencia Rust</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> src-tauri
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añadir dependencia</span>
+</span></span><span class="line"><span class="cl">cargo add nombre-crate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añadir con features específicos</span>
+</span></span><span class="line"><span class="cl">cargo add nombre-crate --features <span class="s2">&#34;feature1,feature2&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añadir versión específica</span>
+</span></span><span class="line"><span class="cl">cargo add nombre-crate@1.2.3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añadir como dev-dependency</span>
+</span></span><span class="line"><span class="cl">cargo add --dev nombre-crate
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="actualizar-dependencias-rust">Actualizar Dependencias Rust</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> src-tauri
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver qué tiene actualizaciones</span>
+</span></span><span class="line"><span class="cl">cargo outdated
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Actualizar todo</span>
+</span></span><span class="line"><span class="cl">cargo update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Actualizar crate específico</span>
+</span></span><span class="line"><span class="cl">cargo update -p nombre-crate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver cambios de versión</span>
+</span></span><span class="line"><span class="cl">cargo update --verbose
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="remover-dependencia-rust">Remover Dependencia Rust</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> src-tauri
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Remover</span>
+</span></span><span class="line"><span class="cl">cargo remove nombre-crate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O editar Cargo.toml directamente</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># y ejecutar:</span>
+</span></span><span class="line"><span class="cl">cargo update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="dependencias-del-sistema">Dependencias del Sistema</h2>
+<h3 id="verificar-dependencias-instaladas">Verificar Dependencias Instaladas</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Listar paquetes instalados</span>
+</span></span><span class="line"><span class="cl">pkg-config --list-all <span class="p">|</span> grep -E <span class="s2">&#34;(gtk|glib|cairo|dbus)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O específicamente</span>
+</span></span><span class="line"><span class="cl">pkg-config --modversion gtk+-3.0
+</span></span><span class="line"><span class="cl">pkg-config --modversion dbus-1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="actualizar-dependencias-del-sistema">Actualizar Dependencias del Sistema</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Fedora</span>
+</span></span><span class="line"><span class="cl">sudo dnf update
+</span></span><span class="line"><span class="cl">sudo dnf install gtk3-devel dbus-devel  <span class="c1"># Si faltan</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install libgtk-3-dev libdbus-1-dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arch</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Syu
+</span></span><span class="line"><span class="cl">sudo pacman -S gtk3 dbus
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="bloqueo-de-versiones-lock-files">Bloqueo de Versiones (Lock Files)</h2>
+<h3 id="bunlock-frontend"><code>bun.lock</code> (Frontend)</h3>
+<ul>
+<li>Generado automáticamente por Bun</li>
+<li>Contiene versiones exactas instaladas</li>
+<li>Debe commitirse a Git</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Reinstalar versiones exactas del lock file</span>
+</span></span><span class="line"><span class="cl">bun install --frozen-lockfile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cargolock-backend"><code>Cargo.lock</code> (Backend)</h3>
+<ul>
+<li>Generado automáticamente por Cargo</li>
+<li>Debe commitirse a Git</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Para librerías, normalmente no se commitea</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Para aplicaciones ejecutables, sí se commitea</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="versiones-de-dependencias-críticas">Versiones de Dependencias Críticas</h2>
+<h3 id="versiones-soportadas">Versiones Soportadas</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">- Bun: Latest
+</span></span><span class="line"><span class="cl">- Rust: 1.70+
+</span></span><span class="line"><span class="cl">- Vue.js: 3.5+
+</span></span><span class="line"><span class="cl">- Tauri: 2.8+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="verificar-versiones">Verificar Versiones</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Frontend</span>
+</span></span><span class="line"><span class="cl">bun --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Backend</span>
+</span></span><span class="line"><span class="cl">rustc --version
+</span></span><span class="line"><span class="cl">cargo --version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gestión-de-plugins-de-tauri">Gestión de Plugins de Tauri</h2>
+<p>Vasak Desktop usa plugins específicos de Tauri:</p>
+<h3 id="plugins-principales">Plugins Principales</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dependencies&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@tauri-apps/api&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.9.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@tauri-apps/plugin-fs&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.4.4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@tauri-apps/plugin-shell&#34;</span><span class="p">:</span> <span class="s2">&#34;^2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@vasakgroup/plugin-bluetooth-manager&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.0.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@vasakgroup/plugin-network-manager&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.0.2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@vasakgroup/plugin-config-manager&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.0.3&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="actualizar-plugins">Actualizar Plugins</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Todos los plugins a la vez</span>
+</span></span><span class="line"><span class="cl">bun add @tauri-apps/api@latest
+</span></span><span class="line"><span class="cl">bun add @vasakgroup/plugin-bluetooth-manager@latest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verificar compatibilidad</span>
+</span></span><span class="line"><span class="cl">cargo check
+</span></span><span class="line"><span class="cl">bun run build --dry-run
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="análisis-de-dependencias">Análisis de Dependencias</h2>
+<h3 id="árbol-de-dependencias-frontend">Árbol de Dependencias (Frontend)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver árbol de dependencias</span>
+</span></span><span class="line"><span class="cl">bun ls --depth<span class="o">=</span><span class="m">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Filtrar por paquete</span>
+</span></span><span class="line"><span class="cl">bun ls <span class="p">|</span> grep pinia
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="árbol-de-dependencias-backend">Árbol de Dependencias (Backend)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> src-tauri
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver árbol de dependencias</span>
+</span></span><span class="line"><span class="cl">cargo tree
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Filtrar por dependencia</span>
+</span></span><span class="line"><span class="cl">cargo tree <span class="p">|</span> grep serde
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver solo dependencias directas</span>
+</span></span><span class="line"><span class="cl">cargo tree --depth<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="encontrar-dependencias-duplicadas">Encontrar Dependencias Duplicadas</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Frontend</span>
+</span></span><span class="line"><span class="cl">bun ls <span class="p">|</span> grep -E <span class="s2">&#34;\s.*@&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Backend</span>
+</span></span><span class="line"><span class="cl">cargo tree <span class="p">|</span> grep -E <span class="s2">&#34;├── |└── &#34;</span> <span class="p">|</span> sort <span class="p">|</span> uniq -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="auditoría-de-seguridad">Auditoría de Seguridad</h2>
+<h3 id="frontend">Frontend</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Con Bun</span>
+</span></span><span class="line"><span class="cl">bun audit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arreglar con Bun</span>
+</span></span><span class="line"><span class="cl">bun audit --fix
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="backend">Backend</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> src-tauri
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Auditar dependencias Rust</span>
+</span></span><span class="line"><span class="cl">cargo audit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Actualizar crates con vulnerabilidades</span>
+</span></span><span class="line"><span class="cl">cargo update -p vulnerable-crate
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="caché-y-limpieza">Caché y Limpieza</h2>
+<h3 id="limpiar-caché-de-npmbun">Limpiar Caché de npm/Bun</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Bun</span>
+</span></span><span class="line"><span class="cl">bun pm cache rm --all
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="limpiar-caché-de-cargo">Limpiar Caché de Cargo</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Cargo</span>
+</span></span><span class="line"><span class="cl">cargo clean
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Caché del registro</span>
+</span></span><span class="line"><span class="cl">rm -rf ~/.cargo/registry/cache
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="liberar-espacio">Liberar Espacio</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver tamaño de dependencias</span>
+</span></span><span class="line"><span class="cl">du -sh node_modules/
+</span></span><span class="line"><span class="cl">du -sh src-tauri/target/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Limpiar ambos</span>
+</span></span><span class="line"><span class="cl">rm -rf node_modules/
+</span></span><span class="line"><span class="cl">rm -rf src-tauri/target/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reinstalar</span>
+</span></span><span class="line"><span class="cl">bun install
+</span></span><span class="line"><span class="cl">cargo build
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="problemas-comunes">Problemas Comunes</h2>
+<h3 id="error-dependency-conflict">Error: &ldquo;Dependency conflict&rdquo;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Frontend - Resuelve conflictos</span>
+</span></span><span class="line"><span class="cl">bun install --latest  <span class="c1"># Actualiza todo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Backend</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> src-tauri
+</span></span><span class="line"><span class="cl">cargo update
+</span></span><span class="line"><span class="cl">cargo check
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="error-network-timeout-downloading-package">Error: &ldquo;Network timeout downloading package&rdquo;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Frontend</span>
+</span></span><span class="line"><span class="cl">bun config <span class="nb">set</span> registry https://registry.npmjs.org/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Backend</span>
+</span></span><span class="line"><span class="cl">cargo install --registry-default
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O especifica timeout</span>
+</span></span><span class="line"><span class="cl">bun install --timeout <span class="m">300000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="paquete-no-encontrado">Paquete no encontrado</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifica que existe</span>
+</span></span><span class="line"><span class="cl">npm search nombre-paquete
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica sintaxis en package.json</span>
+</span></span><span class="line"><span class="cl">bun install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="compilación-falla-después-de-actualizar">Compilación falla después de actualizar</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Limpia todo y recompila</span>
+</span></span><span class="line"><span class="cl">rm -rf node_modules/ bun.lock src-tauri/target/ Cargo.lock
+</span></span><span class="line"><span class="cl">bun install
+</span></span><span class="line"><span class="cl">cargo check
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si falla, revierte cambios</span>
+</span></span><span class="line"><span class="cl">git checkout package.json Cargo.toml
+</span></span><span class="line"><span class="cl">bun install
+</span></span><span class="line"><span class="cl">cargo check
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="mejores-prácticas">Mejores Prácticas</h2>
+<h3 id="-haz">✅ Haz:</h3>
+<ul>
+<li>Committea los archivos lock (<code>bun.lock</code>, <code>Cargo.lock</code>)</li>
+<li>Usa versiones exactas para producción</li>
+<li>Audita dependencias regularmente</li>
+<li>Actualiza dependencias incrementalmente</li>
+<li>Documenta cambios de dependencias</li>
+</ul>
+<h3 id="-no-hagas">❌ No hagas:</h3>
+<ul>
+<li>Elimines lock files sin razón</li>
+<li>Instales directamente versiones <code>*</code> en producción</li>
+<li>Ignores auditorías de seguridad</li>
+<li>Actualices todas las dependencias simultáneamente</li>
+<li>Uses versiones muy antiguas</li>
+</ul>
+<h2 id="scripts-útiles">Scripts Útiles</h2>
+<h3 id="actualización-segura">Actualización Segura</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># safe-update.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;🔄 Actualizando dependencias...&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Frontend</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Frontend...&#34;</span>
+</span></span><span class="line"><span class="cl">bun outdated
+</span></span><span class="line"><span class="cl">bun update
+</span></span><span class="line"><span class="cl">bun install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Backend</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Backend...&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> src-tauri
+</span></span><span class="line"><span class="cl">cargo outdated
+</span></span><span class="line"><span class="cl">cargo update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verificar compilación</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Compilando...&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="cl">bun run build --dry-run
+</span></span><span class="line"><span class="cl">cargo check
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;✓ Actualización completada&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="siguientes-pasos">Siguientes Pasos</h2>
+<ul>
+<li><a href="setup-proyecto.md" >
+  
+  Setup del Proyecto
+</a></li>
+<li><a href="compilacion.md" >
+  
+  Compilación
+</a></li>
+<li><a href="debugging.md" >
+  
+  Debugging
+</a></li>
+</ul>
+
+        </div>
+
+        
+        <div class="flex justify-between mt-8 gap-4">
+          
+          
+          
+          
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/compilacion/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div>
+              <div class="font-semibold">Compilacion| vasak-desktop</div>
+            </a>
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/arquitectura/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors text-right">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
+              <div class="font-semibold">Arquitectura General | vasak-desktop</div>
+            </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div
+    class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#dependencias-del-frontend-javascripttypescript">Dependencias del Frontend (JavaScript/TypeScript)</a>
+      <ol>
+        <li><a href="#archivo-packagejson">Archivo: <code>package.json</code></a></li>
+        <li><a href="#instalar-todas-las-dependencias">Instalar Todas las Dependencias</a></li>
+        <li><a href="#añadir-una-nueva-dependencia">Añadir una Nueva Dependencia</a></li>
+        <li><a href="#actualizar-dependencias">Actualizar Dependencias</a></li>
+        <li><a href="#remover-dependencia">Remover Dependencia</a></li>
+        <li><a href="#limpiar-dependencias-no-utilizadas">Limpiar Dependencias No Utilizadas</a></li>
+      </ol>
+    </li>
+    <li><a href="#dependencias-del-backend-rust">Dependencias del Backend (Rust)</a>
+      <ol>
+        <li><a href="#archivo-src-tauricargotoml">Archivo: <code>src-tauri/Cargo.toml</code></a></li>
+        <li><a href="#estructura-de-versiones">Estructura de Versiones</a></li>
+        <li><a href="#añadir-dependencia-rust">Añadir Dependencia Rust</a></li>
+        <li><a href="#actualizar-dependencias-rust">Actualizar Dependencias Rust</a></li>
+        <li><a href="#remover-dependencia-rust">Remover Dependencia Rust</a></li>
+      </ol>
+    </li>
+    <li><a href="#dependencias-del-sistema">Dependencias del Sistema</a>
+      <ol>
+        <li><a href="#verificar-dependencias-instaladas">Verificar Dependencias Instaladas</a></li>
+        <li><a href="#actualizar-dependencias-del-sistema">Actualizar Dependencias del Sistema</a></li>
+      </ol>
+    </li>
+    <li><a href="#bloqueo-de-versiones-lock-files">Bloqueo de Versiones (Lock Files)</a>
+      <ol>
+        <li><a href="#bunlock-frontend"><code>bun.lock</code> (Frontend)</a></li>
+        <li><a href="#cargolock-backend"><code>Cargo.lock</code> (Backend)</a></li>
+      </ol>
+    </li>
+    <li><a href="#versiones-de-dependencias-críticas">Versiones de Dependencias Críticas</a>
+      <ol>
+        <li><a href="#versiones-soportadas">Versiones Soportadas</a></li>
+        <li><a href="#verificar-versiones">Verificar Versiones</a></li>
+      </ol>
+    </li>
+    <li><a href="#gestión-de-plugins-de-tauri">Gestión de Plugins de Tauri</a>
+      <ol>
+        <li><a href="#plugins-principales">Plugins Principales</a></li>
+        <li><a href="#actualizar-plugins">Actualizar Plugins</a></li>
+      </ol>
+    </li>
+    <li><a href="#análisis-de-dependencias">Análisis de Dependencias</a>
+      <ol>
+        <li><a href="#árbol-de-dependencias-frontend">Árbol de Dependencias (Frontend)</a></li>
+        <li><a href="#árbol-de-dependencias-backend">Árbol de Dependencias (Backend)</a></li>
+        <li><a href="#encontrar-dependencias-duplicadas">Encontrar Dependencias Duplicadas</a></li>
+      </ol>
+    </li>
+    <li><a href="#auditoría-de-seguridad">Auditoría de Seguridad</a>
+      <ol>
+        <li><a href="#frontend">Frontend</a></li>
+        <li><a href="#backend">Backend</a></li>
+      </ol>
+    </li>
+    <li><a href="#caché-y-limpieza">Caché y Limpieza</a>
+      <ol>
+        <li><a href="#limpiar-caché-de-npmbun">Limpiar Caché de npm/Bun</a></li>
+        <li><a href="#limpiar-caché-de-cargo">Limpiar Caché de Cargo</a></li>
+        <li><a href="#liberar-espacio">Liberar Espacio</a></li>
+      </ol>
+    </li>
+    <li><a href="#problemas-comunes">Problemas Comunes</a>
+      <ol>
+        <li><a href="#error-dependency-conflict">Error: &ldquo;Dependency conflict&rdquo;</a></li>
+        <li><a href="#error-network-timeout-downloading-package">Error: &ldquo;Network timeout downloading package&rdquo;</a></li>
+        <li><a href="#paquete-no-encontrado">Paquete no encontrado</a></li>
+        <li><a href="#compilación-falla-después-de-actualizar">Compilación falla después de actualizar</a></li>
+      </ol>
+    </li>
+    <li><a href="#mejores-prácticas">Mejores Prácticas</a>
+      <ol>
+        <li><a href="#-haz">✅ Haz:</a></li>
+        <li><a href="#-no-hagas">❌ No hagas:</a></li>
+      </ol>
+    </li>
+    <li><a href="#scripts-útiles">Scripts Útiles</a>
+      <ol>
+        <li><a href="#actualización-segura">Actualización Segura</a></li>
+      </ol>
+    </li>
+    <li><a href="#siguientes-pasos">Siguientes Pasos</a></li>
+  </ol>
+</nav>
+  </div>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 px-4 py-3 rounded-xl hover:text-white">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.126d497b047e43c21a1141f8038e985c164038a59ef1dc07130dc5e924ef780a.js"></script></body>
+
+</html>

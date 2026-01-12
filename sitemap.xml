@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://os.vasak.net.ar/docs/devs/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/setup-proyecto/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/compilacion/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/contribucion/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/user/logs/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/dependencias/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/lineamientos/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/user/errores/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/arquitectura/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/user/reporte-errores/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/user/faq/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/carpetas/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/componentes-vue/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/dbus/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/user/troubleshooting/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/comandos-rust/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/debugging/</loc>
+  </url><url>
     <loc>https://os.vasak.net.ar/blog/</loc>
     <lastmod>2026-01-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -221,6 +257,10 @@
     <loc>https://os.vasak.net.ar/categories/</loc>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/colaborar/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/</loc>
+  </url><url>
+    <loc>https://os.vasak.net.ar/docs/user/</loc>
   </url><url>
     <loc>https://os.vasak.net.ar/donate/</loc>
   </url><url>
