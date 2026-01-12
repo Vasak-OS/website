@@ -1,9 +1,33 @@
 {{ $fontawesome := resources.GetRemote "https://kit.fontawesome.com/02f5a0ef7c.js" }}
 {{ $pageclip := resources.GetRemote "https://s.pageclip.co/v1/pageclip.js" }}
 {{ $fuse := resources.GetRemote "https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js" }}
+{{ $mermaid := resources.GetRemote "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" }}
 {{ $search := resources.Get "js/search.js" }}
 {{ $darkmode := resources.Get "js/darkmode.js" }}
 {{ $menu := resources.Get "js/menu.js" }}
 
 {{ $fullscript := slice $fontawesome $pageclip $darkmode $menu | resources.Concat "/js/bundle.js" | minify | fingerprint }}
 <script async src="{{ $fullscript.RelPermalink }}"></script>
+
+<!-- Mermaid Diagram Support -->
+<script async src="{{ $mermaid.RelPermalink }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
+    mermaid.contentLoaded();
+  });
+  
+  // Para modo oscuro en Mermaid
+  const darkModeToggle = document.querySelector('[data-dark-mode]');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', function() {
+      setTimeout(() => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
+        // Reload mermaid diagrams
+        mermaid.contentLoaded();
+      }, 100);
+    });
+  }
+</script>

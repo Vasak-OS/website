@@ -18,6 +18,8 @@
 {{ $t.Stop }}
 
 {{ $pageclip := resources.GetRemote "https://s.pageclip.co/v1/pageclip.css" | minify | fingerprint "sha512" }}
-
-{{ $allcss := slice $pageclip | resources.Concat "/css/vendor.css" | minify | fingerprint "sha512" }}
-<link rel="stylesheet" href="{{ $allcss.RelPermalink }}" />
+{{ with resources.Get "css/mermaid.css" }}
+  {{ $mermaidcss := . | minify | fingerprint "sha512" }}
+  {{ $allcss := slice $pageclip $mermaidcss | resources.Concat "/css/vendor.css" | minify | fingerprint "sha512" }}
+  <link rel="stylesheet" href="{{ $allcss.RelPermalink }}" />
+{{ end }}
