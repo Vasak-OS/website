@@ -1,0 +1,22 @@
+{{ define "main" }}
+<main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">{{.Title}}</h1>
+          {{ .Content }}
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      {{ partial "sections/sidebar-single.html" . -}}
+    </div>
+
+  </div>
+</main>
+
+{{ end }}

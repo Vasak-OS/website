@@ -1,0 +1,29 @@
+{{ define "main" }}
+
+<main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+
+      <h1 class="mb-4 text-xl font-bold text-gray-700 dark:text-gray-200">Changelogs</h1>
+      <ul class="px-8 mb-8">
+      {{ range .Data.Pages.ByDate.Reverse }}
+
+      
+        <li
+          class="hover:text-vsk1 font-bold">
+          <a href="{{ .Permalink }}">{{.Title}}</a>
+      </li>
+
+      {{ end }}
+      
+      </ul>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      {{ partial "sections/sidebar.html" . -}}
+    </div>
+
+  </div>
+</main>
+
+{{ end }}
