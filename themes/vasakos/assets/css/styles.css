@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "syntax.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -62,4 +63,81 @@ ol {
 
 li {
   margin-left: 2.5rem;
+}
+
+/* Syntax Highlighting Styles */
+
+pre {
+  @apply p-4 overflow-x-auto;
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  display: block;
+  line-height: 1.428571429;
+  word-break: break-all;
+}
+
+code {
+  @apply inline-grid p-0;
+  color: unset;
+  border: none;
+  background: none;
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+code::before {
+  content: attr(data-lang);
+  position: absolute;
+  margin-top: -43px;
+  color: var(--bg-site);
+  margin-left: -30px;
+}
+
+pre,
+.chroma {
+  @apply bg-gray-200 text-gray-800 dark:bg-gray-900 dark:text-white overflow-y-auto;
+}
+
+.highlight {
+  @apply bg-gray-200 text-gray-800 dark:bg-gray-900 dark:text-white p-1 rounded-xl relative my-4 border-t-24 border-vsk1;
+}
+
+hr {
+  @apply my-8 border-t-2 border-gray-200 dark:border-gray-900;
+}
+
+.highlight::before {
+  font: normal normal normal 14px/1 FontAwesome;
+  content: "\f121";
+  color: var(--bg-site);
+  position: absolute;
+  margin-top: -22px;
+  margin-left: 5px;
+}
+
+.highlight {
+  @apply my-2;
+  pre {
+    @apply text-sm m-0 p-4;
+
+    code {
+      @apply bg-none p-0;
+    }
+  }
+}
+
+pre:has(code) {
+  @apply p-2 m-4 bg-gray-100 rounded-lg overflow-x-auto;
+}
+
+pre {
+  code {
+    @apply bg-inherit text-sm font-mono;
+  }
+}
+
+code {
+  @apply bg-gray-200 px-1 rounded-md text-green-800;
 }
