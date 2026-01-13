@@ -112,22 +112,51 @@ Muestra:
 
 **Tecnología**: Vue.js 3.5.18, TypeScript, Tailwind CSS 4.1
 
-```
-src/
-├── components/          # Componentes Vue reutilizables
-│   ├── buttons/        # Botones de interfaz
-│   ├── cards/          # Tarjetas de información
-│   ├── controls/       # Controles interactivos (audio, brillo, etc.)
-│   └── areas/          # Áreas completas (panel, control-center, menu)
-├── views/              # Páginas principales
-│   ├── PanelView.vue       # Ventana panel superior
-│   ├── DesktopView.vue     # Ventana fondo escritorio
-│   ├── MenuView.vue        # Vista del menú de apps
-│   └── ControlCenterView.vue # Centro de control
-├── routes/             # Configuración de rutas
-├── tools/              # Controllers (battery, network, bluetooth, tray)
-└── main.ts             # Punto de entrada
-```
+{{< mermaid >}}
+graph LR
+    Frontend["🎨 Frontend Vue.js<br/><small>src/</small>"]
+    
+    Frontend --> App["📄 App.vue<br/><small>Componente raíz</small>"]
+    Frontend --> Main["📄 main.ts<br/><small>Entry point</small>"]
+    Frontend --> Style["📄 style.css<br/><small>Estilos globales</small>"]
+    
+    Frontend --> Views["📁 views/<br/><small>Páginas principales</small>"]
+    Frontend --> Components["📁 components/<br/><small>Componentes reutilizables</small>"]
+    Frontend --> Routes["📁 routes/<br/><small>Configuración de rutas</small>"]
+    Frontend --> Tools["📁 tools/<br/><small>Controllers</small>"]
+    
+    Views --> ViewPanel["📄 PanelView.vue<br/><small>Ventana panel superior</small>"]
+    Views --> ViewDesktop["📄 DesktopView.vue<br/><small>Ventana fondo escritorio</small>"]
+    Views --> ViewMenu["📄 MenuView.vue<br/><small>Vista del menú de apps</small>"]
+    Views --> ViewCC["📄 ControlCenterView.vue<br/><small>Centro de control</small>"]
+    
+    Components --> CompBtns["📁 buttons/<br/><small>Botones de interfaz</small>"]
+    Components --> CompCards["📁 cards/<br/><small>Tarjetas de información</small>"]
+    Components --> CompCtrl["📁 controls/<br/><small>Controles interactivos</small>"]
+    Components --> CompAreas["📁 areas/<br/><small>Áreas completas</small>"]
+    
+    CompAreas --> AreaPanel["📁 panel/"]
+    CompAreas --> AreaCC["📁 control-center/"]
+    CompAreas --> AreaMenu["📁 menu/"]
+    
+    Tools --> ToolBat["📄 battery.controller.ts"]
+    Tools --> ToolNet["📄 network.controller.ts"]
+    Tools --> ToolBT["📄 bluetooth.controller.ts"]
+    Tools --> ToolTray["📄 tray.controller.ts"]
+    
+    Routes --> RouteIdx["📄 index.ts"]
+    
+    style Frontend fill:#667eea,stroke:#764ba2,color:#fff
+    style App fill:#f3e5f5,stroke:#ce93d8,color:#000
+    style Views fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Components fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Routes fill:#feca57,stroke:#ff9a56,color:#fff
+    style Tools fill:#fa709a,stroke:#f5576c,color:#fff
+    style ViewPanel fill:#f3e5f5,stroke:#ce93d8,color:#000
+    style ViewDesktop fill:#f3e5f5,stroke:#ce93d8,color:#000
+    style ViewMenu fill:#f3e5f5,stroke:#ce93d8,color:#000
+    style ViewCC fill:#f3e5f5,stroke:#ce93d8,color:#000
+{{< /mermaid >}}
 
 **Flujo de Datos**:
 - Componentes → `invoke('command')` → Backend
@@ -137,16 +166,46 @@ src/
 
 **Tecnología**: Tauri IPC Bridge
 
-Conecta Frontend y Backend:
-
-```
-Vue Component → 
-  invoke('get_audio_volume') →
-    Backend Command Handler →
-      D-Bus / System Call →
-        Resultado →
-          Retorna a Frontend
-```
+{{< mermaid >}}
+sequenceDiagram
+    participant VueComp as Vue<br/>Component
+    participant Invoke as invoke()
+    participant IPCBridge as IPC Bridge
+    participant BackendCmd as Backend<br/>Command
+    participant DBusService as D-Bus /<br/>System Call
+    participant Result as Resultado
+    
+    VueComp->>Invoke: invoke('get_audio_volume')
+    activate Invoke
+    Invoke->>IPCBridge: envía comando serializado
+    deactivate Invoke
+    
+    activate IPCBridge
+    IPCBridge->>BackendCmd: #64 (Backend Handler)
+    deactivate IPCBridge
+    
+    activate BackendCmd
+    BackendCmd->>DBusService: consulta D-Bus / llamada sistema
+    deactivate BackendCmd
+    
+    activate DBusService
+    DBusService->>Result: obtiene valor (ej: 50%)
+    deactivate DBusService
+    
+    activate Result
+    Result->>IPCBridge: retorna respuesta
+    deactivate Result
+    
+    activate IPCBridge
+    IPCBridge->>VueComp: resolve Promise con resultado
+    deactivate IPCBridge
+    
+    activate VueComp
+    VueComp->>VueComp: actualiza estado local
+    deactivate VueComp
+    
+    Note over VueComp,Result: Solo comandos explícitamente registrados pueden ser invocados
+{{< /mermaid >}}
 
 **Seguridad**: Solo comandos explícitamente registrados pueden ser invocados.
 
@@ -154,33 +213,58 @@ Vue Component →
 
 **Tecnología**: Rust 1.70+, Tauri 2.x
 
-```
-src-tauri/src/
-├── main.rs              # Punto de entrada, setup de ventanas
-├── lib.rs              # Registro de comandos y módulos
-├── commands/           # Manejadores de comandos IPC
-│   ├── audio.rs        # Control de audio (volumen, mute, dispositivos)
-│   ├── bluetooth.rs    # Control de bluetooth
-│   ├── network.rs      # Control de red
-│   ├── brightness.rs   # Control de brillo
-│   ├── notifications.rs # Sistema de notificaciones
-│   ├── shortcuts.rs    # Gestión de atajos de teclado
-│   ├── search.rs       # Búsqueda global de aplicaciones
-│   ├── system_config.rs # Configuración del sistema (tema, iconos)
-│   ├── theme.rs        # Temas GTK, iconos, cursores
-│   └── session.rs      # Logout, shutdown, reboot, suspend
-├── window_manager/     # Gestión de ventanas Tauri
-├── monitor_manager.rs  # Gestión de monitores
-├── dbus_service.rs     # Integración D-Bus
-├── audio.rs           # Módulo de audio (backend)
-├── brightness.rs      # Módulo de brillo (backend)
-├── notifications.rs   # Sistema de notificaciones (backend)
-├── tray/              # Implementación de tray icons
-├── utils/             # Funciones de utilidad
-│   ├── shortcuts/     # Sistema de atajos
-│   └── search/        # Motor de búsqueda
-└── structs.rs         # Estructuras compartidas
-```
+{{< mermaid >}}
+graph LR
+    Backend["⚙️ Backend Rust<br/><small>src-tauri/src/</small>"]
+    
+    Backend --> Main["📄 main.rs<br/><small>Punto de entrada<br/>setup de ventanas</small>"]
+    Backend --> Lib["📄 lib.rs<br/><small>Registro de comandos<br/>y módulos</small>"]
+    Backend --> Structs["📄 structs.rs<br/><small>Estructuras compartidas</small>"]
+    
+    Backend --> Commands["📁 commands/<br/><small>Manejadores IPC</small>"]
+    Backend --> WindowMgr["📁 window_manager/<br/><small>Gestión de ventanas</small>"]
+    Backend --> MonitorMgr["📄 monitor_manager.rs<br/><small>Gestión de monitores</small>"]
+    Backend --> DBusService["📄 dbus_service.rs<br/><small>Integración D-Bus</small>"]
+    Backend --> Tray["📁 tray/<br/><small>Bandeja del sistema</small>"]
+    Backend --> Utils["📁 utils/<br/><small>Funciones de utilidad</small>"]
+    
+    Commands --> AudioCmd["📄 audio.rs<br/><small>Control de audio</small>"]
+    Commands --> BluetoothCmd["📄 bluetooth.rs<br/><small>Control bluetooth</small>"]
+    Commands --> NetworkCmd["📄 network.rs<br/><small>Control de red</small>"]
+    Commands --> BrightnessCmd["📄 brightness.rs<br/><small>Control de brillo</small>"]
+    Commands --> NotificationsCmd["📄 notifications.rs<br/><small>Sistema de notificaciones</small>"]
+    Commands --> ShortcutsCmd["📄 shortcuts.rs<br/><small>Gestión de atajos</small>"]
+    Commands --> SearchCmd["📄 search.rs<br/><small>Búsqueda de apps</small>"]
+    Commands --> SystemConfigCmd["📄 system_config.rs<br/><small>Configuración del SO</small>"]
+    Commands --> ThemeCmd["📄 theme.rs<br/><small>Temas GTK, iconos</small>"]
+    Commands --> SessionCmd["📄 session.rs<br/><small>Logout, shutdown, suspend</small>"]
+    
+    WindowMgr --> WinMod["📄 window_controller.rs"]
+    
+    Utils --> UtilShortcuts["📁 shortcuts/"]
+    Utils --> UtilSearch["📁 search/"]
+    
+    style Backend fill:#667eea,stroke:#764ba2,color:#fff
+    style Main fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Lib fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Structs fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Commands fill:#feca57,stroke:#ff9a56,color:#fff
+    style WindowMgr fill:#43e97b,stroke:#38f9d7,color:#fff
+    style MonitorMgr fill:#43e97b,stroke:#38f9d7,color:#fff
+    style DBusService fill:#f093fb,stroke:#f5576c,color:#fff
+    style Tray fill:#fa709a,stroke:#f5576c,color:#fff
+    style Utils fill:#4facfe,stroke:#00f2fe,color:#fff
+    style AudioCmd fill:#43e97b,stroke:#38f9d7,color:#fff
+    style BluetoothCmd fill:#f093fb,stroke:#f5576c,color:#fff
+    style NetworkCmd fill:#fa709a,stroke:#f5576c,color:#fff
+    style BrightnessCmd fill:#feca57,stroke:#ff9a56,color:#fff
+    style NotificationsCmd fill:#43e97b,stroke:#38f9d7,color:#fff
+    style ShortcutsCmd fill:#feca57,stroke:#ff9a56,color:#fff
+    style SearchCmd fill:#feca57,stroke:#ff9a56,color:#fff
+    style SystemConfigCmd fill:#4facfe,stroke:#00f2fe,color:#fff
+    style ThemeCmd fill:#feca57,stroke:#ff9a56,color:#fff
+    style SessionCmd fill:#f093fb,stroke:#f5576c,color:#fff
+{{< /mermaid >}}
 
 **Responsabilidades del Backend**:
 - Ejecutar comandos del sistema vía shell o APIs nativas
