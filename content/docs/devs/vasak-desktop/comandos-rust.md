@@ -9,13 +9,46 @@ Guía para desarrollar comandos IPC (Tauri) en Rust.
 
 Los comandos son funciones Rust que se pueden llamar desde el frontend Vue.js a través de IPC.
 
-```
-Frontend (Vue) →  invoke('command_name', data)  → Backend (Rust)
-                  ↓
-              Tauri Bridge
-              ↓
-           IPC Channel
-```
+{{< mermaid >}}
+sequenceDiagram
+    participant Frontend as 🎨 Frontend<br/>(Vue.js)
+    participant Invoke as invoke()
+    participant Bridge as 🔗 Tauri Bridge
+    participant IPC as 📡 IPC Channel
+    participant Backend as ⚙️ Backend<br/>(Rust)
+    
+    Frontend->>Invoke: invoke('command_name', data)
+    activate Invoke
+    Invoke->>Bridge: serializa datos
+    deactivate Invoke
+    
+    activate Bridge
+    Bridge->>IPC: envía por canal
+    deactivate Bridge
+    
+    activate IPC
+    IPC->>Backend: entrega comando
+    deactivate IPC
+    
+    activate Backend
+    Backend->>Backend: ejecuta función Rust
+    Backend->>IPC: retorna resultado
+    deactivate Backend
+    
+    activate IPC
+    IPC->>Bridge: envía respuesta
+    deactivate IPC
+    
+    activate Bridge
+    Bridge->>Invoke: deserializa resultado
+    deactivate Bridge
+    
+    activate Invoke
+    Invoke->>Frontend: Promise resuelto
+    deactivate Invoke
+    
+    Note over Frontend,Backend: Comunicación bidireccional segura
+{{< /mermaid >}}
 
 ## Estructura Base de un Comando
 
