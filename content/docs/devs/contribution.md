@@ -3,18 +3,11 @@ title: "Contribucion al Proyecto"
 weight: 55
 ---
 
-Guía para contribuir al desarrollo de Vasak Desktop.
-
-## Antes de Empezar
-
-1. Familiarízate con [Arquitectura General](arquitectura.md)
-2. Lee los [Lineamientos de Código](lineamientos.md)
-3. Configura tu [Entorno de Desarrollo](setup-proyecto.md)
-4. Compila el proyecto (Ver [Compilación](compilacion.md))
+Guía para contribuir al desarrollo de **VasakOS**. Esto aplica a desarrollos propios o comunitarios dentro del mismo entorno. 
 
 ## Proceso de Contribución
 
-### 1. Fork y Clone
+### Fork y Clone
 
 ```bash
 # En GitHub, haz Fork del repositorio
@@ -28,7 +21,7 @@ cd vasak-desktop
 git remote add upstream https://github.com/Vasak-OS/vasak-desktop.git
 ```
 
-### 2. Crea una Rama
+### Crea una Rama
 
 ```bash
 # Actualiza main desde upstream
@@ -53,12 +46,9 @@ git checkout -b docs/descripcion-corta
 - `docs/doc-name` - Documentación
 - `chore/chore-name` - Tareas sin código funcional
 
-### 3. Realiza tus Cambios
+### Realiza tus Cambios
 
-```bash
-# Haz cambios en los archivos
-# Sigue los lineamientos de código
-```
+Realiza los cambios en el proyecto segun creas conveninete para lo que estes intentando de resolver, recuerda que puedes utilizar varios commit si quieres organizarte pero evita exederte o que los mismos no tengan sentido. Recopila toda la informacion que creas importante para PR y para la documentacion.
 
 **Checklist**:
 - [ ] Código sigue lineamientos
@@ -67,7 +57,7 @@ git checkout -b docs/descripcion-corta
 - [ ] Documentación actualizada
 - [ ] Commits bien descriptos
 
-### 4. Commits
+### Commits
 
 ```bash
 # Ver cambios
@@ -113,7 +103,7 @@ Closes #1234
 Fixes #5678
 ```
 
-### 5. Push y Pull Request
+### Push y Pull Request
 
 ```bash
 # Push tu rama
@@ -154,9 +144,11 @@ Breve descripción de qué hace este PR.
 - [ ] He actualizado la documentación
 - [ ] He añadido tests
 - [ ] Los tests pasan localmente
+
+## Benchmark (Si aplica)
 ```
 
-### 6. Revisión y Feedback
+### Revisión y Feedback
 
 - Los mantenedores revisarán tu PR
 - Responde a los comentarios
@@ -174,7 +166,7 @@ git commit -m "Address review feedback
 git push origin feature/descripcion-corta
 ```
 
-### 7. Merge
+### Merge
 
 Una vez aprobado:
 - Los mantenedores harán merge de tu PR
@@ -189,66 +181,56 @@ git pull upstream main
 
 ## Tipos de Contribución
 
-### 1. Nuevas Funcionalidades
+### Nuevas Funcionalidades
 
-```
-Pasos:
+**Pasos:**
 1. Discute en un issue primero
 2. Sigue la arquitectura establecida
 3. Añade tests
 4. Documenta el cambio
 5. Actualiza CHANGELOG
-```
 
-### 2. Corrección de Bugs
+### Corrección de Bugs
 
-```
-Pasos:
+**Pasos:**
 1. Abre un issue describiendo el bug
 2. Crea rama desde issue
 3. Reproduce el bug con test
 4. Arregla el bug
 5. Test debe pasar
 6. Documenta la corrección
-```
 
-### 3. Documentación
+### Documentación
 
-```
-Archivos:
-- docs/user/* - Para usuarios finales
-- docs/devs/* - Para desarrolladores
+**Archivos:**
+- `docs/user/*` - Para usuarios finales | [repo](https://github.com/Vasak-OS/website)
+- `docs/devs/*` - Para desarrolladores | [repo](https://github.com/Vasak-OS/website)
 - README.md - Para repositorio
 - Code comments - Dentro del código
-```
 
-### 4. Mejoras de Performance
+### Mejoras de Performance
 
-```
-Requerimientos:
+**Requerimientos:**
 1. Mide antes (con profiler)
 2. Implementa mejora
 3. Mide después (compara)
 4. Añade benchmark si es crítico
 5. Documenta cambio
-```
 
-### 5. Tests
+### Tests
 
-```
-Tipos:
+**Tipos:**
 - Unit tests - Funciones individuales
 - Integration tests - Componentes integrados
 - E2E tests - Flujo completo del usuario
 
-Ubicación:
-- src-tauri/tests/ - Tests de Rust
-- src/tests/ - Tests de Vue
-```
+**Ubicación:**
+- `src-tauri/tests/` - Tests de Rust
+- `src/tests/` - Tests de Vue
 
 ## Reportes de Bugs
 
-Ver [Cómo Reportar Errores](../user/reporte-errores.md)
+Ver [Cómo Reportar Errores](/docs/user/reporte-errores/)
 
 **Requiere**:
 - Descripción clara
@@ -269,12 +251,13 @@ Verifica:
 - [ ] No introduce regresiones
 - [ ] Performance es aceptable
 
-```
-Comentario constructivo:
-
-❌ "Esto está mal"
-✅ "Considerar usar X en lugar de Y porque..."
-```
+> Comentario constructivo:
+> 
+> 
+> ❌ "Esto está mal"
+> 
+> ✅ "Considerar usar X en lugar de Y porque..."
+> 
 
 ### Como Autor
 

@@ -141,3 +141,9 @@ pre {
 code {
   @apply bg-gray-200 px-1 rounded-md text-green-800;
 }
+
+/* BLOCKQUOTES */
+
+blockquote {
+  @apply px-6 py-4 rounded-xl bg-gradient-to-r from-vsk2 to-vsk1 text-white font-semibold my-6 ;
+}
