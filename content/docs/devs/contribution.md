@@ -1,6 +1,6 @@
 ---
 title: "Contribucion al Proyecto"
-weight: 5
+weight: 55
 ---
 
 Guía para contribuir al desarrollo de Vasak Desktop.

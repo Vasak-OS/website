@@ -1,6 +1,6 @@
 ---
 title: "Lineamientos de codigo | vasak-desktop"
-weight: 10
+weight: 105
 ---
 
 Estándares y mejores prácticas para mantener la calidad del código.

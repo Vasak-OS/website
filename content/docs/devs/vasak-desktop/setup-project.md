@@ -9,49 +9,18 @@ Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.
 
 ## Requisitos Previos
 
-### 1. Requisitos del Sistema
+### Requisitos del Sistema
 
 - **OS**: Linux (Fedora, Ubuntu, Debian, Arch, etc.)
 - **RAM**: Mínimo 4GB (8GB recomendado)
 - **Almacenamiento**: 5GB espacio libre
 - **Internet**: Conexión para descargar dependencias
 
-### 2. Herramientas Necesarias
+> Es sumamente importante realizar la [instalacion de dependencias para desarrolladores](/docs/devs/dev-dependencies/) dado que de aqui en adelante son dependnecias especificas de `vasak-desktop`
 
-#### Bun (Frontend)
+### Dependencias del Sistema [`vasak-desktop`]
 
-```bash
-curl -fsSL https://bun.sh/install | bash
-```
-
-> Mas informacion sobre la instalacion de Bun en [su sitio web](https://bun.com/docs/installation)
-
-#### Rust (Backend)
-
-```bash
-# Instalar Rust (si aún no lo tienes)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Actualizar a la versión mínima requerida
-rustup update
-
-# Verificar versión (debe ser 1.70+)
-rustc --version
-```
-
-#### Tauri CLI
-
-```bash
-# Después de instalar Rust
-cargo install tauri-cli
-
-# O usar bun
-bun add -g @tauri-apps/cli
-```
-
-### 3. Dependencias del Sistema
-
-#### Fedora / CentOS / RHEL
+#### Fedora y derivadas
 
 ```bash
 sudo dnf groupinstall "Development Tools"
@@ -62,10 +31,9 @@ sudo dnf install libwayland-devel libxcb-devel
 sudo dnf install wayland-devel wayland-protocols-devel
 ```
 
-#### Ubuntu / Debian
+#### Debian y derivadas
 
 ```bash
-sudo apt install build-essential
 sudo apt install libgtk-3-dev libglib2.0-dev libcairo-dev libdbus-1-dev libxkbcommon-dev
 sudo apt install libwayland-dev libxcb-xfixes0-dev libxcb-shape0-dev
 
@@ -73,30 +41,13 @@ sudo apt install libwayland-dev libxcb-xfixes0-dev libxcb-shape0-dev
 sudo apt install wayland-protocols libwayland-dev
 ```
 
-#### Arch
+#### Arch y derivadas
 
 ```bash
-sudo pacman -S base-devel
 sudo pacman -S gtk3 glib2 cairo dbus libxkbcommon
 sudo pacman -S wayland wayland-protocols libxcb
 ```
 
-### 4. Herramientas Opcionales (Recomendadas)
-
-```bash
-# Git
-sudo dnf install git  # Fedora
-sudo apt-get install git  # Ubuntu/Debian
-
-# Editor/IDE
-# VS Code
-sudo dnf install code  # Fedora
-# O descarga desde https://code.visualstudio.com
-
-# Herramientas de debug
-sudo dnf install gdb valgrind  # Fedora
-sudo apt-get install gdb valgrind  # Ubuntu/Debian
-```
 
 ## Clonar el Repositorio
 
@@ -127,23 +78,6 @@ cargo check
 
 # Descargar e indexar dependencias
 cargo build --release  # (Esto toma tiempo la primera vez)
-```
-
-## Verificar Instalación
-
-```bash
-# Verificar Bun/Node
-bun --version
-
-# Verificar Rust
-rustc --version
-cargo --version
-
-# Verificar Tauri CLI
-cargo tauri --version
-
-# Verificar herramientas del sistema
-pkg-config --version
 ```
 
 ## Estructura Inicial
