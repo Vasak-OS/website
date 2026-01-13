@@ -542,35 +542,4 @@ describe('AudioControl', () => {
 
 ## Mejores Prácticas
 
-### ✅ Haz:
-- Componentes pequeños y enfocados
-- Props documentadas con tipos
-- Manejo explícito de errores
-- Cleanup en onUnmounted
-- Usar composables para lógica compartida
-- Nombrar eventos claramente
-
-### ❌ No hagas:
-- Componentes "todo en uno"
-- Props sin tipo
-- Ignorar errores de async
-- Memory leaks por listeners no removidos
-- Código duro (hardcoded)
-- Efectos secundarios en render
-
-## Checklist de Componente
-
-- [ ] Tiene nombre claro
-- [ ] Props documentadas
-- [ ] Eventos definidos
-- [ ] Manejo de errores
-- [ ] Cleanup en unmount
-- [ ] Estilos scoped
-- [ ] Tests unitarios
-- [ ] Accesibilidad (ARIA)
-
-## Siguientes Pasos
-
-- [Comandos Rust](comandos-rust.md)
-- [Lineamientos de Código](lineamientos.md)
-- [Debugging](debugging.md)
+Recuerda revisar la documentacion de [buenas practicas de VueJS](/docs/devs/good-practices_vue/) para mantener buenas ppractivas.
