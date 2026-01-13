@@ -582,10 +582,3 @@ Configuración de TypeScript.
 ### `vite.config.ts`
 
 Configuración de build del frontend.
-
-## Siguientes Pasos
-
-- [D-Bus](dbus.md) - Sistema de comunicación
-- [Sistema de Carpetas](carpetas.md) - Detalles de estructura
-- [Comandos Rust](comandos-rust.md) - Desarrollo backend
-- [Componentes Vue](componentes-vue.md) - Desarrollo frontend

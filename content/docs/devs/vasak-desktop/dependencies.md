@@ -151,35 +151,6 @@ cargo remove nombre-crate
 cargo update
 ```
 
-## Dependencias del Sistema
-
-### Verificar Dependencias Instaladas
-
-```bash
-# Listar paquetes instalados
-pkg-config --list-all | grep -E "(gtk|glib|cairo|dbus)"
-
-# O específicamente
-pkg-config --modversion gtk+-3.0
-pkg-config --modversion dbus-1
-```
-
-### Actualizar Dependencias del Sistema
-
-```bash
-# Fedora
-sudo dnf update
-sudo dnf install gtk3-devel dbus-devel  # Si faltan
-
-# Ubuntu/Debian
-sudo apt update
-sudo apt install libgtk-3-dev libdbus-1-dev
-
-# Arch
-sudo pacman -Syu
-sudo pacman -S gtk3 dbus
-```
-
 ## Bloqueo de Versiones (Lock Files)
 
 ### `bun.lock` (Frontend)
@@ -201,59 +172,6 @@ bun install --frozen-lockfile
 ```bash
 # Para librerías, normalmente no se commitea
 # Para aplicaciones ejecutables, sí se commitea
-```
-
-## Versiones de Dependencias Críticas
-
-### Versiones Soportadas
-
-```
-- Bun: Latest
-- Rust: 1.70+
-- Vue.js: 3.5+
-- Tauri: 2.8+
-```
-
-### Verificar Versiones
-
-```bash
-# Frontend
-bun --version
-
-# Backend
-rustc --version
-cargo --version
-```
-
-## Gestión de Plugins de Tauri
-
-Vasak Desktop usa plugins específicos de Tauri:
-
-### Plugins Principales
-
-```json
-{
-  "dependencies": {
-    "@tauri-apps/api": "^2.9.1",
-    "@tauri-apps/plugin-fs": "^2.4.4",
-    "@tauri-apps/plugin-shell": "^2",
-    "@vasakgroup/plugin-bluetooth-manager": "^2.0.0",
-    "@vasakgroup/plugin-network-manager": "^2.0.2",
-    "@vasakgroup/plugin-config-manager": "^2.0.3"
-  }
-}
-```
-
-### Actualizar Plugins
-
-```bash
-# Todos los plugins a la vez
-bun add @tauri-apps/api@latest
-bun add @vasakgroup/plugin-bluetooth-manager@latest
-
-# Verificar compatibilidad
-cargo check
-bun run build --dry-run
 ```
 
 ## Análisis de Dependencias
@@ -352,57 +270,6 @@ bun install
 cargo build
 ```
 
-## Problemas Comunes
-
-### Error: "Dependency conflict"
-
-```bash
-# Frontend - Resuelve conflictos
-bun install --latest  # Actualiza todo
-
-# Backend
-cd src-tauri
-cargo update
-cargo check
-```
-
-### Error: "Network timeout downloading package"
-
-```bash
-# Frontend
-bun config set registry https://registry.npmjs.org/
-
-# Backend
-cargo install --registry-default
-
-# O especifica timeout
-bun install --timeout 300000
-```
-
-### Paquete no encontrado
-
-```bash
-# Verifica que existe
-npm search nombre-paquete
-
-# Verifica sintaxis en package.json
-bun install
-```
-
-### Compilación falla después de actualizar
-
-```bash
-# Limpia todo y recompila
-rm -rf node_modules/ bun.lock src-tauri/target/ Cargo.lock
-bun install
-cargo check
-
-# Si falla, revierte cambios
-git checkout package.json Cargo.toml
-bun install
-cargo check
-```
-
 ## Mejores Prácticas
 
 ### ✅ Haz:
@@ -451,9 +318,3 @@ cargo check
 
 echo "✓ Actualización completada"
 ```
-
-## Siguientes Pasos
-
-- [Setup del Proyecto](setup-proyecto.md)
-- [Compilación](compilacion.md)
-- [Debugging](debugging.md)

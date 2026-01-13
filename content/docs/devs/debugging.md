@@ -1,9 +1,9 @@
 ---
-title: "Debugging | vasak-desktop"
+title: "Debugging"
 weight: 35
 ---
 
-Técnicas y herramientas para depurar código en Vasak Desktop.
+Técnicas y herramientas para depurar código en cualquier **VAPP** el ejmplo utiliza `vasak-desktop` con el fin de tener un caso de uso amplio.
 
 ## Debugging del Frontend (Vue.js / TypeScript)
 
@@ -438,48 +438,3 @@ async fn main() {
     eprintln!("📋 Task completada");
 }
 ```
-
-## Script de Debugging Completo
-
-```bash
-#!/bin/bash
-# debug.sh
-
-set -e
-
-echo "🔍 Iniciando Debugging de Vasak Desktop"
-echo
-
-echo "📦 Información del sistema:"
-cargo tauri info
-
-echo
-echo "🚀 Ejecutando con logs de debug..."
-RUST_LOG=debug,zbus=debug cargo tauri dev 2>&1 | tee debug-$(date +%s).log
-
-echo
-echo "📝 Log guardado en debug-*.log"
-```
-
-Uso:
-```bash
-chmod +x debug.sh
-./debug.sh
-```
-
-## Checklist de Debugging
-
-- [ ] ¿Verificaste logs en console?
-- [ ] ¿Usaste breakpoints en DevTools?
-- [ ] ¿Inspeccionaste el DOM?
-- [ ] ¿Viste variables locales?
-- [ ] ¿Probaste en modo debug?
-- [ ] ¿Checkeaste timers/intervals?
-- [ ] ¿Validaste D-Bus?
-- [ ] ¿Hiciste monitor de performance?
-
-## Siguientes Pasos
-
-- [Lineamientos de Código](lineamientos.md)
-- [Componentes Vue](componentes-vue.md)
-- [Comandos Rust](comandos-rust.md)

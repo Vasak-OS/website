@@ -3,8 +3,6 @@ title: "D-Bus - Integracion con el sistema | vasak-desktop"
 weight: 25
 ---
 
-# D-Bus - Integración del Sistema - Vasak Desktop
-
 Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux.
 
 ## ¿Qué es D-Bus?
@@ -55,7 +53,7 @@ Vasak Desktop usa principalmente el **Session Bus**.
 
 ## Conceptos Clave
 
-### 1. Nombre del Servicio (Bus Name)
+### Nombre del Servicio (Bus Name)
 
 Identificador único para un servicio:
 
@@ -67,7 +65,7 @@ org.freedesktop.DBus.Properties
 
 Formato: `org.domain.interface`
 
-### 2. Ruta de Objeto (Object Path)
+### Ruta de Objeto (Object Path)
 
 Localización del objeto en el servicio:
 
@@ -78,7 +76,7 @@ Localización del objeto en el servicio:
 
 Formato jerárquico similar a paths de archivos.
 
-### 3. Interfaz
+### Interfaz
 
 Define métodos, señales y propiedades de un objeto:
 
@@ -87,7 +85,7 @@ org.freedesktop.NetworkManager.Device
 org.freedesktop.DBus.Properties
 ```
 
-### 4. Métodos
+### Métodos
 
 Funciones que se pueden llamar:
 
@@ -96,7 +94,7 @@ interface: org.freedesktop.NetworkManager
 method: Activate(objpath: in, objpath: in) -> (objpath: out)
 ```
 
-### 5. Señales
+### Señales
 
 Eventos que se pueden escuchar:
 
@@ -105,7 +103,7 @@ signal: StateChanged(uint32: state)
 signal: PropertiesChanged(dict: properties)
 ```
 
-### 6. Propiedades
+### Propiedades
 
 Valores que se pueden leer/escribir:
 
@@ -138,7 +136,7 @@ impl DbusService {
 
 ### Servicios Utilizados
 
-#### 1. Audio (PulseAudio / PipeWire)
+#### Audio (PulseAudio / PipeWire)
 
 **Servicio**: `org.pulseaudio.Server` o `org.PipeWire.Core1`
 
@@ -150,7 +148,7 @@ impl DbusService {
 
 **Código**: `src-tauri/src/audio.rs`
 
-#### 2. Bluetooth
+#### Bluetooth
 
 **Servicio**: `org.bluez`
 
@@ -166,7 +164,7 @@ impl DbusService {
 
 **Código**: `src-tauri/src/bluetooth.rs`
 
-#### 3. Red (NetworkManager)
+#### Red (NetworkManager)
 
 **Servicio**: `org.freedesktop.NetworkManager`
 
@@ -183,7 +181,7 @@ impl DbusService {
 
 **Código**: `src-tauri/src/network.rs`
 
-#### 4. Notificaciones (Freedesktop)
+#### Notificaciones (Freedesktop)
 
 **Servicio**: `org.freedesktop.Notifications`
 
@@ -196,7 +194,7 @@ impl DbusService {
 
 **Código**: `src-tauri/src/notifications.rs`
 
-#### 5. Energía (UPower)
+#### Energía (UPower)
 
 **Servicio**: `org.freedesktop.UPower`
 
@@ -208,7 +206,7 @@ impl DbusService {
 
 ## Herramientas de Debugging D-Bus
 
-### 1. `busctl` - Herramienta de línea de comandos
+### `busctl` - Herramienta de línea de comandos
 
 ```bash
 # Listar servicios en el bus de sesión
@@ -222,7 +220,7 @@ busctl call --user org.freedesktop.DBus /org/freedesktop/DBus \
   org.freedesktop.DBus ListNames
 ```
 
-### 2. `dbus-send` - Enviar mensajes D-Bus
+### `dbus-send` - Enviar mensajes D-Bus
 
 ```bash
 # Obtener volumen actual
@@ -238,7 +236,7 @@ dbus-send --system /org/pulseaudio/core1 \
   uint32:50000
 ```
 
-### 3. `dbus-monitor` - Monitor D-Bus
+### `dbus-monitor` - Monitor D-Bus
 
 ```bash
 # Monitorear todos los mensajes
@@ -252,7 +250,7 @@ dbus-monitor --session \
 dbus-monitor --session type='signal'
 ```
 
-### 4. `gdbus` - Cliente D-Bus de GNOME
+### `gdbus` - Cliente D-Bus de GNOME
 
 ```bash
 # Listar servicios
@@ -474,9 +472,3 @@ RUST_LOG=debug ./target/debug/vasak_desktop
 - [Zbus (Rust bindings)](https://zbus.readthedocs.io/)
 - [PulseAudio D-Bus API](https://www.freedesktop.org/wiki/Software/PulseAudio/DBusInterface/)
 - [NetworkManager D-Bus API](https://networkmanager.dev/)
-
-## Siguientes Pasos
-
-- [Arquitectura General](arquitectura.md)
-- [Comandos Rust](comandos-rust.md)
-- [Debugging](debugging.md)

@@ -620,8 +620,3 @@ use crate::dbus_service::DbusService;
 - Ignores la estructura establecida
 - Crees mucha profundidad de carpetas
 
-## Siguientes Pasos
-
-- [Arquitectura General](arquitectura.md)
-- [Componentes Vue](componentes-vue.md)
-- [Comandos Rust](comandos-rust.md)

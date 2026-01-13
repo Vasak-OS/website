@@ -3,7 +3,11 @@ title: "Solucion de Problemas | vasak-desktop"
 weight: 9999
 ---
 
-## Error: "Rust toolchain not found"
+## Problemas Comunes de Setup
+
+Aqui tienes la solucion de de errores comunes durante el setup del proyecto
+
+### Error: "Rust toolchain not found"
 
 ```bash
 # Asegúrate de que Rust está en tu PATH
@@ -13,7 +17,7 @@ source $HOME/.cargo/env
 rustc --version
 ```
 
-## Error: "GTK development libraries not found"
+### Error: "GTK development libraries not found"
 
 ```bash
 # Fedora
@@ -26,7 +30,7 @@ sudo apt-get install libgtk-3-dev
 sudo pacman -S gtk3
 ```
 
-## Error: "D-Bus development libraries not found"
+### Error: "D-Bus development libraries not found"
 
 ```bash
 # Fedora
@@ -39,7 +43,7 @@ sudo apt-get install libdbus-1-dev
 sudo pacman -S dbus
 ```
 
-## Bun/npm no instala paquetes
+### Bun/npm no instala paquetes
 
 ```bash
 # Limpia caché
@@ -50,7 +54,7 @@ npm cache clean --force  # Para npm
 bun install  # o npm install
 ```
 
-## Cargo tarda mucho en compilar
+### Cargo tarda mucho en compilar
 
 Esto es normal la primera vez (puede tomar 10-30 minutos). 
 
@@ -65,11 +69,11 @@ sudo dnf install mold
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 ```
 
-## Configuración Recomendada del IDE
+### Configuración Recomendada del IDE
 
 Ver [Iniciar Proyecto](setup-proyecto.md) en la sección de IDE.
 
-## Verificación Final
+### Verificación Final
 
 Ejecuta esto para confirmar que todo está correcto:
 
@@ -109,4 +113,112 @@ EOF
 
 chmod +x verify-setup.sh
 ./verify-setup.sh
+```
+
+## Compilacion
+
+Solucion de errores comunes durante la compilacion del proyecto
+
+## Problemas Comunes de Compilación
+
+### Error: "linking with `cc` failed"
+
+```bash
+# Asegúrate de tener gcc instalado
+sudo dnf install gcc  # Fedora
+sudo apt install build-essential  # Ubuntu
+
+# O intenta usar mold (ver sección de optimización)
+```
+
+### Error: "gtk3-devel not found" o similar
+
+```bash
+# Instala las librerías faltantes (ver Setup del Proyecto)
+sudo dnf install gtk3-devel dbus-devel  # Fedora
+sudo apt install libgtk-3-dev libdbus-1-dev  # Ubuntu
+```
+
+### Error: "Could not find OpenSSL"
+
+```bash
+# Instala OpenSSL
+sudo dnf install openssl-devel  # Fedora
+sudo apt install libssl-dev     # Ubuntu
+
+# O especifica ubicación
+export OPENSSL_DIR=/usr/lib/openssl-1.0
+cargo build
+```
+
+### La compilación toma muy tiempo
+
+```bash
+# Usa compilación paralela (por defecto)
+# Pero puedes limitar
+cargo build -j 4  # Usar 4 cores en lugar de todos
+
+# O usar compilador más rápido (mold)
+# Ver sección de optimización
+```
+
+### Error: "Binary already exists"
+
+```bash
+# El binario está en uso, termina los procesos
+pkill -f vasak-desktop
+
+# Luego intenta compilar de nuevo
+cargo build
+```
+
+## Problemas Comunes de Dependencias
+
+### Error: "Dependency conflict"
+
+```bash
+# Frontend - Resuelve conflictos
+bun install --latest  # Actualiza todo
+
+# Backend
+cd src-tauri
+cargo update
+cargo check
+```
+
+### Error: "Network timeout downloading package"
+
+```bash
+# Frontend
+bun config set registry https://registry.npmjs.org/
+
+# Backend
+cargo install --registry-default
+
+# O especifica timeout
+bun install --timeout 300000
+```
+
+### Paquete no encontrado
+
+```bash
+# Verifica que existe
+npm search nombre-paquete
+
+# Verifica sintaxis en package.json
+bun install
+```
+
+### Compilación falla después de actualizar
+
+```bash
+# Limpia todo y recompila
+rm -rf node_modules/ bun.lock src-tauri/target/ Cargo.lock
+bun install
+cargo check
+
+# Si falla, revierte cambios
+git checkout package.json Cargo.toml
+bun install
+cargo check
 ```

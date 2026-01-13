@@ -110,7 +110,7 @@ onUnmounted(() => {
 
 ## Tipos de Componentes
 
-### 1. Componentes Presentacionales (Dumb)
+### Componentes Presentacionales (Dumb)
 
 Solo reciben props y emiten eventos:
 
@@ -166,7 +166,7 @@ defineEmits<{
 </style>
 ```
 
-### 2. Componentes Inteligentes (Smart)
+### Componentes Inteligentes (Smart)
 
 Manejan lógica y estado:
 
@@ -542,4 +542,4 @@ describe('AudioControl', () => {
 
 ## Mejores Prácticas
 
-Recuerda revisar la documentacion de [buenas practicas de VueJS](/docs/devs/good-practices_vue/) para mantener buenas ppractivas.
+Recuerda revisar la documentacion de [buenas practicas de VueJS](/docs/devs/good-practices_vue/) para mantener buenas practivas.

@@ -1,29 +1,9 @@
 ---
-title: "Compilacion| vasak-desktop"
+title: "Compilacion | vasak-desktop"
 weight: 5
 ---
 
-Guía para compilar y ejecutar Vasak Desktop en diferentes modos.
-
-## Modo Desarrollo
-
-### Ejecutar Aplicación Completa en Desarrollo
-
-```bash
-cd /path/to/vasak-desktop
-
-# Ejecutar en modo desarrollo (con hot reload)
-bun run tauri dev
-
-# O con Tauri CLI directamente
-cargo tauri dev
-```
-
-Esto abrirá:
-- Vite dev server (frontend) en `http://localhost:5173`
-- Ventana de Tauri con la aplicación
-- Hot reload habilitado para cambios en el código
-
+Guía para compilar Vasak Desktop. Sobre la misma veremos como realizar compilaciones
 
 ## Modo Producción
 
@@ -118,15 +98,6 @@ rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 cargo build
 ```
 
-### Compilación Incremental
-
-```bash
-# Solo recompila lo que cambió
-cargo build
-
-# Útil durante desarrollo repetitivo
-```
-
 ## Gestión de Caché de Compilación
 
 ```bash
@@ -140,93 +111,3 @@ cargo build --release
 # Limpiar caché de Bun
 bun pm cache rm --all
 ```
-
-## Compilación Cruzada
-
-### Compilar para Arquitectura Diferente
-
-```bash
-# Listar targets disponibles
-rustup target list
-
-# Instalar target adicional (ej: ARM64)
-rustup target add aarch64-unknown-linux-gnu
-
-# Compilar para ARM64
-cargo build --release --target aarch64-unknown-linux-gnu
-```
-
-## Verificación de Compilación
-
-```bash
-# Verificar que compila sin warnings
-cargo check
-
-# Compilar y ver warnings
-cargo build 2>&1 | grep warning
-
-# Verificar estilo de código (linting)
-cargo clippy
-
-# Ejecutar tests
-cargo test
-```
-
-## Troubleshooting de Compilación
-
-### Error: "linking with `cc` failed"
-
-```bash
-# Asegúrate de tener gcc instalado
-sudo dnf install gcc  # Fedora
-sudo apt install build-essential  # Ubuntu
-
-# O intenta usar mold (ver sección de optimización)
-```
-
-### Error: "gtk3-devel not found" o similar
-
-```bash
-# Instala las librerías faltantes (ver Setup del Proyecto)
-sudo dnf install gtk3-devel dbus-devel  # Fedora
-sudo apt install libgtk-3-dev libdbus-1-dev  # Ubuntu
-```
-
-### Error: "Could not find OpenSSL"
-
-```bash
-# Instala OpenSSL
-sudo dnf install openssl-devel  # Fedora
-sudo apt install libssl-dev     # Ubuntu
-
-# O especifica ubicación
-export OPENSSL_DIR=/usr/lib/openssl-1.0
-cargo build
-```
-
-### La compilación toma muy tiempo
-
-```bash
-# Usa compilación paralela (por defecto)
-# Pero puedes limitar
-cargo build -j 4  # Usar 4 cores en lugar de todos
-
-# O usar compilador más rápido (mold)
-# Ver sección de optimización
-```
-
-### Error: "Binary already exists"
-
-```bash
-# El binario está en uso, termina los procesos
-pkill -f vasak-desktop
-
-# Luego intenta compilar de nuevo
-cargo build
-```
-
-## Siguientes Pasos
-
-- [Dependencias](dependencias.md) - Gestionar paquetes
-- [Debugging](debugging.md) - Depurar código
-- [Arquitectura General](arquitectura.md) - Entender estructura
