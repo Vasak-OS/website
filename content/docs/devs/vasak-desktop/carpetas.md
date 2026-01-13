@@ -7,58 +7,97 @@ Guía detallada sobre la estructura de carpetas del proyecto.
 
 ## Estructura Raíz
 
-```
-vasak-desktop/
-├── src/                          # Frontend (Vue.js)
-├── src-tauri/                    # Backend (Rust)
-├── docs/                         # Documentación (Este directorio)
-├── index.html                    # Punto de entrada HTML
-├── package.json                  # Dependencias Frontend
-├── tsconfig.json                 # Configuración TypeScript
-├── tsconfig.node.json            # TypeScript para Node
-├── vite.config.ts                # Configuración Vite
-├── postcss.config.js             # Configuración PostCSS
-├── tailwind.config.js            # Configuración Tailwind
-├── LICENSE                       # Licencia del proyecto
-├── README.md                     # Documentación principal
-└── .gitignore                    # Archivos a ignorar en Git
-```
+{{< mermaid >}}
+graph TD
+    Root["📁 vasak-desktop/"]
+    
+    Root --> Src["📁 src/<br/><small>Frontend Vue.js</small>"]
+    Root --> SrcTauri["📁 src-tauri/<br/><small>Backend Rust</small>"]
+    Root --> Docs["📁 docs/<br/><small>Documentación</small>"]
+    Root --> IndexHTML["📄 index.html"]
+    Root --> PackageJSON["📄 package.json"]
+    Root --> TSConfig["📄 tsconfig.json"]
+    Root --> ViteConfig["📄 vite.config.ts"]
+    Root --> License["📄 LICENSE"]
+    Root --> Readme["📄 README.md"]
+    Root --> GitIgnore["📄 .gitignore"]
+    
+    style Root fill:#667eea,stroke:#764ba2,color:#fff
+    style Src fill:#f093fb,stroke:#f5576c,color:#fff
+    style SrcTauri fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Docs fill:#43e97b,stroke:#38f9d7,color:#fff
+    style IndexHTML fill:#fa709a,stroke:#fee140,color:#fff
+    style PackageJSON fill:#30cfd0,stroke:#330867,color:#fff
+    style TSConfig fill:#a8edea,stroke:#fed6e3,color:#333
+    style ViteConfig fill:#ffecd2,stroke:#fcb69f,color:#333
+    style License fill:#ff9a9e,stroke:#fecfef,color:#333
+    style Readme fill:#fbc2eb,stroke:#a6c1ee,color:#333
+    style GitIgnore fill:#fdcbf1,stroke:#e6dee9,color:#333
+{{< /mermaid >}}
 
 ## Frontend (`src/`)
 
 ### Raíz de Frontend
 
-```
-src/
-├── App.vue                       # Componente raíz
-├── main.ts                       # Punto de entrada
-├── style.css                     # Estilos globales
-├── vite-env.d.ts                # Tipos de entorno Vite
-├── assets/                       # Recursos estáticos
-├── components/                   # Componentes reutilizables
-├── interfaces/                   # Interfaces TypeScript
-├── layouts/                      # Layouts/Plantillas
-├── routes/                       # Enrutamiento
-├── tools/                        # Controladores/Servicios
-├── types/                        # Tipos TypeScript
-└── views/                        # Vistas/Páginas
-```
+{{< mermaid >}}
+graph TD
+    SrcRoot["📁 src/"]
+    SrcRoot --> AppVue["📄 App.vue<br/><small>Componente raíz</small>"]
+    SrcRoot --> MainTs["📄 main.ts<br/><small>Punto de entrada</small>"]
+    SrcRoot --> StyleCss["📄 style.css<br/><small>Estilos globales</small>"]
+    SrcRoot --> ViteEnv["📄 vite-env.d.ts<br/><small>Tipos Vite</small>"]
+    SrcRoot --> AssetsDir["📁 assets/<br/><small>Recursos estáticos</small>"]
+    SrcRoot --> ComponentsDir["📁 components/<br/><small>Componentes reutilizables</small>"]
+    SrcRoot --> InterfacesDir["📁 interfaces/<br/><small>Interfaces TS</small>"]
+    SrcRoot --> LayoutsDir["📁 layouts/<br/><small>Layouts/Plantillas</small>"]
+    SrcRoot --> RoutesDir["📁 routes/<br/><small>Enrutamiento</small>"]
+    SrcRoot --> ToolsDir["📁 tools/<br/><small>Controladores</small>"]
+    SrcRoot --> TypesDir["📁 types/<br/><small>Tipos TS</small>"]
+    SrcRoot --> ViewsDir["📁 views/<br/><small>Vistas/Páginas</small>"]
+    
+    style SrcRoot fill:#667eea,stroke:#764ba2,color:#fff
+    style AppVue fill:#f093fb,stroke:#f5576c,color:#fff
+    style MainTs fill:#f093fb,stroke:#f5576c,color:#fff
+    style StyleCss fill:#f093fb,stroke:#f5576c,color:#fff
+    style ViteEnv fill:#f093fb,stroke:#f5576c,color:#fff
+    style AssetsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+    style ComponentsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+    style InterfacesDir fill:#4facfe,stroke:#00f2fe,color:#fff
+    style LayoutsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+    style RoutesDir fill:#4facfe,stroke:#00f2fe,color:#fff
+    style ToolsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+    style TypesDir fill:#4facfe,stroke:#00f2fe,color:#fff
+    style ViewsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+{{< /mermaid >}}
 
 ### `src/assets/`
 
 Recursos estáticos (imágenes, vectores):
 
-```
-src/assets/
-├── img/                          # Imágenes rasterizadas
-│   ├── logo.png
-│   ├── background.jpg
-│   └── ...
-└── vectors/                      # Gráficos vectoriales
-    ├── icons/
-    ├── illustrations/
-    └── ...
-```
+{{< mermaid >}}
+graph TD
+    Assets["📁 src/assets/"]
+    Assets --> Img["📁 img/<br/><small>Imágenes rasterizadas</small>"]
+    Assets --> Vectors["📁 vectors/<br/><small>Gráficos vectoriales</small>"]
+    
+    Img --> Logo["🖼️ logo.png"]
+    Img --> BgJpg["🖼️ background.jpg"]
+    Img --> ImgMore["📄 ..."]
+    
+    Vectors --> Icons["📁 icons/"]
+    Vectors --> Illustrations["📁 illustrations/"]
+    Vectors --> VecMore["📄 ..."]
+    
+    style Assets fill:#667eea,stroke:#764ba2,color:#fff
+    style Img fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Vectors fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Logo fill:#43e97b,stroke:#38f9d7,color:#fff
+    style BgJpg fill:#43e97b,stroke:#38f9d7,color:#fff
+    style ImgMore fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Icons fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Illustrations fill:#43e97b,stroke:#38f9d7,color:#fff
+    style VecMore fill:#43e97b,stroke:#38f9d7,color:#fff
+{{< /mermaid >}}
 
 **Uso**:
 ```typescript
@@ -71,75 +110,54 @@ import logo from '@/assets/img/logo.png';
 
 Componentes Vue reutilizables:
 
-```
-src/components/
-├── SearchMenuComponent.vue       # Búsqueda en menú
-│
-├── areas/                        # Áreas grandes de interfaz
-│   ├── audio/
-│   │   ├── AudioApplet.vue
-│   │   └── AudioPanel.vue
-│   ├── bluetooth/
-│   │   ├── BluetoothDeviceList.vue
-│   │   └── BluetoothSettings.vue
-│   ├── network/
-│   │   ├── WiFiList.vue
-│   │   └── NetworkSettings.vue
-│   ├── panel/
-│   │   ├── SystemPanel.vue
-│   │   ├── TrayArea.vue
-│   │   └── ClockWidget.vue
-│   ├── control-center/
-│   │   ├── ControlCenter.vue
-│   │   └── QuickSettings.vue
-│   ├── menu/
-│   │   ├── AppMenu.vue
-│   │   └── AppGrid.vue
-│   └── configuration/
-│       ├── Settings.vue
-│       └── Preferences.vue
-│
-├── buttons/                      # Componentes de botones
-│   ├── AppMenuButton.vue        # Botón del menú de aplicaciones
-│   ├── CategoryMenuPill.vue      # Píldora de categoría
-│   ├── ConfigSidebarButton.vue   # Botón de barra lateral
-│   ├── SessionButton.vue         # Botón de sesión
-│   ├── TrayIconBattery.vue       # Icono de batería
-│   ├── TrayIconBluetooth.vue     # Icono de Bluetooth
-│   ├── TrayIconNetwork.vue       # Icono de red
-│   ├── TrayIconSound.vue         # Icono de sonido
-│   └── WindowPanelButton.vue     # Botón del panel
-│
-├── cards/                        # Componentes de tarjetas
-│   ├── AppMenuCard.vue          # Tarjeta de menú
-│   ├── BluetoothDeviceCard.vue   # Tarjeta de dispositivo BT
-│   ├── CurrentWeatherCard.vue    # Tarjeta de clima actual
-│   ├── DailyWeatherCard.vue      # Tarjeta de clima diario
-│   ├── NetworkWiFiCard.vue       # Tarjeta de WiFi
-│   ├── NotificationCard.vue      # Tarjeta de notificación
-│   ├── NotificationGroupCard.vue # Grupo de notificaciones
-│   ├── UserControlCenterCard.vue # Tarjeta de usuario
-│   └── UserMenuCard.vue          # Tarjeta de menú de usuario
-│
-├── controls/                     # Controles interactivos
-│   ├── AudioDeviceSelector.vue   # Selector de dispositivo audio
-│   ├── BluetoothControl.vue      # Control de Bluetooth
-│   ├── BrightnessControl.vue     # Control de brillo
-│   ├── NetworkControl.vue        # Control de red
-│   ├── SearchButtonControl.vue   # Control de búsqueda
-│   ├── ThemeToggle.vue           # Toggle de tema
-│   ├── TrayMusicControl.vue      # Control de música
-│   └── VolumeControl.vue         # Control de volumen
-│
-├── icon/                         # Componentes de iconos
-│   └── WeatherIcon.vue          # Icono del clima
-│
-└── widgets/                      # Widgets reutilizables
-    ├── DesktopClockWidget.vue   # Reloj en escritorio
-    ├── MusicWidget.vue          # Widget de música
-    ├── PanelClockwidget.vue     # Reloj en panel
-    └── WeatherWidget.vue        # Widget de clima
-```
+{{< mermaid >}}
+graph LR
+    Components["📁 src/components/"]
+    Components --> SearchMenu["📄 SearchMenuComponent.vue<br/><small>Búsqueda en menú</small>"]
+    Components --> Areas["📁 areas/<br/><small>Áreas grandes</small>"]
+    Components --> Buttons["📁 buttons/<br/><small>Botones</small>"]
+    Components --> Cards["📁 cards/<br/><small>Tarjetas</small>"]
+    Components --> Controls["📁 controls/<br/><small>Controles interactivos</small>"]
+    Components --> Icon["📁 icon/<br/><small>Iconos</small>"]
+    Components --> Widgets["📁 widgets/<br/><small>Widgets reutilizables</small>"]
+    
+    Areas --> Audio["🔊 audio/"]
+    Areas --> Bluetooth["📱 bluetooth/"]
+    Areas --> Network["🌐 network/"]
+    Areas --> Panel["📊 panel/"]
+    Areas --> ControlCenter["⚙️ control-center/"]
+    Areas --> Menu["🎯 menu/"]
+    Areas --> Configuration["⚙️ configuration/"]
+    
+    Buttons --> BtnMenu["🔘 AppMenuButton.vue"]
+    Buttons --> BtnCategory["🔘 CategoryMenuPill.vue"]
+    Buttons --> BtnSidebar["🔘 ConfigSidebarButton.vue"]
+    Buttons --> BtnSession["🔘 SessionButton.vue"]
+    Buttons --> BtnBattery["🔌 TrayIconBattery.vue"]
+    
+    Cards --> CardMenu["🎴 AppMenuCard.vue"]
+    Cards --> CardBT["🎴 BluetoothDeviceCard.vue"]
+    Cards --> CardWeather["🎴 CurrentWeatherCard.vue"]
+    Cards --> CardWiFi["🎴 NetworkWiFiCard.vue"]
+    
+    Controls --> CtrlAudio["🎚️ AudioDeviceSelector.vue"]
+    Controls --> CtrlBT["🎚️ BluetoothControl.vue"]
+    Controls --> CtrlBrightness["🎚️ BrightnessControl.vue"]
+    Controls --> CtrlNetwork["🎚️ NetworkControl.vue"]
+    
+    Widgets --> ClockWidget["⏰ DesktopClockWidget.vue"]
+    Widgets --> MusicWidget["🎵 MusicWidget.vue"]
+    Widgets --> WeatherWidget["🌤️ WeatherWidget.vue"]
+    
+    style Components fill:#667eea,stroke:#764ba2,color:#fff
+    style SearchMenu fill:#f093fb,stroke:#f5576c,color:#fff
+    style Areas fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Buttons fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Cards fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Controls fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Icon fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Widgets fill:#4facfe,stroke:#00f2fe,color:#fff
+{{< /mermaid >}}
 
 **Estructura de un Componente**:
 
@@ -262,80 +280,55 @@ src/views/
 
 ### Estructura Tauri
 
-```
-src-tauri/
-├── Cargo.toml                    # Dependencias Rust
-├── Cargo.lock                    # Lock de dependencias
-├── build.rs                      # Script de compilación
-├── tauri.conf.json               # Configuración Tauri
-├── clippy-report.json            # Reporte de linting
-│
-├── capabilities/                 # Configuración de capacidades
-│   └── default.json              # Permisos IPC
-│
-├── gen/                          # Generado automáticamente
-│   └── schemas/
-│
-├── icons/                        # Iconos de la aplicación
-│   ├── 128x128.png
-│   ├── 256x256.png
-│   └── ...
-│
-├── src/                          # Código fuente Rust
-│   ├── lib.rs                   # Módulos principales
-│   ├── main.rs                  # Punto de entrada
-│   ├── error.rs                 # Manejo de errores
-│   ├── structs.rs               # Estructuras compartidas
-│   ├── constants.rs             # Constantes
-│   │
-│   ├── commands/                # Manejadores de comandos IPC
-│   │   ├── mod.rs              # Módulo principal
-│   │   ├── audio_commands.rs    # Comandos de audio
-│   │   ├── bluetooth_commands.rs# Comandos de Bluetooth
-│   │   └── ...
-│   │
-│   ├── window_manager/          # Gestión de ventanas
-│   │   ├── mod.rs
-│   │   ├── window_controller.rs # Control de ventanas
-│   │   └── monitor_handler.rs   # Manejo de monitores
-│   │
-│   ├── audio.rs                 # Integración de audio
-│   ├── brightness.rs            # Control de brillo
-│   ├── bluetooth.rs             # Integración Bluetooth
-│   ├── network.rs               # Integración de red
-│   ├── notifications.rs         # Sistema de notificaciones
-│   │
-│   ├── dbus_service.rs          # Integración D-Bus
-│   ├── eventloops.rs            # Bucles de eventos
-│   ├── platform_shortcuts.rs    # Atajos de teclado
-│   ├── menu_manager.rs          # Gestor de menús
-│   ├── app_url.rs              # URLs de aplicaciones
-│   │
-│   ├── tray/                    # Bandeja del sistema
-│   │   ├── mod.rs
-│   │   └── tray_icon.rs
-│   │
-│   ├── applets/                 # Mini-aplicaciones
-│   │   ├── mod.rs
-│   │   └── audio_applet.rs
-│   │
-│   ├── utils/                   # Funciones de utilidad
-│   │   ├── mod.rs
-│   │   ├── helpers.rs
-│   │   └── ...
-│   │
-│   └── windows_apps/            # Gestión de aplicaciones
-│       ├── mod.rs
-│       └── app_launcher.rs
-│
-├── target/                       # Artefactos de compilación
-│   ├── debug/
-│   ├── release/
-│   └── (binarios compilados)
-│
-└── tests/                        # Tests Rust
-    └── shortcut_mapping_test.rs
-```
+{{< mermaid >}}
+graph TD
+    TauriRoot["📁 src-tauri/"]
+    TauriRoot --> CargoToml["📄 Cargo.toml"]
+    TauriRoot --> CargoLock["📄 Cargo.lock"]
+    TauriRoot --> BuildRs["📄 build.rs"]
+    TauriRoot --> TauriConf["📄 tauri.conf.json"]
+    TauriRoot --> Capabilities["📁 capabilities/"]
+    TauriRoot --> Gen["📁 gen/"]
+    TauriRoot --> Icons["📁 icons/"]
+    TauriRoot --> Src["📁 src/<br/><small>Código fuente Rust</small>"]
+    TauriRoot --> Target["📁 target/<br/><small>Compilación</small>"]
+    TauriRoot --> Tests["📁 tests/"]
+    
+    Src --> LibRs["📄 lib.rs<br/><small>Módulos principales</small>"]
+    Src --> MainRs["📄 main.rs<br/><small>Punto de entrada</small>"]
+    Src --> ErrorRs["📄 error.rs"]
+    Src --> StructsRs["📄 structs.rs"]
+    Src --> Commands["📁 commands/<br/><small>Manejadores IPC</small>"]
+    Src --> WindowMgr["📁 window_manager/"]
+    Src --> Audio["📁 audio.rs"]
+    Src --> DBus["📁 dbus_service.rs"]
+    Src --> Tray["📁 tray/"]
+    Src --> Utils["📁 utils/"]
+    
+    Icons --> Icon128["🖼️ 128x128.png"]
+    Icons --> Icon256["🖼️ 256x256.png"]
+    
+    Commands --> ModRs["📄 mod.rs"]
+    Commands --> AudioCmd["📄 audio_commands.rs"]
+    Commands --> BTCmd["📄 bluetooth_commands.rs"]
+    
+    WindowMgr --> WinCtrl["📄 window_controller.rs"]
+    WindowMgr --> MonitorH["📄 monitor_handler.rs"]
+    
+    Tray --> TrayMod["📄 mod.rs"]
+    Tray --> TrayIcon["📄 tray_icon.rs"]
+    
+    style TauriRoot fill:#667eea,stroke:#764ba2,color:#fff
+    style CargoToml fill:#f093fb,stroke:#f5576c,color:#fff
+    style CargoLock fill:#f093fb,stroke:#f5576c,color:#fff
+    style BuildRs fill:#f093fb,stroke:#f5576c,color:#fff
+    style TauriConf fill:#f093fb,stroke:#f5576c,color:#fff
+    style Src fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Commands fill:#4facfe,stroke:#00f2fe,color:#fff
+    style WindowMgr fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Tray fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Utils fill:#4facfe,stroke:#00f2fe,color:#fff
+{{< /mermaid >}}
 
 ### `src-tauri/src/lib.rs`
 
