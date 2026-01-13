@@ -1,0 +1,133 @@
+<!-- Breadcrumbs Navigation Component -->
+<nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb">
+  <ol class="flex flex-wrap items-center gap-2 text-sm">
+    {{/* Home Link */}}
+    <li class="flex items-center">
+      <a 
+        href="{{ .Site.BaseURL }}" 
+        class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-200
+                 text-gray-700 dark:text-gray-300
+                 hover:bg-blue-50 dark:hover:bg-slate-800
+                 hover:text-blue-600 dark:hover:text-blue-400"
+        title="Go to home page"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        </svg>
+        <span class="hidden sm:inline">Home</span>
+      </a>
+    </li>
+
+    {{/* Section Links */}}
+    {{$relPermalink := .RelPermalink }}
+    {{$siteBaseURL := .Site.BaseURL }}
+    {{$parts := split (strings.TrimPrefix "/" $relPermalink) "/" }}
+    {{$count := len $parts }}
+    
+    {{range $index, $part := $parts}}
+      {{if and (ne $part "") (ne $part "index.html") (lt $index (sub $count 1))}}
+        {{/* Separator */}}
+        <li class="flex items-center">
+          <svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </li>
+
+        {{/* Part Link */}}
+        <li>
+          {{$displayText := humanize $part}}
+          
+          {{/* Generate cumulative URL */}}
+          {{$cumulativeUrl := ""}}
+          {{range $i, $p := $parts}}
+            {{if le $i $index}}
+              {{if ne $p ""}}
+                {{$cumulativeUrl = printf "%s%s/" $cumulativeUrl $p}}
+              {{end}}
+            {{end}}
+          {{end}}
+          
+          {{$fullUrl := printf "%s%s" $siteBaseURL (strings.TrimSuffix "/" $cumulativeUrl)}}
+          
+          <a 
+            href="{{ $fullUrl }}/"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-200
+                     text-gray-700 dark:text-gray-300
+                     hover:bg-blue-50 dark:hover:bg-slate-800
+                     hover:text-blue-600 dark:hover:text-blue-400"
+            title="Visit {{ $displayText }}"
+          >
+            {{$displayText}}
+          </a>
+        </li>
+      {{end}}
+    {{end}}
+
+    {{/* Current Page */}}
+    {{if and (ne $relPermalink "") (ne $relPermalink "/")}}
+      <li class="flex items-center">
+        <svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </li>
+      
+      <li class="flex items-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg
+                     bg-gradient-to-r from-blue-500 to-purple-500
+                     text-white font-medium
+                     shadow-md dark:shadow-lg"
+              aria-current="page">
+          {{/* Icon based on section */}}
+          {{if in $relPermalink "/docs/"}}
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.669 0-3.218.51-4.5 1.385A7.968 7.968 0 009 4.804z"/>
+            </svg>
+          {{else if in $relPermalink "/blog/"}}
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0L10 9.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          {{else if in $relPermalink "/about/"}}
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+            </svg>
+          {{else if in $relPermalink "/downloads/"}}
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          {{else if in $relPermalink "/donate/"}}
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
+            </svg>
+          {{else}}
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v2h16V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+          {{end}}
+          
+          <span>{{ .Title }}</span>
+        </span>
+      </li>
+    {{end}}
+  </ol>
+</nav>
+
+<style scoped>
+.breadcrumbs-container nav ol {
+  @apply flex flex-wrap items-center gap-2 text-sm;
+}
+
+.breadcrumbs-container a {
+  @apply transition-all duration-200;
+}
+
+.breadcrumbs-container a:hover {
+  @apply shadow-sm;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .breadcrumbs-container a:hover {
+    @apply shadow-md;
+  }
+}
+</style>
