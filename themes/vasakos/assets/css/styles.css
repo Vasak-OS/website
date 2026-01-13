@@ -17,25 +17,25 @@ body * {
   @apply transition-colors duration-200;
 }
 
-#article,
-h1 {
+#article h1 {
   font-size: 2rem;
   margin-bottom: 2rem;
+  @apply my-6 font-bold;
 }
-#article,
-h2 {
+
+#article h2 {
   font-size: 1.75rem;
-  margin-bottom: 2rem;
+  @apply my-6 text-vsk1 font-bold;
 }
 
 #article h3 {
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  @apply my-4 ms-2 text-vsk2 font-bold;
 }
 
 #article h4 {
   font-size: 1.25rem;
-  margin-bottom: 1rem;
+  @apply my-4 ms-4 font-bold;
 }
 
 #article p,
