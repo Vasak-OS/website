@@ -13,7 +13,6 @@ graph TD
     
     Root --> Src["📁 src/<br/><small>Frontend Vue.js</small>"]
     Root --> SrcTauri["📁 src-tauri/<br/><small>Backend Rust</small>"]
-    Root --> Docs["📁 docs/<br/><small>Documentación</small>"]
     Root --> IndexHTML["📄 index.html"]
     Root --> PackageJSON["📄 package.json"]
     Root --> TSConfig["📄 tsconfig.json"]
@@ -25,7 +24,6 @@ graph TD
     style Root fill:#667eea,stroke:#764ba2,color:#fff
     style Src fill:#f093fb,stroke:#f5576c,color:#fff
     style SrcTauri fill:#4facfe,stroke:#00f2fe,color:#fff
-    style Docs fill:#43e97b,stroke:#38f9d7,color:#fff
     style IndexHTML fill:#fa709a,stroke:#fee140,color:#fff
     style PackageJSON fill:#30cfd0,stroke:#330867,color:#fff
     style TSConfig fill:#a8edea,stroke:#fed6e3,color:#333
@@ -181,12 +179,18 @@ graph LR
 
 Definiciones de interfaces TypeScript:
 
-```
-src/interfaces/
-├── battery.ts                    # Interface Battery
-├── notifications.ts              # Interface Notification
-└── tray.ts                       # Interface Tray
-```
+{{< mermaid >}}
+graph TD
+    Interfaces["📁 src/interfaces/"]
+    Interfaces --> Battery["📄 battery.ts<br/><small>Interface Battery</small>"]
+    Interfaces --> Notifications["📄 notifications.ts<br/><small>Interface Notification</small>"]
+    Interfaces --> Tray["📄 tray.ts<br/><small>Interface Tray</small>"]
+    
+    style Interfaces fill:#667eea,stroke:#764ba2,color:#fff
+    style Battery fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Notifications fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Tray fill:#43e97b,stroke:#38f9d7,color:#fff
+{{< /mermaid >}}
 
 **Ejemplo**:
 ```typescript
@@ -202,10 +206,14 @@ export interface Battery {
 
 Layouts/Plantillas de página:
 
-```
-src/layouts/
-└── ConfigAppLayout.vue          # Layout para configuración
-```
+{{< mermaid >}}
+graph TD
+    Layouts["📁 src/layouts/"]
+    Layouts --> ConfigLayout["📄 ConfigAppLayout.vue<br/><small>Layout para configuración</small>"]
+    
+    style Layouts fill:#667eea,stroke:#764ba2,color:#fff
+    style ConfigLayout fill:#f093fb,stroke:#f5576c,color:#fff
+{{< /mermaid >}}
 
 **Uso**: Envuelve vistas para mantener estructura consistente
 
@@ -213,10 +221,14 @@ src/layouts/
 
 Configuración de enrutamiento Vue Router:
 
-```
-src/routes/
-└── index.ts                      # Configuración de rutas
-```
+{{< mermaid >}}
+graph TD
+    Routes["📁 src/routes/"]
+    Routes --> IndexTs["📄 index.ts<br/><small>Configuración de rutas</small>"]
+    
+    style Routes fill:#667eea,stroke:#764ba2,color:#fff
+    style IndexTs fill:#4facfe,stroke:#00f2fe,color:#fff
+{{< /mermaid >}}
 
 **Ejemplo**:
 ```typescript
@@ -231,13 +243,20 @@ export const routes = [
 
 Controladores y servicios (Business Logic):
 
-```
-src/tools/
-├── battery.controller.ts         # Lógica de batería
-├── bluetooth.controller.ts       # Lógica de Bluetooth
-├── network.controller.ts         # Lógica de red
-└── tray.controller.ts            # Lógica de bandeja
-```
+{{< mermaid >}}
+graph TD
+    Tools["📁 src/tools/"]
+    Tools --> BatteryCtrl["📄 battery.controller.ts<br/><small>Lógica de batería</small>"]
+    Tools --> BluetoothCtrl["📄 bluetooth.controller.ts<br/><small>Lógica de Bluetooth</small>"]
+    Tools --> NetworkCtrl["📄 network.controller.ts<br/><small>Lógica de red</small>"]
+    Tools --> TrayCtrl["📄 tray.controller.ts<br/><small>Lógica de bandeja</small>"]
+    
+    style Tools fill:#667eea,stroke:#764ba2,color:#fff
+    style BatteryCtrl fill:#feca57,stroke:#ff9a56,color:#fff
+    style BluetoothCtrl fill:#feca57,stroke:#ff9a56,color:#fff
+    style NetworkCtrl fill:#feca57,stroke:#ff9a56,color:#fff
+    style TrayCtrl fill:#feca57,stroke:#ff9a56,color:#fff
+{{< /mermaid >}}
 
 **Responsabilidad**: 
 - Llamar comandos del backend
@@ -248,10 +267,14 @@ src/tools/
 
 Definiciones de tipos TypeScript:
 
-```
-src/types/
-└── vue-libvasak.d.ts            # Tipos de librerías externas
-```
+{{< mermaid >}}
+graph TD
+    Types["📁 src/types/"]
+    Types --> LibVasakTypes["📄 vue-libvasak.d.ts<br/><small>Tipos de librerías externas</small>"]
+    
+    style Types fill:#667eea,stroke:#764ba2,color:#fff
+    style LibVasakTypes fill:#fa709a,stroke:#f5576c,color:#fff
+{{< /mermaid >}}
 
 **Uso**: Extiende tipos de librerías o define tipos globales
 
@@ -259,29 +282,43 @@ src/types/
 
 Vistas/Páginas principales:
 
-```
-src/views/
-├── ControlCenterView.vue         # Vista del centro de control
-├── DesktopView.vue              # Vista del escritorio
-├── MenuView.vue                 # Vista del menú de apps
-├── PanelView.vue                # Vista del panel
-├── applets/                      # Vistas de mini-aplicaciones
-│   ├── AudioAppletView.vue      # Applet de audio
-│   ├── BluetoothAppletView.vue  # Applet de Bluetooth
-│   ├── NetworkAppletView.vue    # Applet de red
-│   └── ...
-└── apps/                         # Vistas de aplicaciones
-    ├── SettingsApp.vue
-    ├── FileManagerView.vue
-    └── ...
-```
+{{< mermaid >}}
+graph TD
+    Views["📁 src/views/"]
+    Views --> ControlCenter["📄 ControlCenterView.vue<br/><small>Centro de control</small>"]
+    Views --> Desktop["📄 DesktopView.vue<br/><small>Escritorio</small>"]
+    Views --> Menu["📄 MenuView.vue<br/><small>Menú de apps</small>"]
+    Views --> Panel["📄 PanelView.vue<br/><small>Panel</small>"]
+    Views --> Applets["📁 applets/<br/><small>Mini-aplicaciones</small>"]
+    Views --> Apps["📁 apps/<br/><small>Aplicaciones</small>"]
+    
+    Applets --> AudioApplet["📄 AudioAppletView.vue<br/><small>Applet de audio</small>"]
+    Applets --> BluetoothApplet["📄 BluetoothAppletView.vue<br/><small>Applet de Bluetooth</small>"]
+    Applets --> NetworkApplet["📄 NetworkAppletView.vue<br/><small>Applet de red</small>"]
+    
+    Apps --> Settings["📄 SettingsApp.vue<br/><small>Aplicación de Settings</small>"]
+    Apps --> FileManager["📄 FileManagerView.vue<br/><small>Gestor de archivos</small>"]
+    
+    style Views fill:#667eea,stroke:#764ba2,color:#fff
+    style ControlCenter fill:#f093fb,stroke:#f5576c,color:#fff
+    style Desktop fill:#f093fb,stroke:#f5576c,color:#fff
+    style Menu fill:#f093fb,stroke:#f5576c,color:#fff
+    style Panel fill:#f093fb,stroke:#f5576c,color:#fff
+    style Applets fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Apps fill:#4facfe,stroke:#00f2fe,color:#fff
+    style AudioApplet fill:#43e97b,stroke:#38f9d7,color:#fff
+    style BluetoothApplet fill:#43e97b,stroke:#38f9d7,color:#fff
+    style NetworkApplet fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Settings fill:#43e97b,stroke:#38f9d7,color:#fff
+    style FileManager fill:#43e97b,stroke:#38f9d7,color:#fff
+{{< /mermaid >}}
 
 ## Backend (`src-tauri/`)
 
 ### Estructura Tauri
 
 {{< mermaid >}}
-graph TD
+graph LR
     TauriRoot["📁 src-tauri/"]
     TauriRoot --> CargoToml["📄 Cargo.toml"]
     TauriRoot --> CargoLock["📄 Cargo.lock"]
@@ -495,35 +532,6 @@ Variables de entorno (si existe):
 ```
 VITE_API_URL=http://localhost:3000
 VITE_DEBUG=true
-```
-
-## Directorio `docs/`
-
-Documentación del proyecto:
-
-```
-docs/
-├── user/                         # Documentación para usuarios
-│   ├── README.md
-│   ├── logs.md
-│   ├── errores.md
-│   ├── reporte-errores.md
-│   ├── faq.md
-│   └── troubleshooting.md
-│
-└── devs/                         # Documentación para desarrolladores
-    ├── README.md
-    ├── setup-proyecto.md
-    ├── compilacion.md
-    ├── dependencias.md
-    ├── arquitectura.md
-    ├── dbus.md
-    ├── carpetas.md               # Este archivo
-    ├── lineamientos.md
-    ├── componentes-vue.md
-    ├── comandos-rust.md
-    ├── debugging.md
-    └── contribucion.md
 ```
 
 ## Directorios Generados (No Commitear)
