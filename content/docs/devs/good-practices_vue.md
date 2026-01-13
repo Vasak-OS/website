@@ -7,7 +7,7 @@ Guía de mejores prácticas para desarrollar aplicaciones de escritorio performa
 
 ## Arquitectura de Componentes
 
-### ✅ Componentes Pequeños y Enfocados
+### Componentes Pequeños y Enfocados
 
 **Mal ejemplo:**
 
@@ -61,7 +61,7 @@ import BatteryInfo from './components/BatteryInfo.vue'
 </script>
 ```
 
-### ✅ Props Tipadas y Documentadas
+### Props Tipadas y Documentadas
 
 **Mal ejemplo:**
 
@@ -99,7 +99,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 ```
 
-### ✅ Eventos Bien Definidos
+### Eventos Bien Definidos
 
 **Mal ejemplo:**
 
@@ -137,7 +137,7 @@ function handleVolumeChange(newVolume: number) {
 
 ## Performance y Optimización
 
-### ✅ Lazy Loading de Componentes
+### Lazy Loading de Componentes
 
 ```vue
 <script setup lang="ts">
@@ -159,7 +159,7 @@ const FileManager = defineAsyncComponent(
 </template>
 ```
 
-### ✅ Virtual Scrolling para Listas Grandes
+### Virtual Scrolling para Listas Grandes
 
 ```vue
 <script setup lang="ts">
@@ -190,7 +190,7 @@ const { list, containerProps, wrapperProps } = useVirtualList(
 </template>
 ```
 
-### ✅ Debounce en Búsquedas
+### Debounce en Búsquedas
 
 ```vue
 <script setup lang="ts">
@@ -222,7 +222,7 @@ watch(searchQuery, (newQuery) => {
 </script>
 ```
 
-### ✅ Memoización de Computadas Costosas
+### Memoización de Computadas Costosas
 
 ```vue
 <script setup lang="ts">
@@ -251,7 +251,7 @@ const filteredApps = computed(() => {
 </script>
 ```
 
-### ✅ v-show vs v-if
+### v-show vs v-if
 
 ```vue
 <template>
@@ -265,7 +265,7 @@ const filteredApps = computed(() => {
 
 ## Gestión de Estado
 
-### ✅ Usar Pinia para Estado Global
+### Usar Pinia para Estado Global
 
 ```typescript
 // stores/audio.ts
@@ -323,7 +323,7 @@ export const useAudioStore = defineStore('audio', () => {
 })
 ```
 
-### ✅ Composables para Lógica Reutilizable
+### Composables para Lógica Reutilizable
 
 ```typescript
 // composables/useBackendCommand.ts
@@ -374,7 +374,7 @@ onMounted(() => {
 
 ## Comunicación con Backend
 
-### ✅ Manejo Robusto de Comandos Tauri
+### Manejo Robusto de Comandos Tauri
 
 ```vue
 <script setup lang="ts">
@@ -411,7 +411,7 @@ async function updateBrightness(newValue: number) {
 </script>
 ```
 
-### ✅ Listeners de Eventos con Cleanup
+### Listeners de Eventos con Cleanup
 
 ```vue
 <script setup lang="ts">
@@ -439,7 +439,7 @@ onUnmounted(() => {
 </script>
 ```
 
-### ✅ Timeout para Operaciones Largas
+### Timeout para Operaciones Largas
 
 ```typescript
 async function fetchWithTimeout<T>(
@@ -469,7 +469,7 @@ try {
 
 ## Manejo de Errores
 
-### ✅ Error Boundaries y Feedback
+### Error Boundaries y Feedback
 
 ```vue
 <script setup lang="ts">
@@ -512,7 +512,7 @@ async function loadData() {
 
 ## Memory Management
 
-### ✅ Cleanup Completo
+### Cleanup Completo
 
 ```vue
 <script setup lang="ts">
@@ -552,7 +552,7 @@ onUnmounted(() => {
 </script>
 ```
 
-### ✅ Prevenir Memory Leaks en Watchers
+### Prevenir Memory Leaks en Watchers
 
 ```vue
 <script setup lang="ts">
@@ -578,7 +578,7 @@ onUnmounted(() => {
 
 ## Accesibilidad
 
-### ✅ ARIA Labels y Keyboard Navigation
+### ARIA Labels y Keyboard Navigation
 
 ```vue
 <template>
@@ -627,7 +627,7 @@ onUnmounted(() => {
 </style>
 ```
 
-### ✅ Focus Management
+### Focus Management
 
 ```vue
 <script setup lang="ts">
@@ -661,7 +661,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 ## Testing
 
-### ✅ Test Unitarios con Vitest
+### Test Unitarios con Vitest
 
 ```typescript
 // AudioControl.test.ts
