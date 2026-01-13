@@ -268,104 +268,120 @@ sequenceDiagram
 
 ### Frontend (`src/`)
 
-```
-src/
-├── App.vue                    # Componente raíz
-├── main.ts                   # Entry point
-├── style.css                 # Estilos globales
-├── vite-env.d.ts            # Tipos Vite
-│
-├── assets/                   # Recursos estáticos
-│   ├── img/
-│   └── vectors/
-│
-├── components/              # Componentes reutilizables
-│   ├── SearchMenuComponent.vue
-│   ├── areas/              # Áreas grandes
-│   │   ├── panel/
-│   │   ├── control-center/
-│   │   ├── menu/
-│   │   └── ...
-│   ├── buttons/            # Componentes de botones
-│   ├── cards/              # Componentes de tarjetas
-│   ├── controls/           # Controles interactivos
-│   ├── icon/              # Iconos
-│   └── widgets/           # Widgets reutilizables
-│
-├── interfaces/             # Interfaces TypeScript
-│   ├── battery.ts
-│   ├── notifications.ts
-│   └── tray.ts
-│
-├── layouts/               # Layouts de página
-│   └── ConfigAppLayout.vue
-│
-├── routes/               # Enrutamiento Vue Router
-│   └── index.ts
-│
-├── tools/                # Controladores (lógica)
-│   ├── battery.controller.ts
-│   ├── bluetooth.controller.ts
-│   ├── network.controller.ts
-│   └── tray.controller.ts
-│
-├── types/               # Tipos TypeScript
-│   └── vue-libvasak.d.ts
-│
-└── views/              # Vistas/Páginas principales
-    ├── ControlCenterView.vue
-    ├── DesktopView.vue
-    ├── MenuView.vue
-    ├── PanelView.vue
-    ├── applets/       # Vistas de pequeñas app
-    └── apps/          # Vistas de apps
-```
+{{< mermaid >}}
+graph LR
+    Src["📁 src/<br/><small>Frontend Vue.js</small>"]
+    Src --> AppVue["📄 App.vue<br/><small>Componente raíz</small>"]
+    Src --> MainTs["📄 main.ts<br/><small>Entry point</small>"]
+    Src --> StyleCss["📄 style.css<br/><small>Estilos globales</small>"]
+    Src --> VieDts["📄 vite-env.d.ts<br/><small>Tipos Vite</small>"]
+    Src --> Assets["📁 assets/<br/><small>Recursos estáticos</small>"]
+    Src --> Components["📁 components/<br/><small>Reutilizables</small>"]
+    Src --> Interfaces["📁 interfaces/<br/><small>Tipos TypeScript</small>"]
+    Src --> Layouts["📁 layouts/<br/><small>Plantillas</small>"]
+    Src --> Routes["📁 routes/<br/><small>Enrutamiento</small>"]
+    Src --> Tools["📁 tools/<br/><small>Controladores</small>"]
+    Src --> Types["📁 types/<br/><small>Definiciones</small>"]
+    Src --> Views["📁 views/<br/><small>Páginas principales</small>"]
+    
+    Assets --> AssetsImg["📁 img/"]
+    Assets --> AssetsVec["📁 vectors/"]
+    
+    Components --> CompMenu["📄 SearchMenuComponent.vue"]
+    Components --> CompAreas["📁 areas/"]
+    Components --> CompBtns["📁 buttons/"]
+    Components --> CompCards["📁 cards/"]
+    Components --> CompCtrl["📁 controls/"]
+    Components --> CompIcon["📁 icon/"]
+    Components --> CompWdg["📁 widgets/"]
+    
+    CompAreas --> AreaPanel["📁 panel/"]
+    CompAreas --> AreaCC["📁 control-center/"]
+    CompAreas --> AreaMenu["📁 menu/"]
+    
+    Interfaces --> IfBat["📄 battery.ts"]
+    Interfaces --> IfNot["📄 notifications.ts"]
+    Interfaces --> IfTray["📄 tray.ts"]
+    
+    Layouts --> LayConfig["📄 ConfigAppLayout.vue"]
+    Routes --> RouteIdx["📄 index.ts"]
+    
+    Tools --> ToolBat["📄 battery.controller.ts"]
+    Tools --> ToolBT["📄 bluetooth.controller.ts"]
+    Tools --> ToolNet["📄 network.controller.ts"]
+    Tools --> ToolTray["📄 tray.controller.ts"]
+    
+    Types --> TypeVue["📄 vue-libvasak.d.ts"]
+    
+    Views --> ViewCC["📄 ControlCenterView.vue"]
+    Views --> ViewDsk["📄 DesktopView.vue"]
+    Views --> ViewMnu["📄 MenuView.vue"]
+    Views --> ViewPnl["📄 PanelView.vue"]
+    Views --> ViewApp["📁 applets/"]
+    Views --> ViewApps["📁 apps/"]
+    
+    style Src fill:#667eea,stroke:#764ba2,color:#fff
+    style Components fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Assets fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Interfaces fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Layouts fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Routes fill:#43e97b,stroke:#38f9d7,color:#fff
+    style Tools fill:#feca57,stroke:#ff9a56,color:#fff
+    style Types fill:#fa709a,stroke:#f5576c,color:#fff
+    style Views fill:#f093fb,stroke:#f5576c,color:#fff
+{{< /mermaid >}}
 
 ### Backend (`src-tauri/src/`)
 
-```
-src-tauri/src/
-├── lib.rs                    # Módulos principales
-├── main.rs                   # Entry point
-├── error.rs                 # Manejador de errores
-├── structs.rs               # Estructuras compartidas
-├── constants.rs             # Constantes
-│
-├── commands/                # Comandos IPC
-│   ├── audio_commands.rs
-│   ├── bluetooth_commands.rs
-│   ├── network_commands.rs
-│   └── ...
-│
-├── window_manager/          # Gestión de ventanas
-│   ├── mod.rs
-│   ├── window_controller.rs
-│   └── monitor_handler.rs
-│
-├── audio.rs                # Control de audio
-├── brightness.rs           # Control de brillo
-├── bluetooth.rs            # Bluetooth control
-├── network.rs              # Network control
-├── notifications.rs        # Sistema notificaciones
-│
-├── dbus_service.rs         # D-Bus integration
-├── eventloops.rs           # Bucles de eventos
-├── platform_shortcuts.rs   # Atajos de teclado
-├── menu_manager.rs         # Gestión de menús
-│
-├── tray/                   # Bandeja del sistema
-│   ├── mod.rs
-│   └── tray_icon.rs
-│
-├── applets/                # Mini-aplicaciones
-│   └── ...
-│
-├── utils/                  # Funciones de utilidad
-│   └── ...
-│
-└── windows_apps/          # Manejo de aplicaciones
-    └── ...
-```
+{{< mermaid >}}
+graph LR
+    SrcTauri["📁 src-tauri/src/<br/><small>Backend Rust</small>"]
+    SrcTauri --> LibRs["📄 lib.rs<br/><small>Módulos principales</small>"]
+    SrcTauri --> MainRs["📄 main.rs<br/><small>Entry point</small>"]
+    SrcTauri --> ErrorRs["📄 error.rs<br/><small>Manejo de errores</small>"]
+    SrcTauri --> StructRs["📄 structs.rs<br/><small>Estructuras compartidas</small>"]
+    SrcTauri --> ConstRs["📄 constants.rs<br/><small>Constantes</small>"]
+    SrcTauri --> Commands["📁 commands/<br/><small>Comandos IPC</small>"]
+    SrcTauri --> WinMgr["📁 window_manager/<br/><small>Gestión de ventanas</small>"]
+    SrcTauri --> AudioRs["📄 audio.rs<br/><small>Control de audio</small>"]
+    SrcTauri --> BrightRs["📄 brightness.rs<br/><small>Control de brillo</small>"]
+    SrcTauri --> BTRs["📄 bluetooth.rs<br/><small>Bluetooth control</small>"]
+    SrcTauri --> NetRs["📄 network.rs<br/><small>Network control</small>"]
+    SrcTauri --> NotifRs["📄 notifications.rs<br/><small>Sistema notificaciones</small>"]
+    SrcTauri --> DBusRs["📄 dbus_service.rs<br/><small>D-Bus integration</small>"]
+    SrcTauri --> EventsRs["📄 eventloops.rs<br/><small>Bucles de eventos</small>"]
+    SrcTauri --> ShortcutsRs["📄 platform_shortcuts.rs<br/><small>Atajos de teclado</small>"]
+    SrcTauri --> MenuRs["📄 menu_manager.rs<br/><small>Gestión de menús</small>"]
+    SrcTauri --> Tray["📁 tray/<br/><small>Bandeja del sistema</small>"]
+    SrcTauri --> Applets["📁 applets/<br/><small>Mini-aplicaciones</small>"]
+    SrcTauri --> Utils["📁 utils/<br/><small>Funciones de utilidad</small>"]
+    SrcTauri --> WinApps["📁 windows_apps/<br/><small>Manejo de aplicaciones</small>"]
+    
+    Commands --> AudioCmd["📄 audio_commands.rs"]
+    Commands --> BTCmd["📄 bluetooth_commands.rs"]
+    Commands --> NetCmd["📄 network_commands.rs"]
+    
+    WinMgr --> ModWin["📄 mod.rs"]
+    WinMgr --> WinCtrl["📄 window_controller.rs"]
+    WinMgr --> MonMgr["📄 monitor_handler.rs"]
+    
+    Tray --> ModTray["📄 mod.rs"]
+    Tray --> TrayIcon["📄 tray_icon.rs"]
+    
+    style SrcTauri fill:#667eea,stroke:#764ba2,color:#fff
+    style Commands fill:#4facfe,stroke:#00f2fe,color:#fff
+    style WinMgr fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Tray fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Utils fill:#4facfe,stroke:#00f2fe,color:#fff
+    style Applets fill:#4facfe,stroke:#00f2fe,color:#fff
+    style WinApps fill:#4facfe,stroke:#00f2fe,color:#fff
+    style AudioRs fill:#43e97b,stroke:#38f9d7,color:#fff
+    style BrightRs fill:#feca57,stroke:#ff9a56,color:#fff
+    style BTRs fill:#f093fb,stroke:#f5576c,color:#fff
+    style NetRs fill:#fa709a,stroke:#f5576c,color:#fff
+    style NotifRs fill:#43e97b,stroke:#38f9d7,color:#fff
+    style DBusRs fill:#f093fb,stroke:#f5576c,color:#fff
+{{< /mermaid >}}
 
 ## Patrones de Diseño
 
