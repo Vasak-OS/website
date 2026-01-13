@@ -7,7 +7,7 @@ Estándares y mejores prácticas para mantener la calidad del código.
 
 ## Principios Generales
 
-### 1. Claridad Primero
+### Claridad Primero
 
 El código debe ser fácil de entender:
 
@@ -24,7 +24,7 @@ fn sum_even_numbers(numbers: Vec<i32>) -> i32 {
 }
 ```
 
-### 2. Consistencia
+### Consistencia
 
 Mantén consistencia en todo el proyecto:
 
@@ -32,7 +32,7 @@ Mantén consistencia en todo el proyecto:
 - Sigue la misma estructura
 - Aplica los mismos patrones
 
-### 3. Documentación
+### Documentación
 
 Documenta todo lo que no sea obvio:
 
@@ -56,7 +56,7 @@ function handleVolumeChange(newLevel: number) {
 }
 ```
 
-### 4. Errores Explícitos
+### Errores Explícitos
 
 Maneja errores de forma explícita:
 
@@ -545,9 +545,3 @@ npx tsc --noEmit
 - [Vue 3 Guide](https://vuejs.org/guide/introduction.html)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Clippy Lints](https://doc.rust-lang.org/clippy/)
-
-## Siguientes Pasos
-
-- [Componentes Vue](componentes-vue.md)
-- [Comandos Rust](comandos-rust.md)
-- [Debugging](debugging.md)

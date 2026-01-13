@@ -786,3 +786,7 @@ graph LR
 - [Tauri API Documentation](https://tauri.app/v1/api/js/)
 - [Vue Test Utils](https://test-utils.vuejs.org/)
 - [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+
+## Recuerda
+
+- [Lineamientos de codgio](/docs/devs/guidelines/)
