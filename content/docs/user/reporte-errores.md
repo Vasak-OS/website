@@ -15,13 +15,13 @@ Antes de reportar un error, verifica si ya ha sido reportado:
 
 Un buen reporte de error debe incluir:
 
-### 1. Descripción del Problema
+### Descripción del Problema
 - Qué intentabas hacer cuando ocurrió el error
 - Qué esperabas que sucediera
 - Qué sucedió realmente
 - ¿Se puede reproducir? (Sí/No/A veces)
 
-### 2. Información del Sistema
+### Información del Sistema
 
 ```bash
 # Copia y pega el resultado de estos comandos
@@ -41,7 +41,7 @@ echo -e "\n=== PANTALLAS ==="
 xrandr --query 2>/dev/null | grep connected || wayland-info 2>/dev/null | head -20
 ```
 
-### 3. Pasos para Reproducir
+### Pasos para Reproducir
 
 Lista los pasos exactos para reproducir el error:
 
@@ -52,7 +52,7 @@ Lista los pasos exactos para reproducir el error:
 4. El error ocurre aquí
 ```
 
-### 4. Logs Relevantes
+### Logs Relevantes
 
 Recopila los logs siguiendo esta guía:
 
@@ -67,7 +67,7 @@ Incluye tanto:
 - El archivo de log generado
 - La salida de la terminal donde ejecutaste el comando
 
-### 5. Adjuntos Útiles
+### Adjuntos Útiles
 
 Si es relevante, incluye:
 - **Captura de pantalla** - Muestra el estado visual del error
@@ -156,7 +156,7 @@ EOF
 
 Si la aplicación se cierra inesperadamente:
 
-### 1. Captura el Core Dump
+### Captura el Core Dump
 
 ```bash
 # Habilitar core dumps
@@ -170,7 +170,7 @@ coredumpctl list
 coredumpctl info [number]
 ```
 
-### 2. Recolecta Información de Debug
+### Recolecta Información de Debug
 
 ```bash
 # Ejecutar con máxima verbosidad
@@ -179,7 +179,7 @@ RUST_LOG=trace RUST_BACKTRACE=1 vasak-desktop 2>&1 | tee crash-$(date +%s).log
 # Reproduce el crash
 ```
 
-### 3. Adjunta al Reporte
+### Adjunta al Reporte
 
 - El archivo de log completo
 - Salida de `coredumpctl info`
@@ -244,12 +244,13 @@ Después de reportar:
 
 ## Canales de Reporte Alternativos
 
-- **GitHub Issues** (Recomendado): https://github.com/Vasak-OS/vasak-desktop/issues
-- **Foro de Vasak OS**: [Si existe]
-- **Matrix/Discord**: [Si existe canal oficial]
+- **GitHub Issues**: https://github.com/Vasak-OS/vasak-desktop/issues
+- **Foro de Vasak OS**: *Aun no disponible*
+- **Telegram**: https://t.me/VasakOS
+- **Discord**: *Aun no disponible*
 
 ## Información de Contacto
 
 Para errores de seguridad críticos, contacta a:
-- **Security Email**: [Si existe]
+- **Security Email**: os@vasak.net.ar
 - **No crear issue público** para vulnerabilidades de seguridad

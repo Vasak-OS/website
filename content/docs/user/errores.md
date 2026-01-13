@@ -203,7 +203,7 @@ RUST_LOG=error vasak-desktop
 
 # Solo advertencias y errores
 RUST_LOG=warn vasak-desktop
-```
+
 # Ejecutar sin mostrar errores en la interfaz
 VASAK_SUPPRESS_ERRORS=1 vasak-desktop
 ```
