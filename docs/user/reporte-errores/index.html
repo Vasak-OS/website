@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.169498735f2e7e89ec500ce0ca9ec863f391b31b1baddf636e2bf6b8244f2093.css" integrity="sha256-FpSYc18ufonsUAzgyp7IY/ORsxsbrd9jbiv2uCRPIJM=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/user/reporte-errores/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Como reportar errores" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Antes de Reportar
+Antes de reportar un error, verifica si ya ha sido reportado:
+
+Visita 
+  &nbsp;
+  
+  GitHub Issues de Vasak Desktop
+
+Usa la búsqueda para encontrar problemas similares
+Si encuentras un issue parecido, añade un comentario con tu información
+
+Información Necesaria para un Buen Reporte
+Un buen reporte de error debe incluir: Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/user/reporte-errores/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white dark:bg-gray-800 z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+      <a href="https://os.vasak.net.ar/docs"  title="Documentación"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+          <a href="https://os.vasak.net.ar/docs" 
+            title="Documentación"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  
+<nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb">
+    <ul class="flex flex-wrap items-center gap-0 text-ms">
+        
+        <li class="flex items-center">
+            <a href="https://os.vasak.net.ar/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Go to home page">
+                <i class="fa-solid fa-house text-sm"></i>
+                <span class="hidden sm:inline">Home</span>
+            </a>
+        </li>
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Docs">
+                Docs
+            </a>
+        </li>
+        
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/user/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit User">
+                User
+            </a>
+        </li>
+        
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/user/reporte-errores/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Reporte errores">
+                Reporte errores
+            </a>
+        </li>
+        
+        
+        
+        
+
+        
+        
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </li>
+
+        <li class="flex items-center">
+            <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl
+                     bg-gradient-to-r from-vsk2 to-vsk1
+                     text-white font-medium
+                     shadow-md dark:shadow-lg" aria-current="page">
+                
+                
+                <i class="fa-solid fa-book text-sm"></i>
+                
+
+                <span>Como reportar errores</span>
+            </span>
+        </li>
+        
+    </ol>
+</nav>
+  <div class="flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 rounded-xl"
+          id="article">
+          <h1 class="text-center text-vsk1">Como reportar errores</h1>
+          <h2 id="antes-de-reportar">Antes de Reportar</h2>
+<p>Antes de reportar un error, verifica si ya ha sido reportado:</p>
+<ol>
+<li>Visita <a href="https://github.com/Vasak-OS/vasak-desktop/issues"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  GitHub Issues de Vasak Desktop
+</a></li>
+<li>Usa la búsqueda para encontrar problemas similares</li>
+<li>Si encuentras un issue parecido, añade un comentario con tu información</li>
+</ol>
+<h2 id="información-necesaria-para-un-buen-reporte">Información Necesaria para un Buen Reporte</h2>
+<p>Un buen reporte de error debe incluir:</p>
+<h3 id="descripción-del-problema">Descripción del Problema</h3>
+<ul>
+<li>Qué intentabas hacer cuando ocurrió el error</li>
+<li>Qué esperabas que sucediera</li>
+<li>Qué sucedió realmente</li>
+<li>¿Se puede reproducir? (Sí/No/A veces)</li>
+</ul>
+<h3 id="información-del-sistema">Información del Sistema</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Copia y pega el resultado de estos comandos</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== SISTEMA ===&#34;</span> 
+</span></span><span class="line"><span class="cl">uname -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== DISTRIBUCIÓN ===&#34;</span>
+</span></span><span class="line"><span class="cl">cat /etc/os-release <span class="p">|</span> grep PRETTY_NAME
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== VERSIÓN DE VASAK DESKTOP ===&#34;</span>
+</span></span><span class="line"><span class="cl">vasak-desktop --version 2&gt;/dev/null <span class="o">||</span> <span class="nb">echo</span> <span class="s2">&#34;No instalada globalmente&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== GESTOR DE SESIÓN ===&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$XDG_SESSION_TYPE</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\n=== PANTALLAS ===&#34;</span>
+</span></span><span class="line"><span class="cl">xrandr --query 2&gt;/dev/null <span class="p">|</span> grep connected <span class="o">||</span> wayland-info 2&gt;/dev/null <span class="p">|</span> head -20
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="pasos-para-reproducir">Pasos para Reproducir</h3>
+<p>Lista los pasos exactos para reproducir el error:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. Abre la aplicación
+</span></span><span class="line"><span class="cl">2. Ve a [Menú/Opción]
+</span></span><span class="line"><span class="cl">3. Haz clic en [Botón]
+</span></span><span class="line"><span class="cl">4. El error ocurre aquí
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="logs-relevantes">Logs Relevantes</h3>
+<p>Recopila los logs siguiendo esta guía:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ejecutar la aplicación con logs detallados</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee ~/vasak-debug-<span class="k">$(</span>date +%Y%m%d-%H%M%S<span class="k">)</span>.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reproducer el error, luego captura el archivo de log</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Incluye tanto:</p>
+<ul>
+<li>El archivo de log generado</li>
+<li>La salida de la terminal donde ejecutaste el comando</li>
+</ul>
+<h3 id="adjuntos-útiles">Adjuntos Útiles</h3>
+<p>Si es relevante, incluye:</p>
+<ul>
+<li><strong>Captura de pantalla</strong> - Muestra el estado visual del error</li>
+<li><strong>Video</strong> - Si es difícil de reproducir en texto</li>
+<li><strong>Archivo de configuración</strong> - Si el error está relacionado con configuración
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat ~/.config/vasak/system_config.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="plantilla-para-reporte">Plantilla para Reporte</h2>
+<p>Usa esta plantilla al crear un issue:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Descripción del Problema
+</span></span></span><span class="line"><span class="cl">[Describe aquí qué está mal]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Pasos para Reproducir
+</span></span></span><span class="line"><span class="cl"><span class="k">1.</span> [Primer paso]
+</span></span><span class="line"><span class="cl"><span class="k">2.</span> [Segundo paso]
+</span></span><span class="line"><span class="cl"><span class="k">3.</span> [Paso donde ocurre el error]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Comportamiento Esperado
+</span></span></span><span class="line"><span class="cl">[Qué debería suceder]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Comportamiento Actual
+</span></span></span><span class="line"><span class="cl">[Qué sucede realmente]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Información del Sistema
+</span></span></span><span class="line"><span class="cl"><span class="k">-</span> OS: [ej: Linux - Fedora 40]
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Versión Vasak Desktop: [ej: 0.5.2]
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Tipo de Sesión: [X11 / Wayland]
+</span></span><span class="line"><span class="cl"><span class="k">-</span> GPU: [ej: NVIDIA / AMD / Intel]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Logs
+</span></span></span><span class="line"><span class="cl">[Adjunta los logs relevantes aquí]
+</span></span><span class="line"><span class="cl">\`\`\`
+</span></span><span class="line"><span class="cl">[Contenido del log]
+</span></span><span class="line"><span class="cl">\`\`\`
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Adjuntos
+</span></span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Captura de pantalla
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Video
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Archivo de configuración
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="crear-un-issue-en-github">Crear un Issue en GitHub</h2>
+<h3 id="paso-1-reúne-tu-información">Paso 1: Reúne tu Información</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Crea un archivo con toda la información</span>
+</span></span><span class="line"><span class="cl">cat &gt; ~/vasak-reporte.md <span class="s">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">## Descripción
+</span></span></span><span class="line"><span class="cl"><span class="s">[Tu descripción aquí]
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">## Sistema
+</span></span></span><span class="line"><span class="cl"><span class="s">$(uname -a)
+</span></span></span><span class="line"><span class="cl"><span class="s">$(cat /etc/os-release | grep PRETTY_NAME)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">## Versión
+</span></span></span><span class="line"><span class="cl"><span class="s">$(vasak-desktop --version 2&gt;/dev/null || echo &#34;Desconocida&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">## Logs
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="paso-2-ve-a-github">Paso 2: Ve a GitHub</h3>
+<ol>
+<li>Abre <a href="https://github.com/Vasak-OS/vasak-desktop/issues/new"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/vasak-desktop/issues/new
+</a></li>
+<li>Haz clic en &ldquo;New Issue&rdquo;</li>
+<li>Selecciona &ldquo;Bug Report&rdquo; (si hay plantillas)</li>
+<li>Rellena la información</li>
+</ol>
+<h3 id="paso-3-proporciona-contexto">Paso 3: Proporciona Contexto</h3>
+<ul>
+<li>
+<p><strong>Título claro:</strong> No usar &ldquo;Error&rdquo;, &ldquo;Bug&rdquo; o &ldquo;No funciona&rdquo;</p>
+<ul>
+<li>❌ Malo: &ldquo;Error con el panel&rdquo;</li>
+<li>✅ Bueno: &ldquo;Panel desaparece cuando se conecta monitor externo&rdquo;</li>
+</ul>
+</li>
+<li>
+<p><strong>Descripción detallada:</strong> Más detalles = más fácil de arreglar</p>
+</li>
+<li>
+<p><strong>Logs:</strong> Copia los logs relevantes entre triple backticks</p>
+</li>
+</ul>
+<h2 id="errores-críticos-crash-de-la-aplicación">Errores Críticos (Crash de la Aplicación)</h2>
+<p>Si la aplicación se cierra inesperadamente:</p>
+<h3 id="captura-el-core-dump">Captura el Core Dump</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Habilitar core dumps</span>
+</span></span><span class="line"><span class="cl"><span class="nb">ulimit</span> -c unlimited
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ejecutar Vasak Desktop</span>
+</span></span><span class="line"><span class="cl">vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si se crashea, captura el core dump</span>
+</span></span><span class="line"><span class="cl">coredumpctl list
+</span></span><span class="line"><span class="cl">coredumpctl info <span class="o">[</span>number<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="recolecta-información-de-debug">Recolecta Información de Debug</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ejecutar con máxima verbosidad</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>trace <span class="nv">RUST_BACKTRACE</span><span class="o">=</span><span class="m">1</span> vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee crash-<span class="k">$(</span>date +%s<span class="k">)</span>.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reproduce el crash</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="adjunta-al-reporte">Adjunta al Reporte</h3>
+<ul>
+<li>El archivo de log completo</li>
+<li>Salida de <code>coredumpctl info</code></li>
+<li>Información del sistema</li>
+</ul>
+<h2 id="errores-de-hardwareperiféricos">Errores de Hardware/Periféricos</h2>
+<p>Si el error es relacionado con:</p>
+<h3 id="bluetooth">Bluetooth</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Captura información de Bluetooth</span>
+</span></span><span class="line"><span class="cl">hciconfig -a
+</span></span><span class="line"><span class="cl">bluetoothctl show
+</span></span><span class="line"><span class="cl">journalctl --user -u bluetooth -n <span class="m">100</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="audio-pulseaudio">Audio (PulseAudio)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Información de audio</span>
+</span></span><span class="line"><span class="cl">pactl info
+</span></span><span class="line"><span class="cl">pactl list sinks short
+</span></span><span class="line"><span class="cl">pactl list sources short
+</span></span><span class="line"><span class="cl">journalctl --user <span class="p">|</span> grep -i pulse <span class="p">|</span> tail -50
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="redwifi">Red/WiFi</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Información de red</span>
+</span></span><span class="line"><span class="cl">nmcli device
+</span></span><span class="line"><span class="cl">nmcli radio
+</span></span><span class="line"><span class="cl">journalctl --user <span class="p">|</span> grep -i network <span class="p">|</span> tail -50
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="seguimiento-del-reporte">Seguimiento del Reporte</h2>
+<p>Después de reportar:</p>
+<ol>
+<li><strong>Responde preguntas</strong> - Los desarrolladores pueden pedir más información</li>
+<li><strong>Prueba soluciones</strong> - Si sugieren una, pruébala y reporta el resultado</li>
+<li><strong>Verifica en versiones nuevas</strong> - El error podría estar arreglado en la siguiente versión</li>
+<li><strong>Cierra si se resuelve</strong> - Cuando se arregle, puedes cerrar el issue</li>
+</ol>
+<h2 id="consejos-para-mejores-reportes">Consejos para Mejores Reportes</h2>
+<p>✅ <strong>Haz:</strong></p>
+<ul>
+<li>Ser específico y detallado</li>
+<li>Incluir logs relevantes</li>
+<li>Ser cortés y respetuoso</li>
+<li>Actualizar con información nueva</li>
+<li>Probar con versiones nuevas</li>
+</ul>
+<p>❌ <strong>No hagas:</strong></p>
+<ul>
+<li>Reportar &ldquo;no funciona&rdquo; sin detalles</li>
+<li>Incluir logs de 10,000 líneas sin filtrar</li>
+<li>Ser grosero o exigente</li>
+<li>Reportar el mismo error múltiples veces</li>
+<li>Cambiar completamente el tema del issue</li>
+</ul>
+<h2 id="canales-de-reporte-alternativos">Canales de Reporte Alternativos</h2>
+<ul>
+<li><strong>GitHub Issues</strong>: <a href="https://github.com/Vasak-OS/vasak-desktop/issues"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  https://github.com/Vasak-OS/vasak-desktop/issues
+</a></li>
+<li><strong>Foro de Vasak OS</strong>: <em>Aun no disponible</em></li>
+<li><strong>Telegram</strong>: <a href="https://t.me/VasakOS"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-telegram"></i>&nbsp;
+  
+  https://t.me/VasakOS
+</a></li>
+<li><strong>Discord</strong>: <em>Aun no disponible</em></li>
+</ul>
+<h2 id="información-de-contacto">Información de Contacto</h2>
+<p>Para errores de seguridad críticos, contacta a:</p>
+<ul>
+<li><strong>Security Email</strong>: <a href="mailto:os@vasak.net.ar" >
+  
+  os@vasak.net.ar
+</a></li>
+<li><strong>No crear issue público</strong> para vulnerabilidades de seguridad</li>
+</ul>
+
+        </div>
+
+        
+        <div class="flex justify-between mt-8 gap-4">
+          
+          
+          
+          
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/user/errores/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div>
+              <div class="font-semibold">Visualización de Errores</div>
+            </a>
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/user/faq/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors text-right">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
+              <div class="font-semibold">Preguntas Frecuentes</div>
+            </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-5 mb-3">
+	<header class="flex items-center gap-2 mb-4">
+		<i class="fa-solid fa-magnifying-glass"></i>
+		<div>
+			<h2 class="text-base font-semibold">Buscar documentación</h2>
+		</div>
+	</header>
+
+	<div class="relative">
+		<input
+			id="docs-search-input"
+			type="search"
+			placeholder="Ej: eventos IPC, Vue, Tauri"
+			class="w-full rounded-xl bg-slate-50 dark:bg-slate-800 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+			autocomplete="off"
+		/>
+		<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span>
+	</div>
+</section>
+
+
+<div id="docs-search-modal" class="fixed inset-0 z-50 hidden">
+	
+	<div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div>
+	
+	
+	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]">
+		<div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden flex flex-col">
+			
+			<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+				<div class="flex items-center gap-2">
+					<i class="fa-solid fa-magnifying-glass text-slate-500"></i>
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100">Resultados de búsqueda</h3>
+				</div>
+				<button id="docs-search-close" type="button" class="text-slate-400 hover:text-vsk1 transition-colors">
+					<i class="fa-solid fa-xmark text-lg"></i>
+				</button>
+			</div>
+			
+			
+			<div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+(() => {
+	const input = document.getElementById('docs-search-input');
+	const statusEl = document.getElementById('docs-search-status');
+	const resultsEl = document.getElementById('docs-search-results');
+	const modal = document.getElementById('docs-search-modal');
+	const backdrop = document.getElementById('docs-search-backdrop');
+	const closeBtn = document.getElementById('docs-search-close');
+	const endpoint = '/index.json';
+	const MIN_CHARS = 2;
+	let index = null;
+
+	const showModal = () => {
+		modal.classList.remove('hidden');
+		setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+	};
+
+	const hideModal = () => {
+		backdrop.classList.add('opacity-0');
+		setTimeout(() => modal.classList.add('hidden'), 200);
+	};
+
+	const fetchIndex = async () => {
+		if (index) return index;
+		statusEl.textContent = 'Cargando…';
+		const res = await fetch(endpoint);
+		const data = await res.json();
+		
+		index = (data || []).filter(item => {
+			const rel = item.RelPermalink || item.relpermalink || '';
+			const url = item.Permalink || item.permalink || '';
+			return rel.startsWith('/docs/') || url.includes('/docs/');
+		}).map(item => ({
+			title: item.title || item.Title || '',
+			content: item.content || item.Content || '',
+			summary: item.summary || item.Summary || '',
+			permalink: item.Permalink || item.permalink || item.RelPermalink || item.relpermalink || '#',
+		}));
+		statusEl.textContent = '';
+		return index;
+	};
+
+	const debounce = (fn, delay = 200) => {
+		let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+	};
+
+	const score = (item, q) => {
+		const qi = q.toLowerCase();
+		let s = 0;
+		const title = (item.title || '').toLowerCase();
+		const content = (item.content || '').toLowerCase();
+		if (title.includes(qi)) s += 6; 
+		if (content.includes(qi)) s += 4;
+		return s;
+	};
+
+	const highlight = (text, q) => {
+		if (!text) return '';
+		try {
+			const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')})`, 'ig');
+			return text.replace(re, '<mark class="bg-vsk1 p-0 m-0">$1</mark>');
+		} catch {
+			return text;
+		}
+	};
+
+	const snippet = (content, q, length = 160) => {
+		const plain = (content || '').replace(/<[^>]+>/g, ' ');
+		const idx = plain.toLowerCase().indexOf(q.toLowerCase());
+		if (idx === -1) return plain.slice(0, length) + (plain.length > length ? '…' : '');
+		const start = Math.max(0, idx - 40);
+		const end = Math.min(plain.length, idx + length);
+		return (start > 0 ? '…' : '') + plain.slice(start, end) + (end < plain.length ? '…' : '');
+	};
+
+	const renderResults = (items, q) => {
+		if (!items.length) {
+			resultsEl.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 py-8">Sin resultados</p>';
+			return;
+		}
+		resultsEl.innerHTML = items.map(item => `
+			<article class= rounded-xl p-4 hover:bg-vsk1 transition-colors">
+				<a href="${item.permalink}" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines text-slate-500"></i>
+					${highlight(item.title, q)}
+				</a>
+				<p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed text-xs">${highlight(snippet(item.content || item.summary, q), q)}</p>
+			</article>
+		`).join('');
+	};
+
+	const onSearch = debounce(async () => {
+		const q = input.value.trim();
+		if (q.length < MIN_CHARS) {
+			if (q.length === 0) {
+				hideModal();
+			} else {
+				showModal();
+				resultsEl.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 py-8">Escribe al menos 2 caracteres</p>';
+			}
+			statusEl.textContent = '';
+			return;
+		}
+		await fetchIndex();
+		const matches = index
+			.map(item => ({ ...item, _score: score(item, q) }))
+			.filter(item => item._score > 0)
+			.sort((a, b) => b._score - a._score)
+			.slice(0, 20);
+		statusEl.textContent = matches.length ? `${matches.length}` : '0';
+		showModal();
+		renderResults(matches, q);
+	}, 220);
+
+	
+	input.addEventListener('input', onSearch);
+	closeBtn.addEventListener('click', hideModal);
+	backdrop.addEventListener('click', hideModal);
+	
+	
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+			hideModal();
+		}
+	});
+})();
+</script>
+<div
+  class="flex flex-col mb-3 px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+  <nav id="TableOfContents">
+  <ol>
+    <li><a href="#antes-de-reportar">Antes de Reportar</a></li>
+    <li><a href="#información-necesaria-para-un-buen-reporte">Información Necesaria para un Buen Reporte</a>
+      <ol>
+        <li><a href="#descripción-del-problema">Descripción del Problema</a></li>
+        <li><a href="#información-del-sistema">Información del Sistema</a></li>
+        <li><a href="#pasos-para-reproducir">Pasos para Reproducir</a></li>
+        <li><a href="#logs-relevantes">Logs Relevantes</a></li>
+        <li><a href="#adjuntos-útiles">Adjuntos Útiles</a></li>
+      </ol>
+    </li>
+    <li><a href="#plantilla-para-reporte">Plantilla para Reporte</a></li>
+    <li><a href="#crear-un-issue-en-github">Crear un Issue en GitHub</a>
+      <ol>
+        <li><a href="#paso-1-reúne-tu-información">Paso 1: Reúne tu Información</a></li>
+        <li><a href="#paso-2-ve-a-github">Paso 2: Ve a GitHub</a></li>
+        <li><a href="#paso-3-proporciona-contexto">Paso 3: Proporciona Contexto</a></li>
+      </ol>
+    </li>
+    <li><a href="#errores-críticos-crash-de-la-aplicación">Errores Críticos (Crash de la Aplicación)</a>
+      <ol>
+        <li><a href="#captura-el-core-dump">Captura el Core Dump</a></li>
+        <li><a href="#recolecta-información-de-debug">Recolecta Información de Debug</a></li>
+        <li><a href="#adjunta-al-reporte">Adjunta al Reporte</a></li>
+      </ol>
+    </li>
+    <li><a href="#errores-de-hardwareperiféricos">Errores de Hardware/Periféricos</a>
+      <ol>
+        <li><a href="#bluetooth">Bluetooth</a></li>
+        <li><a href="#audio-pulseaudio">Audio (PulseAudio)</a></li>
+        <li><a href="#redwifi">Red/WiFi</a></li>
+      </ol>
+    </li>
+    <li><a href="#seguimiento-del-reporte">Seguimiento del Reporte</a></li>
+    <li><a href="#consejos-para-mejores-reportes">Consejos para Mejores Reportes</a></li>
+    <li><a href="#canales-de-reporte-alternativos">Canales de Reporte Alternativos</a></li>
+    <li><a href="#información-de-contacto">Información de Contacto</a></li>
+  </ol>
+</nav>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+            <a href="https://os.vasak.net.ar/changelogs/" class="text-gray-500 hover:text-vsk1">Changelogs</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-xl hover:text-white text-xl">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  if (typeof mermaid !== 'undefined') {
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'default', 
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'cardinal'
+      },
+      sequenceDiagram: {
+        useMaxWidth: true,
+        diagramMarginX: 50,
+        diagramMarginY: 10
+      },
+      blockDiagram: {
+        useMaxWidth: true
+      }
+    });
+    
+    
+    const codeTags = document.querySelectorAll('pre > code.language-mermaid');
+    codeTags.forEach(function(tag) {
+      const preTag = tag.parentElement;
+      const mermaidContent = tag.textContent;
+      
+      
+      const mermaidDiv = document.createElement('div');
+      mermaidDiv.className = 'mermaid';
+      mermaidDiv.textContent = mermaidContent;
+      
+      
+      preTag.parentNode.replaceChild(mermaidDiv, preTag);
+    });
+    
+    
+    mermaid.contentLoaded();
+  }
+  
+  
+  const htmlElement = document.documentElement;
+  const observerOptions = {
+    attributes: true,
+    attributeFilter: ['class']
+  };
+  
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'class') {
+        const isDark = htmlElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: theme, 
+            securityLevel: 'loose'
+          });
+          mermaid.contentLoaded();
+        }
+      }
+    });
+  });
+  
+  observer.observe(htmlElement, observerOptions);
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.abd2670efd3308c41632004c120afcbfb6eb712cc6b23cbb48e8b4a91ccbe871.js"></script>
+
+
+<script async src="https://os.vasak.net.ar/mermaid.min_3141953029634099501.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
+    mermaid.contentLoaded();
+  });
+  
+  
+  const darkModeToggle = document.querySelector('[data-dark-mode]');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', function() {
+      setTimeout(() => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
+        
+        mermaid.contentLoaded();
+      }, 100);
+    });
+  }
+</script></body>
+
+</html>

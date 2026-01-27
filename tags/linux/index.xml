@@ -6,8 +6,15 @@
     <description>Recent content in Linux on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Sun, 11 May 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 11 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vendefoul Linux Vasak Version</title>
+      <link>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</guid>
+      <description>&lt;p&gt;La gente de &lt;strong&gt;Vendefoul Linux&lt;/strong&gt; decidio realizar una version de su distribucion con nuestro desktop. La misma cuenta con un estado experimental aun debido a que de momento &lt;code&gt;vasak-desktop&lt;/code&gt; no cuenta con una compatibilidad elevada a otros inits &lt;code&gt;non-systemd&lt;/code&gt; sin embargo trabajaremos en conjunto para poder facilitar la integracion del desktop&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Publicamos en Plugin User Data para Tauri</title>
       <link>https://os.vasak.net.ar/blog/2025/05/publicamos-en-plugin-user-data-para-tauri/</link>

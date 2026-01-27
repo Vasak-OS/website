@@ -6,8 +6,22 @@
     <description>Recent content in Vasak on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Fri, 22 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 11 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/vasak/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vendefoul Linux Vasak Version</title>
+      <link>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</guid>
+      <description>&lt;p&gt;La gente de &lt;strong&gt;Vendefoul Linux&lt;/strong&gt; decidio realizar una version de su distribucion con nuestro desktop. La misma cuenta con un estado experimental aun debido a que de momento &lt;code&gt;vasak-desktop&lt;/code&gt; no cuenta con una compatibilidad elevada a otros inits &lt;code&gt;non-systemd&lt;/code&gt; sin embargo trabajaremos en conjunto para poder facilitar la integracion del desktop&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Alpha 2 de VasakOS</title>
+      <link>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</guid>
+      <description>&lt;p&gt;Tratamos de iniciar 2026 con todo, y decidimos sacar el alpha 2, y realizar muchos cambios en como venimos trabajando&amp;hellip;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Votá por el siguiente pack de Iconos por Defecto</title>
       <link>https://os.vasak.net.ar/blog/2025/08/vot%C3%A1-por-el-siguiente-pack-de-iconos-por-defecto/</link>
@@ -30,13 +44,6 @@
       <description>&lt;p&gt;Hoy definimoas lanzar una especie de DEMO visual de lo que es VasakOS. La misma, si bien no esta accesible para el publico en general, es una especie de video que muestra como es el entorno de VasakOS y como se comporta. La misma fue grabada en una computadora real y no en una maquina virtual, por lo que se puede ver el rendimiento real del sistema operativo. La misma fue grabada en una computadora con un procesador &lt;strong&gt;Rayzen 5&lt;/strong&gt; y &lt;strong&gt;16GB de RAM&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Apps</title>
-      <link>https://os.vasak.net.ar/apps/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/apps/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Donaciones</title>
       <link>https://os.vasak.net.ar/donate/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -49,27 +56,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/about/</guid>
       <description>&lt;p&gt;Vasak OS es un sistema creado en el entorno de Vasak y la comunidad. Buscamos crear un sistema íntegro multiutilitario que nos permita obtener una alternativa completamente GRATUITA para los sistemas comerciales con todas las ventajas del Software Libre.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Vasak Control Center</title>
-      <link>https://os.vasak.net.ar/apps/vasak-control-center/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/apps/vasak-control-center/</guid>
-      <description>&lt;p&gt;Vasak Control Center es el centro de control de VasakOS. Permite acceder a algunas de las configuraciones rapidas del sistema que son mas utilizadas. Tambien pretende poder mostrar las notificaciones e informacion sobre el usuario. Contiene una estetica muy cuidada y es muy facil de usar. Se integra correctamente con el entorno de VasakOS y se encuentra en desarrollo constante.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>VMenu</title>
-      <link>https://os.vasak.net.ar/apps/vmenu/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/apps/vmenu/</guid>
-      <description>&lt;p&gt;VMenu es una aplicacíon de escritorio que permite acceder al menu de aplicaciones de Vasakos, y a su vez permite acceder a las aplicaciones de escritorio de la computadora. Contiene algunas funcionalidades extras como la posibilidad de buscar aplicaciones, o tener una vista rapida del cliema. Contiene una estetica muy cuidada y es muy facil de usar. Se integra correctamente con el entorno de VasakOS y se encuentra en desarrollo constante.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>VPanel</title>
-      <link>https://os.vasak.net.ar/apps/vpanel/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/apps/vpanel/</guid>
-      <description>&lt;p&gt;VPanel es el panel por defecto de VasakOS y su escritorio. Es un panel simple que permite acceder de forma rapida a los lanzadores mas importantes para qeu pueda navegar en su sistema operativo. Mantiene una estetica cuidada y es muy facil de usar. Se integra correctamente con el entorno de VasakOS y se encuentra en desarrollo constante. Si bien en su estado &lt;strong&gt;ALPHA&lt;/strong&gt; no cuenta con todas las funcionalidades de un panel completo, se espera que en un futuro se convierta en un panel completo y funcional.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

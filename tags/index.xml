@@ -6,8 +6,99 @@
     <description>Recent content in Tags on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Fri, 22 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 11 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debian</title>
+      <link>https://os.vasak.net.ar/tags/debian/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/debian/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Devuan</title>
+      <link>https://os.vasak.net.ar/tags/devuan/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/devuan/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://os.vasak.net.ar/tags/linux/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak</title>
+      <link>https://os.vasak.net.ar/tags/vasak/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak-Desktop</title>
+      <link>https://os.vasak.net.ar/tags/vasak-desktop/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-desktop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vendefoul</title>
+      <link>https://os.vasak.net.ar/tags/vendefoul/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vendefoul/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Version</title>
+      <link>https://os.vasak.net.ar/tags/version/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/version/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Alpha</title>
+      <link>https://os.vasak.net.ar/tags/alpha/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/alpha/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Changelog</title>
+      <link>https://os.vasak.net.ar/tags/changelog/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/changelog/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Changelogs</title>
+      <link>https://os.vasak.net.ar/tags/changelogs/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/changelogs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Demo</title>
+      <link>https://os.vasak.net.ar/tags/demo/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/demo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos</title>
+      <link>https://os.vasak.net.ar/tags/vasakos/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Video</title>
+      <link>https://os.vasak.net.ar/tags/video/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/video/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Iconos</title>
       <link>https://os.vasak.net.ar/tags/iconos/</link>
@@ -20,34 +111,6 @@
       <link>https://os.vasak.net.ar/tags/icons/</link>
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/icons/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasak</title>
-      <link>https://os.vasak.net.ar/tags/vasak/</link>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasak/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasak-Desktop</title>
-      <link>https://os.vasak.net.ar/tags/vasak-desktop/</link>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasak-desktop/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasakos</title>
-      <link>https://os.vasak.net.ar/tags/vasakos/</link>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasakos/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>https://os.vasak.net.ar/tags/linux/</link>
-      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/linux/</guid>
       <description></description>
     </item>
     <item>
@@ -97,20 +160,6 @@
       <link>https://os.vasak.net.ar/tags/plugin-vicons/</link>
       <pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/plugin-vicons/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Demo</title>
-      <link>https://os.vasak.net.ar/tags/demo/</link>
-      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/demo/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Video</title>
-      <link>https://os.vasak.net.ar/tags/video/</link>
-      <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/video/</guid>
       <description></description>
     </item>
     <item>
@@ -352,34 +401,6 @@
       <description></description>
     </item>
     <item>
-      <title>Aplicaciones</title>
-      <link>https://os.vasak.net.ar/tags/aplicaciones/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/aplicaciones/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>App</title>
-      <link>https://os.vasak.net.ar/tags/app/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/app/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Applications</title>
-      <link>https://os.vasak.net.ar/tags/applications/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/applications/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Apps</title>
-      <link>https://os.vasak.net.ar/tags/apps/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/apps/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Ayudar</title>
       <link>https://os.vasak.net.ar/tags/ayudar/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -387,38 +408,10 @@
       <description></description>
     </item>
     <item>
-      <title>Center</title>
-      <link>https://os.vasak.net.ar/tags/center/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/center/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Colaborar</title>
       <link>https://os.vasak.net.ar/tags/colaborar/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/colaborar/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Control Center</title>
-      <link>https://os.vasak.net.ar/tags/control-center/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/control-center/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Css</title>
-      <link>https://os.vasak.net.ar/tags/css/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/css/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Dock</title>
-      <link>https://os.vasak.net.ar/tags/dock/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/dock/</guid>
       <description></description>
     </item>
     <item>
@@ -464,59 +457,10 @@
       <description></description>
     </item>
     <item>
-      <title>Herramientas</title>
-      <link>https://os.vasak.net.ar/tags/herramientas/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/herramientas/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Html</title>
-      <link>https://os.vasak.net.ar/tags/html/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/html/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Javascript</title>
-      <link>https://os.vasak.net.ar/tags/javascript/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/javascript/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Menu</title>
-      <link>https://os.vasak.net.ar/tags/menu/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/menu/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Menu De Aplicaciones</title>
-      <link>https://os.vasak.net.ar/tags/menu-de-aplicaciones/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/menu-de-aplicaciones/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Nosotros</title>
       <link>https://os.vasak.net.ar/tags/nosotros/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/nosotros/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Panel</title>
-      <link>https://os.vasak.net.ar/tags/panel/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/panel/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Programas</title>
-      <link>https://os.vasak.net.ar/tags/programas/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/programas/</guid>
       <description></description>
     </item>
     <item>
@@ -576,41 +520,6 @@
       <description></description>
     </item>
     <item>
-      <title>Software</title>
-      <link>https://os.vasak.net.ar/tags/software/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/software/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tailwindcss</title>
-      <link>https://os.vasak.net.ar/tags/tailwindcss/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/tailwindcss/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tools</title>
-      <link>https://os.vasak.net.ar/tags/tools/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/tools/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Utilidades</title>
-      <link>https://os.vasak.net.ar/tags/utilidades/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/utilidades/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Utilities</title>
-      <link>https://os.vasak.net.ar/tags/utilities/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/utilities/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Vasak Donatcion</title>
       <link>https://os.vasak.net.ar/tags/vasak-donatcion/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -629,13 +538,6 @@
       <link>https://os.vasak.net.ar/tags/vasak-os/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/vasak-os/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasak-Control-Center</title>
-      <link>https://os.vasak.net.ar/tags/vasak-control-center/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasak-control-center/</guid>
       <description></description>
     </item>
     <item>
@@ -664,34 +566,6 @@
       <link>https://os.vasak.net.ar/tags/vasakos-os-linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/vasakos-os-linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vite</title>
-      <link>https://os.vasak.net.ar/tags/vite/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vite/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vmenu</title>
-      <link>https://os.vasak.net.ar/tags/vmenu/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vmenu/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vpanel</title>
-      <link>https://os.vasak.net.ar/tags/vpanel/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vpanel/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vuejs</title>
-      <link>https://os.vasak.net.ar/tags/vuejs/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vuejs/</guid>
       <description></description>
     </item>
   </channel>

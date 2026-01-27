@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.169498735f2e7e89ec500ce0ca9ec863f391b31b1baddf636e2bf6b8244f2093.css" integrity="sha256-FpSYc18ufonsUAzgyp7IY/ORsxsbrd9jbiv2uCRPIJM=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/changelogs/06012026/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Changelogs 06-01-2026 [Alpha]" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado Alpha por lo cual es comun poder enconrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content='changelogs, changelog, alpha, vasakos, vasak-desktop,  Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/changelogs/06012026/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white dark:bg-gray-800 z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+      <a href="https://os.vasak.net.ar/docs"  title="Documentación"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+          <a href="https://os.vasak.net.ar/docs" 
+            title="Documentación"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  <div class="container flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md"
+          id="article">
+          <h1 class="text-center text-vsk1">Changelogs 06-01-2026 [Alpha]</h1>
+          <p>Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado <strong>Alpha</strong> por lo cual es comun poder enconrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial</p>
+<h2 id="vasak-desktop"><code>vasak-desktop</code></h2>
+<ul>
+<li>Nueva App embebida File Manager</li>
+<li>Nueva App embebida Configuration Manager</li>
+<li>Nuevo Applet de Red</li>
+<li>Nuevo Applet de Sonido</li>
+<li>Nuevo Applet de Bateria</li>
+<li>Nuevo Applet de Bluetooth</li>
+<li>Nuevo Applet de Reproduccion multimedia</li>
+<li>Nueva App de busqueda de aplicaciones</li>
+</ul>
+<h2 id="vasak-desktop-settings"><code>vasak-desktop-settings</code></h2>
+<ul>
+<li>Se agrega nuevo fondo default</li>
+<li>Se agrega nuevo color de realse</li>
+<li>Se setean nuevo pack de iconos</li>
+</ul>
+<h2 id="vasak-icons-theme"><code>vasak-icons-theme</code></h2>
+<ul>
+<li>Se crea nuevo pack de iconos [fork]</li>
+<li>Se modifica Icono de Steam Original</li>
+</ul>
+<h2 id="iso-base-arch-archiso">ISO base arch [<code>archiso</code>]</h2>
+<ul>
+<li>Se eliminan dependencias antiguas</li>
+<li>Se agrega nuevo pack de iconos de vasak</li>
+<li>Se agregan wallpapaers de cutefish</li>
+</ul>
+<h2 id="desarrollo">Desarrollo</h2>
+<ul>
+<li>Se incorpora coderabbit para obtener mejores reviews en los PR</li>
+<li>Se incorpora sonar para poder mejorar la calidad de codigo</li>
+<li>Se inicia la documentacion oficial</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <div class="px-8 mb-3">
+  <div class="flex flex-col max-w-sm px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+    <ul>
+      <li><em class="fas fa-calendar"></em> <time datetime='Martes 6 de Enero de 2026'>Martes 6 de Enero de 2026</time></li>
+      <li><em class="fas fa-clock"></em> 1m</li>
+      <li><em class="fas fa-pen"></em> 162</li>
+    </ul>
+  </div>
+</div><div
+  class="flex flex-col mb-3 px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+  <nav id="TableOfContents">
+  <ol>
+    <li><a href="#vasak-desktop"><code>vasak-desktop</code></a></li>
+    <li><a href="#vasak-desktop-settings"><code>vasak-desktop-settings</code></a></li>
+    <li><a href="#vasak-icons-theme"><code>vasak-icons-theme</code></a></li>
+    <li><a href="#iso-base-arch-archiso">ISO base arch [<code>archiso</code>]</a></li>
+    <li><a href="#desarrollo">Desarrollo</a></li>
+  </ol>
+</nav>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+            <a href="https://os.vasak.net.ar/changelogs/" class="text-gray-500 hover:text-vsk1">Changelogs</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-xl hover:text-white text-xl">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  if (typeof mermaid !== 'undefined') {
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'default', 
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'cardinal'
+      },
+      sequenceDiagram: {
+        useMaxWidth: true,
+        diagramMarginX: 50,
+        diagramMarginY: 10
+      },
+      blockDiagram: {
+        useMaxWidth: true
+      }
+    });
+    
+    
+    const codeTags = document.querySelectorAll('pre > code.language-mermaid');
+    codeTags.forEach(function(tag) {
+      const preTag = tag.parentElement;
+      const mermaidContent = tag.textContent;
+      
+      
+      const mermaidDiv = document.createElement('div');
+      mermaidDiv.className = 'mermaid';
+      mermaidDiv.textContent = mermaidContent;
+      
+      
+      preTag.parentNode.replaceChild(mermaidDiv, preTag);
+    });
+    
+    
+    mermaid.contentLoaded();
+  }
+  
+  
+  const htmlElement = document.documentElement;
+  const observerOptions = {
+    attributes: true,
+    attributeFilter: ['class']
+  };
+  
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'class') {
+        const isDark = htmlElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: theme, 
+            securityLevel: 'loose'
+          });
+          mermaid.contentLoaded();
+        }
+      }
+    });
+  });
+  
+  observer.observe(htmlElement, observerOptions);
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.abd2670efd3308c41632004c120afcbfb6eb712cc6b23cbb48e8b4a91ccbe871.js"></script>
+
+
+<script async src="https://os.vasak.net.ar/mermaid.min_3141953029634099501.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
+    mermaid.contentLoaded();
+  });
+  
+  
+  const darkModeToggle = document.querySelector('[data-dark-mode]');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', function() {
+      setTimeout(() => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
+        
+        mermaid.contentLoaded();
+      }, 100);
+    });
+  }
+</script></body>
+
+</html>

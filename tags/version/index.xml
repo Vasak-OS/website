@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Version on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/version/</link>
+    <description>Recent content in Version on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Sun, 11 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/version/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vendefoul Linux Vasak Version</title>
+      <link>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</link>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/01/vendefoul-linux-vasak-version/</guid>
+      <description>&lt;p&gt;La gente de &lt;strong&gt;Vendefoul Linux&lt;/strong&gt; decidio realizar una version de su distribucion con nuestro desktop. La misma cuenta con un estado experimental aun debido a que de momento &lt;code&gt;vasak-desktop&lt;/code&gt; no cuenta con una compatibilidad elevada a otros inits &lt;code&gt;non-systemd&lt;/code&gt; sin embargo trabajaremos en conjunto para poder facilitar la integracion del desktop&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

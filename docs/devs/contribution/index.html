@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.169498735f2e7e89ec500ce0ca9ec863f391b31b1baddf636e2bf6b8244f2093.css" integrity="sha256-FpSYc18ufonsUAzgyp7IY/ORsxsbrd9jbiv2uCRPIJM=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/devs/contribution/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Contribucion al Proyecto" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Guía para contribuir al desarrollo de VasakOS. Esto aplica a desarrollos propios o comunitarios dentro del mismo entorno.
+Proceso de Contribución
+Fork y Clone
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+
+# En GitHub, haz Fork del repositorio
+# https://github.com/Vasak-OS/vasak-desktop
+
+# Clone tu fork
+git clone https://github.com/TU_USUARIO/vasak-desktop.git
+cd vasak-desktop
+
+# Añade el repositorio original como remote
+git remote add upstream https://github.com/Vasak-OS/vasak-desktop.git
+
+
+Crea una Rama
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+
+
+# Actualiza main desde upstream
+git fetch upstream
+git checkout main
+git merge upstream/main
+
+# Crea una rama para tu feature
+git checkout -b feature/descripcion-corta
+
+# O para bugfix
+git checkout -b bugfix/descripcion-corta
+
+# O para docs
+git checkout -b docs/descripcion-corta
+
+
+Convención de nombres: Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/devs/contribution/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white dark:bg-gray-800 z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+      <a href="https://os.vasak.net.ar/docs"  title="Documentación"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+          <a href="https://os.vasak.net.ar/docs" 
+            title="Documentación"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  
+<nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb">
+    <ul class="flex flex-wrap items-center gap-0 text-ms">
+        
+        <li class="flex items-center">
+            <a href="https://os.vasak.net.ar/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Go to home page">
+                <i class="fa-solid fa-house text-sm"></i>
+                <span class="hidden sm:inline">Home</span>
+            </a>
+        </li>
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Docs">
+                Docs
+            </a>
+        </li>
+        
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/devs/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Devs">
+                Devs
+            </a>
+        </li>
+        
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/devs/contribution/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Contribution">
+                Contribution
+            </a>
+        </li>
+        
+        
+        
+        
+
+        
+        
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </li>
+
+        <li class="flex items-center">
+            <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl
+                     bg-gradient-to-r from-vsk2 to-vsk1
+                     text-white font-medium
+                     shadow-md dark:shadow-lg" aria-current="page">
+                
+                
+                <i class="fa-solid fa-book text-sm"></i>
+                
+
+                <span>Contribucion al Proyecto</span>
+            </span>
+        </li>
+        
+    </ol>
+</nav>
+  <div class="flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 rounded-xl"
+          id="article">
+          <h1 class="text-center text-vsk1">Contribucion al Proyecto</h1>
+          <p>Guía para contribuir al desarrollo de <strong>VasakOS</strong>. Esto aplica a desarrollos propios o comunitarios dentro del mismo entorno.</p>
+<h2 id="proceso-de-contribución">Proceso de Contribución</h2>
+<h3 id="fork-y-clone">Fork y Clone</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># En GitHub, haz Fork del repositorio</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># https://github.com/Vasak-OS/vasak-desktop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Clone tu fork</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/TU_USUARIO/vasak-desktop.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añade el repositorio original como remote</span>
+</span></span><span class="line"><span class="cl">git remote add upstream https://github.com/Vasak-OS/vasak-desktop.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="crea-una-rama">Crea una Rama</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Actualiza main desde upstream</span>
+</span></span><span class="line"><span class="cl">git fetch upstream
+</span></span><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">git merge upstream/main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Crea una rama para tu feature</span>
+</span></span><span class="line"><span class="cl">git checkout -b feature/descripcion-corta
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O para bugfix</span>
+</span></span><span class="line"><span class="cl">git checkout -b bugfix/descripcion-corta
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O para docs</span>
+</span></span><span class="line"><span class="cl">git checkout -b docs/descripcion-corta
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Convención de nombres</strong>:</p>
+<ul>
+<li><code>feature/feature-name</code> - Nueva funcionalidad</li>
+<li><code>bugfix/bug-name</code> - Corrección de bug</li>
+<li><code>refactor/refactor-name</code> - Refactorización</li>
+<li><code>docs/doc-name</code> - Documentación</li>
+<li><code>chore/chore-name</code> - Tareas sin código funcional</li>
+</ul>
+<h3 id="realiza-tus-cambios">Realiza tus Cambios</h3>
+<p>Realiza los cambios en el proyecto segun creas conveninete para lo que estes intentando de resolver, recuerda que puedes utilizar varios commit si quieres organizarte pero evita exederte o que los mismos no tengan sentido. Recopila toda la informacion que creas importante para PR y para la documentacion.</p>
+<p><strong>Checklist</strong>:</p>
+<ul>
+<li><input disabled="" type="checkbox"> Código sigue lineamientos</li>
+<li><input disabled="" type="checkbox"> Tests pasan</li>
+<li><input disabled="" type="checkbox"> Sin errores de linting</li>
+<li><input disabled="" type="checkbox"> Documentación actualizada</li>
+<li><input disabled="" type="checkbox"> Commits bien descriptos</li>
+</ul>
+<h3 id="commits">Commits</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver cambios</span>
+</span></span><span class="line"><span class="cl">git status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añadir cambios</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Hacer commit con mensaje descriptivo</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;feat(audio): add volume normalization
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">Implement automatic volume normalization to provide
+</span></span></span><span class="line"><span class="cl"><span class="s2">consistent output levels across different devices.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">Closes #1234&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Formato de mensaje</strong> (Conventional Commits):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">type(scope): subject
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">body
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">footer
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Tipos</strong>: <code>feat</code>, <code>fix</code>, <code>docs</code>, <code>style</code>, <code>refactor</code>, <code>perf</code>, <code>test</code>, <code>chore</code></p>
+<p><strong>Ejemplo</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">feat(audio): add volume normalization
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Implement automatic volume normalization to provide
+</span></span><span class="line"><span class="cl">consistent output levels across different devices.
+</span></span><span class="line"><span class="cl">This prevents audio clipping and improves user
+</span></span><span class="line"><span class="cl">experience when switching between devices.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- Added VolumeNormalizer struct
+</span></span><span class="line"><span class="cl">- Integrated with audio pipeline
+</span></span><span class="line"><span class="cl">- Added unit tests
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Closes #1234
+</span></span><span class="line"><span class="cl">Fixes #5678
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="push-y-pull-request">Push y Pull Request</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Push tu rama</span>
+</span></span><span class="line"><span class="cl">git push origin feature/descripcion-corta
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># En GitHub, crea un Pull Request</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Contra: Vasak-OS/vasak-desktop main</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Desde: TU_USUARIO/vasak-desktop feature/descripcion-corta</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Template de PR</strong> (auto-rellenado):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Descripción
+</span></span></span><span class="line"><span class="cl">Breve descripción de qué hace este PR.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Tipo de Cambio
+</span></span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Nueva funcionalidad
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Corrección de bug
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Cambio que rompe compatibilidad
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Documentación
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Cambios
+</span></span></span><span class="line"><span class="cl"><span class="k">-</span> Cambio 1
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Cambio 2
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Cambio 3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Testing
+</span></span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Testeado en X11
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Testeado en Wayland
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Pruebas unitarias pasadas
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Pruebas de integración pasadas
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Checklist
+</span></span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Mi código sigue los lineamientos
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> He hecho self-review
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> He comentado código complejo
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> He actualizado la documentación
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> He añadido tests
+</span></span><span class="line"><span class="cl"><span class="k">- [ ]</span> Los tests pasan localmente
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## Benchmark (Si aplica)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="revisión-y-feedback">Revisión y Feedback</h3>
+<ul>
+<li>Los mantenedores revisarán tu PR</li>
+<li>Responde a los comentarios</li>
+<li>Haz cambios si es necesario</li>
+<li>Re-quiere revisión cuando hayas hecho cambios</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Después de cambios</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Address review feedback
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">- Changed X to Y
+</span></span></span><span class="line"><span class="cl"><span class="s2">- Added comment for Z&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git push origin feature/descripcion-corta
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="merge">Merge</h3>
+<p>Una vez aprobado:</p>
+<ul>
+<li>Los mantenedores harán merge de tu PR</li>
+<li>Tu branch se puede eliminar</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Limpiar local</span>
+</span></span><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">git branch -d feature/descripcion-corta
+</span></span><span class="line"><span class="cl">git pull upstream main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="tipos-de-contribución">Tipos de Contribución</h2>
+<h3 id="nuevas-funcionalidades">Nuevas Funcionalidades</h3>
+<p><strong>Pasos:</strong></p>
+<ol>
+<li>Discute en un issue primero</li>
+<li>Sigue la arquitectura establecida</li>
+<li>Añade tests</li>
+<li>Documenta el cambio</li>
+<li>Actualiza CHANGELOG</li>
+</ol>
+<h3 id="corrección-de-bugs">Corrección de Bugs</h3>
+<p><strong>Pasos:</strong></p>
+<ol>
+<li>Abre un issue describiendo el bug</li>
+<li>Crea rama desde issue</li>
+<li>Reproduce el bug con test</li>
+<li>Arregla el bug</li>
+<li>Test debe pasar</li>
+<li>Documenta la corrección</li>
+</ol>
+<h3 id="documentación">Documentación</h3>
+<p><strong>Archivos:</strong></p>
+<ul>
+<li><code>docs/user/*</code> - Para usuarios finales | <a href="https://github.com/Vasak-OS/website"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  repo
+</a></li>
+<li><code>docs/devs/*</code> - Para desarrolladores | <a href="https://github.com/Vasak-OS/website"  target="_blank" rel="noopener noreferrer" >
+  <i class="fab fa-github"></i>&nbsp;
+  
+  repo
+</a></li>
+<li>README.md - Para repositorio</li>
+<li>Code comments - Dentro del código</li>
+</ul>
+<h3 id="mejoras-de-performance">Mejoras de Performance</h3>
+<p><strong>Requerimientos:</strong></p>
+<ol>
+<li>Mide antes (con profiler)</li>
+<li>Implementa mejora</li>
+<li>Mide después (compara)</li>
+<li>Añade benchmark si es crítico</li>
+<li>Documenta cambio</li>
+</ol>
+<h3 id="tests">Tests</h3>
+<p><strong>Tipos:</strong></p>
+<ul>
+<li>Unit tests - Funciones individuales</li>
+<li>Integration tests - Componentes integrados</li>
+<li>E2E tests - Flujo completo del usuario</li>
+</ul>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li><code>src-tauri/tests/</code> - Tests de Rust</li>
+<li><code>src/tests/</code> - Tests de Vue</li>
+</ul>
+<h2 id="reportes-de-bugs">Reportes de Bugs</h2>
+<p>Ver <a href="https://os.vasak.net.ar/docs/user/reporte-errores/" >
+  <i class="fas fa-link"></i>&nbsp;
+  
+  Cómo Reportar Errores
+</a></p>
+<p><strong>Requiere</strong>:</p>
+<ul>
+<li>Descripción clara</li>
+<li>Pasos para reproducir</li>
+<li>Comportamiento esperado vs actual</li>
+<li>Sistema operativo y versión</li>
+<li>Logs relevantes</li>
+</ul>
+<h2 id="código-review">Código Review</h2>
+<h3 id="como-revisor">Como Revisor</h3>
+<p>Verifica:</p>
+<ul>
+<li><input disabled="" type="checkbox"> El código funciona</li>
+<li><input disabled="" type="checkbox"> Sigue lineamientos</li>
+<li><input disabled="" type="checkbox"> Tiene tests</li>
+<li><input disabled="" type="checkbox"> Está documentado</li>
+<li><input disabled="" type="checkbox"> No introduce regresiones</li>
+<li><input disabled="" type="checkbox"> Performance es aceptable</li>
+</ul>
+<blockquote>
+<p>Comentario constructivo:</p>
+<p>❌ &ldquo;Esto está mal&rdquo;</p>
+<p>✅ &ldquo;Considerar usar X en lugar de Y porque&hellip;&rdquo;</p>
+</blockquote>
+<h3 id="como-autor">Como Autor</h3>
+<ul>
+<li>Responde a todos los comentarios</li>
+<li>No seas defensivo</li>
+<li>Haz cambios si son mejoras</li>
+<li>Explica tu decisión si no estás de acuerdo</li>
+<li>Agradece el feedback</li>
+</ul>
+<h2 id="licencia">Licencia</h2>
+<p>Toda contribución debe ser compatible con la licencia del proyecto.</p>
+<p>Ver <code>LICENSE</code> en la raíz del proyecto.</p>
+<h2 id="comportamiento-esperado">Comportamiento Esperado</h2>
+<h3 id="código-de-conducta">Código de Conducta</h3>
+<p>Nos comprometemos a mantener un ambiente respetuoso:</p>
+<ul>
+<li>Sé respetuoso con otros contribuidores</li>
+<li>Acepta crítica constructiva</li>
+<li>Enfócate en el código, no en la persona</li>
+<li>Respeta privacidad</li>
+<li>Reporta abuso</li>
+</ul>
+<h3 id="si-ves-comportamiento-inapropiado">Si Ves Comportamiento Inapropiado</h3>
+<p>Contacta a los mantenedores directamente (privadamente).</p>
+<h2 id="reconocimiento">Reconocimiento</h2>
+<ul>
+<li>Contribuidores serán reconocidos en CONTRIBUTORS.md</li>
+<li>Commits quedan en el historio de Git</li>
+<li>Releases grandes pueden tener changelog especial</li>
+</ul>
+<h2 id="ayuda-y-soporte">Ayuda y Soporte</h2>
+<h3 id="preguntas-sobre-contribución">Preguntas sobre Contribución</h3>
+<ul>
+<li>Abre una Discusión en GitHub</li>
+<li>Pregunta en el chat comunitario (si existe)</li>
+</ul>
+<h3 id="no-sabes-por-dónde-empezar">No Sabes por Dónde Empezar</h3>
+<p>Busca issues con label:</p>
+<ul>
+<li><code>good-first-issue</code> - Para nuevos contribuidores</li>
+<li><code>help-wanted</code> - Se busca ayuda</li>
+<li><code>documentation</code> - Mejoras de docs</li>
+</ul>
+<h3 id="necesitas-ayuda">Necesitas Ayuda</h3>
+<ul>
+<li>Menciona a mantenedores con @</li>
+<li>Se específico con tu pregunta</li>
+<li>Comparte código/error si es relevante</li>
+</ul>
+<h2 id="cambios-que-no-aceptamos">Cambios que No Aceptamos</h2>
+<p>❌ <strong>No aceptamos</strong>:</p>
+<ul>
+<li>Código que rompe compatibilidad sin versión major</li>
+<li>Cambios que requieren librerías propietarias</li>
+<li>Código que no tiene tests</li>
+<li>Documentación incompleta</li>
+<li>Cambios de estilo sin funcionalidad</li>
+<li>Commits enormes sin descripción</li>
+</ul>
+<p>✅ <strong>Aceptamos</strong>:</p>
+<ul>
+<li>Nuevas funcionalidades bien testeadas</li>
+<li>Correcciones de bugs</li>
+<li>Mejoras de performance con evidencia</li>
+<li>Documentación mejorada</li>
+<li>Refactorización que mejora mantenibilidad</li>
+<li>Tests adicionales</li>
+</ul>
+<h2 id="maintenance">Maintenance</h2>
+<h3 id="si-eres-mantenedor">Si Eres Mantenedor</h3>
+<p>Responsabilidades:</p>
+<ul>
+<li>Revisar PRs oportunamente</li>
+<li>Mantener código limpio</li>
+<li>Actualizar documentación</li>
+<li>Moderar comportamiento</li>
+<li>Planificar releases</li>
+</ul>
+<h3 id="merging">Merging</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Antes de merge, verifica:</span>
+</span></span><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">git pull origin main
+</span></span><span class="line"><span class="cl">git merge --no-ff feature/branch -m <span class="s2">&#34;Merge feature/branch&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Resolve conflicts si existen</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git push origin main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Elimina rama</span>
+</span></span><span class="line"><span class="cl">git push origin --delete feature/branch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="releases">Releases</h2>
+<p>Versionamiento: <code>MAJOR.MINOR.PATCH</code></p>
+<ul>
+<li><code>MAJOR</code> - Breaking changes</li>
+<li><code>MINOR</code> - Nuevas funcionalidades</li>
+<li><code>PATCH</code> - Bug fixes</li>
+</ul>
+<h2 id="próximos-pasos">Próximos Pasos</h2>
+<ol>
+<li>Selecciona una issue o funcionalidad</li>
+<li>Comenta que trabajarás en ello</li>
+<li>Sigue este proceso de contribución</li>
+<li>¡Gracias por contribuir!</li>
+</ol>
+<h2 id="recursos">Recursos</h2>
+<ul>
+<li><a href="https://guides.github.com/introduction/flow/"  target="_blank" rel="noopener noreferrer" >
+  <i class="fas fa-up-right-from-square"></i>&nbsp;
+  
+  GitHub Flow
+</a></li>
+<li><a href="https://www.conventionalcommits.org/"  target="_blank" rel="noopener noreferrer" >
+  <i class="fas fa-up-right-from-square"></i>&nbsp;
+  
+  Conventional Commits
+</a></li>
+<li><a href="https://semver.org/"  target="_blank" rel="noopener noreferrer" >
+  <i class="fas fa-up-right-from-square"></i>&nbsp;
+  
+  Semantic Versioning
+</a></li>
+</ul>
+<h2 id="preguntas-frecuentes">Preguntas Frecuentes</h2>
+<p><strong>P: ¿Puedo trabajar en múltiples cosas simultáneamente?</strong>
+R: Usa ramas diferentes para cada cosa.</p>
+<p><strong>P: ¿Cuánto tiempo toma ver mi PR?</strong>
+R: Depende, típicamente 1-3 días.</p>
+<p><strong>P: ¿Qué si mi PR es rechazado?</strong>
+R: Se explicarán las razones. Puedes pedir clarificación.</p>
+<p><strong>P: ¿Puedo hacer commit directo?</strong>
+R: No, todos pasan por PR (incluso mantenedores).</p>
+<p><strong>P: ¿Dónde veo mis contribuciones?</strong>
+R: En tu perfil GitHub y en <code>git log</code>.</p>
+<hr>
+<p>¡Gracias por considerar contribuir a Vasak Desktop! 🎉</p>
+
+        </div>
+
+        
+        <div class="flex justify-between mt-8 gap-4">
+          
+          
+          
+          
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/devs/debugging/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div>
+              <div class="font-semibold">Debugging</div>
+            </a>
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/devs/guidelines/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors text-right">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
+              <div class="font-semibold">Lineamientos de codigo | vasak-desktop</div>
+            </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-5 mb-3">
+	<header class="flex items-center gap-2 mb-4">
+		<i class="fa-solid fa-magnifying-glass"></i>
+		<div>
+			<h2 class="text-base font-semibold">Buscar documentación</h2>
+		</div>
+	</header>
+
+	<div class="relative">
+		<input
+			id="docs-search-input"
+			type="search"
+			placeholder="Ej: eventos IPC, Vue, Tauri"
+			class="w-full rounded-xl bg-slate-50 dark:bg-slate-800 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+			autocomplete="off"
+		/>
+		<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span>
+	</div>
+</section>
+
+
+<div id="docs-search-modal" class="fixed inset-0 z-50 hidden">
+	
+	<div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div>
+	
+	
+	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]">
+		<div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden flex flex-col">
+			
+			<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+				<div class="flex items-center gap-2">
+					<i class="fa-solid fa-magnifying-glass text-slate-500"></i>
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100">Resultados de búsqueda</h3>
+				</div>
+				<button id="docs-search-close" type="button" class="text-slate-400 hover:text-vsk1 transition-colors">
+					<i class="fa-solid fa-xmark text-lg"></i>
+				</button>
+			</div>
+			
+			
+			<div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+(() => {
+	const input = document.getElementById('docs-search-input');
+	const statusEl = document.getElementById('docs-search-status');
+	const resultsEl = document.getElementById('docs-search-results');
+	const modal = document.getElementById('docs-search-modal');
+	const backdrop = document.getElementById('docs-search-backdrop');
+	const closeBtn = document.getElementById('docs-search-close');
+	const endpoint = '/index.json';
+	const MIN_CHARS = 2;
+	let index = null;
+
+	const showModal = () => {
+		modal.classList.remove('hidden');
+		setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+	};
+
+	const hideModal = () => {
+		backdrop.classList.add('opacity-0');
+		setTimeout(() => modal.classList.add('hidden'), 200);
+	};
+
+	const fetchIndex = async () => {
+		if (index) return index;
+		statusEl.textContent = 'Cargando…';
+		const res = await fetch(endpoint);
+		const data = await res.json();
+		
+		index = (data || []).filter(item => {
+			const rel = item.RelPermalink || item.relpermalink || '';
+			const url = item.Permalink || item.permalink || '';
+			return rel.startsWith('/docs/') || url.includes('/docs/');
+		}).map(item => ({
+			title: item.title || item.Title || '',
+			content: item.content || item.Content || '',
+			summary: item.summary || item.Summary || '',
+			permalink: item.Permalink || item.permalink || item.RelPermalink || item.relpermalink || '#',
+		}));
+		statusEl.textContent = '';
+		return index;
+	};
+
+	const debounce = (fn, delay = 200) => {
+		let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+	};
+
+	const score = (item, q) => {
+		const qi = q.toLowerCase();
+		let s = 0;
+		const title = (item.title || '').toLowerCase();
+		const content = (item.content || '').toLowerCase();
+		if (title.includes(qi)) s += 6; 
+		if (content.includes(qi)) s += 4;
+		return s;
+	};
+
+	const highlight = (text, q) => {
+		if (!text) return '';
+		try {
+			const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')})`, 'ig');
+			return text.replace(re, '<mark class="bg-vsk1 p-0 m-0">$1</mark>');
+		} catch {
+			return text;
+		}
+	};
+
+	const snippet = (content, q, length = 160) => {
+		const plain = (content || '').replace(/<[^>]+>/g, ' ');
+		const idx = plain.toLowerCase().indexOf(q.toLowerCase());
+		if (idx === -1) return plain.slice(0, length) + (plain.length > length ? '…' : '');
+		const start = Math.max(0, idx - 40);
+		const end = Math.min(plain.length, idx + length);
+		return (start > 0 ? '…' : '') + plain.slice(start, end) + (end < plain.length ? '…' : '');
+	};
+
+	const renderResults = (items, q) => {
+		if (!items.length) {
+			resultsEl.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 py-8">Sin resultados</p>';
+			return;
+		}
+		resultsEl.innerHTML = items.map(item => `
+			<article class= rounded-xl p-4 hover:bg-vsk1 transition-colors">
+				<a href="${item.permalink}" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines text-slate-500"></i>
+					${highlight(item.title, q)}
+				</a>
+				<p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed text-xs">${highlight(snippet(item.content || item.summary, q), q)}</p>
+			</article>
+		`).join('');
+	};
+
+	const onSearch = debounce(async () => {
+		const q = input.value.trim();
+		if (q.length < MIN_CHARS) {
+			if (q.length === 0) {
+				hideModal();
+			} else {
+				showModal();
+				resultsEl.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 py-8">Escribe al menos 2 caracteres</p>';
+			}
+			statusEl.textContent = '';
+			return;
+		}
+		await fetchIndex();
+		const matches = index
+			.map(item => ({ ...item, _score: score(item, q) }))
+			.filter(item => item._score > 0)
+			.sort((a, b) => b._score - a._score)
+			.slice(0, 20);
+		statusEl.textContent = matches.length ? `${matches.length}` : '0';
+		showModal();
+		renderResults(matches, q);
+	}, 220);
+
+	
+	input.addEventListener('input', onSearch);
+	closeBtn.addEventListener('click', hideModal);
+	backdrop.addEventListener('click', hideModal);
+	
+	
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+			hideModal();
+		}
+	});
+})();
+</script>
+<div
+  class="flex flex-col mb-3 px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+  <nav id="TableOfContents">
+  <ol>
+    <li><a href="#proceso-de-contribución">Proceso de Contribución</a>
+      <ol>
+        <li><a href="#fork-y-clone">Fork y Clone</a></li>
+        <li><a href="#crea-una-rama">Crea una Rama</a></li>
+        <li><a href="#realiza-tus-cambios">Realiza tus Cambios</a></li>
+        <li><a href="#commits">Commits</a></li>
+        <li><a href="#push-y-pull-request">Push y Pull Request</a></li>
+        <li><a href="#revisión-y-feedback">Revisión y Feedback</a></li>
+        <li><a href="#merge">Merge</a></li>
+      </ol>
+    </li>
+    <li><a href="#tipos-de-contribución">Tipos de Contribución</a>
+      <ol>
+        <li><a href="#nuevas-funcionalidades">Nuevas Funcionalidades</a></li>
+        <li><a href="#corrección-de-bugs">Corrección de Bugs</a></li>
+        <li><a href="#documentación">Documentación</a></li>
+        <li><a href="#mejoras-de-performance">Mejoras de Performance</a></li>
+        <li><a href="#tests">Tests</a></li>
+      </ol>
+    </li>
+    <li><a href="#reportes-de-bugs">Reportes de Bugs</a></li>
+    <li><a href="#código-review">Código Review</a>
+      <ol>
+        <li><a href="#como-revisor">Como Revisor</a></li>
+        <li><a href="#como-autor">Como Autor</a></li>
+      </ol>
+    </li>
+    <li><a href="#licencia">Licencia</a></li>
+    <li><a href="#comportamiento-esperado">Comportamiento Esperado</a>
+      <ol>
+        <li><a href="#código-de-conducta">Código de Conducta</a></li>
+        <li><a href="#si-ves-comportamiento-inapropiado">Si Ves Comportamiento Inapropiado</a></li>
+      </ol>
+    </li>
+    <li><a href="#reconocimiento">Reconocimiento</a></li>
+    <li><a href="#ayuda-y-soporte">Ayuda y Soporte</a>
+      <ol>
+        <li><a href="#preguntas-sobre-contribución">Preguntas sobre Contribución</a></li>
+        <li><a href="#no-sabes-por-dónde-empezar">No Sabes por Dónde Empezar</a></li>
+        <li><a href="#necesitas-ayuda">Necesitas Ayuda</a></li>
+      </ol>
+    </li>
+    <li><a href="#cambios-que-no-aceptamos">Cambios que No Aceptamos</a></li>
+    <li><a href="#maintenance">Maintenance</a>
+      <ol>
+        <li><a href="#si-eres-mantenedor">Si Eres Mantenedor</a></li>
+        <li><a href="#merging">Merging</a></li>
+      </ol>
+    </li>
+    <li><a href="#releases">Releases</a></li>
+    <li><a href="#próximos-pasos">Próximos Pasos</a></li>
+    <li><a href="#recursos">Recursos</a></li>
+    <li><a href="#preguntas-frecuentes">Preguntas Frecuentes</a></li>
+  </ol>
+</nav>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+            <a href="https://os.vasak.net.ar/changelogs/" class="text-gray-500 hover:text-vsk1">Changelogs</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-xl hover:text-white text-xl">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  if (typeof mermaid !== 'undefined') {
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'default', 
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'cardinal'
+      },
+      sequenceDiagram: {
+        useMaxWidth: true,
+        diagramMarginX: 50,
+        diagramMarginY: 10
+      },
+      blockDiagram: {
+        useMaxWidth: true
+      }
+    });
+    
+    
+    const codeTags = document.querySelectorAll('pre > code.language-mermaid');
+    codeTags.forEach(function(tag) {
+      const preTag = tag.parentElement;
+      const mermaidContent = tag.textContent;
+      
+      
+      const mermaidDiv = document.createElement('div');
+      mermaidDiv.className = 'mermaid';
+      mermaidDiv.textContent = mermaidContent;
+      
+      
+      preTag.parentNode.replaceChild(mermaidDiv, preTag);
+    });
+    
+    
+    mermaid.contentLoaded();
+  }
+  
+  
+  const htmlElement = document.documentElement;
+  const observerOptions = {
+    attributes: true,
+    attributeFilter: ['class']
+  };
+  
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'class') {
+        const isDark = htmlElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: theme, 
+            securityLevel: 'loose'
+          });
+          mermaid.contentLoaded();
+        }
+      }
+    });
+  });
+  
+  observer.observe(htmlElement, observerOptions);
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.abd2670efd3308c41632004c120afcbfb6eb712cc6b23cbb48e8b4a91ccbe871.js"></script>
+
+
+<script async src="https://os.vasak.net.ar/mermaid.min_3141953029634099501.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
+    mermaid.contentLoaded();
+  });
+  
+  
+  const darkModeToggle = document.querySelector('[data-dark-mode]');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', function() {
+      setTimeout(() => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
+        
+        mermaid.contentLoaded();
+      }, 100);
+    });
+  }
+</script></body>
+
+</html>

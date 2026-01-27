@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Vasak OS</title>
+  <link rel="icon" href="https://os.vasak.net.ar/img/icon.svg" />
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+<link rel="stylesheet" href="https://os.vasak.net.ar/css/styles.min.169498735f2e7e89ec500ce0ca9ec863f391b31b1baddf636e2bf6b8244f2093.css" integrity="sha256-FpSYc18ufonsUAzgyp7IY/ORsxsbrd9jbiv2uCRPIJM=" crossorigin="anonymous" />
+
+
+
+
+
+
+
+
+
+  <meta name="author" content="PatoJAD" />
+  <meta content='@PatoJADOficial' name='twitter:site' />
+  <meta content='@PatoJADOficial' name='twitter:creator' />
+  <meta property="og:url" content="https://os.vasak.net.ar/docs/devs/vasak-desktop/setup-project/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Setup del Proyecto | vasak-desktop" />
+  <meta property="og:image"
+    content='/img/hero-fullscreen-bg.jpg' />
+  <meta property="og:locale" content="es-ES" />
+  <meta name="description"
+    content="Setup del Proyecto - Vasak Desktop
+Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.
+Requisitos Previos
+Requisitos del Sistema
+
+OS: Linux (Fedora, Ubuntu, Debian, Arch, etc.)
+RAM: Mínimo 4GB (8GB recomendado)
+Almacenamiento: 5GB espacio libre
+Internet: Conexión para descargar dependencias
+
+
+Es sumamente importante realizar la 
+  &nbsp;
+  
+  instalacion de dependencias para desarrolladores
+ dado que de aqui en adelante son dependnecias especificas de vasak-desktop Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
+    property="og:description" />
+
+  <meta
+    content=' Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
+    name='keywords' />
+
+  
+  <link rel="canonical" href="https://os.vasak.net.ar/docs/devs/vasak-desktop/setup-project/" />
+
+</head><body class="transition-all duration-400">
+  <div class="fixed bg-gray-100 dark:bg-gray-700 top-0 bottom-0 left-0 right-0 -z-10">
+  </div><header class="sticky top-0 bg-white dark:bg-gray-800 z-40 drop-shadow-xl m-2 mb-0 rounded-xl">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      
+      <a href="https://os.vasak.net.ar/"  title="Inicio"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+      
+      <a href="https://os.vasak.net.ar/blog"  title="Blog"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+      
+      <a href="https://os.vasak.net.ar/about"  title="Sobre"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+      
+      <a href="https://os.vasak.net.ar/downloads"  title="Descargas"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+      
+      <a href="https://os.vasak.net.ar/docs"  title="Documentación"
+        class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+      
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+  </nav>
+
+</header>
+<div class="lg:hidden" role="dialog" aria-modal="true">
+  <div id="mobile-menu"
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    <div class="flex items-center justify-between">
+      <a href="https://os.vasak.net.ar/" class="-m-1.5">
+        <span class="sr-only">VasakOS</span>
+        <img class="h-10 w-auto" src="https://os.vasak.net.ar/img/logo.svg" alt="VasakOS" title="VasakOS" />
+      </a>
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          
+          <a href="https://os.vasak.net.ar/" 
+            title="Inicio"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Inicio</a>
+          
+          <a href="https://os.vasak.net.ar/blog" 
+            title="Blog"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Blog</a>
+          
+          <a href="https://os.vasak.net.ar/about" 
+            title="Sobre"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Sobre</a>
+          
+          <a href="https://os.vasak.net.ar/downloads" 
+            title="Descargas"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Descargas</a>
+          
+          <a href="https://os.vasak.net.ar/docs" 
+            title="Documentación"
+            onclick="closeMobileMenu()"
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-vsk1">Documentación</a>
+          
+        </div>
+        <div class="py-6"><a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
+  <em class="fas fa-moon"></em>
+</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="px-6 py-8">
+  
+<nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb">
+    <ul class="flex flex-wrap items-center gap-0 text-ms">
+        
+        <li class="flex items-center">
+            <a href="https://os.vasak.net.ar/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Go to home page">
+                <i class="fa-solid fa-house text-sm"></i>
+                <span class="hidden sm:inline">Home</span>
+            </a>
+        </li>
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Docs">
+                Docs
+            </a>
+        </li>
+        
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/devs/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Devs">
+                Devs
+            </a>
+        </li>
+        
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Vasak desktop">
+                Vasak desktop
+            </a>
+        </li>
+        
+        
+        
+        
+        <li class="flex items-center">
+            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
+        </li>
+
+        
+        <li>
+            
+
+            
+            
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+                    
+                        
+                    
+                
+            
+                
+            
+
+            
+
+            <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/setup-project/"
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 hover:text-vsk1"
+                title="Visit Setup project">
+                Setup project
+            </a>
+        </li>
+        
+        
+        
+        
+
+        
+        
+        <li class="flex items-center">
+            <svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </li>
+
+        <li class="flex items-center">
+            <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl
+                     bg-gradient-to-r from-vsk2 to-vsk1
+                     text-white font-medium
+                     shadow-md dark:shadow-lg" aria-current="page">
+                
+                
+                <i class="fa-solid fa-book text-sm"></i>
+                
+
+                <span>Setup del Proyecto | vasak-desktop</span>
+            </span>
+        </li>
+        
+    </ol>
+</nav>
+  <div class="flex justify-between mx-auto">
+    <div class="w-full lg:w-8/12">
+      <div class="px-8">
+        <div
+          class="flex flex-col px-16 py-10 mx-auto bg-white dark:bg-gray-800 rounded-xl"
+          id="article">
+          <h1 class="text-center text-vsk1">Setup del Proyecto | vasak-desktop</h1>
+          <h1 id="setup-del-proyecto---vasak-desktop">Setup del Proyecto - Vasak Desktop</h1>
+<p>Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.</p>
+<h2 id="requisitos-previos">Requisitos Previos</h2>
+<h3 id="requisitos-del-sistema">Requisitos del Sistema</h3>
+<ul>
+<li><strong>OS</strong>: Linux (Fedora, Ubuntu, Debian, Arch, etc.)</li>
+<li><strong>RAM</strong>: Mínimo 4GB (8GB recomendado)</li>
+<li><strong>Almacenamiento</strong>: 5GB espacio libre</li>
+<li><strong>Internet</strong>: Conexión para descargar dependencias</li>
+</ul>
+<blockquote>
+<p>Es sumamente importante realizar la <a href="https://os.vasak.net.ar/docs/devs/dev-dependencies/" >
+  <i class="fas fa-link"></i>&nbsp;
+  
+  instalacion de dependencias para desarrolladores
+</a> dado que de aqui en adelante son dependnecias especificas de <code>vasak-desktop</code></p>
+</blockquote>
+<h3 id="dependencias-del-sistema-vasak-desktop">Dependencias del Sistema [<code>vasak-desktop</code>]</h3>
+<h4 id="fedora-y-derivadas">Fedora y derivadas</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo dnf groupinstall <span class="s2">&#34;Development Tools&#34;</span>
+</span></span><span class="line"><span class="cl">sudo dnf install gtk3-devel glib2-devel cairo-devel dbus-devel libxkbcommon-devel
+</span></span><span class="line"><span class="cl">sudo dnf install libwayland-devel libxcb-devel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Para desarrollo de Wayland</span>
+</span></span><span class="line"><span class="cl">sudo dnf install wayland-devel wayland-protocols-devel
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="debian-y-derivadas">Debian y derivadas</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install libgtk-3-dev libglib2.0-dev libcairo-dev libdbus-1-dev libxkbcommon-dev
+</span></span><span class="line"><span class="cl">sudo apt install libwayland-dev libxcb-xfixes0-dev libxcb-shape0-dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Para desarrollo de Wayland</span>
+</span></span><span class="line"><span class="cl">sudo apt install wayland-protocols libwayland-dev
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="arch-y-derivadas">Arch y derivadas</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S gtk3 glib2 cairo dbus libxkbcommon
+</span></span><span class="line"><span class="cl">sudo pacman -S wayland wayland-protocols libxcb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="clonar-el-repositorio">Clonar el Repositorio</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Clonar el repositorio</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/Vasak-OS/vasak-desktop.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Crear una rama para desarrollo</span>
+</span></span><span class="line"><span class="cl">git checkout -b feature/mi-feature
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="instalar-dependencias">Instalar Dependencias</h2>
+<h3 id="frontend-javascripttypescript">Frontend (JavaScript/TypeScript)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bun install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="backend-rust">Backend (Rust)</h3>
+<p>Las dependencias de Rust se manejan automáticamente con Cargo.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verificar que se descargan correctamente</span>
+</span></span><span class="line"><span class="cl">cargo check
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Descargar e indexar dependencias</span>
+</span></span><span class="line"><span class="cl">cargo build --release  <span class="c1"># (Esto toma tiempo la primera vez)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="estructura-inicial">Estructura Inicial</h2>
+<p>Después de clonar, deberías tener:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vasak-desktop/
+</span></span><span class="line"><span class="cl">├── src/                    # Frontend (Vue.js)
+</span></span><span class="line"><span class="cl">│   ├── components/        # Componentes Vue
+</span></span><span class="line"><span class="cl">│   ├── views/            # Vistas/Páginas
+</span></span><span class="line"><span class="cl">│   ├── App.vue           # Componente raíz
+</span></span><span class="line"><span class="cl">│   └── main.ts           # Punto de entrada
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── src-tauri/            # Backend (Rust)
+</span></span><span class="line"><span class="cl">│   ├── src/              # Código Rust
+</span></span><span class="line"><span class="cl">│   │   ├── lib.rs       # Módulos del backend
+</span></span><span class="line"><span class="cl">│   │   ├── main.rs      # Punto de entrada
+</span></span><span class="line"><span class="cl">│   │   ├── commands/    # Comandos IPC
+</span></span><span class="line"><span class="cl">│   │   └── ...          # Otros módulos
+</span></span><span class="line"><span class="cl">│   └── Cargo.toml        # Dependencias Rust
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── package.json          # Dependencias Frontend
+</span></span><span class="line"><span class="cl">├── tsconfig.json         # Configuración TypeScript
+</span></span><span class="line"><span class="cl">├── vite.config.ts        # Configuración Vite
+</span></span><span class="line"><span class="cl">└── tauri.conf.json       # Configuración Tauri
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Si quieres entender mas sobre el <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/folders/" >
+  <i class="fas fa-link"></i>&nbsp;
+  
+  Sistemas de carpetas
+</a> lee el articulo donde explicamos mas a fondo cada uno de estos lugares, para que sea mas facil encontrar lo que estas buscando</p>
+<h2 id="verificar-que-todo-está-correcto">Verificar que Todo Está Correcto</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Comprobar que todo compila correctamente</span>
+</span></span><span class="line"><span class="cl">bun run tauri build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si finaliza sin errores, ¡estás listo!</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>En caso de tener problemas revisa nuestra pagina de <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/troubleshooting/" >
+  <i class="fas fa-link"></i>&nbsp;
+  
+  Solucion de problemas
+</a> antes de <a href="https://os.vasak.net.ar/docs/user/reporte-errores/" >
+  <i class="fas fa-link"></i>&nbsp;
+  
+  reportar errores
+</a>.</p>
+
+        </div>
+
+        
+        <div class="flex justify-between mt-8 gap-4">
+          
+          
+          
+          
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+
+          
+          
+            <div class="flex-1"></div>
+          
+
+          
+          
+            
+            <a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/build/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors text-right">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
+              <div class="font-semibold">Compilacion | vasak-desktop</div>
+            </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden w-4/12 mx-8 lg:block">
+      <section class="bg-white dark:bg-gray-800 rounded-xl p-5 mb-3">
+	<header class="flex items-center gap-2 mb-4">
+		<i class="fa-solid fa-magnifying-glass"></i>
+		<div>
+			<h2 class="text-base font-semibold">Buscar documentación</h2>
+		</div>
+	</header>
+
+	<div class="relative">
+		<input
+			id="docs-search-input"
+			type="search"
+			placeholder="Ej: eventos IPC, Vue, Tauri"
+			class="w-full rounded-xl bg-slate-50 dark:bg-slate-800 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+			autocomplete="off"
+		/>
+		<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span>
+	</div>
+</section>
+
+
+<div id="docs-search-modal" class="fixed inset-0 z-50 hidden">
+	
+	<div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div>
+	
+	
+	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]">
+		<div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden flex flex-col">
+			
+			<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+				<div class="flex items-center gap-2">
+					<i class="fa-solid fa-magnifying-glass text-slate-500"></i>
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100">Resultados de búsqueda</h3>
+				</div>
+				<button id="docs-search-close" type="button" class="text-slate-400 hover:text-vsk1 transition-colors">
+					<i class="fa-solid fa-xmark text-lg"></i>
+				</button>
+			</div>
+			
+			
+			<div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+(() => {
+	const input = document.getElementById('docs-search-input');
+	const statusEl = document.getElementById('docs-search-status');
+	const resultsEl = document.getElementById('docs-search-results');
+	const modal = document.getElementById('docs-search-modal');
+	const backdrop = document.getElementById('docs-search-backdrop');
+	const closeBtn = document.getElementById('docs-search-close');
+	const endpoint = '/index.json';
+	const MIN_CHARS = 2;
+	let index = null;
+
+	const showModal = () => {
+		modal.classList.remove('hidden');
+		setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+	};
+
+	const hideModal = () => {
+		backdrop.classList.add('opacity-0');
+		setTimeout(() => modal.classList.add('hidden'), 200);
+	};
+
+	const fetchIndex = async () => {
+		if (index) return index;
+		statusEl.textContent = 'Cargando…';
+		const res = await fetch(endpoint);
+		const data = await res.json();
+		
+		index = (data || []).filter(item => {
+			const rel = item.RelPermalink || item.relpermalink || '';
+			const url = item.Permalink || item.permalink || '';
+			return rel.startsWith('/docs/') || url.includes('/docs/');
+		}).map(item => ({
+			title: item.title || item.Title || '',
+			content: item.content || item.Content || '',
+			summary: item.summary || item.Summary || '',
+			permalink: item.Permalink || item.permalink || item.RelPermalink || item.relpermalink || '#',
+		}));
+		statusEl.textContent = '';
+		return index;
+	};
+
+	const debounce = (fn, delay = 200) => {
+		let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+	};
+
+	const score = (item, q) => {
+		const qi = q.toLowerCase();
+		let s = 0;
+		const title = (item.title || '').toLowerCase();
+		const content = (item.content || '').toLowerCase();
+		if (title.includes(qi)) s += 6; 
+		if (content.includes(qi)) s += 4;
+		return s;
+	};
+
+	const highlight = (text, q) => {
+		if (!text) return '';
+		try {
+			const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')})`, 'ig');
+			return text.replace(re, '<mark class="bg-vsk1 p-0 m-0">$1</mark>');
+		} catch {
+			return text;
+		}
+	};
+
+	const snippet = (content, q, length = 160) => {
+		const plain = (content || '').replace(/<[^>]+>/g, ' ');
+		const idx = plain.toLowerCase().indexOf(q.toLowerCase());
+		if (idx === -1) return plain.slice(0, length) + (plain.length > length ? '…' : '');
+		const start = Math.max(0, idx - 40);
+		const end = Math.min(plain.length, idx + length);
+		return (start > 0 ? '…' : '') + plain.slice(start, end) + (end < plain.length ? '…' : '');
+	};
+
+	const renderResults = (items, q) => {
+		if (!items.length) {
+			resultsEl.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 py-8">Sin resultados</p>';
+			return;
+		}
+		resultsEl.innerHTML = items.map(item => `
+			<article class= rounded-xl p-4 hover:bg-vsk1 transition-colors">
+				<a href="${item.permalink}" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines text-slate-500"></i>
+					${highlight(item.title, q)}
+				</a>
+				<p class="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed text-xs">${highlight(snippet(item.content || item.summary, q), q)}</p>
+			</article>
+		`).join('');
+	};
+
+	const onSearch = debounce(async () => {
+		const q = input.value.trim();
+		if (q.length < MIN_CHARS) {
+			if (q.length === 0) {
+				hideModal();
+			} else {
+				showModal();
+				resultsEl.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 py-8">Escribe al menos 2 caracteres</p>';
+			}
+			statusEl.textContent = '';
+			return;
+		}
+		await fetchIndex();
+		const matches = index
+			.map(item => ({ ...item, _score: score(item, q) }))
+			.filter(item => item._score > 0)
+			.sort((a, b) => b._score - a._score)
+			.slice(0, 20);
+		statusEl.textContent = matches.length ? `${matches.length}` : '0';
+		showModal();
+		renderResults(matches, q);
+	}, 220);
+
+	
+	input.addEventListener('input', onSearch);
+	closeBtn.addEventListener('click', hideModal);
+	backdrop.addEventListener('click', hideModal);
+	
+	
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+			hideModal();
+		}
+	});
+})();
+</script>
+<div
+  class="flex flex-col mb-3 px-6 py-4 mx-auto bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 rounded-xl shadow-md">
+  <nav id="TableOfContents">
+  <ol>
+    <li><a href="#requisitos-previos">Requisitos Previos</a>
+      <ol>
+        <li><a href="#requisitos-del-sistema">Requisitos del Sistema</a></li>
+        <li><a href="#dependencias-del-sistema-vasak-desktop">Dependencias del Sistema [<code>vasak-desktop</code>]</a>
+          <ol>
+            <li><a href="#fedora-y-derivadas">Fedora y derivadas</a></li>
+            <li><a href="#debian-y-derivadas">Debian y derivadas</a></li>
+            <li><a href="#arch-y-derivadas">Arch y derivadas</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#clonar-el-repositorio">Clonar el Repositorio</a></li>
+    <li><a href="#instalar-dependencias">Instalar Dependencias</a>
+      <ol>
+        <li><a href="#frontend-javascripttypescript">Frontend (JavaScript/TypeScript)</a></li>
+        <li><a href="#backend-rust">Backend (Rust)</a></li>
+      </ol>
+    </li>
+    <li><a href="#estructura-inicial">Estructura Inicial</a></li>
+    <li><a href="#verificar-que-todo-está-correcto">Verificar que Todo Está Correcto</a></li>
+  </ol>
+</nav>
+</div></div>
+
+  </div>
+</main>
+
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+  <div class="w-full draggable">
+    <div class="container flex flex-col mx-auto">
+      <div class="flex flex-col items-center w-full my-20">
+        <span class="mb-8">
+          <img src="https://os.vasak.net.ar/img/logo.svg" alt="logo" loading="lazy" class="h-20" />
+        </span>
+        <div class="flex flex-col items-center gap-6">
+          <div
+            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
+            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
+            <a href="https://os.vasak.net.ar/privacy/" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
+            <a href="https://os.vasak.net.ar/terms/" class="text-gray-500 hover:text-vsk1">Terms of service</a>
+            <a href="https://os.vasak.net.ar/changelogs/" class="text-gray-500 hover:text-vsk1">Changelogs</a>
+          </div>
+          <div class="flex items-center gap-8">
+            
+            <a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-telegram"></em>
+            </a>
+            
+            <a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-twitter"></em>
+            </a>
+            
+            <a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank"
+              class="text-vsk1 hover:text-vsk2">
+              <em class="fab fa-github"></em>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-5">
+  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+    <p class="text-lg text-slate-500 py-1"><a href="https://os.vasak.net.ar/"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+  </div>
+</div>
+
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-xl hover:text-white text-xl">
+  <em class="fas fa-arrow-up"></em>
+</a>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  if (typeof mermaid !== 'undefined') {
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'default', 
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'cardinal'
+      },
+      sequenceDiagram: {
+        useMaxWidth: true,
+        diagramMarginX: 50,
+        diagramMarginY: 10
+      },
+      blockDiagram: {
+        useMaxWidth: true
+      }
+    });
+    
+    
+    const codeTags = document.querySelectorAll('pre > code.language-mermaid');
+    codeTags.forEach(function(tag) {
+      const preTag = tag.parentElement;
+      const mermaidContent = tag.textContent;
+      
+      
+      const mermaidDiv = document.createElement('div');
+      mermaidDiv.className = 'mermaid';
+      mermaidDiv.textContent = mermaidContent;
+      
+      
+      preTag.parentNode.replaceChild(mermaidDiv, preTag);
+    });
+    
+    
+    mermaid.contentLoaded();
+  }
+  
+  
+  const htmlElement = document.documentElement;
+  const observerOptions = {
+    attributes: true,
+    attributeFilter: ['class']
+  };
+  
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'class') {
+        const isDark = htmlElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: theme, 
+            securityLevel: 'loose'
+          });
+          mermaid.contentLoaded();
+        }
+      }
+    });
+  });
+  
+  observer.observe(htmlElement, observerOptions);
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<script async src="https://os.vasak.net.ar/js/bundle.min.abd2670efd3308c41632004c120afcbfb6eb712cc6b23cbb48e8b4a91ccbe871.js"></script>
+
+
+<script async src="https://os.vasak.net.ar/mermaid.min_3141953029634099501.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
+    mermaid.contentLoaded();
+  });
+  
+  
+  const darkModeToggle = document.querySelector('[data-dark-mode]');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', function() {
+      setTimeout(() => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const theme = isDark ? 'dark' : 'default';
+        mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
+        
+        mermaid.contentLoaded();
+      }, 100);
+    });
+  }
+</script></body>
+
+</html>

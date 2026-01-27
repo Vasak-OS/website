@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alpha on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/alpha/</link>
+    <description>Recent content in Alpha on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <lastBuildDate>Tue, 06 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://os.vasak.net.ar/tags/alpha/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Changelogs 06-01-2026 [Alpha]</title>
+      <link>https://os.vasak.net.ar/changelogs/06012026/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/changelogs/06012026/</guid>
+      <description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder enconrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
