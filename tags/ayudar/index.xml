@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ayudar on Vasak OS</title>
+    <link>https://os.vasak.net.ar/tags/ayudar/</link>
+    <description>Recent content in Ayudar on Vasak OS</description>
+    <generator>Hugo</generator>
+    <language>es-ES</language>
+    <atom:link href="https://os.vasak.net.ar/tags/ayudar/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Donaciones</title>
+      <link>https://os.vasak.net.ar/donate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/donate/</guid>
+      <description>&lt;iframe id=&#39;kofiframe&#39; src=&#39;https://ko-fi.com/lynxoslinux/?hidefeed=true&amp;widget=true&amp;embed=true&amp;preview=true&#39; style=&#39;border:none;width:100%;padding:4px;background:#f9f9f9;border-radius:10px;&#39; height=&#39;712&#39; title=&#39;lynxoslinux&#39;&gt;&lt;/iframe&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,113 @@
+/* Mermaid Diagram Styles */
+
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f5f5f5;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+/* Dark mode support */
+:root.dark .mermaid {
+  background: #1f2937;
+}
+
+/* Ensure mermaid SVG is responsive */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code blocks containing mermaid */
+pre.language-mermaid {
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+pre.language-mermaid code {
+  background: transparent;
+  padding: 0;
+  color: transparent;
+  display: none;
+}
+
+/* Styling for mermaid elements */
+.mermaid .flowchart-v2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mermaid text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Ensure proper rendering of mermaid diagrams */
+.mermaid foreignObject {
+  overflow: visible;
+}
+
+/* Dark mode colors for mermaid */
+:root.dark .mermaid .flowchart-v2 .flowchart-label {
+  color: #e5e7eb;
+}
+
+:root.dark .mermaid text {
+  fill: #e5e7eb;
+}
+
+:root.dark .mermaid .node rect {
+  stroke: #6b7280;
+  fill: #374151;
+}
+
+:root.dark .mermaid .node circle {
+  stroke: #6b7280;
+  fill: #374151;
+}
+
+:root.dark .mermaid .node ellipse {
+  stroke: #6b7280;
+  fill: #374151;
+}
+
+:root.dark .mermaid .node polygon {
+  stroke: #6b7280;
+  fill: #374151;
+}
+
+:root.dark .mermaid line {
+  stroke: #6b7280;
+}
+
+:root.dark .mermaid .edgePath path {
+  stroke: #6b7280;
+}
+
+:root.dark .mermaid .arrowheadPath {
+  fill: #6b7280;
+  stroke: #6b7280;
+}
+
+/* Mermaid sequence diagram styling */
+:root.dark .mermaid .actor {
+  stroke: #6b7280;
+  fill: #374151;
+}
+
+:root.dark .mermaid .participantBox {
+  stroke: #6b7280;
+  fill: #374151;
+}
+
+:root.dark .mermaid .messageLine0 {
+  stroke-width: 1.5;
+  stroke: #9ca3af;
+}
+
+:root.dark .mermaid .messageLine1 {
+  stroke-width: 1.5;
+  stroke: #9ca3af;
+}
