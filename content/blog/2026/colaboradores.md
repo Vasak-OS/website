@@ -2,12 +2,14 @@
 Title: "Buscamos colaboradores para Vasak OS: ayudanos a construir una nueva experiencia Linux"
 tags: [vasak os, arch linux distro, linux desktop environment, open source linux, linux development, linux community, arch based distro, linux ui ux, linux desktop]
 date: "2026-03-11"
-img: "https://i.postimg.cc/9QN6TtXx/image.png"
+img: "https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg"
 ---
 
 Vasak OS es un proyecto open source que busca construir una distribución Linux moderna basada en Arch Linux, enfocada en ofrecer una **experiencia de usuario completa, coherente y bien integrada**.
 
 El objetivo del proyecto es desarrollar un ecosistema de aplicaciones y herramientas que permitan usar el sistema de forma cómoda y moderna sin depender constantemente de la terminal, manteniendo al mismo tiempo la potencia y flexibilidad del ecosistema Linux.
+
+![](https://i.postimg.cc/1XWC31jq/Captura-de-pantalla-20260311-101935.jpg)
 
 Actualmente el proyecto se encuentra en una **etapa temprana de desarrollo (pre-alpha)**, pero ya cuenta con una ISO funcional y varios componentes del sistema en desarrollo.
 
@@ -44,6 +46,8 @@ La distribución utiliza **Arch Linux como base**, lo que permite contar con un 
 # El estado actual del proyecto
 
 El proyecto se encuentra en una etapa **pre-alpha**. Esto significa que todavía falta mucho trabajo por hacer, pero ya existe una base funcional:
+
+![](https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg)
 
 - ISO del sistema
 - Desktop environment en desarrollo
