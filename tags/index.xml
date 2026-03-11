@@ -6,27 +6,76 @@
     <description>Recent content in Tags on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Tue, 10 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>File Manager</title>
-      <link>https://os.vasak.net.ar/tags/file-manager/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/file-manager/</guid>
+      <title>Arch Based Distro</title>
+      <link>https://os.vasak.net.ar/tags/arch-based-distro/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/arch-based-distro/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Arch Linux Distro</title>
+      <link>https://os.vasak.net.ar/tags/arch-linux-distro/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/arch-linux-distro/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux Community</title>
+      <link>https://os.vasak.net.ar/tags/linux-community/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/linux-community/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux Desktop</title>
       <link>https://os.vasak.net.ar/tags/linux-desktop/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/linux-desktop/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux Desktop Environment</title>
       <link>https://os.vasak.net.ar/tags/linux-desktop-environment/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/linux-desktop-environment/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux Development</title>
+      <link>https://os.vasak.net.ar/tags/linux-development/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/linux-development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux Ui Ux</title>
+      <link>https://os.vasak.net.ar/tags/linux-ui-ux/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/linux-ui-ux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Open Source Linux</title>
+      <link>https://os.vasak.net.ar/tags/open-source-linux/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/open-source-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak Os</title>
+      <link>https://os.vasak.net.ar/tags/vasak-os/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>File Manager</title>
+      <link>https://os.vasak.net.ar/tags/file-manager/</link>
+      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/file-manager/</guid>
       <description></description>
     </item>
     <item>
@@ -55,13 +104,6 @@
       <link>https://os.vasak.net.ar/tags/vasak-file-manager/</link>
       <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/vasak-file-manager/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasak Os</title>
-      <link>https://os.vasak.net.ar/tags/vasak-os/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasak-os/</guid>
       <description></description>
     </item>
     <item>

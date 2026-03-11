@@ -6,8 +6,15 @@
     <description>Recent content in Linux Desktop Environment on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Tue, 10 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/linux-desktop-environment/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Buscamos colaboradores para Vasak OS: ayudanos a construir una nueva experiencia Linux</title>
+      <link>https://os.vasak.net.ar/blog/2026/03/buscamos-colaboradores-para-vasak-os-ayudanos-a-construir-una-nueva-experiencia-linux/</link>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/03/buscamos-colaboradores-para-vasak-os-ayudanos-a-construir-una-nueva-experiencia-linux/</guid>
+      <description>&lt;p&gt;Vasak OS es un proyecto open source que busca construir una distribución Linux moderna basada en Arch Linux, enfocada en ofrecer una &lt;strong&gt;experiencia de usuario completa, coherente y bien integrada&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Vasak File Manager: un nuevo explorador de archivos para Vasak OS</title>
       <link>https://os.vasak.net.ar/blog/2026/03/vasak-file-manager-un-nuevo-explorador-de-archivos-para-vasak-os/</link>
