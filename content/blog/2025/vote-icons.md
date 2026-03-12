@@ -11,7 +11,7 @@ El otro dia comentamos que ["Buscamos pack de Iconos por Defecto"](/blog/2025/08
 
 Para poder facilitar un poco la votación, hemos creado una demo de cada pack de iconos que consideramos aptos para el escritorio de VasakOS. Puedes ver la demo de cada pack de iconos en el siguiente video:
 
-<center><iframe class="aspect-video rounded-xl" src="https://www.youtube-nocookie.com/embed/s5fG3NzHl3A?si=C5h00oGST5mDX4Ol" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
+<center><iframe class="aspect-video rounded-corner" src="https://www.youtube-nocookie.com/embed/s5fG3NzHl3A?si=C5h00oGST5mDX4Ol" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
 
 <br/>
 

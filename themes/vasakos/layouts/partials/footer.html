@@ -1,4 +1,4 @@
-<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-xl">
+<div class="flex flex-col mx-3 mt-3 bg-white dark:bg-gray-800 rounded-corner">
   <div class="w-full draggable">
     <div class="container flex flex-col mx-auto">
       <div class="flex flex-col items-center w-full my-20">
@@ -8,15 +8,15 @@
         <div class="flex flex-col items-center gap-6">
           <div
             class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
-            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-vsk1">Desarrollo de Software</a>
-            <a href="/privacy/" class="text-gray-500 hover:text-vsk1">Privacy policy</a>
-            <a href="/terms/" class="text-gray-500 hover:text-vsk1">Terms of service</a>
-            <a href="/changelogs/" class="text-gray-500 hover:text-vsk1">Changelogs</a>
+            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
+            <a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
+            <a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
+            <a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
           </div>
           <div class="flex items-center gap-8">
             {{ range .Site.Params.social.main }}
             <a href="{{ .url }}" alt="{{ .name }}" aria-label="{{ .name }}" target="_blank"
-              class="text-vsk1 hover:text-vsk2">
+              class="text-primary hover:text-secondary">
               <em class="{{ .params.icon }}"></em>
             </a>
             {{ end }}
@@ -30,12 +30,12 @@
 <div class="flex flex-wrap my-5">
   <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
     <p class="text-lg text-slate-500 py-1"><a href="/"
-        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-vsk2 to-vsk1 family-vsk font-bold"
+        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold"
         rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
   </div>
 </div>
 
-<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-vsk2 to-vsk1 fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-xl hover:text-white text-xl">
+<a rel="noopener" href="#" class="bg-gradient-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl">
   <em class="fas fa-arrow-up"></em>
 </a>
 
