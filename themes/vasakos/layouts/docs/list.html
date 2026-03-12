@@ -10,7 +10,7 @@
       {{ if .IsSection }}
       <div class="w-full md:w-1/2 px-4 pb-4">
         <a href="{{ .RelPermalink }}">
-          <div class="p-5 md:px-7 xl:px-10 rounded-corner bg-white dark:bg-gray-800 shadow-lg h-[100%]">
+          <div class="p-5 md:px-7 xl:px-10 rounded-corner bg-ui-bg/80 shadow-lg h-[100%]">
             <div
               class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8 bg-gradient-to-br from-secondary to-primary">
               <em class="fas fa-{{ .Params.icon }} text-3xl text-white" aria-hidden="true"></em>
@@ -27,10 +27,10 @@
       {{ $articles := where .Data.Pages ".IsSection" false }}
       {{ if $articles }}
       <div class="w-full px-4 pb-8">
-        <div class="overflow-x-auto rounded-corner bg-white dark:bg-gray-800 shadow-lg">
+        <div class="overflow-x-auto rounded-corner bg-ui-bg/80 shadow-lg">
           <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
 
-            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody class="bg-ui-bg/80 divide-y divide-gray-200 dark:divide-gray-700">
               {{ range $articles }}
               <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td class="px-6 py-4 whitespace-nowrap">
