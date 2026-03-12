@@ -16,7 +16,6 @@
           {{ $current := . }}
           {{ $siblings := where $current.Parent.Pages ".IsSection" false }}
           {{ $currentIndex := 0 }}
-          
           {{ range $index, $page := $siblings }}
             {{ if eq $page.RelPermalink $current.RelPermalink }}
               {{ $currentIndex = $index }}

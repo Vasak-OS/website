@@ -26,13 +26,13 @@
     <div class="w-full flex flex-wrap py-2">
       {{ $articles := where .Data.Pages ".IsSection" false }}
       {{ if $articles }}
-      <div class="w-full px-4 pb-8">
+      <div class="w-full px-2 pb-8">
         <div class="overflow-x-auto rounded-corner bg-ui-bg/80 shadow-lg">
           <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
 
             <tbody class="bg-ui-bg/80 divide-y divide-gray-200 dark:divide-gray-700">
               {{ range $articles }}
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+              <tr class="bg-ui-surface/80">
                 <td class="px-6 py-4 whitespace-nowrap">
                   <a href="{{ .RelPermalink }}" class="text-primary hover:text-secondary font-medium">
                     {{ .Title }}

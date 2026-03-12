@@ -1,15 +1,15 @@
 <div class="mt-6">
   <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-corner shadow-md"
     style="background-image: url('{{ .Params.img }}');">
-    <div class="bg-white/80 dark:bg-gray-900/80 rounded-corner backdrop-blur-md p-3">
+    <div class="bg-ui-bg/80 rounded-corner backdrop-blur-md p-3">
       <div class="flex items-center justify-between">
-        <span class="font-light text-gray-600 dark:text-gray-400">
+        <span class="font-light text-tx-muted">
           {{ partial "date.html" .Date}}
         </span>
         <!--<a href="#" class="px-2 py-1 font-bold text-gray-100 bg-gray-600 rounded hover:bg-gray-500">Laravel</a>-->
       </div>
-      <div class="mt-2 text-gray-600 dark:text-gray-300">
-        <a href="{{ .RelPermalink }}" class="text-2xl font-bold text-gray-700 dark:text-gray-200 hover:underline">{{ .Title }}</a>
+      <div class="mt-2 text-tx-muted">
+        <a href="{{ .RelPermalink }}" class="text-2xl font-bold text-secondary hover:underline">{{ .Title }}</a>
         <p class="mt-2">{{ .Summary }}</p>
       </div>
       <div class="flex items-center justify-end m-4">

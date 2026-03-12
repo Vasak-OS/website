@@ -1,8 +1,8 @@
 {{ define "main" }}
 
-<main class="px-6 py-8">
-  <div class="container flex justify-between mx-auto">
-    <div class="w-full lg:w-8/12">
+<main class="px-2 py-8">
+  <div class="container flex justify-between mx-auto gap-2">
+    <div class="w-full">
 
       {{ $paginator := .Paginate .Data.Pages.ByDate.Reverse }}
 
@@ -16,7 +16,7 @@
 
     </div>
 
-    <div class="hidden w-4/12 mx-8 lg:block">
+    <div class="hidden max-w-xl lg:block">
       {{ partial "sections/sidebar.html" . -}}
     </div>
 
