@@ -26,7 +26,7 @@
           <!-- Artículo anterior -->
           {{ if gt $currentIndex 0 }}
             {{ $prevArticle := index $siblings (sub $currentIndex 1) }}
-            <a href="{{ $prevArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors">
+            <a href="{{ $prevArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors">
               <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div>
               <div class="font-semibold">{{ $prevArticle.Title }}</div>
             </a>
@@ -37,7 +37,7 @@
           <!-- Artículo siguiente -->
           {{ if lt $currentIndex (sub (len $siblings) 1) }}
             {{ $nextArticle := index $siblings (add $currentIndex 1) }}
-            <a href="{{ $nextArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-vsk1 hover:text-white dark:hover:bg-vsk1 transition-colors text-right">
+            <a href="{{ $nextArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors text-right">
               <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
               <div class="font-semibold">{{ $nextArticle.Title }}</div>
             </a>

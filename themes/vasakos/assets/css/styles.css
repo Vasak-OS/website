@@ -93,7 +93,8 @@
   --use-status-warning: var(--status-warning);
 }
 
-.dark {
+.dark,
+html.dark {
   /* Override logic assignments in dark mode */
   --use-primary: var(--primary-dark);
   --use-secondary: var(--secondary-dark);
@@ -108,12 +109,11 @@
   --use-status-warning: var(--status-warning-dark);
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *, html.dark, html.dark *));
 
 @theme {
   /* radius */
   --radius-corner: var(--corner-radius);
-  --radius-corner-window: calc(var(--corner-radius) + 2px);
 
   /* Colores de Marca - responsive a dark mode */
   --color-primary: var(--use-primary);
