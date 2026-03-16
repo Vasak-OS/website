@@ -20,6 +20,18 @@ social:
       weight: 10
       params:
         icon: fab fa-github
+    - identifier: discord
+      name: Discord
+      url: https://discord.gg/7wKrVNBC
+      weight: 8
+      params:
+        icon: fab fa-discord
+    - identifier: reddit
+      name: Reddit
+      url: https://www.reddit.com/r/VasakOS/
+      weight: 7
+      params:
+        icon: fab fa-reddit
 
 advantages:
   enabled: true
