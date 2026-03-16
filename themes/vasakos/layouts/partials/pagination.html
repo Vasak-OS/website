@@ -1,12 +1,12 @@
 {{ if gt .TotalPages 1 }}
 <!-- Blog pagination -->
-<div class="blog-pagination">
-  <ul class="justify-content-center">
+<div class="w-full flex justify-center mt-10">
+  <ul class="flex items-center gap-4 text-sm text-tx-on-primary">
     {{ if .HasPrev }}
-    <li><a rel="noopener" href="{{ .Prev.URL }}" aria-label="Previous"><em class="fa fa-chevron-left" aria-hidden="true"></em></a></li>
+    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary hover:bg-secondary h-12 w-12" href="{{ .Prev.URL }}" aria-label="Previous"><em class="fa fa-chevron-left" aria-hidden="true"></em></a></li>
     {{ end }}
     {{if .HasNext }}
-    <li><a rel="noopener" href="{{ .Next.URL }}" aria-label="Next"><em class="fa fa-chevron-right" aria-hidden="true"></em></a></li>
+    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary hover:bg-secondary h-12 w-12" href="{{ .Next.URL }}" aria-label="Next"><em class="fa fa-chevron-right" aria-hidden="true"></em></a></li>
     {{ end }}
   </ul>
 </div>
