@@ -77,6 +77,12 @@
     <loc>https://os.vasak.net.ar/tags/alpha/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://os.vasak.net.ar/blog/2026/04/alpha-3-de-vasakos/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/blog/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://os.vasak.net.ar/tags/changelog/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -89,7 +95,13 @@
     <loc>https://os.vasak.net.ar/changelogs/01042026/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://os.vasak.net.ar/tags/demo/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://os.vasak.net.ar/tags/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vasak/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/</loc>
@@ -101,10 +113,10 @@
     <loc>https://os.vasak.net.ar/tags/vasakos/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/tags/arch-linux/</loc>
-    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+    <loc>https://os.vasak.net.ar/tags/video/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/blog/</loc>
+    <loc>https://os.vasak.net.ar/tags/arch-linux/</loc>
     <lastmod>2026-03-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/linux-terminal/</loc>
@@ -179,9 +191,6 @@
     <loc>https://os.vasak.net.ar/tags/linux/</loc>
     <lastmod>2026-01-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/tags/vasak/</loc>
-    <lastmod>2026-01-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://os.vasak.net.ar/tags/vendefoul/</loc>
     <lastmod>2026-01-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -194,16 +203,7 @@
     <loc>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</loc>
     <lastmod>2026-01-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</loc>
-    <lastmod>2026-01-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://os.vasak.net.ar/changelogs/06012026/</loc>
-    <lastmod>2026-01-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/demo/</loc>
-    <lastmod>2026-01-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/video/</loc>
     <lastmod>2026-01-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/iconos/</loc>
