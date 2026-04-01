@@ -7,8 +7,6 @@ img: "https://i.postimg.cc/3xXpdPxG/image.png"
 
 Tratamos de iniciar 2026 con todo, y decidimos sacar el alpha 2, y realizar muchos cambios en como venimos trabajando...
 
-![]()
-
 ## ¿Que voy a encontrar en el Alpha 2?
 
 Ya disponemos de un pack de iconos configurado, un sistema que cuenta con muchas mas opciones y algunas novedades interesantes que podemos encontrar en el [changelog oficial](/changelogs/06012026/)

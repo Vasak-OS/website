@@ -1,7 +1,7 @@
 ---
-Title: "Alpha 2 de VasakOS"
+Title: "Alpha 3 de VasakOS"
 tags: [video, demo, vasak, vasakos, vasak-desktop]
-date: "2026-01-06"
+date: "2026-04-01"
 img: "https://i.postimg.cc/3xXpdPxG/image.png"
 ---
 
