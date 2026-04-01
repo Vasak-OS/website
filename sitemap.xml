@@ -74,13 +74,70 @@
   </url><url>
     <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/troubleshooting/</loc>
   </url><url>
+    <loc>https://os.vasak.net.ar/tags/alpha/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/changelog/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/changelogs/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/changelogs/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/changelogs/01042026/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vasak-desktop/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vasakos/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/arch-linux/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/blog/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/linux-terminal/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/open-source/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/rust/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/tauri/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vasak-os/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vasak-terminal/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/blog/2026/03/vasak-terminal-una-terminal-moderna-basada-en-tauri-para-el-ecosistema-vasak-os/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vuejs/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/xterm/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://os.vasak.net.ar/tags/arch-based-distro/</loc>
     <lastmod>2026-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/arch-linux-distro/</loc>
-    <lastmod>2026-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/blog/</loc>
     <lastmod>2026-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/blog/2026/03/buscamos-colaboradores-para-vasak-os-ayudanos-a-construir-una-nueva-experiencia-linux/</loc>
@@ -104,34 +161,13 @@
     <loc>https://os.vasak.net.ar/tags/open-source-linux/</loc>
     <lastmod>2026-03-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/tags/</loc>
-    <lastmod>2026-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/vasak-os/</loc>
-    <lastmod>2026-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/</loc>
-    <lastmod>2026-03-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://os.vasak.net.ar/tags/file-manager/</loc>
-    <lastmod>2026-03-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/open-source/</loc>
-    <lastmod>2026-03-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/rust/</loc>
-    <lastmod>2026-03-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/tauri/</loc>
     <lastmod>2026-03-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/vasak-file-manager/</loc>
     <lastmod>2026-03-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/blog/2026/03/vasak-file-manager-un-nuevo-explorador-de-archivos-para-vasak-os/</loc>
-    <lastmod>2026-03-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/vuejs/</loc>
     <lastmod>2026-03-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/debian/</loc>
@@ -146,9 +182,6 @@
     <loc>https://os.vasak.net.ar/tags/vasak/</loc>
     <lastmod>2026-01-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/tags/vasak-desktop/</loc>
-    <lastmod>2026-01-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://os.vasak.net.ar/tags/vendefoul/</loc>
     <lastmod>2026-01-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -158,28 +191,16 @@
     <loc>https://os.vasak.net.ar/tags/version/</loc>
     <lastmod>2026-01-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/tags/alpha/</loc>
-    <lastmod>2026-01-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</loc>
     <lastmod>2026-01-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/tags/changelog/</loc>
-    <lastmod>2026-01-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/changelogs/</loc>
-    <lastmod>2026-01-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/changelogs/</loc>
+    <loc>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</loc>
     <lastmod>2026-01-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/changelogs/06012026/</loc>
     <lastmod>2026-01-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/demo/</loc>
-    <lastmod>2026-01-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/vasakos/</loc>
     <lastmod>2026-01-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/video/</loc>

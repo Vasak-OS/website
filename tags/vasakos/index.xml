@@ -6,14 +6,28 @@
     <description>Recent content in Vasakos on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Tue, 06 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/vasakos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Changelogs 01-04-2026 [Alpha]</title>
+      <link>https://os.vasak.net.ar/changelogs/01042026/</link>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/changelogs/01042026/</guid>
+      <description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Alpha 2 de VasakOS</title>
       <link>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</link>
       <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</guid>
       <description>&lt;p&gt;Tratamos de iniciar 2026 con todo, y decidimos sacar el alpha 2, y realizar muchos cambios en como venimos trabajando&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Alpha 2 de VasakOS</title>
+      <link>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</link>
+      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</guid>
+      <description>&lt;p&gt;Seguimos avanzando a paso firme con el desarrollo de VasakOS, y decidimos lanzar el Alpha 3, que cuenta con muchas mejoras y correcciones respecto a la version anterior. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Changelogs 06-01-2026 [Alpha]</title>

@@ -6,8 +6,106 @@
     <description>Recent content in Tags on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Wed, 11 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Alpha</title>
+      <link>https://os.vasak.net.ar/tags/alpha/</link>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/alpha/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Changelog</title>
+      <link>https://os.vasak.net.ar/tags/changelog/</link>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/changelog/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Changelogs</title>
+      <link>https://os.vasak.net.ar/tags/changelogs/</link>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/changelogs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak-Desktop</title>
+      <link>https://os.vasak.net.ar/tags/vasak-desktop/</link>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-desktop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos</title>
+      <link>https://os.vasak.net.ar/tags/vasakos/</link>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Arch Linux</title>
+      <link>https://os.vasak.net.ar/tags/arch-linux/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/arch-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux Terminal</title>
+      <link>https://os.vasak.net.ar/tags/linux-terminal/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/linux-terminal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Open Source</title>
+      <link>https://os.vasak.net.ar/tags/open-source/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/open-source/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rust</title>
+      <link>https://os.vasak.net.ar/tags/rust/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/rust/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tauri</title>
+      <link>https://os.vasak.net.ar/tags/tauri/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/tauri/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak Os</title>
+      <link>https://os.vasak.net.ar/tags/vasak-os/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-os/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak Terminal</title>
+      <link>https://os.vasak.net.ar/tags/vasak-terminal/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-terminal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vuejs</title>
+      <link>https://os.vasak.net.ar/tags/vuejs/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vuejs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Xterm</title>
+      <link>https://os.vasak.net.ar/tags/xterm/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/xterm/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Arch Based Distro</title>
       <link>https://os.vasak.net.ar/tags/arch-based-distro/</link>
@@ -65,13 +163,6 @@
       <description></description>
     </item>
     <item>
-      <title>Vasak Os</title>
-      <link>https://os.vasak.net.ar/tags/vasak-os/</link>
-      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasak-os/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>File Manager</title>
       <link>https://os.vasak.net.ar/tags/file-manager/</link>
       <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
@@ -79,38 +170,10 @@
       <description></description>
     </item>
     <item>
-      <title>Open Source</title>
-      <link>https://os.vasak.net.ar/tags/open-source/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/open-source/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Rust</title>
-      <link>https://os.vasak.net.ar/tags/rust/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/rust/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tauri</title>
-      <link>https://os.vasak.net.ar/tags/tauri/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/tauri/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Vasak File Manager</title>
       <link>https://os.vasak.net.ar/tags/vasak-file-manager/</link>
       <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/vasak-file-manager/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vuejs</title>
-      <link>https://os.vasak.net.ar/tags/vuejs/</link>
-      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vuejs/</guid>
       <description></description>
     </item>
     <item>
@@ -142,13 +205,6 @@
       <description></description>
     </item>
     <item>
-      <title>Vasak-Desktop</title>
-      <link>https://os.vasak.net.ar/tags/vasak-desktop/</link>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasak-desktop/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Vendefoul</title>
       <link>https://os.vasak.net.ar/tags/vendefoul/</link>
       <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
@@ -163,38 +219,10 @@
       <description></description>
     </item>
     <item>
-      <title>Alpha</title>
-      <link>https://os.vasak.net.ar/tags/alpha/</link>
-      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/alpha/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Changelog</title>
-      <link>https://os.vasak.net.ar/tags/changelog/</link>
-      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/changelog/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Changelogs</title>
-      <link>https://os.vasak.net.ar/tags/changelogs/</link>
-      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/changelogs/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Demo</title>
       <link>https://os.vasak.net.ar/tags/demo/</link>
       <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/demo/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasakos</title>
-      <link>https://os.vasak.net.ar/tags/vasakos/</link>
-      <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasakos/</guid>
       <description></description>
     </item>
     <item>
