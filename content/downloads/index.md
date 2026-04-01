@@ -37,12 +37,12 @@ Sin embargo si estas interesado en probar el sistema en su estado **Alpha** _(sa
 
 ## ISO
 
-Actualmente estamos en desarrollo de su desktop que se basa en **Rust** y **VueJS**. Por lo tanto, no hay una ISO estable disponible para descargar. Sin embargo, hay una ISO **Alpha** que se puede probar. Esta ISO es una versión preliminar del sistema operativo y puede contener errores y características incompletas. De momento esta ISO **Alpha** está disponible para su descarga en el siguiente enlace pero no cuenta con un instalador dado a su proto estado de desarrollo:
+Actualmente estamos en desarrollo de su desktop que se basa en **Rust** y **VueJS**. Por lo tanto, no hay una ISO estable disponible para descargar. Sin embargo, hay una ISO **Alpha** que se puede probar. Esta ISO es una versión preliminar del sistema operativo y puede contener errores y características incompletas. De momento esta ISO **Alpha** está disponible para su descarga en el siguiente enlace:
 
-* [Descargar ISO Alpha v2](https://www.mediafire.com/file/6hz269m1qmmepcf/vasakos-2026.01.06-x86_64.iso/file)
+* [Descargar ISO Alpha v3](https://www.mediafire.com/file/qrvnqptanvwyecg/vasakos-2026.04.01-x86_64.iso/file)
 
 ## Cómo colaborar
 
 Puedes unirte a nuestro grupo de Telegram para recibir actualizaciones y participar en el desarrollo de **VasakOS**. También puedes contribuir reportando errores, sugiriendo mejoras o incluso colaborando en el código.
 
-Puedes [unirte al grupo de Telegram](https://t.me/VasakOS) para estar al tanto de las últimas novedades y participar en la comunidad. O realizar reportes de errores mediante [Taiga](https://tree.taiga.io/project/joaquindecima-vasakos/issues)
+Puedes [unirte al grupo de Telegram](https://t.me/VasakOS) para estar al tanto de las últimas novedades y participar en la comunidad. O realizar reportes de errores mediante [GitHub](https://girhub.com/Vasak-OS) en los repositorios del proyecto.
