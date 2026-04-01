@@ -3,8 +3,8 @@
     "build": "tailwindcss build -i themes/vasakos/assets/css/tailwind.css -o themes/vasakos/assets/css/vsk.css"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.2.1",
-    "tailwindcss": "^4.2.1"
+    "@tailwindcss/cli": "^4.2.2",
+    "tailwindcss": "^4.2.2"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.11"
