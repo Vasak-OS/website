@@ -1,0 +1,90 @@
+{{ define "main" }}
+<main class="px-6 py-8">
+  <div class="flex">
+    <div class="w-full">
+      <div class="px-8">
+        <div class="flex flex-col">
+
+          {{ with .Params.donations }}
+          <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <article class="lg:col-span-2 rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <p class="text-sm uppercase tracking-wide text-primary font-semibold">Donaciones VasakOS</p>
+              <h2 class="mt-1 text-2xl font-bold text-tx-main">{{ .subtitle }}</h2>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                {{ .status }} · Objetivo mensual {{ .monthly_goal }}
+              </p>
+
+              <div class="mt-4 rounded-corner border border-primary/25 p-4 bg-primary/5">
+                <p class="font-semibold">Foco actual</p>
+                <p class="mt-1 text-sm">{{ .current_focus }}</p>
+              </div>
+
+              <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {{ range .usage }}
+                <div class="rounded-corner bg-ui-bg/70 p-3">
+                  <p class="font-semibold">{{ .title }}</p>
+                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">{{ .detail }}</p>
+                </div>
+                {{ end }}
+              </div>
+            </article>
+
+            <aside class="rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <h3 class="text-lg font-bold text-tx-main">Como donar</h3>
+              <ul class="mt-4 space-y-3">
+                {{ range .methods }}
+                <li class="rounded-corner bg-ui-bg/70 p-3">
+                  <p class="font-semibold">{{ .name }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-300">{{ .note }}</p>
+                  <a rel="noopener" target="_blank" href="{{ .url }}"
+                    class="mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-white hover:opacity-90">Donar ahora</a>
+                </li>
+                {{ end }}
+              </ul>
+            </aside>
+          </section>
+
+          <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <h3 class="text-lg font-bold text-tx-main">Infraestructura que sostenemos</h3>
+              <ul class="mt-3 marker:text-primary list-disc pl-5 space-y-2">
+                {{ range .infra }}
+                <li>
+                  <span class="font-semibold">{{ .item }}</span>
+                  <span class="text-sm text-gray-500 dark:text-gray-300"> · Prioridad {{ .priority }}</span>
+                </li>
+                {{ end }}
+              </ul>
+            </article>
+
+            <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <h3 class="text-lg font-bold text-tx-main">Transparencia</h3>
+              <ul class="mt-3 marker:text-primary list-disc pl-5 space-y-2">
+                {{ range .transparency }}
+                <li>{{ . }}</li>
+                {{ end }}
+              </ul>
+              <div class="mt-5 flex flex-wrap gap-3">
+                <a rel="noopener" target="_blank" href="{{ .community_url }}" class="rounded-corner bg-secondary/80 px-4 py-2 text-white hover:opacity-90">Comunidad</a>
+                <a rel="noopener" target="_blank" href="{{ .issues_url }}" class="rounded-corner bg-primary px-4 py-2 text-white hover:opacity-90">Reportar idea o problema</a>
+              </div>
+            </article>
+          </section>
+
+          {{ if .kofi_embed }}
+          <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80">
+            <iframe id="kofiframe" src="{{ .kofi_embed }}" class="border-none w-full rounded-corner" height="585" title="vasakos"></iframe>
+          </section>
+          {{ end }}
+          {{ end }}
+
+          <section class="mt-8 text-tx-muted">
+          {{ .Content }}
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{{ end }}
