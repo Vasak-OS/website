@@ -356,14 +356,14 @@
       <link>https://os.vasak.net.ar/downloads/</link>
       <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/downloads/</guid>
-      <description>&lt;p&gt;En la actualidad no disponemos de una ISO estable del proyecto porque se &lt;em&gt;encuentra en desarrollo&lt;/em&gt;. Como el desarrollo es comunitario y recién está iniciando no contamos con un roadmap como para saber en qué momento vamos a tener una ISO &lt;strong&gt;Beta&lt;/strong&gt; o &lt;strong&gt;Estable&lt;/strong&gt; funcional como para poder dejarla en esta sección.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Esta seccion centraliza toda la informacion necesaria para descargar e instalar VasakOS de manera segura. Si queres probar la version actual, te recomendamos validar el checksum SHA256 antes de crear el medio booteable.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Donaciones</title>
       <link>https://os.vasak.net.ar/donate/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/donate/</guid>
-      <description>&lt;iframe id=&#39;kofiframe&#39; src=&#39;https://ko-fi.com/lynxoslinux/?hidefeed=true&amp;widget=true&amp;embed=true&amp;preview=true&#39; style=&#39;border:none;width:100%;padding:4px;background:#f9f9f9;border-radius:10px;&#39; height=&#39;712&#39; title=&#39;lynxoslinux&#39;&gt;&lt;/iframe&gt;</description>
+      <description>&lt;p&gt;Cada aporte, por pequeño que sea, nos permite sostener el proyecto y seguir construyendo una mejor experiencia para todos.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Sobre Nosotros</title>
