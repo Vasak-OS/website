@@ -119,7 +119,7 @@ prices:
       name: Plan Negocios
       cta:
         label: Contactar
-        url: /contact/
+        url: https://vasak.net.ar/
       features:
         - name: Vasak OS para equipos ilimitados.
           class: text-body-emphasis

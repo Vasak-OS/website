@@ -34,6 +34,13 @@ main:
       params:
           newTab: false
           haveChildren: false
+    - identifier: donate
+      name: Donar
+      url: /donate
+      weight: 7
+      params:
+          newTab: false
+          haveChildren: false
     # - identifier: apps
     #   name: Apps
     #   url: /apps
