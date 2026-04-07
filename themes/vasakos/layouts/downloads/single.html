@@ -1,0 +1,164 @@
+{{ define "main" }}
+<main class="px-6 py-8">
+  <div class="flex justify-between mx-auto">
+    <div class="w-full">
+      <div class="px-8">
+        <div class="flex flex-col">
+
+          {{ with .Params.download }}
+          <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <article class="lg:col-span-2 rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <p class="text-sm uppercase tracking-wide text-primary font-semibold">Release actual</p>
+              <h2 class="mt-1 text-2xl font-bold text-tx-main">{{ .release_name }}</h2>
+              <p class="mt-2 text-sm text-tx-muted">
+                Canal {{ .channel }} · Estado {{ .status }}
+              </p>
+
+              <dl class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm">
+                <div class="rounded-corner bg-ui-bg/70 p-3">
+                  <dt class="font-semibold">Version</dt>
+                  <dd>{{ .version }}</dd>
+                </div>
+                <div class="rounded-corner bg-ui-bg/70 p-3">
+                  <dt class="font-semibold">Arquitectura</dt>
+                  <dd>{{ .arch }}</dd>
+                </div>
+                <div class="rounded-corner bg-ui-bg/70 p-3">
+                  <dt class="font-semibold">Imagen</dt>
+                  <dd class="break-all">{{ .image_name }}</dd>
+                </div>
+                <div class="rounded-corner bg-ui-bg/70 p-3">
+                  <dt class="font-semibold">Tamano</dt>
+                  <dd>{{ .size }}</dd>
+                </div>
+                <div class="rounded-corner bg-ui-bg/70 p-3 sm:col-span-2">
+                  <dt class="font-semibold">Publicado</dt>
+                  <dd>{{ .published_at }}</dd>
+                </div>
+              </dl>
+
+              <div class="mt-5 rounded-corner border border-primary p-4 bg-primary/5">
+                <p class="font-semibold text-tx-main">SHA256</p>
+                <code class="mt-2 block whitespace-pre-wrap break-all text-xs">{{ .sha256 }}</code>
+              </div>
+
+              {{ if .changelog_url }}
+              <div class="mt-5 text-center">
+                <a href="{{ .changelog_url }}" class="text-primary hover:underline font-semibold">Ver changelog de esta
+                  version</a>
+              </div>
+              {{ end }}
+            </article>
+
+            <aside class="rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <h3 class="text-lg font-bold text-tx-main">Mirrors de descarga</h3>
+              <div class="mt-4 space-y-3">
+                {{ range .mirrors }}
+                <div class="rounded-corner bg-ui-bg/70 p-3 flex flex-row justify-between">
+                  <div>
+                    <p class="font-semibold">{{ .name }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-300">{{ .region }}</p>
+                  </div>
+                  <div>
+                    {{ if .url }}
+                    <a rel="noopener" target="_blank" href="{{ .url }}"
+                      class="mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-white hover:opacity-90">Descargar
+                      ISO</a>
+                    {{ else }}
+                    <span
+                      class="mt-2 inline-block rounded-corner bg-gray-300 dark:bg-gray-700 px-3 py-2 text-sm text-gray-700 dark:text-gray-200">No
+                      disponible</span>
+                    {{ end }}
+                  </div>
+                </div>
+                {{ end }}
+              </div>
+
+              <div class="mt-5 text-sm">
+                {{ if .sha256_file }}
+                <a href="{{ .sha256_file }}" class="block text-primary hover:underline">Descargar archivo SHA256SUMS</a>
+                {{ end }}
+                {{ if .signature_file }}
+                <a href="{{ .signature_file }}" class="block text-primary hover:underline mt-1">Descargar firma
+                  digital</a>
+                {{ end }}
+              </div>
+            </aside>
+          </section>
+          {{ end }}
+
+          {{ with .Params.requirements }}
+          <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <h3 class="text-lg font-bold text-tx-main">Requisitos minimos</h3>
+              <ul class="mt-3 marker:text-primary list-disc pl-5 space-y-2">
+                {{ range .minimum }}
+                <li>{{ . }}</li>
+                {{ end }}
+              </ul>
+            </article>
+            <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
+              <h3 class="text-lg font-bold text-tx-main">Requisitos recomendados</h3>
+              <ul class="mt-3 marker:text-primary list-disc pl-5 space-y-2">
+                {{ range .recommended }}
+                <li>{{ . }}</li>
+                {{ end }}
+              </ul>
+            </article>
+          </section>
+          {{ end }}
+
+          {{ with .Params.verify }}
+          <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80 p-6">
+            <h3 class="text-lg font-bold text-tx-main">Verificacion de integridad</h3>
+            <p class="mt-2 text-sm text-tx-muted">
+              Ejecuta uno de estos comandos en el directorio donde descargaste la ISO y compara el resultado con el
+              SHA256 publicado.
+            </p>
+            <div class="mt-4 grid grid-cols-1 gap-3">
+              <div class="rounded-corner bg-ui-bg/70 p-3">
+                <p class="text-xs uppercase tracking-wide text-primary font-semibold">Linux</p>
+                <code class="mt-1 block whitespace-pre-wrap break-all text-xs">{{ .linux }}</code>
+              </div>
+              <div class="rounded-corner bg-ui-bg/70 p-3">
+                <p class="text-xs uppercase tracking-wide text-primary font-semibold">macOS</p>
+                <code class="mt-1 block whitespace-pre-wrap break-all text-xs">{{ .macos }}</code>
+              </div>
+              <div class="rounded-corner bg-ui-bg/70 p-3">
+                <p class="text-xs uppercase tracking-wide text-primary font-semibold">Windows</p>
+                <code class="mt-1 block whitespace-pre-wrap break-all text-xs">{{ .windows }}</code>
+              </div>
+            </div>
+          </section>
+          {{ end }}
+
+          {{ with .Params.download }}
+          <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80 p-6">
+            <h3 class="text-lg font-bold text-tx-main">Soporte y reportes</h3>
+            <p class="mt-2 text-sm text-tx-muted">
+              Si algo falla durante la instalacion o el arranque, por favor comparti informacion de hardware, logs y
+              pasos para reproducir.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              {{ if .support_url }}
+              <a rel="noopener" target="_blank" href="{{ .support_url }}"
+                class="rounded-corner bg-secondary/80 px-4 py-2 text-white hover:opacity-90">Comunidad</a>
+              {{ end }}
+              {{ if .bug_report_url }}
+              <a rel="noopener" target="_blank" href="{{ .bug_report_url }}"
+                class="rounded-corner bg-primary px-4 py-2 text-white hover:opacity-90">Reportar error</a>
+              {{ end }}
+            </div>
+          </section>
+          {{ end }}
+
+          <section class="mt-8">
+            {{ .Content }}
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{{ end }}
