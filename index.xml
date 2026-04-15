@@ -359,6 +359,13 @@
       <description>&lt;p&gt;Esta seccion centraliza toda la informacion necesaria para descargar e instalar VasakOS de manera segura. Si queres probar la version actual, te recomendamos validar el checksum SHA256 antes de crear el medio booteable.&lt;/p&gt;</description>
     </item>
     <item>
+      <title></title>
+      <link>https://os.vasak.net.ar/changelogs/15042026/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/changelogs/15042026/</guid>
+      <description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Donaciones</title>
       <link>https://os.vasak.net.ar/donate/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
