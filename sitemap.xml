@@ -75,21 +75,36 @@
     <loc>https://os.vasak.net.ar/docs/devs/vasak-desktop/troubleshooting/</loc>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/alpha/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/changelog/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/changelogs/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/changelogs/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/changelogs/15042026/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vasak-desktop/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://os.vasak.net.ar/tags/vasakos/</loc>
+    <lastmod>2026-04-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/blog/2026/04/alpha-3-de-vasakos/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/blog/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/changelog/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/changelogs/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/changelogs/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/changelogs/01042026/</loc>
@@ -98,19 +113,7 @@
     <loc>https://os.vasak.net.ar/tags/demo/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://os.vasak.net.ar/tags/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://os.vasak.net.ar/tags/vasak/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/vasak-desktop/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/tags/vasakos/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/video/</loc>
@@ -349,8 +352,6 @@
   </url><url>
     <loc>https://os.vasak.net.ar/tags/vasakos-iso-download/</loc>
     <lastmod>2022-03-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://os.vasak.net.ar/changelogs/15042026/</loc>
   </url><url>
     <loc>https://os.vasak.net.ar/tags/about/</loc>
   </url><url>

@@ -6,27 +6,41 @@
     <description>Recent content in Tags on Vasak OS</description>
     <generator>Hugo</generator>
     <language>es-ES</language>
-    <lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://os.vasak.net.ar/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Alpha</title>
       <link>https://os.vasak.net.ar/tags/alpha/</link>
-      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/alpha/</guid>
       <description></description>
     </item>
     <item>
       <title>Changelog</title>
       <link>https://os.vasak.net.ar/tags/changelog/</link>
-      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/changelog/</guid>
       <description></description>
     </item>
     <item>
       <title>Changelogs</title>
       <link>https://os.vasak.net.ar/tags/changelogs/</link>
-      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/changelogs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasak-Desktop</title>
+      <link>https://os.vasak.net.ar/tags/vasak-desktop/</link>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasak-desktop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vasakos</title>
+      <link>https://os.vasak.net.ar/tags/vasakos/</link>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://os.vasak.net.ar/tags/vasakos/</guid>
       <description></description>
     </item>
     <item>
@@ -41,20 +55,6 @@
       <link>https://os.vasak.net.ar/tags/vasak/</link>
       <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://os.vasak.net.ar/tags/vasak/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasak-Desktop</title>
-      <link>https://os.vasak.net.ar/tags/vasak-desktop/</link>
-      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasak-desktop/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vasakos</title>
-      <link>https://os.vasak.net.ar/tags/vasakos/</link>
-      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://os.vasak.net.ar/tags/vasakos/</guid>
       <description></description>
     </item>
     <item>
