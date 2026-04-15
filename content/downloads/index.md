@@ -20,25 +20,31 @@ description: "Descargá VasakOS con información técnica completa, checksum SHA
 download:
   release_name: "VasakOS Alpha 3"
   channel: "Alpha"
-  version: "2026.04.01"
+  version: "2026.04.15"
   arch: "x86_64"
-  image_name: "vasakos-2026.04.01-x86_64.iso"
+  image_name: "vasakos-2026.04.15-x86_64.iso"
   size: "2.4 GB"
-  published_at: "2026-04-01"
+  published_at: "2026-04-15"
   status: "Experimental"
-  sha256: "PENDIENTE_PUBLICACION"
+  sha256: "318d64655f1049a773846393d6bc9bf634f318da23ab2a05c1d60349c8315468"
   sha256_file: ""
   signature_file: ""
-  changelog_url: "/changelogs/01042026/"
+  changelog_url: "/changelogs/15042026/"
   support_url: "https://t.me/VasakOS"
   bug_report_url: "https://github.com/Vasak-OS"
   mirrors:
     - name: "MediaFire"
-      url: "https://www.mediafire.com/file/qrvnqptanvwyecg/vasakos-2026.04.01-x86_64.iso/file"
+      url: "https://www.mediafire.com/file/rel6gobxrtm49o0/vasakos-2026.04.15-x86_64.iso/file"
       region: "Global"
-    - name: "Mirror oficial"
-      url: ""
-      region: "Proximamente"
+    - name: "SourceForge"
+      url: "https://sourceforge.net/projects/vasakos/files/Alpha/vasakos-2026.04.15-x86_64.iso/download"
+      region: "Global"
+    - name: "Google Drive"
+      url: "https://drive.google.com/file/d/1jJYLi8avzZpPuVniQ6QXVQ4wxrncwXXO/view?usp=sharing"
+      region: "Global"
+    - name: "TeraBox"
+      url: "https://1024terabox.com/s/1dLgPZPO14lGp9cPEJJRUNg"
+      region: "Global"
 
 requirements:
   minimum:
@@ -53,9 +59,9 @@ requirements:
     - "GPU compatible con aceleracion basica"
 
 verify:
-  linux: "sha256sum vasakos-2026.04.01-x86_64.iso"
-  macos: "shasum -a 256 vasakos-2026.04.01-x86_64.iso"
-  windows: "CertUtil -hashfile vasakos-2026.04.01-x86_64.iso SHA256"
+  linux: "sha256sum vasakos-2026.04.15-x86_64.iso"
+  macos: "shasum -a 256 vasakos-2026.04.15-x86_64.iso"
+  windows: "CertUtil -hashfile vasakos-2026.04.15-x86_64.iso SHA256"
 img: "/img/posts/download.svg"
 date: "2022-03-19"
 ---
