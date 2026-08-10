@@ -1,38 +1,39 @@
 <div class="relative flex flex-col justify-center overflow-hidden py-20">
-  <div class="w-full items-center mx-auto max-w-screen-xl">
+  <div class="mx-auto w-full max-w-screen-xl items-center">
     <div class="group grid w-full grid-cols-1 md:grid-cols-2">
-      <div class="pl-16 pr-16 md:pr-0 relative pb-6 flex items-end flex-col overflow-hidden">
+      <div class="relative flex flex-col items-end overflow-hidden pb-6 pl-16 pr-16 md:pr-0">
         <div
-          class="absolute top-0 left-0 bg-gradient-to-br from-secondary/60 to-primary/60 backdrop-blur-md w-4/6 px-12 py-14 flex flex-col justify-center rounded-corner transition-all ">
-          <span class="block mb-10 font-bold text-gray-100">OPEN SOURCE</span>
-          <h2 class="text-white font-bold text-3xl">
+          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-corner bg-gradient-to-br from-secondary/60 to-primary/60 px-12 py-14 backdrop-blur-md transition-all">
+          <span class="mb-10 block font-bold text-gray-100">CÓDIGO ABIERTO</span>
+          <h2 class="text-3xl font-bold text-white">
             Todo el trabajo de VasakOS es completamente abierto para la comunidad.
           </h2>
         </div>
-        <a class="font-bold text-lg flex mt-2 mb-8 items-center gap-2 text-primary hover:text-secondary"
-          href="https://github.com/Vasak-os">
-          <span>Ver Repositorios</span>
-          <em class="fab fa-github"></em>
+        <a class="mb-8 mt-2 flex items-center gap-2 text-lg font-bold text-primary hover:text-secondary"
+          href="https://github.com/Vasak-OS" rel="noopener" target="_blank">
+          <span>Ver repositorios</span>
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
         </a>
-        <div class="rounded-corner overflow-hidden">
-          <img src="/img/features/git.svg" alt="">
+        <div class="overflow-hidden rounded-corner">
+          <img src="/img/features/git.svg" width="640" height="480" loading="lazy" decoding="async"
+            alt="Ilustración de ramas y commits de un repositorio de código" />
         </div>
       </div>
       <div class="flex flex-col justify-center">
         <div class="pl-12 pr-12 md:pr-0">
           <p class="peer mb-6 text-gray-600 dark:text-gray-200">
-            Todo nuestro trabajo en Vasak es completamente abierto y libre para toda la comunidad. Cualquier usuario
-            puede intervenir
-            con el proyecto desde muchas posiciones y llevar el sistema hacia su propio ideal.
+            Cada componente vive en su propio repositorio público bajo licencia GPL: el escritorio, las
+            aplicaciones, los servicios, los PKGBUILD y hasta este sitio. No hay una parte cerrada
+            que haga funcionar el resto.
           </p>
           <p class="mb-6 text-gray-600 dark:text-gray-200">
-            Ya seas diseñador, programador, usuario tu ayuda es más que bienvenida y siempre se puede sumar a un
-            proyecto. Recuerda
-            que desde que instalas Vasak OS ya sos parte vital de nuestra comunidad.
+            Ya seas diseñador, programador o usuario, tu ayuda suma. Desde que instalás VasakOS
+            y reportás lo que no anda, ya sos parte del desarrollo.
           </p>
-          <ul role="list" class="marker:text-primary list-disc pl-5 space-y-3 text-gray-500">
-            <li>Forkear, clonar, modificar, o solicitar un Merge Request.</li>
-            <li>Probar, reportar, sugerir, abrir Issues, comentarlos o solucionarlos.</li>
+          <ul role="list" class="list-disc space-y-3 pl-5 text-gray-500 marker:text-primary">
+            <li>Forkear, clonar, modificar o mandar un Pull Request.</li>
+            <li>Probar, reportar, sugerir, abrir issues, comentarlos o resolverlos.</li>
+            <li>Traducir, documentar o diseñar iconos y fondos.</li>
           </ul>
         </div>
       </div>
@@ -41,41 +42,43 @@
 </div>
 
 <div class="relative flex flex-col justify-center overflow-hidden bg-ui-bg/80 py-20">
-  <div class="w-full items-center mx-auto max-w-screen-xl">
+  <div class="mx-auto w-full max-w-screen-xl items-center">
     <div class="group grid w-full grid-cols-1 md:grid-cols-2">
-      <div class="pb-6 order-last md:order-first flex flex-col justify-center">
-        <div class="pr-12 pt-12 pl-12 md:pl-0">
+      <div class="order-last flex flex-col justify-center pb-6 md:order-first">
+        <div class="pl-12 pr-12 md:pl-0">
           <p class="peer mb-6 text-gray-600 dark:text-gray-200">
-            Vasak OS a diferencia de otras “distros” de GNU/Linux no busca reducir los recursos. En consecuencia busca
-            realizar una
-            buena precarga y un óptimo uso de los recursos para mejorar la experiencia de uso y la fluidez del sistema.
+            VasakOS no compite por consumir menos memoria que nadie. Prefiere gastar los recursos
+            que hagan falta en precargar lo que vas a usar y que el sistema se sienta inmediato,
+            en vez de dejar RAM libre que no le sirve a nadie.
           </p>
           <p class="mb-6 text-gray-600 dark:text-gray-200">
-            Por la propia naturaleza de Arch Linux y apoyándonos en ellos podemos ofrecer un sistema completamente
-            actualizado que
-            no necesita fragmentarse en versiones. De esta forma todos los usuarios siempre podrán acceder al software
-            más nuevo.
+            Al estar construido sobre Arch Linux, el sistema es rolling release: no hay versiones
+            que se queden atrás ni una migración grande cada dos años. Las actualizaciones llegan
+            por <code>pacman</code> desde los repositorios de Arch y desde el nuestro.
           </p>
-          <ul role="list" class="marker:text-primary list-disc pl-5 space-y-3 text-gray-500">
-            <li>Sistema flexible.</li>
-            <li>Software Actualizado.</li>
+          <ul role="list" class="list-disc space-y-3 pl-5 text-gray-500 marker:text-primary">
+            <li>Software siempre actualizado, sin saltos de versión.</li>
             <li>Parches de seguridad continuos.</li>
+            <li>Repositorio propio firmado con GPG para los paquetes de VasakOS.</li>
           </ul>
+          <a href="/docs/user/repository/" class="mt-6 inline-flex items-center gap-2 font-bold text-primary hover:text-secondary">
+            <span>Cómo agregar el repositorio</span>
+            <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
+          </a>
         </div>
       </div>
-      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden order-first">
+      <div class="relative order-first flex flex-col items-end overflow-hidden pl-16 pr-16 md:pr-0">
         <div
-          class="absolute top-0 left-0 bg-gradient-to-br from-secondary/60 to-primary/60 backdrop-blur-md w-4/6 px-12 py-14 flex flex-col justify-center rounded-corner group-hover:bg-primary transition-all ">
-          <span class="block mb-10 font-bold text-gray-100">CONSUMO RESPONSABLE</span>
-          <h2 class="text-white font-bold text-3xl">
-            VasakOS Utiliza los recursos necesarios para brindar una experiencia de usuario óptima.
+          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-corner bg-gradient-to-br from-secondary/60 to-primary/60 px-12 py-14 backdrop-blur-md transition-all group-hover:bg-primary">
+          <span class="mb-10 block font-bold text-gray-100">ACTUALIZACIONES CONTINUAS</span>
+          <h2 class="text-3xl font-bold text-white">
+            Rolling release sobre Arch, con un repositorio propio para las piezas de VasakOS.
           </h2>
         </div>
-        <a class="font-bold text-lg flex mt-2 mb-8 items-center gap-2" href="">
-          &nbsp;
-        </a>
-        <div class="rounded-corner overflow-hidden">
-          <img src="/img/features/balanced.svg" alt="">
+        <div class="mb-8 mt-2 h-7"></div>
+        <div class="overflow-hidden rounded-corner">
+          <img src="/img/features/balanced.svg" width="640" height="480" loading="lazy" decoding="async"
+            alt="Ilustración de un sistema equilibrando el uso de recursos" />
         </div>
       </div>
     </div>

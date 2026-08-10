@@ -1,11 +1,12 @@
 {{ define "main" }}
 
-  {{- partial "sections/hero.html" -}}
+  {{- partial "sections/hero.html" . -}}
 
   <main id="main">
     {{- partial "sections/advantages.html" . -}}
-    {{- partial "sections/cta.html" -}}
-    {{- partial "sections/features.html" -}}
+    {{- partial "sections/components.html" . -}}
+    {{- partial "sections/cta.html" . -}}
+    {{- partial "sections/features.html" . -}}
     {{- partial "sections/prices.html" . -}}
   </main>
 

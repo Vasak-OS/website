@@ -1,10 +1,61 @@
-<section
-  class="aspect-video bg-[url('/img/hero-fullscreen-bg.jpg')] bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center">
-  <div class="flex flex-col justify-center content-center text-center">
-    <div class="bg-ui-bg/80 backdrop-blur-md p-10 rounded-corner">
-    <h2 class="text-gray-900 dark:text-white text-4xl">Bienvenidos a <span class="text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold">Vasak OS</span></h2>
-    <p class="text-gray-800 dark:text-gray-100 mb-6">Un sistema basado en GNU/Linux y pensado para vos</p>
-    <a rel="noopener" href="/downloads/" class="p-4 mt-16 rounded-corner bg-primary text-white">Descargar</a>
+{{- $release := hugo.Data.release -}}
+{{/*
+  The hero image is the home page's LCP element, so it is worth handling
+  properly: the source lives in assets/ and Hugo emits WebP at two widths, the
+  browser picks one with sizes/srcset, and fetchpriority tells it not to wait.
+
+  It used to be a 515 KB full-resolution file set as a Tailwind background-image
+  — which a browser cannot prioritise, cannot pick a size for, and cannot serve
+  in a modern format.
+*/}}
+{{- $src := resources.Get "img/hero.jpg" -}}
+{{- $small := ($src.Resize "1024x webp q72").RelPermalink -}}
+{{- $large := ($src.Resize "1920x webp q72").RelPermalink -}}
+{{- $fallback := ($src.Resize "1600x jpg q78").RelPermalink -}}
+
+<section class="relative isolate flex min-h-[70vh] items-center justify-center overflow-hidden -mt-24 pt-24">
+  <picture>
+    <source type="image/webp" srcset="{{ $small }} 1024w, {{ $large }} 1920w" sizes="100vw" />
+    <img src="{{ $fallback }}" alt="" width="1920" height="1045" fetchpriority="high" decoding="async"
+      class="absolute inset-0 -z-10 h-full w-full object-cover" />
+  </picture>
+
+  <div class="mx-4 max-w-3xl rounded-corner bg-ui-bg/85 p-8 text-center backdrop-blur-md sm:p-12">
+    <p class="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-primary">
+      <span class="relative flex h-2 w-2">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+      </span>
+      {{ $release.release_name }} disponible · {{ $release.published_at }}
+    </p>
+
+    <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl dark:text-white">
+      <span class="family-vsk bg-gradient-to-br from-secondary to-primary bg-clip-text text-transparent">VasakOS</span>
+    </h1>
+    <p class="mt-3 text-xl text-gray-800 dark:text-gray-100">
+      Un escritorio propio sobre Arch Linux, hecho para que el sistema se sienta tuyo.
+    </p>
+    <p class="mt-4 text-gray-700 dark:text-gray-300">
+      Rolling release, Wayland, aplicaciones nativas escritas en Rust y una interfaz que podés
+      modificar con CSS. Libre, gratuito y desarrollado a la vista de todos.
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a href="/downloads/"
+        class="inline-flex items-center gap-2 rounded-corner bg-primary px-6 py-3 text-lg font-semibold text-white transition hover:opacity-90">
+        <i class="fa-solid fa-download" aria-hidden="true"></i>
+        Descargar {{ $release.channel }}
+      </a>
+      <a href="/state/"
+        class="inline-flex items-center gap-2 rounded-corner border border-primary px-6 py-3 text-lg font-semibold text-primary transition hover:bg-primary hover:text-white">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        Estado del proyecto
+      </a>
     </div>
+
+    <p class="mt-5 text-sm text-gray-600 dark:text-gray-400">
+      Versión {{ $release.channel }}: usable a diario para probar, todavía no recomendada como
+      único sistema. <a href="/state/" class="text-primary underline">Mirá qué funciona hoy</a>.
+    </p>
   </div>
 </section>

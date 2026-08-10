@@ -1,3 +1,8 @@
+description: "VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto."
+
+analytics:
+  ga4: "G-5MYT335WZK"
+
 social:
   enabled: true
   title: Redes Sociales
@@ -7,130 +12,143 @@ social:
       url: https://t.me/VasakOS
       weight: 1
       params:
-        icon: fab fa-telegram
-    - identifier: twitter
-      name: Twitter
-      url: https://twitter.com/VasakOSLinux
-      weight: 6
-      params:
-        icon: fab fa-twitter
+        icon: fa-brands fa-telegram
     - identifier: github
       name: GitHub
       url: https://github.com/Vasak-OS
-      weight: 10
+      weight: 2
       params:
-        icon: fab fa-github
+        icon: fa-brands fa-github
     - identifier: discord
       name: Discord
       url: https://discord.gg/7wKrVNBC
-      weight: 8
+      weight: 3
       params:
-        icon: fab fa-discord
+        icon: fa-brands fa-discord
     - identifier: reddit
       name: Reddit
       url: https://www.reddit.com/r/VasakOS/
-      weight: 7
+      weight: 4
       params:
-        icon: fab fa-reddit
+        icon: fa-brands fa-reddit
+    - identifier: twitter
+      name: Twitter
+      url: https://twitter.com/VasakOSLinux
+      weight: 5
+      params:
+        icon: fa-brands fa-twitter
 
+# What actually distinguishes the project, in terms a visitor can verify. The
+# previous list sold implementation details ("Framework VueJS") and claimed the
+# system adapts to phones and tablets, which is not something a desktop OS does.
 advantages:
   enabled: true
+  title: "Por qué VasakOS"
+  subtitle: "No es Arch con otro fondo de pantalla: el escritorio, las aplicaciones y los servicios están escritos para este sistema."
   main:
-    - identifier: linux
-      name: Linux
-      text: Utilizamos todo el potencial y la seguridad de Linux para ofrecerte una experiencia única.
+    - identifier: arch
+      name: Base Arch Linux
+      text: Rolling release, sin versiones que se queden atrás y con acceso al software más nuevo. Todo el ecosistema y la documentación de Arch siguen valiendo.
       weight: 1
       params:
-        icon: fab fa-linux
-    - identifier: github
-      name: Open Source
-      text: Todo nuestro código es abierto y puedes verlo en GitHub. ¡Incluso puedes contribuir!
-      weight: 1
-      params:
-        icon: fab fa-github
-    - identifier: vuejs
-      name: Framework VueJS
-      text: Nuestra Interfaz de Usuario está desarrollada con VueJS, un framework moderno y potente.
-      weight: 1
-      params:
-        icon: fab fa-vuejs
-    - identifier: tailwind
-      name: Responsive
-      text: Nuestro sistema se adapta a cualquier dispositivo, ya sea un móvil, una tablet o un ordenador.
-      weight: 1
-      params:
-        icon: fa fa-desktop
-    - identifier: css
-      name: Personalizable
-      text: Al usar CSS para el estilo, el sistema es altamente personalizable y puedes cambiarlo a tu gusto.
-      weight: 1
-      params:
-        icon: fab fa-css3
+        icon: fa-brands fa-linux
     - identifier: rust
-      name: Rust
-      text: Rust es un lenguaje de programación de sistemas que enfatiza la seguridad y el rendimiento.
-      weight: 1
+      name: Aplicaciones nativas en Rust
+      text: Gestor de archivos, terminal, galería, ajustes y el escritorio son aplicaciones propias, no una colección de programas de otros entornos.
+      weight: 2
       params:
-        icon: fab fa-rust
+        icon: fa-brands fa-rust
+    - identifier: wayland
+      name: Wayland de entrada
+      text: Sesión sobre Wayfire administrada por systemd, con bloqueo de pantalla, luz nocturna y control de brillo integrados.
+      weight: 3
+      params:
+        icon: fa-solid fa-desktop
+    - identifier: css
+      name: Personalizable con CSS
+      text: La interfaz se estiliza con CSS y variables de color. Cambiar el aspecto del escritorio no requiere recompilar nada.
+      weight: 4
+      params:
+        icon: fa-brands fa-css3
+    - identifier: opensource
+      name: Código abierto, de verdad
+      text: Cada componente vive en su propio repositorio público bajo licencia GPL. El historial, los issues y las decisiones están a la vista.
+      weight: 5
+      params:
+        icon: fa-brands fa-github
+    - identifier: privacy
+      name: Sin telemetría
+      text: El sistema no recolecta datos de uso ni envía información a ningún servidor. No hay cuenta que crear ni servicio al que suscribirse.
+      weight: 6
+      params:
+        icon: fa-solid fa-shield-halved
 
-prices:
+# Not "prices": the system is free and always will be, and a pricing table on a
+# free distro reads as a bait-and-switch. This is how the project sustains
+# itself and what each kind of support gets you.
+support:
   enabled: true
+  title: "Cómo se sostiene el proyecto"
+  subtitle: "VasakOS es y va a seguir siendo gratuito. Estas son las formas de acompañarlo."
   main:
     - identifier: free
       name: Usuarios
+      description: "Gratis, siempre"
       cta:
         label: Descargar
         url: /downloads/
       features:
-        - name: Vasak OS para equipos ilimitados.
+        - name: Uso en equipos ilimitados, sin licencias.
           class: text-body-emphasis
-        - name: Actualizaciones constantes.
+        - name: Actualizaciones continuas por el repositorio oficial.
           class: text-body-emphasis
-        - name: Soporte comunitario.
+        - name: Soporte de la comunidad en Telegram y GitHub.
           class: text-body-emphasis
-        - name: Soporte de los desarrolladores.
+        - name: Atención directa del equipo de desarrollo.
           class: line-through
-        - name: Plan de migración.
+        - name: Plan de migración asistido.
           class: line-through
       weight: 1
       params:
-        icon: fas fa-user
+        icon: fa-solid fa-user
     - identifier: donations
       class: md:scale-110 z-10
       name: Donaciones
+      description: "Lo que puedas aportar"
       cta:
         label: Donar
         url: /donate/
       features:
-        - name: Vasak OS para equipos ilimitados.
+        - name: Uso en equipos ilimitados, sin licencias.
           class: text-body-emphasis
-        - name: Actualizaciones constantes.
+        - name: Actualizaciones continuas por el repositorio oficial.
           class: text-body-emphasis
-        - name: Soporte comunitario.
+        - name: Soporte de la comunidad en Telegram y GitHub.
           class: text-body-emphasis
-        - name: Soporte de los desarrolladores.
+        - name: Atención directa del equipo de desarrollo.
           class: text-body-emphasis
-        - name: Plan de migración.
+        - name: Plan de migración asistido.
           class: line-through
-      weight: 1
+      weight: 2
       params:
-        icon: fas fa-donate
-    - identifier: premium
-      name: Plan Negocios
+        icon: fa-solid fa-hand-holding-dollar
+    - identifier: business
+      name: Empresas
+      description: "A convenir"
       cta:
         label: Contactar
         url: https://vasak.net.ar/
       features:
-        - name: Vasak OS para equipos ilimitados.
+        - name: Uso en equipos ilimitados, sin licencias.
           class: text-body-emphasis
-        - name: Actualizaciones constantes.
+        - name: Actualizaciones continuas por el repositorio oficial.
           class: text-body-emphasis
-        - name: Soporte comunitario.
+        - name: Soporte de la comunidad en Telegram y GitHub.
           class: text-body-emphasis
-        - name: Soporte de Vasak Group.
+        - name: Soporte comercial de Vasak Group.
           class: text-body-emphasis
-        - name: Plan de migración.
+        - name: Plan de migración asistido.
           class: text-body-emphasis
-      weight: 1
+      weight: 3
       params:
-        icon: fas fa-user-tie
+        icon: fa-solid fa-user-tie

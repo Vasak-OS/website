@@ -1,0 +1,133 @@
+# The components of VasakOS, their published version and how far along they are.
+#
+# This drives the home page section and the /estado/ page. Being specific — and
+# honest about what is still rough — is what separates a project someone can
+# evaluate from a landing page full of adjectives.
+#
+# status: stable | beta | alpha | wip | planned
+# Versions match the packages published in the `vasakos` pacman repository.
+
+groups:
+  - id: escritorio
+    name: Escritorio y sesión
+    icon: fa-solid fa-desktop
+    items:
+      - name: vasak-desktop
+        title: Escritorio
+        version: "1.0.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-desktop
+        text: Panel, menú de aplicaciones, área de notificación, control de red y de sonido. Corre sobre Wayfire con gtk-layer-shell.
+      - name: vasak-session-manager
+        title: Gestor de sesión
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-session-manager
+        text: Pantalla de inicio de sesión (greeter de greetd) y bloqueo de pantalla con el aspecto del sistema.
+      - name: vasak-desktop-settings
+        title: Configuración de sesión
+        version: "0.2.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-desktop-settings
+        text: Sesión administrada por systemd (uwsm), plugins del compositor y arranque de los servicios del escritorio.
+      - name: vasakos-icon-theme
+        title: Tema de iconos
+        version: "0.5.3"
+        status: stable
+        repo: https://github.com/Vasak-OS/VasakOS-icon-theme
+        text: Iconografía plana y colorida propia, coherente en todas las aplicaciones del sistema.
+
+  - id: aplicaciones
+    name: Aplicaciones
+    icon: fa-solid fa-folder
+    items:
+      - name: vasak-file-manager
+        title: Gestor de archivos
+        version: "0.3.2"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-file-manager
+        text: Pestañas, progreso y cancelación en copiar/mover/eliminar, deshacer con Ctrl+Z, compresión en varios formatos y montaje de SMB y sshfs.
+      - name: vasak-terminal
+        title: Terminal
+        version: "0.2.2"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-terminal
+        text: Emulador de terminal con pestañas y paleta de colores integrada al tema del sistema.
+      - name: vasak-settings
+        title: Ajustes del sistema
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-settings
+        text: Usuarios, fecha y hora, brillo y luz nocturna, energía, red, sonido, apariencia y plugins del compositor.
+      - name: vasak-gallery
+        title: Galería
+        version: "0.1.1"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-gallery
+        text: Visor y organizador de imágenes.
+      - name: vasak-resonance
+        title: Resonance
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-resonance
+        text: Reproductor de audio del sistema.
+
+  - id: servicios
+    name: Servicios del sistema
+    icon: fa-solid fa-shield-halved
+    items:
+      - name: vasak-keyring
+        title: Llavero de claves
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-keyring
+        text: Implementación nativa de Secret Service con AES-256-GCM y Argon2id, y desbloqueo automático por PAM al iniciar sesión.
+      - name: vasak-flare-daemon
+        title: Notificaciones
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-flare-daemon
+        text: Demonio de notificaciones freedesktop con historial persistente.
+      - name: polkit-vasak-agent
+        title: Agente PolicyKit
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/polkit-vasak
+        text: Diálogos de autenticación para las acciones que requieren privilegios, sin depender de sudo.
+      - name: vasak-accounts
+        title: Cuentas en línea
+        version: "0.1.0"
+        status: wip
+        repo: https://github.com/Vasak-OS/vasak-accounts
+        text: Demonio centralizado de cuentas con OAuth2 y permisos por aplicación. Todavía sin integración en las aplicaciones.
+
+  - id: infraestructura
+    name: Distribución
+    icon: fa-solid fa-download
+    items:
+      - name: archiso
+        title: Imagen ISO
+        version: "Alpha 4"
+        status: alpha
+        repo: https://github.com/Vasak-OS/archiso
+        text: Perfil de archiso con sesión en vivo, instalador Calamares y el repositorio propio ya configurado.
+      - name: repositorio vasakos
+        title: Repositorio pacman
+        version: "activo"
+        status: stable
+        repo: https://github.com/Vasak-OS/repository-script
+        text: Repositorio propio firmado con GPG, con los paquetes de VasakOS sobre Arch Linux.
+      - name: vasakos-calamares
+        title: Instalador
+        version: "3.4.2"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasakos-calamares-config
+        text: Calamares con la configuración y las ramas de instalación de VasakOS.
+
+# Shown on /estado/ so nobody has to reverse-engineer what "Alpha" means here.
+legend:
+  stable: { label: "Estable", class: "bg-status-success/15 text-status-success" }
+  beta: { label: "Beta", class: "bg-primary/15 text-primary" }
+  alpha: { label: "Alpha", class: "bg-status-warning/15 text-status-warning" }
+  wip: { label: "En desarrollo", class: "bg-secondary/15 text-secondary" }
+  planned: { label: "Planificado", class: "bg-ui-surface text-tx-muted" }

@@ -1,120 +1,104 @@
 {{ define "main" }}
-{{ partial "sections/breadcrumbs.html" . -}}
-<div class="relative flex flex-col justify-center overflow-hidden py-20">
-  <div class="w-full items-center mx-auto max-w-screen-xl">
-    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
-      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
-        <div
-          class="absolute top-0 left-0 bg-gradient-to-br from-secondary/60 to-primary/60 backdrop-blur-md w-4/6 px-12 py-14 flex flex-col justify-center rounded-corner transition-all ">
-          <span class="block mb-10 font-bold text-gray-100">DOMESTICO</span>
-          <h2 class="text-white font-bold text-3xl">
-            Usa <span class="font-vsk">VasakOS</span> en tu casa...
-          </h2>
-        </div>
-        <span class="font-bold text-lg flex mt-2 mb-8 items-center gap-2">
-          &nbsp;
-        </span>
-        <div class="rounded-corner overflow-hidden">
-          <img src="/img/features/home.svg" alt="">
-        </div>
-      </div>
-      <div class="flex flex-col justify-center">
-        <div class="pl-12 pr-12 md:pr-0">
-          <p class="peer mb-6 text-gray-600 dark:text-gray-200">
-            Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
-            librerías y aplicaciones para su uso domestico.
-          </p>
-          <ul role="list" class="marker:text-primary list-disc pl-5 space-y-3 text-gray-500">
-            <li>Tienes a tu disposición los mejores navegadores (Firefox, Google Chrome, Vivaldi, etc.) Con los cuales
-              puedes navegar por tus redes sociales favoritas o páginas multimedias como Netflix.</li>
-            <li>Tienes a tu disposición Steam con miles de juegos nativos y con Protón, la solución para jugar en
-              GNU/Linux. También hay muchas tiendas más repletas de juegos.</li>
-            <li>Reproducí, creá, y divertite. Todos tus contenidos multimedias están disponibles en nuestro sistema
-              operativo.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+{{ partial "sections/breadcrumbs.html" (dict "page" . "heading" true) -}}
 
-<div class="relative flex flex-col justify-center overflow-hidden bg-white dark:bg-gray-900 py-20">
-  <div class="w-full items-center mx-auto max-w-screen-xl">
-    <div class="group grid w-full grid-cols-1 md:grid-cols-2">
-      <div class="order-last md:order-first flex flex-col justify-center">
-        <div class="pr-12 pl-12 md:pl-0 pt-12">
-          <p class="mb-6 text-gray-600 dark:text-gray-200">
-            Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
-            librerías y aplicaciones para poder estudiar.
-          </p>
-          <ul role="list" class="marker:text-primary list-disc pl-5 space-y-3 text-gray-500">
-            <li>Accede a los mejores paquetes de Ofimática completamente gratis, LibreOffice uno de los más populares,
-              WPS para una mejor compatibilidad con MS-Office.</li>
-            <li>En la actualidad la virtualidad aumentó la cantidad de lectura digital. Tenemos soporte para todos los
-              formatos de archivos para que puedas estudiar sin límites. Y todas las herramientas para crear tus
-              trabajos y presentaciones.</li>
-            <li>Todas las aplicaciones que necesitas para conectarte con tus profesores podes encontrarlas en Vasak OS
-              (Teams, Discord, Zoom y más).</li>
-          </ul>
-        </div>
-      </div class="md:order-last">
-      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
-        <div
-          class="absolute top-0 left-0 bg-gradient-to-br from-secondary/60 to-primary/60 backdrop-blur-md w-4/6 px-12 py-14 flex flex-col justify-center rounded-corner group-hover:bg-primary transition-all ">
-          <span class="block mb-10 font-bold text-gray-100">ESTUDIANTIL</span>
-          <h2 class="text-white font-bold text-3xl">
-            Usa <span class="font-vsk">VasakOS</span> en tu estudio...
-          </h2>
-        </div>
-        <span class="font-bold text-lg flex mt-2 mb-8 items-center gap-2">
-          &nbsp;
-        </span>
-        <div class="rounded-corner overflow-hidden">
-          <img src="/img/features/study.svg" alt="">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+{{/* The page's own text used to be discarded: this layout rendered three
+     marketing blocks and never output .Content. */}}
+<section class="px-4 py-16">
+  <div class="mx-auto max-w-4xl" id="article">
+    {{ .Content }}
 
-<div class="relative flex flex-col justify-center overflow-hidden py-20">
-  <div class="w-full items-center mx-auto max-w-screen-xl">
+    {{ with .Params.facts }}
+    <dl class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3">
+      {{ range . }}
+      <div class="rounded-corner bg-ui-bg/80 p-4 text-center">
+        <i class="{{ .icon }} text-2xl text-primary" aria-hidden="true"></i>
+        <dt class="mt-2 text-xs uppercase tracking-wide text-tx-muted">{{ .label }}</dt>
+        <dd class="font-semibold text-tx-main">{{ .value }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+    {{ end }}
+
+    <div class="mt-10 flex flex-wrap justify-center gap-3">
+      <a href="/state/" class="rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">Estado del proyecto</a>
+      <a href="https://github.com/Vasak-OS" rel="noopener" target="_blank"
+        class="rounded-corner border border-primary px-6 py-3 font-semibold text-primary hover:bg-primary hover:text-white">
+        <i class="fa-brands fa-github" aria-hidden="true"></i> Código fuente
+      </a>
+    </div>
+  </div>
+</section>
+
+{{/* Three use cases. The markup is the same block three times, so it is a range
+     over a list instead of three hand-maintained copies — one of which had a
+     stray attribute on a closing tag. */}}
+{{- $cases := slice
+  (dict "tag" "DOMÉSTICO" "title" "Usá VasakOS en tu casa" "img" "/img/features/home.svg"
+    "alt" "Ilustración de una casa con dispositivos conectados"
+    "intro" "El ecosistema de GNU/Linux y <code>pacman</code> ponen a mano casi todo lo que se usa a diario en un equipo familiar."
+    "items" (slice
+      "Los navegadores de siempre —Firefox, Chrome, Vivaldi, Brave— con soporte para servicios de streaming."
+      "Steam con miles de juegos nativos y Proton para el resto, además de Lutris, Heroic y otras tiendas."
+      "Reproducción y edición multimedia: VLC, MPV, GIMP, Krita, Kdenlive, Audacity, OBS."))
+  (dict "tag" "ESTUDIANTIL" "title" "Usá VasakOS para estudiar" "img" "/img/features/study.svg"
+    "alt" "Ilustración de una persona estudiando frente a una computadora"
+    "intro" "Todo lo que hace falta para cursar, leer y entregar trabajos, sin licencias que pagar."
+    "items" (slice
+      "Suites de ofimática completas: LibreOffice, OnlyOffice o WPS si necesitás compatibilidad estricta con MS Office."
+      "Lectores para PDF, EPUB, DjVu y formatos de apuntes, más herramientas de anotación."
+      "Videoconferencia y trabajo en grupo: Zoom, Teams, Discord, Jitsi y Nextcloud."))
+  (dict "tag" "LABORAL" "title" "Usá VasakOS para trabajar" "img" "/img/features/work.svg"
+    "alt" "Ilustración de un escritorio de trabajo con herramientas"
+    "intro" "Arch Linux es una base habitual en desarrollo justamente por lo rápido que llegan las versiones nuevas de las herramientas."
+    "items" (slice
+      "IDEs y editores actualizados al día: VS Code, JetBrains, Neovim, Zed."
+      "Toolchains de cualquier lenguaje, contenedores con Docker y Podman, y máquinas virtuales con libvirt."
+      "Compatibilidad con el software empresarial que ya corre sobre GNU/Linux."))
+-}}
+
+{{- range $i, $case := $cases }}
+<div class="relative flex flex-col justify-center overflow-hidden py-20 {{ if eq (mod $i 2) 1 }}bg-ui-bg/80{{ end }}">
+  <div class="mx-auto w-full max-w-screen-xl items-center">
     <div class="group grid w-full grid-cols-1 md:grid-cols-2">
-      <div class="pl-16 pr-16 md:pr-0 relative flex items-end flex-col overflow-hidden">
+      <div class="relative flex flex-col items-end overflow-hidden px-16 md:pr-0 {{ if eq (mod $i 2) 1 }}order-first{{ end }}">
         <div
-          class="absolute top-0 left-0 bg-gradient-to-br from-secondary/60 to-primary/60 backdrop-blur-md w-4/6 px-12 py-14 flex flex-col justify-center rounded-corner transition-all ">
-          <span class="block mb-10 font-bold text-gray-100">LABORAL</span>
-          <h2 class="text-white font-bold text-3xl">
-            Usa <span class="font-vsk">VasakOS</span> en tu trabajo...
-          </h2>
+          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-corner bg-gradient-to-br from-secondary/60 to-primary/60 px-12 py-14 backdrop-blur-md">
+          <span class="mb-10 block font-bold text-gray-100">{{ $case.tag }}</span>
+          <h2 class="text-3xl font-bold text-white">{{ $case.title }}</h2>
         </div>
-        <a class="font-bold text-lg flex mt-2 mb-8 items-center gap-2">
-          &nbsp;
-        </a>
-        <div class="rounded-corner overflow-hidden">
-          <img src="/img/features/work.svg" alt="">
+        <div class="mb-8 mt-2 h-7"></div>
+        <div class="overflow-hidden rounded-corner">
+          <img src="{{ $case.img }}" width="640" height="480" loading="lazy" decoding="async" alt="{{ $case.alt }}" />
         </div>
       </div>
-      <div class="flex flex-col justify-center">
-        <div class="pl-12 pr-12 md:pr-0">
-          <p class="peer mb-6 text-gray-600 dark:text-gray-200">
-            Gracias al ecosistema de GNU/Linux y pacman, el gestor de paquete de Arch Linux podemos acceder a muchas
-            librerías y aplicaciones para poder trabajar.
-          </p>
-          <ul role="list" class="marker:text-primary list-disc pl-5 space-y-3 text-gray-500">
-            <li>Accede a los mejores paquetes de Ofimática completamente gratis, LibreOffice uno de los más populares,
-              WPS para una
-              mejor compatibilidad con MS-Office.</li>
-            <li>Puedes acceder a los mejores programas, bibliotecas, IDE y siempre mantenerlos actualizados. Sin
-              importar el lenguaje
-              que uses.</li>
-            <li>Gracias a nuestra base GNU/Linux tenemos compatibilidad con una inmensa cantidad de software dirigido a
-              empresas y
-              trabajadores.</li>
+      <div class="flex flex-col justify-center {{ if eq (mod $i 2) 1 }}order-last md:order-first{{ end }}">
+        <div class="px-12 md:pr-0">
+          <p class="mb-6 text-gray-600 dark:text-gray-200">{{ $case.intro | safeHTML }}</p>
+          <ul role="list" class="list-disc space-y-3 pl-5 text-gray-500 marker:text-primary">
+            {{ range $case.items }}<li>{{ . }}</li>{{ end }}
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
+{{- end }}
+
+<section class="px-4 py-16">
+  <div class="mx-auto max-w-4xl rounded-corner bg-ui-bg/80 p-8 text-center">
+    <h2 class="text-2xl font-bold text-tx-main">Quién está detrás</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
+      VasakOS lo desarrolla <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-primary underline">Vasak Group</a>
+      junto a la comunidad. El proyecto es miembro de la
+      <a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="text-primary underline">Open Invention Network</a>,
+      la alianza de defensa de patentes del ecosistema Linux.
+    </p>
+    <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
+      Todo el código es público y está bajo licencia GPL-3.0. Las decisiones, los issues y el
+      historial de cada componente se pueden leer en
+      <a href="https://github.com/Vasak-OS" rel="noopener" target="_blank" class="text-primary underline">GitHub</a>,
+      y lo que viene está en el <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-primary underline">roadmap público</a>.
+    </p>
+  </div>
+</section>
 {{ end }}

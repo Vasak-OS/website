@@ -1,0 +1,76 @@
+{{ define "main" }}
+{{- $data := hugo.Data.components -}}
+{{- $release := hugo.Data.release -}}
+
+<main class="px-4 py-10">
+  <div class="mx-auto max-w-screen-xl">
+
+    <header class="rounded-corner bg-ui-bg/80 p-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-wide text-primary">Transparencia</p>
+      <h1 class="mt-2 text-4xl font-bold text-tx-main">{{ .Title }}</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
+        Release actual: <strong>{{ $release.release_name }}</strong> ({{ $release.version }}).
+        {{/* time.Format honours the site language; .Format is Go's, always English. */}}
+        Última actualización de esta página: {{ time.Format "2 de January de 2006" .Lastmod }}.
+      </p>
+    </header>
+
+    {{/* The table first: it is the reason anyone opens this page. */}}
+    <section class="mt-10 space-y-8">
+      {{- range $data.groups }}
+      <div class="overflow-hidden rounded-corner bg-ui-bg/80">
+        <h2 class="flex items-center gap-3 border-b border-ui-border px-6 py-4 text-xl font-bold text-tx-main">
+          <i class="{{ .icon }} text-primary" aria-hidden="true"></i>
+          {{ .name }}
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[42rem] text-left text-sm">
+            <thead class="bg-ui-surface/40 text-xs uppercase tracking-wide text-tx-muted">
+              <tr>
+                <th scope="col" class="px-6 py-3">Componente</th>
+                <th scope="col" class="px-6 py-3">Versión</th>
+                <th scope="col" class="px-6 py-3">Estado</th>
+                <th scope="col" class="px-6 py-3">Qué hace</th>
+                <th scope="col" class="px-6 py-3">Código</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{- range .items }}
+              {{- $badge := index $data.legend .status }}
+              <tr class="border-t border-ui-border/60">
+                <th scope="row" class="px-6 py-4 font-semibold text-tx-main">
+                  {{ .title }}
+                  <span class="block text-xs font-normal text-tx-muted">{{ .name }}</span>
+                </th>
+                <td class="whitespace-nowrap px-6 py-4">{{ .version }}</td>
+                <td class="px-6 py-4">
+                  <span class="whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold {{ $badge.class }}">{{ $badge.label }}</span>
+                </td>
+                <td class="px-6 py-4 text-tx-muted">{{ .text }}</td>
+                <td class="px-6 py-4">
+                  <a href="{{ .repo }}" rel="noopener" target="_blank"
+                    class="inline-flex items-center gap-1 text-primary hover:text-secondary" aria-label="Repositorio de {{ .title }}">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+              {{- end }}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {{- end }}
+    </section>
+
+    <section id="article" class="mt-10 rounded-corner bg-ui-bg/80 px-6 py-10 text-tx-main md:px-14">
+      {{ .Content }}
+    </section>
+
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/downloads/" class="rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">Descargar {{ $release.channel }}</a>
+      <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank"
+        class="rounded-corner border border-primary px-6 py-3 font-semibold text-primary hover:bg-primary hover:text-white">Ver el roadmap</a>
+    </div>
+  </div>
+</main>
+{{ end }}

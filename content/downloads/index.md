@@ -1,78 +1,55 @@
 ---
 Title: "Descargas"
-tags:
-  [
-    descargas,
-    download,
-    desacargar vasakos,
-    descargar,
-    download vasak,
-    iso,
-    descargar iso,
-    vasakos iso,
-    vasakos iso download,
-    vasakos iso descarga,
-    vasakos iso descargas,
-    vasakos,
-  ]
-description: "Descargá VasakOS con información técnica completa, checksum SHA256 y guía de verificación."
-
-download:
-  release_name: "VasakOS Alpha 4"
-  channel: "Alpha"
-  version: "2026.06.14"
-  arch: "x86_64"
-  image_name: "vasakos-2026.06.14-x86_64.iso"
-  size: "2.4 GB"
-  published_at: "2026-06-14"
-  status: "Alpha"
-  sha256: "6dc43203b4d8836a6c29cb967572a348743d8d05e444086b053dd2b74d8e9766"
-  sha256_file: ""
-  signature_file: ""
-  changelog_url: "/changelogs/14062026/"
-  support_url: "https://t.me/VasakOS"
-  bug_report_url: "https://github.com/Vasak-OS"
-  mirrors:
-    - name: "MediaFire"
-      url: "https://www.mediafire.com/file/1ix5njftevqnvg6/vasakos-2026.06.14-x86_64.iso/file"
-      region: "Global"
-    - name: "SourceForge"
-      url: "https://sourceforge.net/projects/vasakos/files/Alpha/vasakos-2026.06.14-x86_64.iso/download"
-      region: "Global"
-    - name: "Mega"
-      url: "https://mega.nz/file/noJw0CxS#IMC1wfLFoHC_LIUIp0Nu2avrJ7f-SWMJoaSrrk6hgXY"
-      region: "Global"
-
-requirements:
-  minimum:
-    - "CPU de 64 bits"
-    - "4 GB de RAM"
-    - "20 GB de almacenamiento libre"
-    - "Pendrive de 8 GB para crear USB booteable"
-    - "GPU compatible con aceleracion 3D basica"
-  recommended:
-    - "CPU de 4 nucleos o superior"
-    - "8 GB de RAM o mas"
-    - "40 GB de almacenamiento libre"
-    - "GPU compatible con aceleracion 3D basica"
-
-verify:
-  linux: "sha256sum vasakos-2026.06.14-x86_64.iso"
-  macos: "shasum -a 256 vasakos-2026.06.14-x86_64.iso"
-  windows: "CertUtil -hashfile vasakos-2026.06.14-x86_64.iso SHA256"
+seotitle: "Descargar VasakOS — ISO x86_64, checksum SHA256 y requisitos | VasakOS"
+description: "Descargá la ISO oficial de VasakOS para x86_64. Mirrors, checksum SHA256, requisitos mínimos y guía paso a paso para crear el USB booteable e instalar."
+tags: [descargas, download, iso, vasakos iso, descargar vasakos, arch linux, linux]
+type: downloads
 img: "/img/posts/download.svg"
 date: "2022-03-19"
+lastmod: "2026-06-14"
 ---
 
-Esta seccion centraliza toda la informacion necesaria para descargar e instalar VasakOS de manera segura. Si queres probar la version actual, te recomendamos validar el checksum SHA256 antes de crear el medio booteable.
+Los datos técnicos de la release, los mirrors y el checksum salen de un único archivo
+(`data/release.yml`), así que lo que ves acá es exactamente lo que se publicó.
 
-> Importante: las versiones Alpha pueden incluir errores y cambios importantes entre compilaciones.
+> **Es una versión Alpha.** Se instala y se usa, pero hay funciones incompletas y cambios
+> entre compilaciones. Antes de reemplazar tu sistema principal, revisá el
+> [estado del proyecto](/state/).
 
-Si detectas problemas durante la instalacion o el arranque, comparti tu reporte con logs y hardware para ayudarnos a mejorar futuras releases.
+## Instalar paso a paso
 
-### Siguiente paso sugerido
+1. **Descargá la ISO** desde cualquiera de los mirrors de arriba.
+2. **Verificá el SHA256** con el comando de tu sistema. Si no coincide, la descarga se
+   corrompió o el mirror está comprometido: no la uses.
+3. **Creá el USB booteable.** Recomendamos [Ventoy](https://www.ventoy.net/) porque te deja
+   copiar la ISO como un archivo más y conservar varias en el mismo pendrive. También
+   sirven `dd`, [balenaEtcher](https://etcher.balena.io/) o Rufus.
 
-1. Descarga la ISO desde un mirror.
-2. Verifica SHA256.
-3. Crea el USB booteable. Recomendamos usar Ventoy.
-4. Inicia en modo Live y prueba compatibilidad.
+   ```bash
+   sudo dd if=vasakos-2026.06.14-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
+   ```
+
+   Reemplazá `/dev/sdX` por tu pendrive — `lsblk` te dice cuál es. **Escribir en el disco
+   equivocado borra ese disco.**
+4. **Arrancá desde el USB.** En la mayoría de los equipos se entra al menú de arranque con
+   F12, F11, F9 o Esc. Si tenés Secure Boot activado, desactivalo.
+5. **Probá en modo Live.** Antes de instalar, verificá que anden el wifi, el sonido, el
+   brillo y la resolución de pantalla.
+6. **Instalá** desde el icono del instalador en el escritorio.
+
+## Después de instalar
+
+El repositorio de paquetes de VasakOS ya viene configurado en la ISO, así que las
+actualizaciones llegan con:
+
+```bash
+sudo pacman -Syu
+```
+
+Si querés usar las aplicaciones de VasakOS sobre una instalación de Arch Linux ya existente,
+seguí la guía de [repositorio de paquetes](/docs/user/repository/).
+
+## Si algo falla
+
+Un reporte útil incluye el modelo del equipo, la placa de video, en qué paso falló y los
+logs. La guía completa está en [reportar errores](/docs/user/reporte-errores/).
