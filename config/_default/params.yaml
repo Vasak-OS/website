@@ -152,3 +152,12 @@ support:
       weight: 3
       params:
         icon: fa-solid fa-user-tie
+
+# Índice del repositorio de paquetes, generado por repository-script/build-db.sh
+# en cada publicación. La página /state/ lo lee durante el build para mostrar la
+# versión que está realmente publicada de cada componente. Si el servidor no
+# responde, se usan las versiones de data/components.yml.
+repository:
+  name: "vasakos"
+  server: "https://repo.vasak.net.ar/repo/x86_64/vasakos"
+  index: "https://repo.vasak.net.ar/repo/x86_64/vasakos/vasakos.json"

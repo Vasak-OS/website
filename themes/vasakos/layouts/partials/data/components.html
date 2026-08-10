@@ -1,0 +1,71 @@
+{{- /*
+  Devuelve los componentes de VasakOS con la versión que está realmente
+  publicada en el repositorio de paquetes.
+
+  build-db.sh escribe un vasakos.json junto a la base de datos cada vez que se
+  publica el repositorio, con lo que hay en el directorio en ese momento. Este
+  partial lo baja durante el build y pisa con esos números las versiones de
+  data/components.yml, así que la página no depende de que alguien se acuerde de
+  editarla.
+
+  Lo que sigue siendo manual es lo editorial —el título, la descripción y el
+  estado (alpha/beta/estable)—, porque eso no está en ningún metadato: nada en el
+  paquete sabe que las cuentas en línea todavía no las usa ninguna aplicación.
+
+  Si el repositorio no responde, se usan las versiones del YAML y `live` queda en
+  false, para que la página pueda decir de dónde salieron los datos en vez de
+  fingir que están frescos.
+
+  Devuelve: { groups, legend, live (bool), generated (string), extra (int) }
+*/ -}}
+
+{{- $data := hugo.Data.components -}}
+{{- $url := site.Params.repository.index -}}
+{{- $published := dict -}}
+{{- $live := false -}}
+{{- $generated := "" -}}
+
+{{/* try envuelve la descarga para que un servidor caído no tire el build entero:
+     una versión vieja en la tabla es mucho menos grave que un sitio que no
+     compila. Un 404 devuelve un recurso vacío sin error, así que la condición
+     mira .Value y no .Err. */}}
+{{- with $url -}}
+  {{- $attempt := try (resources.GetRemote .) -}}
+  {{- with $attempt.Value -}}
+    {{- $json := .Content | transform.Unmarshal -}}
+    {{- with $json.packages -}}
+      {{- range . -}}
+        {{- $published = merge $published (dict .name .) -}}
+      {{- end -}}
+      {{- $live = true -}}
+      {{- $generated = $json.generated -}}
+    {{- end -}}
+  {{- else -}}
+    {{- warnf "No se pudo leer el índice del repositorio (%s)%s. /state/ muestra las versiones de data/components.yml." $url (cond (ne $attempt.Err nil) (printf ": %s" $attempt.Err) "") -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $groups := slice -}}
+{{- $known := slice -}}
+{{- range $data.groups -}}
+  {{- $items := slice -}}
+  {{- range .items -}}
+    {{- $item := . -}}
+    {{- with index $published .name -}}
+      {{- $known = $known | append $item.name -}}
+      {{- $item = merge $item (dict "version" .version "published" true "builddate" .builddate) -}}
+    {{- end -}}
+    {{- $items = $items | append $item -}}
+  {{- end -}}
+  {{- $groups = $groups | append (merge . (dict "items" $items)) -}}
+{{- end -}}
+
+{{/* Los paquetes de soporte (ckbcomp, lsb-release, el llavero, los fondos) no
+     merecen una fila cada uno, pero omitirlos en silencio haría parecer que el
+     repositorio tiene menos de lo que tiene. */}}
+{{- $extra := 0 -}}
+{{- range $name, $pkg := $published -}}
+  {{- if not (in $known $name) }}{{ $extra = add $extra 1 }}{{ end -}}
+{{- end -}}
+
+{{- return dict "groups" $groups "legend" $data.legend "live" $live "generated" $generated "extra" $extra -}}

@@ -58,6 +58,11 @@ pie de página entra en pantalla).
   componente con versión publicada, estado (estable / beta / alpha / en desarrollo) y
   enlace al repositorio, más una sección explícita de "qué todavía no". Para un proyecto
   joven, admitir los límites genera más confianza que ocultarlos.
+- **Las versiones de esa tabla salen del repositorio de paquetes.** `build-db.sh` escribe
+  un `vasakos.json` con lo que publica y el sitio lo lee durante el build, así que la única
+  forma de que la página quede desactualizada es no redesplegarla. Lo editorial —qué hace
+  cada componente y en qué estado está— sigue siendo manual, porque no está en ningún
+  metadato.
 - **Nueva sección "Qué incluye VasakOS"** en la portada, con los 16 componentes reales y
   sus versiones.
 - **Hero rehecho**: la portada decía "Bienvenidos a Vasak OS · Un sistema basado en
@@ -128,6 +133,40 @@ verse como el de un proyecto serio.
 **5. Sitio en inglés.** El mercado de distribuciones es angloparlante. Hugo soporta
 multilenguaje nativo y la estructura ya está preparada; empezaría por portada, descargas,
 estado e instalación, no por las 40 páginas de documentación.
+
+**5b. Deploy automático con rebuild programado.** Hoy el sitio se publica corriendo
+`./deploy.sh` a mano. La página de estado ya lee las versiones del repositorio de paquetes,
+pero al ser un sitio estático sólo se entera en el build siguiente: si se publica un paquete
+y nadie redespliega, la página sigue mostrando lo anterior.
+
+Un workflow de GitHub Actions con `on: push` y `on: schedule` (una vez por día) cierra el
+ciclo: publicás paquetes y el sitio se pone al día solo. Es el complemento natural de lo que
+ya está hecho y no requiere tocar ninguna plantilla.
+
+```yaml
+# .github/workflows/deploy.yml
+name: deploy
+on:
+  push: { branches: [main] }
+  schedule: [{ cron: "0 6 * * *" }]   # y así /state/ se refresca solo
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - uses: peaceiris/actions-hugo@v3
+        with: { hugo-version: latest, extended: true }
+      - run: bun install --frozen-lockfile && bun run build
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+```
+
+No lo dejé activo porque en cuanto el archivo entra al repositorio empieza a publicar en
+cada push, y esa es una decisión tuya, no mía.
 
 ### Prioridad media
 

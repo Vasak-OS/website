@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{- $data := hugo.Data.components -}}
+{{- $data := partial "data/components.html" . -}}
 {{- $release := hugo.Data.release -}}
 
 <main class="px-4 py-10">
@@ -11,8 +11,23 @@
       <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
         Release actual: <strong>{{ $release.release_name }}</strong> ({{ $release.version }}).
         {{/* time.Format honours the site language; .Format is Go's, always English. */}}
-        Última actualización de esta página: {{ time.Format "2 de January de 2006" .Lastmod }}.
+        Última revisión de esta página: {{ time.Format "2 de January de 2006" .Lastmod }}.
       </p>
+
+      {{/* De dónde salen las versiones. Una tabla de estado sin fecha no se
+           distingue de una tabla de estado abandonada. */}}
+      {{- if $data.live }}
+      <p class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-success/10 px-4 py-1 text-sm text-status-success">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        Versiones leídas del repositorio de paquetes
+        {{- with $data.generated }}, publicado el {{ time.Format "2 de January de 2006 a las 15:04 UTC" . }}{{ end }}.
+      </p>
+      {{- else }}
+      <p class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-warning/10 px-4 py-1 text-sm text-status-warning">
+        <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+        El repositorio no respondió durante la compilación: las versiones son las de la última revisión manual.
+      </p>
+      {{- end }}
     </header>
 
     {{/* The table first: it is the reason anyone opens this page. */}}
@@ -59,6 +74,14 @@
           </table>
         </div>
       </div>
+      {{- end }}
+
+      {{- if gt $data.extra 0 }}
+      <p class="text-center text-sm text-tx-muted">
+        El repositorio publica además {{ $data.extra }} paquete{{ if gt $data.extra 1 }}s{{ end }} de soporte
+        (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch).
+        <a href="/docs/user/repository/" class="text-primary underline">Cómo agregar el repositorio</a>.
+      </p>
       {{- end }}
     </section>
 

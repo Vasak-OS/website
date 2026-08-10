@@ -92,9 +92,33 @@ Después, escribí el changelog en `content/changelogs/DDMMAAAA.md` y actualizá
 
 ### Actualizar el estado del proyecto
 
-Editá **`data/components.yml`**: versión y `status` de cada componente
-(`stable` / `beta` / `alpha` / `wip` / `planned`). Alimenta la sección "Qué incluye
-VasakOS" de la portada y la página [/state/](https://os.vasak.net.ar/state/).
+**Las versiones se actualizan solas.** Cada vez que se publica el repositorio de paquetes,
+`repository-script/build-db.sh` escribe un `vasakos.json` junto a la base de datos con lo
+que hay adentro. El sitio lo lee durante el build (`partials/data/components.html`) y pisa
+con esos números las versiones de `data/components.yml`. Publicar un paquete nuevo y
+redesplegar el sitio alcanza para que [/state/](https://os.vasak.net.ar/state/) y la
+portada lo reflejen.
+
+Lo que **sí** se edita a mano en `data/components.yml` es lo editorial: el título, la
+descripción y el `status` (`stable` / `beta` / `alpha` / `wip` / `planned`). Eso no está en
+ningún metadato — nada dentro de un paquete sabe que las cuentas en línea todavía no las
+usa ninguna aplicación.
+
+Si el repositorio no responde durante el build, se usan las versiones del YAML, el build
+avisa con un `WARN` y la página lo dice en vez de fingir que los datos están frescos.
+
+La URL del índice se configura en `params.yaml` → `repository.index`. Para probar contra un
+índice local, Hugo bloquea las URLs que no son HTTPS públicas, así que hay que aflojar la
+política:
+
+```bash
+HUGO_SECURITY_HTTP_URLS='.*' \
+HUGO_PARAMS_REPOSITORY_INDEX="http://127.0.0.1:8899/vasakos.json" hugo
+```
+
+> Como el sitio es estático, "solo" significa *en cada build*. Para que se actualice sin
+> intervención después de publicar paquetes, hace falta un rebuild programado — ver
+> [MEJORAS.md](MEJORAS.md).
 
 ### Escribir una entrada de blog
 

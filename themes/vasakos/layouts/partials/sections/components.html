@@ -3,7 +3,7 @@
   to know what exists and how finished it is; a page that only says "moderno" and
   "potente" gives them nothing to check.
 */}}
-{{- $data := hugo.Data.components -}}
+{{- $data := partial "data/components.html" . -}}
 <section class="bg-ui-bg/80 px-4 py-16" id="componentes">
   <div class="mx-auto max-w-screen-xl">
     <div class="mx-auto mb-12 max-w-3xl text-center">
