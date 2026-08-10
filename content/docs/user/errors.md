@@ -1,6 +1,8 @@
 ---
-title: "Visualización de Errores"
-weight: 10
+title: "Ver errores en tiempo real"
+weight: 40
+description: "Cómo ver los errores de VasakOS en tiempo real con RUST_LOG, journalctl y las herramientas del sistema."
+aliases: ["/docs/user/errores/"]
 ---
 
 ## Cómo ver errores en tiempo real

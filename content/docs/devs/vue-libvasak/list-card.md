@@ -1,6 +1,8 @@
 ---
 title: "Tarjeta | ListCard"
 weight: 40
+description: "Componente ListCard de vue-libvasak: tarjeta para elementos de una lista en las aplicaciones de VasakOS."
+aliases: ["/docs/devs/vue-libvasak/listcard/"]
 ---
 
 # `ListCard`

@@ -1,6 +1,7 @@
 ---
-title: "Solucion a Problemas"
-weight: 25
+title: "Solución de problemas"
+weight: 30
+description: "Guía paso a paso para los problemas más frecuentes de VasakOS: arranque, sesión, audio, red y pantalla."
 ---
 
 ## Problemas de Inicio

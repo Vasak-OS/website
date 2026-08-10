@@ -1,6 +1,7 @@
 ---
 title: "Buenas Practicas [VueJS]"
 weight: 200
+aliases: ["/docs/devs/good-practices_vue/"]
 ---
 
 Guía de mejores prácticas para desarrollar aplicaciones de escritorio performantes con Vue.js 3 y Tauri.

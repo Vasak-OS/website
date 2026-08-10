@@ -1,6 +1,8 @@
 ---
-title: "Como reportar errores"
-weight: 15
+title: "Cómo reportar errores"
+weight: 50
+description: "Qué información incluir en un reporte de error de VasakOS para que se pueda reproducir y arreglar."
+aliases: ["/docs/user/reporte-errores/"]
 ---
 
 ## Antes de Reportar

@@ -1,6 +1,7 @@
 ---
-title: "Logs y Debugging [Para usuarios]"
-weight: 5
+title: "Logs y diagnóstico"
+weight: 45
+description: "Dónde viven los logs de VasakOS y cómo leerlos para entender qué falló."
 ---
 
 ## Sistema de Logging
