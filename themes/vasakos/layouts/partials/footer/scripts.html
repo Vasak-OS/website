@@ -16,6 +16,16 @@
 {{- $bundle := slice $darkmode $menu | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 <script defer src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous"></script>
 
+{{/* Consulta en vivo del repositorio de paquetes. Sólo en las dos páginas que
+     muestran versiones: la portada y /state/. */}}
+{{- if or .IsHome (eq .Type "state") }}
+  {{- with resources.Get "js/state-live.js" }}
+    {{- with . | minify | fingerprint }}
+<script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+    {{- end }}
+  {{- end }}
+{{- end }}
+
 {{/* Mermaid: only for pages that render a diagram. `.Content` is already built
      at this point, so testing it costs nothing and keeps 3.3 MB off every other
      page. */}}

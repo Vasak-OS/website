@@ -4,7 +4,7 @@
   "potente" gives them nothing to check.
 */}}
 {{- $data := partial "data/components.html" . -}}
-<section class="bg-ui-bg/80 px-4 py-16" id="componentes">
+<section class="bg-ui-bg/80 px-4 py-16" id="componentes" data-repo-index="{{ site.Params.repository.index }}">
   <div class="mx-auto max-w-screen-xl">
     <div class="mx-auto mb-12 max-w-3xl text-center">
       <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">Qué incluye VasakOS</h2>
@@ -29,7 +29,7 @@
               <span class="font-semibold text-tx-main">{{ .title }}</span>
               <span class="rounded-full px-2 py-0.5 text-xs font-semibold {{ $badge.class }}">{{ $badge.label }}</span>
             </div>
-            <p class="text-sm text-tx-muted">{{ .version }}</p>
+            <p class="text-sm text-tx-muted" data-pkg-version="{{ .name }}">{{ .version }}</p>
           </li>
           {{- end }}
         </ul>

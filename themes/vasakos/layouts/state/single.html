@@ -2,7 +2,9 @@
 {{- $data := partial "data/components.html" . -}}
 {{- $release := hugo.Data.release -}}
 
-<main class="px-4 py-10">
+{{/* El gancho para state-live.js: la URL del índice vive en la configuración,
+     no en el JavaScript. */}}
+<main class="px-4 py-10" data-repo-index="{{ site.Params.repository.index }}">
   <div class="mx-auto max-w-screen-xl">
 
     <header class="rounded-corner bg-ui-bg/80 p-8 text-center">
@@ -15,19 +17,26 @@
       </p>
 
       {{/* De dónde salen las versiones. Una tabla de estado sin fecha no se
-           distingue de una tabla de estado abandonada. */}}
-      {{- if $data.live }}
-      <p class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-success/10 px-4 py-1 text-sm text-status-success">
+           distingue de una tabla de estado abandonada.
+
+           Los tres estados se renderizan siempre y se muestra el que
+           corresponde: así el JS que consulta el repositorio en vivo sólo tiene
+           que alternar `hidden`, sin construir clases que Tailwind nunca vio y
+           por lo tanto nunca generó. */}}
+      <p data-repo-state="live"
+        class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-success/10 px-4 py-1 text-sm text-status-success{{ if not $data.live }} hidden{{ end }}">
         <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-        Versiones leídas del repositorio de paquetes
-        {{- with $data.generated }}, publicado el {{ time.Format "2 de January de 2006 a las 15:04 UTC" . }}{{ end }}.
+        <span>Versiones leídas del repositorio de paquetes<span data-repo-generated>{{ with $data.generated }}, publicado el {{ time.Format "2 de January de 2006 a las 15:04 UTC" . }}{{ end }}</span>.</span>
       </p>
-      {{- else }}
-      <p class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-warning/10 px-4 py-1 text-sm text-status-warning">
+      <p data-repo-state="stale"
+        class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-warning/10 px-4 py-1 text-sm text-status-warning{{ if $data.live }} hidden{{ end }}">
         <i class="fa-solid fa-wrench" aria-hidden="true"></i>
-        El repositorio no respondió durante la compilación: las versiones son las de la última revisión manual.
+        <span>El repositorio no respondió: las versiones son las de la última revisión manual.</span>
       </p>
-      {{- end }}
+      <p data-repo-state="loading" class="mx-auto mt-4 hidden max-w-2xl items-center gap-2 rounded-full bg-ui-surface/50 px-4 py-1 text-sm text-tx-muted">
+        <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
+        <span>Consultando el repositorio…</span>
+      </p>
     </header>
 
     {{/* The table first: it is the reason anyone opens this page. */}}
@@ -57,7 +66,10 @@
                   {{ .title }}
                   <span class="block text-xs font-normal text-tx-muted">{{ .name }}</span>
                 </th>
-                <td class="whitespace-nowrap px-6 py-4">{{ .version }}</td>
+                {{/* data-pkg-version es el gancho que usa state-live.js para
+                     reemplazar el número con el que el repositorio publica
+                     ahora, sin volver a compilar el sitio. */}}
+                <td class="whitespace-nowrap px-6 py-4" data-pkg-version="{{ .name }}">{{ .version }}</td>
                 <td class="px-6 py-4">
                   <span class="whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold {{ $badge.class }}">{{ $badge.label }}</span>
                 </td>
@@ -76,13 +88,11 @@
       </div>
       {{- end }}
 
-      {{- if gt $data.extra 0 }}
-      <p class="text-center text-sm text-tx-muted">
-        El repositorio publica además {{ $data.extra }} paquete{{ if gt $data.extra 1 }}s{{ end }} de soporte
+      <p data-repo-extra-wrap class="text-center text-sm text-tx-muted{{ if not (gt $data.extra 0) }} hidden{{ end }}">
+        El repositorio publica además <span data-repo-extra>{{ $data.extra }}</span> paquetes de soporte
         (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch).
         <a href="/docs/user/repository/" class="text-primary underline">Cómo agregar el repositorio</a>.
       </p>
-      {{- end }}
     </section>
 
     <section id="article" class="mt-10 rounded-corner bg-ui-bg/80 px-6 py-10 text-tx-main md:px-14">

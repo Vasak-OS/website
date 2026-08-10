@@ -58,11 +58,14 @@ pie de página entra en pantalla).
   componente con versión publicada, estado (estable / beta / alpha / en desarrollo) y
   enlace al repositorio, más una sección explícita de "qué todavía no". Para un proyecto
   joven, admitir los límites genera más confianza que ocultarlos.
-- **Las versiones de esa tabla salen del repositorio de paquetes.** `build-db.sh` escribe
-  un `vasakos.json` con lo que publica y el sitio lo lee durante el build, así que la única
-  forma de que la página quede desactualizada es no redesplegarla. Lo editorial —qué hace
-  cada componente y en qué estado está— sigue siendo manual, porque no está en ningún
-  metadato.
+- **Las versiones de esa tabla las consulta el navegador al repositorio de paquetes.**
+  `build-db.sh` escribe un `vasakos.json` con lo que publica; la página lo trae en el build
+  (para buscadores y para quien no tenga JavaScript) y lo vuelve a consultar al cargarse,
+  así que publicar un paquete alcanza para que la página quede al día: no hace falta
+  redesplegar el sitio. Lo editorial —qué hace cada componente y en qué estado está— sigue
+  siendo manual, porque no está en ningún metadato.
+  Requiere una cabecera CORS en el servidor del repositorio; sin ella se cae al modo
+  build-time solo.
 - **Nueva sección "Qué incluye VasakOS"** en la portada, con los 16 componentes reales y
   sus versiones.
 - **Hero rehecho**: la portada decía "Bienvenidos a Vasak OS · Un sistema basado en
@@ -134,14 +137,14 @@ verse como el de un proyecto serio.
 multilenguaje nativo y la estructura ya está preparada; empezaría por portada, descargas,
 estado e instalación, no por las 40 páginas de documentación.
 
-**5b. Deploy automático con rebuild programado.** Hoy el sitio se publica corriendo
-`./deploy.sh` a mano. La página de estado ya lee las versiones del repositorio de paquetes,
-pero al ser un sitio estático sólo se entera en el build siguiente: si se publica un paquete
-y nadie redespliega, la página sigue mostrando lo anterior.
+**5b. Deploy automático en cada push.** Las versiones de la tabla de estado ya no dependen
+del deploy —las consulta el navegador—, así que esto dejó de ser urgente. Sigue valiendo
+para los cambios de contenido: hoy publicar una entrada del blog implica acordarse de correr
+`./deploy.sh`.
 
-Un workflow de GitHub Actions con `on: push` y `on: schedule` (una vez por día) cierra el
-ciclo: publicás paquetes y el sitio se pone al día solo. Es el complemento natural de lo que
-ya está hecho y no requiere tocar ninguna plantilla.
+Un workflow de GitHub Actions con `on: push` lo resuelve. El `schedule` diario es opcional:
+sólo hace falta si en algún momento se quiere que el HTML servido también traiga las
+versiones frescas para los buscadores, en vez de las del último build.
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -177,6 +180,12 @@ Boxes / QEMU en 5 minutos" en la página de descargas. Baja muchísimo la barrer
 **7. Torrent como mirror.** Una ISO de 2,4 GB en MediaFire y Mega da mala impresión y es
 lenta. Un `.torrent` con webseed es lo que hacen las distribuciones establecidas, y cuesta
 poco.
+
+**7b. Los datos de la ISO también consultables.** La tabla de estado ya se actualiza sola,
+pero `data/release.yml` —versión, checksum, mirrors— sigue necesitando un deploy. El mismo
+patrón sirve: publicar un `release.json` junto a la ISO al construirla y que la página de
+descargas lo consulte igual que hace `/state/`. Con eso, sacar una ISO nueva no tocaría el
+repositorio del sitio.
 
 **8. Firma GPG de la ISO.** El SHA256 verifica que la descarga no se corrompió, no que la
 publicaste vos. Ya existe la clave del repositorio: publicar `SHA256SUMS` y
