@@ -51,7 +51,7 @@
 	const modal = document.getElementById('docs-search-modal');
 	const backdrop = document.getElementById('docs-search-backdrop');
 	const closeBtn = document.getElementById('docs-search-close');
-	const endpoint = '/index.json';
+	const endpoint = '/search-index.json';
 	const MIN_CHARS = 2;
 	let index = null;
 
@@ -65,22 +65,19 @@
 		setTimeout(() => modal.classList.add('hidden'), 200);
 	};
 
+	// The index is built by layouts/index.json and already contains only the
+	// documentation, so there is nothing left to filter here.
 	const fetchIndex = async () => {
 		if (index) return index;
 		statusEl.textContent = 'Cargando…';
-		const res = await fetch(endpoint);
-		const data = await res.json();
-		// Filtra solo docs
-		index = (data || []).filter(item => {
-			const rel = item.RelPermalink || item.relpermalink || '';
-			const url = item.Permalink || item.permalink || '';
-			return rel.startsWith('/docs/') || url.includes('/docs/');
-		}).map(item => ({
-			title: item.title || item.Title || '',
-			content: item.content || item.Content || '',
-			summary: item.summary || item.Summary || '',
-			permalink: item.Permalink || item.permalink || item.RelPermalink || item.relpermalink || '#',
-		}));
+		try {
+			const res = await fetch(endpoint);
+			index = await res.json();
+		} catch (err) {
+			index = [];
+			statusEl.textContent = '!';
+			return index;
+		}
 		statusEl.textContent = '';
 		return index;
 	};

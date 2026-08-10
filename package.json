@@ -1,8 +1,15 @@
 {
+  "name": "vasakos-website",
+  "private": true,
+  "description": "Sitio oficial de VasakOS — https://os.vasak.net.ar/",
   "scripts": {
-    "build": "tailwindcss build -i themes/vasakos/assets/css/tailwind.css -o themes/vasakos/assets/css/vsk.css"
+    "icons": "node scripts/build-icons.mjs",
+    "build": "bun run icons && hugo --gc",
+    "dev": "bun run icons && hugo server --disableFastRender",
+    "preview": "bun run build && hugo server --renderToDisk"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.1",
     "@tailwindcss/cli": "^4.3.1",
     "tailwindcss": "^4.3.1"
   },

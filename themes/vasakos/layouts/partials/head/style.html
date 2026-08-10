@@ -1,25 +1,29 @@
-{{ $t := debug.Timer "tailwindcss" }}
-{{ with resources.Get "css/styles.css" }}
-{{ $opts := dict
-"inlineImports" true
-"optimize" (not hugo.IsDevelopment)
-}}
-{{ with . | css.TailwindCSS $opts }}
-{{ if hugo.IsDevelopment }}
-<link rel="stylesheet" href="{{ .RelPermalink }}" />
-{{ else }}
-{{ with . | minify | fingerprint }}
-<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" />
-{{ end }}
-{{ end }}
-{{ end }}
-{{ end }}
+{{/*
+  One stylesheet, built from source, minified and fingerprinted.
 
-{{ $t.Stop }}
+  What used to be here besides this:
 
-{{ $pageclip := resources.GetRemote "https://s.pageclip.co/v1/pageclip.css" | minify | fingerprint "sha512" }}
-{{ with resources.Get "css/mermaid.css" }}
-  {{ $mermaidcss := . | minify | fingerprint "sha512" }}
-  {{ $allcss := slice $pageclip $mermaidcss | resources.Concat "/css/vendor.css" | minify | fingerprint "sha512" }}
-  <link rel="stylesheet" href="{{ $allcss.RelPermalink }}" />
-{{ end }}
+  - Three Google Fonts families with every weight and both italics. No rule in
+    the theme ever referenced them, so the site was paying a render-blocking
+    request to a third-party origin plus several font files to change nothing.
+  - Pageclip's stylesheet, fetched from a fourth origin for a form widget the
+    site does not use.
+
+  Both are gone. Mermaid's stylesheet moved to the pages that actually draw
+  diagrams — see footer/scripts.html.
+*/}}
+{{- with resources.Get "css/styles.css" }}
+  {{- $opts := dict "inlineImports" true "optimize" (not hugo.IsDevelopment) -}}
+  {{- with . | css.TailwindCSS $opts }}
+    {{- if hugo.IsDevelopment }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" />
+    {{- else }}
+      {{- with . | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" />
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{/* The brand font is small and used above the fold in the header and hero. */}}
+<link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin />

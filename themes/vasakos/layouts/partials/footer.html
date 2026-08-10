@@ -41,5 +41,7 @@
   <em class="fas fa-arrow-up"></em>
 </a>
 
-{{ partial "mermaid-content.html" . }}
-{{ partialCached "footer/scripts.html" . }}
+{{/* Not partialCached: the scripts a page needs depend on the page — Mermaid is
+     only emitted where a diagram exists — and a cache without a variant key
+     would hand the first page's answer to every other one. */}}
+{{ partial "footer/scripts.html" . }}

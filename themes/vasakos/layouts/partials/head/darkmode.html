@@ -1,3 +1,7 @@
-<a href="javascript:void(0)" onclick="toggleDarkmode()" id="toggletheme" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white">
-  <em class="fas fa-moon"></em>
-</a>
+{{/* Rendered twice — desktop header and mobile menu — so this is a class, not
+     an id. Two elements sharing id="toggletheme" meant only one of them ever
+     updated its icon. */}}
+<button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary"
+  aria-label="Cambiar tema" title="Cambiar tema">
+  <i class="fa-solid fa-moon" aria-hidden="true"></i>
+</button>

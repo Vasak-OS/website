@@ -1,5 +1,19 @@
-{{- $.Scratch.Add "index" slice -}}
-{{- range .Site.RegularPages -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "contents" .Plain "permalink" .Permalink "imagen" .Params.img) -}}
+{{- /*
+  Search index for the documentation search box.
+
+  It used to carry `.Plain` — the full text of every page on the site — which
+  produced a 250 KB JSON that the widget then downloaded to search a subset of
+  it. Only documentation is searchable, and a snippet is enough to render a
+  result, so the index holds the docs pages with their text capped.
+*/ -}}
+{{- $index := slice -}}
+{{- range where site.RegularPages "Section" "docs" -}}
+  {{- $index = $index | append (dict
+      "title" .Title
+      "summary" (.Description | default .Summary | plainify | chomp | truncate 180)
+      "content" (.Plain | chomp | truncate 1200)
+      "permalink" .RelPermalink
+      "section" (path.Base .CurrentSection.RelPermalink)
+  ) -}}
 {{- end -}}
-{{- $.Scratch.Get "index" | jsonify -}}
+{{- $index | jsonify -}}

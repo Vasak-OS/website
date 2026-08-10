@@ -1,78 +1,58 @@
-{{/* 
-  Partial: mermaid-content
-  
-  Procesa el contenido para asegurar que los bloques mermaid se rendericen correctamente.
-  Añade la clase 'mermaid' automáticamente a los bloques de código con lenguaje 'mermaid'
-*/}}
+{{/*
+  Mermaid bootstrap. Emitted only by footer/scripts.html, and only on pages that
+  contain a diagram.
 
-<!-- Mermaid diagram initialization script -->
+  Goldmark renders ```mermaid fences as <pre><code class="language-mermaid">, so
+  the blocks are converted to the <div class="mermaid"> Mermaid expects before
+  it is told to draw. The previous version also installed a MutationObserver on
+  <html> that re-initialised Mermaid on *every* class change; the theme toggle
+  now calls in directly instead.
+*/}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Inicializar Mermaid
-  if (typeof mermaid !== 'undefined') {
-    mermaid.initialize({ 
-      startOnLoad: true, 
-      theme: 'default', 
+  (function () {
+    var CONFIG = {
+      startOnLoad: false,
       securityLevel: 'loose',
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true,
-        curve: 'cardinal'
-      },
-      sequenceDiagram: {
-        useMaxWidth: true,
-        diagramMarginX: 50,
-        diagramMarginY: 10
-      },
-      blockDiagram: {
-        useMaxWidth: true
-      }
-    });
-    
-    // Procesar diagrama mermaid en bloques de código
-    const codeTags = document.querySelectorAll('pre > code.language-mermaid');
-    codeTags.forEach(function(tag) {
-      const preTag = tag.parentElement;
-      const mermaidContent = tag.textContent;
-      
-      // Crear un nuevo div con clase mermaid
-      const mermaidDiv = document.createElement('div');
-      mermaidDiv.className = 'mermaid';
-      mermaidDiv.textContent = mermaidContent;
-      
-      // Reemplazar el pre con el div
-      preTag.parentNode.replaceChild(mermaidDiv, preTag);
-    });
-    
-    // Renderizar diagramas
-    mermaid.contentLoaded();
-  }
-  
-  // Soporte para modo oscuro
-  const htmlElement = document.documentElement;
-  const observerOptions = {
-    attributes: true,
-    attributeFilter: ['class']
-  };
-  
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.attributeName === 'class') {
-        const isDark = htmlElement.classList.contains('dark');
-        const theme = isDark ? 'dark' : 'default';
-        
-        if (typeof mermaid !== 'undefined') {
-          mermaid.initialize({ 
-            startOnLoad: true, 
-            theme: theme, 
-            securityLevel: 'loose'
-          });
-          mermaid.contentLoaded();
-        }
-      }
-    });
-  });
-  
-  observer.observe(htmlElement, observerOptions);
-});
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'cardinal' },
+      sequence: { useMaxWidth: true, diagramMarginX: 50, diagramMarginY: 10 },
+    };
+
+    // Mermaid rewrites the node it renders into, so the source has to be kept
+    // to be able to draw it again in the other theme.
+    var sources = [];
+
+    function collect() {
+      document.querySelectorAll('pre > code.language-mermaid').forEach(function (code) {
+        var pre = code.parentElement;
+        var div = document.createElement('div');
+        div.className = 'mermaid flex justify-center';
+        div.textContent = code.textContent;
+        pre.parentNode.replaceChild(div, pre);
+      });
+      document.querySelectorAll('.mermaid').forEach(function (node) {
+        sources.push({ node: node, code: node.textContent });
+      });
+    }
+
+    function draw() {
+      if (typeof mermaid === 'undefined') return;
+      var dark = document.documentElement.classList.contains('dark');
+      mermaid.initialize(Object.assign({}, CONFIG, { theme: dark ? 'dark' : 'default' }));
+      sources.forEach(function (item) {
+        item.node.removeAttribute('data-processed');
+        item.node.textContent = item.code;
+      });
+      mermaid.run({ nodes: sources.map(function (i) { return i.node; }) });
+    }
+
+    window.vskRedrawMermaid = draw;
+
+    // The library is deferred, so it may not be parsed yet when this runs.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { collect(); draw(); });
+    } else {
+      collect();
+      draw();
+    }
+  })();
 </script>

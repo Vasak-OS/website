@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "syntax.css";
+@import "icons.css";
 
 :root {
   /* general */
@@ -163,7 +164,17 @@ html.dark {
 
 @font-face {
   font-family: VSKRegular;
-  src: url(/fonts/VSKRegular.ttf);
+  src: url(/fonts/VSKRegular.ttf) format("truetype");
+  /* The brand font only ever styles the word "VasakOS"; swap shows it in the
+     fallback immediately instead of leaving a hole while the file loads. */
+  font-display: swap;
+}
+
+/* Templates have always written .font-vsk / .family-vsk on the brand name, but
+   nothing ever defined them, so the face above was downloaded and never used. */
+.font-vsk,
+.family-vsk {
+  font-family: VSKRegular, system-ui, sans-serif;
 }
 
 #article h1 {
@@ -185,6 +196,20 @@ html.dark {
 #article h4 {
   font-size: 1.25rem;
   @apply my-4 ms-4 font-bold;
+}
+
+/* The anchor added by render-heading.html: out of the way until you hover the
+   heading it belongs to. */
+.heading-anchor {
+  @apply ml-2 text-primary opacity-0 transition-opacity;
+}
+
+h1:hover > .heading-anchor,
+h2:hover > .heading-anchor,
+h3:hover > .heading-anchor,
+h4:hover > .heading-anchor,
+.heading-anchor:focus {
+  @apply opacity-60;
 }
 
 #article p,
@@ -257,13 +282,21 @@ hr {
   @apply my-8 border-t-2 border-gray-200 dark:border-gray-900;
 }
 
+/* The code glyph on the tab of a highlighted block. It used to be a Font
+   Awesome ligature, which stopped being available when the kit was dropped; the
+   mask draws the same icon straight from the stylesheet. */
 .highlight::before {
-  font: normal normal normal 14px/1 FontAwesome;
-  content: "\f121";
-  color: var(--bg-site);
+  content: "";
   position: absolute;
-  margin-top: -22px;
+  width: 14px;
+  height: 14px;
+  margin-top: -20px;
   margin-left: 5px;
+  background-color: white;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'%3E%3Cpath d='M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z'/%3E%3C/svg%3E")
+    no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'%3E%3Cpath d='M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z'/%3E%3C/svg%3E")
+    no-repeat center / contain;
 }
 
 .highlight {

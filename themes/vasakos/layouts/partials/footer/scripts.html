@@ -1,43 +1,54 @@
-{{ $fontawesome := resources.GetRemote "https://kit.fontawesome.com/02f5a0ef7c.js" }}
-{{ $pageclip := resources.GetRemote "https://s.pageclip.co/v1/pageclip.js" }}
-{{ $fuse := resources.GetRemote "https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js" }}
-{{ $mermaid := resources.GetRemote "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" }}
-{{ $search := resources.Get "js/search.js" }}
-{{ $darkmode := resources.Get "js/darkmode.js" }}
-{{ $menu := resources.Get "js/menu.js" }}
+{{/*
+  Site scripts.
 
-{{ $fullscript := slice $fontawesome $pageclip $darkmode $menu | resources.Concat "/js/bundle.js" | minify | fingerprint }}
-<script async src="{{ $fullscript.RelPermalink }}"></script>
+  What this replaces: a bundle that pulled the Font Awesome kit (a loader that
+  downloads a second icon payload at runtime) and Pageclip (an unused form
+  widget) from two external origins, plus Mermaid — 3.3 MB of diagramming
+  library — on every single page of the site, including the home page, which has
+  no diagrams.
 
-<!-- Mermaid Diagram Support -->
-<script async src="{{ $mermaid.RelPermalink }}"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
-    mermaid.contentLoaded();
-  });
-  
-  // Para modo oscuro en Mermaid
-  const darkModeToggle = document.querySelector('[data-dark-mode]');
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', function() {
-      setTimeout(() => {
-        const isDark = document.documentElement.classList.contains('dark');
-        const theme = isDark ? 'dark' : 'default';
-        mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
-        // Reload mermaid diagrams
-        mermaid.contentLoaded();
-      }, 100);
-    });
-  }
-</script>
+  Icons are now CSS masks (assets/css/icons.css), Pageclip is gone, and Mermaid
+  is loaded only where a diagram exists.
+*/}}
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5MYT335WZK"></script>
+{{- $darkmode := resources.Get "js/darkmode.js" -}}
+{{- $menu := resources.Get "js/menu.js" -}}
+{{- $bundle := slice $darkmode $menu | resources.Concat "js/bundle.js" | minify | fingerprint -}}
+<script defer src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous"></script>
+
+{{/* Mermaid: only for pages that render a diagram. `.Content` is already built
+     at this point, so testing it costs nothing and keeps 3.3 MB off every other
+     page. */}}
+{{- $needsMermaid := false -}}
+{{- if .Content -}}
+  {{- if or (strings.Contains .Content "language-mermaid") (strings.Contains .Content "class=\"mermaid") -}}
+    {{- $needsMermaid = true -}}
+  {{- end -}}
+{{- end -}}
+{{- if .Params.mermaid }}{{ $needsMermaid = true }}{{ end -}}
+
+{{- if $needsMermaid }}
+  {{- with resources.Get "css/mermaid.css" }}
+    {{- with . | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" />
+    {{- end }}
+  {{- end }}
+  {{- with resources.GetRemote "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" }}
+    {{- with . | fingerprint }}
+  <script defer src="{{ .RelPermalink }}"></script>
+    {{- end }}
+  {{- end }}
+  {{- partial "mermaid-content.html" . }}
+{{- end }}
+
+{{/* Analytics last, and only in a real build — measuring `hugo serve` is noise
+     and it slows the dev loop down. */}}
+{{- if and (not hugo.IsDevelopment) site.Params.analytics.ga4 }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Params.analytics.ga4 }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
+  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
-  gtag('config', 'G-5MYT335WZK');
+  gtag('config', '{{ site.Params.analytics.ga4 }}', { anonymize_ip: true });
 </script>
+{{- end }}
