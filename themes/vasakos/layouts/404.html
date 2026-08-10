@@ -1,0 +1,33 @@
+{{ define "main" }}
+{{/* This file existed but was empty, so a wrong URL returned a blank page. */}}
+<main class="flex min-h-[60vh] items-center justify-center px-4 py-16">
+  <div class="w-full max-w-2xl rounded-corner bg-ui-bg/80 p-10 text-center">
+    <p class="family-vsk bg-gradient-to-br from-secondary to-primary bg-clip-text text-7xl font-bold text-transparent">404</p>
+    <h1 class="mt-4 text-3xl font-bold text-tx-main">Esta página no existe</h1>
+    <p class="mt-4 text-tx-muted">
+      El enlace puede estar viejo o mal escrito. Estos son los lugares a los que suele
+      querer llegar la gente:
+    </p>
+
+    <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <a href="/downloads/" class="rounded-corner bg-primary px-5 py-3 font-semibold text-white hover:opacity-90">
+        <i class="fa-solid fa-download" aria-hidden="true"></i> Descargar VasakOS
+      </a>
+      <a href="/docs/" class="rounded-corner border border-primary px-5 py-3 font-semibold text-primary hover:bg-primary hover:text-white">
+        <i class="fa-solid fa-book" aria-hidden="true"></i> Documentación
+      </a>
+      <a href="/state/" class="rounded-corner border border-primary px-5 py-3 font-semibold text-primary hover:bg-primary hover:text-white">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Estado del proyecto
+      </a>
+      <a href="/blog/" class="rounded-corner border border-primary px-5 py-3 font-semibold text-primary hover:bg-primary hover:text-white">
+        <i class="fa-solid fa-blog" aria-hidden="true"></i> Novedades
+      </a>
+    </div>
+
+    <p class="mt-8 text-sm text-tx-muted">
+      ¿Llegaste acá desde un enlace nuestro? Avisanos en
+      <a href="https://t.me/VasakOS" rel="noopener" target="_blank" class="text-primary underline">Telegram</a>.
+    </p>
+  </div>
+</main>
+{{ end }}

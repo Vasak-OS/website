@@ -1,9 +1,25 @@
-<section class="aspect-video bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center"
-  style="background-image: url('{{ .Params.img }}');">
-  <div class="flex flex-col justify-center content-center text-center">
-    <div class="bg-white/20 dark:bg-gray-900/20 text-gray-800 dark:text-gray-100 backdrop-blur-md p-10 rounded-corner max-w-5xl">
-      <h2 class="text-gray-900 dark:text-white text-4xl mb-3">{{ .Title }}</h2>
-      {{ .Summary }}
-    </div>
+{{/*
+  Page banner. Despite the file name it is not a breadcrumb trail — that lives in
+  widgets/breadcrumbs.html.
+
+  The title is a <p>, not a heading: every layout that includes this partial also
+  renders its own <h1>, and two of them would give the page two competing top
+  headings. Layouts that do not have one pass `heading: true`.
+*/}}
+{{- $page := . -}}
+{{- $heading := false -}}
+{{- if reflect.IsMap . }}{{ $page = .page }}{{ $heading = .heading }}{{ end -}}
+<section class="relative -mt-24 flex min-h-[45vh] items-center justify-center overflow-hidden pt-24">
+  {{- with $page.Params.img }}
+  <img src="{{ . }}" alt="" width="1200" height="675" fetchpriority="high" decoding="async"
+    class="absolute inset-0 -z-10 h-full w-full object-cover" />
+  {{- end }}
+  <div class="mx-4 max-w-5xl rounded-corner bg-white/30 p-10 text-center text-gray-800 backdrop-blur-md dark:bg-gray-900/40 dark:text-gray-100">
+    {{- if $heading }}
+    <h1 class="mb-3 text-4xl font-bold text-gray-900 dark:text-white">{{ $page.Title }}</h1>
+    {{- else }}
+    <p class="mb-3 text-4xl font-bold text-gray-900 dark:text-white">{{ $page.Title }}</p>
+    {{- end }}
+    {{ $page.Summary }}
   </div>
 </section>

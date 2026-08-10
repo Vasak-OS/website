@@ -1,0 +1,109 @@
+{{/*
+  Structured data. Search engines will not invent an entity for a project they
+  have never heard of, and a distro competing with names like Manjaro or
+  EndeavourOS needs to be one: an Organization with a logo and social profiles,
+  a WebSite, and — on the downloads page — an actual SoftwareApplication with a
+  version, a licence and a price.
+*/}}
+
+{{- $org := dict
+  "@type" "Organization"
+  "@id" (printf "%s#organization" site.BaseURL)
+  "name" "VasakOS"
+  "url" site.BaseURL
+  "logo" ("/img/logo.svg" | absURL)
+  "description" site.Params.description
+  "sameAs" (slice
+    "https://github.com/Vasak-OS"
+    "https://t.me/VasakOS"
+    "https://www.reddit.com/r/VasakOS/"
+    "https://twitter.com/VasakOSLinux"
+    "https://sourceforge.net/projects/vasakos/")
+-}}
+
+{{- $website := dict
+  "@type" "WebSite"
+  "@id" (printf "%s#website" site.BaseURL)
+  "url" site.BaseURL
+  "name" site.Title
+  "inLanguage" "es-AR"
+  "publisher" (dict "@id" (printf "%s#organization" site.BaseURL))
+-}}
+
+{{- $graph := slice $org $website -}}
+
+{{/* Breadcrumbs: every page below the root, so search results show the section
+     instead of a bare URL. */}}
+{{- if not .IsHome }}
+  {{- $items := slice (dict "@type" "ListItem" "position" 1 "name" "Inicio" "item" site.BaseURL) -}}
+  {{- $pos := 1 -}}
+  {{- range .Ancestors.Reverse -}}
+    {{- if not .IsHome -}}
+      {{- $pos = add $pos 1 -}}
+      {{- $items = $items | append (dict "@type" "ListItem" "position" $pos "name" .Title "item" .Permalink) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if not .IsSection -}}
+    {{- $pos = add $pos 1 -}}
+    {{- $items = $items | append (dict "@type" "ListItem" "position" $pos "name" .Title "item" .Permalink) -}}
+  {{- end -}}
+  {{- $graph = $graph | append (dict "@type" "BreadcrumbList" "itemListElement" $items) -}}
+{{- end }}
+
+{{/* Blog posts and documentation pages are articles; saying so is what makes
+     them eligible for the richer result formats. */}}
+{{- if and .IsPage (or (eq .Section "blog") (eq .Section "docs")) }}
+  {{- $article := dict
+    "@type" (cond (eq .Section "docs") "TechArticle" "BlogPosting")
+    "headline" .Title
+    "description" (.Description | default .Summary | plainify | chomp | truncate 200)
+    "url" .Permalink
+    "inLanguage" "es-AR"
+    "publisher" (dict "@id" (printf "%s#organization" site.BaseURL))
+    "author" (dict "@type" "Organization" "name" "VasakOS" "url" site.BaseURL)
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+  -}}
+  {{- with .Date }}{{ $article = merge $article (dict "datePublished" (.Format "2006-01-02")) }}{{ end -}}
+  {{- with .Lastmod }}{{ $article = merge $article (dict "dateModified" (.Format "2006-01-02")) }}{{ end -}}
+  {{- with .Params.img }}{{ $article = merge $article (dict "image" (. | absURL)) }}{{ end -}}
+  {{- $graph = $graph | append $article -}}
+{{- end }}
+
+{{/* The downloads page describes the actual product. */}}
+{{- if eq .Type "downloads" }}
+{{- with hugo.Data.release }}
+  {{- $app := dict
+    "@type" "SoftwareApplication"
+    "name" "VasakOS"
+    "applicationCategory" "OperatingSystem"
+    "operatingSystem" "Linux"
+    "softwareVersion" .version
+    "downloadUrl" ("/downloads/" | absURL)
+    "fileSize" .size
+    "processorRequirements" "x86-64"
+    "url" site.BaseURL
+    "license" "https://www.gnu.org/licenses/gpl-3.0.html"
+    "isAccessibleForFree" true
+    "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "USD")
+    "publisher" (dict "@id" (printf "%s#organization" site.BaseURL))
+  -}}
+  {{- with .published_at }}{{ $app = merge $app (dict "datePublished" .) }}{{ end -}}
+  {{- $graph = $graph | append $app -}}
+{{- end }}
+{{- end }}
+
+{{/* A FAQ page marked up as one can occupy several lines of a result. */}}
+{{- with .Params.faq }}
+  {{- $qs := slice -}}
+  {{- range . -}}
+    {{- $qs = $qs | append (dict
+      "@type" "Question"
+      "name" .q
+      "acceptedAnswer" (dict "@type" "Answer" "text" (.a | markdownify | plainify | chomp))) -}}
+  {{- end -}}
+  {{- $graph = $graph | append (dict "@type" "FAQPage" "mainEntity" $qs) -}}
+{{- end }}
+
+{{/* safeJS: Go treats the contents of a <script> as JavaScript and would wrap
+     the already-serialised JSON in a second layer of quoting. */}}
+<script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@graph" $graph) | jsonify | safeJS }}</script>

@@ -1,39 +1,109 @@
+{{/*
+  Every page used to ship the same <title> and the same description, which is
+  the single worst thing a static site can do to itself in search: forty pages
+  competing for one snippet. Everything below is derived per page, with the
+  site-level values only as a fallback.
+*/}}
+{{- $isHome := .IsHome -}}
+{{- $title := cond $isHome (printf "%s — Un sistema operativo libre basado en Arch Linux" site.Title) (printf "%s | %s" .Title site.Title) -}}
+{{- with .Params.seotitle }}{{ $title = . }}{{ end -}}
+
+{{- $description := "" -}}
+{{- with .Description }}{{ $description = . }}
+{{- else }}{{ with .Summary }}{{ $description = . }}
+{{- else }}{{ $description = site.Params.description }}{{ end }}{{ end -}}
+{{/* .Summary keeps the Markdown line breaks, which end up as literal newlines
+     inside the meta tag and as ragged snippets in the results. */}}
+{{- $description = $description | plainify | htmlUnescape | replaceRE `\s+` " " | chomp | truncate 158 -}}
+
+{{/* A taxonomy term page describes itself; page 2 of anything is not the same
+     page as page 1 and must not claim the same title. */}}
+{{- if eq .Kind "term" -}}
+  {{- $title = printf "Etiqueta: %s | %s" .Title site.Title -}}
+  {{- $description = printf "Artículos y documentación de VasakOS sobre %s." .Title -}}
+{{- end -}}
+{{/* .Paginator errors outright on a page kind that cannot paginate — and
+     *calling* it is what creates the pager, so the home page is left out: its
+     template does not paginate and asking here would generate /page/2..N/ full
+     of duplicate content. */}}
+{{- if or (eq .Kind "section") (eq .Kind "taxonomy") (eq .Kind "term") -}}
+{{- with .Paginator -}}
+  {{- if gt .PageNumber 1 -}}
+    {{- $title = printf "%s — Página %d" $title .PageNumber -}}
+    {{- $description = printf "%s (página %d)" $description .PageNumber -}}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- $image := "/img/og-default.jpg" -}}
+{{- with .Params.img }}{{ $image = . }}{{ end -}}
+{{- with .Params.image }}{{ $image = . }}{{ end -}}
+{{- $image = $image | absURL -}}
+
+{{- $type := cond (or .IsHome .IsSection) "website" "article" -}}
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Vasak OS</title>
-  <link rel="icon" href="/img/icon.svg" />
+  <title>{{ $title }}</title>
+  <meta name="description" content="{{ $description }}" />
+  <link rel="canonical" href="{{ .Permalink }}" />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
-    rel="stylesheet" />
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/img/icon.svg" />
+  <meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)" />
+
+  {{/* Taxonomy listings are thin, auto-generated pages: indexing them dilutes
+       the pages that actually answer a query. */}}
+  {{- if or (eq .Kind "taxonomy") (eq .Kind "term") }}
+  <meta name="robots" content="noindex, follow" />
+  {{- end }}
+
+  {{/* Inline and blocking on purpose: the theme class has to be on <html>
+       before the first paint, or every visitor in dark mode gets a white flash.
+       It is the one script worth blocking on. */}}
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('darkmode');
+        var dark = stored === null
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : stored === 'true';
+        if (dark) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+  </script>
 
   {{- partial "head/style.html" . -}}
 
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="{{ site.Title }}" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:type" content="{{ $type }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $description }}" />
+  <meta property="og:image" content="{{ $image }}" />
+  {{- if eq $type "article" }}
+  {{- with .Date }}<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />{{ end }}
+  {{- with .Lastmod }}<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />{{ end }}
+  {{- range .Params.tags }}<meta property="article:tag" content="{{ . }}" />{{ end }}
+  {{- end }}
 
-  <!-- METADATA -->
-  <meta name="author" content="PatoJAD" />
-  <meta content='@PatoJADOficial' name='twitter:site' />
-  <meta content='@PatoJADOficial' name='twitter:creator' />
-  <meta property="og:url" content="https://os.vasak.net.ar{{ .RelPermalink }}" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="{{ .Title }}" />
-  <meta property="og:image"
-    content='{{ if isset .Params "img" }}{{ .Params.img }}{{else}}/img/hero-fullscreen-bg.jpg{{ end }}' />
-  <meta property="og:locale" content="es-ES" />
-  <meta name="description"
-    content="{{ .Summary }} Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
-    property="og:description" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@VasakOSLinux" />
+  <meta name="twitter:creator" content="@PatoJADOficial" />
+  <meta name="twitter:title" content="{{ $title }}" />
+  <meta name="twitter:description" content="{{ $description }}" />
+  <meta name="twitter:image" content="{{ $image }}" />
 
-  <meta
-    content='{{ range .Params.tags }}{{ . }}, {{ end }} Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
-    name='keywords' />
+  <meta name="author" content="{{ with .Params.author }}{{ . }}{{ else }}VasakOS{{ end }}" />
 
-  <!-- CANONICAL LINK -->
-  <link rel="canonical" href="https://os.vasak.net.ar{{ .RelPermalink }}" />
+  {{- with .OutputFormats.Get "rss" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}" />
+  {{- end }}
 
+  {{- partial "head/schema.html" . -}}
 </head>

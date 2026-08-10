@@ -1,27 +1,65 @@
 baseURL: "https://os.vasak.net.ar/"
-languageCode: "es-ES"
+locale: "es-AR"
 defaultContentLanguage: "es"
-title: "Vasak OS"
+title: "VasakOS"
 summaryLength: 20
 
-canonifyurls: true
+# canonifyurls rewrote every relative link into an absolute one, which bloats
+# the HTML and breaks any preview served from a different host. The templates
+# emit root-relative URLs, which work everywhere.
+canonifyurls: false
 
 pagerSize: 6
 
 theme: "vasakos"
 
+enableRobotsTXT: true
+
 outputs:
   page: ["HTML"]
   section: ["HTML"]
-  home: ["JSON","HTML","RSS"]
+  home: ["HTML", "RSS", "JSON"]
+
+# The JSON output feeds the documentation search box. Restricting it to a
+# dedicated /search-index.json keeps it out of the crawl and makes it obvious
+# what it is for.
+outputFormats:
+  JSON:
+    mediaType: "application/json"
+    baseName: "search-index"
+    isPlainText: true
 
 taxonomies:
   tag: "tags"
   category: "categories"
 
 permalinks:
-  Blog: "/blog/:year/:month/:title"
-  Apps: "/apps/:title"
+  blog: "/blog/:year/:month/:title"
 
-markup.goldmark.renderer:
-  unsafe: true
+sitemap:
+  changefreq: "weekly"
+  priority: 0.6
+  filename: "sitemap.xml"
+
+# Full-content RSS produced a 100 KB feed on every build. Readers only need
+# enough to decide whether to click.
+services:
+  rss:
+    limit: 20
+
+minify:
+  disableXML: true
+  minifyOutput: true
+  tdewolff:
+    html:
+      keepDocumentTags: true
+      keepEndTags: true
+      keepQuotes: true
+
+# Markdown settings live in markup.yaml.
+
+# resources.GetRemote caches remote assets between builds; without a long TTL a
+# clean CI build re-downloads Mermaid every time.
+caches:
+  getresource:
+    maxAge: "720h"

@@ -1,0 +1,16 @@
+{{- /*
+  Two things at once.
+
+  First: every layout already renders the page title as <h1>, but a lot of the
+  Markdown starts its sections with `#`, so those pages shipped up to nine <h1>
+  elements. A level-1 heading in the body is demoted to <h2>; the rest keep the
+  level the author wrote.
+
+  Second: headings get an id and a link, so sections can be linked to directly
+  and the table of contents has something to point at.
+*/ -}}
+{{- $level := cond (eq .Level 1) 2 .Level -}}
+<h{{ $level }} id="{{ .Anchor }}">
+  {{- .Text | safeHTML -}}
+  <a href="#{{ .Anchor }}" class="heading-anchor" aria-label="Enlace a esta sección">#</a>
+</h{{ $level }}>
