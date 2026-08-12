@@ -14,25 +14,25 @@ groups:
     items:
       - name: vasak-desktop
         title: Escritorio
-        version: "1.0.0"
+        version: "1.1.2"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-desktop
         text: Panel, menú de aplicaciones, área de notificación, control de red y de sonido. Corre sobre Wayfire con gtk-layer-shell.
       - name: vasak-session-manager
         title: Gestor de sesión
-        version: "0.1.0"
+        version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-session-manager
         text: Pantalla de inicio de sesión (greeter de greetd) y bloqueo de pantalla con el aspecto del sistema.
       - name: vasak-desktop-settings
         title: Configuración de sesión
-        version: "0.2.0"
+        version: "0.4.0"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-desktop-settings
         text: Sesión administrada por systemd (uwsm), plugins del compositor y arranque de los servicios del escritorio.
       - name: vasakos-icon-theme
         title: Tema de iconos
-        version: "0.5.3"
+        version: "0.6.0"
         status: stable
         repo: https://github.com/Vasak-OS/VasakOS-icon-theme
         text: Iconografía plana y colorida propia, coherente en todas las aplicaciones del sistema.
@@ -43,31 +43,31 @@ groups:
     items:
       - name: vasak-file-manager
         title: Gestor de archivos
-        version: "0.3.2"
+        version: "0.4.1"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-file-manager
         text: Pestañas, progreso y cancelación en copiar/mover/eliminar, deshacer con Ctrl+Z, compresión en varios formatos y montaje de SMB y sshfs.
       - name: vasak-terminal
         title: Terminal
-        version: "0.2.2"
+        version: "0.3.1"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-terminal
         text: Emulador de terminal con pestañas y paleta de colores integrada al tema del sistema.
       - name: vasak-settings
         title: Ajustes del sistema
-        version: "0.1.0"
+        version: "0.2.1"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-settings
         text: Usuarios, fecha y hora, brillo y luz nocturna, energía, red, sonido, apariencia y plugins del compositor.
       - name: vasak-gallery
         title: Galería
-        version: "0.1.1"
+        version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-gallery
         text: Visor y organizador de imágenes.
       - name: vasak-resonance
         title: Resonance
-        version: "0.1.0"
+        version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-resonance
         text: Reproductor de audio del sistema.
@@ -78,13 +78,13 @@ groups:
     items:
       - name: vasak-keyring
         title: Llavero de claves
-        version: "0.1.0"
+        version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-keyring
         text: Implementación nativa de Secret Service con AES-256-GCM y Argon2id, y desbloqueo automático por PAM al iniciar sesión.
       - name: vasak-flare-daemon
         title: Notificaciones
-        version: "0.1.0"
+        version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-flare-daemon
         text: Demonio de notificaciones freedesktop con historial persistente.
@@ -94,12 +94,29 @@ groups:
         status: alpha
         repo: https://github.com/Vasak-OS/polkit-vasak
         text: Diálogos de autenticación para las acciones que requieren privilegios, sin depender de sudo.
+      - name: vasak-permissions
+        title: Permisos de aplicaciones
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-permissions
+        text: Pregunta antes de que una aplicación use la cámara, el micrófono, la pantalla o una cuenta tuya, y recuerda la respuesta. Hoy sólo las cuentas se bloquean de verdad; cámara, micrófono y pantalla los entrega el portal, que todavía no consulta esta política.
       - name: vasak-accounts
         title: Cuentas en línea
-        version: "0.1.0"
-        status: wip
+        version: "0.2.0"
+        status: alpha
         repo: https://github.com/Vasak-OS/vasak-accounts
-        text: Demonio centralizado de cuentas con OAuth2 y permisos por aplicación. Todavía sin integración en las aplicaciones.
+        text: "Demonio centralizado de cuentas con OAuth2 y permisos por aplicación. Ajustes ya lo usa: el token se entrega una vez y ninguna aplicación conserva copia."
+
+  - id: entrada
+    name: Entrada y accesibilidad
+    icon: fa-solid fa-pen
+    items:
+      - name: vasak-press-and-hold
+        title: Pulsación sostenida
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-press-and-hold
+        text: Escribir acentos y caracteres especiales manteniendo apretada una tecla, como en macOS, sin depender de la distribución del teclado.
 
   - id: infraestructura
     name: Distribución
