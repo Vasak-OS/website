@@ -14,7 +14,7 @@ groups:
     items:
       - name: vasak-desktop
         title: Escritorio
-        version: "1.1.2"
+        version: "1.1.3"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-desktop
         text: Panel, menú de aplicaciones, área de notificación, control de red y de sonido. Corre sobre Wayfire con gtk-layer-shell.
