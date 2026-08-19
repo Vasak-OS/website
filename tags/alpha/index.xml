@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Alpha on VasakOS</title>
+		<link>https://os.vasak.net.ar/tags/alpha/</link>
+		<description>Recent content in Alpha on VasakOS</description>
+		<generator>Hugo</generator>
+		<language>es-AR</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 19 Aug 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://os.vasak.net.ar/tags/alpha/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Alpha 4 de VasakOS</title>
+				<link>https://os.vasak.net.ar/blog/2026/08/alpha-4-de-vasakos/</link>
+				<pubDate>Wed, 19 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2026/08/alpha-4-de-vasakos/</guid>
+				<description>&lt;p&gt;Llega el Alpha 4, y es la actualización más grande que publicamos hasta ahora. No es una lista de retoques: buena parte del escritorio dejó de depender de piezas prestadas de otros entornos y pasó a tener las suyas —llavero, permisos, notificaciones, pantalla de inicio y de bloqueo—, todas dibujadas con los mismos colores, el mismo radio de esquina y la misma tipografía que elegiste vos.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Estado del proyecto</title>
+				<link>https://os.vasak.net.ar/state/</link>
+				<pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/state/</guid>
+				<description>&lt;p&gt;VasakOS está en &lt;strong&gt;Alpha&lt;/strong&gt;. Esa palabra significa cosas distintas en cada proyecto, así que&#xA;acá está lo que significa en este: el sistema arranca, se instala y se usa, pero hay&#xA;funciones a medio terminar y cambios que rompen compatibilidad entre versiones.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 19-06-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260819/</link>
+				<pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260819/</guid>
+				<description>&lt;h2 id=&#34;aplicaciones&#34;&gt;Aplicaciones&lt;a href=&#34;#aplicaciones&#34; class=&#34;heading-anchor&#34; aria-label=&#34;Enlace a esta sección&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 14-06-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260614/</link>
+				<pubDate>Sun, 14 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260614/</guid>
+				<description>&lt;p&gt;Dentro de la ultima actualiazacion de VasakOS, se han introducido varias mejoras y nuevas funcionalidades en diferentes componentes del sistema. El gran trabajo realizado va de la mano con la migracion a Wayland buscando un mejor soporte para hardware moderno. A continuación se detallan los cambios más relevantes:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 15-04-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260415/</link>
+				<pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260415/</guid>
+				<description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 01-04-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260401/</link>
+				<pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260401/</guid>
+				<description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 06-01-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260106/</link>
+				<pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260106/</guid>
+				<description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder enconrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

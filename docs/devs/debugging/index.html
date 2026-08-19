@@ -1,0 +1,574 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Debugging | VasakOS</title><meta name="description" content="Técnicas y herramientas para depurar código en cualquier VAPP el ejmplo utiliza vasak-desktop con el fin de tener un caso de uso amplio. "><link rel="canonical" href="https://os.vasak.net.ar/docs/devs/debugging/"><link rel="icon" href="/img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/img/icon.svg"><meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"><script>(function(){try{var e=localStorage.getItem("darkmode"),t=e===null?window.matchMedia("(prefers-color-scheme: dark)").matches:e==="true";t&&document.documentElement.classList.add("dark")}catch{}})()</script><link rel="stylesheet" href="/css/styles.min.d50c4f5fff7458c9bec9b2184318d85555f0b637b0085f71af0f6417fdcb493c.css" integrity="sha256-1QxPX/90WMm+ybIYQxjYVVXwtjewCF9xrw9kF/3LSTw=" crossorigin="anonymous"><link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin><meta property="og:site_name" content="VasakOS"><meta property="og:locale" content="es_AR"><meta property="og:type" content="article"><meta property="og:url" content="https://os.vasak.net.ar/docs/devs/debugging/"><meta property="og:title" content="Debugging | VasakOS"><meta property="og:description" content="Técnicas y herramientas para depurar código en cualquier VAPP el ejmplo utiliza vasak-desktop con el fin de tener un caso de uso amplio. "><meta property="og:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@VasakOSLinux"><meta name="twitter:creator" content="@PatoJADOficial"><meta name="twitter:title" content="Debugging | VasakOS"><meta name="twitter:description" content="Técnicas y herramientas para depurar código en cualquier VAPP el ejmplo utiliza vasak-desktop con el fin de tener un caso de uso amplio. "><meta name="twitter:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="author" content="VasakOS"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://os.vasak.net.ar/#organization","@type":"Organization","description":"VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto.","logo":"https://os.vasak.net.ar/img/logo.svg","name":"VasakOS","sameAs":["https://github.com/Vasak-OS","https://t.me/VasakOS","https://www.reddit.com/r/VasakOS/","https://twitter.com/VasakOSLinux","https://sourceforge.net/projects/vasakos/"],"url":"https://os.vasak.net.ar/"},{"@id":"https://os.vasak.net.ar/#website","@type":"WebSite","inLanguage":"es-AR","name":"VasakOS","publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://os.vasak.net.ar/","name":"Inicio","position":1},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/","name":"Documentación","position":2},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/","name":"Documentación para desarrolladores","position":3},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/debugging/","name":"Debugging","position":4}]},{"@type":"TechArticle","author":{"@type":"Organization","name":"VasakOS","url":"https://os.vasak.net.ar/"},"description":"Técnicas y herramientas para depurar código en cualquier VAPP el ejmplo utiliza vasak-desktop con el fin de tener un caso de uso amplio.","headline":"Debugging","inLanguage":"es-AR","mainEntityOfPage":{"@id":"https://os.vasak.net.ar/docs/devs/debugging/","@type":"WebPage"},"publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/docs/devs/debugging/"}]}</script></head><body class="transition-all duration-400"><header class="sticky top-0 bg-ui-bg/80 z-40 drop-shadow-xl m-2 mb-0 rounded-corner"><nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global"><div class="flex lg:flex-1"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS"></a></div><div class="flex lg:hidden"><button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+<span class="sr-only">Open main menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button></div><div class="hidden lg:flex lg:gap-x-12"><a href="/" title="Inicio" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="hidden lg:flex lg:flex-1 lg:justify-end"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></nav></header><div class="lg:hidden" role="dialog" aria-modal="true"><div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden"><div class="flex items-center justify-between"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS">
+</a><button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+<span class="sr-only">Close menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div><div class="mt-6 flow-root"><div class="-my-6 divide-y divide-gray-500/10"><div class="space-y-2 py-6"><a href="/" title="Inicio" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="py-6"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></div></div></div></div><main class="px-6 py-8"><nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb"><ul class="flex flex-wrap items-center gap-0 text-ms"><li class="flex items-center"><a href="https://os.vasak.net.ar/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Go to home page"><i class="fa-solid fa-house text-sm"></i>
+<span class="hidden sm:inline">Home</span></a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Docs">Docs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Devs">Devs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/debugging/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Debugging">Debugging</a></li><li class="flex items-center"><svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li><li class="flex items-center"><span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner
+bg-gradient-to-r from-secondary to-primary
+text-white font-medium
+shadow-md dark:shadow-lg" aria-current="page"><i class="fa-solid fa-book text-sm"></i>
+<span>Debugging</span></span></li></ul></nav><div class="flex justify-between mx-auto"><div class="w-full lg:w-8/12"><div class="px-8"><div class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner" id="article"><h1 class="text-center text-primary">Debugging</h1><p>Técnicas y herramientas para depurar código en cualquier <strong>VAPP</strong> el ejmplo utiliza <code>vasak-desktop</code> con el fin de tener un caso de uso amplio.</p><h2 id="debugging-del-frontend-vuejs--typescript">Debugging del Frontend (Vue.js / TypeScript)<a href="#debugging-del-frontend-vuejs--typescript" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-herramientas-de-desarrollo-del-navegador">1. Herramientas de Desarrollo del Navegador<a href="#1-herramientas-de-desarrollo-del-navegador" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p><strong>Abrir DevTools</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">F12 o Ctrl+Shift+I o Cmd+Option+I
+</span></span></code></pre></td></tr></table></div></div><p><strong>Pestañas principales</strong>:</p><ul><li><strong>Console</strong>: Ver logs y errores</li><li><strong>Elements</strong>: Inspeccionar DOM</li><li><strong>Network</strong>: Ver requests</li><li><strong>Sources</strong>: Debugger paso a paso</li><li><strong>Vue DevTools</strong>: Extensión Vue.js</li></ul><h3 id="2-console-logging">2. Console Logging<a href="#2-console-logging" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Logs normales
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Volumen:&#39;</span><span class="p">,</span> <span class="nx">volume</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Información
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Operación completada&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Warnings
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Valores inusuales detectados&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Errores
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Ocurrió un error:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Grupar logs relacionados
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">group</span><span class="p">(</span><span class="s1">&#39;Audio Settings&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Volumen:&#39;</span><span class="p">,</span> <span class="nx">volume</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Dispositivo:&#39;</span><span class="p">,</span> <span class="nx">device</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">groupEnd</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Tabla de datos
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Device 1&#39;</span><span class="p">,</span> <span class="nx">volume</span>: <span class="kt">50</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Device 2&#39;</span><span class="p">,</span> <span class="nx">volume</span>: <span class="kt">75</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Timing
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;loadAudio&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">loadAudio</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;loadAudio&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="3-debugger-paso-a-paso">3. Debugger Paso a Paso<a href="#3-debugger-paso-a-paso" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>En <strong>Sources</strong> tab de DevTools:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Breakpoint condicional
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">updateVolume</span><span class="p">(</span><span class="nx">newVolume</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Haz click derecho en número de línea
+</span></span></span><span class="line"><span class="cl">  <span class="c1">// Elige &#34;Add conditional breakpoint&#34;
+</span></span></span><span class="line"><span class="cl">  <span class="c1">// Condición: newVolume &lt; 0 || newVolume &gt; 100
+</span></span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">volume</span> <span class="o">=</span> <span class="nx">newVolume</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Dentro de DevTools, puedes:
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Avanzar línea (F10)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Entrar en función (F11)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Salir de función (Shift+F11)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Ver variables locales
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Ejecutar comandos en console mientras parado
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="4-vue-devtools">4. Vue DevTools<a href="#4-vue-devtools" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Extensión para depurar Vue:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">Instala</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">devtools</span><span class="o">.</span><span class="n">vuejs</span><span class="o">.</span><span class="n">org</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">Abre</span> <span class="n">DevTools</span> <span class="p">(</span><span class="n">F12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mf">3.</span> <span class="n">Ve</span> <span class="n">a</span> <span class="n">pestaña</span> <span class="s2">&#34;Vue&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="mf">4.</span> <span class="n">Inspecciona</span> <span class="n">componentes</span>
+</span></span><span class="line"><span class="cl"><span class="mf">5.</span> <span class="n">Modifica</span> <span class="n">datos</span> <span class="n">en</span> <span class="n">tiempo</span> <span class="n">real</span>
+</span></span><span class="line"><span class="cl"><span class="mf">6.</span> <span class="n">Ve</span> <span class="n">eventos</span> <span class="n">emitidos</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="5-logs-con-tags">5. Logs con Tags<a href="#5-logs-con-tags" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Crear función de log personalizada
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">log</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">audio</span><span class="o">:</span> <span class="p">(</span><span class="nx">msg</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">data?</span>: <span class="kt">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[AUDIO] </span><span class="si">${</span><span class="nx">msg</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="nx">data</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">network</span><span class="o">:</span> <span class="p">(</span><span class="nx">msg</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">data?</span>: <span class="kt">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[NETWORK] </span><span class="si">${</span><span class="nx">msg</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="nx">data</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bluetooth</span><span class="o">:</span> <span class="p">(</span><span class="nx">msg</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">data?</span>: <span class="kt">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[BT] </span><span class="si">${</span><span class="nx">msg</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="nx">data</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Uso
+</span></span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nx">audio</span><span class="p">(</span><span class="s1">&#39;Volumen cambió a:&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">log</span><span class="p">.</span><span class="nx">network</span><span class="p">(</span><span class="s1">&#39;WiFi conectado a:&#39;</span><span class="p">,</span> <span class="s1">&#39;MyNetwork&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="debugging-del-backend-rust">Debugging del Backend (Rust)<a href="#debugging-del-backend-rust" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-print-debugging">1. Print Debugging<a href="#1-print-debugging" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Log simple
+</span></span></span><span class="line"><span class="cl"><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Volumen: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">volume</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Debug format
+</span></span></span><span class="line"><span class="cl"><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Struct: </span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">device</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Pretty print
+</span></span></span><span class="line"><span class="cl"><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Struct: </span><span class="si">{:#?}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">device</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Con eprint para stderr
+</span></span></span><span class="line"><span class="cl"><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;Error: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="2-macros-de-debug">2. Macros de Debug<a href="#2-macros-de-debug" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// dbg! macro
+</span></span></span><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">dbg!</span><span class="p">(</span><span class="n">get_volume</span><span class="p">());</span><span class="w"> </span><span class="c1">// Imprime valor y lo retorna
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// assert!/assert_eq!
+</span></span></span><span class="line"><span class="cl"><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">volume</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Volume debería ser 50&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// debug_assert!
+</span></span></span><span class="line"><span class="cl"><span class="fm">debug_assert!</span><span class="p">(</span><span class="n">volume</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Volume fuera de rango&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="3-variables-de-entorno-para-logging">3. Variables de Entorno para Logging<a href="#3-variables-de-entorno-para-logging" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mostrar todos los logs</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug cargo run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Solo módulo específico</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>vasak_desktop::audio<span class="o">=</span>debug cargo run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Nivel TRACE (muy verboso)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>trace cargo run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Múltiples módulos</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>vasak_desktop::audio<span class="o">=</span>debug,vasak_desktop::network<span class="o">=</span>info cargo run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Backtrace en panics</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_BACKTRACE</span><span class="o">=</span><span class="m">1</span> cargo run
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_BACKTRACE</span><span class="o">=</span>full cargo run
+</span></span></code></pre></td></tr></table></div></div><h3 id="4-log-macros-si-uses-log-crate">4. Log Macros (si uses <code>log</code> crate)<a href="#4-log-macros-si-uses-log-crate" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">log</span>::<span class="p">{</span><span class="n">debug</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="n">warn</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="fm">debug!</span><span class="p">(</span><span class="s">&#34;Debug message: {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="fm">info!</span><span class="p">(</span><span class="s">&#34;Information message&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="fm">warn!</span><span class="p">(</span><span class="s">&#34;Warning message&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="fm">error!</span><span class="p">(</span><span class="s">&#34;Error message&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="5-debugger-gdblldb">5. Debugger GDB/LLDB<a href="#5-debugger-gdblldb" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ejecutar con debugger (Linux)</span>
+</span></span><span class="line"><span class="cl">lldb target/debug/vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># En el prompt:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (lldb) b main           # Breakpoint en main</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (lldb) r                # Run</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (lldb) c                # Continue</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (lldb) n                # Next line</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (lldb) s                # Step into function</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (lldb) p variable_name  # Print variable</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (lldb) q                # Quit</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="debugging-de-ipc-frontend--backend">Debugging de IPC (Frontend ↔ Backend)<a href="#debugging-de-ipc-frontend--backend" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-ver-comandos-ipc">1. Ver Comandos IPC<a href="#1-ver-comandos-ipc" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p><strong>Frontend</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Antes de llamar comando
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Llamando:&#39;</span><span class="p">,</span> <span class="s1">&#39;set_volume&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">level</span>: <span class="kt">50</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// En la llamada
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;set_volume&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">level</span>: <span class="kt">50</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Resultado:&#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Backend</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">set_volume</span><span class="p">(</span><span class="n">level</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;📡 IPC set_volume llamado con level: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// implementación
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="2-tauri-debug-info">2. Tauri Debug Info<a href="#2-tauri-debug-info" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver información de Tauri</span>
+</span></span><span class="line"><span class="cl">cargo tauri info
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Salida:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Platform: Linux</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tauri version: 2.8.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Node.js version: v20.0.0</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="debugging-de-d-bus">Debugging de D-Bus<a href="#debugging-de-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-monitor-d-bus">1. Monitor D-Bus<a href="#1-monitor-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver todos los mensajes D-Bus</span>
+</span></span><span class="line"><span class="cl">dbus-monitor --session
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Filtrar por interfaz</span>
+</span></span><span class="line"><span class="cl">dbus-monitor --session <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="s2">&#34;interface=&#39;org.pulseaudio.Server&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Filtrar solo señales</span>
+</span></span><span class="line"><span class="cl">dbus-monitor --session <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;signal&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="2-llamar-d-bus-desde-cli">2. Llamar D-Bus desde CLI<a href="#2-llamar-d-bus-desde-cli" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Llamar método</span>
+</span></span><span class="line"><span class="cl">dbus-send --session --print-reply <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /org/pulseaudio/core1 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.PulseAudio.Core1.GetVolume
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver propiedades</span>
+</span></span><span class="line"><span class="cl">busctl --user get-property <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.freedesktop.NetworkManager <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /org/freedesktop/NetworkManager <span class="se">\
+</span></span></span><span class="line"><span class="cl">  State
+</span></span></code></pre></td></tr></table></div></div><h3 id="3-logs-de-d-bus-en-rust">3. Logs de D-Bus en Rust<a href="#3-logs-de-d-bus-en-rust" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Habilitar logging de zbus
+</span></span></span><span class="line"><span class="cl"><span class="n">env_logger</span>::<span class="n">Builder</span>::<span class="n">from_default_env</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="n">format_timestamp_millis</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="n">init</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Luego ejecutar con:
+</span></span></span><span class="line"><span class="cl"><span class="no">RUST_LOG</span><span class="o">=</span><span class="n">zbus</span><span class="o">=</span><span class="n">debug</span><span class="w"> </span><span class="n">cargo</span><span class="w"> </span><span class="n">run</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="debugging-de-rendering">Debugging de Rendering<a href="#debugging-de-rendering" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-inspeccionar-dom">1. Inspeccionar DOM<a href="#1-inspeccionar-dom" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// En console
+</span></span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.panel&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;.btn&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Modificar estilos
+</span></span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.panel&#39;</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Ver eventos registrados
+</span></span></span><span class="line"><span class="cl"><span class="nx">monitorEvents</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unmonitorEvents</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="2-performance-profiling">2. Performance Profiling<a href="#2-performance-profiling" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// En console
+</span></span></span><span class="line"><span class="cl"><span class="nx">performance</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="s1">&#39;start-operation&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ... hacer algo ...
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">performance</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="s1">&#39;end-operation&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">performance</span><span class="p">.</span><span class="nx">measure</span><span class="p">(</span><span class="s1">&#39;operation&#39;</span><span class="p">,</span> <span class="s1">&#39;start-operation&#39;</span><span class="p">,</span> <span class="s1">&#39;end-operation&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">performance</span><span class="p">.</span><span class="nx">getEntriesByName</span><span class="p">(</span><span class="s1">&#39;operation&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="3-vue-component-hierarchy">3. Vue Component Hierarchy<a href="#3-vue-component-hierarchy" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Con Vue DevTools:</p><ol><li>Abre DevTools</li><li>Ve a pestaña &ldquo;Vue&rdquo;</li><li>Expande árbol de componentes</li><li>Haz click en componente para ver props y estado</li><li>Modifica datos en tiempo real</li></ol><h2 id="debugging-de-performance">Debugging de Performance<a href="#debugging-de-performance" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-frontend">1. Frontend<a href="#1-frontend" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Medir tiempo de render
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;render&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ... operación ...
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;render&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Timeline de Vue
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useRenderTracking</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@vueuse/core&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// En DevTools &gt; Performance tab
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Graba sesión y analiza flamegraph
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="2-backend">2. Backend<a href="#2-backend" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Compilar con optimizaciones de debug</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUSTFLAGS</span><span class="o">=</span><span class="s2">&#34;-C debuginfo=full&#34;</span> cargo build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver tiempos de compilación</span>
+</span></span><span class="line"><span class="cl">cargo build -Z timings
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Profiler (Linux)</span>
+</span></span><span class="line"><span class="cl">perf record -F <span class="m">99</span> ./target/debug/vasak-desktop
+</span></span><span class="line"><span class="cl">perf report
+</span></span></code></pre></td></tr></table></div></div><h2 id="debugging-de-asyncawait">Debugging de Async/Await<a href="#debugging-de-asyncawait" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-promesas-en-frontend">1. Promesas en Frontend<a href="#1-promesas-en-frontend" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Ver estado de promesa
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;get_volume&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">promise</span><span class="p">);</span> <span class="c1">// Ver en console qué hace
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Usar async/await
+</span></span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">checkVolume() {</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">volume</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;get_volume&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Volume:&#39;</span><span class="p">,</span> <span class="nx">volume</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="2-async-en-rust">2. Async en Rust<a href="#2-async-en-rust" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Con logs
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_device</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;🔄 Iniciando get_device&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Simular async work
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">tokio</span>::<span class="n">time</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;✓ Completado get_device&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="debugging-de-memory-leaks">Debugging de Memory Leaks<a href="#debugging-de-memory-leaks" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-frontend-1">1. Frontend<a href="#1-frontend-1" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// En DevTools &gt; Memory tab
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 1. Toma un heap snapshot
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 2. Realiza operación que crees tiene leak
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 3. Toma otro heap snapshot
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 4. Compara las dos
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Para debug manual
+</span></span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">listeners</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ Memory leak - listeners nunca se limpian
+</span></span></span><span class="line"><span class="cl"><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">listeners</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">handler</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ✅ Correcto - limpiar en unmount
+</span></span></span><span class="line"><span class="cl"><span class="nx">onUnmounted</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">listeners</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">h</span> <span class="o">=&gt;</span> <span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">h</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="2-backend-1">2. Backend<a href="#2-backend-1" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Usar valgrind (Linux)</span>
+</span></span><span class="line"><span class="cl">valgrind --leak-check<span class="o">=</span>full ./target/debug/vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Usar perf para memory</span>
+</span></span><span class="line"><span class="cl">perf record -e cache-misses ./target/debug/vasak-desktop
+</span></span></code></pre></td></tr></table></div></div><h2 id="debugging-de-threads">Debugging de Threads<a href="#debugging-de-threads" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="1-rust-threads">1. Rust Threads<a href="#1-rust-threads" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">thread</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread</span>::<span class="n">spawn</span><span class="p">(</span><span class="o">||</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;🧵 Thread: </span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">thread</span>::<span class="n">current</span><span class="p">().</span><span class="n">id</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// trabajo
+</span></span></span><span class="line"><span class="cl"><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;🧵 Main: </span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">thread</span>::<span class="n">current</span><span class="p">().</span><span class="n">id</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">handle</span><span class="p">.</span><span class="n">join</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="2-tokio-tasks">2. Tokio Tasks<a href="#2-tokio-tasks" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#[tokio::main]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;📋 Task iniciada&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;📋 Tarea ejecutándose&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// trabajo async
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">task</span><span class="p">.</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;📋 Task completada&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div></div><div class="flex justify-between mt-8 gap-4"><a href="/docs/devs/dev-dependencies/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div><div class="font-semibold">Dependencias de Desarrollo</div></a><a href="/docs/devs/contribution/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors text-right"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div><div class="font-semibold">Contribucion al Proyecto</div></a></div></div></div><div class="hidden w-4/12 mx-8 lg:block"><section class="bg-ui-bg/80 rounded-corner p-5 mb-3"><header class="flex items-center gap-2 mb-4"><i class="fa-solid fa-magnifying-glass"></i><div><h2 class="text-base font-semibold">Buscar documentación</h2></div></header><div class="relative"><input id="docs-search-input" type="search" placeholder="Ej: eventos IPC, Vue, Tauri" class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="off">
+<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span></div></section><div id="docs-search-modal" class="fixed inset-0 z-50 hidden"><div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]"><div class="bg-ui-bg/80 rounded-corner shadow-2xl overflow-hidden flex flex-col"><div class="px-6 py-4 border-b border-ui-border flex items-center justify-between"><div class="flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-tx-muted"></i><h3 class="font-semibold text-tx-main">Resultados de búsqueda</h3></div><button id="docs-search-close" type="button" class="text-slate-400 hover:text-primary transition-colors">
+<i class="fa-solid fa-xmark text-lg"></i></button></div><div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div></div></div></div><script>(()=>{const c=document.getElementById("docs-search-input"),t=document.getElementById("docs-search-status"),o=document.getElementById("docs-search-results"),i=document.getElementById("docs-search-modal"),s=document.getElementById("docs-search-backdrop"),f=document.getElementById("docs-search-close"),d="/search-index.json",l=2;let e=null;const a=()=>{i.classList.remove("hidden"),setTimeout(()=>s.classList.remove("opacity-0"),10)},n=()=>{s.classList.add("opacity-0"),setTimeout(()=>i.classList.add("hidden"),200)},u=async()=>{if(e)return e;t.textContent="Cargando…";try{const t=await fetch(d);e=await t.json()}catch{return e=[],t.textContent="!",e}return t.textContent="",e},h=(e,t=200)=>{let n;return(...s)=>{clearTimeout(n),n=setTimeout(()=>e(...s),t)}},m=(e,t)=>{const s=t.toLowerCase();let n=0;const o=(e.title||"").toLowerCase(),i=(e.content||"").toLowerCase();return o.includes(s)&&(n+=6),i.includes(s)&&(n+=4),n},r=(e,t)=>{if(!e)return"";try{const n=new RegExp(`(${t.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")})`,"ig");return e.replace(n,'<mark class="bg-primary p-0 m-0">$1</mark>')}catch{return e}},p=(e,t,n=160)=>{const s=(e||"").replace(/<[^>]+>/g," "),o=s.toLowerCase().indexOf(t.toLowerCase());if(o===-1)return s.slice(0,n)+(s.length>n?"…":"");const i=Math.max(0,o-40),a=Math.min(s.length,o+n);return(i>0?"…":"")+s.slice(i,a)+(a<s.length?"…":"")},g=(e,t)=>{if(!e.length){o.innerHTML='<p class="text-center text-tx-muted py-8">Sin resultados</p>';return}o.innerHTML=e.map(e=>`
+			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
+				<a href="${e.permalink}" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines"></i>
+					${r(e.title,t)}
+				</a>
+				<p class="mt-2 text-tx-muted leading-relaxed text-xs">${r(p(e.content||e.summary,t),t)}</p>
+			</article>
+		`).join("")},v=h(async()=>{const s=c.value.trim();if(s.length<l){s.length===0?n():(a(),o.innerHTML='<p class="text-center text-tx-muted py-8">Escribe al menos 2 caracteres</p>'),t.textContent="";return}await u();const i=e.map(e=>({...e,_score:m(e,s)})).filter(e=>e._score>0).sort((e,t)=>t._score-e._score).slice(0,20);t.textContent=i.length?`${i.length}`:"0",a(),g(i,s)},220);c.addEventListener("input",v),f.addEventListener("click",n),s.addEventListener("click",n),document.addEventListener("keydown",e=>{e.key==="Escape"&&!i.classList.contains("hidden")&&n()})})()</script><div class="flex flex-col mb-3 px-6 py-4 mx-auto bg-ui-bg/80 text-tx-main rounded-corner shadow-md"><nav id="TableOfContents"><ol><li><a href="#debugging-del-frontend-vuejs--typescript">Debugging del Frontend (Vue.js / TypeScript)</a><ol><li><a href="#1-herramientas-de-desarrollo-del-navegador">1. Herramientas de Desarrollo del Navegador</a></li><li><a href="#2-console-logging">2. Console Logging</a></li><li><a href="#3-debugger-paso-a-paso">3. Debugger Paso a Paso</a></li><li><a href="#4-vue-devtools">4. Vue DevTools</a></li><li><a href="#5-logs-con-tags">5. Logs con Tags</a></li></ol></li><li><a href="#debugging-del-backend-rust">Debugging del Backend (Rust)</a><ol><li><a href="#1-print-debugging">1. Print Debugging</a></li><li><a href="#2-macros-de-debug">2. Macros de Debug</a></li><li><a href="#3-variables-de-entorno-para-logging">3. Variables de Entorno para Logging</a></li><li><a href="#4-log-macros-si-uses-log-crate">4. Log Macros (si uses <code>log</code> crate)</a></li><li><a href="#5-debugger-gdblldb">5. Debugger GDB/LLDB</a></li></ol></li><li><a href="#debugging-de-ipc-frontend--backend">Debugging de IPC (Frontend ↔ Backend)</a><ol><li><a href="#1-ver-comandos-ipc">1. Ver Comandos IPC</a></li><li><a href="#2-tauri-debug-info">2. Tauri Debug Info</a></li></ol></li><li><a href="#debugging-de-d-bus">Debugging de D-Bus</a><ol><li><a href="#1-monitor-d-bus">1. Monitor D-Bus</a></li><li><a href="#2-llamar-d-bus-desde-cli">2. Llamar D-Bus desde CLI</a></li><li><a href="#3-logs-de-d-bus-en-rust">3. Logs de D-Bus en Rust</a></li></ol></li><li><a href="#debugging-de-rendering">Debugging de Rendering</a><ol><li><a href="#1-inspeccionar-dom">1. Inspeccionar DOM</a></li><li><a href="#2-performance-profiling">2. Performance Profiling</a></li><li><a href="#3-vue-component-hierarchy">3. Vue Component Hierarchy</a></li></ol></li><li><a href="#debugging-de-performance">Debugging de Performance</a><ol><li><a href="#1-frontend">1. Frontend</a></li><li><a href="#2-backend">2. Backend</a></li></ol></li><li><a href="#debugging-de-asyncawait">Debugging de Async/Await</a><ol><li><a href="#1-promesas-en-frontend">1. Promesas en Frontend</a></li><li><a href="#2-async-en-rust">2. Async en Rust</a></li></ol></li><li><a href="#debugging-de-memory-leaks">Debugging de Memory Leaks</a><ol><li><a href="#1-frontend-1">1. Frontend</a></li><li><a href="#2-backend-1">2. Backend</a></li></ol></li><li><a href="#debugging-de-threads">Debugging de Threads</a><ol><li><a href="#1-rust-threads">1. Rust Threads</a></li><li><a href="#2-tokio-tasks">2. Tokio Tasks</a></li></ol></li></ol></nav></div></div></div></main><div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner"><div class="w-full draggable"><div class="container flex flex-col mx-auto"><div class="flex flex-col items-center w-full my-20"><span class="mb-8"><img src="/img/logo.svg" alt="logo" loading="lazy" class="h-20"></span><div class="flex flex-col items-center gap-6"><div class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900"><a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
+<a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
+<a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
+<a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
+<a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Roadmap</a></div><div class="flex items-center gap-8"><a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-telegram"></em>
+</a><a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-github"></em>
+</a><a href="https://discord.gg/7wKrVNBC" alt="Discord" aria-label="Discord" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-discord"></em>
+</a><a href="https://www.reddit.com/r/VasakOS/" alt="Reddit" aria-label="Reddit" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-reddit"></em>
+</a><a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-twitter"></em></a></div><div class="mt-2 w-full max-w-3xl px-4 sm:px-6"><div id="os-badgets" class="flex w-full flex-wrap items-center justify-center gap-3 text-center sm:gap-4"><div class="badge-item sf-root" data-id="4084065" data-badge="oss-users-love-us-white"><a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">VasakOS en SourceForge</a></div><a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="badge-item"><img src="/oin-member-2-0-stacked-200x140_3696262515435231848.png" width="200" height="140" loading="lazy" decoding="async" alt="VasakOS es miembro de la Open Invention Network"></a></div></div><style>#os-badgets{--badge-fixed-height:108px}#os-badgets .badge-item{display:inline-flex;align-items:center;justify-content:center;height:var(--badge-fixed-height);max-width:100%}#os-badgets img,#os-badgets .badge-item svg,#os-badgets .badge-item canvas,#os-badgets .badge-item iframe,#os-badgets .badge-item object{height:var(--badge-fixed-height)!important;width:auto!important;max-width:100%;object-fit:contain}#os-badgets .sf-root,#os-badgets .sf-root>a{height:var(--badge-fixed-height)!important;width:auto!important}</style><script>(function(){var e,t,n=document.getElementById("os-badgets");if(!n)return;e=!1;function s(){if(e)return;e=!0;var t=document.createElement("script");t.async=!0,t.src="https://b.sf-syn.com/badge_js?sf_id=4084065",document.body.appendChild(t)}"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.some(function(e){return e.isIntersecting})&&(s(),t.disconnect())},{rootMargin:"200px"}),t.observe(n)):s()})()</script></div></div></div></div></div><div class="flex flex-wrap my-5"><div class="w-full max-w-full sm:w-3/4 mx-auto text-center"><p class="text-lg text-slate-500 py-1"><a href="/" class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold" rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p></div></div><a rel="noopener" href="#" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl"><em class="fas fa-arrow-up"></em>
+</a><script defer src="/js/bundle.min.5d9b0e854280184f06a03452faf72eee5f9f77325fd8746855c23d8fc5ca65b5.js" integrity="sha256-XZsOhUKAGE8GoDRS+vcu7l+fdzJf2HRoVcI9j8XKZbU=" crossorigin="anonymous"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-5MYT335WZK"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-5MYT335WZK",{anonymize_ip:!0})</script></body></html>

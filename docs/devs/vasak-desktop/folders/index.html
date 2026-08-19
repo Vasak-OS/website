@@ -1,0 +1,529 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sistema de Carpetas | vasak-desktop | VasakOS</title><meta name="description" content='Guía detallada sobre la estructura de carpetas del proyecto. Estructura Raíz# graph TD Root["📁 vasak-desktop/"] Root --> Src["📁 src/Frontend Vue.js"] Root --> …'><link rel="canonical" href="https://os.vasak.net.ar/docs/devs/vasak-desktop/folders/"><link rel="icon" href="/img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/img/icon.svg"><meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"><script>(function(){try{var e=localStorage.getItem("darkmode"),t=e===null?window.matchMedia("(prefers-color-scheme: dark)").matches:e==="true";t&&document.documentElement.classList.add("dark")}catch{}})()</script><link rel="stylesheet" href="/css/styles.min.d50c4f5fff7458c9bec9b2184318d85555f0b637b0085f71af0f6417fdcb493c.css" integrity="sha256-1QxPX/90WMm+ybIYQxjYVVXwtjewCF9xrw9kF/3LSTw=" crossorigin="anonymous"><link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin><meta property="og:site_name" content="VasakOS"><meta property="og:locale" content="es_AR"><meta property="og:type" content="article"><meta property="og:url" content="https://os.vasak.net.ar/docs/devs/vasak-desktop/folders/"><meta property="og:title" content="Sistema de Carpetas | vasak-desktop | VasakOS"><meta property="og:description" content='Guía detallada sobre la estructura de carpetas del proyecto. Estructura Raíz# graph TD Root["📁 vasak-desktop/"] Root --> Src["📁 src/Frontend Vue.js"] Root --> …'><meta property="og:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@VasakOSLinux"><meta name="twitter:creator" content="@PatoJADOficial"><meta name="twitter:title" content="Sistema de Carpetas | vasak-desktop | VasakOS"><meta name="twitter:description" content='Guía detallada sobre la estructura de carpetas del proyecto. Estructura Raíz# graph TD Root["📁 vasak-desktop/"] Root --> Src["📁 src/Frontend Vue.js"] Root --> …'><meta name="twitter:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="author" content="VasakOS"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://os.vasak.net.ar/#organization","@type":"Organization","description":"VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto.","logo":"https://os.vasak.net.ar/img/logo.svg","name":"VasakOS","sameAs":["https://github.com/Vasak-OS","https://t.me/VasakOS","https://www.reddit.com/r/VasakOS/","https://twitter.com/VasakOSLinux","https://sourceforge.net/projects/vasakos/"],"url":"https://os.vasak.net.ar/"},{"@id":"https://os.vasak.net.ar/#website","@type":"WebSite","inLanguage":"es-AR","name":"VasakOS","publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://os.vasak.net.ar/","name":"Inicio","position":1},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/","name":"Documentación","position":2},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/","name":"Documentación para desarrolladores","position":3},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/vasak-desktop/","name":"vasak-desktop","position":4},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/vasak-desktop/folders/","name":"Sistema de Carpetas | vasak-desktop","position":5}]},{"@type":"TechArticle","author":{"@type":"Organization","name":"VasakOS","url":"https://os.vasak.net.ar/"},"description":"Guía detallada sobre la estructura de carpetas del proyecto.\nEstructura Raíz# graph TD Root[\"📁 vasak-desktop/\"] Root --\u003e Src[\"📁 src/Frontend Vue.js\"] Root --\u003e SrcTauri[\"📁 src-tauri/Backend Rust\"] Root …","headline":"Sistema de Carpetas | vasak-desktop","inLanguage":"es-AR","mainEntityOfPage":{"@id":"https://os.vasak.net.ar/docs/devs/vasak-desktop/folders/","@type":"WebPage"},"publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/docs/devs/vasak-desktop/folders/"}]}</script></head><body class="transition-all duration-400"><header class="sticky top-0 bg-ui-bg/80 z-40 drop-shadow-xl m-2 mb-0 rounded-corner"><nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global"><div class="flex lg:flex-1"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS"></a></div><div class="flex lg:hidden"><button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+<span class="sr-only">Open main menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button></div><div class="hidden lg:flex lg:gap-x-12"><a href="/" title="Inicio" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="hidden lg:flex lg:flex-1 lg:justify-end"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></nav></header><div class="lg:hidden" role="dialog" aria-modal="true"><div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden"><div class="flex items-center justify-between"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS">
+</a><button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+<span class="sr-only">Close menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div><div class="mt-6 flow-root"><div class="-my-6 divide-y divide-gray-500/10"><div class="space-y-2 py-6"><a href="/" title="Inicio" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="py-6"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></div></div></div></div><main class="px-6 py-8"><nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb"><ul class="flex flex-wrap items-center gap-0 text-ms"><li class="flex items-center"><a href="https://os.vasak.net.ar/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Go to home page"><i class="fa-solid fa-house text-sm"></i>
+<span class="hidden sm:inline">Home</span></a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Docs">Docs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Devs">Devs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Vasak desktop">Vasak desktop</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/folders/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Folders">Folders</a></li><li class="flex items-center"><svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li><li class="flex items-center"><span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner
+bg-gradient-to-r from-secondary to-primary
+text-white font-medium
+shadow-md dark:shadow-lg" aria-current="page"><i class="fa-solid fa-book text-sm"></i>
+<span>Sistema de Carpetas | vasak-desktop</span></span></li></ul></nav><div class="flex justify-between mx-auto"><div class="w-full lg:w-8/12"><div class="px-8"><div class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner" id="article"><h1 class="text-center text-primary">Sistema de Carpetas | vasak-desktop</h1><p>Guía detallada sobre la estructura de carpetas del proyecto.</p><h2 id="estructura-raíz">Estructura Raíz<a href="#estructura-ra%c3%adz" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="mermaid flex justify-center">graph TD
+Root["📁 vasak-desktop/"]
+Root --> Src["📁 src/<br><small>Frontend Vue.js</small>"]
+Root --> SrcTauri["📁 src-tauri/<br><small>Backend Rust</small>"]
+Root --> IndexHTML["📄 index.html"]
+Root --> PackageJSON["📄 package.json"]
+Root --> TSConfig["📄 tsconfig.json"]
+Root --> ViteConfig["📄 vite.config.ts"]
+Root --> License["📄 LICENSE"]
+Root --> Readme["📄 README.md"]
+Root --> GitIgnore["📄 .gitignore"]
+style Root fill:#667eea,stroke:#764ba2,color:#fff
+style Src fill:#f093fb,stroke:#f5576c,color:#fff
+style SrcTauri fill:#4facfe,stroke:#00f2fe,color:#fff
+style IndexHTML fill:#fa709a,stroke:#fee140,color:#fff
+style PackageJSON fill:#30cfd0,stroke:#330867,color:#fff
+style TSConfig fill:#a8edea,stroke:#fed6e3,color:#333
+style ViteConfig fill:#ffecd2,stroke:#fcb69f,color:#333
+style License fill:#ff9a9e,stroke:#fecfef,color:#333
+style Readme fill:#fbc2eb,stroke:#a6c1ee,color:#333
+style GitIgnore fill:#fdcbf1,stroke:#e6dee9,color:#333</div><h2 id="frontend-src">Frontend (<code>src/</code>)<a href="#frontend-src" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="raíz-de-frontend">Raíz de Frontend<a href="#ra%c3%adz-de-frontend" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="mermaid flex justify-center">graph TD
+SrcRoot["📁 src/"]
+SrcRoot --> AppVue["📄 App.vue<br><small>Componente raíz</small>"]
+SrcRoot --> MainTs["📄 main.ts<br><small>Punto de entrada</small>"]
+SrcRoot --> StyleCss["📄 style.css<br><small>Estilos globales</small>"]
+SrcRoot --> ViteEnv["📄 vite-env.d.ts<br><small>Tipos Vite</small>"]
+SrcRoot --> AssetsDir["📁 assets/<br><small>Recursos estáticos</small>"]
+SrcRoot --> ComponentsDir["📁 components/<br><small>Componentes reutilizables</small>"]
+SrcRoot --> InterfacesDir["📁 interfaces/<br><small>Interfaces TS</small>"]
+SrcRoot --> LayoutsDir["📁 layouts/<br><small>Layouts/Plantillas</small>"]
+SrcRoot --> RoutesDir["📁 routes/<br><small>Enrutamiento</small>"]
+SrcRoot --> ToolsDir["📁 tools/<br><small>Controladores</small>"]
+SrcRoot --> TypesDir["📁 types/<br><small>Tipos TS</small>"]
+SrcRoot --> ViewsDir["📁 views/<br><small>Vistas/Páginas</small>"]
+style SrcRoot fill:#667eea,stroke:#764ba2,color:#fff
+style AppVue fill:#f093fb,stroke:#f5576c,color:#fff
+style MainTs fill:#f093fb,stroke:#f5576c,color:#fff
+style StyleCss fill:#f093fb,stroke:#f5576c,color:#fff
+style ViteEnv fill:#f093fb,stroke:#f5576c,color:#fff
+style AssetsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+style ComponentsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+style InterfacesDir fill:#4facfe,stroke:#00f2fe,color:#fff
+style LayoutsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+style RoutesDir fill:#4facfe,stroke:#00f2fe,color:#fff
+style ToolsDir fill:#4facfe,stroke:#00f2fe,color:#fff
+style TypesDir fill:#4facfe,stroke:#00f2fe,color:#fff
+style ViewsDir fill:#4facfe,stroke:#00f2fe,color:#fff</div><h3 id="srcassets"><code>src/assets/</code><a href="#srcassets" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Recursos estáticos (imágenes, vectores):</p><div class="mermaid flex justify-center">graph TD
+Assets["📁 src/assets/"]
+Assets --> Img["📁 img/<br><small>Imágenes rasterizadas</small>"]
+Assets --> Vectors["📁 vectors/<br><small>Gráficos vectoriales</small>"]
+Img --> Logo["🖼️ logo.png"]
+Img --> BgJpg["🖼️ background.jpg"]
+Img --> ImgMore["📄 ..."]
+Vectors --> Icons["📁 icons/"]
+Vectors --> Illustrations["📁 illustrations/"]
+Vectors --> VecMore["📄 ..."]
+style Assets fill:#667eea,stroke:#764ba2,color:#fff
+style Img fill:#4facfe,stroke:#00f2fe,color:#fff
+style Vectors fill:#4facfe,stroke:#00f2fe,color:#fff
+style Logo fill:#43e97b,stroke:#38f9d7,color:#fff
+style BgJpg fill:#43e97b,stroke:#38f9d7,color:#fff
+style ImgMore fill:#43e97b,stroke:#38f9d7,color:#fff
+style Icons fill:#43e97b,stroke:#38f9d7,color:#fff
+style Illustrations fill:#43e97b,stroke:#38f9d7,color:#fff
+style VecMore fill:#43e97b,stroke:#38f9d7,color:#fff</div><p><strong>Uso</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">logo</span> <span class="kr">from</span> <span class="s1">&#39;@/assets/img/logo.png&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Disponible en plantillas como:
+</span></span></span><span class="line"><span class="cl"><span class="c1">// &lt;img src=&#34;@/assets/img/logo.png&#34; /&gt;
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="srccomponents"><code>src/components/</code><a href="#srccomponents" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Componentes Vue reutilizables:</p><div class="mermaid flex justify-center">graph LR
+Components["📁 src/components/"]
+Components --> SearchMenu["📄 SearchMenuComponent.vue<br><small>Búsqueda en menú</small>"]
+Components --> Areas["📁 areas/<br><small>Áreas grandes</small>"]
+Components --> Buttons["📁 buttons/<br><small>Botones</small>"]
+Components --> Cards["📁 cards/<br><small>Tarjetas</small>"]
+Components --> Controls["📁 controls/<br><small>Controles interactivos</small>"]
+Components --> Icon["📁 icon/<br><small>Iconos</small>"]
+Components --> Widgets["📁 widgets/<br><small>Widgets reutilizables</small>"]
+Areas --> Audio["🔊 audio/"]
+Areas --> Bluetooth["📱 bluetooth/"]
+Areas --> Network["🌐 network/"]
+Areas --> Panel["📊 panel/"]
+Areas --> ControlCenter["⚙️ control-center/"]
+Areas --> Menu["🎯 menu/"]
+Areas --> Configuration["⚙️ configuration/"]
+Buttons --> BtnMenu["🔘 AppMenuButton.vue"]
+Buttons --> BtnCategory["🔘 CategoryMenuPill.vue"]
+Buttons --> BtnSidebar["🔘 ConfigSidebarButton.vue"]
+Buttons --> BtnSession["🔘 SessionButton.vue"]
+Buttons --> BtnBattery["🔌 TrayIconBattery.vue"]
+Cards --> CardMenu["🎴 AppMenuCard.vue"]
+Cards --> CardBT["🎴 BluetoothDeviceCard.vue"]
+Cards --> CardWeather["🎴 CurrentWeatherCard.vue"]
+Cards --> CardWiFi["🎴 NetworkWiFiCard.vue"]
+Controls --> CtrlAudio["🎚️ AudioDeviceSelector.vue"]
+Controls --> CtrlBT["🎚️ BluetoothControl.vue"]
+Controls --> CtrlBrightness["🎚️ BrightnessControl.vue"]
+Controls --> CtrlNetwork["🎚️ NetworkControl.vue"]
+Widgets --> ClockWidget["⏰ DesktopClockWidget.vue"]
+Widgets --> MusicWidget["🎵 MusicWidget.vue"]
+Widgets --> WeatherWidget["🌤️ WeatherWidget.vue"]
+style Components fill:#667eea,stroke:#764ba2,color:#fff
+style SearchMenu fill:#f093fb,stroke:#f5576c,color:#fff
+style Areas fill:#4facfe,stroke:#00f2fe,color:#fff
+style Buttons fill:#4facfe,stroke:#00f2fe,color:#fff
+style Cards fill:#4facfe,stroke:#00f2fe,color:#fff
+style Controls fill:#4facfe,stroke:#00f2fe,color:#fff
+style Icon fill:#4facfe,stroke:#00f2fe,color:#fff
+style Widgets fill:#4facfe,stroke:#00f2fe,color:#fff</div><p><strong>Estructura de un Componente</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;component&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--</span> <span class="nx">Contenido</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Lógica del componente
+</span></span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* Estilos locales */</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="srcinterfaces"><code>src/interfaces/</code><a href="#srcinterfaces" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Definiciones de interfaces TypeScript:</p><div class="mermaid flex justify-center">graph TD
+Interfaces["📁 src/interfaces/"]
+Interfaces --> Battery["📄 battery.ts<br><small>Interface Battery</small>"]
+Interfaces --> Notifications["📄 notifications.ts<br><small>Interface Notification</small>"]
+Interfaces --> Tray["📄 tray.ts<br><small>Interface Tray</small>"]
+style Interfaces fill:#667eea,stroke:#764ba2,color:#fff
+style Battery fill:#43e97b,stroke:#38f9d7,color:#fff
+style Notifications fill:#43e97b,stroke:#38f9d7,color:#fff
+style Tray fill:#43e97b,stroke:#38f9d7,color:#fff</div><p><strong>Ejemplo</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// battery.ts
+</span></span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Battery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">level</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">status</span><span class="o">:</span> <span class="s1">&#39;charging&#39;</span> <span class="o">|</span> <span class="s1">&#39;discharging&#39;</span> <span class="o">|</span> <span class="s1">&#39;full&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">timeRemaining?</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="srclayouts"><code>src/layouts/</code><a href="#srclayouts" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Layouts/Plantillas de página:</p><div class="mermaid flex justify-center">graph TD
+Layouts["📁 src/layouts/"]
+Layouts --> ConfigLayout["📄 ConfigAppLayout.vue<br><small>Layout para configuración</small>"]
+style Layouts fill:#667eea,stroke:#764ba2,color:#fff
+style ConfigLayout fill:#f093fb,stroke:#f5576c,color:#fff</div><p><strong>Uso</strong>: Envuelve vistas para mantener estructura consistente</p><h3 id="srcroutes"><code>src/routes/</code><a href="#srcroutes" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Configuración de enrutamiento Vue Router:</p><div class="mermaid flex justify-center">graph TD
+Routes["📁 src/routes/"]
+Routes --> IndexTs["📄 index.ts<br><small>Configuración de rutas</small>"]
+style Routes fill:#667eea,stroke:#764ba2,color:#fff
+style IndexTs fill:#4facfe,stroke:#00f2fe,color:#fff</div><p><strong>Ejemplo</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">component</span>: <span class="kt">DesktopView</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/panel&#39;</span><span class="p">,</span> <span class="nx">component</span>: <span class="kt">PanelView</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/menu&#39;</span><span class="p">,</span> <span class="nx">component</span>: <span class="kt">MenuView</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="srctools"><code>src/tools/</code><a href="#srctools" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Controladores y servicios (Business Logic):</p><div class="mermaid flex justify-center">graph TD
+Tools["📁 src/tools/"]
+Tools --> BatteryCtrl["📄 battery.controller.ts<br><small>Lógica de batería</small>"]
+Tools --> BluetoothCtrl["📄 bluetooth.controller.ts<br><small>Lógica de Bluetooth</small>"]
+Tools --> NetworkCtrl["📄 network.controller.ts<br><small>Lógica de red</small>"]
+Tools --> TrayCtrl["📄 tray.controller.ts<br><small>Lógica de bandeja</small>"]
+style Tools fill:#667eea,stroke:#764ba2,color:#fff
+style BatteryCtrl fill:#feca57,stroke:#ff9a56,color:#fff
+style BluetoothCtrl fill:#feca57,stroke:#ff9a56,color:#fff
+style NetworkCtrl fill:#feca57,stroke:#ff9a56,color:#fff
+style TrayCtrl fill:#feca57,stroke:#ff9a56,color:#fff</div><p><strong>Responsabilidad</strong>:</p><ul><li>Llamar comandos del backend</li><li>Procesar datos</li><li>Manejar lógica compleja</li></ul><h3 id="srctypes"><code>src/types/</code><a href="#srctypes" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Definiciones de tipos TypeScript:</p><div class="mermaid flex justify-center">graph TD
+Types["📁 src/types/"]
+Types --> LibVasakTypes["📄 vue-libvasak.d.ts<br><small>Tipos de librerías externas</small>"]
+style Types fill:#667eea,stroke:#764ba2,color:#fff
+style LibVasakTypes fill:#fa709a,stroke:#f5576c,color:#fff</div><p><strong>Uso</strong>: Extiende tipos de librerías o define tipos globales</p><h3 id="srcviews"><code>src/views/</code><a href="#srcviews" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Vistas/Páginas principales:</p><div class="mermaid flex justify-center">graph TD
+Views["📁 src/views/"]
+Views --> ControlCenter["📄 ControlCenterView.vue<br><small>Centro de control</small>"]
+Views --> Desktop["📄 DesktopView.vue<br><small>Escritorio</small>"]
+Views --> Menu["📄 MenuView.vue<br><small>Menú de apps</small>"]
+Views --> Panel["📄 PanelView.vue<br><small>Panel</small>"]
+Views --> Applets["📁 applets/<br><small>Mini-aplicaciones</small>"]
+Views --> Apps["📁 apps/<br><small>Aplicaciones</small>"]
+Applets --> AudioApplet["📄 AudioAppletView.vue<br><small>Applet de audio</small>"]
+Applets --> BluetoothApplet["📄 BluetoothAppletView.vue<br><small>Applet de Bluetooth</small>"]
+Applets --> NetworkApplet["📄 NetworkAppletView.vue<br><small>Applet de red</small>"]
+Apps --> Settings["📄 SettingsApp.vue<br><small>Aplicación de Settings</small>"]
+Apps --> FileManager["📄 FileManagerView.vue<br><small>Gestor de archivos</small>"]
+style Views fill:#667eea,stroke:#764ba2,color:#fff
+style ControlCenter fill:#f093fb,stroke:#f5576c,color:#fff
+style Desktop fill:#f093fb,stroke:#f5576c,color:#fff
+style Menu fill:#f093fb,stroke:#f5576c,color:#fff
+style Panel fill:#f093fb,stroke:#f5576c,color:#fff
+style Applets fill:#4facfe,stroke:#00f2fe,color:#fff
+style Apps fill:#4facfe,stroke:#00f2fe,color:#fff
+style AudioApplet fill:#43e97b,stroke:#38f9d7,color:#fff
+style BluetoothApplet fill:#43e97b,stroke:#38f9d7,color:#fff
+style NetworkApplet fill:#43e97b,stroke:#38f9d7,color:#fff
+style Settings fill:#43e97b,stroke:#38f9d7,color:#fff
+style FileManager fill:#43e97b,stroke:#38f9d7,color:#fff</div><h2 id="backend-src-tauri">Backend (<code>src-tauri/</code>)<a href="#backend-src-tauri" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="estructura-tauri">Estructura Tauri<a href="#estructura-tauri" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="mermaid flex justify-center">graph LR
+TauriRoot["📁 src-tauri/"]
+TauriRoot --> CargoToml["📄 Cargo.toml"]
+TauriRoot --> CargoLock["📄 Cargo.lock"]
+TauriRoot --> BuildRs["📄 build.rs"]
+TauriRoot --> TauriConf["📄 tauri.conf.json"]
+TauriRoot --> Capabilities["📁 capabilities/"]
+TauriRoot --> Gen["📁 gen/"]
+TauriRoot --> Icons["📁 icons/"]
+TauriRoot --> Src["📁 src/<br><small>Código fuente Rust</small>"]
+TauriRoot --> Target["📁 target/<br><small>Compilación</small>"]
+TauriRoot --> Tests["📁 tests/"]
+Src --> LibRs["📄 lib.rs<br><small>Módulos principales</small>"]
+Src --> MainRs["📄 main.rs<br><small>Punto de entrada</small>"]
+Src --> ErrorRs["📄 error.rs"]
+Src --> StructsRs["📄 structs.rs"]
+Src --> Commands["📁 commands/<br><small>Manejadores IPC</small>"]
+Src --> WindowMgr["📁 window_manager/"]
+Src --> Audio["📁 audio.rs"]
+Src --> DBus["📁 dbus_service.rs"]
+Src --> Tray["📁 tray/"]
+Src --> Utils["📁 utils/"]
+Icons --> Icon128["🖼️ 128x128.png"]
+Icons --> Icon256["🖼️ 256x256.png"]
+Commands --> ModRs["📄 mod.rs"]
+Commands --> AudioCmd["📄 audio_commands.rs"]
+Commands --> BTCmd["📄 bluetooth_commands.rs"]
+WindowMgr --> WinCtrl["📄 window_controller.rs"]
+WindowMgr --> MonitorH["📄 monitor_handler.rs"]
+Tray --> TrayMod["📄 mod.rs"]
+Tray --> TrayIcon["📄 tray_icon.rs"]
+style TauriRoot fill:#667eea,stroke:#764ba2,color:#fff
+style CargoToml fill:#f093fb,stroke:#f5576c,color:#fff
+style CargoLock fill:#f093fb,stroke:#f5576c,color:#fff
+style BuildRs fill:#f093fb,stroke:#f5576c,color:#fff
+style TauriConf fill:#f093fb,stroke:#f5576c,color:#fff
+style Src fill:#4facfe,stroke:#00f2fe,color:#fff
+style Commands fill:#4facfe,stroke:#00f2fe,color:#fff
+style WindowMgr fill:#4facfe,stroke:#00f2fe,color:#fff
+style Tray fill:#4facfe,stroke:#00f2fe,color:#fff
+style Utils fill:#4facfe,stroke:#00f2fe,color:#fff</div><h3 id="src-taurisrclibrs"><code>src-tauri/src/lib.rs</code><a href="#src-taurisrclibrs" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Define módulos principales:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Core modules - Módulos principales del núcleo
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">app_url</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">constants</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">error</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">structs</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Feature modules - Módulos de funcionalidades
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">applets</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">audio</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">brightness</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">commands</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">dbus_service</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">eventloops</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">menu_manager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">monitor_manager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">notifications</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">tray</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">utils</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">window_manager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">windows_apps</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="src-taurisrcmainrs"><code>src-tauri/src/main.rs</code><a href="#src-taurisrcmainrs" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Punto de entrada simple:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">vasak_desktop_lib</span>::<span class="n">run</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="src-taurisrccommands"><code>src-tauri/src/commands/</code><a href="#src-taurisrccommands" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Manejadores de comandos IPC:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Accesibles desde Frontend
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_volume</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">set_volume</span><span class="p">(</span><span class="n">level</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">list_wifi_networks</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Network</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="src-taurisrcwindow_manager"><code>src-tauri/src/window_manager/</code><a href="#src-taurisrcwindow_manager" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Gestión de ventanas y monitores:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// window_controller.rs - Control de ventanas
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">create_window</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">close_window</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// monitor_handler.rs - Manejo de monitores
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">detect_monitors</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">arrange_windows</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="módulos-de-integración-del-sistema">Módulos de Integración del Sistema<a href="#m%c3%b3dulos-de-integraci%c3%b3n-del-sistema" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">audio.rs              - Control de volumen, dispositivos
+</span></span><span class="line"><span class="cl">brightness.rs        - Control de brillo de pantalla
+</span></span><span class="line"><span class="cl">bluetooth.rs         - Emparejamiento, conexión de dispositivos
+</span></span><span class="line"><span class="cl">network.rs           - Escaneo WiFi, conexión a redes
+</span></span><span class="line"><span class="cl">notifications.rs     - Mostrar notificaciones del sistema
+</span></span><span class="line"><span class="cl">dbus_service.rs      - Inicialización y manejo D-Bus
+</span></span></code></pre></td></tr></table></div></div><h3 id="src-tauritauriconfjson"><code>src-tauri/tauri.conf.json</code><a href="#src-tauritauriconfjson" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Configuración de Tauri:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;beforeDevCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;bun run dev&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;devUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;http://localhost:5173&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;beforeBuildCommand&#34;</span><span class="p">:</span> <span class="s2">&#34;bun run build&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;devPath&#34;</span><span class="p">:</span> <span class="s2">&#34;../src&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;distDir&#34;</span><span class="p">:</span> <span class="s2">&#34;../dist&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;withGlobalTauri&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;app&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;windows&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Vasak Desktop&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;label&#34;</span><span class="p">:</span> <span class="s2">&#34;main&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;width&#34;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;height&#34;</span><span class="p">:</span> <span class="mi">768</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="configuración-">Configuración (<code>/.</code>)<a href="#configuraci%c3%b3n-" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="packagejson"><code>package.json</code><a href="#packagejson" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Define scripts y dependencias del frontend:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dev&#34;</span><span class="p">:</span> <span class="s2">&#34;vite&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="s2">&#34;vue-tsc --noEmit &amp;&amp; vite build&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;preview&#34;</span><span class="p">:</span> <span class="s2">&#34;vite preview&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;tauri&#34;</span><span class="p">:</span> <span class="s2">&#34;tauri&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Scripts disponibles</strong>:</p><ul><li><code>bun run dev</code> - Desarrollo</li><li><code>bun run build</code> - Compilación</li><li><code>bun run preview</code> - Vista previa de build</li><li><code>bun run tauri</code> - CLI de Tauri</li></ul><h3 id="tsconfigjson"><code>tsconfig.json</code><a href="#tsconfigjson" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Configuración de TypeScript:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;compilerOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;target&#34;</span><span class="p">:</span> <span class="s2">&#34;ES2020&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;useDefineForClassFields&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lib&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;ES2020&#34;</span><span class="p">,</span> <span class="s2">&#34;DOM&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;baseUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;paths&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;@/*&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;./src/*&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="viteconfigts"><code>vite.config.ts</code><a href="#viteconfigts" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Configuración de Vite:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Controla:
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Build del frontend
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Hot reload
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Optimizaciones
+</span></span></span><span class="line"><span class="cl"><span class="c1">// - Aliases
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="archivo-env">Archivo <code>.env</code><a href="#archivo-env" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Variables de entorno (si existe):</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">VITE_API_URL=http://localhost:3000
+</span></span><span class="line"><span class="cl">VITE_DEBUG=true
+</span></span></code></pre></td></tr></table></div></div><h2 id="directorios-generados-no-commitear">Directorios Generados (No Commitear)<a href="#directorios-generados-no-commitear" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="node_modules"><code>node_modules/</code><a href="#node_modules" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Dependencias del frontend (generadas por <code>bun install</code>):</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">node_modules/
+</span></span><span class="line"><span class="cl">├── vue/
+</span></span><span class="line"><span class="cl">├── @tauri-apps/
+</span></span><span class="line"><span class="cl">├── tailwindcss/
+</span></span><span class="line"><span class="cl">└── (cientos más)
+</span></span></code></pre></td></tr></table></div></div><p><strong>Ignorado en</strong>: <code>.gitignore</code></p><h3 id="src-tauritarget"><code>src-tauri/target/</code><a href="#src-tauritarget" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Artefactos de compilación Rust:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">target/
+</span></span><span class="line"><span class="cl">├── debug/
+</span></span><span class="line"><span class="cl">│   ├── vasak-desktop      # Binario debug
+</span></span><span class="line"><span class="cl">│   └── deps/
+</span></span><span class="line"><span class="cl">├── release/
+</span></span><span class="line"><span class="cl">│   ├── vasak-desktop      # Binario release
+</span></span><span class="line"><span class="cl">│   └── deps/
+</span></span><span class="line"><span class="cl">└── (compilaciones intermedias)
+</span></span></code></pre></td></tr></table></div></div><p><strong>Ignorado en</strong>: <code>.gitignore</code></p><h3 id="dist"><code>dist/</code><a href="#dist" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Build del frontend:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">dist/
+</span></span><span class="line"><span class="cl">├── index.html
+</span></span><span class="line"><span class="cl">├── assets/
+</span></span><span class="line"><span class="cl">│   ├── main.xxxxx.js     # JS compilado
+</span></span><span class="line"><span class="cl">│   └── main.xxxxx.css    # CSS compilado
+</span></span><span class="line"><span class="cl">└── (otros assets)
+</span></span></code></pre></td></tr></table></div></div><p><strong>Generado por</strong>: <code>npm run build</code></p><h2 id="patrones-de-nombres">Patrones de Nombres<a href="#patrones-de-nombres" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="componentes-vue">Componentes Vue<a href="#componentes-vue" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>PascalCase: <code>UserCard.vue</code>, <code>AudioControl.vue</code></li><li>Archivo debe coincidir con nombre del componente</li></ul><h3 id="archivos-rust">Archivos Rust<a href="#archivos-rust" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>snake_case: <code>audio_commands.rs</code>, <code>window_controller.rs</code></li><li>Módulos coinciden con nombres de archivo</li></ul><h3 id="rutas-de-importación">Rutas de Importación<a href="#rutas-de-importaci%c3%b3n" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Frontend
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Component</span> <span class="kr">from</span> <span class="s1">&#39;@/components/cards/UserCard.vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">battery</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@/tools/battery.controller&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Backend (Rust)
+</span></span></span><span class="line"><span class="cl"><span class="nx">use</span> <span class="nx">crate</span><span class="o">::</span><span class="nx">audio</span><span class="o">::</span><span class="nx">get_volume</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">use</span> <span class="nx">crate</span><span class="o">::</span><span class="nx">dbus_service</span><span class="o">::</span><span class="nx">DbusService</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="mejores-prácticas-de-estructura">Mejores Prácticas de Estructura<a href="#mejores-pr%c3%a1cticas-de-estructura" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="-haz">✅ Haz:<a href="#-haz" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>Mantén componentes pequeños y enfocados</li><li>Agrupa relacionados en carpetas</li><li>Usa convenciones de nombres claras</li><li>Documenta módulos complejos</li></ul><h3 id="-no-hagas">❌ No hagas:<a href="#-no-hagas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>Mezcles responsabilidades en un archivo</li><li>Crees &ldquo;carpetas misc&rdquo; sin propósito</li><li>Ignores la estructura establecida</li><li>Crees mucha profundidad de carpetas</li></ul></div><div class="flex justify-between mt-8 gap-4"><a href="/docs/devs/vasak-desktop/architecture/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div><div class="font-semibold">Arquitectura General | vasak-desktop</div></a><a href="/docs/devs/vasak-desktop/components-vue/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors text-right"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div><div class="font-semibold">Componentes de VueJS | vasak-desktop</div></a></div></div></div><div class="hidden w-4/12 mx-8 lg:block"><section class="bg-ui-bg/80 rounded-corner p-5 mb-3"><header class="flex items-center gap-2 mb-4"><i class="fa-solid fa-magnifying-glass"></i><div><h2 class="text-base font-semibold">Buscar documentación</h2></div></header><div class="relative"><input id="docs-search-input" type="search" placeholder="Ej: eventos IPC, Vue, Tauri" class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="off">
+<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span></div></section><div id="docs-search-modal" class="fixed inset-0 z-50 hidden"><div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]"><div class="bg-ui-bg/80 rounded-corner shadow-2xl overflow-hidden flex flex-col"><div class="px-6 py-4 border-b border-ui-border flex items-center justify-between"><div class="flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-tx-muted"></i><h3 class="font-semibold text-tx-main">Resultados de búsqueda</h3></div><button id="docs-search-close" type="button" class="text-slate-400 hover:text-primary transition-colors">
+<i class="fa-solid fa-xmark text-lg"></i></button></div><div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div></div></div></div><script>(()=>{const c=document.getElementById("docs-search-input"),t=document.getElementById("docs-search-status"),o=document.getElementById("docs-search-results"),i=document.getElementById("docs-search-modal"),s=document.getElementById("docs-search-backdrop"),f=document.getElementById("docs-search-close"),d="/search-index.json",l=2;let e=null;const a=()=>{i.classList.remove("hidden"),setTimeout(()=>s.classList.remove("opacity-0"),10)},n=()=>{s.classList.add("opacity-0"),setTimeout(()=>i.classList.add("hidden"),200)},u=async()=>{if(e)return e;t.textContent="Cargando…";try{const t=await fetch(d);e=await t.json()}catch{return e=[],t.textContent="!",e}return t.textContent="",e},h=(e,t=200)=>{let n;return(...s)=>{clearTimeout(n),n=setTimeout(()=>e(...s),t)}},m=(e,t)=>{const s=t.toLowerCase();let n=0;const o=(e.title||"").toLowerCase(),i=(e.content||"").toLowerCase();return o.includes(s)&&(n+=6),i.includes(s)&&(n+=4),n},r=(e,t)=>{if(!e)return"";try{const n=new RegExp(`(${t.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")})`,"ig");return e.replace(n,'<mark class="bg-primary p-0 m-0">$1</mark>')}catch{return e}},p=(e,t,n=160)=>{const s=(e||"").replace(/<[^>]+>/g," "),o=s.toLowerCase().indexOf(t.toLowerCase());if(o===-1)return s.slice(0,n)+(s.length>n?"…":"");const i=Math.max(0,o-40),a=Math.min(s.length,o+n);return(i>0?"…":"")+s.slice(i,a)+(a<s.length?"…":"")},g=(e,t)=>{if(!e.length){o.innerHTML='<p class="text-center text-tx-muted py-8">Sin resultados</p>';return}o.innerHTML=e.map(e=>`
+			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
+				<a href="${e.permalink}" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines"></i>
+					${r(e.title,t)}
+				</a>
+				<p class="mt-2 text-tx-muted leading-relaxed text-xs">${r(p(e.content||e.summary,t),t)}</p>
+			</article>
+		`).join("")},v=h(async()=>{const s=c.value.trim();if(s.length<l){s.length===0?n():(a(),o.innerHTML='<p class="text-center text-tx-muted py-8">Escribe al menos 2 caracteres</p>'),t.textContent="";return}await u();const i=e.map(e=>({...e,_score:m(e,s)})).filter(e=>e._score>0).sort((e,t)=>t._score-e._score).slice(0,20);t.textContent=i.length?`${i.length}`:"0",a(),g(i,s)},220);c.addEventListener("input",v),f.addEventListener("click",n),s.addEventListener("click",n),document.addEventListener("keydown",e=>{e.key==="Escape"&&!i.classList.contains("hidden")&&n()})})()</script><div class="flex flex-col mb-3 px-6 py-4 mx-auto bg-ui-bg/80 text-tx-main rounded-corner shadow-md"><nav id="TableOfContents"><ol><li><a href="#estructura-raíz">Estructura Raíz</a></li><li><a href="#frontend-src">Frontend (<code>src/</code>)</a><ol><li><a href="#raíz-de-frontend">Raíz de Frontend</a></li><li><a href="#srcassets"><code>src/assets/</code></a></li><li><a href="#srccomponents"><code>src/components/</code></a></li><li><a href="#srcinterfaces"><code>src/interfaces/</code></a></li><li><a href="#srclayouts"><code>src/layouts/</code></a></li><li><a href="#srcroutes"><code>src/routes/</code></a></li><li><a href="#srctools"><code>src/tools/</code></a></li><li><a href="#srctypes"><code>src/types/</code></a></li><li><a href="#srcviews"><code>src/views/</code></a></li></ol></li><li><a href="#backend-src-tauri">Backend (<code>src-tauri/</code>)</a><ol><li><a href="#estructura-tauri">Estructura Tauri</a></li><li><a href="#src-taurisrclibrs"><code>src-tauri/src/lib.rs</code></a></li><li><a href="#src-taurisrcmainrs"><code>src-tauri/src/main.rs</code></a></li><li><a href="#src-taurisrccommands"><code>src-tauri/src/commands/</code></a></li><li><a href="#src-taurisrcwindow_manager"><code>src-tauri/src/window_manager/</code></a></li><li><a href="#módulos-de-integración-del-sistema">Módulos de Integración del Sistema</a></li><li><a href="#src-tauritauriconfjson"><code>src-tauri/tauri.conf.json</code></a></li></ol></li><li><a href="#configuración-">Configuración (<code>/.</code>)</a><ol><li><a href="#packagejson"><code>package.json</code></a></li><li><a href="#tsconfigjson"><code>tsconfig.json</code></a></li><li><a href="#viteconfigts"><code>vite.config.ts</code></a></li><li><a href="#archivo-env">Archivo <code>.env</code></a></li></ol></li><li><a href="#directorios-generados-no-commitear">Directorios Generados (No Commitear)</a><ol><li><a href="#node_modules"><code>node_modules/</code></a></li><li><a href="#src-tauritarget"><code>src-tauri/target/</code></a></li><li><a href="#dist"><code>dist/</code></a></li></ol></li><li><a href="#patrones-de-nombres">Patrones de Nombres</a><ol><li><a href="#componentes-vue">Componentes Vue</a></li><li><a href="#archivos-rust">Archivos Rust</a></li><li><a href="#rutas-de-importación">Rutas de Importación</a></li></ol></li><li><a href="#mejores-prácticas-de-estructura">Mejores Prácticas de Estructura</a><ol><li><a href="#-haz">✅ Haz:</a></li><li><a href="#-no-hagas">❌ No hagas:</a></li></ol></li></ol></nav></div></div></div></main><div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner"><div class="w-full draggable"><div class="container flex flex-col mx-auto"><div class="flex flex-col items-center w-full my-20"><span class="mb-8"><img src="/img/logo.svg" alt="logo" loading="lazy" class="h-20"></span><div class="flex flex-col items-center gap-6"><div class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900"><a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
+<a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
+<a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
+<a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
+<a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Roadmap</a></div><div class="flex items-center gap-8"><a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-telegram"></em>
+</a><a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-github"></em>
+</a><a href="https://discord.gg/7wKrVNBC" alt="Discord" aria-label="Discord" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-discord"></em>
+</a><a href="https://www.reddit.com/r/VasakOS/" alt="Reddit" aria-label="Reddit" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-reddit"></em>
+</a><a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-twitter"></em></a></div><div class="mt-2 w-full max-w-3xl px-4 sm:px-6"><div id="os-badgets" class="flex w-full flex-wrap items-center justify-center gap-3 text-center sm:gap-4"><div class="badge-item sf-root" data-id="4084065" data-badge="oss-users-love-us-white"><a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">VasakOS en SourceForge</a></div><a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="badge-item"><img src="/oin-member-2-0-stacked-200x140_3696262515435231848.png" width="200" height="140" loading="lazy" decoding="async" alt="VasakOS es miembro de la Open Invention Network"></a></div></div><style>#os-badgets{--badge-fixed-height:108px}#os-badgets .badge-item{display:inline-flex;align-items:center;justify-content:center;height:var(--badge-fixed-height);max-width:100%}#os-badgets img,#os-badgets .badge-item svg,#os-badgets .badge-item canvas,#os-badgets .badge-item iframe,#os-badgets .badge-item object{height:var(--badge-fixed-height)!important;width:auto!important;max-width:100%;object-fit:contain}#os-badgets .sf-root,#os-badgets .sf-root>a{height:var(--badge-fixed-height)!important;width:auto!important}</style><script>(function(){var e,t,n=document.getElementById("os-badgets");if(!n)return;e=!1;function s(){if(e)return;e=!0;var t=document.createElement("script");t.async=!0,t.src="https://b.sf-syn.com/badge_js?sf_id=4084065",document.body.appendChild(t)}"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.some(function(e){return e.isIntersecting})&&(s(),t.disconnect())},{rootMargin:"200px"}),t.observe(n)):s()})()</script></div></div></div></div></div><div class="flex flex-wrap my-5"><div class="w-full max-w-full sm:w-3/4 mx-auto text-center"><p class="text-lg text-slate-500 py-1"><a href="/" class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold" rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p></div></div><a rel="noopener" href="#" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl"><em class="fas fa-arrow-up"></em>
+</a><script defer src="/js/bundle.min.5d9b0e854280184f06a03452faf72eee5f9f77325fd8746855c23d8fc5ca65b5.js" integrity="sha256-XZsOhUKAGE8GoDRS+vcu7l+fdzJf2HRoVcI9j8XKZbU=" crossorigin="anonymous"></script><script defer src="/mermaid.min_3141953029634099501.8d607d7ef1d077a8aa202e18e62212bfa992c68bfeabc5cf45d51a128fe6675d.js"></script><script>(function(){var s={startOnLoad:!1,securityLevel:"loose",flowchart:{useMaxWidth:!0,htmlLabels:!0,curve:"cardinal"},sequence:{useMaxWidth:!0,diagramMarginX:50,diagramMarginY:10}},e=[];function n(){document.querySelectorAll("pre > code.language-mermaid").forEach(function(e){var n=e.parentElement,t=document.createElement("div");t.className="mermaid flex justify-center",t.textContent=e.textContent,n.parentNode.replaceChild(t,n)}),document.querySelectorAll(".mermaid").forEach(function(t){e.push({node:t,code:t.textContent})})}function t(){if(typeof mermaid=="undefined")return;var t=document.documentElement.classList.contains("dark");mermaid.initialize(Object.assign({},s,{theme:t?"dark":"default"})),e.forEach(function(e){e.node.removeAttribute("data-processed"),e.node.textContent=e.code}),mermaid.run({nodes:e.map(function(e){return e.node})})}window.vskRedrawMermaid=t,document.readyState==="loading"?document.addEventListener("DOMContentLoaded",function(){n(),t()}):(n(),t())})()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-5MYT335WZK"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-5MYT335WZK",{anonymize_ip:!0})</script></body></html>

@@ -1,0 +1,708 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Solución de problemas | VasakOS</title><meta name="description" content="Guía paso a paso para los problemas más frecuentes de VasakOS: arranque, sesión, audio, red y pantalla."><link rel="canonical" href="https://os.vasak.net.ar/docs/user/troubleshooting/"><link rel="icon" href="/img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/img/icon.svg"><meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"><script>(function(){try{var e=localStorage.getItem("darkmode"),t=e===null?window.matchMedia("(prefers-color-scheme: dark)").matches:e==="true";t&&document.documentElement.classList.add("dark")}catch{}})()</script><link rel="stylesheet" href="/css/styles.min.d50c4f5fff7458c9bec9b2184318d85555f0b637b0085f71af0f6417fdcb493c.css" integrity="sha256-1QxPX/90WMm+ybIYQxjYVVXwtjewCF9xrw9kF/3LSTw=" crossorigin="anonymous"><link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin><meta property="og:site_name" content="VasakOS"><meta property="og:locale" content="es_AR"><meta property="og:type" content="article"><meta property="og:url" content="https://os.vasak.net.ar/docs/user/troubleshooting/"><meta property="og:title" content="Solución de problemas | VasakOS"><meta property="og:description" content="Guía paso a paso para los problemas más frecuentes de VasakOS: arranque, sesión, audio, red y pantalla."><meta property="og:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@VasakOSLinux"><meta name="twitter:creator" content="@PatoJADOficial"><meta name="twitter:title" content="Solución de problemas | VasakOS"><meta name="twitter:description" content="Guía paso a paso para los problemas más frecuentes de VasakOS: arranque, sesión, audio, red y pantalla."><meta name="twitter:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="author" content="VasakOS"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://os.vasak.net.ar/#organization","@type":"Organization","description":"VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto.","logo":"https://os.vasak.net.ar/img/logo.svg","name":"VasakOS","sameAs":["https://github.com/Vasak-OS","https://t.me/VasakOS","https://www.reddit.com/r/VasakOS/","https://twitter.com/VasakOSLinux","https://sourceforge.net/projects/vasakos/"],"url":"https://os.vasak.net.ar/"},{"@id":"https://os.vasak.net.ar/#website","@type":"WebSite","inLanguage":"es-AR","name":"VasakOS","publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://os.vasak.net.ar/","name":"Inicio","position":1},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/","name":"Documentación","position":2},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/user/","name":"Documentación para usuarios","position":3},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/user/troubleshooting/","name":"Solución de problemas","position":4}]},{"@type":"TechArticle","author":{"@type":"Organization","name":"VasakOS","url":"https://os.vasak.net.ar/"},"description":"Guía paso a paso para los problemas más frecuentes de VasakOS: arranque, sesión, audio, red y pantalla.","headline":"Solución de problemas","inLanguage":"es-AR","mainEntityOfPage":{"@id":"https://os.vasak.net.ar/docs/user/troubleshooting/","@type":"WebPage"},"publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/docs/user/troubleshooting/"}]}</script></head><body class="transition-all duration-400"><header class="sticky top-0 bg-ui-bg/80 z-40 drop-shadow-xl m-2 mb-0 rounded-corner"><nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global"><div class="flex lg:flex-1"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS"></a></div><div class="flex lg:hidden"><button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+<span class="sr-only">Open main menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button></div><div class="hidden lg:flex lg:gap-x-12"><a href="/" title="Inicio" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="hidden lg:flex lg:flex-1 lg:justify-end"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></nav></header><div class="lg:hidden" role="dialog" aria-modal="true"><div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden"><div class="flex items-center justify-between"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS">
+</a><button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+<span class="sr-only">Close menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div><div class="mt-6 flow-root"><div class="-my-6 divide-y divide-gray-500/10"><div class="space-y-2 py-6"><a href="/" title="Inicio" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="py-6"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></div></div></div></div><main class="px-6 py-8"><nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb"><ul class="flex flex-wrap items-center gap-0 text-ms"><li class="flex items-center"><a href="https://os.vasak.net.ar/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Go to home page"><i class="fa-solid fa-house text-sm"></i>
+<span class="hidden sm:inline">Home</span></a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Docs">Docs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/user/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit User">User</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/user/troubleshooting/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Troubleshooting">Troubleshooting</a></li><li class="flex items-center"><svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li><li class="flex items-center"><span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner
+bg-gradient-to-r from-secondary to-primary
+text-white font-medium
+shadow-md dark:shadow-lg" aria-current="page"><i class="fa-solid fa-book text-sm"></i>
+<span>Solución de problemas</span></span></li></ul></nav><div class="flex justify-between mx-auto"><div class="w-full lg:w-8/12"><div class="px-8"><div class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner" id="article"><h1 class="text-center text-primary">Solución de problemas</h1><h2 id="problemas-de-inicio">Problemas de Inicio<a href="#problemas-de-inicio" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="la-aplicación-no-inicia">La aplicación no inicia<a href="#la-aplicaci%c3%b3n-no-inicia" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma">Síntoma<a href="#s%c3%adntoma" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>Ejecutas <code>vasak-desktop</code> pero nada sucede o se cierra inmediatamente.</p><h4 id="solución-paso-a-paso">Solución Paso a Paso<a href="#soluci%c3%b3n-paso-a-paso" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Paso 1: Verifica servicios del sistema</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Comprueba que D-Bus está corriendo</span>
+</span></span><span class="line"><span class="cl">systemctl --user status dbus
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no está corriendo, inicia lo</span>
+</span></span><span class="line"><span class="cl">systemctl --user start dbus
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 2: Verifica servicios opcionales</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Dependiendo de tus funcionalidades, estos pueden ser necesarios</span>
+</span></span><span class="line"><span class="cl">systemctl --user status pulseaudio
+</span></span><span class="line"><span class="cl">systemctl --user status bluetooth
+</span></span><span class="line"><span class="cl">sudo systemctl status NetworkManager
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 3: Ejecuta con logs de debug</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ejecutar con logs detallados</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee vasak-debug.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Revisa el archivo generado</span>
+</span></span><span class="line"><span class="cl">less vasak-debug.log
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 4: Limpia caché y configuración</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Backup de configuración (por si acaso)</span>
+</span></span><span class="line"><span class="cl">mv ~/.config/vasak ~/.config/vasak.backup
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Intenta iniciar de nuevo</span>
+</span></span><span class="line"><span class="cl">vasak-desktop
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 5: Reinstala la aplicación</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Según tu gestor de paquetes</span>
+</span></span><span class="line"><span class="cl">sudo apt remove vasak-desktop
+</span></span><span class="line"><span class="cl">sudo apt install vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O si usas otra distro</span>
+</span></span><span class="line"><span class="cl">sudo dnf remove vasak-desktop
+</span></span><span class="line"><span class="cl">sudo dnf install vasak-desktop
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="problemas-de-pantalla-y-monitor">Problemas de Pantalla y Monitor<a href="#problemas-de-pantalla-y-monitor" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="panel-no-aparece">Panel no aparece<a href="#panel-no-aparece" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-1">Síntoma<a href="#s%c3%adntoma-1" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>No ves el panel del sistema en ninguna pantalla.</p><h4 id="solución">Solución<a href="#soluci%c3%b3n" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Reinicia solo el panel</span>
+</span></span><span class="line"><span class="cl">pkill -f vasak-panel
+</span></span><span class="line"><span class="cl"><span class="c1"># Debería reiniciarse automáticamente en 2-3 segundos</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no se reinicia:</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop --debug-panel 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee panel-debug.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reinicia la aplicación completa</span>
+</span></span><span class="line"><span class="cl">pkill -f vasak-desktop
+</span></span><span class="line"><span class="cl">sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">vasak-desktop <span class="p">&amp;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="panel-no-cubre-todos-los-monitores">Panel no cubre todos los monitores<a href="#panel-no-cubre-todos-los-monitores" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-2">Síntoma<a href="#s%c3%adntoma-2" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>El panel no aparece en todos los monitores conectados.</p><h4 id="solución-1">Solución<a href="#soluci%c3%b3n-1" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifica la detección de monitores</span>
+</span></span><span class="line"><span class="cl">xrandr --query  <span class="c1"># Para X11</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O para Wayland con wlr-randr</span>
+</span></span><span class="line"><span class="cl">wlr-randr  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reinicia la aplicación para redetectar monitores</span>
+</span></span><span class="line"><span class="cl">pkill vasak-desktop
+</span></span><span class="line"><span class="cl">sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">vasak-desktop
+</span></span></code></pre></td></tr></table></div></div><h3 id="resolución-incorrecta-o-pixelado">Resolución incorrecta o pixelado<a href="#resoluci%c3%b3n-incorrecta-o-pixelado" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-3">Síntoma<a href="#s%c3%adntoma-3" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>La interfaz se ve pixelada o a resolución incorrecta.</p><h4 id="solución-2">Solución<a href="#soluci%c3%b3n-2" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifica tu resolución actual</span>
+</span></span><span class="line"><span class="cl">xrandr --query <span class="p">|</span> grep connected
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si es incorrecta, ajústala</span>
+</span></span><span class="line"><span class="cl">xrandr --output HDMI-1 --mode 1920x1080
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># En Wayland, normalmente se detecta automáticamente</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no, verifica en configuración de monitor del sistema</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="problemas-de-audio">Problemas de Audio<a href="#problemas-de-audio" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="sin-sonido">Sin sonido<a href="#sin-sonido" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-4">Síntoma<a href="#s%c3%adntoma-4" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>No hay sonido en ninguna aplicación.</p><h4 id="solución-paso-a-paso-1">Solución Paso a Paso<a href="#soluci%c3%b3n-paso-a-paso-1" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Paso 1: Verifica que el servicio de audio está corriendo</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Para PulseAudio</span>
+</span></span><span class="line"><span class="cl">systemctl --user status pulseaudio
+</span></span><span class="line"><span class="cl">systemctl --user start pulseaudio  <span class="c1"># Si no está corriendo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O para PipeWire (más reciente)</span>
+</span></span><span class="line"><span class="cl">systemctl --user status pipewire
+</span></span><span class="line"><span class="cl">systemctl --user start pipewire
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 2: Verifica dispositivos de audio</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Lista dispositivos</span>
+</span></span><span class="line"><span class="cl">pactl list sinks short
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ejemplo de salida:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0	alsa_output.pci-0000_00_1f.3.analog-stereo	module-alsa-card.c	s16le 2ch 44100Hz	SUSPENDED</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si ves SUSPENDED, el dispositivo no está activo</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Reactívalo:</span>
+</span></span><span class="line"><span class="cl">pactl set-sink-state &lt;ID&gt; running
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 3: Verifica volumen</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver volumen actual</span>
+</span></span><span class="line"><span class="cl">pactl list sinks <span class="p">|</span> grep Volume
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Establecer volumen (0-100%)</span>
+</span></span><span class="line"><span class="cl">pactl set-sink-volume &lt;ID&gt; 50%
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O subir volumen</span>
+</span></span><span class="line"><span class="cl">pactl set-sink-volume @DEFAULT_SINK@ +10%
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 4: Verifica que no está silenciado</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver si está muted</span>
+</span></span><span class="line"><span class="cl">pactl list sinks <span class="p">|</span> grep Mute
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Des-silenciar</span>
+</span></span><span class="line"><span class="cl">pactl set-sink-mute &lt;ID&gt; <span class="nb">false</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 5: Restaura configuración</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Si nada funciona, restaura a valores por defecto</span>
+</span></span><span class="line"><span class="cl">pulseaudio --kill
+</span></span><span class="line"><span class="cl">rm -rf ~/.config/pulse/
+</span></span><span class="line"><span class="cl">rm -rf ~/.local/share/pulse/
+</span></span><span class="line"><span class="cl">systemctl --user start pulseaudio
+</span></span></code></pre></td></tr></table></div></div><h3 id="audio-entrecortado-o-latencia">Audio entrecortado o latencia<a href="#audio-entrecortado-o-latencia" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-5">Síntoma<a href="#s%c3%adntoma-5" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>El audio suena entrecortado, con pausas o con demora.</p><h4 id="solución-3">Solución<a href="#soluci%c3%b3n-3" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Aumenta el buffer de PulseAudio</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Edita: ~/.config/pulse/daemon.conf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Busca o añade:</span>
+</span></span><span class="line"><span class="cl">default-fragment-size <span class="o">=</span> <span class="m">4096</span>
+</span></span><span class="line"><span class="cl">default-tlength <span class="o">=</span> <span class="m">16384</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reinicia</span>
+</span></span><span class="line"><span class="cl">systemctl --user restart pulseaudio
+</span></span></code></pre></td></tr></table></div></div><h3 id="volumen-muy-bajo">Volumen muy bajo<a href="#volumen-muy-bajo" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-6">Síntoma<a href="#s%c3%adntoma-6" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>El volumen está al máximo pero muy bajo.</p><h4 id="solución-4">Solución<a href="#soluci%c3%b3n-4" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifica amplificación</span>
+</span></span><span class="line"><span class="cl">pactl list sinks <span class="p">|</span> grep -A <span class="m">30</span> <span class="s2">&#34;Volume levels&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Intenta usar el amplificador de software</span>
+</span></span><span class="line"><span class="cl">pactl set-sink-volume @DEFAULT_SINK@ 150%
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="problemas-de-bluetooth">Problemas de Bluetooth<a href="#problemas-de-bluetooth" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="bluetooth-no-detecta-dispositivos">Bluetooth no detecta dispositivos<a href="#bluetooth-no-detecta-dispositivos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-7">Síntoma<a href="#s%c3%adntoma-7" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>No puedes parear o conectar dispositivos Bluetooth.</p><h4 id="solución-paso-a-paso-2">Solución Paso a Paso<a href="#soluci%c3%b3n-paso-a-paso-2" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Paso 1: Verifica que Bluetooth está habilitado</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver estado</span>
+</span></span><span class="line"><span class="cl">rfkill list bluetooth
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si está blocked (bloqueado en software)</span>
+</span></span><span class="line"><span class="cl">rfkill unblock bluetooth
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si está hard-blocked (físicamente bloqueado)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica tu laptop/teclado para atajos Bluetooth</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 2: Inicia el servicio de Bluetooth</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl start bluetooth
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> bluetooth
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica estado</span>
+</span></span><span class="line"><span class="cl">sudo systemctl status bluetooth
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 3: Verifica interfaz Bluetooth</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver adaptadores</span>
+</span></span><span class="line"><span class="cl">hciconfig -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no aparece ninguno, el hardware podría no estar soportado</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica:</span>
+</span></span><span class="line"><span class="cl">lsusb <span class="p">|</span> grep -i bluetooth
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 4: Pon el adaptador en modo discoverable</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Inicia bluetoothctl</span>
+</span></span><span class="line"><span class="cl">bluetoothctl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Dentro de bluetoothctl:</span>
+</span></span><span class="line"><span class="cl">power on              <span class="c1"># Enciende el adaptador</span>
+</span></span><span class="line"><span class="cl">discoverable on       <span class="c1"># Pon en modo descubierto</span>
+</span></span><span class="line"><span class="cl">scan on              <span class="c1"># Busca dispositivos</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Espera a que vea tu dispositivo, luego:</span>
+</span></span><span class="line"><span class="cl">pair XX:XX:XX:XX:XX:XX  <span class="c1"># MAC del dispositivo</span>
+</span></span><span class="line"><span class="cl">trust XX:XX:XX:XX:XX:XX
+</span></span><span class="line"><span class="cl">connect XX:XX:XX:XX:XX:XX
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 5: Verifica permisos</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Asegúrate de que estás en el grupo bluetooth</span>
+</span></span><span class="line"><span class="cl">groups <span class="p">|</span> grep bluetooth
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no aparece, añádete</span>
+</span></span><span class="line"><span class="cl">sudo usermod -a -G bluetooth <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Necesitarás cerrar sesión y entrar de nuevo</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="se-desconecta-frecuentemente">Se desconecta frecuentemente<a href="#se-desconecta-frecuentemente" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-8">Síntoma<a href="#s%c3%adntoma-8" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>El dispositivo Bluetooth se desconecta solo.</p><h4 id="solución-5">Solución<a href="#soluci%c3%b3n-5" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Aumenta la distancia o elimina interferencias</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Problemas típicos:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - Microondas</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - WiFi en el mismo canal</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - Muchos dispositivos Bluetooth simultáneamente</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica integridad del adaptador</span>
+</span></span><span class="line"><span class="cl">sudo hciconfig hci0 reset
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si sigue desconectándose, probablemente sea:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - Problema del dispositivo (batería baja)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - Controlador Bluetooth del sistema</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - Interferencia de radio</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="problemas-de-redwifi">Problemas de Red/WiFi<a href="#problemas-de-redwifi" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="wifi-no-aparece-o-no-se-conecta">WiFi no aparece o no se conecta<a href="#wifi-no-aparece-o-no-se-conecta" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-9">Síntoma<a href="#s%c3%adntoma-9" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>No ves redes WiFi disponibles o no puedes conectarte.</p><h4 id="solución-paso-a-paso-3">Solución Paso a Paso<a href="#soluci%c3%b3n-paso-a-paso-3" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Paso 1: Verifica que WiFi está habilitado</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver estado</span>
+</span></span><span class="line"><span class="cl">rfkill list wifi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Habilitar si está bloqueado</span>
+</span></span><span class="line"><span class="cl">rfkill unblock wifi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver dispositivo físico</span>
+</span></span><span class="line"><span class="cl">ip link show <span class="p">|</span> grep -i wlan
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Activar interfaz</span>
+</span></span><span class="line"><span class="cl">sudo ip link <span class="nb">set</span> wlan0 up
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 2: Verifica NetworkManager</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Debe estar corriendo</span>
+</span></span><span class="line"><span class="cl">systemctl status NetworkManager
+</span></span><span class="line"><span class="cl">sudo systemctl start NetworkManager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver estado de red</span>
+</span></span><span class="line"><span class="cl">nmcli device status
+</span></span><span class="line"><span class="cl">nmcli radio
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 3: Recarga el adaptador WiFi</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Desactiva y activa WiFi</span>
+</span></span><span class="line"><span class="cl">nmcli radio wifi off
+</span></span><span class="line"><span class="cl">sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">nmcli radio wifi on
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Recarga dispositivo</span>
+</span></span><span class="line"><span class="cl">sudo ip link <span class="nb">set</span> wlan0 down
+</span></span><span class="line"><span class="cl">sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">sudo ip link <span class="nb">set</span> wlan0 up
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 4: Escanea redes disponibles</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver redes</span>
+</span></span><span class="line"><span class="cl">nmcli device wifi list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no ve redes, el adaptador podría estar dañado</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Comprueba físicamente</span>
+</span></span><span class="line"><span class="cl">lsusb <span class="p">|</span> grep -i network  <span class="c1"># Para USB</span>
+</span></span><span class="line"><span class="cl">lspci <span class="p">|</span> grep -i network  <span class="c1"># Para integrado</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Paso 5: Conecta a una red</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Conectar a una red abierta</span>
+</span></span><span class="line"><span class="cl">nmcli device wifi connect <span class="s2">&#34;SSID&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Conectar a una red protegida</span>
+</span></span><span class="line"><span class="cl">nmcli device wifi connect <span class="s2">&#34;SSID&#34;</span> password <span class="s2">&#34;contraseña&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verificar conexión</span>
+</span></span><span class="line"><span class="cl">nmcli device status
+</span></span><span class="line"><span class="cl">ping 8.8.8.8
+</span></span></code></pre></td></tr></table></div></div><h3 id="conexión-lenta">Conexión lenta<a href="#conexi%c3%b3n-lenta" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-10">Síntoma<a href="#s%c3%adntoma-10" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>La conexión de red es muy lenta.</p><h4 id="solución-6">Solución<a href="#soluci%c3%b3n-6" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifica la velocidad</span>
+</span></span><span class="line"><span class="cl">nmcli device wifi list <span class="p">|</span> grep SSID
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Comprueba interferencias (cambia canal)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Normalmente los routers auto-seleccionan, pero puedes:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver canales activos en tu zona</span>
+</span></span><span class="line"><span class="cl">sudo iwlist wlan0 scan <span class="p">|</span> grep Channel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si es WiFi 5GHz, generalmente menos interferencias</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Configura en tu router</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="sin-conexión-de-red">Sin conexión de red<a href="#sin-conexi%c3%b3n-de-red" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-11">Síntoma<a href="#s%c3%adntoma-11" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>No hay conexión incluso aunque aparezca conectado.</p><h4 id="solución-7">Solución<a href="#soluci%c3%b3n-7" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verifica configuración IP</span>
+</span></span><span class="line"><span class="cl">ip addr show
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no tiene IP (inet), solicita una</span>
+</span></span><span class="line"><span class="cl">sudo dhclient wlan0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O con NetworkManager</span>
+</span></span><span class="line"><span class="cl">nmcli connection down <span class="s2">&#34;SSID&#34;</span>
+</span></span><span class="line"><span class="cl">nmcli connection up <span class="s2">&#34;SSID&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica DNS</span>
+</span></span><span class="line"><span class="cl">cat /etc/resolv.conf
+</span></span><span class="line"><span class="cl">ping 8.8.8.8  <span class="c1"># Prueba DNS de Google</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="problemas-de-performance">Problemas de Performance<a href="#problemas-de-performance" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="uso-alto-de-cpumemoria">Uso alto de CPU/Memoria<a href="#uso-alto-de-cpumemoria" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-12">Síntoma<a href="#s%c3%adntoma-12" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>Vasak Desktop usa mucho CPU o consume mucha RAM.</p><h4 id="diagnóstico">Diagnóstico<a href="#diagn%c3%b3stico" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver qué proceso consume más</span>
+</span></span><span class="line"><span class="cl">top -p <span class="k">$(</span>pgrep -f vasak-desktop<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O usar ps</span>
+</span></span><span class="line"><span class="cl">ps aux <span class="p">|</span> grep vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver consumo histórico</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee performance.log
+</span></span><span class="line"><span class="cl"><span class="c1"># (Reproduce el problema, luego Ctrl+C)</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id="soluciones">Soluciones<a href="#soluciones" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Opción 1: Desactiva animaciones</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Edita: ~/.config/vasak-desktop/config.toml</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ui<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">animations_enabled</span> <span class="o">=</span> <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="nv">animation_duration</span> <span class="o">=</span> <span class="m">50</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Opción 2: Reduce tasa de refresco</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># En ~/.config/vasak-desktop/config.toml</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>rendering<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">refresh_rate</span> <span class="o">=</span> <span class="m">30</span>  <span class="c1"># Reducir de 60</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Opción 3: Desactiva efectos visuales</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Busca en configuración:</span>
+</span></span><span class="line"><span class="cl"><span class="nv">effects_enabled</span> <span class="o">=</span> <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="nv">blur_effects</span> <span class="o">=</span> <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="nv">transparency_effects</span> <span class="o">=</span> <span class="nb">false</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Opción 4: Revisa procesos en segundo plano</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver todos los procesos de Vasak</span>
+</span></span><span class="line"><span class="cl">pgrep -af vasak
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si hay procesos duplicados, termínalos</span>
+</span></span><span class="line"><span class="cl">pkill -f vasak-secondary-process
+</span></span></code></pre></td></tr></table></div></div><h3 id="aplicación-lenta-para-responder">Aplicación lenta para responder<a href="#aplicaci%c3%b3n-lenta-para-responder" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-13">Síntoma<a href="#s%c3%adntoma-13" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>Los clics o interacciones tienen demora.</p><h4 id="solución-8">Solución<a href="#soluci%c3%b3n-8" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Limpia configuración y reinicia</span>
+</span></span><span class="line"><span class="cl">mv ~/.config/vasak ~/.config/vasak.backup
+</span></span><span class="line"><span class="cl">pkill vasak-desktop
+</span></span><span class="line"><span class="cl">sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">vasak-desktop <span class="p">&amp;</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="problemas-de-configuración">Problemas de Configuración<a href="#problemas-de-configuraci%c3%b3n" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="cambios-de-configuración-no-se-aplican">Cambios de configuración no se aplican<a href="#cambios-de-configuraci%c3%b3n-no-se-aplican" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-14">Síntoma<a href="#s%c3%adntoma-14" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>Los cambios en la configuración no se reflejan en la interfaz.</p><h4 id="solución-9">Solución<a href="#soluci%c3%b3n-9" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># La configuración se lee al iniciar</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Reinicia la aplicación</span>
+</span></span><span class="line"><span class="cl">pkill vasak-desktop
+</span></span><span class="line"><span class="cl">sleep <span class="m">2</span>
+</span></span><span class="line"><span class="cl">vasak-desktop <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica que la configuración está guardada correctamente</span>
+</span></span><span class="line"><span class="cl">cat ~/.config/vasak/system_config.json
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Verifica permisos</span>
+</span></span><span class="line"><span class="cl">ls -la ~/.config/vasak/system_config.json
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si no tienes permisos de lectura:</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">644</span> ~/.config/vasak/system_config.json
+</span></span></code></pre></td></tr></table></div></div><h3 id="configuración-corrupta">Configuración corrupta<a href="#configuraci%c3%b3n-corrupta" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-15">Síntoma<a href="#s%c3%adntoma-15" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>La aplicación no inicia o se comporta de manera impredecible.</p><h4 id="solución-10">Solución<a href="#soluci%c3%b3n-10" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Respalda la configuración actual</span>
+</span></span><span class="line"><span class="cl">mv ~/.config/vasak ~/.config/vasak.backup
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Al reiniciar, se recreará con valores por defecto</span>
+</span></span><span class="line"><span class="cl">vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Si funciona, puedes restaurar ajustes específicos copiando</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># valores de ~/.config/vasak.backup/system_config.json</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="escalado-y-dpi">Escalado y DPI<a href="#escalado-y-dpi" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="interfaz-demasiado-pequeña-o-grande">Interfaz demasiado pequeña o grande<a href="#interfaz-demasiado-peque%c3%b1a-o-grande" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="síntoma-16">Síntoma<a href="#s%c3%adntoma-16" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p>Los elementos de UI se ven muy pequeños o muy grandes.</p><h4 id="solución-11">Solución<a href="#soluci%c3%b3n-11" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ajusta la escala del sistema mediante GTK</span>
+</span></span><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.desktop.interface text-scaling-factor 1.25
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Para X11, ajusta DPI</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Xft.dpi: 120&#34;</span> &gt;&gt; ~/.Xresources
+</span></span><span class="line"><span class="cl">xrdb -merge ~/.Xresources
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reinicia para aplicar</span>
+</span></span><span class="line"><span class="cl">pkill vasak-desktop <span class="o">&amp;&amp;</span> vasak-desktop <span class="p">&amp;</span>
+</span></span></code></pre></td></tr></table></div></div><p>pkill -f vasak-desktop
+vasak-desktop &</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## Errores de Permiso
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### &#34;Permission Denied&#34; en operaciones
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#### Síntoma
+</span></span><span class="line"><span class="cl">Ves errores de permiso en logs.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#### Solución
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```bash
+</span></span><span class="line"><span class="cl"># Para audio:
+</span></span><span class="line"><span class="cl">sudo usermod -a -G audio $USER
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Para Bluetooth:
+</span></span><span class="line"><span class="cl">sudo usermod -a -G bluetooth $USER
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Para acceder a dispositivos:
+</span></span><span class="line"><span class="cl">sudo usermod -a -G input $USER
+</span></span><span class="line"><span class="cl">sudo usermod -a -G dialout $USER
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Estos cambios requieren cerrar sesión y entrar de nuevo
+</span></span><span class="line"><span class="cl"># O ejecutar en nueva terminal:
+</span></span><span class="line"><span class="cl">su - $USER
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id="cuando-nada-funciona">Cuando Nada Funciona<a href="#cuando-nada-funciona" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="reinicio-completo">Reinicio completo<a href="#reinicio-completo" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. Detén todos los procesos de Vasak</span>
+</span></span><span class="line"><span class="cl">pkill -f vasak
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. Detén servicios relacionados</span>
+</span></span><span class="line"><span class="cl">systemctl --user stop pulseaudio
+</span></span><span class="line"><span class="cl">systemctl --user stop dbus
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. Reinicia servicios del sistema</span>
+</span></span><span class="line"><span class="cl">systemctl --user restart dbus
+</span></span><span class="line"><span class="cl">systemctl --user restart pulseaudio  <span class="c1"># o pipewire si usas PipeWire</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. Inicia con debug</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee restart-debug.log
+</span></span></code></pre></td></tr></table></div></div><h3 id="reportar-el-problema">Reportar el problema<a href="#reportar-el-problema" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Si nada funciona:</p><ol><li><p>Recopila la información y logs:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Captura información del sistema y logs</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee vasak-debug-report.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Añade información del sistema</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;=== Información del Sistema ===&#34;</span> &gt;&gt; vasak-debug-report.log
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Distro: </span><span class="k">$(</span>lsb_release -d<span class="k">)</span><span class="s2">&#34;</span> &gt;&gt; vasak-debug-report.log
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Kernel: </span><span class="k">$(</span>uname -r<span class="k">)</span><span class="s2">&#34;</span> &gt;&gt; vasak-debug-report.log
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Sesión: </span><span class="nv">$XDG_SESSION_TYPE</span><span class="s2">&#34;</span> &gt;&gt; vasak-debug-report.log
+</span></span></code></pre></td></tr></table></div></div></li><li><p>Abre un issue en GitHub adjuntando <code>vasak-debug-report.log</code></p></li></ol><p>Ver <a href="reporte-errores.md">Cómo Reportar Errores
+</a>para más detalles.</p></div><div class="flex justify-between mt-8 gap-4"><a href="/docs/user/faq/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div><div class="font-semibold">Preguntas frecuentes</div></a><a href="/docs/user/errors/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors text-right"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div><div class="font-semibold">Ver errores en tiempo real</div></a></div></div></div><div class="hidden w-4/12 mx-8 lg:block"><section class="bg-ui-bg/80 rounded-corner p-5 mb-3"><header class="flex items-center gap-2 mb-4"><i class="fa-solid fa-magnifying-glass"></i><div><h2 class="text-base font-semibold">Buscar documentación</h2></div></header><div class="relative"><input id="docs-search-input" type="search" placeholder="Ej: eventos IPC, Vue, Tauri" class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="off">
+<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span></div></section><div id="docs-search-modal" class="fixed inset-0 z-50 hidden"><div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]"><div class="bg-ui-bg/80 rounded-corner shadow-2xl overflow-hidden flex flex-col"><div class="px-6 py-4 border-b border-ui-border flex items-center justify-between"><div class="flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-tx-muted"></i><h3 class="font-semibold text-tx-main">Resultados de búsqueda</h3></div><button id="docs-search-close" type="button" class="text-slate-400 hover:text-primary transition-colors">
+<i class="fa-solid fa-xmark text-lg"></i></button></div><div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div></div></div></div><script>(()=>{const c=document.getElementById("docs-search-input"),t=document.getElementById("docs-search-status"),o=document.getElementById("docs-search-results"),i=document.getElementById("docs-search-modal"),s=document.getElementById("docs-search-backdrop"),f=document.getElementById("docs-search-close"),d="/search-index.json",l=2;let e=null;const a=()=>{i.classList.remove("hidden"),setTimeout(()=>s.classList.remove("opacity-0"),10)},n=()=>{s.classList.add("opacity-0"),setTimeout(()=>i.classList.add("hidden"),200)},u=async()=>{if(e)return e;t.textContent="Cargando…";try{const t=await fetch(d);e=await t.json()}catch{return e=[],t.textContent="!",e}return t.textContent="",e},h=(e,t=200)=>{let n;return(...s)=>{clearTimeout(n),n=setTimeout(()=>e(...s),t)}},m=(e,t)=>{const s=t.toLowerCase();let n=0;const o=(e.title||"").toLowerCase(),i=(e.content||"").toLowerCase();return o.includes(s)&&(n+=6),i.includes(s)&&(n+=4),n},r=(e,t)=>{if(!e)return"";try{const n=new RegExp(`(${t.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")})`,"ig");return e.replace(n,'<mark class="bg-primary p-0 m-0">$1</mark>')}catch{return e}},p=(e,t,n=160)=>{const s=(e||"").replace(/<[^>]+>/g," "),o=s.toLowerCase().indexOf(t.toLowerCase());if(o===-1)return s.slice(0,n)+(s.length>n?"…":"");const i=Math.max(0,o-40),a=Math.min(s.length,o+n);return(i>0?"…":"")+s.slice(i,a)+(a<s.length?"…":"")},g=(e,t)=>{if(!e.length){o.innerHTML='<p class="text-center text-tx-muted py-8">Sin resultados</p>';return}o.innerHTML=e.map(e=>`
+			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
+				<a href="${e.permalink}" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines"></i>
+					${r(e.title,t)}
+				</a>
+				<p class="mt-2 text-tx-muted leading-relaxed text-xs">${r(p(e.content||e.summary,t),t)}</p>
+			</article>
+		`).join("")},v=h(async()=>{const s=c.value.trim();if(s.length<l){s.length===0?n():(a(),o.innerHTML='<p class="text-center text-tx-muted py-8">Escribe al menos 2 caracteres</p>'),t.textContent="";return}await u();const i=e.map(e=>({...e,_score:m(e,s)})).filter(e=>e._score>0).sort((e,t)=>t._score-e._score).slice(0,20);t.textContent=i.length?`${i.length}`:"0",a(),g(i,s)},220);c.addEventListener("input",v),f.addEventListener("click",n),s.addEventListener("click",n),document.addEventListener("keydown",e=>{e.key==="Escape"&&!i.classList.contains("hidden")&&n()})})()</script><div class="flex flex-col mb-3 px-6 py-4 mx-auto bg-ui-bg/80 text-tx-main rounded-corner shadow-md"><nav id="TableOfContents"><ol><li><a href="#problemas-de-inicio">Problemas de Inicio</a><ol><li><a href="#la-aplicación-no-inicia">La aplicación no inicia</a><ol><li><a href="#síntoma">Síntoma</a></li><li><a href="#solución-paso-a-paso">Solución Paso a Paso</a></li></ol></li></ol></li><li><a href="#problemas-de-pantalla-y-monitor">Problemas de Pantalla y Monitor</a><ol><li><a href="#panel-no-aparece">Panel no aparece</a><ol><li><a href="#síntoma-1">Síntoma</a></li><li><a href="#solución">Solución</a></li></ol></li><li><a href="#panel-no-cubre-todos-los-monitores">Panel no cubre todos los monitores</a><ol><li><a href="#síntoma-2">Síntoma</a></li><li><a href="#solución-1">Solución</a></li></ol></li><li><a href="#resolución-incorrecta-o-pixelado">Resolución incorrecta o pixelado</a><ol><li><a href="#síntoma-3">Síntoma</a></li><li><a href="#solución-2">Solución</a></li></ol></li></ol></li><li><a href="#problemas-de-audio">Problemas de Audio</a><ol><li><a href="#sin-sonido">Sin sonido</a><ol><li><a href="#síntoma-4">Síntoma</a></li><li><a href="#solución-paso-a-paso-1">Solución Paso a Paso</a></li></ol></li><li><a href="#audio-entrecortado-o-latencia">Audio entrecortado o latencia</a><ol><li><a href="#síntoma-5">Síntoma</a></li><li><a href="#solución-3">Solución</a></li></ol></li><li><a href="#volumen-muy-bajo">Volumen muy bajo</a><ol><li><a href="#síntoma-6">Síntoma</a></li><li><a href="#solución-4">Solución</a></li></ol></li></ol></li><li><a href="#problemas-de-bluetooth">Problemas de Bluetooth</a><ol><li><a href="#bluetooth-no-detecta-dispositivos">Bluetooth no detecta dispositivos</a><ol><li><a href="#síntoma-7">Síntoma</a></li><li><a href="#solución-paso-a-paso-2">Solución Paso a Paso</a></li></ol></li><li><a href="#se-desconecta-frecuentemente">Se desconecta frecuentemente</a><ol><li><a href="#síntoma-8">Síntoma</a></li><li><a href="#solución-5">Solución</a></li></ol></li></ol></li><li><a href="#problemas-de-redwifi">Problemas de Red/WiFi</a><ol><li><a href="#wifi-no-aparece-o-no-se-conecta">WiFi no aparece o no se conecta</a><ol><li><a href="#síntoma-9">Síntoma</a></li><li><a href="#solución-paso-a-paso-3">Solución Paso a Paso</a></li></ol></li><li><a href="#conexión-lenta">Conexión lenta</a><ol><li><a href="#síntoma-10">Síntoma</a></li><li><a href="#solución-6">Solución</a></li></ol></li><li><a href="#sin-conexión-de-red">Sin conexión de red</a><ol><li><a href="#síntoma-11">Síntoma</a></li><li><a href="#solución-7">Solución</a></li></ol></li></ol></li><li><a href="#problemas-de-performance">Problemas de Performance</a><ol><li><a href="#uso-alto-de-cpumemoria">Uso alto de CPU/Memoria</a><ol><li><a href="#síntoma-12">Síntoma</a></li><li><a href="#diagnóstico">Diagnóstico</a></li><li><a href="#soluciones">Soluciones</a></li></ol></li><li><a href="#aplicación-lenta-para-responder">Aplicación lenta para responder</a><ol><li><a href="#síntoma-13">Síntoma</a></li><li><a href="#solución-8">Solución</a></li></ol></li></ol></li><li><a href="#problemas-de-configuración">Problemas de Configuración</a><ol><li><a href="#cambios-de-configuración-no-se-aplican">Cambios de configuración no se aplican</a><ol><li><a href="#síntoma-14">Síntoma</a></li><li><a href="#solución-9">Solución</a></li></ol></li><li><a href="#configuración-corrupta">Configuración corrupta</a><ol><li><a href="#síntoma-15">Síntoma</a></li><li><a href="#solución-10">Solución</a></li></ol></li></ol></li><li><a href="#escalado-y-dpi">Escalado y DPI</a><ol><li><a href="#interfaz-demasiado-pequeña-o-grande">Interfaz demasiado pequeña o grande</a><ol><li><a href="#síntoma-16">Síntoma</a></li><li><a href="#solución-11">Solución</a></li></ol></li></ol></li><li><a href="#cuando-nada-funciona">Cuando Nada Funciona</a><ol><li><a href="#reinicio-completo">Reinicio completo</a></li><li><a href="#reportar-el-problema">Reportar el problema</a></li></ol></li></ol></nav></div></div></div></main><div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner"><div class="w-full draggable"><div class="container flex flex-col mx-auto"><div class="flex flex-col items-center w-full my-20"><span class="mb-8"><img src="/img/logo.svg" alt="logo" loading="lazy" class="h-20"></span><div class="flex flex-col items-center gap-6"><div class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900"><a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
+<a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
+<a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
+<a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
+<a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Roadmap</a></div><div class="flex items-center gap-8"><a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-telegram"></em>
+</a><a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-github"></em>
+</a><a href="https://discord.gg/7wKrVNBC" alt="Discord" aria-label="Discord" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-discord"></em>
+</a><a href="https://www.reddit.com/r/VasakOS/" alt="Reddit" aria-label="Reddit" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-reddit"></em>
+</a><a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-twitter"></em></a></div><div class="mt-2 w-full max-w-3xl px-4 sm:px-6"><div id="os-badgets" class="flex w-full flex-wrap items-center justify-center gap-3 text-center sm:gap-4"><div class="badge-item sf-root" data-id="4084065" data-badge="oss-users-love-us-white"><a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">VasakOS en SourceForge</a></div><a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="badge-item"><img src="/oin-member-2-0-stacked-200x140_3696262515435231848.png" width="200" height="140" loading="lazy" decoding="async" alt="VasakOS es miembro de la Open Invention Network"></a></div></div><style>#os-badgets{--badge-fixed-height:108px}#os-badgets .badge-item{display:inline-flex;align-items:center;justify-content:center;height:var(--badge-fixed-height);max-width:100%}#os-badgets img,#os-badgets .badge-item svg,#os-badgets .badge-item canvas,#os-badgets .badge-item iframe,#os-badgets .badge-item object{height:var(--badge-fixed-height)!important;width:auto!important;max-width:100%;object-fit:contain}#os-badgets .sf-root,#os-badgets .sf-root>a{height:var(--badge-fixed-height)!important;width:auto!important}</style><script>(function(){var e,t,n=document.getElementById("os-badgets");if(!n)return;e=!1;function s(){if(e)return;e=!0;var t=document.createElement("script");t.async=!0,t.src="https://b.sf-syn.com/badge_js?sf_id=4084065",document.body.appendChild(t)}"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.some(function(e){return e.isIntersecting})&&(s(),t.disconnect())},{rootMargin:"200px"}),t.observe(n)):s()})()</script></div></div></div></div></div><div class="flex flex-wrap my-5"><div class="w-full max-w-full sm:w-3/4 mx-auto text-center"><p class="text-lg text-slate-500 py-1"><a href="/" class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold" rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p></div></div><a rel="noopener" href="#" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl"><em class="fas fa-arrow-up"></em>
+</a><script defer src="/js/bundle.min.5d9b0e854280184f06a03452faf72eee5f9f77325fd8746855c23d8fc5ca65b5.js" integrity="sha256-XZsOhUKAGE8GoDRS+vcu7l+fdzJf2HRoVcI9j8XKZbU=" crossorigin="anonymous"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-5MYT335WZK"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-5MYT335WZK",{anonymize_ip:!0})</script></body></html>
