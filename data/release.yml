@@ -6,35 +6,35 @@
 
 release_name: "VasakOS Alpha 4"
 channel: "Alpha"
-version: "2026.06.14"
+version: "2026.08.19"
 arch: "x86_64"
-image_name: "vasakos-2026.06.14-x86_64.iso"
-size: "2.4 GB"
-published_at: "2026-06-14"
+image_name: "vasakos-2026.08.19-x86_64.iso"
+size: "2.5 GB"
+published_at: "2026-08-19"
 status: "Alpha"
-sha256: "6dc43203b4d8836a6c29cb967572a348743d8d05e444086b053dd2b74d8e9766"
+sha256: "992a14b1eaf7f9741ee1d36223923b3e504d9373b1c7697b594096146253d419"
 sha256_file: ""
 signature_file: ""
-changelog_url: "/changelogs/14062026/"
+changelog_url: "/changelogs/20260819/"
 support_url: "https://t.me/VasakOS"
 bug_report_url: "https://github.com/Vasak-OS"
 
 mirrors:
   - name: "SourceForge"
-    url: "https://sourceforge.net/projects/vasakos/files/Alpha/vasakos-2026.06.14-x86_64.iso/download"
+    url: "https://sourceforge.net/projects/vasakos/files/Alpha/vasakos-2026.08.19-x86_64.iso/download"
     region: "Global"
   - name: "MediaFire"
-    url: "https://www.mediafire.com/file/1ix5njftevqnvg6/vasakos-2026.06.14-x86_64.iso/file"
+    url: "https://www.mediafire.com/file/mj4uo40cnlcq2q8/vasakos-2026.08.19-x86_64.iso/file"
     region: "Global"
   - name: "Mega"
-    url: "https://mega.nz/file/noJw0CxS#IMC1wfLFoHC_LIUIp0Nu2avrJ7f-SWMJoaSrrk6hgXY"
+    url: "https://mega.nz/file/3tJDnAQb#3Tis-vppTbVTpgfmg2VVNKNhqq0kqzfK7Ak6vXM3cnE"
     region: "Global"
 
 requirements:
   minimum:
     - "CPU de 64 bits (x86-64)"
     - "4 GB de RAM"
-    - "20 GB de almacenamiento libre"
+    - "30 GB de almacenamiento libre"
     - "Pendrive de 8 GB para crear el USB booteable"
     - "GPU con aceleración 3D básica"
   recommended:
@@ -44,6 +44,6 @@ requirements:
     - "GPU con drivers libres (Intel, AMD) para la mejor experiencia en Wayland"
 
 verify:
-  linux: "sha256sum vasakos-2026.06.14-x86_64.iso"
-  macos: "shasum -a 256 vasakos-2026.06.14-x86_64.iso"
-  windows: "CertUtil -hashfile vasakos-2026.06.14-x86_64.iso SHA256"
+  linux: "sha256sum vasakos-2026.08.19-x86_64.iso"
+  macos: "shasum -a 256 vasakos-2026.08.19-x86_64.iso"
+  windows: "CertUtil -hashfile vasakos-2026.08.19-x86_64.iso SHA256"

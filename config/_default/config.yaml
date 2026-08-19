@@ -47,6 +47,18 @@ services:
   rss:
     limit: 20
 
+security:
+  exec:
+    allow:
+      - "^node$"
+      - "^/usr/bin/node$"
+      - "^/usr/local/bin/node$"
+      - "^tailwindcss$"
+      - "^.*/node_modules/.bin/tailwindcss$"
+      - "^npx$"
+      - "^npm$"
+      - "^bun$"
+
 minify:
   disableXML: true
   minifyOutput: true
