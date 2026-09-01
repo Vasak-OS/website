@@ -4,14 +4,14 @@
 # so publishing a new ISO is one file to edit instead of three templates to
 # hunt through.
 
-release_name: "VasakOS Alpha 4"
-channel: "Alpha"
+release_name: "VasakOS Beta 1"
+channel: "Beta"
 version: "2026.08.19"
 arch: "x86_64"
 image_name: "vasakos-2026.08.19-x86_64.iso"
 size: "2.5 GB"
 published_at: "2026-08-19"
-status: "Alpha"
+status: "Beta"
 sha256: "992a14b1eaf7f9741ee1d36223923b3e504d9373b1c7697b594096146253d419"
 sha256_file: ""
 signature_file: ""

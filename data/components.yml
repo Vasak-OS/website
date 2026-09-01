@@ -124,8 +124,8 @@ groups:
     items:
       - name: archiso
         title: Imagen ISO
-        version: "Alpha 4"
-        status: alpha
+        version: "Beta 1"
+        status: beta
         repo: https://github.com/Vasak-OS/archiso
         text: Perfil de archiso con sesión en vivo, instalador Calamares y el repositorio propio ya configurado.
       - name: repositorio vasakos
