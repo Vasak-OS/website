@@ -99,8 +99,9 @@ groups:
     icon: fa-solid fa-download
     items:
       - name: archiso
-        version: "Alpha 4"
-        status: alpha
+        title: Imagen ISO
+        version: "Beta 1"
+        status: beta
         repo: https://github.com/Vasak-OS/archiso
       - name: repositorio vasakos
         # No es un número de versión: lo que se publica es que el repositorio
