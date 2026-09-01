@@ -10,7 +10,7 @@ un Arch Linux que ya tienes, salta a [repositorio de paquetes](/docs/user/reposi
 ## Antes de empezar
 
 - **Haz una copia de seguridad.** Cualquier instalación puede tocar la tabla de
-  particiones. VasakOS está en Alpha; tratalo como tal.
+  particiones. VasakOS está en Beta; tratalo como tal.
 - Necesitas un pendrive de 8 GB o más y una conexión a internet durante la instalación.
 - Revisa los [requisitos](/downloads/) del sistema.
 
