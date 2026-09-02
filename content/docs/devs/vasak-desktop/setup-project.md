@@ -3,51 +3,54 @@ title: "Setup del Proyecto | vasak-desktop"
 weight: 1
 ---
 
-# Setup del Proyecto - Vasak Desktop
+Cómo dejar el entorno listo para trabajar sobre `vasak-desktop`.
 
-Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.
+## Requisitos previos
 
-## Requisitos Previos
+- **Sistema**: Linux con Wayland. Lo más cómodo es VasakOS o cualquier Arch, porque es
+  contra lo que se empaqueta; en Fedora o Debian se puede compilar, pero los nombres de los
+  paquetes cambian.
+- **Memoria**: 4 GB como mínimo, 8 GB para compilar cómodo.
+- **Disco**: 5 GB libres. El directorio `target/` de Rust crece rápido.
 
-### Requisitos del Sistema
+> Antes de seguir, hacé la
+> [instalación de dependencias para desarrolladores](/docs/devs/dev-dependencies/): de acá
+> en adelante son las específicas de `vasak-desktop`.
 
-- **OS**: Linux (Fedora, Ubuntu, Debian, Arch, etc.)
-- **RAM**: Mínimo 4GB (8GB recomendado)
-- **Almacenamiento**: 5GB espacio libre
-- **Internet**: Conexión para descargar dependencias
+### Dependencias del sistema
 
-> Es sumamente importante realizar la [instalacion de dependencias para desarrolladores](/docs/devs/dev-dependencies/) dado que de aqui en adelante son dependnecias especificas de `vasak-desktop`
+#### Arch y derivadas — incluido VasakOS
 
-### Dependencias del Sistema [`vasak-desktop`]
+Son las mismas que declara el PKGBUILD, así que si compila con esto, compila el paquete:
+
+```bash
+sudo pacman -S --needed cairo desktop-file-utils gdk-pixbuf2 glib2 gtk3 \
+    hicolor-icon-theme libsoup3 pango webkit2gtk-4.1 networkmanager dbus \
+    upower gtk-layer-shell gst-plugins-good gst-libav
+sudo pacman -S --needed git openssl appmenu-gtk-module libappindicator-gtk3 \
+    librsvg cargo bun rust
+```
+
+`gst-plugins-good` y `gst-libav` son para el fondo de escritorio en movimiento: sin ellos
+WebKit no decodifica el video y el fondo queda fijo. `upower` es el indicador de batería, y
+`gtk-layer-shell` es lo que permite dibujar el panel como una capa del compositor.
 
 #### Fedora y derivadas
 
 ```bash
-sudo dnf groupinstall "Development Tools"
-sudo dnf install gtk3-devel glib2-devel cairo-devel dbus-devel libxkbcommon-devel
-sudo dnf install libwayland-devel libxcb-devel
-
-# Para desarrollo de Wayland
-sudo dnf install wayland-devel wayland-protocols-devel
+sudo dnf group install "Development Tools"
+sudo dnf install gtk3-devel glib2-devel cairo-devel dbus-devel libxkbcommon-devel \
+    webkit2gtk4.1-devel libsoup3-devel gtk-layer-shell-devel \
+    wayland-devel wayland-protocols-devel
 ```
 
 #### Debian y derivadas
 
 ```bash
-sudo apt install libgtk-3-dev libglib2.0-dev libcairo-dev libdbus-1-dev libxkbcommon-dev
-sudo apt install libwayland-dev libxcb-xfixes0-dev libxcb-shape0-dev
-
-# Para desarrollo de Wayland
-sudo apt install wayland-protocols libwayland-dev
+sudo apt install libgtk-3-dev libglib2.0-dev libcairo-dev libdbus-1-dev \
+    libxkbcommon-dev libwebkit2gtk-4.1-dev libsoup-3.0-dev \
+    libgtk-layer-shell-dev libwayland-dev wayland-protocols
 ```
-
-#### Arch y derivadas
-
-```bash
-sudo pacman -S gtk3 glib2 cairo dbus libxkbcommon
-sudo pacman -S wayland wayland-protocols libxcb
-```
-
 
 ## Clonar el Repositorio
 
@@ -57,7 +60,7 @@ git clone https://github.com/Vasak-OS/vasak-desktop.git
 cd vasak-desktop
 
 # Crear una rama para desarrollo
-git checkout -b feature/mi-feature
+git checkout -b fix/descripcion-corta
 ```
 
 ## Instalar Dependencias
@@ -80,41 +83,64 @@ cargo check
 cargo build --release  # (Esto toma tiempo la primera vez)
 ```
 
-## Estructura Inicial
+## La estructura
 
-Después de clonar, deberías tener:
+Después de clonar:
 
 ```
 vasak-desktop/
-├── src/                    # Frontend (Vue.js)
-│   ├── components/        # Componentes Vue
-│   ├── views/            # Vistas/Páginas
-│   ├── App.vue           # Componente raíz
-│   └── main.ts           # Punto de entrada
+├── src/                     # Interfaz (Vue 3 + TypeScript)
+│   ├── components/          # Componentes
+│   ├── views/               # Una por ventana: panel, escritorio, menú, centro de control
+│   ├── services/            # Los envoltorios de las llamadas al backend
+│   ├── tools/               # Lógica sin interfaz, y donde viven los tests
+│   ├── App.vue
+│   └── main.ts
 │
-├── src-tauri/            # Backend (Rust)
-│   ├── src/              # Código Rust
-│   │   ├── lib.rs       # Módulos del backend
-│   │   ├── main.rs      # Punto de entrada
-│   │   ├── commands/    # Comandos IPC
-│   │   └── ...          # Otros módulos
-│   └── Cargo.toml        # Dependencias Rust
+├── src-tauri/               # Backend (Rust)
+│   ├── src/
+│   │   ├── main.rs
+│   │   ├── lib.rs           # Registro de comandos y plugins
+│   │   └── commands/        # Los comandos que llama la interfaz
+│   ├── locales/             # Los textos, un .yml por idioma
+│   ├── capabilities/        # Qué puede llamar cada ventana
+│   ├── Cargo.toml
+│   └── tauri.conf.json      # Configuración de Tauri, incluida la CSP
 │
-├── package.json          # Dependencias Frontend
-├── tsconfig.json         # Configuración TypeScript
-├── vite.config.ts        # Configuración Vite
-└── tauri.conf.json       # Configuración Tauri
+├── package.json
+├── biome.json               # Formato y lint del frontend
+├── vite.config.ts
+└── index.html
 ```
 
-Si quieres entender mas sobre el [Sistemas de carpetas](/docs/devs/vasak-desktop/folders/) lee el articulo donde explicamos mas a fondo cada uno de estos lugares, para que sea mas facil encontrar lo que estas buscando
+`tauri.conf.json` va **dentro de `src-tauri/`**, no en la raíz.
 
-## Verificar que Todo Está Correcto
+Cada carpeta está explicada a fondo en
+[sistema de carpetas](/docs/devs/vasak-desktop/folders/).
+
+## Verificar que todo está bien
+
+Antes de escribir nada, comprobá que el proyecto está sano. Es lo mismo que hay que dejar
+en verde antes de abrir un pull request:
 
 ```bash
-# Comprobar que todo compila correctamente
-bun run tauri build
-
-# Si finaliza sin errores, ¡estás listo!
+bun test                                          # tests del frontend
+bunx --bun vue-tsc --noEmit                       # tipos
+bunx --bun biome check .                          # formato y lint
+cargo test --manifest-path src-tauri/Cargo.toml   # tests del backend
+cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets
 ```
 
-En caso de tener problemas revisa nuestra pagina de [Solucion de problemas](/docs/devs/vasak-desktop/troubleshooting/) antes de [reportar errores](/docs/user/reporte-errores/).
+Y que arranque:
+
+```bash
+bunx --bun tauri dev
+```
+
+> Para **compilar** usá siempre `tauri build`, nunca `cargo build --release` a secas: con
+> `cargo` el binario queda apuntando al servidor de desarrollo, la ventana abre vacía y
+> todo parece roto por otra razón.
+
+Si algo falla, mirá
+[solución de problemas](/docs/devs/vasak-desktop/troubleshooting/) antes de
+[reportar el error](/docs/user/report-bugs/).

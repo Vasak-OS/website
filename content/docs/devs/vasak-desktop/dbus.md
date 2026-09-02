@@ -437,16 +437,15 @@ RUST_LOG=debug vasak-desktop
 
 ### Debugging Paso a Paso
 
-```bash
-# En código Rust, añade prints
-eprintln!("Conectando a D-Bus...");
+```rust
+eprintln!("Conectando a D-Bus…");
 let connection = Connection::session().await?;
-eprintln!("Conectado!");
+eprintln!("Conectado");
+```
 
-// Compilar con debug
+```bash
 cargo build
-# Ejecutar
-RUST_LOG=debug ./target/debug/vasak_desktop
+RUST_LOG=debug ./target/debug/vasak-desktop
 ```
 
 ## Mejores Prácticas

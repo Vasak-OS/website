@@ -1,258 +1,109 @@
 ---
 title: "Cómo reportar errores"
 weight: 50
-description: "Qué información incluir en un reporte de error de VasakOS para que se pueda reproducir y arreglar."
+description: "Qué información incluir en un reporte de error de VasakOS, en qué repositorio abrirlo y cómo juntar los datos con un solo comando."
 aliases: ["/docs/user/reporte-errores/"]
 ---
 
-## Antes de Reportar
+Un reporte sirve si alguien puede **reproducir** el problema. Todo lo demás es secundario.
 
-Antes de reportar un error, verifica si ya ha sido reportado:
+## Antes de abrirlo
 
-1. Visita [GitHub Issues de Vasak Desktop](https://github.com/Vasak-OS/vasak-desktop/issues)
-2. Usa la búsqueda para encontrar problemas similares
-3. Si encuentras un issue parecido, añade un comentario con tu información
+1. Actualizá: `sudo pacman -Syu`. VasakOS es rolling release y puede estar arreglado.
+2. Buscá si ya está reportado, en el repositorio de la aplicación que falla. Si encontrás
+   uno parecido, sumá tu información ahí en vez de abrir otro: dos casos en el mismo issue
+   valen más que dos issues sueltos.
 
-## Información Necesaria para un Buen Reporte
+## En qué repositorio
 
-Un buen reporte de error debe incluir:
+Cada aplicación tiene el suyo, dentro de [github.com/Vasak-OS](https://github.com/Vasak-OS).
+Si no sabés cuál falla, abrilo en el de la aplicación donde lo viste; se puede mover.
 
-### Descripción del Problema
-- Qué intentabas hacer cuando ocurrió el error
-- Qué esperabas que sucediera
-- Qué sucedió realmente
-- ¿Se puede reproducir? (Sí/No/A veces)
+| Lo que falla | Repositorio |
+| --- | --- |
+| Panel, menú, notificaciones, widgets del escritorio | `vasak-desktop` |
+| Ajustes | `vasak-settings` |
+| Archivos | `vasak-file-manager` |
+| Terminal | `vasak-terminal` |
+| Imágenes | `vasak-gallery` |
+| Música | `vasak-resonance` |
+| Monitor del sistema | `vasak-monitor` |
+| Capturas | `vasak-shot` |
+| Instalación | `vasak-installer` |
+| Inicio de sesión, pantalla de bloqueo | `vasak-session-manager` |
+| Que no aparezca una notificación | `vasak-flare-daemon` |
+| Un paquete que no instala o no actualiza | `PKGBUILDS` |
 
-### Información del Sistema
+## Juntar la información
 
-```bash
-# Copia y pega el resultado de estos comandos
-echo "=== SISTEMA ===" 
-uname -a
-
-echo -e "\n=== DISTRIBUCIÓN ==="
-cat /etc/os-release | grep PRETTY_NAME
-
-echo -e "\n=== VERSIÓN DE VASAK DESKTOP ==="
-vasak-desktop --version 2>/dev/null || echo "No instalada globalmente"
-
-echo -e "\n=== GESTOR DE SESIÓN ==="
-echo $XDG_SESSION_TYPE
-
-echo -e "\n=== PANTALLAS ==="
-xrandr --query 2>/dev/null | grep connected || wayland-info 2>/dev/null | head -20
-```
-
-### Pasos para Reproducir
-
-Lista los pasos exactos para reproducir el error:
-
-```
-1. Abre la aplicación
-2. Ve a [Menú/Opción]
-3. Haz clic en [Botón]
-4. El error ocurre aquí
-```
-
-### Logs Relevantes
-
-Recopila los logs siguiendo esta guía:
+Este comando arma un archivo con lo que casi siempre se termina pidiendo. Reproducí el
+problema **antes** de ejecutarlo, así el registro lo incluye:
 
 ```bash
-# Ejecutar la aplicación con logs detallados
-RUST_LOG=debug vasak-desktop 2>&1 | tee ~/vasak-debug-$(date +%Y%m%d-%H%M%S).log
-
-# Reproducer el error, luego captura el archivo de log
+APP=vasak-desktop     # cambiala por la que falla
+{
+  echo "== VasakOS ==";   cat /etc/vasakos/vasakos-release
+  echo "== kernel ==";    uname -r
+  echo "== sesión ==";    echo "$XDG_SESSION_TYPE / $XDG_CURRENT_DESKTOP"
+  echo "== paquetes ==";  pacman -Q | grep -E '^(vasak|uwsm|wayfire|pipewire)'
+  echo "== video ==";     lspci -k | grep -A 2 -i vga
+  echo "== registro =="; journalctl -t "$APP" -b --no-pager | tail -200
+} > ~/vasak-reporte-$(date +%Y%m%d-%H%M%S).txt
 ```
 
-Incluye tanto:
-- El archivo de log generado
-- La salida de la terminal donde ejecutaste el comando
+> **Miralo antes de subirlo.** El registro puede incluir nombres de archivos, redes wifi y
+> rutas de tu carpeta personal. Es un archivo de texto: borrá lo que no quieras publicar.
 
-### Adjuntos Útiles
+Si el problema es visual —algo mal dibujado, un icono equivocado, una ventana fuera de
+lugar—, una captura vale más que el registro. Se saca con **Capturas** o con la tecla
+`Impr Pant`.
 
-Si es relevante, incluye:
-- **Captura de pantalla** - Muestra el estado visual del error
-- **Video** - Si es difícil de reproducir en texto
-- **Archivo de configuración** - Si el error está relacionado con configuración
-  ```bash
-  cat ~/.config/vasak/system_config.json
-  ```
+## Qué escribir
 
-## Plantilla para Reporte
+El título es lo primero que se lee y lo que decide si alguien lo abre:
 
-Usa esta plantilla al crear un issue:
+- Malo: «Error en el panel», «No funciona».
+- Bueno: «El panel desaparece al conectar un monitor externo por HDMI».
+
+Y en el cuerpo, cuatro cosas:
 
 ```markdown
-## Descripción del Problema
-[Describe aquí qué está mal]
+## Qué pasa
+Una línea. Qué hacías y qué salió mal.
 
-## Pasos para Reproducir
-1. [Primer paso]
-2. [Segundo paso]
-3. [Paso donde ocurre el error]
+## Cómo reproducirlo
+1. …
+2. …
+3. Acá pasa el error.
 
-## Comportamiento Esperado
-[Qué debería suceder]
+## Qué esperaba que pasara
 
-## Comportamiento Actual
-[Qué sucede realmente]
+## Datos
+- VasakOS: (lo que dice `cat /etc/vasakos/vasakos-release`)
+- Versión de la aplicación: (lo que dice `pacman -Q vasak-desktop`)
+- Equipo: marca y modelo, y la placa de video si el problema es visual
 
-## Información del Sistema
-- OS: [ej: Linux - Fedora 40]
-- Versión Vasak Desktop: [ej: 0.5.2]
-- Tipo de Sesión: [X11 / Wayland]
-- GPU: [ej: NVIDIA / AMD / Intel]
-
-## Logs
-[Adjunta los logs relevantes aquí]
-\`\`\`
-[Contenido del log]
-\`\`\`
-
-## Adjuntos
-- [ ] Captura de pantalla
-- [ ] Video
-- [ ] Archivo de configuración
+<!-- Adjuntar acá el archivo del comando de arriba -->
 ```
 
-## Crear un Issue en GitHub
+Si el problema aparece **a veces**, decilo y contá cuándo: «después de suspender», «con dos
+monitores», «sólo la primera vez del día». Un error intermitente con contexto se arregla; un
+error intermitente sin contexto se cierra por no poder reproducirse.
 
-### Paso 1: Reúne tu Información
+## Si la aplicación se cierra sola
+
+Ese es el caso donde el registro importa más que todo lo demás, porque el motivo queda
+escrito con prioridad de crítico:
 
 ```bash
-# Crea un archivo con toda la información
-cat > ~/vasak-reporte.md << 'EOF'
-## Descripción
-[Tu descripción aquí]
-
-## Sistema
-$(uname -a)
-$(cat /etc/os-release | grep PRETTY_NAME)
-
-## Versión
-$(vasak-desktop --version 2>/dev/null || echo "Desconocida")
-
-## Logs
-EOF
+journalctl -t vasak-desktop -p crit -b --no-pager
 ```
 
-### Paso 2: Ve a GitHub
+Pegá eso en el issue tal cual. Dice el archivo y la línea donde se cayó, que es
+exactamente lo que hace falta para arreglarlo.
 
-1. Abre https://github.com/Vasak-OS/vasak-desktop/issues/new
-2. Haz clic en "New Issue"
-3. Selecciona "Bug Report" (si hay plantillas)
-4. Rellena la información
+## Si es un problema de seguridad
 
-### Paso 3: Proporciona Contexto
-
-- **Título claro:** No usar "Error", "Bug" o "No funciona"
-  - ❌ Malo: "Error con el panel"
-  - ✅ Bueno: "Panel desaparece cuando se conecta monitor externo"
-
-- **Descripción detallada:** Más detalles = más fácil de arreglar
-
-- **Logs:** Copia los logs relevantes entre triple backticks
-
-## Errores Críticos (Crash de la Aplicación)
-
-Si la aplicación se cierra inesperadamente:
-
-### Captura el Core Dump
-
-```bash
-# Habilitar core dumps
-ulimit -c unlimited
-
-# Ejecutar Vasak Desktop
-vasak-desktop
-
-# Si se crashea, captura el core dump
-coredumpctl list
-coredumpctl info [number]
-```
-
-### Recolecta Información de Debug
-
-```bash
-# Ejecutar con máxima verbosidad
-RUST_LOG=trace RUST_BACKTRACE=1 vasak-desktop 2>&1 | tee crash-$(date +%s).log
-
-# Reproduce el crash
-```
-
-### Adjunta al Reporte
-
-- El archivo de log completo
-- Salida de `coredumpctl info`
-- Información del sistema
-
-## Errores de Hardware/Periféricos
-
-Si el error es relacionado con:
-
-### Bluetooth
-
-```bash
-# Captura información de Bluetooth
-hciconfig -a
-bluetoothctl show
-journalctl --user -u bluetooth -n 100
-```
-
-### Audio (PulseAudio)
-
-```bash
-# Información de audio
-pactl info
-pactl list sinks short
-pactl list sources short
-journalctl --user | grep -i pulse | tail -50
-```
-
-### Red/WiFi
-
-```bash
-# Información de red
-nmcli device
-nmcli radio
-journalctl --user | grep -i network | tail -50
-```
-
-## Seguimiento del Reporte
-
-Después de reportar:
-
-1. **Responde preguntas** - Los desarrolladores pueden pedir más información
-2. **Prueba soluciones** - Si sugieren una, pruébala y reporta el resultado
-3. **Verifica en versiones nuevas** - El error podría estar arreglado en la siguiente versión
-4. **Cierra si se resuelve** - Cuando se arregle, puedes cerrar el issue
-
-## Consejos para Mejores Reportes
-
-✅ **Haz:**
-- Ser específico y detallado
-- Incluir logs relevantes
-- Ser cortés y respetuoso
-- Actualizar con información nueva
-- Probar con versiones nuevas
-
-❌ **No hagas:**
-- Reportar "no funciona" sin detalles
-- Incluir logs de 10,000 líneas sin filtrar
-- Ser grosero o exigente
-- Reportar el mismo error múltiples veces
-- Cambiar completamente el tema del issue
-
-## Canales de Reporte Alternativos
-
-- **GitHub Issues**: https://github.com/Vasak-OS/vasak-desktop/issues
-- **Foro de Vasak OS**: *Aun no disponible*
-- **Telegram**: https://t.me/VasakOS
-- **Discord**: *Aun no disponible*
-
-## Información de Contacto
-
-Para errores de seguridad críticos, contacta a:
-- **Security Email**: os@vasak.net.ar
-- **No crear issue público** para vulnerabilidades de seguridad
+No lo abras como issue público. Escribí a los canales de contacto de
+[github.com/Vasak-OS](https://github.com/Vasak-OS) y esperá respuesta antes de publicar
+nada.

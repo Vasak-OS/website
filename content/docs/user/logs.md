@@ -1,149 +1,155 @@
 ---
 title: "Logs y diagnóstico"
 weight: 45
-description: "Dónde viven los logs de VasakOS y cómo leerlos para entender qué falló."
+description: "Cómo leer los registros de VasakOS con journalctl y con el Monitor: cada aplicación escribe en el diario del sistema con su propio nombre."
+aliases: ["/docs/user/errors/", "/docs/user/errores/"]
 ---
 
-## Sistema de Logging
+Cada aplicación de VasakOS escribe en el **diario de systemd** con su propio nombre. Eso es
+lo que hace que se pueda leer lo que dejó una sola de ellas, sin filtrar a mano entre todo
+lo que escribe la sesión.
 
-Vasak Desktop utiliza el sistema de logging estándar de Rust mediante el crate `log`. Los mensajes de registro **no se guardan en archivos** por defecto, sino que se envían a la salida de error estándar (`stderr`).
+No hace falta lanzar nada desde una terminal ni reproducir el problema: lo que pasó ya está
+guardado.
 
-## Cómo ver los logs
-
-### Ejecutar con logs habilitados
-
-Para ver los logs al ejecutar la aplicación, usa la variable de entorno `RUST_LOG`:
+## Lo primero que conviene probar
 
 ```bash
-# Ver todos los logs (muy detallado)
+journalctl -t vasak-desktop -n 100 --no-pager
+```
+
+`-t` filtra por el nombre de la aplicación. Reemplazalo por la que te interese:
+`vasak-terminal`, `vasak-file-manager`, `vasak-settings`, `vasak-gallery`,
+`vasak-resonance`, `vasak-monitor`, `vasak-shot` o `vasak-installer`.
+
+Las opciones que más se usan:
+
+```bash
+journalctl -t vasak-desktop -f                 # en vivo, mientras reproducís el problema
+journalctl -t vasak-desktop -b                 # sólo desde el último arranque
+journalctl -t vasak-desktop -p err             # sólo errores
+journalctl -t vasak-desktop --since "10 min ago"
+```
+
+## Desde el Monitor, sin terminal
+
+**Monitor del sistema** trae un visor de registros con un selector de aplicación: elegís
+una de la lista y ves lo que dejó, sin escribir ningún comando. Es la misma información que
+`journalctl -t`, con el filtro puesto por vos.
+
+## Separar la interfaz del núcleo
+
+Las aplicaciones de VasakOS son dos mitades: la interfaz, escrita en Vue, y el núcleo,
+escrito en Rust. Cada mensaje del diario dice de cuál de las dos salió, en el campo
+`VSK_CAPA`, y eso ahorra la mitad de la búsqueda: los dos problemas se arreglan en archivos
+distintos.
+
+```bash
+journalctl -t vasak-resonance VSK_CAPA=interfaz   # lo que rompió la ventana
+journalctl -t vasak-resonance VSK_CAPA=nucleo     # lo que rompió el backend
+```
+
+## Si una aplicación se cerró sola
+
+Cuando una aplicación aborta, el mensaje que explica por qué queda en el diario con
+prioridad de crítico, con el archivo y la línea donde pasó:
+
+```bash
+journalctl -t vasak-desktop -p crit -b
+```
+
+Vale la pena mirar esto **antes** que cualquier otra cosa: es lo que convierte un «se cerró
+sola» en un reporte que se puede arreglar.
+
+## Más detalle del habitual
+
+En condiciones normales las aplicaciones no escriben todo lo que saben. Para pedirles el
+detalle completo hay que lanzarlas desde una terminal con `RUST_LOG`:
+
+```bash
 RUST_LOG=debug vasak-desktop
+```
 
-# Ver solo advertencias y errores
-RUST_LOG=warn vasak-desktop
+| Nivel | Qué muestra |
+| --- | --- |
+| `error` | Sólo lo que dejó de funcionar. |
+| `warn` | Lo anterior, más lo que podría fallar. |
+| `info` | Lo anterior, más el funcionamiento normal. |
+| `debug` | Lo anterior, más el detalle que sirve para diagnosticar. |
+| `trace` | Todo. Suele ser demasiado. |
 
-# Ver logs específicos de un módulo
+También se puede pedir detalle de una sola parte, en vez de la aplicación entera:
+
+```bash
 RUST_LOG=vasak_desktop::audio=debug vasak-desktop
 ```
 
-**Niveles de log disponibles:**
-- `error` - Solo errores críticos
-- `warn` - Advertencias y errores
-- `info` - Información general + warn + error
-- `debug` - Información detallada (recomendado para depuración)
-- `trace` - Extremadamente detallado (para desarrollo)
+> Lanzar el escritorio así desde una terminal, con la sesión ya iniciada, abre una segunda
+> instancia. Para el escritorio conviene `journalctl`; `RUST_LOG` es más útil con las
+> aplicaciones que se abren y se cierran.
 
-### Ver logs si ejecutas desde un lanzador
-
-Si inicias Vasak Desktop desde un lanzador de aplicaciones o al iniciar sesión, puedes ver los logs con `journalctl`:
+## Guardar los registros para un reporte
 
 ```bash
-# Ver logs en tiempo real
-journalctl --user -f | grep vasak
-
-# Ver logs recientes
-journalctl --user --since "10 minutes ago" | grep vasak
-
-# Ver solo errores
-journalctl --user -p err | grep vasak
+journalctl -t vasak-desktop -b --no-pager > vasak-desktop-$(date +%Y%m%d-%H%M%S).log
 ```
 
-### Redirigir logs a un archivo
+Ese archivo es lo que conviene adjuntar en un
+[reporte de error](/docs/user/report-bugs/). Antes de subirlo, mirá lo que contiene: el
+diario puede incluir nombres de archivos, redes wifi o rutas de tu carpeta personal.
 
-Si necesitas guardar los logs en un archivo para análisis:
+## Dónde vive la configuración
+
+Si sospechás que el problema es de configuración y no de la aplicación:
+
+```
+~/.config/vasak/vasak.conf        # tema, iconos, cursor, modo oscuro
+~/.config/vasak/schemes/          # esquemas de color propios
+/usr/share/vasak-schemes/         # los esquemas que trae el sistema
+```
+
+Mover `vasak.conf` a un lado y volver a abrir la aplicación la deja con la configuración de
+fábrica, sin desinstalar nada:
 
 ```bash
-# Guardar logs en un archivo
-RUST_LOG=debug vasak-desktop 2>&1 | tee ~/vasak-desktop.log
-
-# Solo guardar stderr (logs)
-RUST_LOG=debug vasak-desktop 2> ~/vasak-desktop.log
+mv ~/.config/vasak/vasak.conf ~/.config/vasak/vasak.conf.bak
 ```
 
-## Archivos de configuración
+## Depurar D-Bus
 
-La configuración del sistema se guarda en:
-
-```
-~/.config/vasak/system_config.json
-```
-
-Este archivo contiene:
-- `dark_mode` - Estado del modo oscuro
-- `icon_pack` - Pack de iconos seleccionado
-- `cursor_theme` - Tema del cursor
-- `gtk_theme` - Tema GTK
-
-## Depuración avanzada
-
-Los archivos de log contienen información con diferentes niveles de detalle:
-
-- **DEBUG** - Información detallada para desarrolladores (mucho contenido)
-- **INFO** - Información general sobre el funcionamiento
-- **WARN** - Advertencias (algo podría no funcionar correctamente)
-- **ERROR** - Errores (algo dejó de funcionar)
-- **CRITICAL** - Errores graves que pueden causar crashes
-
-## Limpieza de Logs
-
-Los logs se regeneran automáticamente. Si necesitas limpiar logs antiguos:
+El escritorio habla con el resto del sistema por D-Bus: audio, bluetooth, red,
+notificaciones. Para ver ese tráfico:
 
 ```bash
-# Eliminar todos los logs
-rm -rf ~/.local/share/vasak-desktop/logs/
-
-# Eliminar solo logs de más de 30 días
-find ~/.local/share/vasak-desktop/logs -name "*.log" -mtime +30 -delete
+dbus-monitor --session                 # lo de la sesión
+dbus-monitor --system                  # lo del sistema
 ```
 
-## Exportar Logs para Reporte
+## Los servicios de la sesión
 
-Si necesitas compartir logs para un reporte de errores:
-
-```bash
-# Crear un archivo comprimido con todos los logs
-
-### Capturar logs para reportar un error
-
-Si necesitas compartir logs con los desarrolladores:
+Parte de VasakOS no son ventanas sino servicios que systemd arranca con la sesión
+gráfica: el que atiende las notificaciones, el llavero, el agente de permisos. Esos se
+leen por unidad, con `--user`:
 
 ```bash
-# Ejecutar con logs completos y guardar
-RUST_LOG=debug vasak-desktop 2>&1 | tee vasak-debug-$(date +%Y%m%d-%H%M%S).log
+systemctl --user status vasak-flare-daemon     # ¿está corriendo?
+journalctl --user -u vasak-flare-daemon -f     # qué dejó
 ```
 
-Esto creará un archivo con fecha y hora que puedes adjuntar en un reporte de error.
+Las unidades de la sesión son:
 
-## Logs de D-Bus
+| Unidad | Qué hace |
+| --- | --- |
+| `vasak-flare-daemon` | Recibe las notificaciones y guarda el historial. |
+| `vasak-keyring` | El llavero de claves. |
+| `vasak-permissions-agent` | Los permisos que piden las aplicaciones. |
+| `polkit-vasak-agent` | Los pedidos de autorización de administrador. |
+| `vasak-connect` | El vínculo con el teléfono. |
+| `vasak-press-and-hold` | Mantener una tecla para elegir acento. |
+| `vasak-idle` | Apagar la pantalla y bloquear por inactividad. |
 
-Para depurar la comunicación D-Bus (utilizada para audio, bluetooth, notificaciones):
-
-```bash
-# Ver mensajes D-Bus del sistema
-dbus-monitor --system
-
-# Ver mensajes D-Bus de sesión de usuario
-dbus-monitor --session
-```
-
-## Información adicional
-
-### Verificar si la aplicación está ejecutándose
+Verlas todas juntas:
 
 ```bash
-ps aux | grep vasak-desktop
+systemctl --user list-units 'vasak*' 'polkit-vasak*'
 ```
-
-### Ver uso de recursos
-
-```bash
-# CPU y memoria
-top -p $(pgrep vasak-desktop)
-
-# O con htop
-htop -p $(pgrep vasak-desktop)
-```
-
----
-
-**Nota**: Si encuentras un error, consulta la [guía de reporte de errores](./reporte-errores.md) para saber qué información incluir.
-

@@ -9,7 +9,7 @@ Tratamos de iniciar 2026 con todo, y decidimos sacar el alpha 2, y realizar much
 
 ## ¿Que voy a encontrar en el Alpha 2?
 
-Ya disponemos de un pack de iconos configurado, un sistema que cuenta con muchas mas opciones y algunas novedades interesantes que podemos encontrar en el [changelog oficial](/changelogs/06012026/)
+Ya disponemos de un pack de iconos configurado, un sistema que cuenta con muchas mas opciones y algunas novedades interesantes que podemos encontrar en el [changelog oficial](/changelogs/20260106/)
 
 ## ¿Puedo instalar el Alpha 2 en mi PC?
 
