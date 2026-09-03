@@ -18,7 +18,7 @@ Esta página se actualiza con cada release. Si algo no está listado, todavía n
 
 ## Qué se puede hacer hoy
 
-- Instalar el sistema en disco con Calamares, junto a otro sistema o solo.
+- Instalar el sistema en disco con el instalador propio. Hoy sólo en un disco entero: no hay instalación junto a otro sistema ni particionado manual.
 - Usar el escritorio a diario: archivos, terminal, navegador, reproducir audio y ver imágenes.
 - Configurar red, sonido, brillo, fecha y hora, usuarios y apariencia desde Ajustes.
 - Recibir actualizaciones por `pacman` desde el repositorio oficial de VasakOS.
