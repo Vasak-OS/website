@@ -10,8 +10,14 @@ un Arch Linux que ya tenés, saltá a [repositorio de paquetes](/docs/user/repos
 ## Antes de empezar
 
 - **Hacé una copia de seguridad.** Cualquier instalación puede tocar la tabla de
-  particiones. VasakOS está en Alpha; tratalo como tal.
-- Necesitás un pendrive de 8 GB o más y una conexión a internet durante la instalación.
+  particiones. VasakOS está en Beta; tratalo como tal.
+- Necesitás un pendrive de 8 GB o más y un disco de al menos **20 GiB**.
+- **La conexión a internet no es opcional y tiene que aguantar toda la instalación.**
+  VasakOS no se copia desde el pendrive: se descarga de los repositorios mientras se
+  instala. Si la conexión se corta a la mitad, la instalación se interrumpe y hay que
+  empezar de nuevo. A cambio, el sistema queda con los paquetes del día, no con los que
+  tenía la ISO cuando se armó.
+- Calculá entre **quince minutos y una hora**, según la conexión.
 - Revisá los [requisitos](/downloads/) del sistema.
 
 ## 1. Descargar y verificar la ISO
@@ -19,7 +25,7 @@ un Arch Linux que ya tenés, saltá a [repositorio de paquetes](/docs/user/repos
 Bajá la imagen desde [Descargas](/downloads/) y verificá el checksum antes de escribirla:
 
 ```bash
-sha256sum vasakos-2026.06.14-x86_64.iso
+sha256sum vasakos-2026.08.19-x86_64.iso
 ```
 
 El resultado tiene que coincidir carácter por carácter con el SHA256 publicado en la página
@@ -39,7 +45,7 @@ no tenés que volver a formatearlo cada vez.
 ```bash
 lsblk                       # identificá el pendrive: /dev/sdb, /dev/sdc…
 sudo umount /dev/sdX*       # desmontá cualquier partición montada
-sudo dd if=vasakos-2026.06.14-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
+sudo dd if=vasakos-2026.08.19-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
 ```
 
 > `dd` no pregunta ni avisa. Si ponés el disco equivocado en `of=`, ese disco se pierde.
@@ -73,20 +79,75 @@ Si algo de esto no anda en Live, tampoco va a andar instalado. Es el momento de
 
 ## 5. Instalar
 
-El instalador es [Calamares](https://calamares.io/) y se abre desde el icono del escritorio.
+El instalador es **vasak-installer**, y se abre desde el icono del escritorio. Reemplazó a
+Calamares: por dentro es una interfaz sobre
+[archinstall](https://wiki.archlinux.org/title/Archinstall), y todos los pasos se responden
+en la ventana.
 
-1. **Idioma y zona horaria.**
-2. **Teclado**: probalo en el campo de prueba, sobre todo si usás distribución latinoamericana.
-3. **Particionado**:
-   - *Borrar disco*: la opción más simple, elimina todo lo que haya.
-   - *Instalar junto a*: reduce una partición existente y usa el espacio liberado.
-   - *Manual*: si sabés lo que hacés. Como mínimo necesitás una partición raíz `/` de
-     20 GB y, en equipos UEFI, una partición EFI de 512 MB montada en `/boot/efi`.
-4. **Usuario y contraseña.** La contraseña del usuario también sirve para desbloquear el
-   [llavero de claves](/state/).
-5. **Resumen y confirmación.** Es el último punto en el que podés volver atrás.
+Son diez pantallas y se puede volver atrás en cualquiera hasta la última.
 
-Al terminar, reiniciá y quitá el pendrive.
+1. **Bienvenida.**
+2. **Conexión.** Comprueba que haya una ruta a internet y te dice cuánto se va a descargar.
+   Si no hay, conectate desde el icono de red del panel y volvé a comprobar.
+3. **Región.** Idioma, zona horaria y formato de fecha y números.
+4. **Teclado.** Probalo en el campo de prueba, sobre todo si usás distribución
+   latinoamericana.
+5. **Disco.** Es el paso que hay que leer con atención; está detallado abajo.
+6. **Tu cuenta.** Nombre completo, nombre de usuario, contraseña y nombre del equipo. El
+   nombre de usuario es el de tu carpeta personal y **no se puede cambiar después**. Tu
+   contraseña también es la que desbloquea el [llavero de claves](/state/).
+7. **Complementos.** Qué más instalar; está detallado abajo.
+8. **Resumen.** Todo lo elegido en una pantalla. Es el último punto en el que podés volver
+   atrás: al confirmar, el disco se borra.
+9. **Instalación.** Entre quince minutos y una hora. No apagues el equipo ni cierres la
+   ventana.
+10. **Fin.** Reiniciá y quitá el pendrive.
+
+### El paso del disco
+
+> **Hoy la única opción es borrar el disco entero.** No hay instalación junto a otro
+> sistema ni particionado manual. Si en ese equipo tenés Windows u otra distribución que
+> querés conservar, **este instalador no es el camino**: hacé copia de todo antes de seguir.
+
+El instalador te muestra los discos que encuentra y descarta los que no sirven: el que está
+montado —normalmente el pendrive del que arrancaste— y los de menos de 20 GiB. Elegido el
+disco, quedan tres decisiones:
+
+- **Sistema de archivos.**
+
+  | | Cuándo |
+  | --- | --- |
+  | **Btrfs** | Recomendado. Comprime al escribir, permite instantáneas y separa el hogar y los registros en subvolúmenes. |
+  | **Ext4** | El más conocido y el más simple. Sin instantáneas ni compresión. |
+  | **XFS** | Rápido con archivos grandes. Sin instantáneas. |
+
+- **Cifrado del disco.** Cifra el sistema entero con LUKS y te pide una frase en cada
+  arranque, antes de la pantalla de inicio de sesión.
+
+  > Si perdés la frase, perdés los datos. No hay copia, no hay pregunta de seguridad y no
+  > hay forma de recuperarlo.
+
+- **zram como memoria de intercambio.** Comprime la memoria en vez de reservar espacio en
+  el disco. Recomendado, sobre todo con poca memoria.
+
+Antes de aplicar nada, el instalador muestra las particiones que va a crear, con sus
+tamaños, sus opciones de montaje y —en Btrfs— sus subvolúmenes.
+
+### El paso de los complementos
+
+Todo lo de esta pantalla es opcional y se puede instalar después. Lo que viene marcado es
+lo que la mayoría necesita; nada viene marcado «por las dudas».
+
+- **Navegador**: Firefox, Chromium o Brave. Se elige uno solo, y también podés elegir
+  ninguno. Firefox viene marcado porque es el que trae la ISO.
+- **Impresión y escaneo**: soporte de impresoras y de escáneres.
+- **Controladores**: NVIDIA propietario o libre, Vulkan de AMD o de Intel, y wifi Broadcom.
+  El instalador mira qué hardware tenés y marca los que corresponden; podés desmarcarlos si
+  preferís los libres.
+- **Extras**: suite ofimática, herramientas de desarrollo y paquetes para juegos.
+
+Ninguno de estos es necesario para que el sistema arranque, así que si uno falla al
+instalarse el resto de la instalación sigue.
 
 ## 6. Después de instalar
 

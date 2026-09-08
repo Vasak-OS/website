@@ -9,7 +9,7 @@ date: "2022-03-19"
 lastmod: "2026-06-14"
 ---
 
-> **Es una versión Alpha.** Se instala y se usa, pero hay funciones incompletas y cambios entre compilaciones. Antes de reemplazar tu sistema principal, revisá el [estado del proyecto](/state/).
+> **Es una versión Beta.** Se instala y se usa, con las funciones completas, pero todavía quedan errores por pulir y puede haber cambios entre compilaciones. Antes de reemplazar tu sistema principal, revisá el [estado del proyecto](/state/).
 
 ## Instalar paso a paso
 

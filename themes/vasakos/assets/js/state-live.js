@@ -31,10 +31,14 @@
 
   function show(name) {
     Object.keys(states).forEach(function (key) {
+      // Las dos clases declaran `display` y tienen la misma especificidad, así
+      // que gana la que Tailwind emita última — y emite `.inline-flex` después
+      // de `.hidden`. Agregar `hidden` sin sacar `inline-flex` no ocultaba
+      // nada: el cartel de «el repositorio no respondió» seguía a la vista
+      // junto al de «versiones leídas del repositorio», aunque los datos
+      // hubieran llegado bien. Se alternan las dos.
       states[key].classList.toggle('hidden', key !== name);
-      // El contenedor es inline-flex; `hidden` tiene que ganarle, y alternar la
-      // clase sola no alcanza porque ambas declaran display.
-      if (key === name) states[key].classList.add('inline-flex');
+      states[key].classList.toggle('inline-flex', key === name);
     });
   }
 

@@ -15,19 +15,19 @@ groups:
       - name: vasak-desktop
         title: Escritorio
         version: "1.1.3"
-        status: beta
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-desktop
         text: Panel, menú de aplicaciones, área de notificación, control de red y de sonido. Corre sobre Wayfire con gtk-layer-shell.
       - name: vasak-session-manager
         title: Gestor de sesión
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-session-manager
         text: Pantalla de inicio de sesión (greeter de greetd) y bloqueo de pantalla con el aspecto del sistema.
       - name: vasak-desktop-settings
         title: Configuración de sesión
         version: "0.4.0"
-        status: beta
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-desktop-settings
         text: Sesión administrada por systemd (uwsm), plugins del compositor y arranque de los servicios del escritorio.
       - name: vasakos-icon-theme
@@ -56,7 +56,7 @@ groups:
       - name: vasak-settings
         title: Ajustes del sistema
         version: "0.2.1"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-settings
         text: Usuarios, fecha y hora, brillo y luz nocturna, energía, red, sonido, apariencia y plugins del compositor.
       - name: vasak-gallery
@@ -71,6 +71,24 @@ groups:
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-resonance
         text: Reproductor de audio del sistema.
+      - name: vasak-monitor
+        title: Monitor del sistema
+        version: "0.2.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-monitor
+        text: Recursos, aplicaciones, servicios, limpieza y registros. El visor de registros filtra por aplicación, así que se lee lo que dejó escrito cada una sin usar la terminal.
+      - name: vasak-shot
+        title: Capturas de pantalla
+        version: "0.1.3"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-shot
+        text: Captura primero y muestra el selector después, así lo que se guarda es lo que había en pantalla al apretar la tecla y no lo que quedó al abrirse la interfaz.
+      - name: vasak-connect
+        title: Teléfono
+        version: "0.2.1"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-connect
+        text: Las aplicaciones de un celular Android como ventanas nativas de VasakOS, cada una en su propia ventana junto a las del sistema.
 
   - id: servicios
     name: Servicios del sistema
@@ -79,25 +97,25 @@ groups:
       - name: vasak-keyring
         title: Llavero de claves
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-keyring
         text: Implementación nativa de Secret Service con AES-256-GCM y Argon2id, y desbloqueo automático por PAM al iniciar sesión.
       - name: vasak-flare-daemon
         title: Notificaciones
         version: "0.2.0"
-        status: alpha
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-flare-daemon
         text: Demonio de notificaciones freedesktop con historial persistente.
       - name: polkit-vasak-agent
         title: Agente PolicyKit
         version: "0.1.0"
-        status: alpha
+        status: stable
         repo: https://github.com/Vasak-OS/polkit-vasak
         text: Diálogos de autenticación para las acciones que requieren privilegios, sin depender de sudo.
       - name: vasak-permissions
         title: Permisos de aplicaciones
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-permissions
         text: Pregunta antes de que una aplicación use la cámara, el micrófono, la pantalla o una cuenta tuya, y recuerda la respuesta. Hoy sólo las cuentas se bloquean de verdad; cámara, micrófono y pantalla los entrega el portal, que todavía no consulta esta política.
       - name: vasak-accounts
@@ -114,7 +132,7 @@ groups:
       - name: vasak-press-and-hold
         title: Pulsación sostenida
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-press-and-hold
         text: Escribir acentos y caracteres especiales manteniendo apretada una tecla, como en macOS, sin depender de la distribución del teclado.
 
@@ -124,22 +142,22 @@ groups:
     items:
       - name: archiso
         title: Imagen ISO
-        version: "Alpha 4"
-        status: alpha
+        version: "Beta 1"
+        status: beta
         repo: https://github.com/Vasak-OS/archiso
-        text: Perfil de archiso con sesión en vivo, instalador Calamares y el repositorio propio ya configurado.
+        text: Perfil de archiso con sesión en vivo, el instalador propio y el repositorio de paquetes ya configurado.
       - name: repositorio vasakos
         title: Repositorio pacman
         version: "activo"
         status: stable
         repo: https://github.com/Vasak-OS/repository-script
         text: Repositorio propio firmado con GPG, con los paquetes de VasakOS sobre Arch Linux.
-      - name: vasakos-calamares
+      - name: vasak-installer
         title: Instalador
-        version: "3.4.2"
+        version: "0.1.9"
         status: beta
-        repo: https://github.com/Vasak-OS/vasakos-calamares-config
-        text: Calamares con la configuración y las ramas de instalación de VasakOS.
+        repo: https://github.com/Vasak-OS/vasak-installer
+        text: Instalador propio, interfaz sobre archinstall. Instala con pacstrap desde los repositorios, así que el sistema queda con los paquetes del día. Reemplazó a Calamares.
 
 # Shown on /estado/ so nobody has to reverse-engineer what "Alpha" means here.
 legend:

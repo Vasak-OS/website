@@ -23,10 +23,10 @@ faq:
 
   - q: "¿Está listo para usarlo todos los días?"
     a: |
-      Está en **Alpha**. Se instala, se usa y se actualiza, pero hay funciones incompletas y
-      cambios que rompen compatibilidad entre versiones. Sirve perfectamente para probarlo y
-      reportar problemas; todavía no lo recomendamos como único sistema en un equipo de
-      trabajo. El detalle componente por componente está en
+      Está en **Beta**. Se instala, se usa y se actualiza, con las funciones completas, pero
+      todavía quedan errores por pulir y puede haber cambios que rompan compatibilidad entre
+      versiones. Sirve perfectamente para usarlo y reportar problemas; todavía no lo
+      recomendamos como único sistema en un equipo de trabajo. El detalle componente por componente está en
       [estado del proyecto](/state/).
 
   - q: "¿Qué requisitos necesito?"

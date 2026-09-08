@@ -6,18 +6,19 @@ img: "/img/posts/roadmap.svg"
 type: state
 date: "2026-08-10"
 lastmod: "2026-08-10"
-tags: [estado, roadmap, vasakos, alpha, desarrollo]
+tags: [estado, roadmap, vasakos, beta, desarrollo]
 ---
 
-VasakOS está en **Alpha**. Esa palabra significa cosas distintas en cada proyecto, así que
-acá está lo que significa en este: el sistema arranca, se instala y se usa, pero hay
-funciones a medio terminar y cambios que rompen compatibilidad entre versiones.
+VasakOS está en **Beta**. Esa palabra significa cosas distintas en cada proyecto, así que
+acá está lo que significa en este: el sistema arranca, se instala y se usa a diario, con
+las funciones que planeamos ya completas. Lo que queda es pulir errores, y todavía puede
+haber cambios que rompan compatibilidad entre versiones.
 
 Esta página se actualiza con cada release. Si algo no está listado, todavía no existe.
 
 ## Qué se puede hacer hoy
 
-- Instalar el sistema en disco con Calamares, junto a otro sistema o solo.
+- Instalar el sistema en disco con el instalador propio. Hoy sólo en un disco entero: no hay instalación junto a otro sistema ni particionado manual.
 - Usar el escritorio a diario: archivos, terminal, navegador, reproducir audio y ver imágenes.
 - Configurar red, sonido, brillo, fecha y hora, usuarios y apariencia desde Ajustes.
 - Recibir actualizaciones por `pacman` desde el repositorio oficial de VasakOS.

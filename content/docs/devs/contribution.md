@@ -1,403 +1,139 @@
 ---
-title: "Contribucion al Proyecto"
+title: "Contribuir al proyecto"
 weight: 55
+description: "Cómo se trabaja en VasakOS: ramas, commits, tests, changelog y pull requests."
+aliases: ["/docs/devs/contribucion/"]
 ---
 
-Guía para contribuir al desarrollo de **VasakOS**. Esto aplica a desarrollos propios o comunitarios dentro del mismo entorno. 
+Cómo contribuir a cualquier repositorio de [Vasak-OS](https://github.com/Vasak-OS). El
+ejemplo usa `vasak-desktop`, pero vale para todos.
 
-## Proceso de Contribución
+## Las tres reglas que no se negocian
 
-### Fork y Clone
+**Cada cambio va con tests, en el mismo commit.** Si el repositorio tiene poca cobertura, se
+suman algunos de lo que está alrededor: así sube mientras se avanza. Lo que conviene probar
+es lo que se rompe callado —parsers, límites, entradas mal formadas—, no la interfaz. Y
+comprobá que el test sirve reintroduciendo el error a propósito: uno que pasa siempre no
+prueba nada.
+
+**Todo texto que ve una persona va traducido.** En los `.yml` de `src-tauri/locales/`,
+nunca literal en un `.vue`. Ver [i18n](/docs/devs/plugins/#i18n).
+
+**Toda dependencia nueva va al PKGBUILD, en el acto.** Si compila en tu máquina porque la
+biblioteca ya estaba puesta por otro paquete, no está declarada: en una instalación limpia
+falla.
+
+## Preparar el fork
 
 ```bash
-# En GitHub, haz Fork del repositorio
-# https://github.com/Vasak-OS/vasak-desktop
-
-# Clone tu fork
 git clone https://github.com/TU_USUARIO/vasak-desktop.git
 cd vasak-desktop
-
-# Añade el repositorio original como remote
 git remote add upstream https://github.com/Vasak-OS/vasak-desktop.git
 ```
 
-### Crea una Rama
+## Una rama por cambio
 
 ```bash
-# Actualiza main desde upstream
-git fetch upstream
-git checkout main
-git merge upstream/main
-
-# Crea una rama para tu feature
-git checkout -b feature/descripcion-corta
-
-# O para bugfix
-git checkout -b bugfix/descripcion-corta
-
-# O para docs
-git checkout -b docs/descripcion-corta
+git fetch upstream && git checkout main && git merge upstream/main
+git checkout -b fix/descripcion-corta
 ```
 
-**Convención de nombres**:
-- `feature/feature-name` - Nueva funcionalidad
-- `bugfix/bug-name` - Corrección de bug
-- `refactor/refactor-name` - Refactorización
-- `docs/doc-name` - Documentación
-- `chore/chore-name` - Tareas sin código funcional
+| Prefijo | Para qué |
+| --- | --- |
+| `fix/` | Corregir algo que está mal. |
+| `enhancement/` | Funcionalidad nueva. |
+| `refactor/` | Reorganizar sin cambiar el comportamiento. |
+| `docs/` | Documentación. |
+| `chore/` | Tareas sin código funcional: versiones, dependencias. |
 
-### Realiza tus Cambios
+La descripción va en castellano y dice **qué resuelve**, no qué archivo toca:
+`fix/el-panel-desaparece-con-monitor-externo`, no `fix/panel-vue`.
 
-Realiza los cambios en el proyecto segun creas conveninete para lo que estes intentando de resolver, recuerda que puedes utilizar varios commit si quieres organizarte pero evita exederte o que los mismos no tengan sentido. Recopila toda la informacion que creas importante para PR y para la documentacion.
+## Commits
 
-**Checklist**:
-- [ ] Código sigue lineamientos
-- [ ] Tests pasan
-- [ ] Sin errores de linting
-- [ ] Documentación actualizada
-- [ ] Commits bien descriptos
+El mensaje se escribe para quien lo va a leer dentro de un año, buscando por qué el código
+está así. El asunto dice **qué cambia**, y el cuerpo, **por qué** —qué se rompía antes:
 
-### Commits
+```
+El clima vuelve a mostrarse
+
+La política de contenido nombraba api.open-meteo.com pero no
+geocoding-api.open-meteo.com, que es contra quien se traduce la zona horaria a
+coordenadas. El widget arranca por ahí, así que el webview cortaba el primer
+pedido en silencio y no se llegaba nunca al pronóstico.
+```
+
+Un cambio que no se puede explicar en un párrafo suele ser dos cambios.
+
+> Agregá los archivos que tocaste, uno por uno. `git add .` arrastra lo que quedó del
+> último build y ensucia el diff que otra persona tiene que revisar.
+
+## Changelog
+
+Cada cambio se anota en el `CHANGELOG.md` de la raíz del workspace, agrupado por paquete y
+descrito en términos de **qué gana o qué deja de sufrir quien usa el sistema** —no de qué
+función se tocó—, con el hash corto al final. `⚡` para rendimiento, `🔒` para seguridad.
+
+## Antes de abrir el pull request
+
+Todo esto tiene que estar en verde:
 
 ```bash
-# Ver cambios
-git status
-
-# Añadir cambios
-git add .
-
-# Hacer commit con mensaje descriptivo
-git commit -m "feat(audio): add volume normalization
-
-Implement automatic volume normalization to provide
-consistent output levels across different devices.
-
-Closes #1234"
+bun test
+bunx --bun vue-tsc --noEmit
+bunx --bun biome check .
+cargo test --manifest-path src-tauri/Cargo.toml
+cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets
 ```
 
-**Formato de mensaje** (Conventional Commits):
-```
-type(scope): subject
-
-body
-
-footer
-```
-
-**Tipos**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`
-
-**Ejemplo**:
-```
-feat(audio): add volume normalization
-
-Implement automatic volume normalization to provide
-consistent output levels across different devices.
-This prevents audio clipping and improves user
-experience when switching between devices.
-
-- Added VolumeNormalizer struct
-- Integrated with audio pipeline
-- Added unit tests
-
-Closes #1234
-Fixes #5678
-```
-
-### Push y Pull Request
+## El pull request
 
 ```bash
-# Push tu rama
-git push origin feature/descripcion-corta
-
-# En GitHub, crea un Pull Request
-# Contra: Vasak-OS/vasak-desktop main
-# Desde: TU_USUARIO/vasak-desktop feature/descripcion-corta
+git push origin fix/descripcion-corta
 ```
 
-**Template de PR** (auto-rellenado):
+En GitHub, contra `main` del repositorio original. Tres cosas más:
+
+1. **Ponele su etiqueta.** Las que hay son `bug`, `enhancement`, `documentation`,
+   `question`, `help wanted`, `good first issue`, `duplicate`, `invalid` y `wontfix`. No hay
+   etiqueta `feature`: la funcionalidad nueva es `enhancement`.
+2. **Sumalo al proyecto «VasakOS Roadmap»**, que es donde se sigue el estado de todo.
+3. **Escribí la descripción como si el revisor no supiera nada del problema**: qué pasaba,
+   por qué pasaba, qué cambia y cómo lo verificaste.
+
+Un PR que dice «arregla el bug» obliga a quien revisa a reconstruir el razonamiento desde
+el diff, y es la razón más común de que uno quede parado.
+
+### Verificación
+
+Contá qué corriste y qué dio. Si no probaste algo, decilo:
 
 ```markdown
-## Descripción
-Breve descripción de qué hace este PR.
+## Verificación
+- `bun test`: 45 pass, 0 fail.
+- `cargo test`: 101 pass, 0 fail, 2 ignored.
+- `biome check` y `vue-tsc --noEmit`: limpios.
 
-## Tipo de Cambio
-- [ ] Nueva funcionalidad
-- [ ] Corrección de bug
-- [ ] Cambio que rompe compatibilidad
-- [ ] Documentación
-
-## Cambios
-- Cambio 1
-- Cambio 2
-- Cambio 3
-
-## Testing
-- [ ] Testeado en X11
-- [ ] Testeado en Wayland
-- [ ] Pruebas unitarias pasadas
-- [ ] Pruebas de integración pasadas
-
-## Checklist
-- [ ] Mi código sigue los lineamientos
-- [ ] He hecho self-review
-- [ ] He comentado código complejo
-- [ ] He actualizado la documentación
-- [ ] He añadido tests
-- [ ] Los tests pasan localmente
-
-## Benchmark (Si aplica)
+No lo probé corriendo el escritorio.
 ```
 
-### Revisión y Feedback
+> VasakOS es **Wayland puro**. No hay nada que probar en X11, y un PR que dice haberlo
+> probado ahí describe algo que no pasó.
 
-- Los mantenedores revisarán tu PR
-- Responde a los comentarios
-- Haz cambios si es necesario
-- Re-quiere revisión cuando hayas hecho cambios
+## Revisión
 
-```bash
-# Después de cambios
-git add .
-git commit -m "Address review feedback
+Los pull requests los revisa CodeRabbit automáticamente, además de las personas. Respondé a
+los comentarios; si no vas a aplicar uno, decí por qué —también es una respuesta válida.
 
-- Changed X to Y
-- Added comment for Z"
+Después de aplicar cambios, el mismo push actualiza el PR.
 
-git push origin feature/descripcion-corta
-```
-
-### Merge
-
-Una vez aprobado:
-- Los mantenedores harán merge de tu PR
-- Tu branch se puede eliminar
+## Después del merge
 
 ```bash
-# Limpiar local
 git checkout main
-git branch -d feature/descripcion-corta
 git pull upstream main
+git branch -d fix/descripcion-corta
 ```
 
-## Tipos de Contribución
-
-### Nuevas Funcionalidades
-
-**Pasos:**
-1. Discute en un issue primero
-2. Sigue la arquitectura establecida
-3. Añade tests
-4. Documenta el cambio
-5. Actualiza CHANGELOG
-
-### Corrección de Bugs
-
-**Pasos:**
-1. Abre un issue describiendo el bug
-2. Crea rama desde issue
-3. Reproduce el bug con test
-4. Arregla el bug
-5. Test debe pasar
-6. Documenta la corrección
-
-### Documentación
-
-**Archivos:**
-- `docs/user/*` - Para usuarios finales | [repo](https://github.com/Vasak-OS/website)
-- `docs/devs/*` - Para desarrolladores | [repo](https://github.com/Vasak-OS/website)
-- README.md - Para repositorio
-- Code comments - Dentro del código
-
-### Mejoras de Performance
-
-**Requerimientos:**
-1. Mide antes (con profiler)
-2. Implementa mejora
-3. Mide después (compara)
-4. Añade benchmark si es crítico
-5. Documenta cambio
-
-### Tests
-
-**Tipos:**
-- Unit tests - Funciones individuales
-- Integration tests - Componentes integrados
-- E2E tests - Flujo completo del usuario
-
-**Ubicación:**
-- `src-tauri/tests/` - Tests de Rust
-- `src/tests/` - Tests de Vue
-
-## Reportes de Bugs
-
-Ver [Cómo Reportar Errores](/docs/user/reporte-errores/)
-
-**Requiere**:
-- Descripción clara
-- Pasos para reproducir
-- Comportamiento esperado vs actual
-- Sistema operativo y versión
-- Logs relevantes
-
-## Código Review
-
-### Como Revisor
-
-Verifica:
-- [ ] El código funciona
-- [ ] Sigue lineamientos
-- [ ] Tiene tests
-- [ ] Está documentado
-- [ ] No introduce regresiones
-- [ ] Performance es aceptable
-
-> Comentario constructivo:
-> 
-> 
-> ❌ "Esto está mal"
-> 
-> ✅ "Considerar usar X en lugar de Y porque..."
-> 
-
-### Como Autor
-
-- Responde a todos los comentarios
-- No seas defensivo
-- Haz cambios si son mejoras
-- Explica tu decisión si no estás de acuerdo
-- Agradece el feedback
-
-## Licencia
-
-Toda contribución debe ser compatible con la licencia del proyecto.
-
-Ver `LICENSE` en la raíz del proyecto.
-
-## Comportamiento Esperado
-
-### Código de Conducta
-
-Nos comprometemos a mantener un ambiente respetuoso:
-
-- Sé respetuoso con otros contribuidores
-- Acepta crítica constructiva
-- Enfócate en el código, no en la persona
-- Respeta privacidad
-- Reporta abuso
-
-### Si Ves Comportamiento Inapropiado
-
-Contacta a los mantenedores directamente (privadamente).
-
-## Reconocimiento
-
-- Contribuidores serán reconocidos en CONTRIBUTORS.md
-- Commits quedan en el historio de Git
-- Releases grandes pueden tener changelog especial
-
-## Ayuda y Soporte
-
-### Preguntas sobre Contribución
-
-- Abre una Discusión en GitHub
-- Pregunta en el chat comunitario (si existe)
-
-### No Sabes por Dónde Empezar
-
-Busca issues con label:
-- `good-first-issue` - Para nuevos contribuidores
-- `help-wanted` - Se busca ayuda
-- `documentation` - Mejoras de docs
-
-### Necesitas Ayuda
-
-- Menciona a mantenedores con @
-- Se específico con tu pregunta
-- Comparte código/error si es relevante
-
-## Cambios que No Aceptamos
-
-❌ **No aceptamos**:
-- Código que rompe compatibilidad sin versión major
-- Cambios que requieren librerías propietarias
-- Código que no tiene tests
-- Documentación incompleta
-- Cambios de estilo sin funcionalidad
-- Commits enormes sin descripción
-
-✅ **Aceptamos**:
-- Nuevas funcionalidades bien testeadas
-- Correcciones de bugs
-- Mejoras de performance con evidencia
-- Documentación mejorada
-- Refactorización que mejora mantenibilidad
-- Tests adicionales
-
-## Maintenance
-
-### Si Eres Mantenedor
-
-Responsabilidades:
-- Revisar PRs oportunamente
-- Mantener código limpio
-- Actualizar documentación
-- Moderar comportamiento
-- Planificar releases
-
-### Merging
-
-```bash
-# Antes de merge, verifica:
-git checkout main
-git pull origin main
-git merge --no-ff feature/branch -m "Merge feature/branch"
-
-# Resolve conflicts si existen
-
-git push origin main
-
-# Elimina rama
-git push origin --delete feature/branch
-```
-
-## Releases
-
-Versionamiento: `MAJOR.MINOR.PATCH`
-
-- `MAJOR` - Breaking changes
-- `MINOR` - Nuevas funcionalidades
-- `PATCH` - Bug fixes
-
-## Próximos Pasos
-
-1. Selecciona una issue o funcionalidad
-2. Comenta que trabajarás en ello
-3. Sigue este proceso de contribución
-4. ¡Gracias por contribuir!
-
-## Recursos
-
-- [GitHub Flow](https://guides.github.com/introduction/flow/)
-- [Conventional Commits](https://www.conventionalcommits.org/)
-- [Semantic Versioning](https://semver.org/)
-
-## Preguntas Frecuentes
-
-**P: ¿Puedo trabajar en múltiples cosas simultáneamente?**
-R: Usa ramas diferentes para cada cosa.
-
-**P: ¿Cuánto tiempo toma ver mi PR?**
-R: Depende, típicamente 1-3 días.
-
-**P: ¿Qué si mi PR es rechazado?**
-R: Se explicarán las razones. Puedes pedir clarificación.
-
-**P: ¿Puedo hacer commit directo?**
-R: No, todos pasan por PR (incluso mantenedores).
-
-**P: ¿Dónde veo mis contribuciones?**
-R: En tu perfil GitHub y en `git log`.
-
----
-
-¡Gracias por considerar contribuir a Vasak Desktop! 🎉
+Las ramas mergeadas se borran, en local y en el remoto. Una lista de ramas viejas hace que
+nadie encuentre las que están vivas.
