@@ -5,11 +5,6 @@ description: "Qué información incluir en un reporte de error de VasakOS para q
 aliases: ["/docs/user/reporte-errores/"]
 ---
 
-> **¿Es un problema de seguridad?** Entonces esta página no es la que buscás.
-> No abras un issue público: deja el problema a la vista de cualquiera mientras
-> todavía no hay arreglo. Va por el reporte privado, y está explicado en
-> [Seguridad](/docs/user/security/).
-
 ## Antes de Reportar
 
 Antes de reportar un error, verifica si ya ha sido reportado:
