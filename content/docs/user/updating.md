@@ -8,6 +8,23 @@ VasakOS es **rolling release**: no hay versiones que se queden atrás ni una mig
 cada dos años. Las actualizaciones llegan continuamente desde los repositorios de Arch
 Linux y desde el repositorio de VasakOS.
 
+## El aviso
+
+No hace falta acordarse. VasakOS comprueba si hay actualizaciones a los dos minutos de
+iniciar sesión y después una vez por día, y avisa cuando hay algo. Si el equipo estuvo
+apagado cuando tocaba, comprueba al encenderse.
+
+El aviso no repite todos los días lo mismo: mientras el conjunto de paquetes pendientes no
+cambie, no vuelve a molestar hasta que pase una semana o hasta que cambie el kernel.
+
+En **Configuración → Actualizaciones** está qué hay para actualizar, qué conviene mirar
+antes de hacerlo —si hay lugar en la partición de arranque, si quedaron archivos `.pacnew`
+sin aplicar, si va a hacer falta reiniciar y por qué— y desde ahí mismo se apaga el aviso o
+se cambia cada cuánto comprueba.
+
+Todavía **no se aplica desde ahí**: eso necesita privilegios de administrador y va a ser de
+la tienda. Por ahora se aplica desde la terminal.
+
 ## Actualizar
 
 ```bash
@@ -27,6 +44,11 @@ grande la actualización, más probable que algo requiera intervención manual.
 
 Antes de una actualización grande, mirá si hay avisos en
 [el blog](/blog/) y en [Arch Linux news](https://archlinux.org/news/).
+
+Y un motivo más para no dejar pasar meses: **el aviso no distingue una actualización de
+seguridad de una cualquiera**, porque la base de paquetes de pacman no tiene ningún campo
+que lo diga. Quien pospone las actualizaciones pospone también las que tapan un agujero, sin
+enterarse de que eran distintas. Está explicado en [Seguridad](/docs/user/security/).
 
 ## Archivos `.pacnew`
 
