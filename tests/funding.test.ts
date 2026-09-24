@@ -33,6 +33,8 @@ describe('funding.json', () => {
     expect(manifest.projects.length).toBeGreaterThan(0);
     for (const p of manifest.projects) {
       expect(p.guid).toMatch(guid);
+      expect(p.name.trim().length).toBeGreaterThan(0);
+      expect(p.name.length).toBeLessThanOrEqual(250);
       expect(p.description.length).toBeLessThanOrEqual(2000);
       expect(p.webpageUrl.url).toMatch(/^https?:\/\//);
       expect(p.repositoryUrl.url).toMatch(/^https?:\/\//);
@@ -63,6 +65,7 @@ describe('funding.json', () => {
     }
     for (const plan of manifest.funding.plans) {
       expect(plan.guid).toMatch(guid);
+      expect(plan.name.trim().length).toBeGreaterThan(0);
       expect(['active', 'inactive']).toContain(plan.status);
       expect(plan.currency).toMatch(currency);
       expect(typeof plan.amount).toBe('number');
