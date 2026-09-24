@@ -22,7 +22,9 @@
         "url": "https://github.com/Vasak-OS",
         "wellKnown": "https://github.com/Vasak-OS/.github/raw/refs/heads/main/.well-known/funding-manifest-urls"
       },
-      "licenses": ["spdx:GPL-3.0"],
+      "licenses": [
+        "spdx:GPL-3.0"
+      ],
       "tags": [
         "linux",
         "linux-distribution",
@@ -44,6 +46,36 @@
         "type": "payment-provider",
         "address": "https://ko-fi.com/vasakos",
         "description": "Card or any method Ko-fi supports in your region; one-time or recurring."
+      },
+      {
+        "guid": "mercadopago",
+        "type": "payment-provider",
+        "address": "https://link.mercadopago.com.ar/joaquindecima",
+        "description": "Mercado Pago (Argentina): card, account balance or bank transfer."
+      },
+      {
+        "guid": "paypal",
+        "type": "payment-provider",
+        "address": "https://paypal.me/joaquindecima",
+        "description": "PayPal: card or PayPal balance, from any country."
+      },
+      {
+        "guid": "lemon",
+        "type": "payment-provider",
+        "address": "$patojad",
+        "description": "Lemon (Argentina): send to the $lemontag from the Lemon app."
+      },
+      {
+        "guid": "ethereum",
+        "type": "other",
+        "address": "0xF3f0B0CdaF01C68E4D64c2Ad3A703aBe252278EB",
+        "description": "Ethereum mainnet (ERC-20): ETH or USDT. Only through the Ethereum network; funds sent through any other network are lost."
+      },
+      {
+        "guid": "bitcoin",
+        "type": "other",
+        "address": "bc1qjedvfvz6h9d0rjp2mz70y90mylpx8hr52fcmsp",
+        "description": "Bitcoin on-chain (native SegWit). Not Lightning."
       }
     ],
     "plans": [
@@ -55,7 +87,14 @@
         "amount": 250,
         "currency": "USD",
         "frequency": "monthly",
-        "channels": ["ko-fi"]
+        "channels": [
+          "ko-fi",
+          "mercadopago",
+          "paypal",
+          "lemon",
+          "ethereum",
+          "bitcoin"
+        ]
       },
       {
         "guid": "one-time",
@@ -65,7 +104,14 @@
         "amount": 0,
         "currency": "USD",
         "frequency": "one-time",
-        "channels": ["ko-fi"]
+        "channels": [
+          "ko-fi",
+          "mercadopago",
+          "paypal",
+          "lemon",
+          "ethereum",
+          "bitcoin"
+        ]
       }
     ],
     "history": []

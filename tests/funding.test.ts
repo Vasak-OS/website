@@ -4,6 +4,7 @@
 // v1.0.0 que se pueden romper editando a mano.
 import { describe, expect, test } from 'bun:test';
 import { readFileSync } from 'node:fs';
+import { isValidBitcoinBech32, isValidEthereumChecksum } from './address-checksums';
 
 const manifest = JSON.parse(readFileSync('static/funding.json', 'utf8'));
 const wellKnown = readFileSync('static/.well-known/funding-manifest-urls', 'utf8');
@@ -93,5 +94,38 @@ describe('.well-known/funding-manifest-urls', () => {
     const base = config.match(/^baseURL:\s*"([^"]+)"/m)?.[1];
     expect(base).toBeDefined();
     expect(wellKnown.trim()).toBe(new URL('funding.json', base).href);
+  });
+});
+
+describe('los medios de pago', () => {
+  const donate = readFileSync('content/donate/index.md', 'utf8');
+  // Del bloque `methods:` de la página, cada `url:` o `address:`. Sin parser de
+  // YAML a propósito: el bloque es plano y una dependencia sólo para esto no
+  // vale lo que cuesta.
+  const block = donate.slice(donate.indexOf('  methods:'), donate.indexOf('  community_url:'));
+  const onPage = [...block.matchAll(/^\s+(?:url|address):\s*"([^"]+)"/gm)].map((m) => m[1]);
+  const inManifest = manifest.funding.channels.map((c: { address: string }) => c.address);
+
+  test('la página y el manifiesto ofrecen los mismos', () => {
+    // Si se agrega uno en un lado y no en el otro, quien financia desde
+    // FLOSS/fund y quien dona desde el sitio ven opciones distintas.
+    expect(onPage.length).toBeGreaterThan(0);
+    expect([...onPage].sort()).toEqual([...inManifest].sort());
+  });
+
+  test('ninguna dirección se repite', () => {
+    expect(new Set(inManifest).size).toBe(inManifest.length);
+  });
+
+  test('toda dirección de Ethereum publicada trae el checksum bien', () => {
+    const eth = [...onPage, ...inManifest].filter((a) => a.startsWith('0x'));
+    expect(eth.length).toBeGreaterThan(0);
+    for (const a of eth) expect(isValidEthereumChecksum(a)).toBe(true);
+  });
+
+  test('toda dirección de Bitcoin publicada trae el checksum bien', () => {
+    const btc = [...onPage, ...inManifest].filter((a) => /^bc1/i.test(a));
+    expect(btc.length).toBeGreaterThan(0);
+    for (const a of btc) expect(isValidBitcoinBech32(a)).toBe(true);
   });
 });
