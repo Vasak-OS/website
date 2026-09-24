@@ -6,7 +6,8 @@
     "icons": "node scripts/build-icons.mjs",
     "build": "bun run icons && hugo --gc",
     "dev": "bun run icons && hugo server --disableFastRender",
-    "preview": "bun run build && hugo server --renderToDisk"
+    "preview": "bun run build && hugo server --renderToDisk",
+    "test": "bun test"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",
