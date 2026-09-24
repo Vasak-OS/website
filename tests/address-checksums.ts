@@ -32,9 +32,9 @@ export function isValidBitcoinBech32(address: string): boolean {
     data.push(v);
   }
   const expanded = [
-    ...[...hrp].map((c) => c.charCodeAt(0) >> 5),
+    ...[...hrp].map((c) => (c.codePointAt(0) ?? 0) >> 5),
     0,
-    ...[...hrp].map((c) => c.charCodeAt(0) & 31),
+    ...[...hrp].map((c) => (c.codePointAt(0) ?? 0) & 31),
   ];
   const check = bech32Polymod([...expanded, ...data]);
   // La versión 0 de testigo (bc1q…) usa bech32; las demás (bc1p…, taproot), bech32m.
@@ -65,20 +65,35 @@ function rotl(x: bigint, n: number): bigint {
   return ((x << BigInt(n)) | (x >> BigInt(64 - n))) & MASK;
 }
 
+// Los tres pasos de cada ronda, por separado: juntos en un solo bucle quedan
+// cinco niveles de anidación y se leen peor que la especificación.
+
+function theta(s: bigint[]): void {
+  const c = [0, 1, 2, 3, 4].map((x) => s[x] ^ s[x + 5] ^ s[x + 10] ^ s[x + 15] ^ s[x + 20]);
+  for (let x = 0; x < 5; x++) {
+    const d = c[(x + 4) % 5] ^ rotl(c[(x + 1) % 5], 1);
+    for (let y = 0; y < 25; y += 5) s[x + y] ^= d;
+  }
+}
+
+function rhoPi(s: bigint[]): bigint[] {
+  const b: bigint[] = new Array(25);
+  for (let x = 0; x < 5; x++)
+    for (let y = 0; y < 5; y++) b[y + 5 * ((2 * x + 3 * y) % 5)] = rotl(s[x + 5 * y], ROTATIONS[x + 5 * y]);
+  return b;
+}
+
+function chi(s: bigint[], b: bigint[]): void {
+  for (let x = 0; x < 5; x++)
+    for (let y = 0; y < 5; y++)
+      s[x + 5 * y] = b[x + 5 * y] ^ (~b[((x + 1) % 5) + 5 * y] & MASK & b[((x + 2) % 5) + 5 * y]);
+}
+
 function keccakF(s: bigint[]): void {
   for (const rc of ROUND_CONSTANTS) {
-    const c = [0, 1, 2, 3, 4].map((x) => s[x] ^ s[x + 5] ^ s[x + 10] ^ s[x + 15] ^ s[x + 20]);
-    for (let x = 0; x < 5; x++) {
-      const d = c[(x + 4) % 5] ^ rotl(c[(x + 1) % 5], 1);
-      for (let y = 0; y < 25; y += 5) s[x + y] ^= d;
-    }
-    const b: bigint[] = new Array(25);
-    for (let x = 0; x < 5; x++)
-      for (let y = 0; y < 5; y++) b[y + 5 * ((2 * x + 3 * y) % 5)] = rotl(s[x + 5 * y], ROTATIONS[x + 5 * y]);
-    for (let x = 0; x < 5; x++)
-      for (let y = 0; y < 5; y++)
-        s[x + 5 * y] = b[x + 5 * y] ^ (~b[((x + 1) % 5) + 5 * y] & MASK & b[((x + 2) % 5) + 5 * y]);
-    s[0] ^= rc;
+    theta(s);
+    chi(s, rhoPi(s));
+    s[0] ^= rc; // iota
   }
 }
 
@@ -116,7 +131,7 @@ export function isValidEthereumChecksum(address: string): boolean {
   const hash = keccak256Hex(new TextEncoder().encode(hex.toLowerCase()));
   for (let i = 0; i < 40; i++) {
     const c = hex[i];
-    if (/[0-9]/.test(c)) continue;
+    if (/\d/.test(c)) continue;
     const upper = Number.parseInt(hash[i], 16) >= 8;
     if (upper !== (c === c.toUpperCase())) return false;
   }
