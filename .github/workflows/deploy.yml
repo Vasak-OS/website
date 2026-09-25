@@ -105,6 +105,12 @@ jobs:
         if: github.event_name != 'pull_request'
         with:
           path: public
+          # Por omisión deja afuera todo lo que empieza con punto, y
+          # `.well-known/` es justo eso: la primera publicación salió sin
+          # `funding-manifest-urls` y FLOSS/fund no podía verificar el
+          # manifiesto. El control de arriba no lo vio porque mira `public/`,
+          # y el archivo se perdía después, al empaquetar.
+          include-hidden-files: true
 
   publicar:
     # Sólo desde `main`: un PR compila y nada más. `workflow_dispatch` también
@@ -149,3 +155,32 @@ jobs:
       - id: despliegue
         if: steps.vigente.outputs.publicar == 'true'
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+      # Lo que importa es lo que sirve el sitio, no lo que había en el
+      # artefacto: se pide cada archivo que otros leen de afuera, ya
+      # publicado. Pages tarda unos segundos en propagar, así que se reintenta
+      # antes de dar por perdido uno.
+      - name: Lo publicado responde
+        if: steps.vigente.outputs.publicar == 'true'
+        env:
+          SITIO: ${{ steps.despliegue.outputs.page_url }}
+        run: |
+          set -uo pipefail
+          sitio="${SITIO%/}"
+          sitio="${sitio/#http:/https:}"
+          faltan=0
+          for ruta in "" donate/ funding.json .well-known/funding-manifest-urls; do
+            codigo=000
+            for _ in 1 2 3 4 5 6; do
+              codigo=$(curl -s --proto '=https' -o /dev/null -w '%{http_code}' "$sitio/$ruta")
+              [ "$codigo" = "200" ] && break
+              sleep 10
+            done
+            if [ "$codigo" = "200" ]; then
+              echo "$sitio/$ruta: 200"
+            else
+              echo "::error::$sitio/$ruta respondió $codigo después de publicar."
+              faltan=1
+            fi
+          done
+          exit $faltan
