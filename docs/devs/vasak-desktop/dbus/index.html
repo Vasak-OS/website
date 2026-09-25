@@ -1,0 +1,396 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>D-Bus - Integracion con el sistema | vasak-desktop | VasakOS</title><meta name="description" content="Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux. ¿Qué es D-Bus?# D-Bus (Desktop Bus) es un sistema de comunicación entre …"><link rel="canonical" href="https://os.vasak.net.ar/docs/devs/vasak-desktop/dbus/"><link rel="icon" href="/img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/img/icon.svg"><meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"><script>(function(){try{var e=localStorage.getItem("darkmode"),t=e===null?window.matchMedia("(prefers-color-scheme: dark)").matches:e==="true";t&&document.documentElement.classList.add("dark")}catch{}})()</script><link rel="stylesheet" href="/css/styles.min.d50c4f5fff7458c9bec9b2184318d85555f0b637b0085f71af0f6417fdcb493c.css" integrity="sha256-1QxPX/90WMm+ybIYQxjYVVXwtjewCF9xrw9kF/3LSTw=" crossorigin="anonymous"><link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin><meta property="og:site_name" content="VasakOS"><meta property="og:locale" content="es_AR"><meta property="og:type" content="article"><meta property="og:url" content="https://os.vasak.net.ar/docs/devs/vasak-desktop/dbus/"><meta property="og:title" content="D-Bus - Integracion con el sistema | vasak-desktop | VasakOS"><meta property="og:description" content="Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux. ¿Qué es D-Bus?# D-Bus (Desktop Bus) es un sistema de comunicación entre …"><meta property="og:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@VasakOSLinux"><meta name="twitter:creator" content="@PatoJADOficial"><meta name="twitter:title" content="D-Bus - Integracion con el sistema | vasak-desktop | VasakOS"><meta name="twitter:description" content="Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux. ¿Qué es D-Bus?# D-Bus (Desktop Bus) es un sistema de comunicación entre …"><meta name="twitter:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="author" content="VasakOS"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://os.vasak.net.ar/#organization","@type":"Organization","description":"VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto.","logo":"https://os.vasak.net.ar/img/logo.svg","name":"VasakOS","sameAs":["https://github.com/Vasak-OS","https://t.me/VasakOS","https://www.reddit.com/r/VasakOS/","https://twitter.com/VasakOSLinux","https://sourceforge.net/projects/vasakos/"],"url":"https://os.vasak.net.ar/"},{"@id":"https://os.vasak.net.ar/#website","@type":"WebSite","inLanguage":"es-AR","name":"VasakOS","publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://os.vasak.net.ar/","name":"Inicio","position":1},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/","name":"Documentación","position":2},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/","name":"Documentación para desarrolladores","position":3},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/vasak-desktop/","name":"vasak-desktop","position":4},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/vasak-desktop/dbus/","name":"D-Bus - Integracion con el sistema | vasak-desktop","position":5}]},{"@type":"TechArticle","author":{"@type":"Organization","name":"VasakOS","url":"https://os.vasak.net.ar/"},"description":"Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux.\n¿Qué es D-Bus?# D-Bus (Desktop Bus) es un sistema de comunicación entre procesos (IPC) estándar en Linux.","headline":"D-Bus - Integracion con el sistema | vasak-desktop","inLanguage":"es-AR","mainEntityOfPage":{"@id":"https://os.vasak.net.ar/docs/devs/vasak-desktop/dbus/","@type":"WebPage"},"publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/docs/devs/vasak-desktop/dbus/"}]}</script></head><body class="transition-all duration-400"><header class="sticky top-0 bg-ui-bg/80 z-40 drop-shadow-xl m-2 mb-0 rounded-corner"><nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global"><div class="flex lg:flex-1"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS"></a></div><div class="flex lg:hidden"><button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+<span class="sr-only">Open main menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button></div><div class="hidden lg:flex lg:gap-x-12"><a href="/" title="Inicio" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="hidden lg:flex lg:flex-1 lg:justify-end"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></nav></header><div class="lg:hidden" role="dialog" aria-modal="true"><div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden"><div class="flex items-center justify-between"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS">
+</a><button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+<span class="sr-only">Close menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div><div class="mt-6 flow-root"><div class="-my-6 divide-y divide-gray-500/10"><div class="space-y-2 py-6"><a href="/" title="Inicio" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="py-6"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></div></div></div></div><main class="px-6 py-8"><nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb"><ul class="flex flex-wrap items-center gap-0 text-ms"><li class="flex items-center"><a href="https://os.vasak.net.ar/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Go to home page"><i class="fa-solid fa-house text-sm"></i>
+<span class="hidden sm:inline">Home</span></a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Docs">Docs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Devs">Devs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Vasak desktop">Vasak desktop</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/dbus/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Dbus">Dbus</a></li><li class="flex items-center"><svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li><li class="flex items-center"><span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner
+bg-gradient-to-r from-secondary to-primary
+text-white font-medium
+shadow-md dark:shadow-lg" aria-current="page"><i class="fa-solid fa-book text-sm"></i>
+<span>D-Bus - Integracion con el sistema | vasak-desktop</span></span></li></ul></nav><div class="flex justify-between mx-auto"><div class="w-full lg:w-8/12"><div class="px-8"><div class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner" id="article"><h1 class="text-center text-primary">D-Bus - Integracion con el sistema | vasak-desktop</h1><p>Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux.</p><h2 id="qué-es-d-bus">¿Qué es D-Bus?<a href="#qu%c3%a9-es-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><p>D-Bus (Desktop Bus) es un sistema de comunicación entre procesos (IPC) estándar en Linux.</p><p><strong>Propósito</strong>: Permite que aplicaciones y servicios del sistema se comuniquen de manera estandarizada.</p><p><strong>Ejemplo</strong>:</p><ul><li>PulseAudio expone servicios de audio a través de D-Bus</li><li>NetworkManager expone servicios de red</li><li>UPower expone información de batería</li><li>Freedesktop expone notificaciones</li></ul><h2 id="arquitectura-d-bus">Arquitectura D-Bus<a href="#arquitectura-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="mermaid flex justify-center">graph TB
+Daemon["D-Bus Daemon<br>(dbus-daemon)"]
+App1["App 1"]
+DBusSrv["D-Bus<br>Service"]
+Service["Servicio"]
+Daemon --> App1
+Daemon --> DBusSrv
+Daemon --> Service
+style Daemon fill:#ffe0b2
+style App1 fill:#c8e6c9
+style DBusSrv fill:#c8e6c9
+style Service fill:#c8e6c9</div><h3 id="tipos-de-buses">Tipos de Buses<a href="#tipos-de-buses" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ol><li><p><strong>Session Bus</strong> - Comunicación por usuario</p><ul><li>Ejecutado como <code>dbus-daemon --session</code></li><li>Normalmente ya está corriendo</li><li>Ubicación: <code>unix:abstract=/tmp/dbus-XXXXXX</code></li></ul></li><li><p><strong>System Bus</strong> - Comunicación a nivel de sistema</p><ul><li>Ejecutado como root</li><li>Para operaciones privilegiadas</li><li>Ubicación: <code>unix:/var/run/dbus/system_bus_socket</code></li></ul></li></ol><p>Vasak Desktop usa principalmente el <strong>Session Bus</strong>.</p><h2 id="conceptos-clave">Conceptos Clave<a href="#conceptos-clave" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="nombre-del-servicio-bus-name">Nombre del Servicio (Bus Name)<a href="#nombre-del-servicio-bus-name" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Identificador único para un servicio:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">org.freedesktop.AudioManager
+</span></span><span class="line"><span class="cl">org.freedesktop.NetworkManager
+</span></span><span class="line"><span class="cl">org.freedesktop.DBus.Properties
+</span></span></code></pre></td></tr></table></div></div><p>Formato: <code>org.domain.interface</code></p><h3 id="ruta-de-objeto-object-path">Ruta de Objeto (Object Path)<a href="#ruta-de-objeto-object-path" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Localización del objeto en el servicio:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/org/freedesktop/NetworkManager
+</span></span><span class="line"><span class="cl">/org/freedesktop/NetworkManager/ActiveConnection/0
+</span></span></code></pre></td></tr></table></div></div><p>Formato jerárquico similar a paths de archivos.</p><h3 id="interfaz">Interfaz<a href="#interfaz" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Define métodos, señales y propiedades de un objeto:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">org.freedesktop.NetworkManager.Device
+</span></span><span class="line"><span class="cl">org.freedesktop.DBus.Properties
+</span></span></code></pre></td></tr></table></div></div><h3 id="métodos">Métodos<a href="#m%c3%a9todos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Funciones que se pueden llamar:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">interface: org.freedesktop.NetworkManager
+</span></span><span class="line"><span class="cl">method: Activate(objpath: in, objpath: in) -&gt; (objpath: out)
+</span></span></code></pre></td></tr></table></div></div><h3 id="señales">Señales<a href="#se%c3%b1ales" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Eventos que se pueden escuchar:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">signal</span><span class="p">:</span> <span class="n">StateChanged</span><span class="p">(</span><span class="n">uint32</span><span class="p">:</span> <span class="n">state</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">signal</span><span class="p">:</span> <span class="n">PropertiesChanged</span><span class="p">(</span><span class="n">dict</span><span class="p">:</span> <span class="n">properties</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="propiedades">Propiedades<a href="#propiedades" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p>Valores que se pueden leer/escribir:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">property: State (read) -&gt; uint32
+</span></span><span class="line"><span class="cl">property: Connectivity (read) -&gt; uint32
+</span></span></code></pre></td></tr></table></div></div><h2 id="d-bus-en-vasak-desktop">D-Bus en Vasak Desktop<a href="#d-bus-en-vasak-desktop" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="módulo-d-bus">Módulo D-Bus<a href="#m%c3%b3dulo-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p><strong>Ubicación</strong>: <code>src-tauri/src/dbus_service.rs</code></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Ejemplo de conexión D-Bus
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">zbus</span>::<span class="n">Connection</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">DbusService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">connection</span>: <span class="nc">Connection</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">impl</span><span class="w"> </span><span class="n">DbusService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">new</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="bp">Self</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Connection</span>::<span class="n">session</span><span class="p">().</span><span class="k">await</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">DbusService</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="servicios-utilizados">Servicios Utilizados<a href="#servicios-utilizados" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><h4 id="audio-pulseaudio--pipewire">Audio (PulseAudio / PipeWire)<a href="#audio-pulseaudio--pipewire" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Servicio</strong>: <code>org.pulseaudio.Server</code> o <code>org.PipeWire.Core1</code></p><p><strong>Funcionalidad</strong>:</p><ul><li>Obtener dispositivos de audio</li><li>Cambiar volumen</li><li>Cambiar entrada/salida de audio</li><li>Muteado</li></ul><p><strong>Código</strong>: <code>src-tauri/src/audio.rs</code></p><h4 id="bluetooth">Bluetooth<a href="#bluetooth" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Servicio</strong>: <code>org.bluez</code></p><p><strong>Rutas</strong>:</p><ul><li><code>/org/bluez/hci0</code> - Adaptador</li><li><code>/org/bluez/hci0/dev_XX_XX_XX_XX_XX_XX</code> - Dispositivo</li></ul><p><strong>Funcionalidad</strong>:</p><ul><li>Escanear dispositivos</li><li>Parear dispositivos</li><li>Conectar/Desconectar</li><li>Ver propiedades</li></ul><p><strong>Código</strong>: <code>src-tauri/src/bluetooth.rs</code></p><h4 id="red-networkmanager">Red (NetworkManager)<a href="#red-networkmanager" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Servicio</strong>: <code>org.freedesktop.NetworkManager</code></p><p><strong>Rutas</strong>:</p><ul><li><code>/org/freedesktop/NetworkManager</code> - Manager principal</li><li><code>/org/freedesktop/NetworkManager/Device/0</code> - Dispositivo de red</li><li><code>/org/freedesktop/NetworkManager/ActiveConnection/0</code> - Conexión activa</li></ul><p><strong>Funcionalidad</strong>:</p><ul><li>Listar dispositivos de red</li><li>Listar conexiones WiFi</li><li>Conectar a WiFi</li><li>Obtener propiedades de conexión</li></ul><p><strong>Código</strong>: <code>src-tauri/src/network.rs</code></p><h4 id="notificaciones-freedesktop">Notificaciones (Freedesktop)<a href="#notificaciones-freedesktop" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Servicio</strong>: <code>org.freedesktop.Notifications</code></p><p><strong>Ruta</strong>: <code>/org/freedesktop/Notifications</code></p><p><strong>Funcionalidad</strong>:</p><ul><li>Mostrar notificaciones</li><li>Cerrar notificaciones</li><li>Escuchar acciones de usuario</li></ul><p><strong>Código</strong>: <code>src-tauri/src/notifications.rs</code></p><h4 id="energía-upower">Energía (UPower)<a href="#energ%c3%ada-upower" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h4><p><strong>Servicio</strong>: <code>org.freedesktop.UPower</code></p><p><strong>Funcionalidad</strong>:</p><ul><li>Información de batería</li><li>Información de adaptador de corriente</li></ul><p><strong>Código</strong>: Parcialmente en varios módulos</p><h2 id="herramientas-de-debugging-d-bus">Herramientas de Debugging D-Bus<a href="#herramientas-de-debugging-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="busctl---herramienta-de-línea-de-comandos"><code>busctl</code> - Herramienta de línea de comandos<a href="#busctl---herramienta-de-l%c3%adnea-de-comandos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Listar servicios en el bus de sesión</span>
+</span></span><span class="line"><span class="cl">busctl list --user
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver interfaces de un servicio</span>
+</span></span><span class="line"><span class="cl">busctl introspect --user org.freedesktop.NetworkManager /org/freedesktop/NetworkManager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Llamar a un método</span>
+</span></span><span class="line"><span class="cl">busctl call --user org.freedesktop.DBus /org/freedesktop/DBus <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.freedesktop.DBus ListNames
+</span></span></code></pre></td></tr></table></div></div><h3 id="dbus-send---enviar-mensajes-d-bus"><code>dbus-send</code> - Enviar mensajes D-Bus<a href="#dbus-send---enviar-mensajes-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Obtener volumen actual</span>
+</span></span><span class="line"><span class="cl">dbus-send --print-reply --system <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /org/pulseaudio/core1 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.freedesktop.DBus.Properties.Get <span class="se">\
+</span></span></span><span class="line"><span class="cl">  string:<span class="s1">&#39;org.PulseAudio.Core1&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  string:<span class="s1">&#39;Volume&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Cambiar volumen</span>
+</span></span><span class="line"><span class="cl">dbus-send --system /org/pulseaudio/core1 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.PulseAudio.Core1.SetVolume <span class="se">\
+</span></span></span><span class="line"><span class="cl">  uint32:50000
+</span></span></code></pre></td></tr></table></div></div><h3 id="dbus-monitor---monitor-d-bus"><code>dbus-monitor</code> - Monitor D-Bus<a href="#dbus-monitor---monitor-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Monitorear todos los mensajes</span>
+</span></span><span class="line"><span class="cl">dbus-monitor --session
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Monitorear solo mensajes de NetworkManager</span>
+</span></span><span class="line"><span class="cl">dbus-monitor --session <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="s2">&#34;interface=&#39;org.freedesktop.NetworkManager&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Monitorear solo señales</span>
+</span></span><span class="line"><span class="cl">dbus-monitor --session <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;signal&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="gdbus---cliente-d-bus-de-gnome"><code>gdbus</code> - Cliente D-Bus de GNOME<a href="#gdbus---cliente-d-bus-de-gnome" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Listar servicios</span>
+</span></span><span class="line"><span class="cl">gdbus call --session <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dest org.freedesktop.DBus <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --object-path /org/freedesktop/DBus <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --method org.freedesktop.DBus.ListNames
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Espiar propiedades</span>
+</span></span><span class="line"><span class="cl">gdbus introspect --session <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dest org.freedesktop.NetworkManager <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --object-path /org/freedesktop/NetworkManager
+</span></span></code></pre></td></tr></table></div></div><h2 id="implementar-un-comando-d-bus">Implementar un Comando D-Bus<a href="#implementar-un-comando-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="ejemplo-obtener-volumen-de-audio">Ejemplo: Obtener Volumen de Audio<a href="#ejemplo-obtener-volumen-de-audio" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// src-tauri/src/commands/audio.rs
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">zbus</span>::<span class="n">Connection</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_volume</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Conectar al bus de sesión
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Connection</span>::<span class="n">session</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="k">await</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&#34;Failed to connect to D-Bus: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Obtener proxy del servicio
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">call_method</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="s">&#34;org.pulseaudio.Server&#34;</span><span class="p">),</span><span class="w">           </span><span class="c1">// Servicio
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;/org/pulseaudio/core1&#34;</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Ruta
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="s">&#34;org.freedesktop.DBus.Properties&#34;</span><span class="p">),</span><span class="w"> </span><span class="c1">// Interfaz
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;Get&#34;</span><span class="p">,</span><span class="w">                                   </span><span class="c1">// Método
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="o">&amp;</span><span class="p">(</span><span class="s">&#34;org.PulseAudio.Core1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Volume&#34;</span><span class="p">),</span><span class="w">    </span><span class="c1">// Parámetros
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="k">await</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&#34;D-Bus call failed: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="ejemplo-escuchar-señales-d-bus">Ejemplo: Escuchar Señales D-Bus<a href="#ejemplo-escuchar-se%c3%b1ales-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Escuchar cambios de volumen
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">zbus</span>::<span class="n">MessageStream</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">listen_volume_changes</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">std</span>::<span class="n">error</span>::<span class="n">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Connection</span>::<span class="n">session</span><span class="p">().</span><span class="k">await</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Crear stream de mensajes
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MessageStream</span>::<span class="n">from</span><span class="p">(</span><span class="n">connection</span><span class="p">.</span><span class="n">clone</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Filtrar por señal
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stream</span><span class="p">.</span><span class="n">next</span><span class="p">().</span><span class="k">await</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">zbus</span>::<span class="n">Message</span>::<span class="n">Signal</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">signal</span><span class="p">.</span><span class="n">interface</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">&amp;</span><span class="s">&#34;org.PulseAudio.Core1&#34;</span><span class="p">.</span><span class="n">into</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Volumen cambió&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="servicios-d-bus-comunes">Servicios D-Bus Comunes<a href="#servicios-d-bus-comunes" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="networkmanager">NetworkManager<a href="#networkmanager" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver dispositivos</span>
+</span></span><span class="line"><span class="cl">busctl --user call org.freedesktop.NetworkManager <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /org/freedesktop/NetworkManager org.freedesktop.NetworkManager GetDevices
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver conexiones WiFi disponibles</span>
+</span></span><span class="line"><span class="cl">dbus-send --system --print-reply <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /org/freedesktop/NetworkManager <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.freedesktop.NetworkManager.GetDevices
+</span></span></code></pre></td></tr></table></div></div><h3 id="pulseaudio--pipewire">PulseAudio / PipeWire<a href="#pulseaudio--pipewire" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver sinks (salidas de audio)</span>
+</span></span><span class="line"><span class="cl">pacmd list-sinks
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O con D-Bus</span>
+</span></span><span class="line"><span class="cl">busctl --user call org.pulseaudio.Server <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /org/pulseaudio/core1 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.PulseAudio.Core1.GetSinks
+</span></span></code></pre></td></tr></table></div></div><h3 id="bluez-bluetooth">BlueZ (Bluetooth)<a href="#bluez-bluetooth" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ver dispositivos Bluetooth pareados</span>
+</span></span><span class="line"><span class="cl">busctl --system list --match <span class="s2">&#34;type=&#39;signal&#39;,interface=&#39;org.bluez.Device1&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ver adaptador</span>
+</span></span><span class="line"><span class="cl">busctl --system call org.bluez <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /org/bluez/hci0 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  org.freedesktop.DBus.Properties.GetAll <span class="se">\
+</span></span></span><span class="line"><span class="cl">  s <span class="s2">&#34;org.bluez.Adapter1&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="errores-comunes-d-bus">Errores Comunes D-Bus<a href="#errores-comunes-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="error-service-not-available">Error: &ldquo;Service not available&rdquo;<a href="#error-service-not-available" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">org.freedesktop.DBus.Error.ServiceUnknown
+</span></span></code></pre></td></tr></table></div></div><p><strong>Causa</strong>: El servicio no está corriendo o no existe</p><p><strong>Solución</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Iniciar el servicio</span>
+</span></span><span class="line"><span class="cl">systemctl --user start pulseaudio
+</span></span><span class="line"><span class="cl">sudo systemctl start bluetooth
+</span></span><span class="line"><span class="cl">sudo systemctl start NetworkManager
+</span></span></code></pre></td></tr></table></div></div><h3 id="error-no-such-object-path">Error: &ldquo;No such object path&rdquo;<a href="#error-no-such-object-path" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">org.freedesktop.DBus.Error.ObjectPathNotFound
+</span></span></code></pre></td></tr></table></div></div><p><strong>Causa</strong>: La ruta de objeto no existe</p><p><strong>Solución</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verificar rutas disponibles</span>
+</span></span><span class="line"><span class="cl">busctl --user tree org.freedesktop.NetworkManager
+</span></span></code></pre></td></tr></table></div></div><h3 id="error-access-denied">Error: &ldquo;Access Denied&rdquo;<a href="#error-access-denied" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">org.freedesktop.DBus.Error.AccessDenied
+</span></span></code></pre></td></tr></table></div></div><p><strong>Causa</strong>: Permisos insuficientes</p><p><strong>Solución</strong>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Usar system bus en lugar de session bus</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># O añadir usuario a grupo apropiado</span>
+</span></span><span class="line"><span class="cl">sudo usermod -a -G audio <span class="nv">$USER</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="debugging-d-bus-en-vasak">Debugging D-Bus en Vasak<a href="#debugging-d-bus-en-vasak" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="habilitar-logs-de-d-bus">Habilitar Logs de D-Bus<a href="#habilitar-logs-de-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ejecutar con debug de D-Bus</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DBUS_VERBOSE</span><span class="o">=</span><span class="m">1</span> vasak-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># O solo para módulos específicos</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>vasak_desktop::dbus<span class="o">=</span>debug vasak-desktop
+</span></span></code></pre></td></tr></table></div></div><h3 id="monitorear-d-bus-mientras-ejecutas">Monitorear D-Bus Mientras Ejecutas<a href="#monitorear-d-bus-mientras-ejecutas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Terminal 1: Monitor D-Bus</span>
+</span></span><span class="line"><span class="cl">dbus-monitor --session
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Terminal 2: Ejecutar Vasak con logs</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug vasak-desktop
+</span></span></code></pre></td></tr></table></div></div><h3 id="debugging-paso-a-paso">Debugging Paso a Paso<a href="#debugging-paso-a-paso" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># En código Rust, añade prints</span>
+</span></span><span class="line"><span class="cl">eprintln!<span class="o">(</span><span class="s2">&#34;Conectando a D-Bus...&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">let</span> <span class="nv">connection</span> <span class="o">=</span> Connection::session<span class="o">()</span>.await?<span class="p">;</span>
+</span></span><span class="line"><span class="cl">eprintln!<span class="o">(</span><span class="s2">&#34;Conectado!&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// Compilar con debug
+</span></span><span class="line"><span class="cl">cargo build
+</span></span><span class="line"><span class="cl"><span class="c1"># Ejecutar</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RUST_LOG</span><span class="o">=</span>debug ./target/debug/vasak_desktop
+</span></span></code></pre></td></tr></table></div></div><h2 id="mejores-prácticas">Mejores Prácticas<a href="#mejores-pr%c3%a1cticas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="-haz">✅ Haz:<a href="#-haz" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>Verifica que el servicio existe antes de usarlo</li><li>Maneja errores de conexión D-Bus</li><li>Usa timeouts en llamadas D-Bus</li><li>Escucha señales para cambios del sistema</li><li>Documenta qué servicio usas</li></ul><h3 id="-no-hagas">❌ No hagas:<a href="#-no-hagas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>Asumas que un servicio siempre está disponible</li><li>Bloquees el hilo principal en llamadas D-Bus</li><li>Ignores errores de D-Bus</li><li>Hagas llamadas D-Bus en loops sin control</li><li>Uses rutas hardcodeadas</li></ul><h2 id="recursos-adicionales">Recursos Adicionales<a href="#recursos-adicionales" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><ul><li><a href="https://dbus.freedesktop.org/doc/dbus-daemon.1.html" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+D-Bus Specification</a></li><li><a href="https://specifications.freedesktop.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+Freedesktop Standards</a></li><li><a href="https://zbus.readthedocs.io/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+Zbus (Rust bindings)</a></li><li><a href="https://www.freedesktop.org/wiki/Software/PulseAudio/DBusInterface/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+PulseAudio D-Bus API</a></li><li><a href="https://networkmanager.dev/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+NetworkManager D-Bus API</a></li></ul></div><div class="flex justify-between mt-8 gap-4"><a href="/docs/devs/vasak-desktop/components-vue/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div><div class="font-semibold">Componentes de VueJS | vasak-desktop</div></a><a href="/docs/devs/vasak-desktop/commands-rust/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors text-right"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div><div class="font-semibold">Comandos de Rust | vasak-desktop</div></a></div></div></div><div class="hidden w-4/12 mx-8 lg:block"><section class="bg-ui-bg/80 rounded-corner p-5 mb-3"><header class="flex items-center gap-2 mb-4"><i class="fa-solid fa-magnifying-glass"></i><div><h2 class="text-base font-semibold">Buscar documentación</h2></div></header><div class="relative"><input id="docs-search-input" type="search" placeholder="Ej: eventos IPC, Vue, Tauri" class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="off">
+<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span></div></section><div id="docs-search-modal" class="fixed inset-0 z-50 hidden"><div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]"><div class="bg-ui-bg/80 rounded-corner shadow-2xl overflow-hidden flex flex-col"><div class="px-6 py-4 border-b border-ui-border flex items-center justify-between"><div class="flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-tx-muted"></i><h3 class="font-semibold text-tx-main">Resultados de búsqueda</h3></div><button id="docs-search-close" type="button" class="text-slate-400 hover:text-primary transition-colors">
+<i class="fa-solid fa-xmark text-lg"></i></button></div><div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div></div></div></div><script>(()=>{const c=document.getElementById("docs-search-input"),t=document.getElementById("docs-search-status"),o=document.getElementById("docs-search-results"),i=document.getElementById("docs-search-modal"),s=document.getElementById("docs-search-backdrop"),f=document.getElementById("docs-search-close"),d="/search-index.json",l=2;let e=null;const a=()=>{i.classList.remove("hidden"),setTimeout(()=>s.classList.remove("opacity-0"),10)},n=()=>{s.classList.add("opacity-0"),setTimeout(()=>i.classList.add("hidden"),200)},u=async()=>{if(e)return e;t.textContent="Cargando…";try{const t=await fetch(d);e=await t.json()}catch{return e=[],t.textContent="!",e}return t.textContent="",e},h=(e,t=200)=>{let n;return(...s)=>{clearTimeout(n),n=setTimeout(()=>e(...s),t)}},m=(e,t)=>{const s=t.toLowerCase();let n=0;const o=(e.title||"").toLowerCase(),i=(e.content||"").toLowerCase();return o.includes(s)&&(n+=6),i.includes(s)&&(n+=4),n},r=(e,t)=>{if(!e)return"";try{const n=new RegExp(`(${t.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")})`,"ig");return e.replace(n,'<mark class="bg-primary p-0 m-0">$1</mark>')}catch{return e}},p=(e,t,n=160)=>{const s=(e||"").replace(/<[^>]+>/g," "),o=s.toLowerCase().indexOf(t.toLowerCase());if(o===-1)return s.slice(0,n)+(s.length>n?"…":"");const i=Math.max(0,o-40),a=Math.min(s.length,o+n);return(i>0?"…":"")+s.slice(i,a)+(a<s.length?"…":"")},g=(e,t)=>{if(!e.length){o.innerHTML='<p class="text-center text-tx-muted py-8">Sin resultados</p>';return}o.innerHTML=e.map(e=>`
+			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
+				<a href="${e.permalink}" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines"></i>
+					${r(e.title,t)}
+				</a>
+				<p class="mt-2 text-tx-muted leading-relaxed text-xs">${r(p(e.content||e.summary,t),t)}</p>
+			</article>
+		`).join("")},v=h(async()=>{const s=c.value.trim();if(s.length<l){s.length===0?n():(a(),o.innerHTML='<p class="text-center text-tx-muted py-8">Escribe al menos 2 caracteres</p>'),t.textContent="";return}await u();const i=e.map(e=>({...e,_score:m(e,s)})).filter(e=>e._score>0).sort((e,t)=>t._score-e._score).slice(0,20);t.textContent=i.length?`${i.length}`:"0",a(),g(i,s)},220);c.addEventListener("input",v),f.addEventListener("click",n),s.addEventListener("click",n),document.addEventListener("keydown",e=>{e.key==="Escape"&&!i.classList.contains("hidden")&&n()})})()</script><div class="flex flex-col mb-3 px-6 py-4 mx-auto bg-ui-bg/80 text-tx-main rounded-corner shadow-md"><nav id="TableOfContents"><ol><li><a href="#qué-es-d-bus">¿Qué es D-Bus?</a></li><li><a href="#arquitectura-d-bus">Arquitectura D-Bus</a><ol><li><a href="#tipos-de-buses">Tipos de Buses</a></li></ol></li><li><a href="#conceptos-clave">Conceptos Clave</a><ol><li><a href="#nombre-del-servicio-bus-name">Nombre del Servicio (Bus Name)</a></li><li><a href="#ruta-de-objeto-object-path">Ruta de Objeto (Object Path)</a></li><li><a href="#interfaz">Interfaz</a></li><li><a href="#métodos">Métodos</a></li><li><a href="#señales">Señales</a></li><li><a href="#propiedades">Propiedades</a></li></ol></li><li><a href="#d-bus-en-vasak-desktop">D-Bus en Vasak Desktop</a><ol><li><a href="#módulo-d-bus">Módulo D-Bus</a></li><li><a href="#servicios-utilizados">Servicios Utilizados</a><ol><li><a href="#audio-pulseaudio--pipewire">Audio (PulseAudio / PipeWire)</a></li><li><a href="#bluetooth">Bluetooth</a></li><li><a href="#red-networkmanager">Red (NetworkManager)</a></li><li><a href="#notificaciones-freedesktop">Notificaciones (Freedesktop)</a></li><li><a href="#energía-upower">Energía (UPower)</a></li></ol></li></ol></li><li><a href="#herramientas-de-debugging-d-bus">Herramientas de Debugging D-Bus</a><ol><li><a href="#busctl---herramienta-de-línea-de-comandos"><code>busctl</code> - Herramienta de línea de comandos</a></li><li><a href="#dbus-send---enviar-mensajes-d-bus"><code>dbus-send</code> - Enviar mensajes D-Bus</a></li><li><a href="#dbus-monitor---monitor-d-bus"><code>dbus-monitor</code> - Monitor D-Bus</a></li><li><a href="#gdbus---cliente-d-bus-de-gnome"><code>gdbus</code> - Cliente D-Bus de GNOME</a></li></ol></li><li><a href="#implementar-un-comando-d-bus">Implementar un Comando D-Bus</a><ol><li><a href="#ejemplo-obtener-volumen-de-audio">Ejemplo: Obtener Volumen de Audio</a></li><li><a href="#ejemplo-escuchar-señales-d-bus">Ejemplo: Escuchar Señales D-Bus</a></li></ol></li><li><a href="#servicios-d-bus-comunes">Servicios D-Bus Comunes</a><ol><li><a href="#networkmanager">NetworkManager</a></li><li><a href="#pulseaudio--pipewire">PulseAudio / PipeWire</a></li><li><a href="#bluez-bluetooth">BlueZ (Bluetooth)</a></li></ol></li><li><a href="#errores-comunes-d-bus">Errores Comunes D-Bus</a><ol><li><a href="#error-service-not-available">Error: &ldquo;Service not available&rdquo;</a></li><li><a href="#error-no-such-object-path">Error: &ldquo;No such object path&rdquo;</a></li><li><a href="#error-access-denied">Error: &ldquo;Access Denied&rdquo;</a></li></ol></li><li><a href="#debugging-d-bus-en-vasak">Debugging D-Bus en Vasak</a><ol><li><a href="#habilitar-logs-de-d-bus">Habilitar Logs de D-Bus</a></li><li><a href="#monitorear-d-bus-mientras-ejecutas">Monitorear D-Bus Mientras Ejecutas</a></li><li><a href="#debugging-paso-a-paso">Debugging Paso a Paso</a></li></ol></li><li><a href="#mejores-prácticas">Mejores Prácticas</a><ol><li><a href="#-haz">✅ Haz:</a></li><li><a href="#-no-hagas">❌ No hagas:</a></li></ol></li><li><a href="#recursos-adicionales">Recursos Adicionales</a></li></ol></nav></div></div></div></main><div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner"><div class="w-full draggable"><div class="container flex flex-col mx-auto"><div class="flex flex-col items-center w-full my-20"><span class="mb-8"><img src="/img/logo.svg" alt="logo" loading="lazy" class="h-20"></span><div class="flex flex-col items-center gap-6"><div class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900"><a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
+<a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
+<a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
+<a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
+<a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Roadmap</a></div><div class="flex items-center gap-8"><a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-telegram"></em>
+</a><a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-github"></em>
+</a><a href="https://discord.gg/7wKrVNBC" alt="Discord" aria-label="Discord" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-discord"></em>
+</a><a href="https://www.reddit.com/r/VasakOS/" alt="Reddit" aria-label="Reddit" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-reddit"></em>
+</a><a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-twitter"></em></a></div><div class="mt-2 w-full max-w-3xl px-4 sm:px-6"><div id="os-badgets" class="flex w-full flex-wrap items-center justify-center gap-3 text-center sm:gap-4"><div class="badge-item sf-root" data-id="4084065" data-badge="oss-users-love-us-white"><a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">VasakOS en SourceForge</a></div><a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="badge-item"><img src="/oin-member-2-0-stacked-200x140_3696262515435231848.png" width="200" height="140" loading="lazy" decoding="async" alt="VasakOS es miembro de la Open Invention Network"></a></div></div><style>#os-badgets{--badge-fixed-height:108px}#os-badgets .badge-item{display:inline-flex;align-items:center;justify-content:center;height:var(--badge-fixed-height);max-width:100%}#os-badgets img,#os-badgets .badge-item svg,#os-badgets .badge-item canvas,#os-badgets .badge-item iframe,#os-badgets .badge-item object{height:var(--badge-fixed-height)!important;width:auto!important;max-width:100%;object-fit:contain}#os-badgets .sf-root,#os-badgets .sf-root>a{height:var(--badge-fixed-height)!important;width:auto!important}</style><script>(function(){var e,t,n=document.getElementById("os-badgets");if(!n)return;e=!1;function s(){if(e)return;e=!0;var t=document.createElement("script");t.async=!0,t.src="https://b.sf-syn.com/badge_js?sf_id=4084065",document.body.appendChild(t)}"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.some(function(e){return e.isIntersecting})&&(s(),t.disconnect())},{rootMargin:"200px"}),t.observe(n)):s()})()</script></div></div></div></div></div><div class="flex flex-wrap my-5"><div class="w-full max-w-full sm:w-3/4 mx-auto text-center"><p class="text-lg text-slate-500 py-1"><a href="/" class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold" rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p></div></div><a rel="noopener" href="#" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl"><em class="fas fa-arrow-up"></em>
+</a><script defer src="/js/bundle.min.5d9b0e854280184f06a03452faf72eee5f9f77325fd8746855c23d8fc5ca65b5.js" integrity="sha256-XZsOhUKAGE8GoDRS+vcu7l+fdzJf2HRoVcI9j8XKZbU=" crossorigin="anonymous"></script><script defer src="/mermaid.min_3141953029634099501.8d607d7ef1d077a8aa202e18e62212bfa992c68bfeabc5cf45d51a128fe6675d.js"></script><script>(function(){var s={startOnLoad:!1,securityLevel:"loose",flowchart:{useMaxWidth:!0,htmlLabels:!0,curve:"cardinal"},sequence:{useMaxWidth:!0,diagramMarginX:50,diagramMarginY:10}},e=[];function n(){document.querySelectorAll("pre > code.language-mermaid").forEach(function(e){var n=e.parentElement,t=document.createElement("div");t.className="mermaid flex justify-center",t.textContent=e.textContent,n.parentNode.replaceChild(t,n)}),document.querySelectorAll(".mermaid").forEach(function(t){e.push({node:t,code:t.textContent})})}function t(){if(typeof mermaid=="undefined")return;var t=document.documentElement.classList.contains("dark");mermaid.initialize(Object.assign({},s,{theme:t?"dark":"default"})),e.forEach(function(e){e.node.removeAttribute("data-processed"),e.node.textContent=e.code}),mermaid.run({nodes:e.map(function(e){return e.node})})}window.vskRedrawMermaid=t,document.readyState==="loading"?document.addEventListener("DOMContentLoaded",function(){n(),t()}):(n(),t())})()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-5MYT335WZK"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-5MYT335WZK",{anonymize_ip:!0})</script></body></html>

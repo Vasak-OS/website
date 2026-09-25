@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Vasakos on VasakOS</title>
+		<link>https://os.vasak.net.ar/tags/vasakos/</link>
+		<description>Recent content in Vasakos on VasakOS</description>
+		<generator>Hugo</generator>
+		<language>es-AR</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 19 Aug 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://os.vasak.net.ar/tags/vasakos/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Alpha 4 de VasakOS</title>
+				<link>https://os.vasak.net.ar/blog/2026/08/alpha-4-de-vasakos/</link>
+				<pubDate>Wed, 19 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2026/08/alpha-4-de-vasakos/</guid>
+				<description>&lt;p&gt;Llega el Alpha 4, y es la actualización más grande que publicamos hasta ahora. No es una lista de retoques: buena parte del escritorio dejó de depender de piezas prestadas de otros entornos y pasó a tener las suyas —llavero, permisos, notificaciones, pantalla de inicio y de bloqueo—, todas dibujadas con los mismos colores, el mismo radio de esquina y la misma tipografía que elegiste vos.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Estado del proyecto</title>
+				<link>https://os.vasak.net.ar/state/</link>
+				<pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/state/</guid>
+				<description>&lt;p&gt;VasakOS está en &lt;strong&gt;Alpha&lt;/strong&gt;. Esa palabra significa cosas distintas en cada proyecto, así que&#xA;acá está lo que significa en este: el sistema arranca, se instala y se usa, pero hay&#xA;funciones a medio terminar y cambios que rompen compatibilidad entre versiones.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 19-06-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260819/</link>
+				<pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260819/</guid>
+				<description>&lt;h2 id=&#34;aplicaciones&#34;&gt;Aplicaciones&lt;a href=&#34;#aplicaciones&#34; class=&#34;heading-anchor&#34; aria-label=&#34;Enlace a esta sección&#34;&gt;#&lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 14-06-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260614/</link>
+				<pubDate>Sun, 14 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260614/</guid>
+				<description>&lt;p&gt;Dentro de la ultima actualiazacion de VasakOS, se han introducido varias mejoras y nuevas funcionalidades en diferentes componentes del sistema. El gran trabajo realizado va de la mano con la migracion a Wayland buscando un mejor soporte para hardware moderno. A continuación se detallan los cambios más relevantes:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 15-04-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260415/</link>
+				<pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260415/</guid>
+				<description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Alpha 3 de VasakOS</title>
+				<link>https://os.vasak.net.ar/blog/2026/04/alpha-3-de-vasakos/</link>
+				<pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2026/04/alpha-3-de-vasakos/</guid>
+				<description>&lt;p&gt;Seguimos avanzando a paso firme con el desarrollo de VasakOS, y decidimos lanzar el Alpha 3, que cuenta con muchas mejoras y correcciones respecto a la version anterior. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 01-04-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260401/</link>
+				<pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260401/</guid>
+				<description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder encontrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Alpha 2 de VasakOS</title>
+				<link>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</link>
+				<pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2026/01/alpha-2-de-vasakos/</guid>
+				<description>&lt;p&gt;Tratamos de iniciar 2026 con todo, y decidimos sacar el alpha 2, y realizar muchos cambios en como venimos trabajando&amp;hellip;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Changelogs 06-01-2026 [Alpha]</title>
+				<link>https://os.vasak.net.ar/changelogs/20260106/</link>
+				<pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/changelogs/20260106/</guid>
+				<description>&lt;p&gt;Changelogs correspondientes a los releases publicados en tal fecha en los repositorios. Aun se encuentra en estado &lt;strong&gt;Alpha&lt;/strong&gt; por lo cual es comun poder enconrar errores o funcionalidades no terminadas. Cualquier reporte se puede realizar en los repositorios y/o en los canales de comunicacion oficial&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Votá por el siguiente pack de Iconos por Defecto</title>
+				<link>https://os.vasak.net.ar/blog/2025/08/vot%C3%A1-por-el-siguiente-pack-de-iconos-por-defecto/</link>
+				<pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2025/08/vot%C3%A1-por-el-siguiente-pack-de-iconos-por-defecto/</guid>
+				<description>&lt;p&gt;El otro dia comentamos que &lt;a href=&#34;https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/&#34; &gt;&#xA;  &lt;i class=&#34;fas fa-link&#34;&gt;&lt;/i&gt;&amp;nbsp;&#xA;  &#xA;  &amp;ldquo;Buscamos pack de Iconos por Defecto&amp;rdquo;&#xA;&lt;/a&gt; y que estábamos revisando todos los packs de iconos que nos enviaron. Hoy queremos invitarte a participar en la votación del pack de iconos que consideramos más adecuado para el escritorio de VasakOS.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Buscamos pack de Iconos por Defecto</title>
+				<link>https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/</link>
+				<pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2025/08/buscamos-pack-de-iconos-por-defecto/</guid>
+				<description>&lt;p&gt;Actualmente estamos en una etapa de desarrollo temprana, el sueño de tener iconos propios esta aun muy lejos, no solo por la cantidad de trabajo que nos falta con el escritorio propiamente dicho, sino también por la falta de un diseñador que nos ayude a crear un pack de iconos por defecto.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Publicamos en Plugin User Data para Tauri</title>
+				<link>https://os.vasak.net.ar/blog/2025/05/publicamos-en-plugin-user-data-para-tauri/</link>
+				<pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2025/05/publicamos-en-plugin-user-data-para-tauri/</guid>
+				<description>&lt;p&gt;Hoy publicamos nuestro segundo plugin para &lt;strong&gt;Tauri&lt;/strong&gt;. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama &lt;strong&gt;tauri-plugin-user-data&lt;/strong&gt; y permite usar datos de usuario de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Publicamos en Plugin Vicons para Tauri</title>
+				<link>https://os.vasak.net.ar/blog/2025/04/publicamos-en-plugin-vicons-para-tauri/</link>
+				<pubDate>Sat, 12 Apr 2025 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2025/04/publicamos-en-plugin-vicons-para-tauri/</guid>
+				<description>&lt;p&gt;Hoy publicamos nuestro primer plugin para &lt;strong&gt;Tauri&lt;/strong&gt;. El mismo es una simple abstraccion de algo que veniamos relizando en nuestras aplicaciones. Logramos extraer el código y publicarlo como un plugin para que cualquier desarrollador pueda usarlo. El mismo se llama &lt;strong&gt;tauri-plugin-vicons&lt;/strong&gt; y permite usar iconos de forma rapida y sencilla en sus aplicaciones. El mismo es completamente gratuito y open source, por lo que puede ser utilizado por cualquier desarrollador.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Primera demo pública de VasakOS</title>
+				<link>https://os.vasak.net.ar/blog/2025/04/primera-demo-p%C3%BAblica-de-vasakos/</link>
+				<pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/blog/2025/04/primera-demo-p%C3%BAblica-de-vasakos/</guid>
+				<description>&lt;p&gt;Hoy definimoas lanzar una especie de DEMO visual de lo que es VasakOS. La misma, si bien no esta accesible para el publico en general, es una especie de video que muestra como es el entorno de VasakOS y como se comporta. La misma fue grabada en una computadora real y no en una maquina virtual, por lo que se puede ver el rendimiento real del sistema operativo. La misma fue grabada en una computadora con un procesador &lt;strong&gt;Rayzen 5&lt;/strong&gt; y &lt;strong&gt;16GB de RAM&lt;/strong&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Donaciones</title>
+				<link>https://os.vasak.net.ar/donate/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>https://os.vasak.net.ar/donate/</guid>
+				<description>&lt;p&gt;Cada aporte, por pequeño que sea, nos permite sostener el proyecto y seguir construyendo una mejor experiencia para todos.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

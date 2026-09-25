@@ -1,0 +1,919 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Comandos de Rust | vasak-desktop | VasakOS</title><meta name="description" content="Guía para desarrollar comandos IPC (Tauri) en Rust. Concepto: Comandos Tauri# Los comandos son funciones Rust que se pueden llamar desde el frontend Vue.js a …"><link rel="canonical" href="https://os.vasak.net.ar/docs/devs/vasak-desktop/commands-rust/"><link rel="icon" href="/img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/img/icon.svg"><meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"><script>(function(){try{var e=localStorage.getItem("darkmode"),t=e===null?window.matchMedia("(prefers-color-scheme: dark)").matches:e==="true";t&&document.documentElement.classList.add("dark")}catch{}})()</script><link rel="stylesheet" href="/css/styles.min.d50c4f5fff7458c9bec9b2184318d85555f0b637b0085f71af0f6417fdcb493c.css" integrity="sha256-1QxPX/90WMm+ybIYQxjYVVXwtjewCF9xrw9kF/3LSTw=" crossorigin="anonymous"><link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin><meta property="og:site_name" content="VasakOS"><meta property="og:locale" content="es_AR"><meta property="og:type" content="article"><meta property="og:url" content="https://os.vasak.net.ar/docs/devs/vasak-desktop/commands-rust/"><meta property="og:title" content="Comandos de Rust | vasak-desktop | VasakOS"><meta property="og:description" content="Guía para desarrollar comandos IPC (Tauri) en Rust. Concepto: Comandos Tauri# Los comandos son funciones Rust que se pueden llamar desde el frontend Vue.js a …"><meta property="og:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@VasakOSLinux"><meta name="twitter:creator" content="@PatoJADOficial"><meta name="twitter:title" content="Comandos de Rust | vasak-desktop | VasakOS"><meta name="twitter:description" content="Guía para desarrollar comandos IPC (Tauri) en Rust. Concepto: Comandos Tauri# Los comandos son funciones Rust que se pueden llamar desde el frontend Vue.js a …"><meta name="twitter:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="author" content="VasakOS"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://os.vasak.net.ar/#organization","@type":"Organization","description":"VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto.","logo":"https://os.vasak.net.ar/img/logo.svg","name":"VasakOS","sameAs":["https://github.com/Vasak-OS","https://t.me/VasakOS","https://www.reddit.com/r/VasakOS/","https://twitter.com/VasakOSLinux","https://sourceforge.net/projects/vasakos/"],"url":"https://os.vasak.net.ar/"},{"@id":"https://os.vasak.net.ar/#website","@type":"WebSite","inLanguage":"es-AR","name":"VasakOS","publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://os.vasak.net.ar/","name":"Inicio","position":1},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/","name":"Documentación","position":2},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/","name":"Documentación para desarrolladores","position":3},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/vasak-desktop/","name":"vasak-desktop","position":4},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/vasak-desktop/commands-rust/","name":"Comandos de Rust | vasak-desktop","position":5}]},{"@type":"TechArticle","author":{"@type":"Organization","name":"VasakOS","url":"https://os.vasak.net.ar/"},"description":"Guía para desarrollar comandos IPC (Tauri) en Rust.\nConcepto: Comandos Tauri# Los comandos son funciones Rust que se pueden llamar desde el frontend Vue.js a través de IPC.","headline":"Comandos de Rust | vasak-desktop","inLanguage":"es-AR","mainEntityOfPage":{"@id":"https://os.vasak.net.ar/docs/devs/vasak-desktop/commands-rust/","@type":"WebPage"},"publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/docs/devs/vasak-desktop/commands-rust/"}]}</script></head><body class="transition-all duration-400"><header class="sticky top-0 bg-ui-bg/80 z-40 drop-shadow-xl m-2 mb-0 rounded-corner"><nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global"><div class="flex lg:flex-1"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS"></a></div><div class="flex lg:hidden"><button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+<span class="sr-only">Open main menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button></div><div class="hidden lg:flex lg:gap-x-12"><a href="/" title="Inicio" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="hidden lg:flex lg:flex-1 lg:justify-end"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></nav></header><div class="lg:hidden" role="dialog" aria-modal="true"><div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden"><div class="flex items-center justify-between"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS">
+</a><button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+<span class="sr-only">Close menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div><div class="mt-6 flow-root"><div class="-my-6 divide-y divide-gray-500/10"><div class="space-y-2 py-6"><a href="/" title="Inicio" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="py-6"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></div></div></div></div><main class="px-6 py-8"><nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb"><ul class="flex flex-wrap items-center gap-0 text-ms"><li class="flex items-center"><a href="https://os.vasak.net.ar/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Go to home page"><i class="fa-solid fa-house text-sm"></i>
+<span class="hidden sm:inline">Home</span></a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Docs">Docs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Devs">Devs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Vasak desktop">Vasak desktop</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/vasak-desktop/commands-rust/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Commands rust">Commands rust</a></li><li class="flex items-center"><svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li><li class="flex items-center"><span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner
+bg-gradient-to-r from-secondary to-primary
+text-white font-medium
+shadow-md dark:shadow-lg" aria-current="page"><i class="fa-solid fa-book text-sm"></i>
+<span>Comandos de Rust | vasak-desktop</span></span></li></ul></nav><div class="flex justify-between mx-auto"><div class="w-full lg:w-8/12"><div class="px-8"><div class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner" id="article"><h1 class="text-center text-primary">Comandos de Rust | vasak-desktop</h1><p>Guía para desarrollar comandos IPC (Tauri) en Rust.</p><h2 id="concepto-comandos-tauri">Concepto: Comandos Tauri<a href="#concepto-comandos-tauri" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><p>Los comandos son funciones Rust que se pueden llamar desde el frontend Vue.js a través de IPC.</p><div class="mermaid flex justify-center">sequenceDiagram
+participant Frontend as 🎨 Frontend<br>(Vue.js)
+participant Invoke as invoke()
+participant Bridge as 🔗 Tauri Bridge
+participant IPC as 📡 IPC Channel
+participant Backend as ⚙️ Backend<br>(Rust)
+Frontend->>Invoke: invoke('command_name', data)
+activate Invoke
+Invoke->>Bridge: serializa datos
+deactivate Invoke
+activate Bridge
+Bridge->>IPC: envía por canal
+deactivate Bridge
+activate IPC
+IPC->>Backend: entrega comando
+deactivate IPC
+activate Backend
+Backend->>Backend: ejecuta función Rust
+Backend->>IPC: retorna resultado
+deactivate Backend
+activate IPC
+IPC->>Bridge: envía respuesta
+deactivate IPC
+activate Bridge
+Bridge->>Invoke: deserializa resultado
+deactivate Bridge
+activate Invoke
+Invoke->>Frontend: Promise resuelto
+deactivate Invoke
+Note over Frontend,Backend: Comunicación bidireccional segura</div><h2 id="estructura-base-de-un-comando">Estructura Base de un Comando<a href="#estructura-base-de-un-comando" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// src-tauri/src/commands/mod.rs
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">tauri</span>::<span class="n">State</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">serde</span>::<span class="p">{</span><span class="n">Serialize</span><span class="p">,</span><span class="w"> </span><span class="n">Deserialize</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[derive(Serialize, Deserialize)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">VolumeLevel</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">level</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Comando simple
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_version</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">String</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;0.5.2&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Comando con parámetros
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">set_volume</span><span class="p">(</span><span class="n">level</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Volume must be 0-100&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Lógica para cambiar volumen
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Volumen establecido a: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Comando async
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">load_devices</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Operación async
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">tokio</span>::<span class="n">time</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">tokio</span>::<span class="n">time</span>::<span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Comando con estado compartido
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_config</span><span class="p">(</span><span class="n">state</span>: <span class="nc">State</span><span class="o">&lt;</span><span class="n">AppConfig</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="n">config_path</span><span class="p">.</span><span class="n">clone</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="registrar-comandos">Registrar Comandos<a href="#registrar-comandos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><p>En <code>src/main.rs</code> o <code>src/lib.rs</code>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">tauri</span>::<span class="n">Manager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">commands</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">commands</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">tauri</span>::<span class="n">Builder</span>::<span class="n">default</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">invoke_handler</span><span class="p">(</span><span class="n">tauri</span>::<span class="fm">generate_handler!</span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// Registra aquí
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">get_version</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">set_volume</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">load_devices</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">get_config</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">tauri</span>::<span class="fm">generate_context!</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">expect</span><span class="p">(</span><span class="s">&#34;error while running tauri application&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="tipos-de-datos">Tipos de Datos<a href="#tipos-de-datos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="tipos-simples">Tipos Simples<a href="#tipos-simples" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">handle_int</span><span class="p">(</span><span class="n">value</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">handle_string</span><span class="p">(</span><span class="n">text</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">String</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">format!</span><span class="p">(</span><span class="s">&#34;Echo: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">handle_bool</span><span class="p">(</span><span class="n">flag</span>: <span class="kt">bool</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">!</span><span class="n">flag</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">handle_float</span><span class="p">(</span><span class="n">value</span>: <span class="kt">f64</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">f64</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">value</span><span class="p">.</span><span class="n">sqrt</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h3 id="tipos-complejos">Tipos Complejos<a href="#tipos-complejos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">serde</span>::<span class="p">{</span><span class="n">Serialize</span><span class="p">,</span><span class="w"> </span><span class="n">Deserialize</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[derive(Serialize, Deserialize)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Device</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">id</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">name</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">volume</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[derive(Serialize, Deserialize)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">AudioSettings</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">volume</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">muted</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">device</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_audio_settings</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">AudioSettings</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">AudioSettings</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">volume</span>: <span class="mi">50</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">muted</span>: <span class="nc">false</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">device</span>: <span class="s">&#34;default&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">update_audio_settings</span><span class="p">(</span><span class="n">settings</span>: <span class="nc">AudioSettings</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Actualizar configuración
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_devices</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">vec!</span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Device</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">id</span>: <span class="s">&#34;dev1&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">name</span>: <span class="s">&#34;Speaker&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">volume</span>: <span class="mi">50</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="manejo-de-errores">Manejo de Errores<a href="#manejo-de-errores" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// ✅ Retornar error explícitamente
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">validate_input</span><span class="p">(</span><span class="n">input</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Input cannot be empty&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">to_uppercase</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ✅ Usar custom error type
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[derive(Debug, Serialize)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">enum</span> <span class="nc">CommandError</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[serde(rename = </span><span class="s">&#34;device_not_found&#34;</span><span class="cp">)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">DeviceNotFound</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[serde(rename = </span><span class="s">&#34;invalid_volume&#34;</span><span class="cp">)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">InvalidVolume</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[serde(rename = </span><span class="s">&#34;dbus_error&#34;</span><span class="cp">)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">DbusError</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">impl</span><span class="w"> </span><span class="n">std</span>::<span class="n">fmt</span>::<span class="n">Display</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">CommandError</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">f</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">std</span>::<span class="n">fmt</span>::<span class="n">Formatter</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">std</span>::<span class="n">fmt</span>::<span class="nb">Result</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">CommandError</span>::<span class="n">DeviceNotFound</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Device not found&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">CommandError</span>::<span class="n">InvalidVolume</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Volume out of range&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">CommandError</span>::<span class="n">DbusError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;D-Bus error: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">set_audio_device</span><span class="p">(</span><span class="n">device_id</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="n">CommandError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Validar device
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">device_id</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">CommandError</span>::<span class="n">DeviceNotFound</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="comandos-async">Comandos Async<a href="#comandos-async" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">time</span>::<span class="p">{</span><span class="n">sleep</span><span class="p">,</span><span class="w"> </span><span class="n">Duration</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Comando async simple
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">fetch_network_status</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">NetworkStatus</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">2</span><span class="p">)).</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">NetworkStatus</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">connected</span>: <span class="nc">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">signal</span>: <span class="mi">85</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Async con operaciones I/O
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">read_config_file</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span>::<span class="n">fs</span>::<span class="n">read_to_string</span><span class="p">(</span><span class="s">&#34;config.toml&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&#34;Failed to read config: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Async con timeout
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_device_list</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">time</span>::<span class="n">timeout</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">fetch_devices_from_dbus</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">).</span><span class="k">await</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">Ok</span><span class="p">(</span><span class="n">devices</span><span class="p">))</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="n">devices</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">))</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Err</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Operation timed out&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">()),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">fetch_devices_from_dbus</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Operación async
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="acceso-al-estado-compartido">Acceso al Estado Compartido<a href="#acceso-al-estado-compartido" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">tauri</span>::<span class="n">State</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">sync</span>::<span class="n">Mutex</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">AppConfig</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">config_path</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">AudioState</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">current_volume</span>: <span class="nc">Mutex</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_config_path</span><span class="p">(</span><span class="n">state</span>: <span class="nc">State</span><span class="o">&lt;</span><span class="n">AppConfig</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">String</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">state</span><span class="p">.</span><span class="n">config_path</span><span class="p">.</span><span class="n">clone</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_volume</span><span class="p">(</span><span class="n">state</span>: <span class="nc">State</span><span class="o">&lt;</span><span class="n">AudioState</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="n">state</span><span class="p">.</span><span class="n">current_volume</span><span class="p">.</span><span class="n">lock</span><span class="p">().</span><span class="n">unwrap</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">set_volume</span><span class="p">(</span><span class="n">level</span>: <span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="n">state</span>: <span class="nc">State</span><span class="o">&lt;</span><span class="n">AudioState</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">*</span><span class="n">state</span><span class="p">.</span><span class="n">current_volume</span><span class="p">.</span><span class="n">lock</span><span class="p">().</span><span class="n">unwrap</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">level</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// En main.rs
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">audio_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AudioState</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">current_volume</span>: <span class="nc">Mutex</span>::<span class="n">new</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">tauri</span>::<span class="n">Builder</span>::<span class="n">default</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">manage</span><span class="p">(</span><span class="n">AppConfig</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">config_path</span>: <span class="s">&#34;/home/user/.config&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">manage</span><span class="p">(</span><span class="n">audio_state</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">invoke_handler</span><span class="p">(</span><span class="n">tauri</span>::<span class="fm">generate_handler!</span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">get_config_path</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">get_volume</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">set_volume</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">tauri</span>::<span class="fm">generate_context!</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">expect</span><span class="p">(</span><span class="s">&#34;error while running tauri application&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="emitir-eventos-al-frontend">Emitir Eventos al Frontend<a href="#emitir-eventos-al-frontend" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">tauri</span>::<span class="n">Manager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Emitir evento a una ventana específica
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">notify_volume_change</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">window</span>: <span class="nc">tauri</span>::<span class="n">Window</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">new_volume</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">window</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#34;volume_changed&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">new_volume</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Emitir evento a todas las ventanas
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">notify_globally</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">app</span>: <span class="nc">tauri</span>::<span class="n">AppHandle</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">message</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">emit_all</span><span class="p">(</span><span class="s">&#34;global_event&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Emitir de forma asíncrona
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">long_operation</span><span class="p">(</span><span class="n">window</span>: <span class="nc">tauri</span>::<span class="n">Window</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">10</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tokio</span>::<span class="n">time</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">tokio</span>::<span class="n">time</span>::<span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">window</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&#34;progress&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="s">&#34;Completado&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="acceso-al-filesystem">Acceso al Filesystem<a href="#acceso-al-filesystem" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">tauri</span>::<span class="n">api</span>::<span class="n">path</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">fs</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">save_config</span><span class="p">(</span><span class="n">content</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">config_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span>::<span class="n">config_dir</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">ok_or</span><span class="p">(</span><span class="s">&#34;Cannot find config dir&#34;</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">config_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config_dir</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#34;vasak&#34;</span><span class="p">).</span><span class="n">join</span><span class="p">(</span><span class="s">&#34;config.toml&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">fs</span>::<span class="n">create_dir_all</span><span class="p">(</span><span class="n">config_path</span><span class="p">.</span><span class="n">parent</span><span class="p">().</span><span class="n">unwrap</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">fs</span>::<span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">config_path</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">load_config</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">config_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span>::<span class="n">config_dir</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">ok_or</span><span class="p">(</span><span class="s">&#34;Cannot find config dir&#34;</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">config_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config_dir</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#34;vasak&#34;</span><span class="p">).</span><span class="n">join</span><span class="p">(</span><span class="s">&#34;config.toml&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">fs</span>::<span class="n">read_to_string</span><span class="p">(</span><span class="o">&amp;</span><span class="n">config_path</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="integración-con-d-bus">Integración con D-Bus<a href="#integraci%c3%b3n-con-d-bus" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">zbus</span>::<span class="n">Connection</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_volume_from_dbus</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Conectar al bus de sesión
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Connection</span>::<span class="n">session</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="k">await</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&#34;D-Bus connection failed: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Obtener información
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dbus_service</span>::<span class="n">get_volume</span><span class="p">(</span><span class="o">&amp;</span><span class="n">connection</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="k">await</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">list_bluetooth_devices</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">BluetoothDevice</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Connection</span>::<span class="n">system</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="k">await</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">&#34;D-Bus system connection failed: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">))</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dbus_service</span>::<span class="n">list_devices</span><span class="p">(</span><span class="o">&amp;</span><span class="n">connection</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="k">await</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="validación-de-entrada">Validación de Entrada<a href="#validaci%c3%b3n-de-entrada" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">process_data</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">age</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">email</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">ProcessedData</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Validar nombre
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">name</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">name</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Invalid name length&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Validar edad
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Invalid age&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Validar email
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="n">email</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="sc">&#39;@&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Invalid email&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">ProcessedData</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">age</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">email</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="comandos-relacionados-con-hardware">Comandos Relacionados con Hardware<a href="#comandos-relacionados-con-hardware" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Control de brillo
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">set_brightness</span><span class="p">(</span><span class="n">level</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Brightness must be 0-100&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Usar D-Bus o archivo sysfs
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">std</span>::<span class="n">fs</span>::<span class="n">write</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;/sys/class/backlight/intel_backlight/brightness&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="fm">format!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">255</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">).</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Control de Bluetooth
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">scan_bluetooth_devices</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Usar BlueZ D-Bus API
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Control de red
+</span></span></span><span class="line"><span class="cl"><span class="cp">#[tauri::command]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get_wifi_networks</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">WiFiNetwork</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Usar NetworkManager D-Bus API
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="permisología-tauri-capabilities">Permisología (Tauri Capabilities)<a href="#permisolog%c3%ada-tauri-capabilities" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><p>En <code>src-tauri/capabilities/default.json</code>:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;permission&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;core:window:allow-create&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;core:fs:allow-read-file&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;core:fs:allow-write-file&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;core:shell:allow-execute&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Restringir comandos:</p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;commands&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;allow&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;safe_command&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;deny&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;dangerous_command&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="testing-de-comandos">Testing de Comandos<a href="#testing-de-comandos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#[cfg(test)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">mod</span> <span class="nn">tests</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">test_set_volume_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_volume</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">is_ok</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">test_set_volume_invalid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_volume</span><span class="p">(</span><span class="mi">150</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">is_err</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">unwrap_err</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;Volume must be 0-100&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[tokio::test]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">test_async_command</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">load_devices</span><span class="p">().</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">devices</span><span class="p">.</span><span class="n">is_ok</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table></div></div><h2 id="mejores-prácticas">Mejores Prácticas<a href="#mejores-pr%c3%a1cticas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="-haz">✅ Haz:<a href="#-haz" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>Valida entrada siempre</li><li>Retorna errores explícitos</li><li>Documenta comandos</li><li>Usa tipos en lugar de strings</li><li>Maneja timeouts en async</li><li>Limpia recursos</li></ul><h3 id="-no-hagas">❌ No hagas:<a href="#-no-hagas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><ul><li>Confíes en entrada del frontend</li><li>Ignores errores</li><li>Bloquees el hilo principal</li><li>Uses unwrap en producción</li><li>Hagas operaciones muy largas sin feedback</li><li>Guardes secretos en el código</li></ul><h2 id="checklist-de-comando">Checklist de Comando<a href="#checklist-de-comando" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><ul><li><input disabled type="checkbox"> Nombre descriptivo</li><li><input disabled type="checkbox"> Validación de entrada</li><li><input disabled type="checkbox"> Tipos claros</li><li><input disabled type="checkbox"> Manejo de errores</li><li><input disabled type="checkbox"> Documentado</li><li><input disabled type="checkbox"> Testeado</li><li><input disabled type="checkbox"> Registrado en lib.rs</li><li><input disabled type="checkbox"> Performance validado</li></ul></div><div class="flex justify-between mt-8 gap-4"><a href="/docs/devs/vasak-desktop/dbus/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div><div class="font-semibold">D-Bus - Integracion con el sistema | vasak-desktop</div></a><a href="/docs/devs/vasak-desktop/commands-vasak-desktop/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors text-right"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div><div class="font-semibold">Comandos del escritorio | vasak-desktop</div></a></div></div></div><div class="hidden w-4/12 mx-8 lg:block"><section class="bg-ui-bg/80 rounded-corner p-5 mb-3"><header class="flex items-center gap-2 mb-4"><i class="fa-solid fa-magnifying-glass"></i><div><h2 class="text-base font-semibold">Buscar documentación</h2></div></header><div class="relative"><input id="docs-search-input" type="search" placeholder="Ej: eventos IPC, Vue, Tauri" class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="off">
+<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span></div></section><div id="docs-search-modal" class="fixed inset-0 z-50 hidden"><div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]"><div class="bg-ui-bg/80 rounded-corner shadow-2xl overflow-hidden flex flex-col"><div class="px-6 py-4 border-b border-ui-border flex items-center justify-between"><div class="flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-tx-muted"></i><h3 class="font-semibold text-tx-main">Resultados de búsqueda</h3></div><button id="docs-search-close" type="button" class="text-slate-400 hover:text-primary transition-colors">
+<i class="fa-solid fa-xmark text-lg"></i></button></div><div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div></div></div></div><script>(()=>{const c=document.getElementById("docs-search-input"),t=document.getElementById("docs-search-status"),o=document.getElementById("docs-search-results"),i=document.getElementById("docs-search-modal"),s=document.getElementById("docs-search-backdrop"),f=document.getElementById("docs-search-close"),d="/search-index.json",l=2;let e=null;const a=()=>{i.classList.remove("hidden"),setTimeout(()=>s.classList.remove("opacity-0"),10)},n=()=>{s.classList.add("opacity-0"),setTimeout(()=>i.classList.add("hidden"),200)},u=async()=>{if(e)return e;t.textContent="Cargando…";try{const t=await fetch(d);e=await t.json()}catch{return e=[],t.textContent="!",e}return t.textContent="",e},h=(e,t=200)=>{let n;return(...s)=>{clearTimeout(n),n=setTimeout(()=>e(...s),t)}},m=(e,t)=>{const s=t.toLowerCase();let n=0;const o=(e.title||"").toLowerCase(),i=(e.content||"").toLowerCase();return o.includes(s)&&(n+=6),i.includes(s)&&(n+=4),n},r=(e,t)=>{if(!e)return"";try{const n=new RegExp(`(${t.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")})`,"ig");return e.replace(n,'<mark class="bg-primary p-0 m-0">$1</mark>')}catch{return e}},p=(e,t,n=160)=>{const s=(e||"").replace(/<[^>]+>/g," "),o=s.toLowerCase().indexOf(t.toLowerCase());if(o===-1)return s.slice(0,n)+(s.length>n?"…":"");const i=Math.max(0,o-40),a=Math.min(s.length,o+n);return(i>0?"…":"")+s.slice(i,a)+(a<s.length?"…":"")},g=(e,t)=>{if(!e.length){o.innerHTML='<p class="text-center text-tx-muted py-8">Sin resultados</p>';return}o.innerHTML=e.map(e=>`
+			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
+				<a href="${e.permalink}" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines"></i>
+					${r(e.title,t)}
+				</a>
+				<p class="mt-2 text-tx-muted leading-relaxed text-xs">${r(p(e.content||e.summary,t),t)}</p>
+			</article>
+		`).join("")},v=h(async()=>{const s=c.value.trim();if(s.length<l){s.length===0?n():(a(),o.innerHTML='<p class="text-center text-tx-muted py-8">Escribe al menos 2 caracteres</p>'),t.textContent="";return}await u();const i=e.map(e=>({...e,_score:m(e,s)})).filter(e=>e._score>0).sort((e,t)=>t._score-e._score).slice(0,20);t.textContent=i.length?`${i.length}`:"0",a(),g(i,s)},220);c.addEventListener("input",v),f.addEventListener("click",n),s.addEventListener("click",n),document.addEventListener("keydown",e=>{e.key==="Escape"&&!i.classList.contains("hidden")&&n()})})()</script><div class="flex flex-col mb-3 px-6 py-4 mx-auto bg-ui-bg/80 text-tx-main rounded-corner shadow-md"><nav id="TableOfContents"><ol><li><a href="#concepto-comandos-tauri">Concepto: Comandos Tauri</a></li><li><a href="#estructura-base-de-un-comando">Estructura Base de un Comando</a></li><li><a href="#registrar-comandos">Registrar Comandos</a></li><li><a href="#tipos-de-datos">Tipos de Datos</a><ol><li><a href="#tipos-simples">Tipos Simples</a></li><li><a href="#tipos-complejos">Tipos Complejos</a></li></ol></li><li><a href="#manejo-de-errores">Manejo de Errores</a></li><li><a href="#comandos-async">Comandos Async</a></li><li><a href="#acceso-al-estado-compartido">Acceso al Estado Compartido</a></li><li><a href="#emitir-eventos-al-frontend">Emitir Eventos al Frontend</a></li><li><a href="#acceso-al-filesystem">Acceso al Filesystem</a></li><li><a href="#integración-con-d-bus">Integración con D-Bus</a></li><li><a href="#validación-de-entrada">Validación de Entrada</a></li><li><a href="#comandos-relacionados-con-hardware">Comandos Relacionados con Hardware</a></li><li><a href="#permisología-tauri-capabilities">Permisología (Tauri Capabilities)</a></li><li><a href="#testing-de-comandos">Testing de Comandos</a></li><li><a href="#mejores-prácticas">Mejores Prácticas</a><ol><li><a href="#-haz">✅ Haz:</a></li><li><a href="#-no-hagas">❌ No hagas:</a></li></ol></li><li><a href="#checklist-de-comando">Checklist de Comando</a></li></ol></nav></div></div></div></main><div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner"><div class="w-full draggable"><div class="container flex flex-col mx-auto"><div class="flex flex-col items-center w-full my-20"><span class="mb-8"><img src="/img/logo.svg" alt="logo" loading="lazy" class="h-20"></span><div class="flex flex-col items-center gap-6"><div class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900"><a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
+<a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
+<a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
+<a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
+<a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Roadmap</a></div><div class="flex items-center gap-8"><a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-telegram"></em>
+</a><a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-github"></em>
+</a><a href="https://discord.gg/7wKrVNBC" alt="Discord" aria-label="Discord" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-discord"></em>
+</a><a href="https://www.reddit.com/r/VasakOS/" alt="Reddit" aria-label="Reddit" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-reddit"></em>
+</a><a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-twitter"></em></a></div><div class="mt-2 w-full max-w-3xl px-4 sm:px-6"><div id="os-badgets" class="flex w-full flex-wrap items-center justify-center gap-3 text-center sm:gap-4"><div class="badge-item sf-root" data-id="4084065" data-badge="oss-users-love-us-white"><a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">VasakOS en SourceForge</a></div><a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="badge-item"><img src="/oin-member-2-0-stacked-200x140_3696262515435231848.png" width="200" height="140" loading="lazy" decoding="async" alt="VasakOS es miembro de la Open Invention Network"></a></div></div><style>#os-badgets{--badge-fixed-height:108px}#os-badgets .badge-item{display:inline-flex;align-items:center;justify-content:center;height:var(--badge-fixed-height);max-width:100%}#os-badgets img,#os-badgets .badge-item svg,#os-badgets .badge-item canvas,#os-badgets .badge-item iframe,#os-badgets .badge-item object{height:var(--badge-fixed-height)!important;width:auto!important;max-width:100%;object-fit:contain}#os-badgets .sf-root,#os-badgets .sf-root>a{height:var(--badge-fixed-height)!important;width:auto!important}</style><script>(function(){var e,t,n=document.getElementById("os-badgets");if(!n)return;e=!1;function s(){if(e)return;e=!0;var t=document.createElement("script");t.async=!0,t.src="https://b.sf-syn.com/badge_js?sf_id=4084065",document.body.appendChild(t)}"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.some(function(e){return e.isIntersecting})&&(s(),t.disconnect())},{rootMargin:"200px"}),t.observe(n)):s()})()</script></div></div></div></div></div><div class="flex flex-wrap my-5"><div class="w-full max-w-full sm:w-3/4 mx-auto text-center"><p class="text-lg text-slate-500 py-1"><a href="/" class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold" rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p></div></div><a rel="noopener" href="#" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl"><em class="fas fa-arrow-up"></em>
+</a><script defer src="/js/bundle.min.5d9b0e854280184f06a03452faf72eee5f9f77325fd8746855c23d8fc5ca65b5.js" integrity="sha256-XZsOhUKAGE8GoDRS+vcu7l+fdzJf2HRoVcI9j8XKZbU=" crossorigin="anonymous"></script><script defer src="/mermaid.min_3141953029634099501.8d607d7ef1d077a8aa202e18e62212bfa992c68bfeabc5cf45d51a128fe6675d.js"></script><script>(function(){var s={startOnLoad:!1,securityLevel:"loose",flowchart:{useMaxWidth:!0,htmlLabels:!0,curve:"cardinal"},sequence:{useMaxWidth:!0,diagramMarginX:50,diagramMarginY:10}},e=[];function n(){document.querySelectorAll("pre > code.language-mermaid").forEach(function(e){var n=e.parentElement,t=document.createElement("div");t.className="mermaid flex justify-center",t.textContent=e.textContent,n.parentNode.replaceChild(t,n)}),document.querySelectorAll(".mermaid").forEach(function(t){e.push({node:t,code:t.textContent})})}function t(){if(typeof mermaid=="undefined")return;var t=document.documentElement.classList.contains("dark");mermaid.initialize(Object.assign({},s,{theme:t?"dark":"default"})),e.forEach(function(e){e.node.removeAttribute("data-processed"),e.node.textContent=e.code}),mermaid.run({nodes:e.map(function(e){return e.node})})}window.vskRedrawMermaid=t,document.readyState==="loading"?document.addEventListener("DOMContentLoaded",function(){n(),t()}):(n(),t())})()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-5MYT335WZK"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-5MYT335WZK",{anonymize_ip:!0})</script></body></html>

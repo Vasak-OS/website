@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Auto-generated listings: thin pages that compete with the ones that answer
+# the query.
+Disallow: /tags/
+Disallow: /categories/
+Disallow: /search-index.json
+
+Sitemap: https://os.vasak.net.ar/sitemap.xml

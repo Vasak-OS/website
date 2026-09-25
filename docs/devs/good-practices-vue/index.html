@@ -1,0 +1,1215 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Buenas Practicas [VueJS] | VasakOS</title><meta name="description" content="Guía de mejores prácticas para desarrollar aplicaciones de escritorio performantes con Vue.js 3 y Tauri. Arquitectura de Componentes# Componentes Pequeños y …"><link rel="canonical" href="https://os.vasak.net.ar/docs/devs/good-practices-vue/"><link rel="icon" href="/img/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/img/icon.svg"><meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"><script>(function(){try{var e=localStorage.getItem("darkmode"),t=e===null?window.matchMedia("(prefers-color-scheme: dark)").matches:e==="true";t&&document.documentElement.classList.add("dark")}catch{}})()</script><link rel="stylesheet" href="/css/styles.min.d50c4f5fff7458c9bec9b2184318d85555f0b637b0085f71af0f6417fdcb493c.css" integrity="sha256-1QxPX/90WMm+ybIYQxjYVVXwtjewCF9xrw9kF/3LSTw=" crossorigin="anonymous"><link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin><meta property="og:site_name" content="VasakOS"><meta property="og:locale" content="es_AR"><meta property="og:type" content="article"><meta property="og:url" content="https://os.vasak.net.ar/docs/devs/good-practices-vue/"><meta property="og:title" content="Buenas Practicas [VueJS] | VasakOS"><meta property="og:description" content="Guía de mejores prácticas para desarrollar aplicaciones de escritorio performantes con Vue.js 3 y Tauri. Arquitectura de Componentes# Componentes Pequeños y …"><meta property="og:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@VasakOSLinux"><meta name="twitter:creator" content="@PatoJADOficial"><meta name="twitter:title" content="Buenas Practicas [VueJS] | VasakOS"><meta name="twitter:description" content="Guía de mejores prácticas para desarrollar aplicaciones de escritorio performantes con Vue.js 3 y Tauri. Arquitectura de Componentes# Componentes Pequeños y …"><meta name="twitter:image" content="https://os.vasak.net.ar/img/og-default.jpg"><meta name="author" content="VasakOS"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://os.vasak.net.ar/#organization","@type":"Organization","description":"VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto.","logo":"https://os.vasak.net.ar/img/logo.svg","name":"VasakOS","sameAs":["https://github.com/Vasak-OS","https://t.me/VasakOS","https://www.reddit.com/r/VasakOS/","https://twitter.com/VasakOSLinux","https://sourceforge.net/projects/vasakos/"],"url":"https://os.vasak.net.ar/"},{"@id":"https://os.vasak.net.ar/#website","@type":"WebSite","inLanguage":"es-AR","name":"VasakOS","publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://os.vasak.net.ar/","name":"Inicio","position":1},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/","name":"Documentación","position":2},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/","name":"Documentación para desarrolladores","position":3},{"@type":"ListItem","item":"https://os.vasak.net.ar/docs/devs/good-practices-vue/","name":"Buenas Practicas [VueJS]","position":4}]},{"@type":"TechArticle","author":{"@type":"Organization","name":"VasakOS","url":"https://os.vasak.net.ar/"},"description":"Guía de mejores prácticas para desarrollar aplicaciones de escritorio performantes con Vue.js 3 y Tauri.\nArquitectura de Componentes# Componentes Pequeños y Enfocados# Mal ejemplo:","headline":"Buenas Practicas [VueJS]","inLanguage":"es-AR","mainEntityOfPage":{"@id":"https://os.vasak.net.ar/docs/devs/good-practices-vue/","@type":"WebPage"},"publisher":{"@id":"https://os.vasak.net.ar/#organization"},"url":"https://os.vasak.net.ar/docs/devs/good-practices-vue/"}]}</script></head><body class="transition-all duration-400"><header class="sticky top-0 bg-ui-bg/80 z-40 drop-shadow-xl m-2 mb-0 rounded-corner"><nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global"><div class="flex lg:flex-1"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS"></a></div><div class="flex lg:hidden"><button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+<span class="sr-only">Open main menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button></div><div class="hidden lg:flex lg:gap-x-12"><a href="/" title="Inicio" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" class="text-lg font-semibold leading-6 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="hidden lg:flex lg:flex-1 lg:justify-end"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></nav></header><div class="lg:hidden" role="dialog" aria-modal="true"><div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden"><div class="flex items-center justify-between"><a href="/" class="-m-1.5"><span class="sr-only">VasakOS</span>
+<img class="h-10 w-auto" src="/img/logo.svg" alt="VasakOS" title="VasakOS">
+</a><button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+<span class="sr-only">Close menu</span>
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div><div class="mt-6 flow-root"><div class="-my-6 divide-y divide-gray-500/10"><div class="space-y-2 py-6"><a href="/" title="Inicio" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Inicio</a>
+<a href="/blog" title="Blog" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Blog</a>
+<a href="/about" title="Sobre" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Sobre</a>
+<a href="/downloads" title="Descargas" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Descargas</a>
+<a href="/docs" title="Documentación" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Documentación</a>
+<a href="/donate" title="Donar" onclick="closeMobileMenu()" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-primary">Donar</a></div><div class="py-6"><button type="button" class="js-theme-toggle text-lg leading-6 text-gray-900 dark:text-white hover:text-primary" aria-label="Cambiar tema" title="Cambiar tema">
+<i class="fa-solid fa-moon" aria-hidden="true"></i></button></div></div></div></div></div><main class="px-6 py-8"><nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb"><ul class="flex flex-wrap items-center gap-0 text-ms"><li class="flex items-center"><a href="https://os.vasak.net.ar/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Go to home page"><i class="fa-solid fa-house text-sm"></i>
+<span class="hidden sm:inline">Home</span></a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Docs">Docs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Devs">Devs</a></li><li class="flex items-center"><i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i></li><li><a href="https://os.vasak.net.ar/docs/devs/good-practices-vue/" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary" title="Visit Good practices vue">Good practices vue</a></li><li class="flex items-center"><svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li><li class="flex items-center"><span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner
+bg-gradient-to-r from-secondary to-primary
+text-white font-medium
+shadow-md dark:shadow-lg" aria-current="page"><i class="fa-solid fa-book text-sm"></i>
+<span>Buenas Practicas [VueJS]</span></span></li></ul></nav><div class="flex justify-between mx-auto"><div class="w-full lg:w-8/12"><div class="px-8"><div class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner" id="article"><h1 class="text-center text-primary">Buenas Practicas [VueJS]</h1><p>Guía de mejores prácticas para desarrollar aplicaciones de escritorio performantes con Vue.js 3 y Tauri.</p><h2 id="arquitectura-de-componentes">Arquitectura de Componentes<a href="#arquitectura-de-componentes" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="componentes-pequeños-y-enfocados">Componentes Pequeños y Enfocados<a href="#componentes-peque%c3%b1os-y-enfocados" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p><strong>Mal ejemplo:</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="err">❌</span> <span class="nx">Componente</span> <span class="nx">monolítico</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;control-center&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--</span> <span class="nx">Audio</span> <span class="nx">controls</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;audio&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">input</span> <span class="nt">v-model</span><span class="o">=</span><span class="s">&#34;volume&#34; type=&#34;range&#34;</span><span class="p"> /&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">button</span> <span class="nt">@click</span><span class="s">=&#34;toggleMute&#34;</span><span class="p">&gt;</span><span class="na">Mute</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">select</span> <span class="nt">v-model</span><span class="o">=</span><span class="s">&#34;selectedDevice&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">option</span> <span class="nt">v-for</span><span class="o">=</span><span class="s">&#34;device in devices&#34;</span><span class="p">&gt;{{</span> <span class="na">device</span> <span class="p">}}&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">&lt;!--</span> <span class="na">Bluetooth</span> <span class="na">controls</span> <span class="err">--</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;bluetooth&#34;</span><span class="p">&gt;...&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--</span> <span class="nx">Network</span> <span class="nx">controls</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;network&#34;</span><span class="p">&gt;...&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--</span> <span class="nx">Battery</span> <span class="nx">info</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;battery&#34;</span><span class="p">&gt;...&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 300+ líneas de lógica mezclada
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">volume</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">devices</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">([])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ... muchísima más lógica
+</span></span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Buen ejemplo:</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="err">✅</span> <span class="nx">Componente</span> <span class="nx">principal</span> <span class="nx">pequeño</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;control-center&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">AudioControl</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">BluetoothControl</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">NetworkControl</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">BatteryInfo</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">AudioControl</span> <span class="nx">from</span> <span class="s1">&#39;./components/AudioControl.vue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">BluetoothControl</span> <span class="nx">from</span> <span class="s1">&#39;./components/BluetoothControl.vue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">NetworkControl</span> <span class="nx">from</span> <span class="s1">&#39;./components/NetworkControl.vue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">BatteryInfo</span> <span class="nx">from</span> <span class="s1">&#39;./components/BatteryInfo.vue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="props-tipadas-y-documentadas">Props Tipadas y Documentadas<a href="#props-tipadas-y-documentadas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p><strong>Mal ejemplo:</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ Props sin tipos ni documentación
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">defineProps</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;callback&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Buen ejemplo:</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Device</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">id</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">volume</span><span class="o">:</span> <span class="nx">number</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Props</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/** Título del componente de audio */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">title</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/** Lista de dispositivos de audio disponibles */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">devices</span><span class="o">:</span> <span class="nx">Device</span><span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/** Volumen actual (0-100) */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">currentVolume</span><span class="o">:</span> <span class="nx">number</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/** Si el audio está silenciado */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">muted</span><span class="o">?:</span> <span class="kr">boolean</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">withDefaults</span><span class="p">(</span><span class="nx">defineProps</span><span class="p">&lt;</span><span class="nt">Props</span><span class="p">&gt;(),</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">muted</span><span class="o">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="eventos-bien-definidos">Eventos Bien Definidos<a href="#eventos-bien-definidos" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><p><strong>Mal ejemplo:</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ Eventos sin tipo
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">emit</span> <span class="o">=</span> <span class="nx">defineEmits</span><span class="p">([</span><span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="nx">someData</span><span class="p">)</span> <span class="c1">// ¿Qué formato tiene someData?
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Buen ejemplo:</strong></p><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Emits</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/** Se emite cuando el volumen cambia */</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">e</span><span class="o">:</span> <span class="s1">&#39;volume-changed&#39;</span><span class="p">,</span> <span class="nx">volume</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/** Se emite cuando se cambia de dispositivo */</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">e</span><span class="o">:</span> <span class="s1">&#39;device-selected&#39;</span><span class="p">,</span> <span class="nx">deviceId</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/** Se emite cuando se alterna mute */</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nx">e</span><span class="o">:</span> <span class="s1">&#39;mute-toggled&#39;</span><span class="p">,</span> <span class="nx">muted</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">emit</span> <span class="o">=</span> <span class="nx">defineEmits</span><span class="p">&lt;</span><span class="nt">Emits</span><span class="p">&gt;()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">handleVolumeChange</span><span class="p">(</span><span class="nx">newVolume</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;volume-changed&#39;</span><span class="p">,</span> <span class="nx">newVolume</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="performance-y-optimización">Performance y Optimización<a href="#performance-y-optimizaci%c3%b3n" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="lazy-loading-de-componentes">Lazy Loading de Componentes<a href="#lazy-loading-de-componentes" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineAsyncComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ✅ Cargar componentes pesados solo cuando se necesitan
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">SettingsDialog</span> <span class="o">=</span> <span class="nx">defineAsyncComponent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;./components/SettingsDialog.vue&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">FileManager</span> <span class="o">=</span> <span class="nx">defineAsyncComponent</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">()</span> <span class="p">=&gt;</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;./components/FileManager.vue&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">SettingsDialog</span> <span class="nt">v-if</span><span class="o">=</span><span class="s">&#34;showSettings&#34;</span><span class="p"> /&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">FileManager</span> <span class="nt">v-if</span><span class="o">=</span><span class="s">&#34;showFileManager&#34;</span><span class="p"> /&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="virtual-scrolling-para-listas-grandes">Virtual Scrolling para Listas Grandes<a href="#virtual-scrolling-para-listas-grandes" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useVirtualList</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vueuse/core&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">allApps</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">App</span><span class="err">[]</span><span class="p">&gt;([])</span> <span class="c1">// 1000+ aplicaciones
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ✅ Renderizar solo los items visibles
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">containerProps</span><span class="p">,</span> <span class="nx">wrapperProps</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useVirtualList</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">allApps</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">itemHeight</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">overscan</span><span class="o">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">v-bind</span><span class="o">=</span><span class="s">&#34;containerProps&#34; class=&#34;app-list&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="nt">v-bind</span><span class="o">=</span><span class="s">&#34;wrapperProps&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">AppItem</span> 
+</span></span><span class="line"><span class="cl">        <span class="nt">v-for</span><span class="o">=</span><span class="s">&#34;{ data, index } in list&#34;</span><span class="p"> </span>
+</span></span><span class="line"><span class="cl">        <span class="nt">:key</span><span class="o">=</span><span class="s">&#34;data.id&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">:app</span><span class="o">=</span><span class="s">&#34;data&#34;</span> 
+</span></span><span class="line"><span class="cl">      <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="debounce-en-búsquedas">Debounce en Búsquedas<a href="#debounce-en-b%c3%basquedas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useDebounceFn</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@vueuse/core&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">invoke</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@tauri-apps/api/tauri&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">searchQuery</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">SearchResult</span><span class="err">[]</span><span class="p">&gt;([])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ✅ Debounce para evitar llamadas excesivas al backend
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">debouncedSearch</span> <span class="o">=</span> <span class="nx">useDebounceFn</span><span class="p">(</span><span class="nx">async</span> <span class="p">(</span><span class="nx">query</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">query</span><span class="p">.</span><span class="nx">trim</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">results</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">results</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">invoke</span><span class="p">&lt;</span><span class="nt">SearchResult</span><span class="err">[]</span><span class="p">&gt;(</span><span class="s1">&#39;global_search&#39;</span><span class="p">,</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="nx">query</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Search failed:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="mi">300</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">watch</span><span class="p">(</span><span class="nx">searchQuery</span><span class="p">,</span> <span class="p">(</span><span class="nx">newQuery</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">debouncedSearch</span><span class="p">(</span><span class="nx">newQuery</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="memoización-de-computadas-costosas">Memoización de Computadas Costosas<a href="#memoizaci%c3%b3n-de-computadas-costosas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">computed</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">apps</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">App</span><span class="err">[]</span><span class="p">&gt;([])</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">searchQuery</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">selectedCategory</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ✅ Computada memoizada - solo se recalcula cuando cambian las dependencias
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">filteredApps</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">apps</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">app</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">matchesSearch</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">name</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">searchQuery</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">matchesCategory</span> <span class="o">=</span> <span class="nx">selectedCategory</span><span class="p">.</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">&#39;all&#39;</span> <span class="o">||</span> 
+</span></span><span class="line"><span class="cl">                           <span class="nx">app</span><span class="p">.</span><span class="nx">category</span> <span class="o">===</span> <span class="nx">selectedCategory</span><span class="p">.</span><span class="nx">value</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">matchesSearch</span> <span class="o">&amp;&amp;</span> <span class="nx">matchesCategory</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ Evitar recalcular en cada render
+</span></span></span><span class="line"><span class="cl"><span class="c1">// const getFilteredApps = () =&gt; apps.value.filter(...)
+</span></span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="v-show-vs-v-if">v-show vs v-if<a href="#v-show-vs-v-if" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!--</span> <span class="err">✅</span> <span class="nx">v</span><span class="o">-</span><span class="nx">show</span> <span class="nx">para</span> <span class="nx">componentes</span> <span class="nx">que</span> <span class="nx">se</span> <span class="nx">alternan</span> <span class="nx">frecuentemente</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">AudioApplet</span> <span class="nt">v-show</span><span class="o">=</span><span class="s">&#34;showAudioApplet&#34;</span><span class="p"> /&gt;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!--</span> <span class="err">✅</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span> <span class="nx">para</span> <span class="nx">componentes</span> <span class="nx">que</span> <span class="nx">raramente</span> <span class="nx">se</span> <span class="nx">muestran</span> <span class="o">--&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">SettingsDialog</span> <span class="nt">v-if</span><span class="o">=</span><span class="s">&#34;showSettings&#34;</span><span class="p"> /&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="gestión-de-estado">Gestión de Estado<a href="#gesti%c3%b3n-de-estado" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="usar-pinia-para-estado-global">Usar Pinia para Estado Global<a href="#usar-pinia-para-estado-global" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// stores/audio.ts
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineStore</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;pinia&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">invoke</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@tauri-apps/api/tauri&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">listen</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@tauri-apps/api/event&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">useAudioStore</span> <span class="o">=</span> <span class="nx">defineStore</span><span class="p">(</span><span class="s1">&#39;audio&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">volume</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">muted</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">devices</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">AudioDevice</span><span class="err">[]</span><span class="p">&gt;([])</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">selectedDevice</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">string</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Acciones claramente definidas
+</span></span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="kd">function</span> <span class="nx">setVolume</span><span class="p">(</span><span class="nx">newVolume</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;set_audio_volume&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">volume</span>: <span class="kt">newVolume</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">volume</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">newVolume</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Failed to set volume:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="nx">error</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="kd">function</span> <span class="nx">toggleMute() {</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;toggle_audio_mute&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">muted</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="o">!</span><span class="nx">muted</span><span class="p">.</span><span class="nx">value</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Failed to toggle mute:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="nx">error</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Escuchar eventos del backend
+</span></span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">initializeListeners() {</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">listen</span><span class="p">&lt;</span><span class="nt">number</span><span class="p">&gt;(</span><span class="s1">&#39;audio_volume_changed&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">volume</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">listen</span><span class="p">&lt;</span><span class="nt">boolean</span><span class="p">&gt;(</span><span class="s1">&#39;audio_mute_changed&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">muted</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">volume</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">muted</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">devices</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">selectedDevice</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">setVolume</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">toggleMute</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">initializeListeners</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="composables-para-lógica-reutilizable">Composables para Lógica Reutilizable<a href="#composables-para-l%c3%b3gica-reutilizable" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// composables/useBackendCommand.ts
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">invoke</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@tauri-apps/api/tauri&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">useBackendCommand</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">,</span> <span class="na">P </span><span class="o">=</span> <span class="na">void</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">command</span>: <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">loading</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">string</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="kd">function</span> <span class="nx">execute</span><span class="p">(</span><span class="nx">params?</span>: <span class="kt">P</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">loading</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">error</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">invoke</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span><span class="nx">command</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">data</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">result</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">result</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">error</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">err</span> <span class="kr">as</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`Command </span><span class="si">${</span><span class="nx">command</span><span class="si">}</span><span class="sb"> failed:`</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">loading</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">loading</span>: <span class="kt">readonly</span><span class="p">(</span><span class="nx">loading</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">error</span>: <span class="kt">readonly</span><span class="p">(</span><span class="nx">error</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span>: <span class="kt">readonly</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">execute</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Uso en componente
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">loading</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">execute</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useBackendCommand</span><span class="p">&lt;</span><span class="nt">SystemInfo</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;get_system_info&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onMounted</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">execute</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="comunicación-con-backend">Comunicación con Backend<a href="#comunicaci%c3%b3n-con-backend" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="manejo-robusto-de-comandos-tauri">Manejo Robusto de Comandos Tauri<a href="#manejo-robusto-de-comandos-tauri" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">invoke</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@tauri-apps/api/tauri&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">brightness</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">isUpdating</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">updateError</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">string</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ✅ Manejo completo de async con loading y errores
+</span></span></span><span class="line"><span class="cl"><span class="nx">async</span> <span class="kd">function</span> <span class="nx">updateBrightness</span><span class="p">(</span><span class="nx">newValue</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isUpdating</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">updateError</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;set_brightness_info&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">brightness</span><span class="o">:</span> <span class="nx">newValue</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">brightness</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">newValue</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">updateError</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;Failed to update brightness&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Brightness update failed:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Revertir al valor anterior
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// brightness permanece sin cambios
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isUpdating</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ❌ Evitar esto
+</span></span></span><span class="line"><span class="cl"><span class="c1">// async function badUpdate(value: number) {
+</span></span></span><span class="line"><span class="cl"><span class="c1">//   await invoke(&#39;set_brightness_info&#39;, { brightness: value })
+</span></span></span><span class="line"><span class="cl"><span class="c1">//   brightness.value = value // ¿Y si falla?
+</span></span></span><span class="line"><span class="cl"><span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="listeners-de-eventos-con-cleanup">Listeners de Eventos con Cleanup<a href="#listeners-de-eventos-con-cleanup" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">listen</span><span class="p">,</span> <span class="nx">UnlistenFn</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@tauri-apps/api/event&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">notifications</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">Notification</span><span class="err">[]</span><span class="p">&gt;([])</span>
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">unlistenNotification</span><span class="o">:</span> <span class="nx">UnlistenFn</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onMounted</span><span class="p">(</span><span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Guardar función de cleanup
+</span></span></span><span class="line"><span class="cl">  <span class="nx">unlistenNotification</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">listen</span><span class="p">&lt;</span><span class="nt">Notification</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;notification_received&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">notifications</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onUnmounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Siempre limpiar listeners
+</span></span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">unlistenNotification</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">unlistenNotification</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="timeout-para-operaciones-largas">Timeout para Operaciones Largas<a href="#timeout-para-operaciones-largas" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">fetchWithTimeout</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">command</span>: <span class="kt">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">params</span>: <span class="kt">any</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">timeoutMs</span> <span class="o">=</span> <span class="mi">5000</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">race</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">invoke</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;(</span><span class="nx">command</span><span class="p">,</span> <span class="nx">params</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;((</span><span class="nx">_</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Operation timeout&#39;</span><span class="p">)),</span> <span class="nx">timeoutMs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Uso
+</span></span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">devices</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetchWithTimeout</span><span class="p">&lt;</span><span class="nt">Device</span><span class="err">[]</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;scan_bluetooth_devices&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">10000</span> <span class="c1">// 10 segundos
+</span></span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Scan timeout or failed:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="manejo-de-errores">Manejo de Errores<a href="#manejo-de-errores" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="error-boundaries-y-feedback">Error Boundaries y Feedback<a href="#error-boundaries-y-feedback" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">errorMessage</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">string</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">showError</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="o">:</span> <span class="nx">unknown</span><span class="p">,</span> <span class="nx">context</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">error</span> <span class="k">instanceof</span> <span class="nb">Error</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">?</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">:</span> <span class="nb">String</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`Error in </span><span class="si">${</span><span class="nx">context</span><span class="si">}</span><span class="sb">:`</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nx">errorMessage</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">message</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">showError</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Auto-ocultar después de 5 segundos
+</span></span></span><span class="line"><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">showError</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="mi">5000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">async</span> <span class="kd">function</span> <span class="nx">loadData</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;load_data&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="s1">&#39;loadData&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;error-toast&#34;</span> <span class="nt">v-if</span><span class="o">=</span><span class="s">&#34;showError&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{{</span> <span class="na">errorMessage</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="memory-management">Memory Management<a href="#memory-management" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="cleanup-completo">Cleanup Completo<a href="#cleanup-completo" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">onUnmounted</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">intervalId</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">number</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">observers</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">ResizeObserver</span><span class="err">[]</span><span class="p">&gt;([])</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">unlisteners</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">UnlistenFn</span><span class="err">[]</span><span class="p">&gt;([])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onMounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Interval para actualizar datos
+</span></span></span><span class="line"><span class="cl">  <span class="nx">intervalId</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="nx">updateSystemInfo</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Observer para resize
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ResizeObserver</span><span class="p">(</span><span class="nx">handleResize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">value</span><span class="o">!</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">observers</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">observer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// Event listeners
+</span></span></span><span class="line"><span class="cl">  <span class="nx">setupEventListeners</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onUnmounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Limpiar interval
+</span></span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">intervalId</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">intervalId</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Limpiar observers
+</span></span></span><span class="line"><span class="cl">  <span class="nx">observers</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">obs</span> <span class="p">=&gt;</span> <span class="nx">obs</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">observers</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Limpiar event listeners
+</span></span></span><span class="line"><span class="cl">  <span class="nx">unlisteners</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">unlisten</span> <span class="p">=&gt;</span> <span class="nx">unlisten</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">unlisteners</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="prevenir-memory-leaks-en-watchers">Prevenir Memory Leaks en Watchers<a href="#prevenir-memory-leaks-en-watchers" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">watch</span><span class="p">,</span> <span class="nx">WatchStopHandle</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">stopWatchers</span><span class="o">:</span> <span class="nx">WatchStopHandle</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onMounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Guardar la función stop
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">stopVolumeWatch</span> <span class="o">=</span> <span class="nx">watch</span><span class="p">(</span><span class="nx">volume</span><span class="p">,</span> <span class="nx">async</span> <span class="p">(</span><span class="nx">newVal</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">await</span> <span class="nx">invoke</span><span class="p">(</span><span class="s1">&#39;set_audio_volume&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">volume</span><span class="o">:</span> <span class="nx">newVal</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nx">stopWatchers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">stopVolumeWatch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">onUnmounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ✅ Detener todos los watchers
+</span></span></span><span class="line"><span class="cl">  <span class="nx">stopWatchers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">stop</span> <span class="p">=&gt;</span> <span class="nx">stop</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="accesibilidad">Accesibilidad<a href="#accesibilidad" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="aria-labels-y-keyboard-navigation">ARIA Labels y Keyboard Navigation<a href="#aria-labels-y-keyboard-navigation" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;volume-control&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;volume-slider&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;sr-only&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">Volume</span> <span class="nx">Control</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span>
+</span></span><span class="line"><span class="cl">      <span class="na">id</span><span class="o">=</span><span class="s">&#34;volume-slider&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">type</span><span class="o">=</span><span class="s">&#34;range&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">min</span><span class="o">=</span><span class="s">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">max</span><span class="o">=</span><span class="s">&#34;100&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">:value</span><span class="o">=</span><span class="s">&#34;volume&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">@input</span><span class="s">=&#34;handleVolumeChange&#34;</span><span class="p">
+</span></span></span><span class="line"><span class="cl">      <span class="na">aria</span><span class="nt">-label</span><span class="err">=&#34;</span><span class="na">Volume</span> <span class="na">level</span><span class="err">&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">aria</span><span class="nt">-valuemin</span><span class="err">=&#34;</span><span class="na">0</span><span class="err">&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">aria</span><span class="nt">-valuemax</span><span class="err">=&#34;</span><span class="na">100</span><span class="err">&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">:aria-valuenow</span><span class="o">=</span><span class="s">&#34;volume&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">:aria-valuetext</span><span class="o">=</span><span class="s">&#34;`${volume}%`&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">button</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">@click</span><span class="s">=&#34;toggleMute&#34;</span><span class="p">
+</span></span></span><span class="line"><span class="cl">      <span class="o">:</span><span class="na">aria</span><span class="nt">-label</span><span class="err">=&#34;</span><span class="na">muted</span> <span class="err">?</span> <span class="err">&#39;</span><span class="na">Unmute</span><span class="err">&#39;</span> <span class="o">:</span> <span class="err">&#39;</span><span class="na">Mute</span><span class="err">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">:aria-pressed</span><span class="o">=</span><span class="s">&#34;muted&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">Icon</span> <span class="o">:</span><span class="na">name</span><span class="o">=</span><span class="s">&#34;muted ? &#39;volume-mute&#39; : &#39;volume&#39;&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* ✅ Screen reader only text */</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nx">sr</span><span class="o">-</span><span class="nx">only</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">position</span><span class="o">:</span> <span class="nx">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">width</span><span class="o">:</span> <span class="mi">1</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span><span class="o">:</span> <span class="mi">1</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">padding</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">margin</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="nx">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">overflow</span><span class="o">:</span> <span class="nx">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">clip</span><span class="o">:</span> <span class="nx">rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">white</span><span class="o">-</span><span class="nx">space</span><span class="o">:</span> <span class="nx">nowrap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">border</span><span class="o">-</span><span class="nx">width</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id="focus-management">Focus Management<a href="#focus-management" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">setup</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;ts&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ref</span><span class="p">,</span> <span class="nx">nextTick</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">showDialog</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">firstFocusableElement</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">HTMLElement</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">previousActiveElement</span> <span class="o">=</span> <span class="nx">ref</span><span class="p">&lt;</span><span class="nt">HTMLElement</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">async</span> <span class="kd">function</span> <span class="nx">openDialog</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">previousActiveElement</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">activeElement</span> <span class="nx">as</span> <span class="nx">HTMLElement</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">showDialog</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nx">await</span> <span class="nx">nextTick</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">firstFocusableElement</span><span class="p">.</span><span class="nx">value</span><span class="o">?</span><span class="p">.</span><span class="nx">focus</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">closeDialog</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">showDialog</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">previousActiveElement</span><span class="p">.</span><span class="nx">value</span><span class="o">?</span><span class="p">.</span><span class="nx">focus</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ✅ Trap focus dentro del diálogo
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">handleKeydown</span><span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">KeyboardEvent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;Escape&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">closeDialog</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="testing">Testing<a href="#testing" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><h3 id="test-unitarios-con-vitest">Test Unitarios con Vitest<a href="#test-unitarios-con-vitest" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h3><div class="highlight"><div class="chroma"><table class="lntable"><tr><td class="lntd"><pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td><td class="lntd"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// AudioControl.test.ts
+</span></span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">mount</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;@vue/test-utils&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">describe</span><span class="p">,</span> <span class="nx">it</span><span class="p">,</span> <span class="nx">expect</span><span class="p">,</span> <span class="nx">vi</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;vitest&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">AudioControl</span> <span class="kr">from</span> <span class="s1">&#39;./AudioControl.vue&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Mock Tauri
+</span></span></span><span class="line"><span class="cl"><span class="nx">vi</span><span class="p">.</span><span class="nx">mock</span><span class="p">(</span><span class="s1">&#39;@tauri-apps/api/tauri&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">invoke</span>: <span class="kt">vi.fn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;AudioControl&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;renders volume slider&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">wrapper</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span><span class="nx">AudioControl</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">currentVolume</span>: <span class="kt">50</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">expect</span><span class="p">(</span><span class="nx">wrapper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[type=&#34;range&#34;]&#39;</span><span class="p">).</span><span class="nx">exists</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;emits volume-changed event&#39;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">wrapper</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span><span class="nx">AudioControl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">slider</span> <span class="o">=</span> <span class="nx">wrapper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[type=&#34;range&#34;]&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="nx">slider</span><span class="p">.</span><span class="nx">setValue</span><span class="p">(</span><span class="mi">75</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">expect</span><span class="p">(</span><span class="nx">wrapper</span><span class="p">.</span><span class="nx">emitted</span><span class="p">(</span><span class="s1">&#39;volume-changed&#39;</span><span class="p">)).</span><span class="nx">toBeTruthy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">expect</span><span class="p">(</span><span class="nx">wrapper</span><span class="p">.</span><span class="nx">emitted</span><span class="p">(</span><span class="s1">&#39;volume-changed&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">toEqual</span><span class="p">([</span><span class="mi">75</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id="mejores-prácticas---resumen">Mejores Prácticas - Resumen<a href="#mejores-pr%c3%a1cticas---resumen" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><div class="mermaid flex justify-center">graph LR
+Practicas["✅ Mejores Prácticas"]
+Evitar["❌ Evitar"]
+Practicas --> P1["✓ Componentes pequeños y enfocados"]
+Practicas --> P2["✓ Props tipadas y documentadas"]
+Practicas --> P3["✓ Manejo explícito de errores"]
+Practicas --> P4["✓ Cleanup en onUnmounted"]
+Practicas --> P5["✓ Composables para lógica compartida"]
+Practicas --> P6["✓ Eventos bien definidos"]
+Practicas --> P7["✓ Lazy loading de componentes"]
+Practicas --> P8["✓ Virtual scrolling para listas"]
+Practicas --> P9["✓ Debounce en búsquedas"]
+Practicas --> P10["✓ Timeout en operaciones largas"]
+Evitar --> E1["✗ Componentes monolíticos"]
+Evitar --> E2["✗ Props sin tipos"]
+Evitar --> E3["✗ Ignorar errores async"]
+Evitar --> E4["✗ Memory leaks por listeners"]
+Evitar --> E5["✗ Código hardcoded"]
+Evitar --> E6["✗ Efectos secundarios en render"]
+Evitar --> E7["✗ Renderizar 1000+ items sin virtual scroll"]
+Evitar --> E8["✗ Llamadas sin debounce"]
+Evitar --> E9["✗ Operaciones sin timeout"]
+Evitar --> E10["✗ Olvidar cleanup de watchers"]
+style Practicas fill:#43e97b,stroke:#38f9d7,color:#fff
+style Evitar fill:#f093fb,stroke:#f5576c,color:#fff
+style P1 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P2 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P3 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P4 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P5 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P6 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P7 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P8 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P9 fill:#4facfe,stroke:#00f2fe,color:#fff
+style P10 fill:#4facfe,stroke:#00f2fe,color:#fff
+style E1 fill:#fa709a,stroke:#f5576c,color:#fff
+style E2 fill:#fa709a,stroke:#f5576c,color:#fff
+style E3 fill:#fa709a,stroke:#f5576c,color:#fff
+style E4 fill:#fa709a,stroke:#f5576c,color:#fff
+style E5 fill:#fa709a,stroke:#f5576c,color:#fff
+style E6 fill:#fa709a,stroke:#f5576c,color:#fff
+style E7 fill:#fa709a,stroke:#f5576c,color:#fff
+style E8 fill:#fa709a,stroke:#f5576c,color:#fff
+style E9 fill:#fa709a,stroke:#f5576c,color:#fff
+style E10 fill:#fa709a,stroke:#f5576c,color:#fff</div><h2 id="checklist-de-componente">Checklist de Componente<a href="#checklist-de-componente" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><ul><li><input disabled type="checkbox"> Crear Componente Vue 🚀</li><li><input disabled type="checkbox"> Nombre claro y descriptivo 📝</li><li><input disabled type="checkbox"> Props documentadas con tipos 📋</li><li><input disabled type="checkbox"> Eventos bien definidos 📡</li><li><input disabled type="checkbox"> Manejo de errores robusto ⚠️</li><li><input disabled type="checkbox"> Cleanup en onUnmounted 🧹</li><li><input disabled type="checkbox"> Estilos scoped 🎨</li><li><input disabled type="checkbox"> Tests unitarios 🧪</li><li><input disabled type="checkbox"> Accesibilidad (ARIA) ♿</li><li><input disabled type="checkbox"> Optimizado (lazy load, virtual scroll) ⚡</li><li><input disabled type="checkbox"> Listo para producción ✅</li></ul><h2 id="performance-checklist-específico-para-desktop">Performance Checklist Específico para Desktop<a href="#performance-checklist-espec%c3%adfico-para-desktop" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><ul><li><input disabled type="checkbox"> <strong>Virtual scrolling</strong> implementado en listas grandes (>100 items)</li><li><input disabled type="checkbox"> <strong>Debounce</strong> en búsquedas y inputs de alta frecuencia</li><li><input disabled type="checkbox"> <strong>Lazy loading</strong> para componentes pesados (Settings, File Manager)</li><li><input disabled type="checkbox"> <strong>Memoización</strong> de computadas costosas</li><li><input disabled type="checkbox"> <strong>Timeout</strong> en todas las llamadas al backend (5-10s)</li><li><input disabled type="checkbox"> <strong>Loading states</strong> visibles para operaciones async</li><li><input disabled type="checkbox"> <strong>Error recovery</strong> con reintentos automáticos</li><li><input disabled type="checkbox"> <strong>Cleanup</strong> de todos los listeners y watchers</li><li><input disabled type="checkbox"> <strong>v-show</strong> para componentes que se alternan frecuentemente</li><li><input disabled type="checkbox"> <strong>v-if</strong> para componentes que raramente se muestran</li></ul><h2 id="recursos-adicionales">Recursos Adicionales<a href="#recursos-adicionales" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><ul><li><a href="https://vuejs.org/api/composition-api-setup.html" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+Vue 3 Composition API</a></li><li><a href="https://pinia.vuejs.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+Pinia State Management</a></li><li><a href="https://vueuse.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+VueUse - Composables Collection</a></li><li><a href="https://tauri.app/v1/api/js/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+Tauri API Documentation</a></li><li><a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+Vue Test Utils</a></li><li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square"></i>&nbsp;
+ARIA Authoring Practices</a></li></ul><h2 id="recuerda">Recuerda<a href="#recuerda" class="heading-anchor" aria-label="Enlace a esta sección">#</a></h2><ul><li><a href="/docs/devs/guidelines/"><i class="fas fa-link"></i>&nbsp;
+Lineamientos de codgio</a></li></ul></div><div class="flex justify-between mt-8 gap-4"><a href="/docs/devs/guidelines/" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"><div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div><div class="font-semibold">Lineamientos de codigo | vasak-desktop</div></a><div class="flex-1"></div></div></div></div><div class="hidden w-4/12 mx-8 lg:block"><section class="bg-ui-bg/80 rounded-corner p-5 mb-3"><header class="flex items-center gap-2 mb-4"><i class="fa-solid fa-magnifying-glass"></i><div><h2 class="text-base font-semibold">Buscar documentación</h2></div></header><div class="relative"><input id="docs-search-input" type="search" placeholder="Ej: eventos IPC, Vue, Tauri" class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="off">
+<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span></div></section><div id="docs-search-modal" class="fixed inset-0 z-50 hidden"><div id="docs-search-backdrop" class="absolute inset-0 bg-black/30 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]"><div class="bg-ui-bg/80 rounded-corner shadow-2xl overflow-hidden flex flex-col"><div class="px-6 py-4 border-b border-ui-border flex items-center justify-between"><div class="flex items-center gap-2"><i class="fa-solid fa-magnifying-glass text-tx-muted"></i><h3 class="font-semibold text-tx-main">Resultados de búsqueda</h3></div><button id="docs-search-close" type="button" class="text-slate-400 hover:text-primary transition-colors">
+<i class="fa-solid fa-xmark text-lg"></i></button></div><div id="docs-search-results" class="overflow-y-auto p-4 space-y-3 text-sm"></div></div></div></div><script>(()=>{const c=document.getElementById("docs-search-input"),t=document.getElementById("docs-search-status"),o=document.getElementById("docs-search-results"),i=document.getElementById("docs-search-modal"),s=document.getElementById("docs-search-backdrop"),f=document.getElementById("docs-search-close"),d="/search-index.json",l=2;let e=null;const a=()=>{i.classList.remove("hidden"),setTimeout(()=>s.classList.remove("opacity-0"),10)},n=()=>{s.classList.add("opacity-0"),setTimeout(()=>i.classList.add("hidden"),200)},u=async()=>{if(e)return e;t.textContent="Cargando…";try{const t=await fetch(d);e=await t.json()}catch{return e=[],t.textContent="!",e}return t.textContent="",e},h=(e,t=200)=>{let n;return(...s)=>{clearTimeout(n),n=setTimeout(()=>e(...s),t)}},m=(e,t)=>{const s=t.toLowerCase();let n=0;const o=(e.title||"").toLowerCase(),i=(e.content||"").toLowerCase();return o.includes(s)&&(n+=6),i.includes(s)&&(n+=4),n},r=(e,t)=>{if(!e)return"";try{const n=new RegExp(`(${t.replace(/[.*+?^${}()|[\\]\\]/g,"\\$&")})`,"ig");return e.replace(n,'<mark class="bg-primary p-0 m-0">$1</mark>')}catch{return e}},p=(e,t,n=160)=>{const s=(e||"").replace(/<[^>]+>/g," "),o=s.toLowerCase().indexOf(t.toLowerCase());if(o===-1)return s.slice(0,n)+(s.length>n?"…":"");const i=Math.max(0,o-40),a=Math.min(s.length,o+n);return(i>0?"…":"")+s.slice(i,a)+(a<s.length?"…":"")},g=(e,t)=>{if(!e.length){o.innerHTML='<p class="text-center text-tx-muted py-8">Sin resultados</p>';return}o.innerHTML=e.map(e=>`
+			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
+				<a href="${e.permalink}" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+					<i class="fa-solid fa-file-lines"></i>
+					${r(e.title,t)}
+				</a>
+				<p class="mt-2 text-tx-muted leading-relaxed text-xs">${r(p(e.content||e.summary,t),t)}</p>
+			</article>
+		`).join("")},v=h(async()=>{const s=c.value.trim();if(s.length<l){s.length===0?n():(a(),o.innerHTML='<p class="text-center text-tx-muted py-8">Escribe al menos 2 caracteres</p>'),t.textContent="";return}await u();const i=e.map(e=>({...e,_score:m(e,s)})).filter(e=>e._score>0).sort((e,t)=>t._score-e._score).slice(0,20);t.textContent=i.length?`${i.length}`:"0",a(),g(i,s)},220);c.addEventListener("input",v),f.addEventListener("click",n),s.addEventListener("click",n),document.addEventListener("keydown",e=>{e.key==="Escape"&&!i.classList.contains("hidden")&&n()})})()</script><div class="flex flex-col mb-3 px-6 py-4 mx-auto bg-ui-bg/80 text-tx-main rounded-corner shadow-md"><nav id="TableOfContents"><ol><li><a href="#arquitectura-de-componentes">Arquitectura de Componentes</a><ol><li><a href="#componentes-pequeños-y-enfocados">Componentes Pequeños y Enfocados</a></li><li><a href="#props-tipadas-y-documentadas">Props Tipadas y Documentadas</a></li><li><a href="#eventos-bien-definidos">Eventos Bien Definidos</a></li></ol></li><li><a href="#performance-y-optimización">Performance y Optimización</a><ol><li><a href="#lazy-loading-de-componentes">Lazy Loading de Componentes</a></li><li><a href="#virtual-scrolling-para-listas-grandes">Virtual Scrolling para Listas Grandes</a></li><li><a href="#debounce-en-búsquedas">Debounce en Búsquedas</a></li><li><a href="#memoización-de-computadas-costosas">Memoización de Computadas Costosas</a></li><li><a href="#v-show-vs-v-if">v-show vs v-if</a></li></ol></li><li><a href="#gestión-de-estado">Gestión de Estado</a><ol><li><a href="#usar-pinia-para-estado-global">Usar Pinia para Estado Global</a></li><li><a href="#composables-para-lógica-reutilizable">Composables para Lógica Reutilizable</a></li></ol></li><li><a href="#comunicación-con-backend">Comunicación con Backend</a><ol><li><a href="#manejo-robusto-de-comandos-tauri">Manejo Robusto de Comandos Tauri</a></li><li><a href="#listeners-de-eventos-con-cleanup">Listeners de Eventos con Cleanup</a></li><li><a href="#timeout-para-operaciones-largas">Timeout para Operaciones Largas</a></li></ol></li><li><a href="#manejo-de-errores">Manejo de Errores</a><ol><li><a href="#error-boundaries-y-feedback">Error Boundaries y Feedback</a></li></ol></li><li><a href="#memory-management">Memory Management</a><ol><li><a href="#cleanup-completo">Cleanup Completo</a></li><li><a href="#prevenir-memory-leaks-en-watchers">Prevenir Memory Leaks en Watchers</a></li></ol></li><li><a href="#accesibilidad">Accesibilidad</a><ol><li><a href="#aria-labels-y-keyboard-navigation">ARIA Labels y Keyboard Navigation</a></li><li><a href="#focus-management">Focus Management</a></li></ol></li><li><a href="#testing">Testing</a><ol><li><a href="#test-unitarios-con-vitest">Test Unitarios con Vitest</a></li></ol></li><li><a href="#mejores-prácticas---resumen">Mejores Prácticas - Resumen</a></li><li><a href="#checklist-de-componente">Checklist de Componente</a></li><li><a href="#performance-checklist-específico-para-desktop">Performance Checklist Específico para Desktop</a></li><li><a href="#recursos-adicionales">Recursos Adicionales</a></li><li><a href="#recuerda">Recuerda</a></li></ol></nav></div></div></div></main><div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner"><div class="w-full draggable"><div class="container flex flex-col mx-auto"><div class="flex flex-col items-center w-full my-20"><span class="mb-8"><img src="/img/logo.svg" alt="logo" loading="lazy" class="h-20"></span><div class="flex flex-col items-center gap-6"><div class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900"><a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
+<a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
+<a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
+<a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
+<a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Roadmap</a></div><div class="flex items-center gap-8"><a href="https://t.me/VasakOS" alt="Comunidad Telegram" aria-label="Comunidad Telegram" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-telegram"></em>
+</a><a href="https://github.com/Vasak-OS" alt="GitHub" aria-label="GitHub" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-github"></em>
+</a><a href="https://discord.gg/7wKrVNBC" alt="Discord" aria-label="Discord" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-discord"></em>
+</a><a href="https://www.reddit.com/r/VasakOS/" alt="Reddit" aria-label="Reddit" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-reddit"></em>
+</a><a href="https://twitter.com/VasakOSLinux" alt="Twitter" aria-label="Twitter" target="_blank" class="text-primary hover:text-secondary"><em class="fa-brands fa-twitter"></em></a></div><div class="mt-2 w-full max-w-3xl px-4 sm:px-6"><div id="os-badgets" class="flex w-full flex-wrap items-center justify-center gap-3 text-center sm:gap-4"><div class="badge-item sf-root" data-id="4084065" data-badge="oss-users-love-us-white"><a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">VasakOS en SourceForge</a></div><a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="badge-item"><img src="/oin-member-2-0-stacked-200x140_3696262515435231848.png" width="200" height="140" loading="lazy" decoding="async" alt="VasakOS es miembro de la Open Invention Network"></a></div></div><style>#os-badgets{--badge-fixed-height:108px}#os-badgets .badge-item{display:inline-flex;align-items:center;justify-content:center;height:var(--badge-fixed-height);max-width:100%}#os-badgets img,#os-badgets .badge-item svg,#os-badgets .badge-item canvas,#os-badgets .badge-item iframe,#os-badgets .badge-item object{height:var(--badge-fixed-height)!important;width:auto!important;max-width:100%;object-fit:contain}#os-badgets .sf-root,#os-badgets .sf-root>a{height:var(--badge-fixed-height)!important;width:auto!important}</style><script>(function(){var e,t,n=document.getElementById("os-badgets");if(!n)return;e=!1;function s(){if(e)return;e=!0;var t=document.createElement("script");t.async=!0,t.src="https://b.sf-syn.com/badge_js?sf_id=4084065",document.body.appendChild(t)}"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.some(function(e){return e.isIntersecting})&&(s(),t.disconnect())},{rootMargin:"200px"}),t.observe(n)):s()})()</script></div></div></div></div></div><div class="flex flex-wrap my-5"><div class="w-full max-w-full sm:w-3/4 mx-auto text-center"><p class="text-lg text-slate-500 py-1"><a href="/" class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold" rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p></div></div><a rel="noopener" href="#" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl"><em class="fas fa-arrow-up"></em>
+</a><script defer src="/js/bundle.min.5d9b0e854280184f06a03452faf72eee5f9f77325fd8746855c23d8fc5ca65b5.js" integrity="sha256-XZsOhUKAGE8GoDRS+vcu7l+fdzJf2HRoVcI9j8XKZbU=" crossorigin="anonymous"></script><script defer src="/mermaid.min_3141953029634099501.8d607d7ef1d077a8aa202e18e62212bfa992c68bfeabc5cf45d51a128fe6675d.js"></script><script>(function(){var s={startOnLoad:!1,securityLevel:"loose",flowchart:{useMaxWidth:!0,htmlLabels:!0,curve:"cardinal"},sequence:{useMaxWidth:!0,diagramMarginX:50,diagramMarginY:10}},e=[];function n(){document.querySelectorAll("pre > code.language-mermaid").forEach(function(e){var n=e.parentElement,t=document.createElement("div");t.className="mermaid flex justify-center",t.textContent=e.textContent,n.parentNode.replaceChild(t,n)}),document.querySelectorAll(".mermaid").forEach(function(t){e.push({node:t,code:t.textContent})})}function t(){if(typeof mermaid=="undefined")return;var t=document.documentElement.classList.contains("dark");mermaid.initialize(Object.assign({},s,{theme:t?"dark":"default"})),e.forEach(function(e){e.node.removeAttribute("data-processed"),e.node.textContent=e.code}),mermaid.run({nodes:e.map(function(e){return e.node})})}window.vskRedrawMermaid=t,document.readyState==="loading"?document.addEventListener("DOMContentLoaded",function(){n(),t()}):(n(),t())})()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-5MYT335WZK"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-5MYT335WZK",{anonymize_ip:!0})</script></body></html>
