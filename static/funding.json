@@ -1,0 +1,119 @@
+{
+  "version": "v1.0.0",
+  "entity": {
+    "type": "group",
+    "role": "owner",
+    "name": "VasakOS",
+    "email": "os@vasak.net.ar",
+    "description": "VasakOS is a community-driven Linux distribution based on Arch Linux, built in Argentina. It ships its own desktop environment and a full set of native applications written from scratch in Rust and Vue on top of Tauri and Wayland. The project is developed in the open under the Vasak-OS organisation on GitHub and has no corporate backing: it is sustained by its maintainers and by community donations.",
+    "webpageUrl": {
+      "url": "https://os.vasak.net.ar/"
+    }
+  },
+  "projects": [
+    {
+      "guid": "vasakos",
+      "name": "VasakOS",
+      "description": "A Linux distribution with its own Wayland desktop and around thirty native applications — file manager, terminal, settings, mail, calendar, contacts, gallery, store, installer, keyring, a PolicyKit agent and a per-application permission system for camera, microphone and screen capture. Everything is written in Rust and Vue on Tauri, packaged for pacman, and shipped as a live ISO with a graphical installer.",
+      "webpageUrl": {
+        "url": "https://os.vasak.net.ar/"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/Vasak-OS",
+        "wellKnown": "https://github.com/Vasak-OS/.github/raw/refs/heads/main/.well-known/funding-manifest-urls"
+      },
+      "licenses": [
+        "spdx:GPL-3.0"
+      ],
+      "tags": [
+        "linux",
+        "linux-distribution",
+        "arch-linux",
+        "desktop-environment",
+        "wayland",
+        "rust",
+        "tauri",
+        "vue",
+        "privacy",
+        "security"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "ko-fi",
+        "type": "payment-provider",
+        "address": "https://ko-fi.com/vasakos",
+        "description": "Card or any method Ko-fi supports in your region; one-time or recurring."
+      },
+      {
+        "guid": "mercadopago",
+        "type": "payment-provider",
+        "address": "https://link.mercadopago.com.ar/joaquindecima",
+        "description": "Mercado Pago (Argentina): card, account balance or bank transfer."
+      },
+      {
+        "guid": "paypal",
+        "type": "payment-provider",
+        "address": "https://paypal.me/joaquindecima",
+        "description": "PayPal: card or PayPal balance, from any country."
+      },
+      {
+        "guid": "lemon",
+        "type": "payment-provider",
+        "address": "$patojad",
+        "description": "Lemon (Argentina): send to the $lemontag from the Lemon app."
+      },
+      {
+        "guid": "ethereum",
+        "type": "other",
+        "address": "0xF3f0B0CdaF01C68E4D64c2Ad3A703aBe252278EB",
+        "description": "Ethereum mainnet (ERC-20): ETH or USDT. Only through the Ethereum network; funds sent through any other network are lost."
+      },
+      {
+        "guid": "bitcoin",
+        "type": "other",
+        "address": "bc1qjedvfvz6h9d0rjp2mz70y90mylpx8hr52fcmsp",
+        "description": "Bitcoin on-chain (native SegWit). Not Lightning."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "monthly-goal",
+        "status": "active",
+        "name": "Monthly goal",
+        "description": "Covers hosting and download mirrors, build and distribution servers, CI, and hardware to test the distribution on more machines.",
+        "amount": 250,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "ko-fi",
+          "mercadopago",
+          "paypal",
+          "lemon",
+          "ethereum",
+          "bitcoin"
+        ]
+      },
+      {
+        "guid": "one-time",
+        "status": "active",
+        "name": "One-time donation",
+        "description": "Any amount, reinvested in the development and infrastructure of the distribution.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "ko-fi",
+          "mercadopago",
+          "paypal",
+          "lemon",
+          "ethereum",
+          "bitcoin"
+        ]
+      }
+    ],
+    "history": []
+  }
+}

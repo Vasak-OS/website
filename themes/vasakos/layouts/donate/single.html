@@ -38,8 +38,19 @@
                 <div class="rounded-corner bg-ui-bg/70 p-3">
                   <p class="font-semibold">{{ .name }}</p>
                   <p class="text-xs text-gray-500 dark:text-gray-300">{{ .note }}</p>
-                  <a rel="noopener" target="_blank" href="{{ .url }}"
+                  {{ with .url }}
+                  <a rel="noopener" target="_blank" href="{{ . }}"
                     class="mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-white hover:opacity-90">Donar ahora</a>
+                  {{ else }}
+                  {{/* Una dirección cripto o un alias no tienen adónde enlazar: se
+                       muestran enteros, seleccionables de un clic, y con un botón que
+                       los copia — copiarla a mano es como se pierde plata. Va en un
+                       <p> y no en <code>: el tema le da a <code> un estilo propio
+                       (en línea y con fondo claro) que pisa éste. */}}
+                  <p class="mt-2 select-all break-all rounded-corner bg-ui-bg p-2 font-mono text-xs text-tx-main">{{ .address }}</p>
+                  <button type="button" data-copy="{{ .address }}"
+                    class="donate-copy mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-white hover:opacity-90">Copiar</button>
+                  {{ end }}
                 </div>
                 {{ end }}
               </div>
@@ -89,4 +100,24 @@
   </div>
 </main>
 
+<script>
+  // Si el navegador niega el portapapeles —permiso, contexto sin HTTPS—, al
+  // menos queda seleccionada la dirección entera, lista para Ctrl+C: nunca a
+  // medias, que es como se copia mal.
+  document.querySelectorAll('.donate-copy').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        button.textContent = 'Copiado';
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(button.previousElementSibling);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        button.textContent = 'Seleccionado: Ctrl+C';
+      }
+    });
+  });
+</script>
 {{ end }}
