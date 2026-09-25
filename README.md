@@ -39,8 +39,6 @@ El sitio queda en <http://localhost:1313> y recarga solo al guardar.
 | `bun run build` | Genera `public/` listo para publicar. |
 | `bun run preview` | Build de producción servido localmente, con los mismos minificados y hashes que en producción. |
 | `bun run icons` | Regenera `icons.css` desde los SVG de Font Awesome. |
-| `./deploy.sh -n` | Build de prueba sin publicar. |
-| `./deploy.sh` | Build y push a la rama `gh-pages`. |
 
 ---
 
@@ -172,7 +170,9 @@ tiempo de ejecución. Para sumar uno:
 2. `bun run icons`.
 3. Usalo en el HTML como siempre: `<i class="fa-solid fa-rocket"></i>`.
 
-Commiteá el `icons.css` regenerado: el deploy no lo reconstruye si ya existe.
+Commiteá el `icons.css` regenerado. La publicación lo vuelve a generar igual
+(`bun run build` corre `icons` primero), pero el servidor de desarrollo usa el que
+está en el repositorio.
 
 ### Diagramas
 
@@ -231,15 +231,30 @@ Para validar después de un cambio:
 
 ## Publicar
 
-```bash
-./deploy.sh
-```
+**Se publica solo al mergear en `main`**, con
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
 
-Hace el build, arma un commit en `public/` y lo fuerza sobre la rama `gh-pages` del
-repositorio. El dominio lo define `themes/vasakos/static/CNAME`.
+- **En cada PR** compila el sitio con la misma versión de Hugo que en producción y
+  **no publica**. Es la prueba de que el sitio sigue armándose: si una plantilla se rompe,
+  el PR lo muestra antes de mergear.
+- **En `main`** compila lo mismo y lo sube a GitHub Pages. Las reglas de `main` exigen
+  `app / revisar` en verde para mergear, así que lo publicado ya pasó el CI.
+- **A mano**, desde *Actions → Publicar el sitio → Run workflow*, para volver a publicar
+  sin un commit de por medio: si Pages falló, o para refrescar las versiones de los
+  paquetes que el build escribe en el HTML.
 
-Con `-n` hace todo menos el push, que es lo que conviene correr antes de publicar algo
-grande.
+El build corta si salen menos de 50 páginas —hoy son más de 260—, para que una plantilla
+rota no publique un sitio vacío.
+
+**Configuración que esto necesita**, una sola vez y ya hecha: en *Settings → Pages →
+Build and deployment*, la fuente tiene que ser **GitHub Actions**. Con la fuente en una
+rama, el workflow compila pero `deploy-pages` no tiene dónde publicar.
+
+El dominio (`os.vasak.net.ar`) está configurado en *Settings → Pages* del repositorio;
+`themes/vasakos/static/CNAME` lo repite en el build.
+
+Antes lo hacía `deploy.sh` a mano, forzando el build local sobre la rama `gh-pages`. Se
+fue: con Pages publicando desde Actions, un push a esa rama ya no llega a ningún lado.
 
 ---
 
