@@ -52,15 +52,23 @@ jobs:
         run: |
           set -euo pipefail
           paquete="$RUNNER_TEMP/hugo.tar.gz"
-          curl -fsSL -o "$paquete" \
+          # GitHub redirige la descarga a su CDN: `--proto =https` hace que
+          # esa redirección tampoco pueda bajar a HTTP. El hash de abajo
+          # igual atraparía un binario cambiado, pero no hay por qué dejarlo
+          # viajar sin cifrar.
+          curl -fsSL --proto '=https' --tlsv1.2 -o "$paquete" \
             "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
           echo "$HUGO_SHA256  $paquete" | sha256sum -c --quiet -
           mkdir -p "$RUNNER_TEMP/hugo"
           tar -xzf "$paquete" -C "$RUNNER_TEMP/hugo" hugo
           echo "$RUNNER_TEMP/hugo" >> "$GITHUB_PATH"
 
+      # Sin los scripts de instalación de las dependencias: son código de
+      # terceros que correría con el repositorio clonado a mano, y el build no
+      # necesita ninguno —Tailwind trae su binario como dependencia opcional,
+      # no lo compila al instalar—. Comprobado: sale el mismo sitio.
       - name: Instalar dependencias
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       # `bun run build` regenera `icons.css` y después corre `hugo --gc`, con
       # `node_modules/.bin` en el PATH, que es donde Hugo busca `tailwindcss`.
@@ -81,10 +89,14 @@ jobs:
             echo "::error::El build sacó sólo $paginas páginas; algo dejó de generarse y no se publica."
             exit 1
           fi
-          # Lo que otros sitios leen de acá tiene que salir en el build.
+          # Lo que otros sitios leen de acá tiene que salir en el build. Se
+          # mira en los dos `static/`, el del sitio y el del tema: el CNAME,
+          # por ejemplo, viene del tema, y mirar sólo el de la raíz lo daba por
+          # bueno sin haberlo buscado.
           for archivo in CNAME funding.json .well-known/funding-manifest-urls; do
-            if [ -f "static/$archivo" ] && [ ! -f "public/$archivo" ]; then
-              echo "::error::static/$archivo no llegó a public/."
+            if { [ -f "static/$archivo" ] || [ -f "themes/vasakos/static/$archivo" ]; } \
+              && [ ! -f "public/$archivo" ]; then
+              echo "::error::$archivo está en static/ y no llegó a public/."
               exit 1
             fi
           done
@@ -105,11 +117,35 @@ jobs:
     permissions:
       pages: write
       id-token: write
+      # Sólo para preguntar cuál es la cabeza de `main`, más abajo.
+      contents: read
     environment:
       name: github-pages
       url: ${{ steps.despliegue.outputs.page_url }}
     steps:
+      # La concurrencia pone las publicaciones en fila, pero GitHub no promete
+      # que la fila respete el orden de los pushes: si una corrida vieja llega
+      # tarde, publicaría encima de una más nueva y el sitio volvería atrás
+      # hasta el próximo merge. Se publica sólo si este commit sigue siendo la
+      # cabeza de `main`; si no, ya viene otra corrida con lo más nuevo.
+      - name: Este commit sigue siendo lo último de main
+        id: vigente
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          ESTE: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          cabeza=$(gh api "repos/$REPO/commits/main" --jq .sha)
+          if [ "$cabeza" = "$ESTE" ]; then
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::main ya está en ${cabeza:0:7} y esto es ${ESTE:0:7}: no se publica, lo hace la corrida más nueva."
+          fi
+
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+        if: steps.vigente.outputs.publicar == 'true'
 
       - id: despliegue
+        if: steps.vigente.outputs.publicar == 'true'
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -246,6 +246,10 @@ Para validar después de un cambio:
 El build corta si salen menos de 50 páginas —hoy son más de 260—, para que una plantilla
 rota no publique un sitio vacío.
 
+**Configuración que esto necesita**, una sola vez y ya hecha: en *Settings → Pages →
+Build and deployment*, la fuente tiene que ser **GitHub Actions**. Con la fuente en una
+rama, el workflow compila pero `deploy-pages` no tiene dónde publicar.
+
 El dominio (`os.vasak.net.ar`) está configurado en *Settings → Pages* del repositorio;
 `themes/vasakos/static/CNAME` lo repite en el build.
 
