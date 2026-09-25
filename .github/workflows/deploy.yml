@@ -1,0 +1,115 @@
+# Publica el sitio en GitHub Pages cada vez que algo llega a `main`.
+#
+# Hasta acá el sitio salía a mano con `deploy.sh`, que compilaba en la máquina
+# de quien lo corría y forzaba el resultado sobre `gh-pages`. Dos problemas con
+# eso: lo mergeado no llegaba a nadie hasta que alguien se acordara de correrlo,
+# y lo publicado era lo que hubiera en ese disco —con un `icons.css` viejo, un
+# Hugo de otra versión o un cambio sin commitear—, no lo que dice `main`.
+#
+# En un PR compila y no publica: eso es la prueba de que el sitio sigue
+# armándose, que `app / revisar` no hace porque no sabe de Hugo. En `main`
+# compila lo mismo y lo publica. Como las reglas de `main` exigen
+# `app / revisar` en verde para mergear, lo que se publica ya pasó el CI.
+
+name: Publicar el sitio
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Para volver a publicar sin un commit de por medio: si Pages falló, o si
+  # cambió algo que el sitio lee de afuera al compilar.
+  workflow_dispatch:
+
+# Una publicación a la vez, y la que está en curso no se corta: cortarla a
+# mitad de camino puede dejar Pages sirviendo una versión a medias. La que
+# llega después espera y publica encima.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+
+      # La edición extended, porque la normal no procesa Tailwind ni las
+      # imágenes. Clavada a la versión y al hash, por lo mismo que las
+      # acciones: lo que se baja acá se ejecuta. Es la misma que pide el README.
+      - name: Instalar Hugo
+        env:
+          HUGO_VERSION: 0.166.0
+          HUGO_SHA256: 0e39b901e3f919f1daae05c8ff64f0c14c8a348ef46886d63f8e6d1bb2653885
+        run: |
+          set -euo pipefail
+          paquete="$RUNNER_TEMP/hugo.tar.gz"
+          curl -fsSL -o "$paquete" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          echo "$HUGO_SHA256  $paquete" | sha256sum -c --quiet -
+          mkdir -p "$RUNNER_TEMP/hugo"
+          tar -xzf "$paquete" -C "$RUNNER_TEMP/hugo" hugo
+          echo "$RUNNER_TEMP/hugo" >> "$GITHUB_PATH"
+
+      - name: Instalar dependencias
+        run: bun install --frozen-lockfile
+
+      # `bun run build` regenera `icons.css` y después corre `hugo --gc`, con
+      # `node_modules/.bin` en el PATH, que es donde Hugo busca `tailwindcss`.
+      # Es el mismo build que hacía `deploy.sh`, sin depender de lo que hubiera
+      # en el disco de nadie.
+      - name: Compilar
+        env:
+          HUGO_ENVIRONMENT: production
+        run: |
+          set -euo pipefail
+          bun run build
+          paginas=$(find public -name '*.html' | wc -l)
+          echo "Compiladas $paginas páginas, $(du -sh public | cut -f1)."
+          # Un build que termina en cero con casi nada adentro —una plantilla
+          # que dejó de listar, un content/ que no se leyó— se publicaría igual
+          # y el sitio quedaría vacío. Hoy son más de cien.
+          if [ "$paginas" -lt 50 ]; then
+            echo "::error::El build sacó sólo $paginas páginas; algo dejó de generarse y no se publica."
+            exit 1
+          fi
+          # Lo que otros sitios leen de acá tiene que salir en el build.
+          for archivo in CNAME funding.json .well-known/funding-manifest-urls; do
+            if [ -f "static/$archivo" ] && [ ! -f "public/$archivo" ]; then
+              echo "::error::static/$archivo no llegó a public/."
+              exit 1
+            fi
+          done
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        if: github.event_name != 'pull_request'
+        with:
+          path: public
+
+  publicar:
+    # Sólo desde `main`: un PR compila y nada más. `workflow_dispatch` también
+    # se puede lanzar desde otra rama, y ahí tampoco publica.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: compilar
+    runs-on: ubuntu-latest
+    # Los únicos permisos de escritura del flujo, y sólo en el trabajo que no
+    # ejecuta nada del repositorio: no clona, no instala, no compila.
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - id: despliegue
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
