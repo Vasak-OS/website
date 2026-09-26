@@ -2,38 +2,110 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <title>Vasak OS</title>
-  <link rel="icon" href="/img/icon.svg" />
+  {{- /* Title dinámico */}}
+  <title>{{ if .IsHome }}Vasak OS — Sistema operativo Linux moderno y accesible{{ else }}{{ .Title }} | Vasak OS{{ end }}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ .Site.Params.images.favicon }}" />
+  <link rel="alternate icon" href="{{ .Site.Params.images.favicon }}" />
+  <link rel="apple-touch-icon" href="{{ .Site.Params.images.favicon }}" />
 
-  <!-- Google Fonts -->
+  {{- /* Google Fonts no bloqueante */}}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
-    rel="stylesheet" />
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap"
+    rel="stylesheet" media="print" onload="this.onload=null;this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" /></noscript>
 
   {{- partial "head/style.html" . -}}
 
+  {{- /* Meta description con fallback por página */}}
+  {{- $description := .Description }}
+  {{- if not $description }}
+    {{- $description = .Summary }}
+  {{- end }}
+  {{- if not $description }}
+    {{- $description = "Vasak OS es un sistema operativo basado en Linux, moderno, rápido y accesible para todos los usuarios." }}
+  {{- end }}
 
-  <!-- METADATA -->
-  <meta name="author" content="PatoJAD" />
-  <meta content='@PatoJADOficial' name='twitter:site' />
-  <meta content='@PatoJADOficial' name='twitter:creator' />
+  {{- /* Imagen OG con ruta absoluta */}}
+  {{- $ogImage := .Site.Params.images.hero.og }}
+  {{- if isset .Params "img" }}
+    {{- $ogImage = .Params.img }}
+  {{- end }}
+
+  <meta name="author" content="Vasak Group" />
+  <meta name="description" content="{{ $description }}" />
+  <meta name="keywords"
+    content='{{ range .Params.tags }}{{ . }}, {{ end }}Linux, Vasak OS, Vasak Group, distro Linux, Arch Linux, open source, sistema operativo, escritorio Linux' />
+
+  {{- /* Open Graph */}}
   <meta property="og:url" content="https://os.vasak.net.ar{{ .RelPermalink }}" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="{{ .Title }}" />
-  <meta property="og:image"
-    content='{{ if isset .Params "img" }}{{ .Params.img }}{{else}}/img/hero-fullscreen-bg.jpg{{ end }}' />
-  <meta property="og:locale" content="es-ES" />
-  <meta name="description"
-    content="{{ .Summary }} Vasak OS un sistema operativo basado en Linux pensado para todos los usuarios"
-    property="og:description" />
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+  <meta property="og:title" content="{{ if .IsHome }}Vasak OS — Sistema operativo Linux moderno y accesible{{ else }}{{ .Title }} | Vasak OS{{ end }}" />
+  <meta property="og:description" content="{{ $description }}" />
+  <meta property="og:image" content="https://os.vasak.net.ar{{ $ogImage }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="Vasak OS" />
+  {{- if .IsPage }}
+  <meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}" />
+  <meta property="article:author" content="Vasak Group" />
+  {{- end }}
 
-  <meta
-    content='{{ range .Params.tags }}{{ . }}, {{ end }} Linux, GNU, LynxOS, Lynx, gnu, lynx, lynxos, arch, arch linux, distro, linux, systemd, nwjs, desktop, lynx desktop, web desktop, lsd, Vasak Group, vasak, vasak os,vasak destop'
-    name='keywords' />
+  {{- /* Twitter Card */}}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@VasakOSLinux" />
+  <meta name="twitter:creator" content="@PatoJADOficial" />
+  <meta name="twitter:title" content="{{ if .IsHome }}Vasak OS — Sistema operativo Linux moderno y accesible{{ else }}{{ .Title }} | Vasak OS{{ end }}" />
+  <meta name="twitter:description" content="{{ $description }}" />
+  <meta name="twitter:image" content="https://os.vasak.net.ar{{ $ogImage }}" />
 
-  <!-- CANONICAL LINK -->
+  {{- /* Preload hero image en homepage para mejorar LCP */}}
+  {{- if .IsHome }}
+  <link rel="preload" href="{{ .Site.Params.images.hero.preload }}" as="image" />
+  <link rel="prefetch" href="{{ .Site.Params.images.hero.fallback }}" as="image" />
+  {{- end }}
+
+  {{- /* Canonical */}}
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#dd7878" />
   <link rel="canonical" href="https://os.vasak.net.ar{{ .RelPermalink }}" />
+
+  {{- /* JSON-LD Structured Data */}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{{ if .IsPage }}Article{{ else }}WebSite{{ end }}",
+    "name": "{{ if .IsHome }}Vasak OS{{ else }}{{ .Title }} | Vasak OS{{ end }}",
+    "url": "https://os.vasak.net.ar{{ .RelPermalink }}",
+    "description": "{{ $description }}",
+    {{- if .IsPage }}
+    "datePublished": "{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}",
+    "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}",
+    "author": {
+      "@type": "Organization",
+      "name": "Vasak Group",
+      "url": "https://vasak.net.ar"
+    },
+    {{- end }}
+    {{- if .IsHome }}
+    "publisher": {
+      "@type": "Organization",
+      "name": "Vasak Group",
+      "url": "https://vasak.net.ar",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ .Site.Params.images.logoOg }}"
+      }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://os.vasak.net.ar/search/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+    {{- end }}
+  }
+  </script>
 
 </head>

@@ -1,3 +1,10 @@
 <div class="text-center">
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" class="rounded-corner my-2" />
+  {{ $ext := path.Ext .Destination }}
+  {{ $webpPath := replace .Destination $ext ".webp" }}
+  <picture>
+    {{ if ne $ext ".webp" }}
+    <source srcset="{{ $webpPath }}" type="image/webp" />
+    {{ end }}
+    <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" decoding="async" class="rounded-corner my-2" />
+  </picture>
 </div>

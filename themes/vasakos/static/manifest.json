@@ -1,0 +1,20 @@
+{
+  "name": "Vasak OS",
+  "short_name": "Vasak OS",
+  "description": "Sistema operativo basado en GNU/Linux moderno, rápido y accesible",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eff1f5",
+  "theme_color": "#dd7878",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/img/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "utilities"],
+  "lang": "es-ES"
+}

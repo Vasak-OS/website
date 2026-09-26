@@ -1,3 +1,11 @@
 <div class="text-center">
-  <img src='{{ .Get "src" }}' alt="IMG Post" title="IMG Post" class="img-fluid" />
+  {{ $src := .Get "src" }}
+  {{ $ext := path.Ext $src }}
+  {{ $webpSrc := replace $src $ext ".webp" }}
+  <picture>
+    {{ if ne $ext ".webp" }}
+    <source srcset="{{ $webpSrc }}" type="image/webp" />
+    {{ end }}
+    <img src="{{ $src }}" alt="{{ .Get "alt" | default "IMG Post" }}" title="{{ .Get "title" | default "IMG Post" }}" loading="lazy" decoding="async" class="rounded-corner my-2" />
+  </picture>
 </div>

@@ -2,8 +2,18 @@
 
 # abort on errors
 set -e
-# build
-hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
+
+# WebP conversion de imágenes estáticas
+echo "🔧 Converting images to WebP..."
+bun run scripts/convert-webp.mjs
+
+# Build CSS con Tailwind
+echo "🎨 Building Tailwind CSS..."
+bun run build
+
+# Build site Hugo
+echo "🏗️  Building Hugo site..."
+hugo
 
 # navigate into the build output directory
 cd public

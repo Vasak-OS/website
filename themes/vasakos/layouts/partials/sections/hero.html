@@ -1,5 +1,7 @@
 <section
-  class="aspect-video bg-[url('/img/hero-fullscreen-bg.jpg')] bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center">
+  class="hero-section aspect-video bg-cover bg-no-repeat bg-center -mt-24 flex justify-center justify-items-center"
+  style="background-image: url('{{ .Site.Params.images.hero.background }}')"
+  data-fallback-bg="url('{{ .Site.Params.images.hero.fallback }}')">
   <div class="flex flex-col justify-center content-center text-center">
     <div class="bg-ui-bg/80 backdrop-blur-md p-10 rounded-corner">
     <h2 class="text-gray-900 dark:text-white text-4xl">Bienvenidos a <span class="text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold">Vasak OS</span></h2>

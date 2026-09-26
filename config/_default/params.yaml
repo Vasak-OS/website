@@ -1,3 +1,59 @@
+images:
+  # Marca
+  logo: /img/logo.svg
+  favicon: /img/icon.svg
+  logoOg: https://os.vasak.net.ar/img/logo.svg
+
+  # Hero / Homepage
+  hero:
+    background: /img/hero-fullscreen-bg.webp
+    fallback: /img/hero-fullscreen-bg.jpg
+    preload: /img/hero-bg.png
+    og: /img/hero-fullscreen-bg.jpg
+
+  # Secciones
+  cta: /img/community.svg
+  about: /img/about.svg
+
+  # Features (homepage)
+  features:
+    openSource: /img/features/git.svg
+    responsible: /img/features/balanced.svg
+
+  # About page
+  aboutPage:
+    home: /img/features/home.svg
+    study: /img/features/study.svg
+    work: /img/features/work.svg
+
+  # Posts (por defecto)
+  posts:
+    news: /img/posts/news.svg
+    donate: /img/posts/donate.svg
+    download: /img/posts/download.svg
+    terms: /img/posts/terms.svg
+    policy: /img/posts/policy.svg
+
+  # Screenshots gallery
+  screenshots:
+    enabled: true
+    main:
+      - identifier: desktop
+        image: /img/screenshots/desktop.jpg
+        alt: Escritorio de Vasak OS
+        caption: Escritorio principal con aplicaciones nativas
+        weight: 1
+      - identifier: apps
+        image: /img/screenshots/apps.jpg
+        alt: Aplicaciones de Vasak OS
+        caption: Centro de aplicaciones y herramientas del sistema
+        weight: 2
+      - identifier: terminal
+        image: /img/screenshots/terminal.jpg
+        alt: Terminal de Vasak OS
+        caption: Terminal personalizada con colores del sistema
+        weight: 3
+
 social:
   enabled: true
   title: Redes Sociales

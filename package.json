@@ -1,10 +1,12 @@
 {
   "scripts": {
-    "build": "tailwindcss build -i themes/vasakos/assets/css/tailwind.css -o themes/vasakos/assets/css/vsk.css"
+    "images:webp": "bun scripts/convert-webp.mjs",
+    "build": "hugo",
+    "build:all": "bun run images:webp && hugo"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.2.3",
-    "tailwindcss": "^4.2.3"
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.11"
