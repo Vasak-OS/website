@@ -76,8 +76,13 @@ permalinks:
 
 # With two languages Hugo writes a single sitemap index that points at one
 # sitemap per language, which is the form search engines expect. Disabling the
-# pretty URLs keeps the language directories visible in the paths
-# (/sitemap.xml, /en/sitemap.xml) so the index is readable.
+# pretty URLs keeps the language directories visible in the paths, so the index
+# reads as /es/sitemap.xml and /en/sitemap.xml.
+#
+# The file of the default language keeps its language prefix even though its
+# pages do not: the Spanish pages live at the root and the Spanish sitemap
+# lists them there, as /docs/user/ and not /es/docs/user/. Only the name of
+# the file carries the prefix.
 sitemap:
   changefreq: "weekly"
   priority: 0.6
