@@ -9,7 +9,7 @@ Seguimos avanzando a paso firme con el desarrollo de VasakOS, y decidimos lanzar
 
 ## ¿Que voy a encontrar en el Alpha 3?
 
-¡Ya Podes instalar VasakOS! Agregamos calamares para que puedas instalar el sistema operativo de forma persistente, las nuevas apps del ecosistema como terminal y file manager ya estan disponibles en la nueva iso y algunas novedades interesantes que podemos encontrar en el [changelog oficial](/changelogs/01042026/)
+¡Ya Podes instalar VasakOS! Agregamos calamares para que puedas instalar el sistema operativo de forma persistente, las nuevas apps del ecosistema como terminal y file manager ya estan disponibles en la nueva iso y algunas novedades interesantes que podemos encontrar en el [changelog oficial](/changelogs/20260401/)
 
 ## ¿Puedo instalar el Alpha 3 en mi PC?
 

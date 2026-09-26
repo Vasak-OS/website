@@ -80,7 +80,7 @@ El escritorio consume bastante menos que en el Alpha 3. Entre otras cosas: el me
 
 ## ¿Dónde la consigo?
 
-En el [área de descargas](/downloads). El detalle completo, cambio por cambio y paquete por paquete, está en el [changelog oficial](/changelogs/14062026/).
+En el [área de descargas](/downloads). El detalle completo, cambio por cambio y paquete por paquete, está en el [changelog oficial](/changelogs/20260614/).
 
 ## ¿Dónde reporto errores?
 
