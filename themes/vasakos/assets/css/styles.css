@@ -371,23 +371,53 @@ blockquote {
   display: none;
 }
 
-.screenshots-track > .snap-center {
-  transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+/* The "peek at the neighbours" effect, which is what makes a carousel read as a
+   carousel: the card in the middle is sharp and the ones on either side are
+   pushed back.
+
+   It is deliberately scoped to `[data-carousel]`, a marker the script sets on
+   the track once it has run. It used to be unconditional, with `.snap-center`
+   blurred and `.snap-center.active` sharp — but nothing ever added `.active`,
+   so all five captures rendered permanently blurred, at 50% opacity and 92%
+   scale, for every visitor. Scoping it to the marker makes the sharp state the
+   default, which is also the only state a crawler or a visitor without
+   JavaScript ever sees; the effect is added *over* the markup, not required by
+   it. That is the same reason the images are real `<img>` elements rather than
+   something a script injects. */
+.screenshots-track[data-carousel] > .snap-center {
+  transition:
+    filter 0.4s ease,
+    opacity 0.4s ease,
+    transform 0.4s ease;
   filter: blur(2px) saturate(0.6);
   opacity: 0.5;
   transform: scale(0.92);
 }
 
-.screenshots-track > .snap-center.active {
+.screenshots-track[data-carousel] > .snap-center.is-active {
   filter: blur(0) saturate(1);
   opacity: 1;
   transform: scale(1);
 }
 
+/* A touch screen has no hover and no cursor to aim with, so the sideways peek
+   reads as an accident rather than as depth — and blurring the product
+   screenshots is exactly the wrong thing to do on the device people are most
+   likely to be reading them on. They stay sharp. */
 @media (pointer: coarse) {
-  .screenshots-track > .snap-center {
-    filter: blur(1px) saturate(0.7);
-    opacity: 0.6;
+  .screenshots-track[data-carousel] > .snap-center {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* Same reasoning as `prefers-reduced-motion` in the OS: a 2px blur on a moving
+   target is motion some people cannot sit through. The cards still scale and
+   fade, they just are not blurred. */
+@media (prefers-reduced-motion: reduce) {
+  .screenshots-track[data-carousel] > .snap-center {
+    filter: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 }
 /* ========== SELECTOR DE IDIOMA ========== */

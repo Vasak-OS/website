@@ -112,16 +112,25 @@
   if (!track) return;
 
   var slots = Array.prototype.slice.call(track.querySelectorAll('[data-shot]'));
+  /* The cards the effect applies to are the `<figure class="snap-center">`
+     wrappers; `[data-shot]` is the frame inside them, which is what has to be
+     measured. Same count, same order, different element. */
+  var cards = Array.prototype.slice.call(track.querySelectorAll(':scope > .snap-center'));
   var prev = document.querySelector('.screenshots-prev');
   var next = document.querySelector('.screenshots-next');
   var dots = Array.prototype.slice.call(document.querySelectorAll('.screenshots-dot, [data-shots-dot]'));
 
   /* The carousel only. Loading the images and falling back to a placeholder
      used to live here, back when the gallery pointed at files that were not
-     there yet; the markup renders the images now. */
+     there yet; the markup renders the images now.
+
+     This marker is what switches the blurred-neighbours effect on (see
+     `styles.css`). It is set only once the script is running, so the sharp
+     images are what a visitor without JavaScript gets. */
+  track.setAttribute('data-carousel', '');
 
   function card() {
-    return track.querySelector('.snap-center');
+    return cards[0];
   }
 
   function activeIndex() {
@@ -141,6 +150,9 @@
       dot.classList.toggle('bg-primary', on);
       dot.classList.toggle('bg-ui-border', !on);
       dot.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    cards.forEach(function (el, i) {
+      el.classList.toggle('is-active', i === active);
     });
   }
 
