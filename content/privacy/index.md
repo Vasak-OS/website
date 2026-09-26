@@ -1,5 +1,5 @@
 ---
-Title: "Privacy policy"
+Title: "Política de privacidad"
 tags: ["privacy policy", "privacy", "policy", "privacidad", "politica de privacidad", "politica"]
 date: "2022-05-24"
 img: "/img/posts/policy.svg"
