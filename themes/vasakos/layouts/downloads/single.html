@@ -1,15 +1,23 @@
 {{ define "main" }}
 {{/* Release facts come from data/release.yml, not from this page's front
      matter: the home page and the structured data need the same numbers, and
-     three copies of a checksum is three chances to publish the wrong one. */}}
+     three copies of a checksum is three chances to publish the wrong one.
+
+     What is *prose* — the headings, the sentences, the status word — comes from
+     i18n. The requirements in `release.yml` are looked up by their Spanish name
+     under `requirement.<name>`, which is why that table is keyed on the YAML
+     text: it is a join key, not display text, and changing the wording of a
+     requirement in the YAML would then need a matching key. A requirement with
+     no key falls back to the YAML text, so a newly added one still shows up in
+     both languages rather than disappearing from one. */}}
 {{- $r := hugo.Data.release -}}
 <main class="px-4 py-8">
   <div class="mx-auto max-w-screen-xl">
 
     <header class="rounded-corner bg-ui-bg/80 p-8 text-center">
-      <h1 class="text-4xl font-bold text-tx-main">Descargar VasakOS</h1>
+      <h1 class="text-4xl font-bold text-tx-main">{{ T "downloads.title" }}</h1>
       <p class="mt-3 text-tx-muted">
-        Imagen oficial para {{ $r.arch }}, gratuita y sin registro.
+        {{ T "downloads.officialImage" (dict "Arch" $r.arch) }}
       </p>
       <div class="mt-6 flex flex-wrap justify-center gap-3">
         {{- range $r.mirrors }}
@@ -22,35 +30,35 @@
         {{- end }}
         {{- end }}
       </div>
-      <p class="mt-4 text-sm text-tx-muted">{{ $r.image_name }} · {{ $r.size }} · publicada el {{ $r.published_at }}</p>
+      <p class="mt-4 text-sm text-tx-muted">{{ $r.image_name }} · {{ $r.size }} · {{ T "state.publishedOn" (dict "Date" (time.Format "2 January 2006" $r.published_at)) }}</p>
     </header>
 
     <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
       <article class="rounded-corner border border-primary bg-ui-bg/80 p-6 lg:col-span-2">
-        <p class="text-sm font-semibold uppercase tracking-wide text-primary">Release actual</p>
+        <p class="text-sm font-semibold uppercase tracking-wide text-primary">{{ T "state.currentRelease" }}</p>
         <h2 class="mt-1 text-2xl font-bold text-tx-main">{{ $r.release_name }}</h2>
-        <p class="mt-2 text-sm text-tx-muted">Canal {{ $r.channel }} · Estado {{ $r.status }}</p>
+        <p class="mt-2 text-sm text-tx-muted">{{ T "downloads.channel" (dict "Channel" $r.channel) }} · {{ T "state.colStatus" }} {{ T (printf "status.%s" (lower $r.status)) }}</p>
 
         <dl class="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
           <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Versión</dt>
+            <dt class="font-semibold">{{ T "components.version" }}</dt>
             <dd>{{ $r.version }}</dd>
           </div>
           <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Arquitectura</dt>
+            <dt class="font-semibold">{{ T "downloads.architecture" }}</dt>
             <dd>{{ $r.arch }}</dd>
           </div>
           <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Imagen</dt>
+            <dt class="font-semibold">{{ T "downloads.filename" }}</dt>
             <dd class="break-all">{{ $r.image_name }}</dd>
           </div>
           <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Tamaño</dt>
+            <dt class="font-semibold">{{ T "downloads.size" }}</dt>
             <dd>{{ $r.size }}</dd>
           </div>
           <div class="rounded-corner bg-ui-bg/70 p-3 sm:col-span-2">
-            <dt class="font-semibold">Publicado</dt>
-            <dd>{{ $r.published_at }}</dd>
+            <dt class="font-semibold">{{ T "downloads.published" }}</dt>
+            <dd>{{ time.Format "2 January 2006" $r.published_at }}</dd>
           </div>
         </dl>
 
@@ -61,13 +69,13 @@
 
         {{ with $r.changelog_url }}
         <div class="mt-5 text-center">
-          <a href="{{ . }}" class="font-semibold text-primary hover:underline">Ver el changelog de esta versión</a>
+          <a href="{{ . | relLangURL }}" class="font-semibold text-primary hover:underline">{{ T "changelog.readMore" }}</a>
         </div>
         {{ end }}
       </article>
 
       <aside class="rounded-corner border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">Mirrors de descarga</h2>
+        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.mirrors" }}</h2>
         <div class="mt-4 space-y-3">
           {{ range $r.mirrors }}
           <div class="flex flex-row justify-between rounded-corner bg-ui-bg/70 p-3">
@@ -78,9 +86,9 @@
             <div>
               {{ if .url }}
               <a rel="noopener" target="_blank" href="{{ .url }}"
-                class="mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-white hover:opacity-90">Descargar</a>
+                class="mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-white hover:opacity-90">{{ T "home.download" }}</a>
               {{ else }}
-              <span class="mt-2 inline-block rounded-corner bg-gray-300 px-3 py-2 text-sm text-gray-700 dark:bg-gray-700 dark:text-gray-200">No disponible</span>
+              <span class="mt-2 inline-block rounded-corner bg-gray-300 px-3 py-2 text-sm text-gray-700 dark:bg-gray-700 dark:text-gray-200">{{ T "downloads.unavailable" }}</span>
               {{ end }}
             </div>
           </div>
@@ -88,32 +96,31 @@
         </div>
 
         <div class="mt-5 text-sm">
-          {{ with $r.sha256_file }}<a href="{{ . }}" class="block text-primary hover:underline">Descargar SHA256SUMS</a>{{ end }}
-          {{ with $r.signature_file }}<a href="{{ . }}" class="mt-1 block text-primary hover:underline">Descargar la firma digital</a>{{ end }}
+          {{ with $r.sha256_file }}<a href="{{ . }}" class="block text-primary hover:underline">{{ T "downloads.downloadSums" }}</a>{{ end }}
+          {{ with $r.signature_file }}<a href="{{ . }}" class="mt-1 block text-primary hover:underline">{{ T "downloads.downloadSignature" }}</a>{{ end }}
         </div>
       </aside>
     </section>
 
     <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
       <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">Requisitos mínimos</h2>
+        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.minimum" }}</h2>
         <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-primary">
-          {{ range $r.requirements.minimum }}<li>{{ . }}</li>{{ end }}
+          {{ range $r.requirements.minimum }}<li>{{ partial "requirement.html" . }}</li>{{ end }}
         </ul>
       </article>
       <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">Requisitos recomendados</h2>
+        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.recommended" }}</h2>
         <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-primary">
-          {{ range $r.requirements.recommended }}<li>{{ . }}</li>{{ end }}
+          {{ range $r.requirements.recommended }}<li>{{ partial "requirement.html" . }}</li>{{ end }}
         </ul>
       </article>
     </section>
 
     <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80 p-6">
-      <h2 class="text-lg font-bold text-tx-main">Verificar la integridad</h2>
+      <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.verify" }}</h2>
       <p class="mt-2 text-sm text-tx-muted">
-        Ejecutá uno de estos comandos en la carpeta donde descargaste la ISO y compará el
-        resultado con el SHA256 publicado arriba. Si no coincide, no la uses.
+        {{ T "downloads.verifyHint" }}
       </p>
       <div class="mt-4 grid grid-cols-1 gap-3">
         {{ range slice (dict "os" "Linux" "cmd" $r.verify.linux) (dict "os" "macOS" "cmd" $r.verify.macos) (dict "os" "Windows" "cmd" $r.verify.windows) }}
@@ -130,19 +137,18 @@
     </section>
 
     <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80 p-6">
-      <h2 class="text-lg font-bold text-tx-main">Soporte y reportes</h2>
+      <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.support" }}</h2>
       <p class="mt-2 text-sm text-tx-muted">
-        Si algo falla durante la instalación o el arranque, compartí información del
-        hardware, los logs y los pasos para reproducirlo.
+        {{ T "downloads.supportHint" }}
       </p>
       <div class="mt-4 flex flex-wrap gap-3">
         {{ with $r.support_url }}
         <a rel="noopener" target="_blank" href="{{ . }}"
-          class="rounded-corner bg-secondary/80 px-4 py-2 text-white hover:opacity-90">Comunidad</a>
+          class="rounded-corner bg-secondary/80 px-4 py-2 text-white hover:opacity-90">{{ T "donate.community" }}</a>
         {{ end }}
         {{ with $r.bug_report_url }}
         <a rel="noopener" target="_blank" href="{{ . }}"
-          class="rounded-corner bg-primary px-4 py-2 text-white hover:opacity-90">Reportar un error</a>
+          class="rounded-corner bg-primary px-4 py-2 text-white hover:opacity-90">{{ T "downloads.reportBug" }}</a>
         {{ end }}
       </div>
     </section>

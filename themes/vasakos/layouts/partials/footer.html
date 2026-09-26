@@ -3,16 +3,16 @@
     <div class="container flex flex-col mx-auto">
       <div class="flex flex-col items-center w-full my-20">
         <span class="mb-8">
-          <img src="{{ .Site.Params.images.logo }}" alt="logo" loading="lazy" class="h-20" />
+          <img src="{{ .Site.Params.images.logo }}" alt="VasakOS" loading="lazy" class="h-20" />
         </span>
         <div class="flex flex-col items-center gap-6">
           <div
             class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
-            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Desarrollo de Software</a>
-            <a href="/privacy/" class="text-gray-500 hover:text-primary">Privacy policy</a>
-            <a href="/terms/" class="text-gray-500 hover:text-primary">Terms of service</a>
-            <a href="/changelogs/" class="text-gray-500 hover:text-primary">Changelogs</a>
-            <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">Roadmap</a>
+            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">{{ T "footer.softwareDev" }}</a>
+            <a href="{{ "/privacy/" | relLangURL }}" class="text-gray-500 hover:text-primary">{{ T "footer.privacy" }}</a>
+            <a href="{{ "/terms/" | relLangURL }}" class="text-gray-500 hover:text-primary">{{ T "footer.terms" }}</a>
+            <a href="{{ "/changelogs/" | relLangURL }}" class="text-gray-500 hover:text-primary">{{ T "footer.changelogs" }}</a>
+            <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">{{ T "footer.roadmap" }}</a>
           </div>
           <div class="flex items-center gap-8">
             {{ range .Site.Params.social.main }}
@@ -31,13 +31,13 @@
 
 <div class="flex flex-wrap my-5">
   <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
-    <p class="text-lg text-slate-500 py-1"><a href="/"
+    <p class="text-lg text-slate-500 py-1"><a href="{{ site.Home.RelPermalink }}"
         class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold"
-        rel="nofollow" aria-current="page">Vasak group</a> © Todos los derechos reservados</p>
+        rel="nofollow" aria-current="page">Vasak Group</a> © {{ T "footer.rights" }}</p>
   </div>
 </div>
 
-<a rel="noopener" href="#" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl">
+<a rel="noopener" href="#" aria-label="{{ T "footer.backToTop" }}" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl">
   <em class="fas fa-arrow-up"></em>
 </a>
 

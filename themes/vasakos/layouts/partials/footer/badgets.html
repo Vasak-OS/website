@@ -14,7 +14,7 @@
   <div id="os-badgets" class="flex w-full flex-wrap items-center justify-center gap-3 text-center sm:gap-4">
 
     <div class="badge-item sf-root" data-id="4084065" data-badge="oss-users-love-us-white">
-      <a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">VasakOS en SourceForge</a>
+      <a href="https://sourceforge.net/projects/vasakos/" rel="noopener" target="_blank">{{ T "footer.sourceForge" }}</a>
     </div>
 
     {{/* A build must not fail because someone else's server is down, so the
@@ -23,7 +23,7 @@
       {{- with .Value }}
     <a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="badge-item">
       <img src="{{ .RelPermalink }}" width="200" height="140" loading="lazy" decoding="async"
-        alt="VasakOS es miembro de la Open Invention Network" />
+        alt="{{ T "footer.oinMember" }}" />
     </a>
       {{- end }}
     {{- end }}

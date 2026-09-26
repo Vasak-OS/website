@@ -2,7 +2,7 @@
 	<header class="flex items-center gap-2 mb-4">
 		<i class="fa-solid fa-magnifying-glass"></i>
 		<div>
-			<h2 class="text-base font-semibold">Buscar documentación</h2>
+			<h2 class="text-base font-semibold">{{ T "search.title" }}</h2>
 		</div>
 	</header>
 
@@ -10,7 +10,8 @@
 		<input
 			id="docs-search-input"
 			type="search"
-			placeholder="Ej: eventos IPC, Vue, Tauri"
+			aria-label="{{ T "search.label" }}"
+			placeholder="{{ T "search.placeholder" }}"
 			class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary"
 			autocomplete="off"
 		/>
@@ -30,9 +31,9 @@
 			<div class="px-6 py-4 border-b border-ui-border flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<i class="fa-solid fa-magnifying-glass text-tx-muted"></i>
-					<h3 class="font-semibold text-tx-main">Resultados de búsqueda</h3>
+					<h3 class="font-semibold text-tx-main">{{ T "search.results" }}</h3>
 				</div>
-				<button id="docs-search-close" type="button" class="text-slate-400 hover:text-primary transition-colors">
+				<button id="docs-search-close" type="button" aria-label="{{ T "search.close" }}" class="text-slate-400 hover:text-primary transition-colors">
 					<i class="fa-solid fa-xmark text-lg"></i>
 				</button>
 			</div>
@@ -51,7 +52,11 @@
 	const modal = document.getElementById('docs-search-modal');
 	const backdrop = document.getElementById('docs-search-backdrop');
 	const closeBtn = document.getElementById('docs-search-close');
-	const endpoint = '/search-index.json';
+	/* The index is generated per language, so the Spanish site reads the
+	   Spanish one and /en/ reads the English one. A single index would answer an
+	   English question with Spanish titles. `relLangURL` is resolved at build
+	   time, so this is the language this page was built in. */
+	const endpoint = {{ "/search-index.json" | relLangURL }};
 	const MIN_CHARS = 2;
 	let index = null;
 
@@ -69,7 +74,7 @@
 	// documentation, so there is nothing left to filter here.
 	const fetchIndex = async () => {
 		if (index) return index;
-		statusEl.textContent = 'Cargando…';
+		statusEl.textContent = {{ T "search.loading" | jsonify }};
 		try {
 			const res = await fetch(endpoint);
 			index = await res.json();
@@ -117,7 +122,7 @@
 
 	const renderResults = (items, q) => {
 		if (!items.length) {
-			resultsEl.innerHTML = '<p class="text-center text-tx-muted py-8">Sin resultados</p>';
+			resultsEl.innerHTML = '<p class="text-center text-tx-muted py-8">' + {{ T "search.noResults" | jsonify }} + '</p>';
 			return;
 		}
 		resultsEl.innerHTML = items.map(item => `
@@ -138,7 +143,7 @@
 				hideModal();
 			} else {
 				showModal();
-				resultsEl.innerHTML = '<p class="text-center text-tx-muted py-8">Escribe al menos 2 caracteres</p>';
+				resultsEl.innerHTML = '<p class="text-center text-tx-muted py-8">' + {{ T "search.minChars" | jsonify }} + '</p>';
 			}
 			statusEl.textContent = '';
 			return;

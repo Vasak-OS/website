@@ -12,6 +12,12 @@
   estado (alpha/beta/estable)—, porque eso no está en ningún metadato: nada en el
   paquete sabe que las cuentas en línea todavía no las usa ninguna aplicación.
 
+  Sobre los idiomas: el YAML ya no trae la prosa. El título y la descripción de
+  cada componente salen de i18n por el nombre del paquete, y el nombre de cada
+  grupo por su `id`, así que la misma tabla se lee en los dos idiomas sin tener
+  dos copias que mantener sincronizadas. `title` y `text` se resuelven acá, una
+  vez, y las plantillas los reciben ya traducidos.
+
   Si el repositorio no responde, se usan las versiones del YAML y `live` queda en
   false, para que la página pueda decir de dónde salieron los datos en vez de
   fingir que están frescos.
@@ -51,13 +57,18 @@
   {{- $items := slice -}}
   {{- range .items -}}
     {{- $item := . -}}
+    {{- $key := printf "component.%s" .name -}}
+    {{- $item = merge $item (dict
+        "title" (T (printf "%s.title" $key))
+        "text" (T (printf "%s.text" $key))) -}}
     {{- with index $published .name -}}
       {{- $known = $known | append $item.name -}}
       {{- $item = merge $item (dict "version" .version "published" true "builddate" .builddate) -}}
     {{- end -}}
     {{- $items = $items | append $item -}}
   {{- end -}}
-  {{- $groups = $groups | append (merge . (dict "items" $items)) -}}
+  {{- $group := merge . (dict "name" (T (printf "components_group.%s.name" .id))) -}}
+  {{- $groups = $groups | append (merge $group (dict "items" $items)) -}}
 {{- end -}}
 
 {{/* Los paquetes de soporte (ckbcomp, lsb-release, el llavero, los fondos) no
@@ -68,4 +79,13 @@
   {{- if not (in $known $name) }}{{ $extra = add $extra 1 }}{{ end -}}
 {{- end -}}
 
-{{- return dict "groups" $groups "legend" $data.legend "live" $live "generated" $generated "extra" $extra -}}
+{{/* La leyenda sigue siendo un mapa indexado por clave de estado, como la
+     usaban las plantillas: sólo se le agrega la etiqueta, que es la parte que
+     cambia con el idioma. `class` sigue viniendo del YAML porque Tailwind no
+     lee archivos de datos. */}}
+{{- $legend := dict -}}
+{{- range $key, $entry := $data.legend -}}
+  {{- $legend = merge $legend (dict $key (merge $entry (dict "label" (T (printf "status.%s" $key))))) -}}
+{{- end -}}
+
+{{- return dict "groups" $groups "legend" $legend "live" $live "generated" $generated "extra" $extra -}}

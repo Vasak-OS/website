@@ -1,0 +1,13 @@
+{{- /*
+  Traduce un requisito de la ISO por su nombre en `data/release.yml`, que es
+  una cadena en español: es la clave estable, y no cambia con el idioma.
+
+  Hugo devuelve la propia clave cuando no encuentra la traducción, así que eso
+  es lo que se compara. Si el requisito es nuevo y todavía no tiene entrada en
+  i18n, se muestra el texto del YAML: en español es lo correcto, y en inglés
+  queda visible en lugar de desaparecer de la página.
+*/ -}}
+{{- $key := printf "requirement.%s" . -}}
+{{- $t := T $key -}}
+{{- if eq $t $key }}{{ return . }}{{ end -}}
+{{- return $t -}}

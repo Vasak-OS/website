@@ -1,8 +1,36 @@
 baseURL: "https://os.vasak.net.ar/"
-locale: "es-AR"
-defaultContentLanguage: "es"
 title: "VasakOS"
 summaryLength: 20
+
+# Multilingual.
+#
+# The Spanish site stays at the root and English goes under /en/. That is
+# `defaultContentLanguageInSubdir: false`, the Hugo default, and it is a
+# deliberate choice: every URL the site has published since it went live keeps
+# working. Turning it on would move the whole Spanish site under /es/ and break
+# every inbound link, the old bookmarks, and the tests that assert published
+# paths. /en/ is unambiguous enough without paying that.
+#
+# `title` is not repeated per language on purpose: the brand is the brand. The
+# per-language strings that differ live in i18n/<lang>.toml.
+languages:
+  es:
+    locale: "es-AR"
+    label: "Español"
+    direction: "ltr"
+    contentDir: "content"
+    weight: 1
+    title: "VasakOS"
+  en:
+    locale: "en-GB"
+    label: "English"
+    direction: "ltr"
+    contentDir: "content"
+    weight: 2
+    title: "VasakOS"
+
+defaultContentLanguage: "es"
+defaultContentLanguageInSubdir: false
 
 # canonifyurls rewrote every relative link into an absolute one, which bloats
 # the HTML and breaks any preview served from a different host. The templates
@@ -18,15 +46,25 @@ enableRobotsTXT: true
 outputs:
   page: ["HTML"]
   section: ["HTML"]
-  home: ["HTML", "RSS", "JSON"]
+  home: ["HTML", "RSS", "JSON", "WEBAPPMANIFEST"]
 
-# The JSON output feeds the documentation search box. Restricting it to a
-# dedicated /search-index.json keeps it out of the crawl and makes it obvious
-# what it is for.
 outputFormats:
+  # The JSON output feeds the documentation search box. Restricting it to a
+  # dedicated /search-index.json keeps it out of the crawl and makes it obvious
+  # what it is for. One per language, because the titles it holds are the
+  # translated ones and a search box that answered in the wrong language would
+  # be worse than no search box.
   JSON:
     mediaType: "application/json"
     baseName: "search-index"
+    isPlainText: true
+  # The web app manifest is a template rather than a file in static/ so that its
+  # name, description, lang and start_url follow the language of the page that
+  # links it. A single Spanish manifest linked from /en/ installed an app called
+  # "Vasak OS" that opened the Spanish site.
+  WEBAPPMANIFEST:
+    mediaType: "application/manifest+json"
+    baseName: "manifest"
     isPlainText: true
 
 taxonomies:
@@ -36,6 +74,10 @@ taxonomies:
 permalinks:
   blog: "/blog/:year/:month/:title"
 
+# With two languages Hugo writes a single sitemap index that points at one
+# sitemap per language, which is the form search engines expect. Disabling the
+# pretty URLs keeps the language directories visible in the paths
+# (/sitemap.xml, /en/sitemap.xml) so the index is readable.
 sitemap:
   changefreq: "weekly"
   priority: 0.6

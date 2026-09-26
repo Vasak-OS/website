@@ -7,10 +7,9 @@
 <section class="bg-ui-bg/80 px-4 py-16" id="componentes" data-repo-index="{{ site.Params.repository.index }}">
   <div class="mx-auto max-w-screen-xl">
     <div class="mx-auto mb-12 max-w-3xl text-center">
-      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">Qué incluye VasakOS</h2>
+      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">{{ T "components.title" }}</h2>
       <p class="mt-4 text-gray-600 dark:text-gray-300">
-        Cada pieza es un proyecto propio, con su repositorio público y su versión publicada
-        en el repositorio de paquetes.
+        {{ T "components.subtitle" }}
       </p>
     </div>
 
@@ -38,8 +37,8 @@
     </div>
 
     <div class="mt-10 text-center">
-      <a href="/state/" class="inline-flex items-center gap-2 font-semibold text-primary hover:text-secondary">
-        Ver el estado detallado de cada componente
+      <a href="{{ "/state/" | relLangURL }}" class="inline-flex items-center gap-2 font-semibold text-primary hover:text-secondary">
+        {{ T "components.detail" }}
         <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
       </a>
     </div>

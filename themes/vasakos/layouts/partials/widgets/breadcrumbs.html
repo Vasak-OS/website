@@ -1,115 +1,87 @@
-{{/* Breadcrumbs Navigation Component with JSON-LD */}}
-{{$relPermalink := .RelPermalink }}
-{{$siteBaseURL := .Site.BaseURL }}
-{{$parts := split (strings.TrimPrefix "/" $relPermalink) "/" }}
-{{$count := len $parts }}
+{{/*
+  Breadcrumbs: the visible trail, plus the BreadcrumbList structured data that
+  makes a search result show "Home › Docs" instead of a bare path.
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "{{ $siteBaseURL }}"
-    }
-    {{- $pos := 2 }}
-    {{- $cumulativeUrl := "" }}
-    {{- range $index, $part := $parts }}
-    {{- if and (ne $part "") (ne $part "index.html") (lt $index (sub $count 1)) }}
-    {{- $cumulativeUrl = printf "%s%s/" $cumulativeUrl $part }}
-    {{- $fullUrl := printf "%s%s" $siteBaseURL (strings.TrimSuffix "/" $cumulativeUrl) }}
-    ,{
-      "@type": "ListItem",
-      "position": {{ $pos }},
-      "name": "{{ humanize $part }}",
-      "item": "{{ $fullUrl }}/"
-    }
-    {{- $pos = add $pos 1 }}
+  Two things were wrong before this rewrite.
+
+  The JSON-LD built each crumb name with `humanize` on a URL segment, so
+  `/docs/user/errores/` became "Docs › User › Errores" — the slug, not the title
+  a person would recognise, and in whatever language the slug happened to be in.
+  It also started from a hardcoded "Home", so the structured data said "Home" on
+  the English site. The trail here walks the real ancestors instead, so each
+  name is the page's own title, already translated.
+
+  The `aria-current="page"` item is the current page and is not a link; every
+  earlier crumb is. `x-default` handling is in head.html, with the other
+  languages.
+*/}}
+{{- $page := . -}}
+{{- $crumbs := slice -}}
+{{- range .Ancestors.Reverse -}}
+  {{- if not .IsHome -}}
+    {{- $crumbs = $crumbs | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $structured := slice (dict
+    "@type" "ListItem"
+    "position" 1
+    "name" (T "breadcrumbs.home")
+    "item" site.Home.Permalink) -}}
+{{- $pos := 1 -}}
+{{- range $crumbs -}}
+  {{- $pos = add $pos 1 -}}
+  {{- $structured = $structured | append (dict
+      "@type" "ListItem"
+      "position" $pos
+      "name" .Title
+      "item" .Permalink) -}}
+{{- end -}}
+{{- if not .IsHome -}}
+  {{- $pos = add $pos 1 -}}
+  {{- $structured = $structured | append (dict
+      "@type" "ListItem"
+      "position" $pos
+      "name" .Title
+      "item" .Permalink) -}}
+{{- end -}}
+
+<script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $structured) | jsonify | safeJS }}</script>
+
+<nav class="breadcrumbs-container mb-6" aria-label="{{ T "breadcrumbs.label" }}">
+  <ol class="flex flex-wrap items-center gap-0 text-ms">
+    <li class="flex items-center">
+      <a href="{{ site.Home.RelPermalink }}"
+        class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary"
+        title="{{ T "breadcrumbs.home" }}">
+        <i class="fa-solid fa-house text-sm" aria-hidden="true"></i>
+        <span class="sr-only sm:not-sr-only">{{ T "breadcrumbs.home" }}</span>
+      </a>
+    </li>
+
+    {{- range $crumbs }}
+    <li class="flex items-center">
+      <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
+      <a href="{{ .RelPermalink }}"
+        class="px-3 py-2 rounded-corner text-gray-600 transition-all duration-200 hover:text-primary dark:text-gray-300">
+        {{- with .Params.shortTitle }}{{ . }}{{ else }}{{ .Title }}{{ end -}}
+      </a>
+    </li>
     {{- end }}
+
+    {{- if not .IsHome }}
+    <li class="flex items-center">
+      <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
+      <span aria-current="page"
+        class="bg-gradient-to-r from-secondary to-primary px-3 py-2 font-medium text-white shadow-md dark:shadow-lg">
+        {{- if in .RelPermalink "/docs/" }}
+        <i class="fa-solid fa-book text-sm" aria-hidden="true"></i>
+        {{- else if in .RelPermalink "/blog/" }}
+        <i class="fa-solid fa-blog text-sm" aria-hidden="true"></i>
+        {{- end -}}
+        {{ .Title }}
+      </span>
+    </li>
     {{- end }}
-  ]
-}
-</script>
-
-<nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb">
-    <ul class="flex flex-wrap items-center gap-0 text-ms">
-        {{/* Home Link */}}
-        <li class="flex items-center">
-            <a href="{{ $siteBaseURL }}"
-                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary"
-                title="Go to home page">
-                <i class="fa-solid fa-house text-sm"></i>
-                <span class="hidden sm:inline">Home</span>
-            </a>
-        </li>
-
-        {{/* Section Links */}}
-        {{range $index, $part := $parts}}
-        {{if and (ne $part "") (ne $part "index.html") (lt $index (sub $count 1))}}
-        {{/* Separator */}}
-        <li class="flex items-center">
-            <i class="fa-solid fa-chevron-right text-gray-400 dark:text-gray-600 mx-1"></i>
-        </li>
-
-        {{/* Part Link */}}
-        <li>
-            {{$displayText := humanize $part}}
-
-            {{/* Generate cumulative URL */}}
-            {{$cumulativeUrl := ""}}
-            {{range $i, $p := $parts}}
-                {{if le $i $index}}
-                    {{if ne $p ""}}
-                        {{$cumulativeUrl = printf "%s%s/" $cumulativeUrl $p}}
-                    {{end}}
-                {{end}}
-            {{end}}
-
-            {{$fullUrl := printf "%s%s" $siteBaseURL (strings.TrimSuffix "/" $cumulativeUrl)}}
-
-            <a href="{{ $fullUrl }}/"
-                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary"
-                title="Visit {{ $displayText }}">
-                {{$displayText}}
-            </a>
-        </li>
-        {{end}}
-        {{end}}
-
-        {{/* Current Page */}}
-        {{if and (ne $relPermalink "") (ne $relPermalink "/")}}
-        <li class="flex items-center">
-            <svg class="w-4 h-4 text-gray-400 dark:text-gray-600 mx-1" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </li>
-
-        <li class="flex items-center">
-            <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner
-                     bg-gradient-to-r from-secondary to-primary
-                     text-white font-medium
-                     shadow-md dark:shadow-lg" aria-current="page">
-                {{if in $relPermalink "/docs/"}}
-                <i class="fa-solid fa-book text-sm"></i>
-                {{else if in $relPermalink "/blog/"}}
-                <i class="fa-solid fa-blog text-sm"></i>
-                {{else if in $relPermalink "/about/"}}
-                <i class="fa-solid fa-user text-sm"></i>
-                {{else if in $relPermalink "/downloads/"}}
-                <i class="fa-solid fa-download text-sm"></i>
-                {{else if in $relPermalink "/donate/"}}
-                <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
-                {{else}}
-                <i class="fa-solid fa-folder text-sm"></i>
-                {{end}}
-
-                <span>{{ .Title }}</span>
-            </span>
-        </li>
-        {{end}}
-    </ul>
+  </ol>
 </nav>

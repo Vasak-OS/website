@@ -1,0 +1,49 @@
+# Main navigation, in English.
+#
+# One file per language, with the same `identifier` and `weight` in both, so the
+# menu does not change order between them. The `identifier` is the join key:
+# `docs` is the same entry in both files, and the language switcher can rely on
+# that. `name` is what gets translated, not the URL.
+main:
+    - identifier: inicio
+      name: Home
+      url: /
+      weight: 1
+      params:
+          newTab: false
+          haveChildren: false
+    - identifier: blog
+      name: Blog
+      url: /blog
+      weight: 2
+      params:
+          newTab: false
+          haveChildren: false
+    - identifier: sobre
+      name: About
+      url: /about
+      weight: 3
+      params:
+          haveChildren: false
+          children: false
+    - identifier: downloads
+      name: Downloads
+      url: /downloads
+      weight: 4
+      params:
+          newTab: false
+          haveChildren: false
+    - identifier: docs
+      name: Documentation
+      url: /docs
+      weight: 6
+      params:
+          newTab: false
+          haveChildren: false
+    - identifier: donate
+      name: Donate
+      url: /donate
+      weight: 7
+      params:
+          newTab: false
+          haveChildren: false

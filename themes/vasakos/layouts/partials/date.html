@@ -1,12 +1,25 @@
-{{ $formattedDate := .Format "Friday, March 3, 2006" }}
+{{/*
+  A date in the language of the site.
 
-{{ $monthNumber := .Month }}
-{{ $dayNumber := .Weekday }}
+  This used to look the month and weekday up in data/meses.yml and data/dias.yml,
+  which held the Spanish names, and only when the language was Spanish. Two
+  problems: adding a language meant editing a lookup table instead of writing
+  the month down once, and every language that was not Spanish fell through to
+  Go's default format, which is always American English — "Friday, March 3,
+  2006" on a page written in Spanish.
 
-{{ if eq site.Language.Lang "es" }}
-{{ $monthNumber = index hugo.Data.meses (printf "%d" .Month) }}
-{{ $dayNumber = index hugo.Data.dias (printf "%d" .Weekday) }}
-{{ $formattedDate = delimit (slice $dayNumber (printf "%d" .Day) "de" $monthNumber "de" (printf "%d" .Year)) " "}}
-{{ end }}
+  `time.Format` and `.Format` both take the layout from a fixed table of
+  reference components and resolve the *names* against the site's language, so
+  there is nothing left to translate here. Hugo localises them for es and en out
+  of the box.
 
-{{ return $formattedDate }}
+  The `de` between day, month and year is not a word that translates: English
+  does not use it, and Spanish capitalises neither the weekday nor the month in
+  running text, so no post-processing is needed either.
+*/}}
+{{- $skeleton := "Monday, January 2, 2006" -}}
+{{- if eq site.Language.Lang "es" -}}
+  {{- $skeleton = "lunes, 2 de January de 2006" -}}
+{{- end -}}
+
+{{- return time.Format $skeleton . -}}

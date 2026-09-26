@@ -8,12 +8,12 @@
   <div class="mx-auto max-w-screen-xl">
 
     <header class="rounded-corner bg-ui-bg/80 p-8 text-center">
-      <p class="text-sm font-semibold uppercase tracking-wide text-primary">Transparencia</p>
+      <p class="text-sm font-semibold uppercase tracking-wide text-primary">{{ T "state.eyebrow" }}</p>
       <h1 class="mt-2 text-4xl font-bold text-tx-main">{{ .Title }}</h1>
       <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
-        Release actual: <strong>{{ $release.release_name }}</strong> ({{ $release.version }}).
+        {{ T "state.currentRelease" }}: <strong>{{ $release.release_name }}</strong> ({{ $release.version }}).
         {{/* time.Format honours the site language; .Format is Go's, always English. */}}
-        Última revisión de esta página: {{ time.Format "2 de January de 2006" .Lastmod }}.
+        {{ T "state.lastReviewed" }}: {{ time.Format "2 January 2006" .Lastmod }}.
       </p>
 
       {{/* De dónde salen las versiones. Una tabla de estado sin fecha no se
@@ -26,16 +26,16 @@
       <p data-repo-state="live"
         class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-success/10 px-4 py-1 text-sm text-status-success{{ if not $data.live }} hidden{{ end }}">
         <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-        <span>Versiones leídas del repositorio de paquetes<span data-repo-generated>{{ with $data.generated }}, publicado el {{ time.Format "2 de January de 2006 a las 15:04 UTC" . }}{{ end }}</span>.</span>
+        <span>{{ T "state.liveVersions" }}<span data-repo-generated>{{ with $data.generated }}, {{ T "state.publishedOn" (dict "Date" (time.Format "2 January 2006 15:04 UTC" .)) }}{{ end }}</span>.</span>
       </p>
       <p data-repo-state="stale"
         class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-warning/10 px-4 py-1 text-sm text-status-warning{{ if $data.live }} hidden{{ end }}">
         <i class="fa-solid fa-wrench" aria-hidden="true"></i>
-        <span>El repositorio no respondió: las versiones son las de la última revisión manual.</span>
+        <span>{{ T "state.stale" }}</span>
       </p>
       <p data-repo-state="loading" class="mx-auto mt-4 hidden max-w-2xl items-center gap-2 rounded-full bg-ui-surface/50 px-4 py-1 text-sm text-tx-muted">
         <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
-        <span>Consultando el repositorio…</span>
+        <span>{{ T "state.loading" }}</span>
       </p>
     </header>
 
@@ -51,11 +51,11 @@
           <table class="w-full min-w-[42rem] text-left text-sm">
             <thead class="bg-ui-surface/40 text-xs uppercase tracking-wide text-tx-muted">
               <tr>
-                <th scope="col" class="px-6 py-3">Componente</th>
-                <th scope="col" class="px-6 py-3">Versión</th>
-                <th scope="col" class="px-6 py-3">Estado</th>
-                <th scope="col" class="px-6 py-3">Qué hace</th>
-                <th scope="col" class="px-6 py-3">Código</th>
+                <th scope="col" class="px-6 py-3">{{ T "state.colComponent" }}</th>
+                <th scope="col" class="px-6 py-3">{{ T "state.colVersion" }}</th>
+                <th scope="col" class="px-6 py-3">{{ T "state.colStatus" }}</th>
+                <th scope="col" class="px-6 py-3">{{ T "state.colWhat" }}</th>
+                <th scope="col" class="px-6 py-3">{{ T "state.colCode" }}</th>
               </tr>
             </thead>
             <tbody>
@@ -76,7 +76,7 @@
                 <td class="px-6 py-4 text-tx-muted">{{ .text }}</td>
                 <td class="px-6 py-4">
                   <a href="{{ .repo }}" rel="noopener" target="_blank"
-                    class="inline-flex items-center gap-1 text-primary hover:text-secondary" aria-label="Repositorio de {{ .title }}">
+                    class="inline-flex items-center gap-1 text-primary hover:text-secondary" aria-label="{{ T "state.repoOf" (dict "Repo" .title) }}">
                     <i class="fa-brands fa-github" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -89,9 +89,8 @@
       {{- end }}
 
       <p data-repo-extra-wrap class="text-center text-sm text-tx-muted{{ if not (gt $data.extra 0) }} hidden{{ end }}">
-        El repositorio publica además <span data-repo-extra>{{ $data.extra }}</span> paquetes de soporte
-        (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch).
-        <a href="/docs/user/repository/" class="text-primary underline">Cómo agregar el repositorio</a>.
+        {{ T "state.extraPackages" (dict "Count" $data.extra) }}
+        <a href="{{ "/docs/user/repository/" | relLangURL }}" class="text-primary underline">{{ T "state.howToAdd" }}</a>.
       </p>
     </section>
 
@@ -100,9 +99,9 @@
     </section>
 
     <div class="mt-8 flex flex-wrap justify-center gap-3">
-      <a href="/downloads/" class="rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">Descargar {{ $release.channel }}</a>
+      <a href="{{ "/downloads/" | relLangURL }}" class="rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">{{ T "home.download" }} {{ $release.channel }}</a>
       <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank"
-        class="rounded-corner border border-primary px-6 py-3 font-semibold text-primary hover:bg-primary hover:text-white">Ver el roadmap</a>
+        class="rounded-corner border border-primary px-6 py-3 font-semibold text-primary hover:bg-primary hover:text-white">{{ T "state.seeRoadmap" }}</a>
     </div>
   </div>
 </main>

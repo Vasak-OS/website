@@ -390,3 +390,21 @@ blockquote {
     opacity: 0.6;
   }
 }
+/* ========== SELECTOR DE IDIOMA ========== */
+
+/* The menu opens on its own for a pointer (hover) and for a keyboard (focus
+   within), with no JavaScript involved. The script only adds the click, which is
+   what a touch screen has instead of a hover, and closes the list after a choice.
+   Both states are `:hover` and `:focus-within` on the same element, so the two
+   ways of opening it cannot disagree about whether it is open. */
+.js-lang-switch:hover .js-lang-menu,
+.js-lang-switch:focus-within .js-lang-menu,
+.js-lang-switch [aria-expanded='true'] + .js-lang-menu {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-lang-menu {
+    transition: none;
+  }
+}

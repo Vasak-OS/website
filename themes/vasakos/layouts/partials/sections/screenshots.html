@@ -1,97 +1,175 @@
-{{ $screenshots := where (.Site.Params.images.screenshots.main) "image" "ne" nil }}
-{{ if and .Site.Params.images.screenshots.enabled $screenshots }}
-<section class="relative flex flex-col justify-center overflow-hidden py-20 bg-ui-bg/80">
-  <div class="w-full items-center mx-auto max-w-screen-xl px-4">
-    <div class="text-center mb-12">
-      <span class="text-sm font-semibold text-primary uppercase tracking-wider">Galería</span>
-      <h2 class="text-3xl font-bold text-tx-main mt-2">Capturas de pantalla</h2>
-      <p class="text-tx-muted mt-2">Conocé cómo se ve Vasak OS</p>
+{{/*
+  Screenshot gallery.
+
+  The images are not there yet — `img/screenshots/` holds a `.gitkeep` and
+  nothing else — so every entry falls through to the placeholder below it. That
+  is the honest state of it, and a placeholder that says "coming soon" is
+  better than a gallery of broken image icons.
+
+  What the images will be when they arrive: they live in `static/`, so Hugo
+  cannot resize them and cannot know whether a `.webp` sibling exists. The
+  markup therefore does not guess: a `<source>` pointing at a `.webp` that was
+  never generated is exactly the bug the WIP had, and a browser that supports
+  WebP would prefer it and then show nothing. If a `.webp` shows up next to the
+  `.jpg`, the `<picture>` is the place to add it.
+*/}}
+{{- $cfg := site.Params.images.screenshots | default dict -}}
+{{- $shots := slice -}}
+{{- range ($cfg.main | default slice) -}}
+  {{- if .image -}}
+    {{- $shots = $shots | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if and ($cfg.enabled | default false) $shots -}}
+{{- /* The keys the captions and alt text are looked up by. They come from
+       i18n/<lang>.toml, not from params.yaml, so a screenshot has one
+       description in one place instead of two that drift apart. */ -}}
+{{- $id := . -}}
+<section class="relative flex flex-col justify-center overflow-hidden bg-ui-bg/80 py-20">
+  <div class="mx-auto w-full max-w-screen-xl px-4">
+    <div class="mb-12 text-center">
+      <span class="text-sm font-semibold uppercase tracking-wider text-primary">{{ T "screenshots.eyebrow" }}</span>
+      <h2 class="mt-2 text-3xl font-bold text-tx-main">{{ T "screenshots.title" }}</h2>
+      <p class="mt-2 text-tx-muted">{{ T "screenshots.subtitle" }}</p>
     </div>
 
     <div class="relative">
-      <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 screenshots-track">
-        {{ range $index, $ss := $screenshots }}
-        <div class="snap-center shrink-0 first:pl-4 last:pr-4">
-          <div class="w-[85vw] max-w-3xl rounded-corner overflow-hidden shadow-xl border border-ui-border bg-ui-surface">
-            <picture>
-              {{ $ext := path.Ext $ss.image }}
-              {{ $webp := replace $ss.image $ext ".webp" }}
-              {{ if ne $ext ".webp" }}
-              <source srcset="{{ $webp }}" type="image/webp" />
-              {{ end }}
-              <img src="{{ $ss.image }}" alt="{{ $ss.alt | default "Vasak OS screenshot" }}"
-                loading="lazy" decoding="async"
-                class="w-full h-auto object-cover aspect-video"
-                onerror="this.parentElement.innerHTML='<div class=\'flex items-center justify-center aspect-video bg-gradient-to-br from-secondary/10 to-primary/10 text-tx-muted\'><div class=\'text-center\'><em class=\'fas fa-image text-4xl mb-2 block\'></em><span>Captura próximamente</span></div></div>'" />
-            </picture>
-            {{ if $ss.caption }}
-            <div class="p-4 text-center text-sm text-tx-muted">
-              {{ $ss.caption }}
-            </div>
-            {{ end }}
+      <div class="screenshots-track flex snap-x snap-mandatory gap-6 overflow-x-auto scrollbar-hide pb-4"
+        data-screenshots role="group" aria-label="{{ T "screenshots.title" }}">
+        {{- range $index, $ss := $shots }}
+        {{- $key := printf "screenshots.%s" $ss.identifier }}
+        {{- $alt := T (printf "%s.alt" $key) | default (T "screenshots.defaultAlt") }}
+        {{- $caption := T (printf "%s.caption" $key) }}
+        <figure class="snap-center w-[85vw] max-w-3xl shrink-0 first:pl-4 last:pr-4">
+          <div class="relative aspect-video w-full overflow-hidden rounded-corner border border-ui-border bg-ui-surface shadow-xl"
+            data-shot
+            data-src="{{ $ss.image }}"
+            data-label="{{ T "screenshots.pending" }}">
+            {{/* The <img> is added by the script below rather than rendered here:
+                 the gallery does not exist until the images do, and an <img>
+                 that 404s is a console error and a wasted request per slot. The
+                 script checks each one and drops in the placeholder if it is
+                 missing, which also means adding a screenshot later needs no
+                 template change. */}}
           </div>
-        </div>
-        {{ end }}
+          {{- with $caption }}
+          <figcaption class="p-4 text-center text-sm text-tx-muted">{{ . }}</figcaption>
+          {{- end }}
+        </figure>
+        {{- end }}
       </div>
 
-      <button class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-ui-bg/80 backdrop-blur-sm shadow-lg hidden md:flex items-center justify-center text-tx-main hover:text-primary transition-colors screenshots-prev" aria-label="Anterior">
-        <em class="fas fa-chevron-left"></em>
+      <button type="button"
+        class="screenshots-prev absolute left-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-primary md:flex"
+        aria-label="{{ T "screenshots.previous" }}" data-shots-prev>
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
       </button>
-      <button class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-ui-bg/80 backdrop-blur-sm shadow-lg hidden md:flex items-center justify-center text-tx-main hover:text-primary transition-colors screenshots-next" aria-label="Siguiente">
-        <em class="fas fa-chevron-right"></em>
+      <button type="button"
+        class="screenshots-next absolute right-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-primary md:flex"
+        aria-label="{{ T "screenshots.next" }}" data-shots-next>
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
       </button>
     </div>
 
-    <div class="flex justify-center gap-2 mt-6 screenshots-dots">
-      {{ range $index, $ss := $screenshots }}
-      <button class="w-2.5 h-2.5 rounded-full bg-ui-border hover:bg-primary transition-all screenshots-dot" data-index="{{ $index }}" aria-label="Ir a imagen {{ add $index 1 }}"></button>
-      {{ end }}
+    <div class="screenshots-dots mt-6 flex justify-center gap-2" role="tablist" aria-label="{{ T "screenshots.title" }}">
+      {{- range $index, $ss := $shots }}
+      <button type="button" role="tab" data-shots-dot="{{ $index }}"
+        aria-label="{{ T "screenshots.goTo" (dict "Number" (add $index 1)) }}"
+        class="h-2.5 w-2.5 rounded-full transition-colors {{ if eq $index 0 }}bg-primary{{ else }}bg-ui-border hover:bg-primary{{ end }}"></button>
+      {{- end }}
     </div>
   </div>
 </section>
 
 <script>
-(function() {
-  const container = document.querySelector('.screenshots-track');
-  if (!container) return;
-  const section = container.closest('section');
-  const dots = section.querySelectorAll('.screenshots-dot');
-  const prev = section.querySelector('.screenshots-prev');
-  const next = section.querySelector('.screenshots-next');
+(function () {
+  var track = document.querySelector('.screenshots-track');
+  if (!track) return;
 
-  const updateActive = () => {
-    const children = container.querySelectorAll('.snap-center');
-    let activeIdx = 0;
-    const containerRect = container.getBoundingClientRect();
-    children.forEach((child, i) => {
-      const rect = child.getBoundingClientRect();
-      child.classList.toggle('active', rect.left <= containerRect.left + 100 && rect.right > containerRect.left + 100);
-      if (rect.left <= containerRect.left + 50 && rect.right > containerRect.left + 50) {
-        activeIdx = i;
-      }
+  var slots = Array.prototype.slice.call(track.querySelectorAll('[data-shot]'));
+  var prev = document.querySelector('.screenshots-prev');
+  var next = document.querySelector('.screenshots-next');
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.screenshots-dot, [data-shots-dot]'));
+
+  /* Load each screenshot, or draw the placeholder in its place. The label is
+     read from the DOM rather than hardcoded, so it follows the language of the
+     page without this script knowing anything about languages. */
+  slots.forEach(function (slot) {
+    var src = slot.getAttribute('data-src');
+    var label = slot.getAttribute('data-label') || '';
+    var img = new Image();
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.alt = slot.getAttribute('data-alt') || '';
+    img.className = 'h-full w-full object-cover';
+    img.addEventListener('load', function () { slot.textContent = ''; slot.appendChild(img); });
+    img.addEventListener('error', function () {
+      slot.innerHTML = '';
+      var wrap = document.createElement('div');
+      wrap.className = 'flex h-full w-full items-center justify-center bg-gradient-to-br from-secondary/10 to-primary/10';
+      var box = document.createElement('div');
+      box.className = 'text-center text-tx-muted';
+      var icon = document.createElement('i');
+      icon.className = 'fa-solid fa-image mb-2 block text-4xl';
+      var text = document.createElement('span');
+      text.textContent = label;
+      box.appendChild(icon);
+      box.appendChild(text);
+      wrap.appendChild(box);
+      slot.appendChild(wrap);
     });
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('bg-primary', i === activeIdx);
-      dot.classList.toggle('bg-ui-border', i !== activeIdx);
+    img.src = src;
+  });
+
+  function card() {
+    return track.querySelector('.snap-center');
+  }
+
+  function activeIndex() {
+    var edge = track.getBoundingClientRect().left + 60;
+    var found = 0;
+    slots.forEach(function (slot, i) {
+      var r = slot.getBoundingClientRect();
+      if (r.left <= edge && r.right > edge) found = i;
     });
-  };
+    return found;
+  }
 
-  container.addEventListener('scroll', updateActive);
-  updateActive();
+  function paint() {
+    var active = activeIndex();
+    dots.forEach(function (dot, i) {
+      var on = i === active;
+      dot.classList.toggle('bg-primary', on);
+      dot.classList.toggle('bg-ui-border', !on);
+      dot.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
 
-  if (prev) prev.addEventListener('click', () => {
-    const child = container.querySelector('.snap-center');
-    if (child) container.scrollBy({ left: -(child.offsetWidth + 24), behavior: 'smooth' });
+  track.addEventListener('scroll', paint, { passive: true });
+  window.addEventListener('resize', paint);
+  paint();
+
+  function step(dir) {
+    var c = card();
+    if (!c) return;
+    track.scrollBy({ left: dir * (c.offsetWidth + 24), behavior: 'smooth' });
+  }
+  if (prev) prev.addEventListener('click', function () { step(-1); });
+  if (next) next.addEventListener('click', function () { step(1); });
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      var i = parseInt(dot.getAttribute('data-shots-dot'), 10);
+      if (slots[i]) slots[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
   });
-  if (next) next.addEventListener('click', () => {
-    const child = container.querySelector('.snap-center');
-    if (child) container.scrollBy({ left: child.offsetWidth + 24, behavior: 'smooth' });
+
+  /* Keyboard: the track is horizontally scrollable, so it needs arrow-key
+     handling to be reachable without a pointer. */
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
   });
-  dots.forEach(dot => dot.addEventListener('click', function() {
-    const i = parseInt(this.dataset.index);
-    const child = container.querySelectorAll('.snap-center')[i];
-    if (child) child.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  }));
 })();
 </script>
-{{ end }}
+{{- end -}}

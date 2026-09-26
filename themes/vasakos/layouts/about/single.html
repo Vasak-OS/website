@@ -20,10 +20,10 @@
     {{ end }}
 
     <div class="mt-10 flex flex-wrap justify-center gap-3">
-      <a href="/state/" class="rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">Estado del proyecto</a>
+      <a href="{{ "/state/" | relLangURL }}" class="rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">{{ T "home.state" }}</a>
       <a href="https://github.com/Vasak-OS" rel="noopener" target="_blank"
         class="rounded-corner border border-primary px-6 py-3 font-semibold text-primary hover:bg-primary hover:text-white">
-        <i class="fa-brands fa-github" aria-hidden="true"></i> Código fuente
+        <i class="fa-brands fa-github" aria-hidden="true"></i> {{ T "about.sourceCode" }}
       </a>
     </div>
   </div>
@@ -31,51 +31,48 @@
 
 {{/* Three use cases. The markup is the same block three times, so it is a range
      over a list instead of three hand-maintained copies — one of which had a
-     stray attribute on a closing tag. */}}
+     stray attribute on a closing tag.
+
+     Every string comes from i18n under `about.case.<id>`. They used to be
+     Spanish literals in this file, which meant the English page described what
+     the three uses were in Spanish. The image stays here: it does not change
+     with the language, and the `img` it points at is in `params.yaml` under
+     `images.aboutPage`. */}}
 {{- $cases := slice
-  (dict "tag" "DOMÉSTICO" "title" "Usá VasakOS en tu casa" "img" "/img/features/home.svg"
-    "alt" "Ilustración de una casa con dispositivos conectados"
-    "intro" "El ecosistema de GNU/Linux y <code>pacman</code> ponen a mano casi todo lo que se usa a diario en un equipo familiar."
-    "items" (slice
-      "Los navegadores de siempre —Firefox, Chrome, Vivaldi, Brave— con soporte para servicios de streaming."
-      "Steam con miles de juegos nativos y Proton para el resto, además de Lutris, Heroic y otras tiendas."
-      "Reproducción y edición multimedia: VLC, MPV, GIMP, Krita, Kdenlive, Audacity, OBS."))
-  (dict "tag" "ESTUDIANTIL" "title" "Usá VasakOS para estudiar" "img" "/img/features/study.svg"
-    "alt" "Ilustración de una persona estudiando frente a una computadora"
-    "intro" "Todo lo que hace falta para cursar, leer y entregar trabajos, sin licencias que pagar."
-    "items" (slice
-      "Suites de ofimática completas: LibreOffice, OnlyOffice o WPS si necesitás compatibilidad estricta con MS Office."
-      "Lectores para PDF, EPUB, DjVu y formatos de apuntes, más herramientas de anotación."
-      "Videoconferencia y trabajo en grupo: Zoom, Teams, Discord, Jitsi y Nextcloud."))
-  (dict "tag" "LABORAL" "title" "Usá VasakOS para trabajar" "img" "/img/features/work.svg"
-    "alt" "Ilustración de un escritorio de trabajo con herramientas"
-    "intro" "Arch Linux es una base habitual en desarrollo justamente por lo rápido que llegan las versiones nuevas de las herramientas."
-    "items" (slice
-      "IDEs y editores actualizados al día: VS Code, JetBrains, Neovim, Zed."
-      "Toolchains de cualquier lenguaje, contenedores con Docker y Podman, y máquinas virtuales con libvirt."
-      "Compatibilidad con el software empresarial que ya corre sobre GNU/Linux."))
+  (dict "id" "home" "img" site.Params.images.aboutPage.home "code" "pacman")
+  (dict "id" "study" "img" site.Params.images.aboutPage.study)
+  (dict "id" "work" "img" site.Params.images.aboutPage.work)
 -}}
 
 {{- range $i, $case := $cases }}
+{{- $key := printf "about.case.%s" $case.id }}
 <div class="relative flex flex-col justify-center overflow-hidden py-20 {{ if eq (mod $i 2) 1 }}bg-ui-bg/80{{ end }}">
   <div class="mx-auto w-full max-w-screen-xl items-center">
     <div class="group grid w-full grid-cols-1 md:grid-cols-2">
       <div class="relative flex flex-col items-end overflow-hidden px-16 md:pr-0 {{ if eq (mod $i 2) 1 }}order-first{{ end }}">
         <div
           class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-corner bg-gradient-to-br from-secondary/60 to-primary/60 px-12 py-14 backdrop-blur-md">
-          <span class="mb-10 block font-bold text-gray-100">{{ $case.tag }}</span>
-          <h2 class="text-3xl font-bold text-white">{{ $case.title }}</h2>
+          <span class="mb-10 block font-bold text-gray-100">{{ T (printf "%s.tag" $key) }}</span>
+          <h2 class="text-3xl font-bold text-white">{{ T (printf "%s.title" $key) }}</h2>
         </div>
         <div class="mb-8 mt-2 h-7"></div>
         <div class="overflow-hidden rounded-corner">
-          <img src="{{ $case.img }}" width="640" height="480" loading="lazy" decoding="async" alt="{{ $case.alt }}" />
+          <img src="{{ $case.img }}" width="640" height="480" loading="lazy" decoding="async" alt="{{ T (printf "%s.alt" $key) }}" />
         </div>
       </div>
       <div class="flex flex-col justify-center {{ if eq (mod $i 2) 1 }}order-last md:order-first{{ end }}">
         <div class="px-12 md:pr-0">
-          <p class="mb-6 text-gray-600 dark:text-gray-200">{{ $case.intro | safeHTML }}</p>
+          {{/* Sólo el intro de "home" nombra un comando, y es el único con un
+               hueco `{{ .Tool }}`. Pasarle el diccionario a los otros dos
+               —que no lo tienen— no molesta: Hugo simplemente ignora las claves
+               que la plantilla no usa. */}}
+          {{- $intro := T (printf "%s.intro" $key) (dict "Tool" (printf "<code>%s</code>" ($case.code | default ""))) -}}
+          <p class="mb-6 text-gray-600 dark:text-gray-200">{{ $intro | safeHTML }}</p>
           <ul role="list" class="list-disc space-y-3 pl-5 text-gray-500 marker:text-primary">
-            {{ range $case.items }}<li>{{ . }}</li>{{ end }}
+            {{- range seq 1 3 }}
+            {{- $item := T (printf "%s.items.i%d" $key .) }}
+            {{- if $item }}<li>{{ $item }}</li>{{ end }}
+            {{- end }}
           </ul>
         </div>
       </div>
@@ -86,18 +83,18 @@
 
 <section class="px-4 py-16">
   <div class="mx-auto max-w-4xl rounded-corner bg-ui-bg/80 p-8 text-center">
-    <h2 class="text-2xl font-bold text-tx-main">Quién está detrás</h2>
+    <h2 class="text-2xl font-bold text-tx-main">{{ T "about.behindTitle" }}</h2>
     <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
-      VasakOS lo desarrolla <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-primary underline">Vasak Group</a>
-      junto a la comunidad. El proyecto es miembro de la
-      <a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="text-primary underline">Open Invention Network</a>,
-      la alianza de defensa de patentes del ecosistema Linux.
+      {{ T "about.behindP1" (dict
+        "Group" `<a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-primary underline">Vasak Group</a>`
+        "Network" `<a href="https://openinventionnetwork.com/" rel="noopener" target="_blank" class="text-primary underline">Open Invention Network</a>`
+      ) | safeHTML }}
     </p>
     <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
-      Todo el código es público y está bajo licencia GPL-3.0. Las decisiones, los issues y el
-      historial de cada componente se pueden leer en
-      <a href="https://github.com/Vasak-OS" rel="noopener" target="_blank" class="text-primary underline">GitHub</a>,
-      y lo que viene está en el <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-primary underline">roadmap público</a>.
+      {{ T "about.behindP2" (dict
+        "Code" `<a href="https://github.com/Vasak-OS" rel="noopener" target="_blank" class="text-primary underline">GitHub</a>`
+        "Roadmap" (printf `<a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-primary underline">%s</a>` (T "about.roadmapLink"))
+      ) | safeHTML }}
     </p>
   </div>
 </section>
