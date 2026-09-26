@@ -17,48 +17,39 @@ tags:
 img: "/img/posts/donate.svg"
 description: "Ayuda a sostener y mejorar VasakOS con total transparencia sobre el destino de los fondos."
 
+# La prosa de este bloque no está acá: sale de i18n por el `id` de cada
+# elemento, igual que los componentes en `data/components.yml`. Quedarse con
+# los textos en el front matter hacía que la página en inglés mostrara
+# "Infraestructura, desarrollo y calidad de la distribucion" como si fuera el
+# idioma de quien la lee. Acá queda la estructura: el orden, las direcciones, los
+# importes y las URLs, que son los mismos en los dos idiomas.
 donations:
-  subtitle: "Cada aporte se reinvierte en el crecimiento del proyecto"
-  status: "Proyecto comunitario"
   monthly_goal: "USD $250"
-  current_focus: "Infraestructura, desarrollo y calidad de la distribucion"
   usage:
-    - title: "Mejoras de la distro"
-      detail: "Desarrollo de nuevas funciones, correcciones de errores y pruebas de estabilidad."
-    - title: "Equipamiento para desarrollo"
-      detail: "Compra o renovacion de hardware para compilar, probar y depurar en mas escenarios."
-    - title: "Infraestructura y servicios"
-      detail: "Hosting, servidores, dominios, CI/CD y servicios para proveer una experiencia mas confiable."
+    - id: distro
+    - id: hardware
+    - id: infra
   infra:
-    - item: "Hosting web y recursos de descarga"
-      priority: "Alta"
-    - item: "Servidores para build y distribucion"
-      priority: "Alta"
-    - item: "Servicios complementarios para comunidad"
-      priority: "Media"
+    - id: hosting
+    - id: build
+    - id: community
   transparency:
-    - "Priorizamos gastos que impacten directamente en estabilidad, rendimiento y soporte."
-    - "Publicamos cambios importantes y avances en canales oficiales del proyecto."
-    - "Los aportes no se usan para fines ajenos al desarrollo y sostenimiento de VasakOS."
+    - id: stability
+    - id: channels
+    - id: purpose
   methods:
-    - name: "Ko-fi"
+    - id: kofi
       url: "https://ko-fi.com/vasakos"
-      note: "Aporte rapido con tarjeta o medios disponibles en tu region."
-    - name: "Mercado Pago"
+    - id: mercadopago
       url: "https://link.mercadopago.com.ar/joaquindecima"
-      note: "Tarjeta, dinero en cuenta o transferencia, desde Argentina."
-    - name: "PayPal"
+    - id: paypal
       url: "https://paypal.me/joaquindecima"
-      note: "Tarjeta o saldo de PayPal, desde cualquier pais."
-    - name: "Lemon"
+    - id: lemon
       address: "$patojad"
-      note: "Desde la app de Lemon, al $lemontag."
-    - name: "Ethereum (ETH o USDT)"
+    - id: ethereum
       address: "0xF3f0B0CdaF01C68E4D64c2Ad3A703aBe252278EB"
-      note: "Solo por la red Ethereum (ERC-20). Enviado por otra red, se pierde."
-    - name: "Bitcoin"
+    - id: bitcoin
       address: "bc1qjedvfvz6h9d0rjp2mz70y90mylpx8hr52fcmsp"
-      note: "On-chain (SegWit nativo). No Lightning."
   community_url: "https://t.me/VasakOS"
   issues_url: "https://github.com/Vasak-OS"
   kofi_embed: "https://ko-fi.com/vasakos/?hidefeed=true&widget=true&embed=true&preview=true"
