@@ -1,5 +1,68 @@
 description: "VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto."
 
+# Rutas de imagen del sitio.
+#
+# La home y las secciones de la portada las referencian desde acá; la seccion
+# de capturas, ademas, usa la lista `screenshots` de mas abajo. Las imagenes
+# viven en `themes/vasakos/static/img/`, asi que estas rutas son relativas a la
+# raiz del sitio.
+#
+# `hero.*` ya no lo lee ninguna plantilla de la portada: la home genera sus
+# derivados WebP desde `assets/img/hero.jpg` con `resources.Resize` (ver
+# `partials/sections/hero.html`), que es la unica forma de que el navegador
+# pueda elegir tamaño. Queda solo la imagen para Open Graph.
+images:
+  # Marca
+  logo: /img/logo.svg
+  favicon: /img/icon.svg
+  logoOg: https://os.vasak.net.ar/img/logo.svg
+
+  # Portada
+  hero:
+    og: /img/hero-fullscreen-bg.jpg
+
+  # Secciones de la portada
+  cta: /img/community.svg
+  about: /img/about.svg
+
+  # Bloques de la seccion "features"
+  features:
+    openSource: /img/features/git.svg
+    responsible: /img/features/balanced.svg
+
+  # Pagina "Sobre"
+  aboutPage:
+    home: /img/features/home.svg
+    study: /img/features/study.svg
+    work: /img/features/work.svg
+
+  # Imagen por defecto de una publicacion, segun la clase de contenido.
+  posts:
+    news: /img/posts/news.svg
+    donate: /img/posts/donate.svg
+    download: /img/posts/download.svg
+    terms: /img/posts/terms.svg
+    policy: /img/posts/policy.svg
+
+  # Galeria de capturas de la portada.
+  #
+  # Las imagenes todavia no estan: la plantilla dibuja un marcador en el lugar de
+  # cada una mientras falten, que es preferible a una galeria de iconos rotos.
+  # Los textos van por clave de traduccion (`screenshots.<identifier>.alt`), no
+  # traducidos aca, para que no haya dos lugares que mantener.
+  screenshots:
+    enabled: true
+    main:
+      - identifier: desktop
+        image: /img/screenshots/desktop.jpg
+        weight: 1
+      - identifier: apps
+        image: /img/screenshots/apps.jpg
+        weight: 2
+      - identifier: terminal
+        image: /img/screenshots/terminal.jpg
+        weight: 3
+
 analytics:
   ga4: "G-5MYT335WZK"
 

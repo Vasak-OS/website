@@ -1,9 +1,44 @@
-<!-- Breadcrumbs Navigation Component -->
+{{/* Breadcrumbs Navigation Component with JSON-LD */}}
+{{$relPermalink := .RelPermalink }}
+{{$siteBaseURL := .Site.BaseURL }}
+{{$parts := split (strings.TrimPrefix "/" $relPermalink) "/" }}
+{{$count := len $parts }}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ $siteBaseURL }}"
+    }
+    {{- $pos := 2 }}
+    {{- $cumulativeUrl := "" }}
+    {{- range $index, $part := $parts }}
+    {{- if and (ne $part "") (ne $part "index.html") (lt $index (sub $count 1)) }}
+    {{- $cumulativeUrl = printf "%s%s/" $cumulativeUrl $part }}
+    {{- $fullUrl := printf "%s%s" $siteBaseURL (strings.TrimSuffix "/" $cumulativeUrl) }}
+    ,{
+      "@type": "ListItem",
+      "position": {{ $pos }},
+      "name": "{{ humanize $part }}",
+      "item": "{{ $fullUrl }}/"
+    }
+    {{- $pos = add $pos 1 }}
+    {{- end }}
+    {{- end }}
+  ]
+}
+</script>
+
 <nav class="breadcrumbs-container mb-6" aria-label="Breadcrumb">
     <ul class="flex flex-wrap items-center gap-0 text-ms">
         {{/* Home Link */}}
         <li class="flex items-center">
-            <a href="{{ .Site.BaseURL }}"
+            <a href="{{ $siteBaseURL }}"
                 class="inline-flex items-center gap-1.5 px-3 py-2 rounded-corner transition-all duration-200 hover:text-primary"
                 title="Go to home page">
                 <i class="fa-solid fa-house text-sm"></i>
@@ -12,11 +47,6 @@
         </li>
 
         {{/* Section Links */}}
-        {{$relPermalink := .RelPermalink }}
-        {{$siteBaseURL := .Site.BaseURL }}
-        {{$parts := split (strings.TrimPrefix "/" $relPermalink) "/" }}
-        {{$count := len $parts }}
-
         {{range $index, $part := $parts}}
         {{if and (ne $part "") (ne $part "index.html") (lt $index (sub $count 1))}}
         {{/* Separator */}}
@@ -63,7 +93,6 @@
                      bg-gradient-to-r from-secondary to-primary
                      text-white font-medium
                      shadow-md dark:shadow-lg" aria-current="page">
-                {{/* Icon based on section */}}
                 {{if in $relPermalink "/docs/"}}
                 <i class="fa-solid fa-book text-sm"></i>
                 {{else if in $relPermalink "/blog/"}}

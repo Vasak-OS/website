@@ -51,6 +51,7 @@
 
   <link rel="icon" href="/img/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/img/icon.svg" />
+  <link rel="manifest" href="{{ "manifest.webmanifest" | relURL }}" />
   <meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)" />
 
@@ -58,6 +59,23 @@
        the pages that actually answer a query. */}}
   {{- if or (eq .Kind "taxonomy") (eq .Kind "term") }}
   <meta name="robots" content="noindex, follow" />
+  {{- end }}
+
+  {{/* The hero picture is the home page's LCP element. Telling the browser to
+       start fetching it in the <head> buys the time that used to be lost
+       discovering the <picture> in the body. Same resource pipeline
+       hero.html uses, so the preloaded bytes are the bytes it will pick. */}}
+  {{- if .IsHome }}
+    {{- with resources.Get "img/hero.jpg" }}
+      {{- $preload := slice
+            (.Resize "1024x webp q72")
+            (.Resize "1920x webp q72") }}
+      {{- $srcset := (delimit (apply $preload "slice" "." "RelPermalink") ", ") }}
+  <link rel="preload" as="image" type="image/webp" imagesrcset="{{ $srcset }} 1024w, {{ $srcset }} 1920w" fetchpriority="high" />
+      {{- with (.Resize "1600x jpg q78") }}
+  <link rel="preload" as="image" type="image/jpeg" href="{{ .RelPermalink }}" fetchpriority="high" />
+      {{- end }}
+    {{- end }}
   {{- end }}
 
   {{/* Inline and blocking on purpose: the theme class has to be on <html>

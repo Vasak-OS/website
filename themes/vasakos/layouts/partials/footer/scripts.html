@@ -62,3 +62,16 @@
   gtag('config', '{{ site.Params.analytics.ga4 }}', { anonymize_ip: true });
 </script>
 {{- end }}
+
+{{/* Service worker: makes the site installable and usable offline.
+     Registered only over HTTPS — on a plain-HTTP preview the browser rejects it
+     and logs an error that says nothing useful. */}}
+{{- if and (not hugo.IsDevelopment) (or (strings.HasPrefix site.BaseURL "https://") hugo.IsServer) }}
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(function () {});
+    });
+  }
+</script>
+{{- end }}

@@ -1,0 +1,97 @@
+{{ $screenshots := where (.Site.Params.images.screenshots.main) "image" "ne" nil }}
+{{ if and .Site.Params.images.screenshots.enabled $screenshots }}
+<section class="relative flex flex-col justify-center overflow-hidden py-20 bg-ui-bg/80">
+  <div class="w-full items-center mx-auto max-w-screen-xl px-4">
+    <div class="text-center mb-12">
+      <span class="text-sm font-semibold text-primary uppercase tracking-wider">Galería</span>
+      <h2 class="text-3xl font-bold text-tx-main mt-2">Capturas de pantalla</h2>
+      <p class="text-tx-muted mt-2">Conocé cómo se ve Vasak OS</p>
+    </div>
+
+    <div class="relative">
+      <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 screenshots-track">
+        {{ range $index, $ss := $screenshots }}
+        <div class="snap-center shrink-0 first:pl-4 last:pr-4">
+          <div class="w-[85vw] max-w-3xl rounded-corner overflow-hidden shadow-xl border border-ui-border bg-ui-surface">
+            <picture>
+              {{ $ext := path.Ext $ss.image }}
+              {{ $webp := replace $ss.image $ext ".webp" }}
+              {{ if ne $ext ".webp" }}
+              <source srcset="{{ $webp }}" type="image/webp" />
+              {{ end }}
+              <img src="{{ $ss.image }}" alt="{{ $ss.alt | default "Vasak OS screenshot" }}"
+                loading="lazy" decoding="async"
+                class="w-full h-auto object-cover aspect-video"
+                onerror="this.parentElement.innerHTML='<div class=\'flex items-center justify-center aspect-video bg-gradient-to-br from-secondary/10 to-primary/10 text-tx-muted\'><div class=\'text-center\'><em class=\'fas fa-image text-4xl mb-2 block\'></em><span>Captura próximamente</span></div></div>'" />
+            </picture>
+            {{ if $ss.caption }}
+            <div class="p-4 text-center text-sm text-tx-muted">
+              {{ $ss.caption }}
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+
+      <button class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-ui-bg/80 backdrop-blur-sm shadow-lg hidden md:flex items-center justify-center text-tx-main hover:text-primary transition-colors screenshots-prev" aria-label="Anterior">
+        <em class="fas fa-chevron-left"></em>
+      </button>
+      <button class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-ui-bg/80 backdrop-blur-sm shadow-lg hidden md:flex items-center justify-center text-tx-main hover:text-primary transition-colors screenshots-next" aria-label="Siguiente">
+        <em class="fas fa-chevron-right"></em>
+      </button>
+    </div>
+
+    <div class="flex justify-center gap-2 mt-6 screenshots-dots">
+      {{ range $index, $ss := $screenshots }}
+      <button class="w-2.5 h-2.5 rounded-full bg-ui-border hover:bg-primary transition-all screenshots-dot" data-index="{{ $index }}" aria-label="Ir a imagen {{ add $index 1 }}"></button>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const container = document.querySelector('.screenshots-track');
+  if (!container) return;
+  const section = container.closest('section');
+  const dots = section.querySelectorAll('.screenshots-dot');
+  const prev = section.querySelector('.screenshots-prev');
+  const next = section.querySelector('.screenshots-next');
+
+  const updateActive = () => {
+    const children = container.querySelectorAll('.snap-center');
+    let activeIdx = 0;
+    const containerRect = container.getBoundingClientRect();
+    children.forEach((child, i) => {
+      const rect = child.getBoundingClientRect();
+      child.classList.toggle('active', rect.left <= containerRect.left + 100 && rect.right > containerRect.left + 100);
+      if (rect.left <= containerRect.left + 50 && rect.right > containerRect.left + 50) {
+        activeIdx = i;
+      }
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('bg-primary', i === activeIdx);
+      dot.classList.toggle('bg-ui-border', i !== activeIdx);
+    });
+  };
+
+  container.addEventListener('scroll', updateActive);
+  updateActive();
+
+  if (prev) prev.addEventListener('click', () => {
+    const child = container.querySelector('.snap-center');
+    if (child) container.scrollBy({ left: -(child.offsetWidth + 24), behavior: 'smooth' });
+  });
+  if (next) next.addEventListener('click', () => {
+    const child = container.querySelector('.snap-center');
+    if (child) container.scrollBy({ left: child.offsetWidth + 24, behavior: 'smooth' });
+  });
+  dots.forEach(dot => dot.addEventListener('click', function() {
+    const i = parseInt(this.dataset.index);
+    const child = container.querySelectorAll('.snap-center')[i];
+    if (child) child.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }));
+})();
+</script>
+{{ end }}
