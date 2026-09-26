@@ -71,7 +71,7 @@ rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 ### Configuración Recomendada del IDE
 
-Ver [Iniciar Proyecto](setup-proyecto.md) en la sección de IDE.
+Ver [Iniciar Proyecto](/docs/devs/vasak-desktop/setup-project/) en la sección de IDE.
 
 ### Verificación Final
 
