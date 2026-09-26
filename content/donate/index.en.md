@@ -2,17 +2,13 @@
 Title: "Donate"
 tags:
   [
-    donar,
-    donaciones,
-    colaborar,
-    ayudar,
-    vasak,
-    vasakos,
-    vasak donatcion,
     donate,
     donations,
-    donadores,
-    donators,
+    donations vasak,
+    vasak,
+    vasakos,
+    support vasakos,
+    donors,
   ]
 img: "/img/posts/donate.svg"
 description: "Help sustain and improve VasakOS, with complete transparency about where the money goes."
