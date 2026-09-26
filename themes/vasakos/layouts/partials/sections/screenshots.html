@@ -1,17 +1,17 @@
 {{/*
   Screenshot gallery.
 
-  The images are not there yet — `img/screenshots/` holds a `.gitkeep` and
-  nothing else — so every entry falls through to the placeholder below it. That
-  is the honest state of it, and a placeholder that says "coming soon" is
-  better than a gallery of broken image icons.
+  The images live in `static/`, so Hugo cannot resize them and cannot know
+  whether a `.webp` sibling exists. Each entry names its `.jpg` and the
+  `<picture>` below is built on that one assumption: a `.webp` of the same name
+  sits next to it. A `<source>` pointing at a `.webp` that was never generated
+  is exactly the bug this had once — a browser that supports WebP would prefer
+  it and then show nothing. `scripts/optimize-images.mjs` writes both files
+  together for that reason.
 
-  What the images will be when they arrive: they live in `static/`, so Hugo
-  cannot resize them and cannot know whether a `.webp` sibling exists. The
-  markup therefore does not guess: a `<source>` pointing at a `.webp` that was
-  never generated is exactly the bug the WIP had, and a browser that supports
-  WebP would prefer it and then show nothing. If a `.webp` shows up next to the
-  `.jpg`, the `<picture>` is the place to add it.
+  The markup is a real `<img>`, not something a script injects: these are the
+  pictures of the product, and a visitor without JavaScript — or a crawler —
+  should still see them. The script below is only the carousel.
 */}}
 {{- $cfg := site.Params.images.screenshots | default dict -}}
 {{- $shots := slice -}}
@@ -41,17 +41,19 @@
         {{- $key := printf "screenshots.%s" $ss.identifier }}
         {{- $alt := T (printf "%s.alt" $key) | default (T "screenshots.defaultAlt") }}
         {{- $caption := T (printf "%s.caption" $key) }}
+        {{- $stem := strings.TrimSuffix ".jpg" $ss.image }}
         <figure class="snap-center w-[85vw] max-w-3xl shrink-0 first:pl-4 last:pr-4">
           <div class="relative aspect-video w-full overflow-hidden rounded-corner border border-ui-border bg-ui-surface shadow-xl"
-            data-shot
-            data-src="{{ $ss.image }}"
-            data-label="{{ T "screenshots.pending" }}">
-            {{/* The <img> is added by the script below rather than rendered here:
-                 the gallery does not exist until the images do, and an <img>
-                 that 404s is a console error and a wasted request per slot. The
-                 script checks each one and drops in the placeholder if it is
-                 missing, which also means adding a screenshot later needs no
-                 template change. */}}
+            data-shot>
+            {{/* The intrinsic size is declared so the browser reserves the box
+                 before the image arrives. Without it every card jumps as the
+                 gallery loads. */ -}}
+            <picture>
+              <source srcset="{{ $stem }}.webp" type="image/webp">
+              <img src="{{ $ss.image }}" alt="{{ $alt }}"
+                width="{{ $ss.width | default 1920 }}" height="{{ $ss.height | default 1045 }}"
+                loading="lazy" decoding="async" class="h-full w-full object-cover">
+            </picture>
           </div>
           {{- with $caption }}
           <figcaption class="p-4 text-center text-sm text-tx-muted">{{ . }}</figcaption>
@@ -92,35 +94,9 @@
   var next = document.querySelector('.screenshots-next');
   var dots = Array.prototype.slice.call(document.querySelectorAll('.screenshots-dot, [data-shots-dot]'));
 
-  /* Load each screenshot, or draw the placeholder in its place. The label is
-     read from the DOM rather than hardcoded, so it follows the language of the
-     page without this script knowing anything about languages. */
-  slots.forEach(function (slot) {
-    var src = slot.getAttribute('data-src');
-    var label = slot.getAttribute('data-label') || '';
-    var img = new Image();
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    img.alt = slot.getAttribute('data-alt') || '';
-    img.className = 'h-full w-full object-cover';
-    img.addEventListener('load', function () { slot.textContent = ''; slot.appendChild(img); });
-    img.addEventListener('error', function () {
-      slot.innerHTML = '';
-      var wrap = document.createElement('div');
-      wrap.className = 'flex h-full w-full items-center justify-center bg-gradient-to-br from-secondary/10 to-primary/10';
-      var box = document.createElement('div');
-      box.className = 'text-center text-tx-muted';
-      var icon = document.createElement('i');
-      icon.className = 'fa-solid fa-image mb-2 block text-4xl';
-      var text = document.createElement('span');
-      text.textContent = label;
-      box.appendChild(icon);
-      box.appendChild(text);
-      wrap.appendChild(box);
-      slot.appendChild(wrap);
-    });
-    img.src = src;
-  });
+  /* The carousel only. Loading the images and falling back to a placeholder
+     used to live here, back when the gallery pointed at files that were not
+     there yet; the markup renders the images now. */
 
   function card() {
     return track.querySelector('.snap-center');

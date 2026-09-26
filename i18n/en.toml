@@ -200,17 +200,22 @@
   previous = "Previous"
   next = "Next"
   goTo = "Go to image {{ .Number }}"
-  pending = "Screenshot coming soon"
   defaultAlt = "VasakOS screenshot"
-  [screenshots.desktop]
-    alt = "The VasakOS desktop"
-    caption = "The main desktop, with native applications"
-  [screenshots.apps]
-    alt = "VasakOS applications"
-    caption = "The application centre and the system tools"
-  [screenshots.terminal]
-    alt = "The VasakOS terminal"
-    caption = "A terminal themed to match the system"
+  [screenshots.shot01]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot02]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot03]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot04]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot05]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
 
 [footer]
   softwareDev = "Software development"

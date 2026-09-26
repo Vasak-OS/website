@@ -204,17 +204,22 @@
   previous = "Anterior"
   next = "Siguiente"
   goTo = "Ir a la imagen {{ .Number }}"
-  pending = "Captura próximamente"
   defaultAlt = "Captura de pantalla de VasakOS"
-  [screenshots.desktop]
-    alt = "Escritorio de VasakOS"
-    caption = "Escritorio principal con aplicaciones nativas"
-  [screenshots.apps]
-    alt = "Aplicaciones de VasakOS"
-    caption = "Centro de aplicaciones y herramientas del sistema"
-  [screenshots.terminal]
-    alt = "Terminal de VasakOS"
-    caption = "Terminal personalizada con los colores del sistema"
+  [screenshots.shot01]
+    alt = "Captura de pantalla de VasakOS"
+    caption = "VasakOS en pantalla"
+  [screenshots.shot02]
+    alt = "Captura de pantalla de VasakOS"
+    caption = "VasakOS en pantalla"
+  [screenshots.shot03]
+    alt = "Captura de pantalla de VasakOS"
+    caption = "VasakOS en pantalla"
+  [screenshots.shot04]
+    alt = "Captura de pantalla de VasakOS"
+    caption = "VasakOS en pantalla"
+  [screenshots.shot05]
+    alt = "Captura de pantalla de VasakOS"
+    caption = "VasakOS en pantalla"
 
 [footer]
   softwareDev = "Desarrollo de Software"

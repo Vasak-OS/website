@@ -49,22 +49,31 @@ images:
     policy: /img/posts/policy.svg
   # Galeria de capturas de la portada.
   #
-  # Las imagenes todavia no estan: la plantilla dibuja un marcador en el lugar de
-  # cada una mientras falten, que es preferible a una galeria de iconos rotos.
-  # Los textos van por clave de traduccion (`screenshots.<identifier>.alt`), no
-  # traducidos aca, para que no haya dos lugares que mantener.
+  # Cada entrada trae el `.jpg` y la plantilla arma el `<picture>` con el
+  # `.webp` que va al lado, que es un quinto del peso. El `<picture>` no se
+  # adivina: si el `.webp` no esta, el navegador que lo prefiera se queda sin
+  # imagen. Por eso los dos archivos van juntos siempre.
+  #
+  # Los textos van por clave de traduccion (`screenshots.<identifier>.alt`),
+  # no traducidos aca, para que no haya dos lugares que mantener.
   screenshots:
     enabled: true
     main:
-      - identifier: desktop
-        image: /img/screenshots/desktop.jpg
+      - identifier: shot01
+        image: /img/screenshots/shot-01.jpg
         weight: 1
-      - identifier: apps
-        image: /img/screenshots/apps.jpg
+      - identifier: shot02
+        image: /img/screenshots/shot-02.jpg
         weight: 2
-      - identifier: terminal
-        image: /img/screenshots/terminal.jpg
+      - identifier: shot03
+        image: /img/screenshots/shot-03.jpg
         weight: 3
+      - identifier: shot04
+        image: /img/screenshots/shot-04.jpg
+        weight: 4
+      - identifier: shot05
+        image: /img/screenshots/shot-05.jpg
+        weight: 5
 
 analytics:
   ga4: "G-5MYT335WZK"
