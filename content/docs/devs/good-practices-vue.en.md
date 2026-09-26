@@ -1,7 +1,7 @@
 ---
 title: "Best practices [VueJS]"
 weight: 200
-aliases: ["/en/docs/devs/good-practices_vue/"]
+aliases: ["/docs/devs/good-practices_vue/"]
 ---
 
 A best practices guide for developing performant desktop applications with Vue.js 3 and

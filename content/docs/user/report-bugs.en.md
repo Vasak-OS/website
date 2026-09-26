@@ -2,7 +2,7 @@
 title: "How to report bugs"
 weight: 50
 description: "What information to include in a VasakOS bug report so that it can be reproduced and fixed."
-aliases: ["/en/docs/user/report-bugs/"]
+aliases: ["/docs/user/report-bugs/"]
 ---
 
 > **Is it a security problem?** Then this is not the page you are looking for. Do not

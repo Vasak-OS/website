@@ -2,7 +2,7 @@
 title: "Card | ListCard"
 weight: 40
 description: "The ListCard component of vue-libvasak: a card for list items in the VasakOS applications."
-aliases: ["/en/docs/devs/vue-libvasak/listcard/"]
+aliases: ["/docs/devs/vue-libvasak/listcard/"]
 ---
 
 # `ListCard`

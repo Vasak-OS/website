@@ -2,7 +2,7 @@
 title: "Seeing errors in real time"
 weight: 40
 description: "How to see VasakOS errors in real time with RUST_LOG, journalctl and the system tools."
-aliases: ["/en/docs/user/errores/"]
+aliases: ["/docs/user/errores/"]
 ---
 
 ## How to see errors in real time
