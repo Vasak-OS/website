@@ -103,7 +103,9 @@ groups:
         status: alpha
         repo: https://github.com/Vasak-OS/archiso
       - name: repositorio vasakos
-        version: "activo"
+        # No es un número de versión: lo que se publica es que el repositorio
+        # está en servicio. En inglés la columna Version decía "activo".
+        version: "active"
         status: stable
         repo: https://github.com/Vasak-OS/repository-script
       - name: vasakos-calamares
