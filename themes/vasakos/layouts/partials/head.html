@@ -23,8 +23,8 @@
 {{/* A taxonomy term page describes itself; page 2 of anything is not the same
      page as page 1 and must not claim the same title. */}}
 {{- if eq .Kind "term" -}}
-  {{- $title = printf "%s: %s | %s" (T "nav_docs.breadcrumb" | default "Etiqueta") .Title site.Title -}}
-  {{- $description = printf "Artículos y documentación de VasakOS sobre %s." .Title -}}
+  {{- $title = printf "%s: %s | %s" (T "nav_docs.breadcrumb") .Title site.Title -}}
+  {{- $description = T "head.termDescription" (dict "Term" .Title) -}}
 {{- end -}}
 {{/* .Paginator errors outright on a page kind that cannot paginate — and
      *calling* it is what creates the pager, so the home page is left out: its

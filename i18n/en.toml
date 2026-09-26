@@ -45,6 +45,9 @@
   label = "Breadcrumb"
   home = "Home"
 
+[head]
+  termDescription = "VasakOS articles and documentation about {{ .Term }}."
+
 [card]
   read = "Read"
 

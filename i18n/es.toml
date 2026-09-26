@@ -49,6 +49,9 @@
   label = "Ruta de navegación"
   home = "Inicio"
 
+[head]
+  termDescription = "Artículos y documentación de VasakOS sobre {{ .Term }}."
+
 [card]
   read = "Ver"
 
