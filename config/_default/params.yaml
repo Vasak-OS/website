@@ -49,10 +49,17 @@ images:
     policy: /img/posts/policy.svg
   # Galeria de capturas de la portada.
   #
-  # Cada entrada trae el `.jpg` y la plantilla arma el `<picture>` con el
-  # `.webp` que va al lado, que es un quinto del peso. El `<picture>` no se
-  # adivina: si el `.webp` no esta, el navegador que lo prefiera se queda sin
-  # imagen. Por eso los dos archivos van juntos siempre.
+  # Cada entrada declara el `.jpg` de la medida mas grande, que es el `src` de
+  # respaldo, y la lista de anchos del `srcset`. El navegador elige solo y cada
+  # pantalla carga el tamaño que le corresponde de 1 a 1; sin el `srcset`
+  # estaria reduciendo siempre la imagen grande, que es lo que se ve borroso.
+  #
+  # `width` y `height` son los de la imagen mas grande. El marco de la tarjeta
+  # toma esa misma proporcion, asi que no se recorta nada, y el navegador
+  # reserva la caja exacta antes de que llegue la imagen.
+  #
+  # `scripts/optimize-images.mjs` escribe cada ancho en `.webp` y `.jpg` juntos:
+  # el navegador elige la rama WebP sin comprobar que el archivo exista.
   #
   # Los textos van por clave de traduccion (`screenshots.<identifier>.alt`),
   # no traducidos aca, para que no haya dos lugares que mantener.
@@ -60,19 +67,34 @@ images:
     enabled: true
     main:
       - identifier: shot01
-        image: /img/screenshots/shot-01.jpg
+        image: /img/screenshots/shot-01-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536]
         weight: 1
       - identifier: shot02
-        image: /img/screenshots/shot-02.jpg
+        image: /img/screenshots/shot-02-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536]
         weight: 2
       - identifier: shot03
-        image: /img/screenshots/shot-03.jpg
+        image: /img/screenshots/shot-03-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536]
         weight: 3
       - identifier: shot04
-        image: /img/screenshots/shot-04.jpg
+        image: /img/screenshots/shot-04-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536]
         weight: 4
       - identifier: shot05
-        image: /img/screenshots/shot-05.jpg
+        image: /img/screenshots/shot-05-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536]
         weight: 5
 
 analytics:

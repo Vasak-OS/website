@@ -1,15 +1,17 @@
 /**
  * Prepara las capturas para la galería.
  *
- * La galería usa un `<picture>` con un `.webp` y un `.jpg` del mismo nombre: el
- * navegador que soporta WebP toma el primero y el resto toma el segundo. Ese
- * par tiene que existir siempre, así que este script escribe los dos juntos a
- * partir de un mismo original. Generar uno solo deja una rama del `<picture>`
- * apuntando a un archivo inexistente, y el navegador elige esa rama y no
- * muestra nada.
+ * La galería usa un `<picture>` con un `.webp` y un `.jpg` de cada ancho, más un
+ * `srcset` para que el navegador elija. Eso último es lo que evita que se vean
+ * borrosas: la tarjeta mide 768 px como mucho, así que una sola imagen de 1920
+ * la reduce el navegador y el reescalado se nota. Con 768 y 1536 cada pantalla
+ * carga el tamaño que le toca de 1 a 1.
  *
- * Los originales son PNG de 2560 px, unos 2,7 MB cada uno. A 1920 px en WebP
- * quedan en unos 130 KB: la portada pasa de 12,8 MB a 0,6 MB.
+ * El `.webp` y el `.jpg` de un mismo ancho se escriben siempre juntos: el
+ * navegador elige la rama WebP sin comprobar que el archivo exista, así que
+ * generar uno solo deja una rama del `<picture>` apuntando a la nada.
+ *
+ * Los originales son PNG de 2560 px, unos 2,7 MB cada uno.
  *
  *   node scripts/optimize-images.mjs            # convierte lo que falta
  *   node scripts/optimize-images.mjs --force    # rehace todo
@@ -22,15 +24,17 @@ import { join, extname, basename } from 'path';
 import { execFileSync } from 'child_process';
 
 const SOURCE_DIR = join(import.meta.dirname, '..', 'themes', 'vasakos', 'static', 'img', 'screenshots');
-const WIDTH = 1920;
+
+/** Anchos a generar. La tarjeta llega a 768 px, así que 1536 cubre 2x. */
+const WIDTHS = [768, 1536];
 const WEBP_QUALITY = 78;
 const JPEG_QUALITY = 82;
 
+/** Extensiones que se consideran originales. */
+const SOURCES = ['.png', '.PNG'];
+
 const force = process.argv.includes('--force');
 const check = process.argv.includes('--check');
-
-/** Extensiones que se consideran originales, y de las que sale el `.jpg`. */
-const SOURCES = ['.png', '.PNG'];
 
 function convert(input, output, args) {
   try {
@@ -57,13 +61,15 @@ let skipped = 0;
 
 for (const name of originals) {
   const stem = basename(name, extname(name));
-  const jpg = join(SOURCE_DIR, `${stem}.jpg`);
-  const webp = join(SOURCE_DIR, `${stem}.webp`);
+  const input = join(SOURCE_DIR, name);
 
-  const upToDate =
-    existsSync(jpg) && existsSync(webp) &&
-    statSync(jpg).mtimeMs >= statSync(join(SOURCE_DIR, name)).mtimeMs &&
-    statSync(webp).mtimeMs >= statSync(join(SOURCE_DIR, name)).mtimeMs;
+  const salidas = WIDTHS.flatMap((w) => [
+    { file: join(SOURCE_DIR, `${stem}-${w}.webp`), w, format: 'webp' },
+    { file: join(SOURCE_DIR, `${stem}-${w}.jpg`), w, format: 'jpg' },
+  ]);
+
+  const ready = salidas.every((s) => existsSync(s.file));
+  const upToDate = ready && salidas.every((s) => statSync(s.file).mtimeMs >= statSync(input).mtimeMs);
 
   if (upToDate && !force) {
     console.log(`· ${stem}: ya está`);
@@ -71,17 +77,21 @@ for (const name of originals) {
     continue;
   }
 
-  const input = join(SOURCE_DIR, name);
-  const okWebp = convert(input, webp, ['-resize', `${WIDTH}x`, '-quality', String(WEBP_QUALITY), '-define', 'webp:method=6']);
-  const okJpg = convert(input, jpg, ['-resize', `${WIDTH}x`, '-quality', String(JPEG_QUALITY), '-strip']);
+  for (const { file, w, format } of salidas) {
+    const args = format === 'webp'
+      ? ['-resize', `${w}x`, '-quality', String(WEBP_QUALITY), '-define', 'webp:method=6']
+      : ['-resize', `${w}x`, '-quality', String(JPEG_QUALITY), '-strip'];
 
-  if (!okWebp || !okJpg) {
-    console.error(`✗ ${stem}: falló la conversión (¿está ImageMagick en el PATH?)`);
-    process.exit(1);
+    if (!convert(input, file, args)) {
+      console.error(`✗ ${stem}: falló la conversión a ${w}px ${format} (¿está ImageMagick en el PATH?)`);
+      process.exit(1);
+    }
   }
 
-  const kb = (f) => Math.round(statSync(f).size / 1024);
-  console.log(`✓ ${stem}: webp ${kb(webp)} KB, jpg ${kb(jpg)} KB`);
+  const resumen = salidas
+    .map((s) => `${s.w}px ${s.format} ${Math.round(statSync(s.file).size / 1024)} KB`)
+    .join(', ');
+  console.log(`✓ ${stem}: ${resumen}`);
   converted++;
 
   if (!check) unlinkSync(input);

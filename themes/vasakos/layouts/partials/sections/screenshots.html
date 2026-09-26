@@ -41,18 +41,40 @@
         {{- $key := printf "screenshots.%s" $ss.identifier }}
         {{- $alt := T (printf "%s.alt" $key) | default (T "screenshots.defaultAlt") }}
         {{- $caption := T (printf "%s.caption" $key) }}
-        {{- $stem := strings.TrimSuffix ".jpg" $ss.image }}
+        {{- /* `image` trae el ancho pegado al final (`shot-01-1536.jpg`), y el
+               `srcset` lo necesita sin él: los archivos se llaman
+               `shot-01-768.webp`, no `shot-01-1536-768.webp`. */ -}}
+        {{- $stem := (strings.TrimSuffix ".jpg" $ss.image) | replaceRE `-\d+$` "" -}}
+        {{- $w := $ss.width | default 1536 }}
+        {{- $h := $ss.height | default 836 }}
+        {{- /* Un `srcset` por formato. La tarjeta no pasa de 768 px, así que sin
+               esto el navegador estaría reduciendo siempre la imagen grande, y
+               el reescalado es justo lo que se ve borroso. */ -}}
+        {{- $srcsetWebp := slice -}}
+        {{- $srcsetJpg := slice -}}
+        {{- range ($ss.srcset | default (slice 768 1536)) -}}
+          {{- $srcsetWebp = $srcsetWebp | append (printf "%s-%d.webp %dw" $stem . .) -}}
+          {{- $srcsetJpg = $srcsetJpg | append (printf "%s-%d.jpg %dw" $stem . .) -}}
+        {{- end -}}
         <figure class="snap-center w-[85vw] max-w-3xl shrink-0 first:pl-4 last:pr-4">
-          <div class="relative aspect-video w-full overflow-hidden rounded-corner border border-ui-border bg-ui-surface shadow-xl"
-            data-shot>
-            {{/* The intrinsic size is declared so the browser reserves the box
-                 before the image arrives. Without it every card jumps as the
-                 gallery loads. */ -}}
-            <picture>
-              <source srcset="{{ $stem }}.webp" type="image/webp">
-              <img src="{{ $ss.image }}" alt="{{ $alt }}"
-                width="{{ $ss.width | default 1920 }}" height="{{ $ss.height | default 1045 }}"
-                loading="lazy" decoding="async" class="h-full w-full object-cover">
+          <div class="relative w-full overflow-hidden rounded-corner border border-ui-border bg-ui-surface shadow-xl"
+            style="aspect-ratio: {{ $w }} / {{ $h }}" data-shot>
+            {{/* `picture` es inline por defecto, y un alto en porcentaje contra
+                 una caja inline da `auto`: eso anula en silencio `h-full` y
+                 `object-cover`, y la imagen queda sin cubrir el marco. Tiene que
+                 ser un bloque que llene el marco para que el `img` de adentro
+                 pueda llenarlo a su vez.
+
+                 El marco toma la proporción de la propia imagen, así que no se
+                 recorta ni se letterboxea, y el navegador reserva la caja exacta
+                 antes de que llegue la imagen. */ -}}
+            <picture class="block h-full w-full">
+              <source srcset="{{ delimit $srcsetWebp ", " }}" type="image/webp"
+                sizes="(min-width: 768px) 768px, 85vw">
+              <img src="{{ $ss.image }}" srcset="{{ delimit $srcsetJpg ", " }}"
+                sizes="(min-width: 768px) 768px, 85vw"
+                alt="{{ $alt }}" width="{{ $w }}" height="{{ $h }}"
+                loading="lazy" decoding="async" class="block h-full w-full object-cover">
             </picture>
           </div>
           {{- with $caption }}
