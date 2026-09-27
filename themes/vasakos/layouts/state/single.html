@@ -8,7 +8,7 @@
   <div class="mx-auto max-w-screen-xl">
 
     <header class="rounded-corner bg-ui-bg/80 p-8 text-center">
-      <p class="text-sm font-semibold uppercase tracking-wide text-primary">{{ T "state.eyebrow" }}</p>
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand-text">{{ T "state.eyebrow" }}</p>
       <h1 class="mt-2 text-4xl font-bold text-tx-main">{{ .Title }}</h1>
       <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
         {{ T "state.currentRelease" }}: <strong>{{ $release.release_name }}</strong> ({{ $release.version }}).
@@ -23,14 +23,25 @@
            corresponde: así el JS que consulta el repositorio en vivo sólo tiene
            que alternar `hidden`, sin construir clases que Tailwind nunca vio y
            por lo tanto nunca generó. */}}
+      {{/* El texto de estas dos pastillas va en `text-tx-main` y no en el color del
+           estado, por el mismo motivo que los badges de `data/components.yml`: el
+           tono es un valor medio sobre un tinte claro de su propio tono, y medido
+           daba 2.00:1 el verde y 1.60:1 el ámbar contra el mínimo de 4.5 de WCAG
+           1.4.3 — dos textos que no se leían y que además *significan* algo, porque
+           distinguen si los datos de la tabla están frescos o no.
+
+           El estado sigue estando a la vista: lo lleva el tinte de la pastilla y el
+           icono de color de adentro, que es justo el reparto que usa `AlertMessage`
+           en la librería de componentes. El texto en el tono iba a ser más
+           "bonito" y era ilegible. */}}
       <p data-repo-state="live"
-        class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-success/10 px-4 py-1 text-sm text-status-success{{ if not $data.live }} hidden{{ end }}">
-        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-success/10 px-4 py-1 text-sm text-tx-main{{ if not $data.live }} hidden{{ end }}">
+        <i class="fa-solid fa-circle-check text-status-success" aria-hidden="true"></i>
         <span>{{ T "state.liveVersions" }}<span data-repo-generated>{{ with $data.generated }}, {{ T "state.publishedOn" (dict "Date" (time.Format "2 January 2006 15:04 UTC" .)) }}{{ end }}</span>.</span>
       </p>
       <p data-repo-state="stale"
-        class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-warning/10 px-4 py-1 text-sm text-status-warning{{ if $data.live }} hidden{{ end }}">
-        <i class="fa-solid fa-wrench" aria-hidden="true"></i>
+        class="mx-auto mt-4 inline-flex max-w-2xl items-center gap-2 rounded-full bg-status-warning/10 px-4 py-1 text-sm text-tx-main{{ if $data.live }} hidden{{ end }}">
+        <i class="fa-solid fa-wrench text-status-warning" aria-hidden="true"></i>
         <span>{{ T "state.stale" }}</span>
       </p>
       <p data-repo-state="loading" class="mx-auto mt-4 hidden max-w-2xl items-center gap-2 rounded-full bg-ui-surface/50 px-4 py-1 text-sm text-tx-muted">
@@ -44,12 +55,12 @@
       {{- range $data.groups }}
       <div class="overflow-hidden rounded-corner bg-ui-bg/80">
         <h2 class="flex items-center gap-3 border-b border-ui-border px-6 py-4 text-xl font-bold text-tx-main">
-          <i class="{{ .icon }} text-primary" aria-hidden="true"></i>
+          <i class="{{ .icon }} text-brand-text" aria-hidden="true"></i>
           {{ .name }}
         </h2>
         <div class="overflow-x-auto">
           <table class="w-full min-w-[42rem] text-left text-sm">
-            <thead class="bg-ui-surface/40 text-xs uppercase tracking-wide text-tx-muted">
+            <thead class="bg-ui-surface/70 text-xs uppercase tracking-wide text-tx-muted">
               <tr>
                 <th scope="col" class="px-6 py-3">{{ T "state.colComponent" }}</th>
                 <th scope="col" class="px-6 py-3">{{ T "state.colVersion" }}</th>
@@ -71,12 +82,17 @@
                      ahora, sin volver a compilar el sitio. */}}
                 <td class="whitespace-nowrap px-6 py-4" data-pkg-version="{{ .name }}">{{ .version }}</td>
                 <td class="px-6 py-4">
-                  <span class="whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold {{ $badge.class }}">{{ $badge.label }}</span>
+                  {{/* La insignia sale de `ui/badge`, la misma que usa la
+                       portada, con el color de la leyenda de
+                       `data/components.yml`. Este `<td>` no lleva ningún gancho
+                       `data-repo-*`: `state-live.js` sólo toca
+                       `data-pkg-version`, y ése está en la celda de al lado. */}}
+                  {{ partial "ui/badge.html" (dict "label" $badge.label "class" $badge.class "size" "md") }}
                 </td>
                 <td class="px-6 py-4 text-tx-muted">{{ .text }}</td>
                 <td class="px-6 py-4">
                   <a href="{{ .repo }}" rel="noopener" target="_blank"
-                    class="inline-flex items-center gap-1 text-primary hover:text-secondary" aria-label="{{ T "state.repoOf" (dict "Repo" .title) }}">
+                    class="inline-flex items-center gap-1 text-brand-text hover:text-secondary" aria-label="{{ T "state.repoOf" (dict "Repo" .title) }}">
                     <i class="fa-brands fa-github" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -90,7 +106,7 @@
 
       <p data-repo-extra-wrap class="text-center text-sm text-tx-muted{{ if not (gt $data.extra 0) }} hidden{{ end }}">
         {{ T "state.extraPackages" (dict "Count" $data.extra) }}
-        <a href="{{ "/docs/user/repository/" | relLangURL }}" class="text-primary underline">{{ T "state.howToAdd" }}</a>.
+        <a href="{{ "/docs/user/repository/" | relLangURL }}" class="text-brand-text underline">{{ T "state.howToAdd" }}</a>.
       </p>
     </section>
 
@@ -99,9 +115,20 @@
     </section>
 
     <div class="mt-8 flex flex-wrap justify-center gap-3">
-      <a href="{{ "/downloads/" | relLangURL }}" class="rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">{{ T "home.download" }} {{ $release.channel }}</a>
-      <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank"
-        class="rounded-corner border border-primary px-6 py-3 font-semibold text-primary hover:bg-primary hover:text-white">{{ T "state.seeRoadmap" }}</a>
+      {{ partial "ui/action-button.html" (dict
+          "href" ("/downloads/" | relLangURL)
+          "label" (printf "%s %s" (T "home.download") $release.channel)
+          "icon" "fa-solid fa-download"
+          "size" "lg") }}
+      {{ partial "ui/action-button.html" (dict
+          "href" "https://roadmap.os.vasak.net.ar/"
+          "target" "_blank"
+          "rel" "noopener"
+          "tone" "neutral"
+          "label" (T "state.seeRoadmap")
+          "icon" "fa-solid fa-up-right-from-square"
+          "iconRight" true
+          "size" "lg") }}
     </div>
   </div>
 </main>

@@ -1,3 +1,4 @@
+<footer>
 <div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner">
   <div class="w-full draggable">
     <div class="container flex flex-col mx-auto">
@@ -8,16 +9,16 @@
         <div class="flex flex-col items-center gap-6">
           <div
             class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
-            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">{{ T "footer.softwareDev" }}</a>
-            <a href="{{ "/privacy/" | relLangURL }}" class="text-gray-500 hover:text-primary">{{ T "footer.privacy" }}</a>
-            <a href="{{ "/terms/" | relLangURL }}" class="text-gray-500 hover:text-primary">{{ T "footer.terms" }}</a>
-            <a href="{{ "/changelogs/" | relLangURL }}" class="text-gray-500 hover:text-primary">{{ T "footer.changelogs" }}</a>
-            <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-gray-500 hover:text-primary">{{ T "footer.roadmap" }}</a>
+            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-tx-muted hover:text-brand-text">{{ T "footer.softwareDev" }}</a>
+            <a href="{{ "/privacy/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.privacy" }}</a>
+            <a href="{{ "/terms/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.terms" }}</a>
+            <a href="{{ "/changelogs/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.changelogs" }}</a>
+            <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-tx-muted hover:text-brand-text">{{ T "footer.roadmap" }}</a>
           </div>
           <div class="flex items-center gap-8">
             {{ range .Site.Params.social.main }}
             <a href="{{ .url }}" alt="{{ .name }}" aria-label="{{ .name }}" target="_blank"
-              class="text-primary hover:text-secondary">
+              class="text-brand-text hover:text-secondary">
               <em class="{{ .params.icon }}"></em>
             </a>
             {{ end }}
@@ -31,17 +32,57 @@
 
 <div class="flex flex-wrap my-5">
   <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
-    <p class="text-lg text-slate-500 py-1"><a href="{{ site.Home.RelPermalink }}"
+    <p class="text-lg text-tx-muted py-1"><a href="{{ site.Home.RelPermalink }}"
         class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold"
         rel="nofollow" aria-current="page">Vasak Group</a> © {{ T "footer.rights" }}</p>
+    {{/* La atribución de los iconos.
+
+         Los iconos del sitio son de Font Awesome Free, que es CC BY 4.0, y esa
+         licencia pide tres cosas: crédito visible, un enlace a la licencia y
+         decir que se modificaron. Faltaban las tres —la única mención estaba en
+         un comentario de scripts/build-icons.mjs, que no se ve en la página— y los
+         cuarenta y tantos iconos que se sirven dentro de la hoja de estilos iban
+         sin atribución.
+
+         Con las tres se cumple: el nombre del proyecto enlaza al proyecto, el de
+         la licencia a la licencia, y la modificación queda dicha.
+
+         Los enlaces del pie usaban `text-gray-500`, que es un gris suelto de la
+         paleta de Tailwind y no un token del sistema de diseño. Medido sobre el
+         pie en modo claro daba 4.28:1 contra el fondo y 3.13:1 contra la
+         superficie, y en modo oscuro 1.92:1: los dos por debajo del 4.5:1 de
+         WCAG 1.4.3. Ahora van en `text-tx-muted`, que da 6.22, 4.56 y 7.37.
+
+         Esta atribución va un paso más allá, en `text-tx-main` con subrayado, en
+         vez de `text-tx-muted`: es un aviso legal, y un aviso legal que no se
+         lee no cumple con estar. `text-tx-main` da 7.06 en claro y 11.34 en
+         oscuro.
+
+         El subrayado queda como única señal de enlace a propósito: cambiar el
+         color al pasar el mouse lo llevaría a un tono de marca, que es justamente
+         lo que no llega. */}}
+    <p class="text-sm text-tx-muted py-1">
+      {{ T "footer.iconsCredit" }}:
+      <a href="https://fontawesome.com/free" rel="noopener nofollow" target="_blank" class="text-tx-main underline decoration-tx-muted underline-offset-2">Font Awesome Free</a>
+      ({{ T "footer.iconsCreditModified" }},
+      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener nofollow" target="_blank" class="text-tx-main underline decoration-tx-muted underline-offset-2">{{ T "footer.iconsLicense" }}</a>)
+    </p>
   </div>
 </div>
 
-<a rel="noopener" href="#" aria-label="{{ T "footer.backToTop" }}" class="bg-lineal-to-br text-white from-secondary to-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl">
+{{/* `bg-linear-to-br`, y no `bg-lineal-to-br` como estaba: la `a` de sobra lo
+   convertía en una utilidad inexistente, que Tailwind no emite y que el build no
+   avisa. El botón se quedaba sin fondo —los `from-secondary to-brand-text` de al lado
+   no hacen nada sin una utilidad de degradado delante— y con eso tampoco se veía
+   el degradado de marca. En v4 el nombre es `bg-linear-*`; `bg-gradient-*` era de
+   la v3. */}}
+<a rel="noopener" href="#" aria-label="{{ T "footer.backToTop" }}" class="bg-linear-to-br text-white from-secondary to-brand-text fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl">
   <em class="fas fa-arrow-up"></em>
 </a>
 
 {{/* Not partialCached: the scripts a page needs depend on the page — Mermaid is
      only emitted where a diagram exists — and a cache without a variant key
      would hand the first page's answer to every other one. */}}
+</footer>
+
 {{ partial "footer/scripts.html" . }}

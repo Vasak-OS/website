@@ -13,10 +13,15 @@
           {{ T "cta.body" }}
         </p>
 
-        <a href="{{ "/downloads/" | relLangURL }}"
-          class="mt-8 inline-block rounded-corner bg-primary text-center text-3xl px-12 py-4 font-medium text-white transition hover:shadow-2xl hover:text-white focus:outline-none">
-          {{ T "cta.button" }}
-        </a>
+        {{/* Sin overrides de tamaño: el `lg` de `ActionButton` es `px-4 py-2
+             text-base` y es el mismo botón que hay en cualquier aplicación del
+             escritorio. Ponerle `text-3xl` arriba lo dejaba igual de bien y
+             hacía que el sitio se viera distinto. */}}
+        {{ partial "ui/action-button.html" (dict
+            "href" ("/downloads/" | relLangURL)
+            "label" (T "cta.button")
+            "size" "lg"
+            "class" "mt-8 self-start") }}
       </div>
     </div>
   </div>

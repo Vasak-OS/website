@@ -1,0 +1,155 @@
+{{- /*
+  ui/card.html
+
+  Espejo de `ListCard` y `DeviceCard` de `@vasakgroup/vue-libvasak` 1.9.0 — la
+  fila con icono, título, subtítulo, contenido y acciones.
+
+  Fuentes:
+    https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/cards/ListCard.vue
+    https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/cards/DeviceCard.vue
+
+  ── Qué se copió tal cual ───────────────────────────────────────────────────
+
+  La lista de clases base es la de `ListCard`: `flex items-center justify-between
+  background p-3 rounded-corner border border-ui-border transition-colors
+  duration-200`. Y el grupo de texto de adentro es el de `DeviceCard`:
+  `flex items-center gap-3 flex-1 min-w-0`, con el título en `font-semibold` y
+  el subtítulo en `text-xs text-tx-muted`.
+
+  `background` es la clase del escritorio que equivale a `bg-ui-bg/80`
+  (`vasak-desktop/src/assets/main.css:232`); acá está definida igual en
+  `assets/css/styles.css`.
+
+  ── Desviaciones, y por qué ─────────────────────────────────────────────────
+
+  1. `layout: "stack"`. `ListCard` es una fila: sus clases llevan
+     `items-center justify-between` porque lo que va adentro es otra tarjeta más
+     un botón. Los grupos de la portada, las ventajas y los planes de apoyo
+     llevan título arriba y contenido abajo, así que `layout: "stack"` cambia
+     sólo el eje —`flex-col` en lugar de `items-center justify-between`— y no
+     toca ni el fondo, ni el borde, ni la transición. La lista de clases por
+     omisión sigue siendo la del componente, palabra por palabra.
+
+  2. `pad`. `DeviceCard` usa `px-6 py-3 mb-4` en lugar del `p-3` de
+     `ListCard`; está a mano con `pad: "device"` para las cajas más altas del
+     sitio. `pad: "none"` deja el relleno en manos de quien llama: sin él no se
+     emite ninguna clase de relleno, y el `class` que venga después pone la
+     suya. Hace falta para las tarjetas de sangre —la cabecera a todo el ancho es
+     lo que las hace tales, y el `p-3` del componente les pondría un marco de
+     fondo alrededor— y para las que ya tenían su propio relleno, que de otro
+     modo queda duplicado en la lista de clases.
+
+  3. `surface`. `ListCard` usa `background`, que es el fondo de una ventana del
+     escritorio: `bg-ui-bg/80`. En el sitio una tarjeta a veces va *encima* de
+     otra cosa —los grupos de la portada viven dentro de una sección
+     `bg-ui-bg/80`— y ahí lo que hace falta es la superficie. `surface: true`
+     cambia `background` por `bg-ui-surface/70`, que es exactamente el fondo que
+     `AlertMessage` usa en el tono `info`: el mismo plano elevado que ya usa el
+     escritorio, al mismo 70 %.
+
+  4. `tone: "success"`. El `border-l-4 border-status-success` con que
+     `DeviceCard` marca un dispositivo conectado. Acá no hay dispositivos
+     conectados, pero el mismo borde de acento sirve para marcar «esto anda»,
+     que es lo único para lo que el escritorio lo usa.
+
+  5. `truncate`. `DeviceCard` recorta el título porque es una lista de ancho
+     fijo. Acá los títulos son cortos y ninguno tiene un ancho que recortar, y un
+     título que se parte en dos líneas dice más que uno con puntos suspensivos.
+
+  6. `ThemeIcon` → `<i>`. La librería pide el icono por **nombre** y lo resuelve
+     con su composable, que requiere el tema del escritorio. El sitio no tiene
+     ese tema: sus iconos son máscaras CSS (`assets/css/icons.css`). `icon`
+     recibe la clase, como en el resto de las plantillas.
+
+  7. `role="button"` y `tabindex` se van. Las que en el escritorio son filas con
+     JavaScript —click, Enter, Espacio— acá son enlaces, y un enlace ya lleva su
+     papel y su foco. Poner `role="button"` sobre un `<a>` sería mentirle al
+     lector de pantalla.
+
+  8. El título es un `div`. En el escritorio la fila no es un encabezado: es un
+     control con un texto adentro. En una página puede serlo, y `titleTag` dice
+     con qué nivel —`h3` en los grupos de la portada, que cuelgan del `h2` de la
+     sección—. Por omisión `div`, que es lo que produce el componente.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     title     el título. Opcional si todo lo demás va en `body`.
+     titleTag  el elemento del título. `div` por omisión.
+     subtitle  la segunda línea, en `text-xs text-tx-muted`.
+     icon      clase de icono; va antes del texto, como en `DeviceCard`.
+     iconClass clases del icono. Por omisión `text-brand-text`, el color de los
+                iconos del escritorio.
+     href      con él la tarjeta es un enlace.
+     body      contenido de abajo, en su propio bloque. Acepta HTML: un string,
+                o una lista de strings que se juntan sin separador —un partial
+                no puede recibir un bloque, así que el que llama arma el interior
+                y se lo pasa armado—.
+     actions   lo que va al costado derecho: otro partial, otro enlace.
+     tone      "success" para el borde de acento.
+     layout    "row" (por omisión) | "stack".
+     pad       "" (por omisión) | "device" | "none".
+     surface   el plano elevado, en lugar del fondo de ventana.
+     class     clases extra, al final de la lista.
+*/ -}}
+
+{{- $title := .title | default "" -}}
+{{- $titleTag := .titleTag | default "div" -}}
+{{- $subtitle := .subtitle | default "" -}}
+{{- $icon := .icon | default "" -}}
+{{- $iconClass := .iconClass | default "text-brand-text" -}}
+{{- $href := .href | default "" -}}
+{{- $body := .body | default "" -}}
+{{- /* Una lista se junta entera: `body` es el interior de la tarjeta y un partial
+     no puede recibir un bloque, así que quien lo llama lo arma. */ -}}
+{{- if reflect.IsSlice $body }}{{ $body = delimit $body "" }}{{ end -}}
+{{- $actions := .actions | default "" -}}
+{{- $tone := .tone | default "" -}}
+{{- $layout := .layout | default "row" -}}
+{{- $pad := .pad | default "" -}}
+{{- $surface := .surface | default false -}}
+{{- $extra := .class | default "" -}}
+
+{{- $fondo := cond $surface "bg-ui-surface/70" "background" -}}
+{{- $clases := printf "%s rounded-corner border border-ui-border transition-colors duration-200" $fondo -}}
+{{- if eq $pad "device" -}}
+  {{- $clases = printf "%s px-6 py-3 mb-4" $clases -}}
+{{- else if ne $pad "none" -}}
+  {{- $clases = printf "%s p-3" $clases -}}
+{{- end -}}
+{{- if eq $layout "stack" -}}
+  {{- $clases = printf "flex flex-col %s" $clases -}}
+{{- else -}}
+  {{- $clases = printf "flex items-center justify-between %s" $clases -}}
+{{- end -}}
+{{- if eq $tone "success" -}}
+  {{- $clases = printf "%s border-l-4 border-status-success" $clases -}}
+{{- end -}}
+{{- with $extra }}{{ $clases = printf "%s %s" $clases . }}{{ end -}}
+
+{{- $texto := "" -}}
+{{- with $title -}}
+  {{- $texto = printf "%s<%s class=\"font-semibold\">%s</%s>" $texto $titleTag . $titleTag -}}
+{{- end -}}
+{{- with $subtitle -}}
+  {{- $texto = printf "%s<div class=\"text-xs text-tx-muted\">%s</div>" $texto . -}}
+{{- end -}}
+{{- with $body -}}
+  {{- $texto = printf "%s<div class=\"min-w-0\">%s</div>" $texto . -}}
+{{- end -}}
+
+{{- $grupo := printf "<div class=\"min-w-0 flex-1\">%s</div>" $texto -}}
+{{- if $icon -}}
+  {{- $grupo = printf "<div class=\"flex min-w-0 flex-1 items-center gap-3\"><i class=\"%s shrink-0\" aria-hidden=\"true\"></i><div class=\"min-w-0\">%s</div></div>" $iconClass $texto -}}
+{{- end -}}
+
+{{- if $href -}}
+<a href="{{ $href }}" class="{{ $clases }}">
+  {{- $grupo | safeHTML }}
+  {{- with $actions }}<div class="flex shrink-0 items-center gap-2">{{ . }}</div>{{ end -}}
+</a>
+{{- else -}}
+<div class="{{ $clases }}">
+  {{- $grupo | safeHTML }}
+  {{- with $actions }}<div class="flex shrink-0 items-center gap-2">{{ . }}</div>{{ end -}}
+</div>
+{{- end -}}

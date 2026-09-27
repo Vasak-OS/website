@@ -1,0 +1,159 @@
+{{- /*
+  ui/action-button.html
+
+  Espejo de `ActionButton` de `@vasakgroup/vue-libvasak` 1.9.0 — el botón del
+  escritorio, el mismo que dibujan Configuración, el instalador y el gestor de
+  archivos.
+
+  Fuente: https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/controls/ActionButton.vue
+
+  ── Qué se copió tal cual ───────────────────────────────────────────────────
+
+  Las clases base, las de cada tono y las de cada tamaño son las del
+  componente, sin cambiar ni una. La idea de este partial es que el botón de
+  la web y el de Configuración sean el mismo componente escrito en otro idioma,
+  no dos cosas parecidas.
+
+  ── Desviaciones, y por qué ─────────────────────────────────────────────────
+
+  1. El elemento. La librería siempre dibuja un `<button>`, porque en el
+     escritorio casi todo lo que hace es disparar algo. En un sitio la mitad de
+     los botones son enlaces —«Descargar», «Ver el estado», «Cómo agregar el
+     repositorio»— y un `<button>` sin manejador no lleva a ningún lado. Con
+     `href` se dibuja un `<a>`; sin él, un `<button type="button">`. Las clases
+     son las mismas en los dos casos.
+
+  2. `disabled:`. Es una pseudo-clase de formulario: en un `<a>` no hace nada,
+     porque un enlace no se deshabilita. Cuando hace falta «deshabilitado» en
+     un enlace, `disabled` lo traduce a `aria-disabled="true"` y a quitar el
+     `href`, que es lo que de verdad impide activarlo.
+
+  3. `iconSrc`. La librería mete un `<img>` con la ruta de un icono. El sitio
+     no carga el framework: sus iconos son máscaras CSS generadas por
+     `scripts/build-icons.mjs` (ver `assets/css/icons.css`). `icon` recibe la
+     clase y se dibuja un `<i>`, con el mismo `aria-hidden` que usa el resto
+     del tema. El tamaño del icono del escritorio son 16 px; el sitio no fija
+     un tamaño porque `icons.css` ya trae el suyo.
+
+  4. `neutral`. No existe en la librería, que sólo tiene `primary`, `secondary`
+     y `danger`. Se arma con el vocabulario que sí usa el escritorio para un
+     control que no manda: el de una pestaña inactiva en `TabItem`
+     (`border-ui-border` + `bg-ui-bg/80` + `hover:bg-ui-surface/70`), más el
+     texto de siempre. No se inventó ningún color: son tokens de
+     `assets/css/styles.css`.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     label     el texto. Obligatorio salvo que sólo se quiera el icono.
+     href      con él sale un `<a>`; sin él, un `<button>`.
+     tone      primary | secondary | danger | neutral. Por omisión, primary.
+     size      sm | md | lg. Por omisión, md — el mismo que la librería.
+     icon      clase de icono (`fa-solid fa-download`).
+     iconRight el icono va después del texto.
+     loading   el anillo de carga; además deshabilita, como en la librería.
+     disabled  ver la desviación 2.
+     full      ocupa todo el ancho.
+     target    igual que en el HTML.
+     rel       igual que en el HTML.
+     type      tipo del `<button>`; por omisión `button`.
+     ariaLabel nombre accesible, para cuando el texto visible no alcanza.
+     class     clases extra, al final de la lista.
+*/ -}}
+
+{{- $label := .label -}}
+{{- $href := .href | default "" -}}
+{{- $tone := .tone | default "primary" -}}
+{{- $size := .size | default "md" -}}
+{{- $icon := .icon | default "" -}}
+{{- $iconRight := .iconRight | default false -}}
+{{- $loading := .loading | default false -}}
+{{- $disabled := .disabled | default false -}}
+{{- $full := .full | default false -}}
+{{- $target := .target | default "" -}}
+{{- $rel := .rel | default "" -}}
+{{- $type := .type | default "button" -}}
+{{- $ariaLabel := .ariaLabel | default "" -}}
+{{- $extra := .class | default "" -}}
+
+{{- /* Las clases del componente, copiadas de `variantClasses`.
+
+     Única divergencia deliberada con la librería: el `secondary` usa
+     `text-tx-on-secondary` y no `text-tx-on-primary` como hace
+     `ActionButton` en `@vasakgroup/vue-libvasak@1.9.0`.
+
+     El motivo es que el token equivocado no se puede leer. `text-tx-on-primary` es
+     `#1e1e2e` —un casi negro— y sobre `--secondary: #8839ef` da 3.03:1, contra el
+     4.5:1 de WCAG 1.4.3 para texto normal. El botón afectado es el de «Comunidad»
+     de `/downloads/`, o sea un enlace visible en la página principal de descargas.
+     `text-tx-on-secondary` es `#eff1f5` y da 4.79:1.
+
+     El token para el secundario ya existía y el propio commentario de la librería
+     explica por qué: el secundario no se parece al primario, así que el color de
+     texto tiene que ser propio. Acá lo que falta es aplicarlo. El modo oscuro no
+     tiene el problema —`#1e1e2e` sobre `#cba6f7` da 8.07:1— porque ahí el
+     secundario es claro y el texto oscuro.
+
+     Es un defecto de la librería, no del sitio, y corresponde arreglarlo también
+     arriba para que las dos cosas vuelvan a coincidir. */ -}}
+{{- $tonos := dict
+  "primary" "bg-primary text-tx-on-primary hover:bg-primary/90"
+  "secondary" "bg-secondary text-tx-on-secondary hover:bg-secondary/80"
+  "danger" "bg-status-error text-tx-on-primary hover:bg-status-error/90"
+  "neutral" "border border-ui-border bg-ui-bg/80 text-tx-main hover:bg-ui-surface/70"
+-}}
+{{- $clasesTono := index $tonos $tone | default (index $tonos "primary") -}}
+
+{{- /* Y las de `sizeClasses`. */ -}}
+{{- $tamanos := dict
+  "sm" "px-2 py-1 text-xs"
+  "md" "px-3 py-1 text-sm"
+  "lg" "px-4 py-2 text-base"
+-}}
+{{- $clasesTamano := index $tamanos $size | default (index $tamanos "md") -}}
+
+{{- /* La clase base, en el mismo orden que la plantilla del componente. */ -}}
+{{- $clases := printf "rounded-corner transition-[background-color,opacity] duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 %s %s" $clasesTono $clasesTamano -}}
+{{- if $full }}{{ $clases = printf "%s w-full" $clases }}{{ end -}}
+{{- /* Sin texto el padding del tamaño no corresponde: el botón es del tamaño
+       del icono, no de un `py-1` con un hueco al lado. Es la misma condición
+       que usa la librería (`iconSrc && !label`). */ -}}
+{{- if and $icon (not $label) }}{{ $clases = printf "%s px-2 py-2" $clases }}{{ end -}}
+{{- with $extra }}{{ $clases = printf "%s %s" $clases . }}{{ end -}}
+
+{{- $contenido := "" -}}
+{{- if $loading -}}
+  {{- $contenido = printf "%s<span class=\"h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent\" aria-hidden=\"true\"></span>" $contenido -}}
+{{- end -}}
+{{- if and $icon (not $iconRight) -}}
+  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden=\"true\"></i>" $contenido $icon -}}
+{{- end -}}
+{{- with $label -}}
+  {{- $contenido = printf "%s<span>%s</span>" $contenido . -}}
+{{- end -}}
+{{- if and $icon $iconRight -}}
+  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden=\"true\"></i>" $contenido $icon -}}
+{{- end -}}
+
+{{- if $href -}}
+  {{- /* Deshabilitado en un enlace: sin `href` deja de ser un enlace, y
+         `aria-disabled` dice por qué. Es la traducción de `disabled:` que un
+         `<a>` no puede tener. */ -}}
+  {{- $hrefFinal := cond $disabled "" $href -}}
+<a
+  {{ with $hrefFinal }}href="{{ . }}"{{ end }}
+  {{ with $target }}target="{{ . }}"{{ end }}
+  {{ with $rel }}rel="{{ . }}"{{ end }}
+  {{ if $disabled }}aria-disabled="true"{{ end }}
+  {{ with $ariaLabel }}aria-label="{{ . }}"{{ end }}
+  class="{{ $clases }}">
+  {{- $contenido | safeHTML -}}
+</a>
+{{- else -}}
+<button
+  type="{{ $type }}"
+  {{ if or $disabled $loading }}disabled{{ end }}
+  {{ with $ariaLabel }}aria-label="{{ . }}"{{ end }}
+  class="{{ $clases }}">
+  {{- $contenido | safeHTML -}}
+</button>
+{{- end -}}

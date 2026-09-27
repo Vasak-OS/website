@@ -1,0 +1,76 @@
+{{- /*
+  ui/progress.html
+
+  Espejo de `ProgressBar` de `@vasakgroup/vue-libvasak` 1.9.0.
+
+  Fuente: https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/forms/ProgressBar.vue
+
+  ── Qué se copió tal cual ───────────────────────────────────────────────────
+
+  El ARIA completo, la caja `h-2 w-full overflow-hidden rounded-corner
+  bg-ui-surface/70`, la franja `h-full rounded-corner
+  transition-[width] duration-300 ease-out` y la banda indeterminada con
+  `motion-reduce:animate-none motion-reduce:bg-primary/40`.
+
+  El `value` acotado entre 0 y 100 también: el componente recorta antes de
+  escribir el ancho, y una barra que se pasa del 100 % no es una barra.
+
+  ── Lo único que cambia ─────────────────────────────────────────────────────
+
+  Cómo se dice «indeterminado». La librería lo pide con `value === null`, que en
+  Vue es un `null` de verdad. Acá un partial no tiene tipos: `value` llega como
+  lo que la plantilla pasó, y lo que hay que distinguir es «no pasó nada» de
+  «pasó un número». Se resuelve como indeterminado cuando `value` no está, está
+  vacío, o no es un número. Un `value` explícitamente negativo es lo mismo que
+  cero, que es lo que hace el componente.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     value  de 0 a 100. Sin él —o vacío— la barra es **indeterminada**: se sabe
+            que algo está pasando y no cuánto falta. Es la diferencia entre
+            `aria-valuenow` y su ausencia, y también la de una franja y una
+            banda.
+     label  qué está progresando. Lo lee el lector de pantalla.
+     tone   normal | warning | critical. El color de la franja.
+*/ -}}
+
+{{- $label := .label -}}
+{{- $tone := .tone | default "normal" -}}
+{{- $crudo := .value -}}
+
+{{- /* El mismo `COLOR` del componente. */ -}}
+{{- $colores := dict
+  "normal" "bg-primary"
+  "warning" "bg-status-warning"
+  "critical" "bg-status-error"
+-}}
+{{- $color := index $colores $tone | default (index $colores "normal") -}}
+
+{{- /* `null` es indeterminado. Un valor vacío —`""`, o el `nil` de una
+       plantilla que no lo pasó— también, que es lo que pasa cuando la
+       plantilla llama al partial sin saber todavía cuánto falta. */ -}}
+{{- $valor := -1 -}}
+{{- with $crudo -}}
+  {{- $numero := int . -}}
+  {{- $valor = $numero -}}
+  {{- if lt $numero 0 }}{{ $valor = -1 }}{{ end -}}
+  {{- if gt $numero 100 }}{{ $valor = 100 }}{{ end -}}
+{{- end -}}
+
+<div
+  role="progressbar"
+  aria-label="{{ $label }}"
+  {{ if ge $valor 0 }}aria-valuenow="{{ $valor }}"{{ end }}
+  aria-valuemin="0"
+  aria-valuemax="100"
+  class="h-2 w-full overflow-hidden rounded-corner bg-ui-surface/70">
+  {{- if ge $valor 0 -}}
+  <div class="h-full rounded-corner transition-[width] duration-300 ease-out {{ $color }}" style="width: {{ $valor }}%"></div>
+  {{- else -}}
+  {{- /* Indeterminado: al ancho completo y latiendo, nunca una banda parcial
+         —una franja de un tercio se lee como «33 % completado», y con menos
+         movimiento pedido deja de latir y se vuelve a leer como un progreso
+         inventado. */ -}}
+  <div class="motion-reduce:animate-none motion-reduce:bg-primary/40 h-full w-full animate-pulse rounded-corner bg-primary"></div>
+  {{- end -}}
+</div>

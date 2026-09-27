@@ -231,6 +231,13 @@
   backToTop = "Volver arriba"
   sourceForge = "VasakOS en SourceForge"
   oinMember = "VasakOS es miembro de la Open Invention Network"
+  # Atribución que pide CC BY 4.0, que es la licencia de los iconos de Font Awesome
+  # Free. No es cortesía: la licencia exige crédito visible, enlace a la licencia y
+  # mención de que se modificaron. Los iconos se convierten a máscaras CSS con los
+  # paths SVG en línea —ver scripts/build-icons.mjs—, así que son obra derivada.
+  iconsCredit = "Iconos"
+  iconsCreditModified = "adaptados a máscaras CSS"
+  iconsLicense = "CC BY 4.0"
 
 [downloads]
   title = "Descargas"
@@ -430,23 +437,23 @@
 # Requisitos de la ISO, leídos de `data/release.yml`. La clave es el nombre del
 # requisito tal como está en el YAML.
 [requirement."CPU de 64 bits (x86-64)"]
-  text = "A 64-bit CPU (x86-64)"
+  text = "CPU de 64 bits (x86-64)"
 [requirement."4 GB de RAM"]
-  text = "4 GB of RAM"
+  text = "4 GB de RAM"
 [requirement."30 GB de almacenamiento libre"]
-  text = "30 GB of free storage"
+  text = "30 GB de almacenamiento libre"
 [requirement."Pendrive de 8 GB para crear el USB booteable"]
-  text = "An 8 GB USB drive to create the bootable stick"
+  text = "Pendrive de 8 GB para crear el USB booteable"
 [requirement."GPU con aceleración 3D básica"]
-  text = "A GPU with basic 3D acceleration"
+  text = "GPU con aceleración 3D básica"
 [requirement."CPU de 4 núcleos o superior"]
-  text = "A quad-core or better CPU"
+  text = "CPU de 4 núcleos o superior"
 [requirement."8 GB de RAM o más"]
-  text = "8 GB of RAM or more"
+  text = "8 GB de RAM o más"
 [requirement."40 GB de almacenamiento libre"]
-  text = "40 GB of free storage"
+  text = "40 GB de almacenamiento libre"
 [requirement."GPU con drivers libres (Intel, AMD) para la mejor experiencia en Wayland"]
-  text = "A GPU with free drivers (Intel, AMD) for the best Wayland experience"
+  text = "GPU con drivers libres (Intel, AMD) para la mejor experiencia en Wayland"
 
 # Enlace a la versión anterior de un changelog, con la fecha ya formateada.
 [changelog]

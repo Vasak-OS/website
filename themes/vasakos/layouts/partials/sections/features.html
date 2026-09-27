@@ -9,11 +9,14 @@
             {{ T "features.openSourceTitle" }}
           </h2>
         </div>
-        <a class="mb-8 mt-2 flex items-center gap-2 text-lg font-bold text-primary hover:text-secondary"
-          href="https://github.com/Vasak-OS" rel="noopener" target="_blank">
-          <span>{{ T "features.seeRepos" }}</span>
-          <i class="fa-brands fa-github" aria-hidden="true"></i>
-        </a>
+        {{ partial "ui/action-button.html" (dict
+            "href" "https://github.com/Vasak-OS"
+            "target" "_blank"
+            "rel" "noopener"
+            "label" (T "features.seeRepos")
+            "icon" "fa-brands fa-github"
+            "size" "lg"
+            "class" "mb-8 mt-2") }}
         <div class="overflow-hidden rounded-corner">
           <img src="/img/features/git.svg" width="640" height="480" loading="lazy" decoding="async"
             alt="{{ T "features.gitAlt" }}" />
@@ -27,7 +30,7 @@
           <p class="mb-6 text-gray-600 dark:text-gray-200">
             {{ T "features.helpP1" }}
           </p>
-          <ul role="list" class="list-disc space-y-3 pl-5 text-gray-500 marker:text-primary">
+          <ul role="list" class="list-disc space-y-3 pl-5 text-tx-muted marker:text-brand-text">
             <li>{{ T "features.list1" }}</li>
             <li>{{ T "features.list2" }}</li>
             <li>{{ T "features.list3" }}</li>
@@ -49,15 +52,19 @@
           <p class="mb-6 text-gray-600 dark:text-gray-200">
             {{ T "features.rollingP1" (dict "Tool" "<code>pacman</code>") | safeHTML }}
           </p>
-          <ul role="list" class="list-disc space-y-3 pl-5 text-gray-500 marker:text-primary">
+          <ul role="list" class="list-disc space-y-3 pl-5 text-tx-muted marker:text-brand-text">
             <li>{{ T "features.rollingList1" }}</li>
             <li>{{ T "features.rollingList2" }}</li>
             <li>{{ T "features.rollingList3" }}</li>
           </ul>
-          <a href="{{ "/docs/user/repository/" | relLangURL }}" class="mt-6 inline-flex items-center gap-2 font-bold text-primary hover:text-secondary">
-            <span>{{ T "features.addRepo" }}</span>
-            <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
-          </a>
+          {{ partial "ui/action-button.html" (dict
+              "href" ("/docs/user/repository/" | relLangURL)
+              "tone" "neutral"
+              "label" (T "features.addRepo")
+              "icon" "fa-solid fa-chevron-right"
+              "iconRight" true
+              "size" "lg"
+              "class" "mt-6") }}
         </div>
       </div>
       <div class="relative order-first flex flex-col items-end overflow-hidden pl-16 pr-16 md:pr-0">

@@ -177,6 +177,50 @@ describe("las claves que piden las plantillas", () => {
   });
 });
 
+describe("los requisitos de la ISO", () => {
+  const release = readFileSync("data/release.yml", "utf8");
+
+  // El bloque `requirements:` del YAML, y nada más: el archivo tiene otras listas
+  // de cadenas entrecomilladas y no son requisitos.
+  const bloque = release.slice(release.indexOf("requirements:"));
+  const corte = bloque.search(/\n\w/);
+  const requisitos = [
+    ...(corte > 0 ? bloque.slice(0, corte) : bloque).matchAll(/-\s+"([^"]+)"/g),
+  ].map((m) => m[1]);
+
+  test("cada requisito del YAML tiene traducción en los dos idiomas", () => {
+    // La clave es el nombre del requisito tal cual está en el YAML, más `.text`:
+    // `[requirement."4 GB de RAM"] text = "…"`. Sin ese `.text` de final la
+    // traducción no se encontraba, `T` devolvía vacío —no la clave, como decía
+    // el comentario que estaba en el partial— y la lista de requisitos salía con
+    // cinco `<li>` vacíos en los dos idiomas, con el build limpio y los tests en
+    // verde. Los tests genéricos de arriba no lo veían: la clave se arma con
+    // `printf`, así que ninguno de los dos patrones que ellos buscan la
+    // encuentra. Por eso esta comprobación lee el YAML.
+    expect(requisitos.length).toBeGreaterThan(0);
+    const faltan: string[] = [];
+    for (const nombre of requisitos) {
+      const ruta = `requirement.${nombre}.text`;
+      if (!claves.es.has(ruta)) faltan.push(`es no tiene ${ruta}`);
+      if (!claves.en.has(ruta)) faltan.push(`en no tiene ${ruta}`);
+    }
+    expect(faltan).toEqual([]);
+  });
+
+  test("el español no tiene el texto en inglés", () => {
+    // El bloque se había llenado copiando el de inglés, así que la página en
+    // español —cuando por fin se vio— mostraba los requisitos en inglés. Ningún
+    // test lo detecta: las claves existen en los dos idiomas y la forma es la
+    // misma. Sólo se ve comparando los textos.
+    const enIngles: string[] = [];
+    for (const nombre of requisitos) {
+      const ruta = `requirement.${nombre}.text`;
+      if (planos.es.get(ruta) === planos.en.get(ruta)) enIngles.push(nombre);
+    }
+    expect(enIngles).toEqual([]);
+  });
+});
+
 describe("el bloque de donaciones", () => {
   const frontMatter = readFileSync("content/donate/index.md", "utf8");
 

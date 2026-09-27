@@ -1,0 +1,64 @@
+{{- /*
+  ui/alert.html
+
+  Espejo de `AlertMessage` de `@vasakgroup/vue-libvasak` 1.9.0 — el aviso que se
+  queda en su lugar y explica algo dentro de la página.
+
+  Fuentes:
+    https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/feedback/AlertMessage.vue
+    https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/feedback/tonos.ts
+
+  ── Qué se copió tal cual ───────────────────────────────────────────────────
+
+  La clase base, `flex gap-3 rounded-corner border px-4 py-2 text-sm`; las cuatro
+  listas de `CLASES_POR_TONO`, enteras; y el `role` de `rolDelTono`: `alert` para
+  el error —que interrumpe— y `status` para los otros tres, que esperan su turno.
+
+  El aviso no se cierra solo en la librería —quien lo puso deja de dibujarlo— y
+  tampoco acá.
+
+  ── Desviaciones, y por qué ─────────────────────────────────────────────────
+
+  1. `ThemeIcon` → `<i>`. La librería pide el icono por nombre y lo resuelve con
+     el tema del escritorio. El sitio usa máscaras CSS (`assets/css/icons.css`),
+     así que `icon` recibe la clase. El `alt` vacío del componente —el icono
+     acompaña a un texto que ya dice lo mismo— se conserva con `aria-hidden`.
+
+  2. `info` no lleva icono por omisión, aunque en la librería `icon` es
+     opcional en los cuatro tonos. Acá se deja en manos de quien lo llama para
+     que ningún bloque nuovo se pinte con un ícono que nadie eligió.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     tone    info | success | warning | error. Por omisión, info.
+     title   una línea que dice de qué se trata. Opcional.
+     icon    clase de icono, alineado con la primera línea.
+     body    el contenido. Acepta HTML. Opcional.
+*/ -}}
+
+{{- $tone := .tone | default "info" -}}
+{{- $title := .title | default "" -}}
+{{- $icon := .icon | default "" -}}
+{{- $body := .body | default "" -}}
+
+{{- /* `CLASES_POR_TONO`, de `feedback/tonos.ts`, sin tocar un valor. */ -}}
+{{- $tonos := dict
+  "info" "border-ui-border bg-ui-surface/70 text-tx-main"
+  "success" "border-status-success/40 bg-status-success/10 text-tx-main"
+  "warning" "border-status-warning/40 bg-status-warning/10 text-tx-main"
+  "error" "border-status-error/40 bg-status-error/10 text-tx-main"
+-}}
+{{- $clases := index $tonos $tone | default (index $tonos "info") -}}
+
+{{- /* `rolDelTono`: sólo el error interrumpe. */ -}}
+{{- $rol := cond (eq $tone "error") "alert" "status" -}}
+
+<div role="{{ $rol }}" aria-atomic="true" class="flex gap-3 rounded-corner border px-4 py-2 text-sm {{ $clases }}">
+  {{- /* Alineado con la primera línea y no centrado en la caja: con un aviso de
+         cinco líneas, centrado queda flotando a la mitad del párrafo. */ -}}
+  {{- with $icon }}<i class="{{ . }} mt-0.5 shrink-0" aria-hidden="true"></i>{{ end }}
+  <div class="min-w-0 flex-1">
+    {{- with $title }}<p class="font-semibold">{{ . }}</p>{{ end }}
+    <div{{ if $title }} class="mt-1"{{ end }}>{{ $body }}</div>
+  </div>
+</div>

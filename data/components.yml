@@ -116,9 +116,25 @@ groups:
 # Shown on /state/ so nobody has to reverse-engineer what "Alpha" means here.
 # `class` is a Tailwind class and has to be in a scanned file, so it stays here;
 # `label` is prose and lives in i18n under `status.<key>`.
+#
+# The text is `text-tx-main` and the status tone only tints the chip. It used to
+# be the other way round — `text-status-success` on `bg-status-success/15` — and
+# the tone is a mid-value against a near-white chip of its own hue, so the label
+# landed at 1.55:1 to 2.91:1 in light mode against the 4.5:1 that WCAG 1.4.3
+# asks for. `alpha` at 1.55:1 was the worst: a warning chip whose text you
+# cannot read. Dark mode happened to pass, which is probably why it went
+# unnoticed.
+#
+# `text-tx-main` on the same chips measures 4.58:1 light and 6.62:1 dark, and it
+# is the rule `AlertMessage` already follows in the component library —
+# `border-status-*/40 bg-status-*/10 text-tx-main`. So this is also what makes
+# the badge match the OS: the status hue stays legible as an identity, carried
+# by the tint, instead of being spelled out in text nobody can read. The tint is
+# /10 rather than /15 for the same reason AlertMessage uses /10; at /15 the
+# `wip` chip measured 4.29:1, just short.
 legend:
-  stable: { class: "bg-status-success/15 text-status-success" }
-  beta: { class: "bg-primary/15 text-primary" }
-  alpha: { class: "bg-status-warning/15 text-status-warning" }
-  wip: { class: "bg-secondary/15 text-secondary" }
+  stable: { class: "bg-status-success/10 text-tx-main" }
+  beta: { class: "bg-primary/10 text-tx-main" }
+  alpha: { class: "bg-status-warning/10 text-tx-main" }
+  wip: { class: "bg-secondary/10 text-tx-main" }
   planned: { class: "bg-ui-surface text-tx-muted" }

@@ -1,0 +1,107 @@
+{{- /*
+  ui/breadcrumbs.html
+
+  La migas de pan: la huella visible y el `BreadcrumbList` que hace que un
+  resultado de búsqueda muestre «Inicio › Docs» en lugar de una ruta pelada.
+
+  No hay componente de migas en `@vasakgroup/vue-libvasak` 1.9.0 — se revisó el
+  `src/` entero — así que no hay nada que espejar. Lo que sí se toma del
+  escritorio es el vocabulario: `rounded-corner` en los destinos, el hover en
+  `--color-primary`, y el `--radius-corner` de `main.css` en todas partes.
+
+  ── Lo que arregla ──────────────────────────────────────────────────────────
+
+  Dos cosas, y ninguna era estética.
+
+  El JSON-LD armaba cada nombre con `humanize` sobre un segmento de la URL, así
+  que `/docs/user/errores/` salía como «Docs › User › Errores» —el slug, no el
+  título que alguien reconocería, y en el idioma en que estuviera el slug—. Y
+  arrancaba de un «Inicio» escrito a mano, de modo que los datos estructurados
+  decían «Inicio» en la página en inglés. Acá se recorren los antepasados de
+  verdad y cada nombre es el título de la página, ya traducido.
+
+  Y `text-ms`, que no es una clase de Tailwind: no existe en la escala, así que
+  la lista se dibujaba al tamaño del texto que tuviera encima y quedaba al
+  azar. Ahora es `text-sm`, que es lo que se quiso escribir.
+
+  ── Parámetro ───────────────────────────────────────────────────────────────
+
+     page  la página cuya huella se dibuja. Sin ella no hay nada que pintar.
+*/ -}}
+
+{{- /* Misma convención que `sections/page-banner.html`: con un `dict` se saca
+     la página de adentro, sin él la página es el contexto. */ -}}
+{{- $page := . -}}
+{{- if reflect.IsMap . }}{{ $page = .page }}{{ end -}}
+{{- $crumbs := slice -}}
+{{- range $page.Ancestors.Reverse -}}
+  {{- if not .IsHome -}}
+    {{- $crumbs = $crumbs | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $structured := slice (dict
+    "@type" "ListItem"
+    "position" 1
+    "name" (T "breadcrumbs.home")
+    "item" site.Home.Permalink) -}}
+{{- $pos := 1 -}}
+{{- range $crumbs -}}
+  {{- $pos = add $pos 1 -}}
+  {{- $structured = $structured | append (dict
+      "@type" "ListItem"
+      "position" $pos
+      "name" .Title
+      "item" .Permalink) -}}
+{{- end -}}
+{{- if not $page.IsHome -}}
+  {{- $pos = add $pos 1 -}}
+  {{- $structured = $structured | append (dict
+      "@type" "ListItem"
+      "position" $pos
+      "name" .Title
+      "item" .Permalink) -}}
+{{- end -}}
+
+<script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $structured) | jsonify | safeJS }}</script>
+
+{{- /* El ítem con `aria-current="page"` es la página actual y no es un enlace;
+     todos los anteriores sí. Los `x-default` de los idiomas están en head.html,
+     con el resto. */}}
+<nav class="breadcrumbs-container mb-6" aria-label="{{ T "breadcrumbs.label" }}">
+  <ol class="flex flex-wrap items-center gap-0 text-sm">
+    <li class="flex items-center">
+      <a href="{{ site.Home.RelPermalink }}"
+        class="inline-flex items-center gap-1.5 rounded-corner px-3 py-2 transition-colors duration-200 hover:text-brand-text"
+        title="{{ T "breadcrumbs.home" }}">
+        <i class="fa-solid fa-house text-sm" aria-hidden="true"></i>
+        <span class="sr-only sm:not-sr-only">{{ T "breadcrumbs.home" }}</span>
+      </a>
+    </li>
+
+    {{- range $crumbs }}
+    <li class="flex items-center">
+      <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
+      <a href="{{ .RelPermalink }}"
+        class="rounded-corner px-3 py-2 text-tx-muted transition-colors duration-200 hover:text-brand-text">
+        {{- with .Params.shortTitle }}{{ . }}{{ else }}{{ .Title }}{{ end -}}
+      </a>
+    </li>
+    {{- end }}
+
+    {{- if not $page.IsHome }}
+    <li class="flex items-center">
+      <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
+      <span aria-current="page"
+        class="rounded-corner bg-gradient-to-r from-secondary to-brand-text px-3 py-2 font-medium text-white">
+        {{- if in .RelPermalink "/docs/" }}
+        <i class="fa-solid fa-book text-sm" aria-hidden="true"></i>
+        {{- else if in .RelPermalink "/blog/" }}
+        <i class="fa-solid fa-blog text-sm" aria-hidden="true"></i>
+        {{- end -}}
+        {{ .Title }}
+      </span>
+    </li>
+    {{- end }}
+  </ol>
+</nav>

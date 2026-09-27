@@ -1,0 +1,48 @@
+{{- /*
+  ui/empty-state.html
+
+  Espejo de `EmptyState` de `@vasakgroup/vue-libvasak` 1.9.0 — lo que se ve
+  cuando no hay nada que ver.
+
+  Fuente: https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/feedback/EmptyState.vue
+
+  ── Qué se copió tal cual ───────────────────────────────────────────────────
+
+  La caja `flex flex-col items-center justify-center gap-3 px-8 py-12
+  text-center`; el borde `rounded-corner border border-ui-border border-dashed
+  bg-ui-surface/20` para la variante con marco; el título en `font-medium text-sm
+  text-tx-main` y la nota en `text-sm text-tx-muted`; y el `alt` vacío del icono,
+  que acompaña a un texto que ya dice lo mismo.
+
+  ── Desviaciones, y por qué ─────────────────────────────────────────────────
+
+  1. `ThemeIcon` → `<i>`. La librería pide el icono por nombre y lo resuelve con
+     el tema del escritorio; el sitio usa máscaras CSS
+     (`assets/css/icons.css`). `icon` recibe la clase. La biblioteca lo dibuja
+     de 48 px con `opacity-60`, y acá el tamaño lo trae la clase del icono
+     porque `icons.css` no tiene una medida por clase.
+
+  2. `iconType` no hace falta acá: hay un solo juego de iconos, no las dos
+     variantes monocroma y color que el escritorio tiene.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     title    qué falta. Obligatorio.
+     note     por qué, o qué se puede hacer. Opcional.
+     icon     clase de icono. Vacío para no dibujar ninguno.
+     bordered el marco punteado, para una caja dentro de una sección.
+     action   el botón que saca del vacío. Acepta HTML.
+*/ -}}
+
+{{- $title := .title -}}
+{{- $note := .note | default "" -}}
+{{- $icon := .icon | default "" -}}
+{{- $bordered := .bordered | default false -}}
+{{- $action := .action | default "" -}}
+
+<div class="flex flex-col items-center justify-center gap-3 px-8 py-12 text-center{{ if $bordered }} rounded-corner border border-dashed border-ui-border bg-ui-surface/20{{ end }}">
+  {{- with $icon }}<i class="{{ . }} mb-1 shrink-0 text-4xl opacity-60" aria-hidden="true"></i>{{ end }}
+  <p class="text-sm font-medium text-tx-main">{{ $title }}</p>
+  {{- with $note }}<p class="text-sm text-tx-muted">{{ . }}</p>{{ end }}
+  {{- with $action }}<div class="mt-1">{{ . }}</div>{{ end }}
+</div>

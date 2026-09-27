@@ -7,11 +7,13 @@
     "build": "bun run icons && hugo --gc",
     "dev": "bun run icons && hugo server --disableFastRender",
     "preview": "bun run build && hugo server --renderToMemory --disableFastRender",
+    "a11y": "cp node_modules/axe-core/axe.min.js static/axe.min.js && hugo server --disableFastRender",
     "test": "bun test"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",
     "@tailwindcss/cli": "^4.3.1",
+    "axe-core": "^4.13.0",
     "tailwindcss": "^4.3.1"
   },
   "dependencies": {

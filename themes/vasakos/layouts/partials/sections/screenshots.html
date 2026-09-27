@@ -29,14 +29,15 @@
 <section class="relative flex flex-col justify-center overflow-hidden bg-ui-bg/80 py-20">
   <div class="mx-auto w-full max-w-screen-xl px-4">
     <div class="mb-12 text-center">
-      <span class="text-sm font-semibold uppercase tracking-wider text-primary">{{ T "screenshots.eyebrow" }}</span>
+      <span class="text-sm font-semibold uppercase tracking-wider text-brand-text">{{ T "screenshots.eyebrow" }}</span>
       <h2 class="mt-2 text-3xl font-bold text-tx-main">{{ T "screenshots.title" }}</h2>
       <p class="mt-2 text-tx-muted">{{ T "screenshots.subtitle" }}</p>
     </div>
 
     <div class="relative">
       <div class="screenshots-track flex snap-x snap-mandatory gap-6 overflow-x-auto scrollbar-hide pb-4"
-        data-screenshots role="group" aria-label="{{ T "screenshots.title" }}">
+        data-screenshots role="group" tabindex="0"
+        aria-label="{{ T "screenshots.title" }}">
         {{- range $index, $ss := $shots }}
         {{- $key := printf "screenshots.%s" $ss.identifier }}
         {{- $alt := T (printf "%s.alt" $key) | default (T "screenshots.defaultAlt") }}
@@ -85,12 +86,12 @@
       </div>
 
       <button type="button"
-        class="screenshots-prev absolute left-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-primary md:flex"
+        class="screenshots-prev absolute left-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-brand-text md:flex"
         aria-label="{{ T "screenshots.previous" }}" data-shots-prev>
         <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
       </button>
       <button type="button"
-        class="screenshots-next absolute right-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-primary md:flex"
+        class="screenshots-next absolute right-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-brand-text md:flex"
         aria-label="{{ T "screenshots.next" }}" data-shots-next>
         <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
       </button>

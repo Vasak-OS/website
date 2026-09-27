@@ -21,7 +21,7 @@
   </picture>
 
   <div class="mx-4 max-w-3xl rounded-corner bg-ui-bg/85 p-8 text-center backdrop-blur-md sm:p-12">
-    <p class="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-primary">
+    <p class="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-brand-text">
       <span class="relative flex h-2 w-2">
         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
         <span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
@@ -39,22 +39,27 @@
       {{ T "home.heroRoll" }}
     </p>
 
+    {{/* Los dos botones de arriba son `ui/action-button`, o sea el mismo
+         `ActionButton` que dibujan las aplicaciones del escritorio. El primero
+         va `primary` y el segundo `neutral`, que es como se jerarquiza un
+         botón y su alternativa en todo el sistema. */}}
     <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-      <a href="{{ "/downloads/" | relLangURL }}"
-        class="inline-flex items-center gap-2 rounded-corner bg-primary px-6 py-3 text-lg font-semibold text-white transition hover:opacity-90">
-        <i class="fa-solid fa-download" aria-hidden="true"></i>
-        {{ T "home.download" }} {{ $release.channel }}
-      </a>
-      <a href="{{ "/state/" | relLangURL }}"
-        class="inline-flex items-center gap-2 rounded-corner border border-primary px-6 py-3 text-lg font-semibold text-primary transition hover:bg-primary hover:text-white">
-        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-        {{ T "home.state" }}
-      </a>
+      {{ partial "ui/action-button.html" (dict
+          "href" ("/downloads/" | relLangURL)
+          "label" (printf "%s %s" (T "home.download") $release.channel)
+          "icon" "fa-solid fa-download"
+          "size" "lg") }}
+      {{ partial "ui/action-button.html" (dict
+          "href" ("/state/" | relLangURL)
+          "tone" "neutral"
+          "label" (T "home.state")
+          "icon" "fa-solid fa-circle-check"
+          "size" "lg") }}
     </div>
 
     <p class="mt-5 text-sm text-gray-600 dark:text-gray-400">
       {{ T "home.releaseNote" (dict "Channel" $release.channel) }}
-      <a href="{{ "/state/" | relLangURL }}" class="text-primary underline">{{ T "home.seeWhatWorks" }}</a>.
+      <a href="{{ "/state/" | relLangURL }}" class="text-brand-text underline">{{ T "home.seeWhatWorks" }}</a>.
     </p>
   </div>
 </section>

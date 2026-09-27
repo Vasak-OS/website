@@ -227,6 +227,13 @@
   backToTop = "Back to top"
   sourceForge = "VasakOS on SourceForge"
   oinMember = "VasakOS is a member of the Open Invention Network"
+  # Attribution required by CC BY 4.0, the licence of the Font Awesome Free icons.
+  # Not a courtesy: the licence requires visible credit, a link to the licence and
+  # a note that they were modified. The icons are turned into CSS masks with the
+  # SVG paths inlined —see scripts/build-icons.mjs— so they are derivative work.
+  iconsCredit = "Icons"
+  iconsCreditModified = "adapted to CSS masks"
+  iconsLicense = "CC BY 4.0"
 
 [downloads]
   title = "Downloads"

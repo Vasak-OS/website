@@ -1,0 +1,55 @@
+{{- /*
+  ui/badge.html
+
+  Espejo de la insignia de estado del escritorio —`stable` / `beta` / `alpha` /
+  `wip` / `planned`—, la que dibuja la leyenda de `data/components.yml`.
+
+  No hay un componente `Badge` en `@vasakgroup/vue-libvasak` 1.9.0: es el
+  `src/` completo el que se revisó (árbol de `v1.9.0/src`), y lo más cercano es
+  el punto de «sin guardar» de `TabItem`. Las clases salen de la paleta de la
+  librería —los mismos tokens que usa `CLASES_POR_TONO` en `feedback/tonos.ts`— y
+  el radio, de la regla que el propio escritorio escribe sobre
+  `--radius-corner-sm`.
+
+  Fuentes:
+    https://github.com/vasak-os/vue-libvasak/tree/v1.9.0/src
+    https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/feedback/tonos.ts
+    https://github.com/Vasak-OS/vasak-desktop/blob/main/src/assets/main.css#L158
+
+  ── El radio ────────────────────────────────────────────────────────────────
+
+  `main.css` dice, sobre `--radius-corner-sm`: «El radio chico, para lo que no
+  es una tarjeta: chips, insignias, el pulgar de una barra». Una insignia es
+  exactamente eso, así que va `rounded-corner-sm` y no `rounded-full`. La
+  diferencia no es de gusto: `rounded-corner-sm` sale de `--corner-radius`, que
+  Configuración deja cambiar, así que un escritorio con esquinas muy redondeadas
+  tiene insignias redondeadas también. Con `rounded-full` no.
+
+  ── El color ────────────────────────────────────────────────────────────────
+
+  No está en el partial: viene del `class` de la leyenda de
+  `data/components.yml`, que es donde ya vive y donde se edita. El partial no
+  decide el color de un estado, lo dibuja. Los que hay son
+  `bg-status-success/10`, `bg-primary/10`, `bg-status-warning/10`,
+  `bg-secondary/10` y `bg-ui-surface`, todos con los tokens de la librería.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     label  lo que dice. Obligatorio.
+     class  las clases de color, tal como vienen de la leyenda.
+     size   sm (por omisión) | md, para las celdas de tabla.
+*/ -}}
+
+{{- $label := .label -}}
+{{- $class := .class | default "bg-ui-surface text-tx-muted" -}}
+{{- $size := .size | default "sm" -}}
+
+{{- /* `px-2 py-0.5` y `px-2.5 py-1`: los dos tamaños que el sitio ya usaba, uno
+       en la lista de la portada y otro en la tabla de /state/. */ -}}
+{{- $tamanos := dict
+  "sm" "px-2 py-0.5"
+  "md" "px-2.5 py-1"
+-}}
+{{- $clasesTamano := index $tamanos $size | default (index $tamanos "sm") -}}
+
+<span class="inline-flex items-center whitespace-nowrap rounded-corner-sm text-xs font-semibold {{ $clasesTamano }} {{ $class }}">{{ $label }}</span>

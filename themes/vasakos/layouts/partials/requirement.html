@@ -1,13 +1,24 @@
 {{- /*
-  Traduce un requisito de la ISO por su nombre en `data/release.yml`, que es
-  una cadena en español: es la clave estable, y no cambia con el idioma.
+  Traduce un requisito de la ISO por su nombre en `data/release.yml`, que es una
+  cadena en español: es la clave estable, y no cambia con el idioma.
 
-  Hugo devuelve la propia clave cuando no encuentra la traducción, así que eso
-  es lo que se compara. Si el requisito es nuevo y todavía no tiene entrada en
-  i18n, se muestra el texto del YAML: en español es lo correcto, y en inglés
-  queda visible en lugar de desaparecer de la página.
+  La clave tiene tres partes, no dos: `[requirement."4 GB de RAM"] text = "…"` en
+  `i18n/`. Con `requirement.4 GB de RAM` la traducción no se encontraba, `T`
+  devolvía vacío —no la clave, como creyó el comentario que estaba acá antes— y
+  la lista de requisitos de `/downloads/` salía con cinco `<li>` vacíos en los
+  dos idiomas. El build no decía nada: Hugo no avisa de una traducción que no
+  encuentra, y el partial caía en el plan B con una comparación que nunca era
+  cierta.
+
+  El plan B sigue siendo el texto del YAML: un requisito nuevo sin entrada en
+  i18n tiene que verse igual en los dos idiomas, mejor que desaparecer de la
+  página. `tests/i18n.test.ts` lee `data/release.yml` y arma la misma clave que
+  está abajo, así que un requisito sin traducir se ve en el test y no en la
+  página.
 */ -}}
-{{- $key := printf "requirement.%s" . -}}
+{{- $key := printf "requirement.%s.text" . -}}
 {{- $t := T $key -}}
-{{- if eq $t $key }}{{ return . }}{{ end -}}
-{{- return $t -}}
+{{- /* Una clave que no existe vuelve vacía —o vuelve ella misma, según la
+       versión—, así que las dos formas de fallo se cubren en una sola guarda. */ -}}
+{{- if and $t (ne $t $key) }}{{ return $t }}{{ end -}}
+{{- return . -}}

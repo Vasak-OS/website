@@ -13,14 +13,14 @@ with the terms of this document. This Privacy Policy may change over time or be 
 so we recommend — and stress — that you review this page regularly to make sure you agree
 with those changes.
 
-### Information that is collected
+## Information that is collected
 
 Our website may collect personal information such as: name, contact information such as
 your email address, and demographic information. Likewise, where necessary, specific
 information may be required in order to process an order or to make a delivery or an
 invoice out.
 
-### Use of the information collected
+## Use of the information collected
 
 Our website uses the information in order to provide the best possible service,
 particularly to keep a record of users, of orders where applicable, and to improve our
@@ -32,7 +32,7 @@ address you provide and can be cancelled at any time.
 **Vasak Group** is highly committed to keeping your information secure. We use the most
 advanced systems and update them constantly to make sure there is no unauthorised access.
 
-### Cookies
+## Cookies
 
 A cookie is a file that is sent with the purpose of requesting permission to be stored on
 your computer. Once that file is accepted, the cookie is created and serves to hold
@@ -49,7 +49,7 @@ refuse the use of cookies; however, most browsers accept cookies automatically, 
 it makes for a better web service. You can also change your computer's settings to decline
 cookies. If you decline them, you may not be able to use some of our services.
 
-### Links to third parties
+## Links to third parties
 
 This website may contain links to other sites that may be of interest to you. Once you
 click on these links and leave our page, we no longer have control over the site you are
@@ -57,7 +57,7 @@ redirected to, and so we are not responsible for its terms or privacy, nor for t
 protection of your data on those other third-party sites. Those sites are subject to their
 own privacy policies, so it is advisable to read them to confirm that you agree with them.
 
-### Control of your personal information
+## Control of your personal information
 
 At any time you can restrict the collection or use of the personal information that is
 provided to our website. Whenever you are asked to fill in a form, such as the user sign-up

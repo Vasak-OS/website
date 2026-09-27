@@ -15,7 +15,7 @@
 			class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary"
 			autocomplete="off"
 		/>
-		<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></span>
+		<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-tx-muted"></span>
 	</div>
 </section>
 
@@ -33,7 +33,7 @@
 					<i class="fa-solid fa-magnifying-glass text-tx-muted"></i>
 					<h3 class="font-semibold text-tx-main">{{ T "search.results" }}</h3>
 				</div>
-				<button id="docs-search-close" type="button" aria-label="{{ T "search.close" }}" class="text-slate-400 hover:text-primary transition-colors">
+				<button id="docs-search-close" type="button" aria-label="{{ T "search.close" }}" class="text-tx-muted hover:text-brand-text transition-colors">
 					<i class="fa-solid fa-xmark text-lg"></i>
 				</button>
 			</div>
@@ -105,7 +105,7 @@
 		if (!text) return '';
 		try {
 			const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')})`, 'ig');
-			return text.replace(re, '<mark class="bg-primary p-0 m-0">$1</mark>');
+			return text.replace(re, '<mark class="bg-primary text-tx-on-primary p-0 m-0">$1</mark>');
 		} catch {
 			return text;
 		}
@@ -127,7 +127,7 @@
 		}
 		resultsEl.innerHTML = items.map(item => `
 			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
-				<a href="${item.permalink}" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+				<a href="${item.permalink}" class="text-sm font-semibold text-brand-text hover:underline flex items-center gap-2">
 					<i class="fa-solid fa-file-lines"></i>
 					${highlight(item.title, q)}
 				</a>
