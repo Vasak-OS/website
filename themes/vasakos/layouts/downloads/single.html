@@ -46,23 +46,23 @@
         <p class="mt-2 text-sm text-tx-muted">{{ T "downloads.channel" (dict "Channel" $r.channel) }} · {{ T "state.colStatus" }} {{ T (printf "status.%s" (lower $r.status)) }}</p>
 
         <dl class="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-          <div class="rounded-corner bg-ui-bg/70 p-3">
+          <div class="rounded-corner bg-ui-bg/80 p-3">
             <dt class="font-semibold">{{ T "components.version" }}</dt>
             <dd>{{ $r.version }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3">
+          <div class="rounded-corner bg-ui-bg/80 p-3">
             <dt class="font-semibold">{{ T "downloads.architecture" }}</dt>
             <dd>{{ $r.arch }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3">
+          <div class="rounded-corner bg-ui-bg/80 p-3">
             <dt class="font-semibold">{{ T "downloads.filename" }}</dt>
             <dd class="break-all">{{ $r.image_name }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3">
+          <div class="rounded-corner bg-ui-bg/80 p-3">
             <dt class="font-semibold">{{ T "downloads.size" }}</dt>
             <dd>{{ $r.size }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3 sm:col-span-2">
+          <div class="rounded-corner bg-ui-bg/80 p-3 sm:col-span-2">
             <dt class="font-semibold">{{ T "downloads.published" }}</dt>
             <dd>{{ time.Format "2 January 2006" $r.published_at }}</dd>
           </div>
@@ -96,7 +96,7 @@
                 "label" (T "home.download")
                 "size" "sm") }}
           {{ else }}
-            {{- $accion = printf "<span class=\"rounded-corner-sm bg-ui-surface/70 px-3 py-2 text-sm text-tx-muted\">%s</span>" (T "downloads.unavailable") }}
+            {{- $accion = printf "<span class=\"rounded-corner-sm bg-ui-surface/80 px-3 py-2 text-sm text-tx-muted\">%s</span>" (T "downloads.unavailable") }}
           {{ end }}
           {{ partial "ui/card.html" (dict
               "title" .name

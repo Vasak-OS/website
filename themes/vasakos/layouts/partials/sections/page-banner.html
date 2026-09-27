@@ -19,11 +19,11 @@
   <img src="{{ . }}" alt="" width="1200" height="675" fetchpriority="high" decoding="async"
     class="absolute inset-0 -z-10 h-full w-full object-cover" />
   {{- end }}
-  <div class="mx-4 max-w-5xl rounded-corner bg-white/30 p-10 text-center text-gray-800 backdrop-blur-md dark:bg-gray-900/40 dark:text-gray-100">
+  <div class="mx-4 max-w-5xl rounded-corner bg-ui-bg/80 p-10 text-center text-tx-main backdrop-blur-md">
     {{- if $heading }}
-    <h1 id="page-banner-title" class="mb-3 text-4xl font-bold text-gray-900 dark:text-white">{{ $page.Title }}</h1>
+    <h1 id="page-banner-title" class="mb-3 text-4xl font-bold text-tx-main">{{ $page.Title }}</h1>
     {{- else }}
-    <p id="page-banner-title" class="mb-3 text-4xl font-bold text-gray-900 dark:text-white">{{ $page.Title }}</p>
+    <p id="page-banner-title" class="mb-3 text-4xl font-bold text-tx-main">{{ $page.Title }}</p>
     {{- end }}
     {{ $page.Summary }}
   </div>
