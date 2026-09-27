@@ -70,31 +70,31 @@ images:
         image: /img/screenshots/shot-01-1536.jpg
         width: 1536
         height: 836
-        srcset: [768, 1536]
+        srcset: [768, 1536, 2048]
         weight: 1
       - identifier: shot02
         image: /img/screenshots/shot-02-1536.jpg
         width: 1536
         height: 836
-        srcset: [768, 1536]
+        srcset: [768, 1536, 2048]
         weight: 2
       - identifier: shot03
         image: /img/screenshots/shot-03-1536.jpg
         width: 1536
         height: 836
-        srcset: [768, 1536]
+        srcset: [768, 1536, 2048]
         weight: 3
       - identifier: shot04
         image: /img/screenshots/shot-04-1536.jpg
         width: 1536
         height: 836
-        srcset: [768, 1536]
+        srcset: [768, 1536, 2048]
         weight: 4
       - identifier: shot05
         image: /img/screenshots/shot-05-1536.jpg
         width: 1536
         height: 836
-        srcset: [768, 1536]
+        srcset: [768, 1536, 2048]
         weight: 5
 
 analytics:

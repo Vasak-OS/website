@@ -26,12 +26,12 @@ import { execFileSync } from 'child_process';
 const SOURCE_DIR = join(import.meta.dirname, '..', 'themes', 'vasakos', 'static', 'img', 'screenshots');
 
 /** Anchos a generar. La tarjeta llega a 768 px, así que 1536 cubre 2x. */
-const WIDTHS = [768, 1536];
-const WEBP_QUALITY = 78;
-const JPEG_QUALITY = 82;
+const WIDTHS = [768, 1536, 2048];
+const WEBP_QUALITY = 92;
+const JPEG_QUALITY = 95;
 
 /** Extensiones que se consideran originales. */
-const SOURCES = ['.png', '.PNG'];
+const SOURCES = ['.jpg', '.JPG', '.png', '.PNG'];
 
 const force = process.argv.includes('--force');
 const check = process.argv.includes('--check');
@@ -93,8 +93,7 @@ for (const name of originals) {
     .join(', ');
   console.log(`✓ ${stem}: ${resumen}`);
   converted++;
-
-  if (!check) unlinkSync(input);
+  // No borramos el original: es la mejor calidad que tenemos.
 }
 
 console.log(`\n${converted} convertidas, ${skipped} sin cambios.`);
