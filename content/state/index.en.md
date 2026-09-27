@@ -1,7 +1,7 @@
 ---
 Title: "State of the project"
-seotitle: "State of VasakOS: what works today and what is missing | VasakOS"
-description: "The real state of every VasakOS component: desktop, applications, services and the installer, with its published version and what is still missing before it counts as stable."
+seotitle: "State of VasakOS: what works, what is missing | VasakOS"
+description: "The real state of every VasakOS component, with its published version and what is still missing before it counts as stable."
 img: "/img/posts/roadmap.svg"
 type: state
 date: "2026-08-10"

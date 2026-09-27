@@ -1,22 +1,23 @@
 ---
 title: "Layout | ConfigSection"
 weight: 50
+description: "ConfigSection: a container for configuration sections, with a title, an icon and grouped content."
 ---
 
 # `ConfigSection`
 
-Description
+### Description
 - Container component for configuration sections: title, icon and grouped content.
 
-Props
+### Props
 - `title` (string) — Section title. **Required**.
 - `icon` (string) — Text or symbol shown next to the title. Default: `''`.
 - `customClass` (string | Record<string, boolean>) — Additional classes.
 
-Slots
+### Slots
 - Default — Section content (controls, descriptions, etc.).
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import ConfigSection from '../layout/ConfigSection.vue'

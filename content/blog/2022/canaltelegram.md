@@ -3,6 +3,7 @@ Title: "Nuestro canal de Noticias oficial en Telegram"
 tags: ["telegem", "canal", "novedades", "noticias", "informacion", "comunidad", "feed", "rss"]
 date: "2022-05-24"
 img: "https://i.postimg.cc/bYM9bYz9/tgvasakos.webp"
+description: "Canal de noticias de VasakOS en Telegram: novedades del proyecto, versiones publicadas y avisos para la comunidad."
 ---
 
 Desde Vasak creemos que es importante mantener informada a la comunidad de los cambios que se realizan en el proyecto, por eso hemos creado un canal de noticias en **Telegram**, donde se publicarán las novedades más importantes del proyecto. El mismo es completamente público y cualquiera puede unirse. 
@@ -18,9 +19,9 @@ En el canal se publicarán las novedades más importantes del proyecto, como por
 - Nuevas versiones de los paquetes de VasakOS
 - Nuevos artículos en el blog
 - Nuevos videos en el canal de YouTube
-- Informacion sobre librerias y herramientas
+- Información sobre librerías y herramientas
 - Eventos de la comunidad
-- Informacion sobre proyectos relacionados
+- Información sobre proyectos relacionados
 - Y mucho más!
 
 Si tienes alguna duda o sugerencia, puedes contactarnos en el canal de Telegram de la comunidad: [https://t.me/VasakOS](https://t.me/VasakOS)

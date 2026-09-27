@@ -36,8 +36,12 @@
        reader, and it is what the click handler drives. */}}
   <ul class="js-lang-menu absolute right-0 z-50 mt-2 hidden min-w-[10rem] overflow-hidden rounded-corner border border-ui-border bg-ui-surface py-1 shadow-lg"
     data-lang-menu>
+    {{/* `.Translations` ya excluye la página actual; `.AllTranslations` la
+         incluye, y como la de arriba se agrega a mano, usar la otra lo
+         duplicaba: "Español" salía dos veces en el menú, las dos marcadas
+         como `aria-current="page"`. */}}
     {{- $all := slice $page -}}
-    {{- range .AllTranslations -}}
+    {{- range .Translations -}}
       {{- $all = $all | append . -}}
     {{- end -}}
     {{- range $all -}}

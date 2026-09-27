@@ -1,14 +1,15 @@
 ---
 title: "Control | ActionButton"
 weight: 30
+description: "ActionButton: a button with primary, secondary and danger variants, a loading state and icon support."
 ---
 
 # `ActionButton`
 
-Description
+### Description
 - Generic button component with variants (`primary`, `secondary`, `danger`), loading states and icon support.
 
-Props
+### Props
 - `label` (string) — Button text. **Required**.
 - `disabled` (boolean) — Disables the button. Default: `false`.
 - `variant` (`'primary'|'secondary'|'danger'`) — Visual style. Default: `'primary'`.
@@ -23,10 +24,10 @@ Props
 - `stopPropagation` (boolean) — Calls `event.stopPropagation()` on click. Default: `false`.
 - `preventDefault` (boolean) — Calls `event.preventDefault()` on click. Default: `false`.
 
-Emits
+### Emits
 - `click` — Emitted when the user clicks and the button is neither disabled nor `loading`.
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -44,6 +45,6 @@ const loading = ref(false)
 </template>
 ```
 
-Notes
+### Notes
 - `customClass` accepts an object for reactive classes.
 - When `iconSrc` is present and there is no `label`, the padding adjusts automatically.

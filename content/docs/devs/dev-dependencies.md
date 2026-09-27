@@ -1,9 +1,10 @@
 ---
 title: "Dependencias de Desarrollo"
 weight: 5
+description: "Dependencias para desarrollar VasakOS: Bun para el frontend, Rust para el backend y Tauri CLI para compilar."
 ---
 
-A continuacion encontratas todas las dependencias que debera instalar en su entorno de desarrollo para construir o colaborar con el proyecto, lo mismo aplica para aplicaciones ya existentes o **VAPPs** propias...
+A continuación encontrarás todas las dependencias que deberá instalar en su entorno de desarrollo para construir o colaborar con el proyecto, lo mismo aplica para aplicaciones ya existentes o **VAPPs** propias...
 
 ## Bun (Frontend)
 
@@ -11,7 +12,7 @@ A continuacion encontratas todas las dependencias que debera instalar en su ento
 curl -fsSL https://bun.sh/install | bash
 ```
 
-> Mas informacion sobre la instalacion de Bun en [su sitio web](https://bun.com/docs/installation)
+> Más información sobre la instalación de Bun en [su sitio web](https://bun.com/docs/installation)
 
 ## Rust (Backend)
 
@@ -36,9 +37,9 @@ cargo install tauri-cli
 bun add -g @tauri-apps/cli
 ```
 
-## Dependnecias del Sistema [Tauri]
+## Dependencias del Sistema [Tauri]
 
-Las dependendencias minimas para que el poryecto **tauri** inicie. Recomendamos recurrir a su [documentacion oficial](https://v2.tauri.app/start/prerequisites/) para estar al dia con esta informacion
+Las dependendencias minimas para que el poryecto **tauri** inicie. Recomendamos recurrir a su [documentación oficial](https://v2.tauri.app/start/prerequisites/) para estar al día con esta información
 
 ### Debian y derivadas
 
@@ -87,7 +88,7 @@ sudo dnf install webkit2gtk4.1-devel \
 sudo dnf group install "c-development"
 ```
 
-En caso de que tu distro no se encuentre, puedes verlo en la documentacion oficial y puedes agregarlo a la documentacion
+En caso de que tu distro no se encuentre, puedes verlo en la documentación oficial y puedes agregarlo a la documentación
 
 ## Herramientas [Opcionales]
 

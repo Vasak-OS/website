@@ -1,6 +1,7 @@
 ---
 title: "Project Setup | vasak-desktop"
 weight: 1
+description: "Set up the Vasak Desktop development environment step by step, from cloning the repository to building it."
 ---
 
 # Project Setup - Vasak Desktop

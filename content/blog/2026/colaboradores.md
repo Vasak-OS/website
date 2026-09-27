@@ -1,15 +1,17 @@
 ---
-Title: "Buscamos colaboradores para Vasak OS: ayudanos a construir una nueva experiencia Linux"
+Title: "Buscamos colaboradores para construir VasakOS"
+aliases: ["/blog/2026/03/buscamos-colaboradores-para-vasak-os-ayudanos-a-construir-una-nueva-experiencia-linux/"]
 tags: [vasak os, arch linux distro, linux desktop environment, open source linux, linux development, linux community, arch based distro, linux ui ux, linux desktop]
 date: "2026-03-11"
 img: "https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg"
+description: "Buscamos colaboradores para construir VasakOS: quiénes buscamos, los perfiles que nos faltan y cómo sumar al proyecto."
 ---
 
-Vasak OS es un proyecto open source que busca construir una distribución Linux moderna basada en Arch Linux, enfocada en ofrecer una **experiencia de usuario completa, coherente y bien integrada**.
+VasakOS es un proyecto open source que busca construir una distribución Linux moderna basada en Arch Linux, enfocada en ofrecer una **experiencia de usuario completa, coherente y bien integrada**.
 
 El objetivo del proyecto es desarrollar un ecosistema de aplicaciones y herramientas que permitan usar el sistema de forma cómoda y moderna sin depender constantemente de la terminal, manteniendo al mismo tiempo la potencia y flexibilidad del ecosistema Linux.
 
-![](https://i.postimg.cc/1XWC31jq/Captura-de-pantalla-20260311-101935.jpg)
+![Captura de pantalla del escritorio de VasakOS en desarrollo, durante la etapa pre-alpha del proyecto.](https://i.postimg.cc/1XWC31jq/Captura-de-pantalla-20260311-101935.jpg)
 
 Actualmente el proyecto se encuentra en una **etapa temprana de desarrollo (pre-alpha)**, pero ya cuenta con una ISO funcional y varios componentes del sistema en desarrollo.
 
@@ -19,9 +21,9 @@ Este es un proyecto **sin fines de lucro**, impulsado por la comunidad y abierto
 
 ---
 
-# ¿Qué es Vasak OS?
+# ¿Qué es VasakOS?
 
-Vasak OS es una distribución basada en **Arch Linux** que busca ofrecer:
+VasakOS es una distribución basada en **Arch Linux** que busca ofrecer:
 
 - Un **desktop environment propio**
 - Aplicaciones diseñadas específicamente para el sistema
@@ -47,7 +49,7 @@ La distribución utiliza **Arch Linux como base**, lo que permite contar con un 
 
 El proyecto se encuentra en una etapa **pre-alpha**. Esto significa que todavía falta mucho trabajo por hacer, pero ya existe una base funcional:
 
-![](https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg)
+![Captura de pantalla del estado actual del proyecto: el escritorio propio junto a la ISO y el explorador de archivos.](https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg)
 
 - ISO del sistema
 - Desktop environment en desarrollo
@@ -64,7 +66,7 @@ Actualmente el proyecto está siendo desarrollado por una sola persona, por lo q
 
 No buscamos únicamente expertos.
 
-Si te interesa el software libre y querés aprender o aportar, **tu ayuda es bienvenida**.
+Si te interesa el software libre y quieres aprender o aportar, **tu ayuda es bienvenida**.
 
 ---
 
@@ -209,7 +211,7 @@ En el futuro queremos que el proyecto esté disponible en múltiples idiomas. Si
 
 # Cómo sumarte al proyecto
 
-Si te interesa colaborar, podés unirte a la comunidad o explorar el código del proyecto.
+Si te interesa colaborar, puedes unirte a la comunidad o explorar el código del proyecto.
 
 Sitio web  
 https://os.vasak.net.ar/
@@ -228,9 +230,9 @@ https://www.reddit.com/r/vasakos/
 
 ---
 
-# Construyendo Vasak OS juntos
+# Construyendo VasakOS juntos
 
-Vasak OS es un proyecto joven, pero con una visión clara: construir una experiencia Linux moderna, integrada y accesible.
+VasakOS es un proyecto joven, pero con una visión clara: construir una experiencia Linux moderna, integrada y accesible.
 
 Si te interesa formar parte de un proyecto open source desde sus primeras etapas, este es un buen momento para sumarte.
 

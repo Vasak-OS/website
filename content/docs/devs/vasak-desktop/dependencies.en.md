@@ -1,6 +1,7 @@
 ---
 title: "Dependency management | vasak-desktop"
 weight: 10
+description: "Project dependency management: how Vasak Desktop dependencies are declared, updated and resolved."
 ---
 
 Complete guide to managing the project's dependencies.

@@ -1,14 +1,15 @@
 ---
 title: "Form | SwitchToggle"
 weight: 35
+description: "SwitchToggle: an animated toggle switch that returns the new state through an event."
 ---
 
 # `SwitchToggle`
 
-Description
+### Description
 - Animated toggle switch. Returns the new state through the `toggle` event.
 
-Props
+### Props
 - `isOn` (boolean) — Current switch state. **Required**.
 - `disabled` (boolean) — Disables interaction. Default: `false`.
 - `size` (`'small'|'medium'`) — Visual size. Default: `'small'`.
@@ -16,10 +17,10 @@ Props
 - `inactiveClass` (string) — Class when inactive. Default: `'background'`.
 - `customClass` (string) — Additional classes.
 
-Emits
+### Emits
 - `toggle` — Emits `[value: boolean]` with the new state.
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'

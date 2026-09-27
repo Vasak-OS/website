@@ -1,8 +1,10 @@
 ---
-Title: "Vasak File Manager: a new file explorer for Vasak OS"
+Title: "Vasak File Manager: a file explorer of our own"
+aliases: ["/blog/2026/03/vasak-file-manager-a-new-file-explorer-for-vasak-os/"]
 tags: [vasak os, vasak file manager, linux desktop, file manager, open source, rust, tauri, vuejs, linux desktop environment]
 date: "2026-03-10"
 img: "https://i.postimg.cc/9QN6TtXx/image.png"
+description: "Vasak File Manager: the new file explorer for VasakOS, with tabs, integrated search and a renewed interface."
 ---
 While migrating several components of Vasak OS to Rust we took an important architectural decision: unify several modules of the system into shared processes to simplify the desktop's internal communication.
 
@@ -59,13 +61,13 @@ The file manager currently has two view modes:
 
 Ideal for working with large amounts of files and viewing information in an orderly way.
 
-![List view](https://i.postimg.cc/J0VmX3xz/image.png)
+![List view of Vasak File Manager, with each file's details in order.](https://i.postimg.cc/J0VmX3xz/image.png)
 
 ## Grid view
 
 Designed for visual navigation, especially useful when working with images or multimedia content.
 
-![Grid view](https://i.postimg.cc/rwnkj2jj/image.png)
+![Grid view of Vasak File Manager, for browsing images and multimedia content visually.](https://i.postimg.cc/rwnkj2jj/image.png)
 
 Both modes share a more modern aesthetic that is consistent with the rest of the desktop.
 
@@ -84,7 +86,7 @@ Among the available features:
 
 This makes it possible to work with multiple locations in the file system much more efficiently.
 
-![Tabs](https://i.postimg.cc/QNQZPTS5/image.png)
+![Tabs in Vasak File Manager, with several directories open side by side and reorderable by dragging.](https://i.postimg.cc/QNQZPTS5/image.png)
 
 ---
 
@@ -107,7 +109,7 @@ It currently supports:
 
 This makes it possible to inspect files without having to open external applications.
 
-![Preview](https://i.postimg.cc/9QN6TtXx/image.png)
+![File preview in the Vasak File Manager side bar, without opening another application.](https://i.postimg.cc/9QN6TtXx/image.png)
 
 ---
 

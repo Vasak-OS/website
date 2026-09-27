@@ -1,6 +1,7 @@
 ---
 title: "Development dependencies"
 weight: 5
+description: "Dependencies for developing VasakOS: Bun for the frontend, Rust for the backend and the Tauri CLI to build."
 ---
 
 Below you will find all the dependencies you should install in your development

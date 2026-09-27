@@ -20,7 +20,7 @@ description: "Ayuda a sostener y mejorar VasakOS con total transparencia sobre e
 # La prosa de este bloque no está acá: sale de i18n por el `id` de cada
 # elemento, igual que los componentes en `data/components.yml`. Quedarse con
 # los textos en el front matter hacía que la página en inglés mostrara
-# "Infraestructura, desarrollo y calidad de la distribucion" como si fuera el
+# "Infraestructura, desarrollo y calidad de la distribución" como si fuera el
 # idioma de quien la lee. Acá queda la estructura: el orden, las direcciones, los
 # importes y las URLs, que son los mismos en los dos idiomas.
 donations:

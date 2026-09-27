@@ -3,6 +3,7 @@ Title: "Privacy policy"
 tags: ["privacy policy", "privacy", "policy"]
 date: "2022-05-24"
 img: "/img/posts/policy.svg"
+description: "What information Vasak Group collects, what it is used for, how long it is kept, and how to request its deletion."
 ---
 
 This Privacy Policy sets out the terms under which **Vasak Group** uses and protects the

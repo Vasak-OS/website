@@ -1,14 +1,15 @@
 ---
 title: "Tray | TrayIconButton"
 weight: 45
+description: "TrayIconButton: a button for system bars, with an icon, a notification badge and a custom tooltip."
 ---
 
 # `TrayIconButton`
 
-Description
+### Description
 - Button designed for system bars or icon areas: shows an icon, a badge and a custom tooltip.
 
-Props
+### Props
 - `icon` (string) — Path to the icon. **Required**.
 - `alt` (string) — Alternative text. Default: `''`.
 - `tooltip` (string) — `title` value. Default: `''`.
@@ -19,13 +20,13 @@ Props
 - `showCustomTooltip` (boolean) — Shows the custom tooltip (internal). Default: `false`.
 - `customTooltipText` (string) — Text of the custom tooltip.
 
-Emits
+### Emits
 - `click` — When the user clicks the button.
 
-Slots
+### Slots
 - Default — Extra content inside the button.
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import TrayIconButton from '../tray/TrayIconButton.vue'

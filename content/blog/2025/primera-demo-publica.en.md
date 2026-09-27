@@ -3,6 +3,7 @@ Title: "VasakOS first public demo"
 tags: [video, demo, vasak, vasakos, vasak-desktop]
 date: "2025-04-08"
 img: "https://i.postimg.cc/FsfTyKFn/image.png"
+description: "First public demo of VasakOS: the desktop running on real hardware, recorded on a physical machine and not a virtual one."
 ---
 
 Today we decided to release a sort of visual DEMO of what VasakOS is. Even though it is not available to the general public, it is a sort of video that shows what the VasakOS environment looks like and how it behaves. It was recorded on a real computer and not in a virtual machine, so the real performance of the operating system can be seen. It was recorded on a computer with a **Ryzen 5** processor and **16GB of RAM**.

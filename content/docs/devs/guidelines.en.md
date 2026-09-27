@@ -1,6 +1,7 @@
 ---
 title: "Code guidelines | vasak-desktop"
 weight: 105
+description: "Vasak Desktop code guidelines: general principles, TypeScript style, naming and formatting."
 ---
 
 Standards and best practices for keeping the quality of the code up.

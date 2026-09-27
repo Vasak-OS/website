@@ -1,6 +1,7 @@
 ---
 title: "Sistema de Carpetas | vasak-desktop"
 weight: 20
+description: "Estructura de carpetas de Vasak Desktop: qué vive en cada directorio y cómo se relacionan entre sí."
 ---
 
 Guía detallada sobre la estructura de carpetas del proyecto.

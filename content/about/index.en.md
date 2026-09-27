@@ -1,7 +1,7 @@
 ---
 Title: "About VasakOS"
 seotitle: "What VasakOS is and who develops it | VasakOS"
-description: "VasakOS is a GNU/Linux distribution based on Arch with its own desktop written in Rust and Vue. Who develops it, with which technologies, and under which licence."
+description: "VasakOS is a GNU/Linux distribution based on Arch with its own desktop written in Rust and Vue. Who develops it and under which licence."
 img: "/img/about.svg"
 type: about
 date: "2022-03-19"

@@ -14,35 +14,35 @@ main:
           haveChildren: false
     - identifier: blog
       name: Blog
-      url: /blog
+      url: /blog/
       weight: 2
       params:
           newTab: false
           haveChildren: false
     - identifier: sobre
       name: About
-      url: /about
+      url: /about/
       weight: 3
       params:
           haveChildren: false
           children: false
     - identifier: downloads
       name: Downloads
-      url: /downloads
+      url: /downloads/
       weight: 4
       params:
           newTab: false
           haveChildren: false
     - identifier: docs
       name: Documentation
-      url: /docs
+      url: /docs/
       weight: 6
       params:
           newTab: false
           haveChildren: false
     - identifier: donate
       name: Donate
-      url: /donate
+      url: /donate/
       weight: 7
       params:
           newTab: false

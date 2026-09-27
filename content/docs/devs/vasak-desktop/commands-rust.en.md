@@ -1,6 +1,7 @@
 ---
 title: "Rust commands | vasak-desktop"
 weight: 30
+description: "How to develop Tauri IPC commands in Rust inside Vasak Desktop, including the interface between both sides."
 ---
 
 Guide for developing IPC commands (Tauri) in Rust.

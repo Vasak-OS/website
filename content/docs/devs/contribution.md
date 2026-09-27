@@ -1,6 +1,7 @@
 ---
-title: "Contribucion al Proyecto"
+title: "Contribución al Proyecto"
 weight: 55
+description: "Cómo contribuir al desarrollo de VasakOS: reportar un error, proponer una mejora o enviar un pull request."
 ---
 
 Guía para contribuir al desarrollo de **VasakOS**. Esto aplica a desarrollos propios o comunitarios dentro del mismo entorno. 
@@ -48,7 +49,7 @@ git checkout -b docs/descripcion-corta
 
 ### Realiza tus Cambios
 
-Realiza los cambios en el proyecto segun creas conveninete para lo que estes intentando de resolver, recuerda que puedes utilizar varios commit si quieres organizarte pero evita exederte o que los mismos no tengan sentido. Recopila toda la informacion que creas importante para PR y para la documentacion.
+Realiza los cambios en el proyecto según creas conveninete para lo que estes intentando de resolver, recuerda que puedes utilizar varios commit si quieres organizarte pero evita exederte o que los mismos no tengan sentido. Recopila toda la información que creas importante para PR y para la documentación.
 
 **Checklist**:
 - [ ] Código sigue lineamientos

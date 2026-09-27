@@ -3,6 +3,7 @@ Title: "Terms & Conditions"
 tags: ["Terms & Conditions", "terms", "conditions", "terms and conditions"]
 date: "2022-05-24"
 img: "/img/posts/terms.svg"
+description: "Terms and conditions for using the VasakOS website: scope of the service, acceptance and permitted use."
 ---
 
 ## Terms and Conditions

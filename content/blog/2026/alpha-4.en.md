@@ -3,6 +3,7 @@ Title: "VasakOS Alpha 4"
 tags: [release, alpha, vasakos, vasak-desktop, wayland, news]
 date: "2026-08-19"
 img: "https://i.postimg.cc/c18gdn1B/image.png"
+description: "VasakOS Alpha 4: our biggest update so far, with a keyring, permissions, notifications and a lock screen of our own."
 ---
 
 Alpha 4 is here, and it is the biggest update we have published so far. It is not a list of touch-ups: a good part of the desktop stopped depending on borrowed pieces from other environments and got its own —keyring, permissions, notifications, login screen and lock screen— all drawn with the same colors, the same corner radius and the same typeface you chose.
@@ -54,7 +55,7 @@ And the idle lock is now configured from Power: minutes until lock, screen blank
 
 ## The system applications
 
-![](https://i.postimg.cc/vHNNfCFv/image.png)
+![Screenshot of the VasakOS system applications: files, terminal and music.](https://i.postimg.cc/vHNNfCFv/image.png)
 
 * **Files.** Copy, move and delete show progress and can be cancelled —even in the middle of a large folder—, there is a task center in the top bar, Ctrl+Z undoes copy, move, rename, create, compress and send to trash, and you can compress a selection into zip, tar.gz, tar.xz, tar.bz2, tar or 7z. Drag and drop is now Wayfire's native one.
 * **Terminal.** Overlay mode, font size control, and the unexpected closes when receiving accents or emoji are gone.

@@ -1,11 +1,12 @@
 ---
-title: "Solucion de Problemas | vasak-desktop"
+title: "Solución de Problemas | vasak-desktop"
 weight: 9999
+description: "Solución de problemas del entorno de desarrollo de Vasak Desktop: errores de compilación, rutas y dependencias."
 ---
 
 ## Problemas Comunes de Setup
 
-Aqui tienes la solucion de de errores comunes durante el setup del proyecto
+Aquí tienes la solución de de errores comunes durante el setup del proyecto
 
 ### Error: "Rust toolchain not found"
 
@@ -115,9 +116,9 @@ chmod +x verify-setup.sh
 ./verify-setup.sh
 ```
 
-## Compilacion
+## Compilación
 
-Solucion de errores comunes durante la compilacion del proyecto
+Solución de errores comunes durante la compilación del proyecto
 
 ## Problemas Comunes de Compilación
 

@@ -3,9 +3,10 @@ Title: "Buscamos pack de Iconos por Defecto"
 tags: [icons, iconos, vasak, vasakos, vasak-desktop]
 date: "2025-08-20"
 img: "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/198823909/original/0636a767358eb189c2263c613146ece9fa6b8b12/android-app-icon-for-any-kind.jpg"
+description: "Buscamos un pack de iconos propio para VasakOS. Explicamos por qué todavía no existe y qué haría falta para construirlo."
 ---
 
-Actualmente estamos en una etapa de desarrollo temprana, el sueño de tener iconos propios esta aun muy lejos, no solo por la cantidad de trabajo que nos falta con el escritorio propiamente dicho, sino también por la falta de un diseñador que nos ayude a crear un pack de iconos por defecto.
+Actualmente estamos en una etapa de desarrollo temprana, el sueño de tener iconos propios está aún muy lejos, no solo por la cantidad de trabajo que nos falta con el escritorio propiamente dicho, sino también por la falta de un diseñador que nos ayude a crear un pack de iconos por defecto.
 
 Por esto mismo estamos buscando un pack de iconos que podamos utilizar por defecto en el escritorio de VasakOS. Si tienes un pack de iconos que crees que podría encajar con la filosofía de VasakOS, por favor, no dudes en contactarnos. Vamos a estar revisando todos los packs de iconos que nos envíen y seleccionaremos el que mejor se adapte a nuestras necesidades y los pondremos a votación por la misma comunidad.
 

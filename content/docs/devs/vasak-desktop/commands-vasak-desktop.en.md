@@ -1,6 +1,7 @@
 ---
 title: "Desktop commands | vasak-desktop"
 weight: 31
+description: "Catalogue of the commands vasak-desktop exposes to the desktop, to connect new features to the existing ones."
 ---
 
 Commands implemented in `vasak-desktop` that new desktop features can use

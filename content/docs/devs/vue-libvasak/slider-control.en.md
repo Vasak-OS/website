@@ -1,14 +1,15 @@
 ---
 title: "Form | SliderControl"
 weight: 35
+description: "SliderControl: a slider with an icon, a calculated percentage and an optional side button."
 ---
 
 # `SliderControl`
 
-Description
+### Description
 - Custom slider control with an icon, a calculated percentage and an optional side button.
 
-Props
+### Props
 - `icon` (string) — Path to the icon shown.
 - `alt` (string) — Alternative text for the icon. Default: `''`.
 - `tooltip` (string) — `title` text of the icon.
@@ -19,11 +20,11 @@ Props
 - `iconClass` (string | Record<string, boolean>) — Classes for the icon.
 - `getPercentageClass` ((percentage: number) => string) — Optional callback returning CSS classes according to the percentage.
 
-Emits
+### Emits
 - `update:modelValue` — Emits the new numeric value when the slider is dragged.
 - `buttonClick` — When the side button is clicked.
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -42,5 +43,5 @@ const value = ref(40)
 </template>
 ```
 
-Notes
+### Notes
 - `getPercentageClass` lets you change the colour of the percentage text according to the value.

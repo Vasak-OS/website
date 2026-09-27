@@ -1,6 +1,7 @@
 ---
 title: "VueJS components | vasak-desktop"
 weight: 25
+description: "How to develop Vue components inside Vasak Desktop: structure, props and the conventions of the library."
 ---
 
 Guide for developing Vue components in Vasak Desktop.

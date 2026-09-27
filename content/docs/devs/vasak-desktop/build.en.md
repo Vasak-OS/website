@@ -1,6 +1,7 @@
 ---
 title: "Build | vasak-desktop"
 weight: 5
+description: "How to build Vasak Desktop: development commands, production builds, and what to check when a build fails."
 ---
 
 Guide for building Vasak Desktop. It also covers how to run builds.

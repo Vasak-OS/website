@@ -1,6 +1,6 @@
 ---
 Title: "Downloads"
-seotitle: "Download VasakOS — x86_64 ISO, SHA256 checksum and requirements | VasakOS"
+seotitle: "Download VasakOS: x86_64 ISO and SHA256 | VasakOS"
 description: "Download the official VasakOS ISO for x86_64. Mirrors, SHA256 checksum, minimum requirements and a step-by-step guide to create the bootable USB and install."
 tags: [downloads, download, iso, vasakos iso, download vasakos, arch linux, linux]
 type: downloads

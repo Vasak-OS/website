@@ -1,14 +1,15 @@
 ---
 title: "Tarjeta | DeviceCard"
 weight: 40
+description: "DeviceCard: tarjeta con los datos básicos de un dispositivo: icono, título, subtítulo, metadatos y estado."
 ---
 
 # `DeviceCard`
 
-Descripción
+### Descripción
 - Tarjeta que muestra información básica de un dispositivo (icono, título, subtítulo, metadata y acciones).
 
-Props
+### Props
 - `icon` (string) — Ruta del icono. **Requerido**.
 - `title` (string) — Título principal. **Requerido**.
 - `subtitle` (string) — Línea secundaria opcional. Por defecto: `''`.
@@ -21,11 +22,11 @@ Props
 - `customClass` (string) — Clases adicionales.
 - `clickable` (boolean) — Indica si la tarjeta responde a click. Por defecto: `false`.
 
-Emite
+### Emite
 - `action` — Cuando se pulsa el botón de acción.
 - `click` — Cuando se pulsa la tarjeta (si aplica).
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import DeviceCard from '../cards/DeviceCard.vue'

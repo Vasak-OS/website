@@ -3,6 +3,7 @@ Title: "VasakOS Alpha 3"
 tags: [video, demo, vasak, vasakos, vasak-desktop]
 date: "2026-04-01"
 img: "https://i.postimg.cc/3xXpdPxG/image.png"
+description: "VasakOS Alpha 3: Calamares reaches the installer, with improvements and fixes over the previous release."
 ---
 
 We keep moving forward with the development of VasakOS, and we decided to release Alpha 3, which has many improvements and fixes with respect to the previous version. It is still in **Alpha** state, so it is common to run into bugs or unfinished features. Any report can be made in the repositories and/or in the official communication channels.

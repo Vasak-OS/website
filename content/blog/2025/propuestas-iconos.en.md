@@ -3,6 +3,7 @@ Title: "We are looking for a default icon pack"
 tags: [icons, vasak, vasakos, vasak-desktop]
 date: "2025-08-20"
 img: "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/198823909/original/0636a767358eb189c2263c613146ece9fa6b8b12/android-app-icon-for-any-kind.jpg"
+description: "We are looking for an icon set of our own for VasakOS. Why it does not exist yet, and what it would take to build one."
 ---
 
 We are currently at an early development stage and the dream of having our own icons is still far away, not only because of how much work we still have to do with the desktop itself, but also because we lack a designer who can help us create a default icon pack.

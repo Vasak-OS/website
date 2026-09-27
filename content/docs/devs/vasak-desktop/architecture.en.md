@@ -1,6 +1,7 @@
 ---
 title: "Overall Architecture | vasak-desktop"
 weight: 15
+description: "General architecture of Vasak Desktop: how components, processes and internal communication are structured."
 ---
 
 Overview of the Vasak Desktop architecture and how its components are laid out.

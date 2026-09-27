@@ -1,6 +1,7 @@
 ---
-title: "D-Bus - Integracion con el sistema | vasak-desktop"
+title: "D-Bus - Integración con el sistema | vasak-desktop"
 weight: 25
+description: "D-Bus en Vasak Desktop: cómo el escritorio se integra con el sistema Linux por bus de sesión y servicios del sistema."
 ---
 
 Guía completa sobre D-Bus y cómo Vasak Desktop se integra con el sistema Linux.

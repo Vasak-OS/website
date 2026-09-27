@@ -2,6 +2,7 @@
 title: "Best practices [VueJS]"
 weight: 200
 aliases: ["/docs/devs/good-practices_vue/"]
+description: "Best practices for writing performant desktop applications with Vue 3 and Tauri."
 ---
 
 A best practices guide for developing performant desktop applications with Vue.js 3 and

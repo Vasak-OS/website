@@ -1,6 +1,7 @@
 ---
-title: "Lineamientos de codigo | vasak-desktop"
+title: "Lineamientos de código | vasak-desktop"
 weight: 105
+description: "Lineamientos de código de Vasak Desktop: principios generales, estilo de TypeScript, nomenclatura y formato."
 ---
 
 Estándares y mejores prácticas para mantener la calidad del código.

@@ -3,6 +3,7 @@ Title: "VasakOS Alpha 2"
 tags: [video, demo, vasak, vasakos, vasak-desktop]
 date: "2026-01-06"
 img: "https://i.postimg.cc/3xXpdPxG/image.png"
+description: "VasakOS Alpha 2: what the release brings, why we do not recommend installing it on your machine, and where to report issues."
 ---
 
 We tried to start 2026 with everything, so we decided to release alpha 2 and to make many changes to the way we have been working...

@@ -3,9 +3,10 @@ Title: "Alpha 4 de VasakOS"
 tags: [release, alpha, vasakos, vasak-desktop, wayland, novedades]
 date: "2026-08-19"
 img: "https://i.postimg.cc/c18gdn1B/image.png"
+description: "Alpha 4 de VasakOS: la actualización más grande hasta ahora, con llavero, permisos, notificaciones y bloqueo de pantalla propios."
 ---
 
-Llega el Alpha 4, y es la actualización más grande que publicamos hasta ahora. No es una lista de retoques: buena parte del escritorio dejó de depender de piezas prestadas de otros entornos y pasó a tener las suyas —llavero, permisos, notificaciones, pantalla de inicio y de bloqueo—, todas dibujadas con los mismos colores, el mismo radio de esquina y la misma tipografía que elegiste vos.
+Llega el Alpha 4, y es la actualización más grande que publicamos hasta ahora. No es una lista de retoques: buena parte del escritorio dejó de depender de piezas prestadas de otros entornos y pasó a tener las suyas —llavero, permisos, notificaciones, pantalla de inicio y de bloqueo—, todas dibujadas con los mismos colores, el mismo radio de esquina y la misma tipografía que elegiste tú.
 
 > Sigue siendo Alpha: se instala, se usa todos los días, y vas a encontrar cosas incompletas. Los reportes son bienvenidos y son, literalmente, de dónde salió buena parte de esta lista.
 
@@ -21,9 +22,9 @@ Varios monitores. Conectar, desconectar o cambiar un monitor rehace los escritor
 
 El panel dejó de mentir: el indicador de batería se actualiza, el icono de red muestra Wi-Fi cuando estás en Wi-Fi, la lista de redes entra en la pantalla y los controles de música responden al reproductor.
 
-## Ya podés instalarlo
+## Ya puedes instalarlo
 
-La ISO trae Calamares, así que VasakOS se instala de forma persistente en el disco. El teclado que elegís durante la instalación ahora llega al escritorio —antes la sesión arrancaba siempre en teclado de EE.UU.— y el arranque de sesión quedó administrado por systemd, que es lo que permite que los servicios del escritorio se levanten y se apaguen ordenadamente.
+La ISO trae Calamares, así que VasakOS se instala de forma persistente en el disco. El teclado que eliges durante la instalación ahora llega al escritorio —antes la sesión arrancaba siempre en teclado de EE.UU.— y el arranque de sesión quedó administrado por systemd, que es lo que permite que los servicios del escritorio se levanten y se apaguen ordenadamente.
 
 ## Tu sesión, de principio a fin
 
@@ -34,11 +35,11 @@ La ISO trae Calamares, así que VasakOS se instala de forma persistente en el di
 
 ## Aplicaciones nuevas
 
-* **Permisos.** Las aplicaciones ahora te piden permiso antes de usar tus cuentas en línea, con un cartel que es del escritorio y no el genérico del portal. Lo que decidís queda fuera del alcance de los programas que corren como vos.
+* **Permisos.** Las aplicaciones ahora te piden permiso antes de usar tus cuentas en línea, con un cartel que es del escritorio y no el genérico del portal. Lo que decidís queda fuera del alcance de los programas que corren como tú.
 * **Llavero.** VasakOS tiene su propio llavero cifrado (AES-256-GCM/Argon2id) que habla el protocolo estándar de Linux, así que las aplicaciones que guardan contraseñas funcionan sin instalar el de GNOME ni el de KDE. Se desbloquea al iniciar sesión, y si algo lo encuentra cerrado, te lo pide con un diálogo del sistema.
 * **Cuentas en línea.** Un servicio que guarda los tokens de tus cuentas en el llavero y los entrega de a uno, preguntándote antes. Ninguna aplicación se queda con una copia.
-* **Teléfono Android.** Enchufás el celular y sus aplicaciones se abren como ventanas del escritorio, con un menú propio en el panel y una tarjeta de estado en el centro de notificaciones. El teléfono se detecta al conectarlo, y mientras no haya ninguno el servicio no consume nada.
-* **Acentos manteniendo la tecla.** Como en macOS: sostenés la a y aparecen á, à, â, ä… para elegir con un número o con el mouse. Escribe la variante que elijas sin depender de que tu distribución de teclado la tenga, así que funciona igual en un teclado latinoamericano que en uno inglés.
+* **Teléfono Android.** Enchufas el celular y sus aplicaciones se abren como ventanas del escritorio, con un menú propio en el panel y una tarjeta de estado en el centro de notificaciones. El teléfono se detecta al conectarlo, y mientras no haya ninguno el servicio no consume nada.
+* **Acentos manteniendo la tecla.** Como en macOS: sostienes la a y aparecen á, à, â, ä… para elegir con un número o con el mouse. Escribe la variante que elijas sin depender de que tu distribución de teclado la tenga, así que funciona igual en un teclado latinoamericano que en uno inglés.
 * **Notificaciones.** El servidor de notificaciones del sistema es propio: guarda el historial, agrupa por aplicación y muestra los carteles con el tema del escritorio.
 
 ## Configuración creció mucho
@@ -54,16 +55,16 @@ Y el bloqueo por inactividad se configura desde Energía: minutos hasta bloquear
 
 ## Las aplicaciones del sistema
 
-![](https://i.postimg.cc/vHNNfCFv/image.png)
+![Captura de pantalla de las aplicaciones del sistema de VasakOS: archivos, terminal y música.](https://i.postimg.cc/vHNNfCFv/image.png)
 
-* **Archivos.** Copiar, mover y eliminar muestran progreso y se pueden cancelar —incluso en medio de una carpeta grande—, hay un centro de tareas en la barra superior, Ctrl+Z deshace copiar, mover, renombrar, crear, comprimir y enviar a la papelera, y podés comprimir una selección en zip, tar.gz, tar.xz, tar.bz2, tar o 7z. El arrastrar y soltar ahora es el nativo de Wayland.
+* **Archivos.** Copiar, mover y eliminar muestran progreso y se pueden cancelar —incluso en medio de una carpeta grande—, hay un centro de tareas en la barra superior, Ctrl+Z deshace copiar, mover, renombrar, crear, comprimir y enviar a la papelera, y puedes comprimir una selección en zip, tar.gz, tar.xz, tar.bz2, tar o 7z. El arrastrar y soltar ahora es el nativo de Wayland.
 * **Terminal.** Modo overlay, control del tamaño de letra, y se terminaron los cierres inesperados al recibir acentos o emoji.
 * **Música.** Listas de reproducción, controles para las radios, y reproducir un disco largo dejó de reservar más de 1 GB de memoria: ahora se transmite a medida que suena.
 * **Galería.** Las fotos se ordenan por su fecha real de captura (EXIF), no por la fecha del archivo, que cambia al copiarlas.
 
 ## Claves SSH
 
-Si usás claves SSH con frase de contraseña, ahora la escribís una sola vez: el sistema levanta el agente al iniciar sesión y guarda la frase en el llavero, que ya se desbloquea con tu inicio de sesión. Ni git push ni ninguna aplicación gráfica vuelven a pedírtela.
+Si usas claves SSH con frase de contraseña, ahora la escribes una sola vez: el sistema levanta el agente al iniciar sesión y guarda la frase en el llavero, que ya se desbloquea con tu inicio de sesión. Ni git push ni ninguna aplicación gráfica vuelven a pedírtela.
 
 ## Seguridad
 
@@ -76,7 +77,7 @@ Si usás claves SSH con frase de contraseña, ahora la escribís una sola vez: e
 
 ## Más liviano
 
-El escritorio consume bastante menos que en el Alpha 3. Entre otras cosas: el menú abre al instante, el deslizador de volumen dejó de congelar el panel, la salida del terminal ya no se consulta 60 veces por segundo, el reloj despierta una vez por minuto, los registros dejaron de escribirse a disco línea por línea, y los plugins del compositor que no usás se pueden apagar. La portada del sitio, de paso, pasó de 3,9 MB a unos 200 KB.
+El escritorio consume bastante menos que en el Alpha 3. Entre otras cosas: el menú abre al instante, el deslizador de volumen dejó de congelar el panel, la salida del terminal ya no se consulta 60 veces por segundo, el reloj despierta una vez por minuto, los registros dejaron de escribirse a disco línea por línea, y los plugins del compositor que no usas se pueden apagar. La portada del sitio, de paso, pasó de 3,9 MB a unos 200 KB.
 
 ## ¿Dónde la consigo?
 

@@ -1,6 +1,7 @@
 ---
 title: "Folder System | vasak-desktop"
 weight: 20
+description: "Folder structure of Vasak Desktop: what lives in each directory and how they relate to each other."
 ---
 
 Detailed guide to the project's folder structure.

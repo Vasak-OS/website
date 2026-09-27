@@ -19,8 +19,9 @@
 # `description` de las páginas que no traen la suya, y también la `description`
 # de la Organization del JSON-LD, así que cambia con el idioma.
 [site]
-  summary = "VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto."
+  summary = "VasakOS: sistema operativo libre basado en Arch Linux, con escritorio propio en Wayland y aplicaciones nativas en Rust. Rolling release y de código abierto."
   tagline = "Un escritorio propio sobre Arch Linux, hecho para que el sistema se sienta tuyo."
+  homeTitle = "Un escritorio propio sobre Arch Linux"
 
 [nav]
   main = "Navegación principal"
@@ -35,9 +36,9 @@
   download = "Descargar"
   available = "disponible"
   state = "Estado del proyecto"
-  heroRoll = "Rolling release, Wayland, aplicaciones nativas escritas en Rust y una interfaz que podés modificar con CSS. Libre, gratuito y desarrollado a la vista de todos."
+  heroRoll = "Rolling release, Wayland, aplicaciones nativas escritas en Rust y una interfaz que puedes modificar con CSS. Libre, gratuito y desarrollado a la vista de todos."
   releaseNote = "Versión {{ .Channel }}: usable a diario para probar, todavía no recomendada como único sistema."
-  seeWhatWorks = "Mirá qué funciona hoy"
+  seeWhatWorks = "Mira qué funciona hoy"
 
 [404]
   notFound = "Esta página no existe"
@@ -59,6 +60,7 @@
   previous = "Anterior"
   next = "Siguiente"
   label = "Paginación"
+  page = "Página"
 
 [search]
   title = "Buscar documentación"
@@ -176,7 +178,7 @@
   openSourceTitle = "Todo el trabajo de VasakOS es completamente abierto para la comunidad."
   seeRepos = "Ver repositorios"
   gplP1 = "Cada componente vive en su propio repositorio público bajo licencia GPL: el escritorio, las aplicaciones, los servicios, los PKGBUILD y hasta este sitio. No hay una parte cerrada que haga funcionar el resto."
-  helpP1 = "Ya seas diseñador, programador o usuario, tu ayuda suma. Desde que instalás VasakOS y reportás lo que no anda, ya sos parte del desarrollo."
+  helpP1 = "Ya seas diseñador, programador o usuario, tu ayuda suma. Desde que instalas VasakOS y reportas lo que no anda, ya eres parte del desarrollo."
   list1 = "Forkear, clonar, modificar o mandar un Pull Request."
   list2 = "Probar, reportar, sugerir, abrir issues, comentarlos o resolverlos."
   list3 = "Traducir, documentar o diseñar iconos y fondos."
@@ -193,14 +195,14 @@
 
 [cta]
   title = "Forma parte de esta gran comunidad"
-  body = "Podes formar parte de esta gran comunidad descargando nuestro sistema y utilizándolo, probándolo, o incluso unirte al desarrollo del mismo. Vasak OS lo hacemos entre todos, desde los usuarios hasta los desarrolladores."
+  body = "Puedes formar parte de esta gran comunidad descargando nuestro sistema y utilizándolo, probándolo, o incluso unirte al desarrollo del mismo. VasakOS lo hacemos entre todos, desde los usuarios hasta los desarrolladores."
   button = "Descargar"
   imageAlt = "Ilustración de un grupo de personas colaborando"
 
 [screenshots]
   eyebrow = "Galería"
   title = "Capturas de pantalla"
-  subtitle = "Conocé cómo se ve Vasak OS"
+  subtitle = "Conoce cómo se ve VasakOS"
   previous = "Anterior"
   next = "Siguiente"
   goTo = "Ir a la imagen {{ .Number }}"
@@ -246,7 +248,7 @@
   minimum = "Mínimo"
   recommended = "Recomendado"
   verify = "Verificar la descarga"
-  verifyHint = "Comprobá la suma SHA-256 antes de instalar: es la única forma de saber que la imagen no se modificó en el camino."
+  verifyHint = "Comprueba la suma SHA-256 antes de instalar: es la única forma de saber que la imagen no se modificó en el camino."
   support = "Soporte"
   reportBug = "Reportar un error"
   architecture = "Arquitectura"
@@ -269,7 +271,7 @@
 
   [about.case.home]
     tag = "DOMÉSTICO"
-    title = "Usá VasakOS en tu casa"
+    title = "Usa VasakOS en tu casa"
     alt = "Ilustración de una casa con dispositivos conectados"
     intro = "El ecosistema de GNU/Linux y {{ .Tool }} ponen a mano casi todo lo que se usa a diario en un equipo familiar."
     [about.case.home.items]
@@ -278,16 +280,16 @@
       i3 = "Reproducción y edición multimedia: VLC, MPV, GIMP, Krita, Kdenlive, Audacity, OBS."
   [about.case.study]
     tag = "ESTUDIANTIL"
-    title = "Usá VasakOS para estudiar"
+    title = "Usa VasakOS para estudiar"
     alt = "Ilustración de una persona estudiando frente a una computadora"
     intro = "Todo lo que hace falta para cursar, leer y entregar trabajos, sin licencias que pagar."
     [about.case.study.items]
-      i1 = "Suites de ofimática completas: LibreOffice, OnlyOffice o WPS si necesitás compatibilidad estricta con MS Office."
+      i1 = "Suites de ofimática completas: LibreOffice, OnlyOffice o WPS si necesitas compatibilidad estricta con MS Office."
       i2 = "Lectores para PDF, EPUB, DjVu y formatos de apuntes, más herramientas de anotación."
       i3 = "Videoconferencia y trabajo en grupo: Zoom, Teams, Discord, Jitsi y Nextcloud."
   [about.case.work]
     tag = "LABORAL"
-    title = "Usá VasakOS para trabajar"
+    title = "Usa VasakOS para trabajar"
     alt = "Ilustración de un escritorio de trabajo con herramientas"
     intro = "Arch Linux es una base habitual en desarrollo justamente por lo rápido que llegan las versiones nuevas de las herramientas."
     [about.case.work.items]

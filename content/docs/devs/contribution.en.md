@@ -1,6 +1,7 @@
 ---
 title: "Contributing to the project"
 weight: 55
+description: "How to contribute to VasakOS development: report a bug, propose an improvement or send a pull request."
 ---
 
 A guide to contributing to the development of **VasakOS**. This applies to in-house or

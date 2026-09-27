@@ -1,23 +1,24 @@
 ---
 title: "Form | FormGroup"
 weight: 35
+description: "FormGroup: a container that groups form labels and fields, providing the base spacing and styles."
 ---
 
 # `FormGroup`
 
-Description
+### Description
 - Container for form labels and fields. Provides spacing and base styles to group inputs.
 
-Props
+### Props
 - `label` (string) — Label text. **Required**.
 - `htmlFor` (string) — `for` value of the `label` element. Default: `''`.
 - `customClass` (string | Record<string, boolean>) — Additional classes for the container.
 - `labelClass` (string | Record<string, boolean>) — Additional classes for the label.
 
-Slots
+### Slots
 - Default — Places the form control (input, select, etc.).
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import FormGroup from '../forms/FormGroup.vue'

@@ -273,3 +273,84 @@ describe("el bloque de donaciones", () => {
     }
   });
 });
+
+describe("el registro del español", () => {
+  /*
+    El sitio estaba escrito en voseo: «podés instalar», «conocé», «instalá». Es
+    el registro de Argentina y de medio resto del Río de la Plata, y no el de
+    España ni el del resto de Latinoamérica. Se pasó a neutro, que es lo que
+    ninguna persona busca —«podés instalar» no lo escribe nadie— y lo que le
+    sirve a todo el mercado hispanohablante.
+
+    La conversión tiene una trampa que ya costó un error: la forma de vos pierde
+    una letra y la de usted la recupera, así que al quitar la tilde a secas
+    «podés» quedaba «podes», que no es español. Sólo se listan las formas del
+    indicativo presente que cambian entre los dos registros: las que no cambian
+    («sabes», «haces») no distinguen nada y no se miran.
+  */
+  const DE_VOS = [
+    "podes", "tenes", "queres", "venis", "dejis", "decis", "pedis",
+    "elegis", "seguis", "conseguis", "repetis", "elegí", "seguí", "repetí",
+    "cometí", "permití",
+  ];
+  // El voseo vuelve por la puerta de atrás en los imperativos: dos palabras en
+  // un botón o en una instrucción corta, y nadie lo nota hasta que lo relee.
+  const IMPERATIVOS = [
+    "instalá", "descargá", "conocé", "usá", "mirá", "hacé", "elegí", "aplicá",
+    "sumate", "anotá", "comprobá", "revisá", "verificá", "activá", "evitá",
+  ];
+
+  const enEspanol = (): string[] => {
+    const archivos: string[] = [];
+    const recorrer = (dir: string) => {
+      for (const entrada of readdirSync(dir)) {
+        const ruta = join(dir, entrada);
+        if (statSync(ruta).isDirectory()) recorrer(ruta);
+        // La página en inglés se escribe en inglés: buscarle español es ruido.
+        else if (entrada.endsWith(".md") && !entrada.endsWith(".en.md")) archivos.push(ruta);
+      }
+    };
+    recorrer("content");
+    archivos.push("i18n/es.toml");
+    return archivos.sort();
+  };
+
+  /*
+    Los limites de palabra van como lookarounds Unicode y no como `\b`, porque en
+    JavaScript `\w` es sólo `[A-Za-z0-9_]`: la `í` no cuenta como caracter de
+    palabra, así que `\belegí\b` matchea dentro de `elegías` y `\binstalá\b`
+    dentro de `Instalándolo`. Un detector de voseo que marca la mitad de las
+    conjugaciones correctas deja de leerse, y lo que encuentra son errores
+    inventados.
+  */
+  const borde = (forma: string) =>
+    `(?<![\\p{L}])(?:${forma})(?![\\p{L}])`;
+
+  const buscar = (patron: RegExp): string[] =>
+    enEspanol().flatMap((ruta) => {
+      const texto = readFileSync(ruta, "utf8");
+      // Fuera de los bloques de código: ahí van comandos, rutas y ejemplos.
+      const cuerpo = texto.replace(/```[\s\S]*?```/g, "");
+      return [...cuerpo.matchAll(patron)].map((m) => {
+        const i = m.index ?? 0;
+        const ctx = cuerpo.slice(Math.max(0, i - 40), i + 40).replace(/\s+/g, " ");
+        return `${ruta}: «${m[0]}» en …${ctx}…`;
+      });
+    });
+
+  test("no queda ninguna forma de vos", () => {
+    expect(buscar(new RegExp(borde(DE_VOS.join("|")), "giu"))).toEqual([]);
+  });
+
+  test("no queda ningún imperativo de vos", () => {
+    expect(buscar(new RegExp(borde(IMPERATIVOS.join("|")), "giu"))).toEqual([]);
+  });
+
+  test("el nombre de la marca es siempre uno", () => {
+    // «Vasak OS» con espacio y «VasakOS» sin espacio son dos nombres para lo
+    // mismo, y el buscador los trata como dos cosas distintas. Las etiquetas de
+    // artículo quedan fuera a propósito: son palabras clave en minúscula y
+    // perché un problema distinto.
+    expect(buscar(/\bVasak\s+OS\b/g)).toEqual([]);
+  });
+});

@@ -1,5 +1,6 @@
 ---
-Title: "Vasak Terminal: a modern Tauri-based terminal for the Vasak OS ecosystem"
+Title: "Vasak Terminal: a Tauri-based terminal"
+aliases: ["/blog/2026/03/vasak-terminal-a-modern-tauri-based-terminal-for-the-vasak-os-ecosystem/"]
 tags: [ vasak os,
     vasak terminal,
     linux terminal,
@@ -11,6 +12,7 @@ tags: [ vasak os,
     open source]
 date: "2026-03-16"
 img: "https://i.postimg.cc/dVgZx66s/photo-2026-03-16-11-54-57.jpg"
+description: "Vasak Terminal: a terminal of our own for the VasakOS ecosystem, built with Tauri and Vue and integrated with the desktop."
 ---
 
 The **Vasak OS** ecosystem keeps growing. After presenting new applications such as the file manager, today we want to show another fundamental component of the system: **Vasak Terminal**.
@@ -123,7 +125,7 @@ There is still a lot of work to do, but this first version already shows the dir
 
 Here you can see a preliminary view of Vasak Terminal running inside the environment:
 
-![Vasak Terminal Screenshot](https://i.postimg.cc/dVgZx66s/photo-2026-03-16-11-54-57.jpg)
+![Vasak Terminal running inside the VasakOS desktop.](https://i.postimg.cc/dVgZx66s/photo-2026-03-16-11-54-57.jpg)
 
 ---
 

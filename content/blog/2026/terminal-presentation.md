@@ -1,5 +1,6 @@
 ---
-Title: "Vasak Terminal: una terminal moderna basada en Tauri para el ecosistema Vasak OS"
+Title: "Vasak Terminal: una terminal propia hecha con Tauri"
+aliases: ["/blog/2026/03/vasak-terminal-una-terminal-moderna-basada-en-tauri-para-el-ecosistema-vasak-os/"]
 tags: [ vasak os,
     vasak terminal,
     linux terminal,
@@ -11,19 +12,20 @@ tags: [ vasak os,
     open source]
 date: "2026-03-16"
 img: "https://i.postimg.cc/dVgZx66s/photo-2026-03-16-11-54-57.jpg"
+description: "Vasak Terminal: la terminal propia del ecosistema VasakOS, hecha con Tauri y Vue e integrada con el escritorio."
 ---
 
-El ecosistema de **Vasak OS** continúa creciendo. Luego de presentar nuevas aplicaciones como el gestor de archivos, hoy queremos mostrar otro componente fundamental del sistema: **Vasak Terminal**.
+El ecosistema de **VasakOS** continúa creciendo. Luego de presentar nuevas aplicaciones como el gestor de archivos, hoy queremos mostrar otro componente fundamental del sistema: **Vasak Terminal**.
 
 Se trata de la terminal que acompañará al **Vasak Desktop**, diseñada para integrarse completamente con el entorno y ofrecer una experiencia moderna, simple y potente para usuarios de Linux.
 
-Aunque todavía queda mucho por mejorar, queremos mostrar una **primera versión en estado BETA** de lo que será la terminal oficial del ecosistema Vasak OS.
+Aunque todavía queda mucho por mejorar, queremos mostrar una **primera versión en estado BETA** de lo que será la terminal oficial del ecosistema VasakOS.
 
 ---
 
 ## Una terminal pensada para integrarse con el sistema
 
-Uno de los objetivos de Vasak OS es ofrecer **un ecosistema completo de aplicaciones** que funcionen de forma coherente entre sí.
+Uno de los objetivos de VasakOS es ofrecer **un ecosistema completo de aplicaciones** que funcionen de forma coherente entre sí.
 
 Vasak Terminal sigue esa filosofía: no es simplemente una terminal más, sino una aplicación diseñada específicamente para integrarse con el entorno de escritorio.
 
@@ -40,7 +42,7 @@ Esto permite mantener una **experiencia visual consistente en todo el sistema**.
 
 ## Tecnologías utilizadas
 
-**Vasak Terminal** forma parte de la nueva arquitectura del ecosistema Vasak OS basada en tecnologías modernas. La aplicación está construida con:
+**Vasak Terminal** forma parte de la nueva arquitectura del ecosistema VasakOS basada en tecnologías modernas. La aplicación está construida con:
 
 - **Tauri** para el framework de aplicación
 - **Vue.js** para la interfaz
@@ -113,7 +115,7 @@ La idea es que **los usuarios no necesiten instalar terminales externas**, ya qu
 
 Actualmente **Vasak Terminal se encuentra en estado BETA**.
 
-La aplicación será incluida en la **próxima ISO de Vasak OS**, la cual traerá varios cambios importantes en el ecosistema.
+La aplicación será incluida en la **próxima ISO de VasakOS**, la cual traerá varios cambios importantes en el ecosistema.
 
 Todavía queda mucho trabajo por hacer, pero esta primera versión ya permite ver la dirección que está tomando el proyecto.
 
@@ -123,13 +125,13 @@ Todavía queda mucho trabajo por hacer, pero esta primera versión ya permite ve
 
 Aquí puedes ver una vista preliminar de Vasak Terminal funcionando dentro del entorno:
 
-![Vasak Terminal Screenshot](https://i.postimg.cc/dVgZx66s/photo-2026-03-16-11-54-57.jpg)
+![Vasak Terminal funcionando dentro del escritorio de VasakOS.](https://i.postimg.cc/dVgZx66s/photo-2026-03-16-11-54-57.jpg)
 
 ---
 
 ## Un proyecto abierto a la comunidad
 
-Como todos los componentes de Vasak OS, **Vasak Terminal es un proyecto open source**.Si te interesa colaborar con el desarrollo, podés hacerlo desde el repositorio oficial:
+Como todos los componentes de VasakOS, **Vasak Terminal es un proyecto open source**.Si te interesa colaborar con el desarrollo, puedes hacerlo desde el repositorio oficial:
 
 https://github.com/Vasak-OS/vasak-terminal
 

@@ -42,7 +42,7 @@ Eso es todo. Actualiza el sistema base y las aplicaciones de VasakOS en la misma
 Una vez por semana está bien. Lo que conviene evitar es dejar pasar meses: cuanto más
 grande la actualización, más probable que algo requiera intervención manual.
 
-Antes de una actualización grande, mirá si hay avisos en
+Antes de una actualización grande, mira si hay avisos en
 [el blog](/blog/) y en [Arch Linux news](https://archlinux.org/news/).
 
 Y un motivo más para no dejar pasar meses: **el aviso no distingue una actualización de
@@ -52,7 +52,7 @@ enterarse de que eran distintas. Está explicado en [Seguridad](/docs/user/secur
 
 ## Archivos `.pacnew`
 
-Cuando una actualización trae una versión nueva de un archivo de configuración que vos
+Cuando una actualización trae una versión nueva de un archivo de configuración que tú
 editaste, pacman no la pisa: la deja al lado con extensión `.pacnew`.
 
 ```bash
@@ -82,7 +82,7 @@ ls /var/cache/pacman/pkg/ | grep nombre-del-paquete
 sudo pacman -U /var/cache/pacman/pkg/nombre-del-paquete-VERSION.pkg.tar.zst
 ```
 
-Para que la próxima actualización no lo vuelva a subir mientras investigás, agregalo
+Para que la próxima actualización no lo vuelva a subir mientras investigas, agrégalo
 temporalmente a `IgnorePkg` en `/etc/pacman.conf`:
 
 ```conf
@@ -94,16 +94,16 @@ termina siendo incompatible con el resto del sistema.
 
 ## Si el sistema no arranca después de actualizar
 
-1. En el menú de arranque, elegí una entrada de kernel anterior si está disponible.
-2. Si no, arrancá desde el USB de instalación en modo Live y montá tu instalación:
+1. En el menú de arranque, elige una entrada de kernel anterior si está disponible.
+2. Si no, arranca desde el USB de instalación en modo Live y monta tu instalación:
 
    ```bash
    sudo mount /dev/sdXY /mnt
    sudo arch-chroot /mnt
    ```
 
-   Desde ahí podés reinstalar paquetes o revisar los logs con
+   Desde ahí puedes reinstalar paquetes o revisar los logs con
    `journalctl -b -1 -p err`.
 
-3. Guardá esos logs: son exactamente lo que hace falta para
+3. Guarda esos logs: son exactamente lo que hace falta para
    [reportar el problema](/docs/user/report-bugs/).

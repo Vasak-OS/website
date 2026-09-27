@@ -14,6 +14,7 @@ tags:
   ]
 date: "2025-05-11"
 img: "https://i.postimg.cc/XJkYD3VR/image.png"
+description: "We publish tauri-plugin-user-data: read and write the user data of a Tauri application from the native side."
 ---
 
 Today we published our second plugin for **Tauri**. It is a simple abstraction of something we had been doing in our applications. We managed to extract the code and publish it as a plugin so that any developer can use it. It is called **tauri-plugin-user-data** and it lets you use user data quickly and easily in your applications. It is completely free and open source, so any developer can use it.

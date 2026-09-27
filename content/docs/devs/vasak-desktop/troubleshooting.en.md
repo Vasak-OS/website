@@ -1,6 +1,7 @@
 ---
 title: "Troubleshooting | vasak-desktop"
 weight: 9999
+description: "Troubleshooting the Vasak Desktop development environment: build errors, paths and dependencies."
 ---
 
 ## Common Setup Problems

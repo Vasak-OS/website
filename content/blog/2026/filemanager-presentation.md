@@ -1,10 +1,12 @@
 ---
-Title: "Vasak File Manager: un nuevo explorador de archivos para Vasak OS"
+Title: "Vasak File Manager: un explorador de archivos propio"
+aliases: ["/blog/2026/03/vasak-file-manager-un-nuevo-explorador-de-archivos-para-vasak-os/"]
 tags: [vasak os, vasak file manager, linux desktop, file manager, open source, rust, tauri, vuejs, linux desktop environment]
 date: "2026-03-10"
 img: "https://i.postimg.cc/9QN6TtXx/image.png"
+description: "Vasak File Manager: el nuevo explorador de archivos de VasakOS, con pestañas, búsqueda integrada y una interfaz renovada."
 ---
-Durante la migración de varios componentes de Vasak OS a Rust tomamos una decisión arquitectónica importante: unificar varios módulos del sistema en procesos compartidos para simplificar la comunicación interna del desktop.
+Durante la migración de varios componentes de VasakOS a Rust tomamos una decisión arquitectónica importante: unificar varios módulos del sistema en procesos compartidos para simplificar la comunicación interna del desktop.
 
 Si bien esta decisión permitió avanzar más rápido en las primeras etapas del proyecto, con el tiempo comenzó a presentar algunas limitaciones, especialmente a la hora de **escalar funcionalidades complejas**.
 
@@ -43,9 +45,9 @@ El nuevo **Vasak File Manager** está desarrollado utilizando:
 
 Esta combinación permite construir una aplicación moderna con una interfaz altamente reactiva, manteniendo al mismo tiempo una buena integración con el sistema.
 
-Además, el explorador de archivos **se integra con el sistema de temas y la reactividad del desktop de Vasak OS**, lo que garantiza una experiencia visual consistente.
+Además, el explorador de archivos **se integra con el sistema de temas y la reactividad del desktop de VasakOS**, lo que garantiza una experiencia visual consistente.
 
-El proyecto toma como inspiración técnica a **Sigma File Manager**, adaptando su enfoque para integrarlo con el ecosistema de Vasak OS.
+El proyecto toma como inspiración técnica a **Sigma File Manager**, adaptando su enfoque para integrarlo con el ecosistema de VasakOS.
 
 ---
 
@@ -59,13 +61,13 @@ Actualmente el file manager incluye dos modos de visualización:
 
 Ideal para trabajar con grandes cantidades de archivos y visualizar información de forma ordenada.
 
-![Vista lista](https://i.postimg.cc/J0VmX3xz/image.png)
+![Vista en lista del Vasak File Manager, con la información de cada archivo en orden.](https://i.postimg.cc/J0VmX3xz/image.png)
 
 ## Vista en grilla
 
 Pensada para navegación visual, especialmente útil cuando se trabaja con imágenes o contenido multimedia.
 
-![Vista grilla](https://i.postimg.cc/rwnkj2jj/image.png)
+![Vista en grilla del Vasak File Manager, para navegar visualmente entre imágenes y contenido multimedia.](https://i.postimg.cc/rwnkj2jj/image.png)
 
 Ambos modos comparten una estética más moderna y consistente con el resto del desktop.
 
@@ -84,7 +86,7 @@ Entre las funcionalidades disponibles:
 
 Esto permite trabajar con múltiples ubicaciones del sistema de archivos de forma mucho más eficiente.
 
-![Tabs](https://i.postimg.cc/QNQZPTS5/image.png)
+![Pestañas del Vasak File Manager, con varios directorios abiertos en paralelo y reordenables arrastrando.](https://i.postimg.cc/QNQZPTS5/image.png)
 
 ---
 
@@ -107,7 +109,7 @@ Actualmente soporta:
 
 Esto permite inspeccionar archivos sin necesidad de abrir aplicaciones externas.
 
-![Preview](https://i.postimg.cc/9QN6TtXx/image.png)
+![Vista previa de un archivo en la barra lateral del Vasak File Manager, sin abrir otra aplicación.](https://i.postimg.cc/9QN6TtXx/image.png)
 
 ---
 
@@ -135,7 +137,7 @@ Si bien el nuevo **Vasak File Manager** ya es funcional, todavía se encuentra e
 
 Queremos compartir esta versión preliminar para mostrar el progreso del proyecto y comenzar a construir una base sólida para el futuro del sistema.
 
-Nuestro objetivo es seguir mejorando la experiencia del usuario y ofrecer herramientas cada vez más completas dentro del ecosistema de Vasak OS.
+Nuestro objetivo es seguir mejorando la experiencia del usuario y ofrecer herramientas cada vez más completas dentro del ecosistema de VasakOS.
 
 ---
 
@@ -145,4 +147,4 @@ El desarrollo del nuevo explorador de archivos es completamente abierto.
 
 * Repositorio del proyecto: https://github.com/Vasak-OS/vasak-file-manager
 
-Si te interesa el desarrollo de Vasak OS, te invitamos a seguir el repositorio y participar del proyecto.
+Si te interesa el desarrollo de VasakOS, te invitamos a seguir el repositorio y participar del proyecto.

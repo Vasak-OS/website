@@ -1,6 +1,7 @@
 ---
 title: "Debugging"
 weight: 35
+description: "Depurar aplicaciones de VasakOS: registro, breakpoints y herramientas de diagnóstico, con un ejemplo sobre vasak-desktop."
 ---
 
 Técnicas y herramientas para depurar código en cualquier **VAPP** el ejmplo utiliza `vasak-desktop` con el fin de tener un caso de uso amplio.

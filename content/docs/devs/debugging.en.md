@@ -1,6 +1,7 @@
 ---
 title: "Debugging"
 weight: 35
+description: "Debugging VasakOS applications: logging, breakpoints and diagnostics, with a worked example on vasak-desktop."
 ---
 
 Techniques and tools for debugging code in any **VAPP**; the examples use `vasak-desktop` so

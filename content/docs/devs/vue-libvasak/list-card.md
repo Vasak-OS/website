@@ -7,20 +7,20 @@ aliases: ["/docs/devs/vue-libvasak/listcard/"]
 
 # `ListCard`
 
-Descripción
+### Descripción
 - Contenedor tipo tarjeta para elementos de lista que puede ser `clickable`.
 
-Props
+### Props
 - `clickable` (boolean) — Si es `true` emite `click` al pulsar. Por defecto: `false`.
 - `customClass` (string | Record<string, boolean>) — Clases adicionales.
 
-Emite
+### Emite
 - `click` — Si `clickable` es true, se emite al pulsar.
 
-Slots
+### Slots
 - Default — Contenido de la tarjeta (icono + texto, etc.).
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import ListCard from '../cards/ListCard.vue'

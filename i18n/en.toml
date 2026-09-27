@@ -15,8 +15,9 @@
 # that do not bring their own, and it is the `description` of the Organization
 # in the JSON-LD, so it changes with the language.
 [site]
-  summary = "VasakOS is a free operating system based on Arch Linux, with its own Wayland desktop and native applications written in Rust. Free, rolling release, and open source."
+  summary = "VasakOS is a free operating system based on Arch Linux, with its own Wayland desktop and native applications in Rust. Rolling release, open source."
   tagline = "A desktop of its own, built on Arch Linux, made so the system feels like yours."
+  homeTitle = "A desktop of its own, on Arch Linux"
 
 [nav]
   main = "Main navigation"
@@ -55,6 +56,7 @@
   previous = "Previous"
   next = "Next"
   label = "Pagination"
+  page = "Page"
 
 [search]
   title = "Search the documentation"

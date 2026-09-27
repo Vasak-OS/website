@@ -1,6 +1,7 @@
 ---
 title: "Componentes de VueJS | vasak-desktop"
 weight: 25
+description: "Cómo desarrollar componentes Vue dentro de Vasak Desktop: estructura, props y convenciones de la librería."
 ---
 
 Guía para desarrollar componentes Vue en Vasak Desktop.
@@ -542,4 +543,4 @@ describe('AudioControl', () => {
 
 ## Mejores Prácticas
 
-Recuerda revisar la documentacion de [buenas practicas de VueJS](/docs/devs/good-practices_vue/) para mantener buenas practivas.
+Recuerda revisar la documentación de [buenas prácticas de VueJS](/docs/devs/good-practices_vue/) para mantener buenas practivas.

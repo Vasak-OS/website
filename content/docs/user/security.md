@@ -12,7 +12,7 @@ deja el problema a la vista de cualquiera mientras todavía no hay arreglo.
 En el repositorio que corresponda, pestaña **Security** → **Report a vulnerability**. Está
 habilitado en todos los repositorios activos de la organización.
 
-Si no sabés cuál es el repositorio, mandalo a
+Si no sabes cuál es el repositorio, mándalo a
 [vasak-permissions](https://github.com/Vasak-OS/vasak-permissions/security) y lo derivamos.
 
 Ayuda que el reporte traiga la versión del paquete (`pacman -Q <paquete>`), qué pasa y cómo
@@ -26,7 +26,7 @@ reproducirlo. Un exploit no hace falta.
 | Primer diagnóstico | 7 días |
 | Plazo antes de que publiques | 90 días, o antes si el arreglo sale antes |
 
-Los 90 días son un pedido, no una imposición: si pasan y no resolvimos, publicá.
+Los 90 días son un pedido, no una imposición: si pasan y no resolvimos, publica.
 
 El arreglo sale como una actualización normal y el aviso se publica **después** de que el
 paquete está en el repositorio. `vasak-update` comprueba una vez por día y al iniciar sesión,

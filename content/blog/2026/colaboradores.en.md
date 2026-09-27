@@ -1,15 +1,17 @@
 ---
-Title: "We are looking for contributors to Vasak OS: help us build a new Linux experience"
+Title: "We are looking for contributors to VasakOS"
+aliases: ["/blog/2026/03/we-are-looking-for-contributors-to-vasak-os-help-us-build-a-new-linux-experience/"]
 tags: [vasak os, arch linux distro, linux desktop environment, open source linux, linux development, linux community, arch based distro, linux ui ux, linux desktop]
 date: "2026-03-11"
 img: "https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg"
+description: "We are looking for contributors to build VasakOS: who we are after, the profiles we lack, and how to join the project."
 ---
 
 Vasak OS is an open source project that seeks to build a modern Linux distribution based on Arch Linux, focused on offering a **complete, coherent and well integrated user experience**.
 
 The goal of the project is to develop an ecosystem of applications and tools that let you use the system in a comfortable and modern way without depending on the terminal all the time, while keeping the power and flexibility of the Linux ecosystem.
 
-![](https://i.postimg.cc/1XWC31jq/Captura-de-pantalla-20260311-101935.jpg)
+![Screenshot of the VasakOS desktop in development, during the project's pre-alpha stage.](https://i.postimg.cc/1XWC31jq/Captura-de-pantalla-20260311-101935.jpg)
 
 The project is currently at an **early development stage (pre-alpha)**, but it already has a working ISO and several system components in development.
 
@@ -47,7 +49,7 @@ The distribution uses **Arch Linux as its base**, which makes it possible to hav
 
 The project is at a **pre-alpha** stage. This means there is still a lot of work to do, but a working foundation already exists:
 
-![](https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg)
+![Screenshot of the current state of the project: the in-house desktop alongside the ISO and the file manager.](https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg)
 
 - System ISO
 - Desktop environment in development

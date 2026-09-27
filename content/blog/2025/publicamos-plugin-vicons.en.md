@@ -14,6 +14,7 @@ tags:
   ]
 date: "2025-04-12"
 img: "https://i.postimg.cc/L8tBDYcv/image.png"
+description: "We publish tauri-plugin-vicons: generate and install the icons of a Tauri application on Linux, with multiplatform support."
 ---
 
 Today we published our first plugin for **Tauri**. It is a simple abstraction of something we had been doing in our applications. We managed to extract the code and publish it as a plugin so that any developer can use it. It is called **tauri-plugin-vicons** and it lets you use icons quickly and easily in your applications. It is completely free and open source, so any developer can use it.

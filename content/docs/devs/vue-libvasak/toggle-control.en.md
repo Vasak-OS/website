@@ -1,14 +1,15 @@
 ---
 title: "Control | ToggleControl"
 weight: 30
+description: "ToggleControl: an icon action button that shows the active and loading states."
 ---
 
 # `ToggleControl`
 
-Description
+### Description
 - Icon action button that shows `isActive` and `isLoading` states. Ideal for quick actions (play/pause, power).
 
-Props
+### Props
 - `icon` (string) — Path to the icon. **Required**.
 - `alt` (string) — Alternative text. Default: `''`.
 - `tooltip` (string) — `title` text of the icon. Default: `''`.
@@ -17,10 +18,10 @@ Props
 - `iconClass` (Record<string, boolean>) — Reactive classes for the icon.
 - `customClass` (Record<string, boolean>) — Reactive classes for the container.
 
-Emits
+### Emits
 - `click` — Event when the control is pressed (if it is not loading).
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'

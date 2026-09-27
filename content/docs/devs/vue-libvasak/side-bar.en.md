@@ -1,20 +1,21 @@
 ---
 title: "Sidebar | SideBar"
 weight: 55
+description: "SideBar: a simple side container that renders its content, useful as a wrapper for navigation buttons."
 ---
 
 # `SideBar`
 
-Description
+### Description
 - Simple side container that renders its slot. Useful as a wrapper for navigation buttons or actions.
 
-Props
+### Props
 - None specific.
 
-Slots
+### Slots
 - Default — Sidebar content (for example several `SideButton`).
 
-Usage
+### Usage
 ```vue
 <script setup lang="ts">
 import SideBar from '../sidebar/SideBar.vue'

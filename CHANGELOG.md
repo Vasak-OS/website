@@ -116,6 +116,65 @@ importan a quien usa el sitio, no la lista de archivos.
 - **La página de privacidad saltaba un nivel de encabezado**: empezaba en `###`
   con un `<h1>` de título, sin ningún `##` en medio. Ahora la jerarquía es
   h1 → h2.
+- **Las cinco entradas del menú apuntan a URLs que no existen.** El menú
+  declaraba `/about`, y Hugo publica `/about/`: `relLangURL` no inventa la
+  barra final, así que cada entrada —en los dos idiomas, en las 322 páginas— era
+  un 301 y cada clic del menú se comía un salto. La barra final va ahora en el
+  dato, que es lo único que depende de `uglyURLs`. Al revisar salió también que
+  las 16.516 referencias internas del sitio apuntan a algo que existe.
+- **La página 2 del blog se declaraba duplicada de la 1, y en dos idiomas a la
+  vez.** Al paginar, Hugo vuelve a renderizar la plantilla de la *sección*, así
+  que `.Permalink` sigue siendo la raíz: el `canonical` apuntaba a `/blog/` en
+  lugar de `/blog/page/2/`, el `og:url` igual, y los `hreflang` anunciaban la
+  página 2 como la traducción española de `/en/blog/`. El canonical y el
+  `og:url` salen ahora de `.Paginator.URL`, y las páginas paginadas no emiten
+  `hreflang`: son la continuación de una lista, no un documento con dos
+  versiones.
+- **`og:locale:alternate` decía el idioma que ya tenía la página.** Iba sobre
+  `.AllTranslations`, que incluye la página misma, así que cada una se
+  anunciaba como disponible en un idioma que ya era el suyo.
+- **El selector de idioma sacaba «Español» dos veces, las dos marcadas como la
+  página actual.** `aria-current="page"` estaba en los dos `<a>`, y el `<a>` de
+  la página actual estaba dos veces en la lista. Venía de `.AllTranslations`,
+  que ya la incluye, sumada a mano. Ahora es `.Translations`.
+- **El control de paginación eran dos flechas sin nombre**, un `<ul>` suelto
+  para el que no hay landmark que lo ubique. Ahora es un `<nav>` con su
+  `aria-label` —que además era una clave de i18n que ninguna plantilla leía—.
+- **46 páginas se describían solas con su primer párrafo**, un texto que nadie
+  eligió para ser un resumen; y en 45 de ellas el `#` del ancla de sección se
+  colaba en la etiqueta `description` y en los resultados del buscador. Las 134
+  páginas de contenido tienen ahora una descripción escrita, en los dos idiomas,
+  sin repetir una sola vez y ninguna de las dos cosas de antes.
+
+### Texto
+
+- **El sitio entero está en español neutro.** Estaba escrito en voseo —
+  «podés», «instalá», «conocé»—, que es el registro de Argentina y de medio
+  resto del Río de la Plata pero no de España ni de el resto de Latinoamérica.
+  Son 93 formas en 12 archivos, 5 claves de `i18n/es.toml` y 6 textos sueltos.
+  Ningún usuario del sitio busca «podés instalar», así que el neutro le sirve a
+  todo el mercado hispanohablante.
+- **138 tildes y 61 erratas.** «éxito» sin tilde, «contibuido», «continuarás
+  encontrando», «máquina virtual». Con una condición: la revisión se hizo con
+  listas escritas a mano y verificadas una por una, no con un diccionario. Un
+  diccionario de español renombra los nombres propios y los identificadores de
+  los nodos de un diagrama de mermaid, y en tres casos así se rompió el build o
+  una plantilla.
+- **El nombre de la marca es `VasakOS`, sin espacio.** Aparecía de las dos
+  formas, 113 y 24 veces. Las etiquetas de artículo quedan como están: son
+  palabras clave en minúscula y son otro problema.
+- **Los títulos de página se escribieron para que no los corte el buscador.**
+  Tres artículos en español y tres en inglés tinham títulos de más de 62
+  caracteres, y `/downloads/` had un `seotitle` que competía con el título de la
+  pestaña. Al acortar el título de un artículo se le mueve la URL —los
+  permalinks son `/blog/:year/:month/:title`—, así que los seis tienen su
+  `aliases:` apuntando al nombre viejo. La portada usaba el eslogan como
+  `<title>`: son cosas distintas, y ahora hay una clave para cada una.
+- **Cinco capturas no tenían `alt` y cuatro decían una sola palabra.** Una
+  pantalla no se anuncia sin `alt`, y «Preview» o «Tabs» no le dicen nada a
+  quien no ve la imagen. Los textos nuevos dicen lo que el propio artículo
+  afirma de cada figura, que es todo lo que se puede decir sin mirar los
+  archivos.
 
 ### Administrado
 
@@ -148,6 +207,23 @@ importan a quien usa el sitio, no la lista de archivos.
   querer —una porque `underline-offset-2` contenía la palabra «underline», y
   otra porque sólo miraba el orden en que aparecen `<main>` y el hero en el
   texto, sin comprobar que el hero quedara dentro—, y están corregidas.
+- **Diez pruebas más sobre lo que el buscador lee** (`tests/seo.test.ts`):
+  que ningún título pase de 62 caracteres, que `seotitle` siga siendo la
+  excepción y no una copia de `title` en las 134 páginas, que las 134 tengan
+  descripción, que ninguna se corte a mitad de palabra ni repita la de al lado,
+  que el resumen de i18n entre en 158 caracteres y arranque por la marca, que
+  las rutas del menú terminen en barra y que los dos menús tengan las mismas
+  entradas, y que ninguna imagen del contenido se quede sin `alt`. También
+  estas se comprobaron **mutando el código y viendo que la prueba se pone roja**
+  —las seis mutaciones mueren, incluida la de las dos páginas con la misma
+  descripción, que hubo que hacer copiando una sobre la otra, porque cambiar el
+  texto de una no crea un duplicado.
+- **La auditoría de accesibilidad se repite contra el build y se verifica a sí
+  misma.** 24 páginas × los dos modos, 48 auditorías, 0 violaciones. Antes de
+  confiar en el cero se le inyectó una infracción a propósito —gris claro sobre
+  blanco— y `color-contrast` la encontró. Un 0 de violaciones que en realidad
+  sea un 0 de mediciones es el peor resultado posible: parece bien y no está
+  diciendo nada.
 
 ## Notas
 
