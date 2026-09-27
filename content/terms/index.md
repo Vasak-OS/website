@@ -1,137 +1,168 @@
 ---
-Title: "Terms & Conditions"
-tags: ["Terms & Conditions", "terms", "conditions", "terminos", "condiciones", "terminos y condiciones", "condiciones y terminos"]
+Title: "Términos y condiciones"
+tags: ["Términos y condiciones", "terminos", "condiciones", "terminos y condiciones", "condiciones y terminos", "licencia", "GPL"]
 date: "2022-05-24"
 img: "/img/posts/terms.svg"
-description: "Términos y condiciones de uso del sitio web de VasakOS: alcance del servicio, aceptación y uso permitido."
+description: "Términos y condiciones de uso del sitio web, la distribución y el software de VasakOS: alcance del servicio, licencias, aceptación y responsabilidades."
 ---
 
-## Terms and Conditions
+Última actualización: 24 de mayo de 2022
 
-Last updated: May 24, 2022
+Por favor, lea estos términos y condiciones detenidamente antes de usar nuestro servicio.
 
-Please read these terms and conditions carefully before using Our Service.
+<!--more-->
 
-## Interpretation and Definitions
+## Interpretación y definiciones
 
-### Interpretation
+### Interpretación
 
-The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
+Las palabras cuya inicial está en mayúscula tienen el significado que se define a continuación. Las definiciones siguientes tienen el mismo sentido tanto en singular como en plural.
 
-### Definitions
+### Definiciones
 
-For the purposes of these Terms and Conditions:
+A los efectos de estos Términos y condiciones:
 
+- **Afiliada** significa una entidad que controla, es controlada o está bajo control común con una parte, donde "control" significa la propiedad del 50 % o más de las acciones, participaciones u otros valores con derecho a voto para la elección de directores u otra autoridad de gestión.
 
+- **País** se refiere a: Argentina.
 
-- __Affiliate__ means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
+- **Compañía** (denominada indistintamente "la Compañía", "Nosotros", "Nos" o "Nuestro" en este Acuerdo) se refiere a Vasak Group, Buenos Aires, Argentina.
 
-- __Country__ refers to:  Argentina
-- __Company__ (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Vasak Group, Buenos Aires, Argentina.
+- **Dispositivo** significa cualquier dispositivo que pueda acceder al Servicio, como un ordenador, un teléfono móvil o una tableta digital.
 
-- __Device__ means any device that can access the Service such as a computer, a cellphone or a digital tablet.
+- **Servicio** se refiere al Sitio web, la distribución del sistema operativo VasakOS (imágenes ISO, repositorios de paquetes, imágenes de contenedor) y el software asociado que la Compañía pone a disposición.
 
+- **Software** significa el código fuente y los binarios de VasakOS —el escritorio, las aplicaciones nativas, los servicios del sistema, los scripts de construcción y la herramienta de instalación— publicados bajo los términos de la Licencia Pública General de GNU versión 3 (GPL-3.0) o posterior, salvo que un componente específico indique otra licencia compatible.
 
+- **Términos y condiciones** (también denominados "Términos") son el presente acuerdo que regula la relación entre Usted y la Compañía respecto del uso del Servicio. Este acuerdo se ha redactado partiendo de plantillas estándar y adaptado a la naturaleza de un proyecto de software libre.
 
+- **Servicio de redes sociales de terceros** significa cualquier servicio o contenido (incluidos datos, información, productos o servicios) proporcionado por un tercero que pueda mostrarse, incluirse o ponerse a disposición a través del Servicio.
 
+- **Sitio web** se refiere a VasakOS, accesible desde [https://os.vasak.net.ar](https://os.vasak.net.ar).
 
+- **Usted** significa la persona física o jurídica que accede al Servicio o lo utiliza, o la empresa u otra entidad legal en nombre de la cual dicha persona accede o utiliza el Servicio, según corresponda.
 
+## Reconocimiento
 
-- __Service__ refers to the Website.
+Estos son los Términos y condiciones que rigen el uso del Servicio y el acuerdo que opera entre Usted y la Compañía. Establecen los derechos y obligaciones de todos los usuarios en relación con el uso del Servicio.
 
+Su acceso y uso del Servicio está condicionado a la aceptación y cumplimiento de estos Términos y condiciones. Se aplican a todos los visitantes, usuarios y demás personas que accedan o utilicen el Servicio.
 
-- __Terms and Conditions__ (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the [Terms and Conditions Generator](https://www.termsfeed.com/terms-conditions-generator/).
-- __Third-party Social Media Service__ means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
-- __Website__ refers to VasakOS, accessible from [https://os.vasak.net.ar](https://os.vasak.net.ar)
-- __You__ means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
+Al acceder o utilizar el Servicio, Usted acepta quedar vinculado por estos Términos y condiciones. Si no está de acuerdo con alguna parte, no podrá acceder al Servicio.
 
-## Acknowledgment
+Usted declara ser mayor de 18 años. La Compañía no permite el uso del Servicio a menores de 18 años.
 
-These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.
+Su acceso y uso del Servicio también está condicionado a la aceptación y cumplimiento de la Política de privacidad de la Compañía. Nuestra Política de privacidad describe nuestras políticas y procedimientos sobre la recopilación, uso y divulgación de su información personal cuando utiliza la Aplicación o el Sitio web, e informa sobre sus derechos de privacidad y cómo la ley lo protege. Por favor, lea nuestra Política de privacidad cuidadosamente antes de usar nuestro Servicio.
 
-Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.
+## Licencia del software
 
-By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.
+VasakOS es software libre. El código fuente y los binarios que la Compañía distribuye a través de sus repositorios oficiales, imágenes ISO y demás medios de publicación se ofrecen bajo los términos de la **GNU General Public License versión 3** (GPL-3.0) o, a su elección, cualquier versión posterior publicada por la Free Software Foundation.
 
-You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.
+Esto significa que Usted tiene la libertad de:
 
-Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.
+- Ejecutar el Software para cualquier propósito.
+- Estudiar cómo funciona y adaptarlo a sus necesidades.
+- Redistribuir copias.
+- Mejorar el Software y publicar sus mejoras, de modo que toda la comunidad se beneficie.
 
+La licencia completa está disponible en cada repositorio del proyecto y en <https://www.gnu.org/licenses/gpl-3.0.html>. Si redistribuye el Software (modificado o no), debe incluir una copia de la licencia y conservar los avisos de copyright y de licencia.
 
-## Links to Other Websites
+Ninguna parte de estos Términos y condiciones restringe los derechos que la GPL-3.0 le otorga. En caso de conflicto entre este acuerdo y la licencia del Software, prevalece la licencia del Software.
 
-Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.
+## Descarga, instalación y uso de la distribución
 
-The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.
+La Compañía pone a disposición imágenes ISO, repositorios de paquetes e instrucciones de instalación **sin garantía de ningún tipo**, expresa o implícita, incluidas, sin limitación, las garantías implícitas de comerciabilidad, idoneidad para un fin determinado y no infracción. El uso de la distribución es bajo su propio riesgo.
 
-We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.
+Usted es responsable de:
 
-## Termination
+- Verificar la integridad de la imagen descargada (comprobar la suma SHA-256 publicada) antes de instalar.
+- Realizar copias de seguridad de sus datos antes de instalar o actualizar el sistema operativo.
+- Evaluar si el hardware y el entorno donde instalará VasakOS son compatibles; la Compañía publica requisitos mínimos y recomendados, pero no puede garantizar el funcionamiento en todas las combinaciones de hardware.
 
-We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.
+La Compañía no se responsabiliza de pérdida de datos, daño de hardware, interrupción de actividad u otros perjuicios derivados de la instalación, uso o imposibilidad de uso de la distribución.
 
-Upon termination, Your right to use the Service will cease immediately.
+## Propiedad intelectual y marca
 
+El nombre **VasakOS**, el logotipo, los identificadores visuales y el *look & feel* del escritorio son marcas de Vasak Group. Usted puede:
 
-## Limitation of Liability
+- Mencionar el nombre del proyecto y enlazar al Sitio web para referirse a él.
+- Usar capturas de pantalla del escritorio en artículos, reseñas o material educativo, citando la fuente.
 
-Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.
+No puede:
 
-To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.
+- Usar la marca para denominar una distribución derivada sin autorización escrita.
+- Presentar una versión modificada como si fuera la oficial.
+- Registrar dominios, nombres de usuario en redes sociales o marcas que induzcan a confusión con la identidad del proyecto.
 
-Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.
+El código fuente sigue la licencia del Software (GPL-3.0). La marca no se licencia bajo la GPL; su uso requiere permiso.
 
-## "AS IS" and "AS AVAILABLE" Disclaimer
+## Enlaces a otros sitios web
 
-The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.
+Nuestro Servicio puede contener enlaces a sitios o servicios de terceros que no son propiedad de la Compañía ni están controlados por ella.
 
-Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.
+La Compañía no tiene control sobre el contenido, las políticas de privacidad o las prácticas de esos sitios y no asume responsabilidad por ellos. Usted reconoce y acepta que la Compañía no será responsable, directa ni indirectamente, por ningún daño o pérdida causados o supuestamente causados por el uso de o la confianza depositada en cualquier contenido, bien o servicio disponible en o a través de tales sitios o servicios.
 
-Some jurisdictions do not allow the exclusion of certain types of warranties or limitations on applicable statutory rights of a consumer, so some or all of the above exclusions and limitations may not apply to You. But in such a case the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable under applicable law.
+Le recomendamos encarecidamente que lea los términos y condiciones y las políticas de privacidad de cualquier sitio o servicio de terceros que visite.
 
-## Governing Law
+## Terminación
 
-The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.
+Podemos terminar o suspender su acceso al Servicio inmediatamente, sin previo aviso ni responsabilidad, por cualquier motivo, incluido, sin limitación, el incumplimiento de estos Términos y condiciones.
 
-## Disputes Resolution
+Al terminar, su derecho a usar el Servicio cesará de inmediato. Las disposiciones que por su naturaleza deban sobrevivir a la terminación —incluidas, sin limitación, las disposiciones sobre propiedad intelectual, exención de garantías, limitación de responsabilidad y ley aplicable— sobrevivirán.
 
-If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.
+## Limitación de responsabilidad
 
+No obstante cualquier daño que Usted pudiera sufrir, la responsabilidad total de la Compañía y de cualquiera de sus proveedores bajo cualquier disposición de estos Términos y su recurso exclusivo para todo lo anterior se limitará al importe efectivamente pagado por Usted a través del Servicio o a 100 USD si no ha comprado nada a través del Servicio.
 
-## For European Union (EU) Users
+En la máxima medida permitida por la ley aplicable, en ningún caso la Compañía ni sus proveedores serán responsables de daños especiales, incidentales, indirectos o consecuentes (incluidos, sin limitación, los daños por pérdida de beneficios, pérdida de datos o de otra información, interrupción del negocio, lesiones personales, pérdida de privacidad derivados de o de alguna manera relacionados con el uso o la imposibilidad de usar el Servicio, software de terceros o hardware de terceros utilizados con el Servicio, o de otro modo en conexión con cualquier disposición de estos Términos), incluso si la Compañía o cualquier proveedor ha sido advertido de la posibilidad de tales daños e incluso si el recurso no cumple su propósito esencial.
 
-If You are a European Union consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident in.
+Algunas jurisdicciones no permiten la exclusión de garantías implícitas o la limitación de responsabilidad por daños incidentales o consecuentes, por lo que es posible que algunas de las limitaciones anteriores no se apliquen a Usted. En esos casos, la responsabilidad de la Compañía se limitará en la máxima medida permitida por la ley.
 
+## Exención de garantías "tal cual" y "según disponibilidad"
 
-## United States Legal Compliance
+El Servicio se le proporciona "TAL CUAL" y "SEGÚN DISPONIBILIDAD", con todos los fallos y defectos, sin garantía de ningún tipo. En la máxima medida permitida por la ley aplicable, la Compañía, en su nombre y en el de sus afiliados y sus respectivos licenciantes y proveedores de servicios, renuncia expresamente a toda garantía, ya sea expresa, implícita, legal o de otro tipo, con respecto al Servicio, incluidas todas las garantías implícitas de comerciabilidad, idoneidad para un fin determinado, título y no infracción, y las garantías que puedan surgir del curso de la negociación, el curso del desempeño, el uso o la práctica comercial.
 
-You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a "terrorist supporting" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.
+Sin perjuicio de lo anterior, la Compañía no garantiza ni declara que el Servicio será ininterrumpido, oportuno, seguro o libre de errores; que los defectos serán corregidos; o que el Servicio o los servidores que lo ponen a disposición están libres de virus u otros componentes dañinos.
 
-## Severability and Waiver
+## Ley aplicable
 
-### Severability
+Estos Términos y condiciones se regirán e interpretarán de acuerdo con las leyes de la **República Argentina**, sin tener en cuenta sus disposiciones sobre conflicto de leyes.
 
-If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.
+## Resolución de disputas
 
-### Waiver
+Si Usted tiene alguna preocupación o disputa sobre el Servicio, acepta intentar primero resolverla informalmente poniéndose en contacto con la Compañía.
 
-Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall the waiver of a breach constitute a waiver of any subsequent breach.
+## Para usuarios de la Unión Europea (UE)
 
-## Translation Interpretation
+Si Usted es un consumidor de la Unión Europea, se beneficiará de las disposiciones obligatorias de la ley del país en el que resida.
 
-These Terms and Conditions may have been translated if We have made them available to You on our Service.
-You agree that the original English text shall prevail in the case of a dispute.
+## Cumplimiento legal en Estados Unidos
 
-## Changes to These Terms and Conditions
+Usted declara y garantiza que (i) no se encuentra en un país sujeto a embargo del gobierno de los Estados Unidos, o que haya sido designado por el gobierno de los Estados Unidos como país que "apoya el terrorismo", y (ii) no figura en ninguna lista del gobierno de los Estados Unidos de partes prohibidas o restringidas.
 
-We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.
+## Divisibilidad e interpretación
 
-By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.
+### Divisibilidad
 
-## Contact Us
+Si alguna disposición de estos Términos y condiciones se considera inaplicable o inválida, dicha disposición se modificará e interpretará de manera que se logren los objetivos de dicha disposición en la mayor medida posible bajo la ley aplicable, y las disposiciones restantes continuarán en pleno vigor y efecto.
 
-If you have any questions about these Terms and Conditions, You can contact us:
+### Interpretación
 
-- By email: info@vasak.net.ar
+Salvo que el contexto exija lo contrario, las palabras en singular incluyen el plural y viceversa. Las referencias a cláusulas, secciones o anexos son referencias a cláusulas, secciones o anexos de estos Términos y condiciones. Los encabezados son solo por conveniencia y no afectan la interpretación.
 
-- By visiting this page on our website: [https://vasak.net.ar/](https://vasak.net.ar/)
+## Cambios en estos Términos y condiciones
+
+Nos reservamos el derecho, a nuestra sola discreción, de modificar o reemplazar estos Términos y condiciones en cualquier momento. Si una revisión es material, haremos esfuerzos razonables para proporcionar un aviso con al menos 30 días de antelación antes de que los nuevos términos entren en vigor. Lo que constituye un cambio material se determinará a nuestra sola discreción.
+
+Al continuar accediendo o utilizando nuestro Servicio después de que esas revisiones entren en vigor, Usted acepta quedar vinculado por los términos revisados. Si no está de acuerdo con los nuevos términos, total o en parte, deje de usar el Sitio web y el Servicio.
+
+## Contacto
+
+Si tiene alguna pregunta sobre estos Términos y condiciones, puede contactarnos:
+
+- Por correo electrónico: legal@vasak.net.ar
+- Visitando la página de contacto en nuestro Sitio web: <https://os.vasak.net.ar/contact/>
+
+---
+
+*Este documento rige el uso del sitio web, la distribución y el software de VasakOS. Para la política de tratamiento de datos personales, consulte la [Política de privacidad](/privacy/).*

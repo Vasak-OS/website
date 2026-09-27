@@ -1,16 +1,16 @@
 ---
 Title: "Terms & Conditions"
-tags: ["Terms & Conditions", "terms", "conditions", "terms and conditions"]
+tags: ["Terms & Conditions", "terms", "conditions", "terms and conditions", "license", "GPL"]
 date: "2022-05-24"
 img: "/img/posts/terms.svg"
-description: "Terms and conditions for using the VasakOS website: scope of the service, acceptance and permitted use."
+description: "Terms and conditions for using the VasakOS website, the distribution, and the software: scope of the service, licenses, acceptance, and responsibilities."
 ---
-
-## Terms and Conditions
 
 Last updated: May 24, 2022
 
 Please read these terms and conditions carefully before using Our Service.
+
+<!--more-->
 
 ## Interpretation and Definitions
 
@@ -22,19 +22,25 @@ The words of which the initial letter is capitalized have meanings defined under
 
 For the purposes of these Terms and Conditions:
 
-- __Affiliate__ means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
+- **Affiliate** means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
 
-- __Country__ refers to:  Argentina
-- __Company__ (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Vasak Group, Buenos Aires, Argentina.
+- **Country** refers to: Argentina.
 
-- __Device__ means any device that can access the Service such as a computer, a cellphone or a digital tablet.
+- **Company** (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Vasak Group, Buenos Aires, Argentina.
 
-- __Service__ refers to the Website.
+- **Device** means any device that can access the Service such as a computer, a cellphone or a digital tablet.
 
-- __Terms and Conditions__ (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the [Terms and Conditions Generator](https://www.termsfeed.com/terms-conditions-generator/).
-- __Third-party Social Media Service__ means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
-- __Website__ refers to Vasak OS, accessible from [https://os.vasak.net.ar](https://os.vasak.net.ar)
-- __You__ means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
+- **Service** refers to the Website, the VasakOS operating system distribution (ISO images, package repositories, container images), and the associated software that the Company makes available.
+
+- **Software** means the source code and binaries of VasakOS —the desktop, the native applications, the system services, the build scripts, and the installer— published under the terms of the GNU General Public License version 3 (GPL-3.0) or any later version, unless a specific component indicates another compatible license.
+
+- **Terms and Conditions** (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This agreement has been drafted from standard templates and adapted to the nature of a free software project.
+
+- **Third-party Social Media Service** means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
+
+- **Website** refers to VasakOS, accessible from [https://os.vasak.net.ar](https://os.vasak.net.ar).
+
+- **You** means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
 
 ## Acknowledgment
 
@@ -48,6 +54,48 @@ You represent that you are over the age of 18. The Company does not permit those
 
 Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.
 
+## Software License
+
+VasakOS is free software. The source code and binaries that the Company distributes through its official repositories, ISO images, and other publication channels are offered under the terms of the **GNU General Public License version 3** (GPL-3.0) or, at Your option, any later version published by the Free Software Foundation.
+
+This means You have the freedom to:
+
+- Run the Software for any purpose.
+- Study how the Software works and adapt it to Your needs.
+- Redistribute copies.
+- Improve the Software and release Your improvements, so that the whole community benefits.
+
+The full license is available in every project repository and at <https://www.gnu.org/licenses/gpl-3.0.html>. If You redistribute the Software (modified or not), You must include a copy of the license and preserve the copyright and license notices.
+
+No part of these Terms and Conditions restricts the rights that the GPL-3.0 grants You. In case of conflict between this agreement and the Software license, the Software license prevails.
+
+## Download, Installation, and Use of the Distribution
+
+The Company makes ISO images, package repositories, and installation instructions available **without warranty of any kind**, express or implied, including, but not limited to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. Use of the distribution is at Your own risk.
+
+You are responsible for:
+
+- Verifying the integrity of the downloaded image (check the published SHA-256 sum) before installing.
+- Backing up Your data before installing or upgrading the operating system.
+- Evaluating whether the hardware and environment where You will install VasakOS are compatible; the Company publishes minimum and recommended requirements, but cannot guarantee operation on every hardware combination.
+
+The Company is not responsible for data loss, hardware damage, business interruption, or other harm arising from the installation, use, or inability to use the distribution.
+
+## Intellectual Property and Trademark
+
+The name **VasakOS**, the logo, the visual identifiers, and the desktop look & feel are trademarks of Vasak Group. You may:
+
+- Mention the project name and link to the Website to refer to it.
+- Use screenshots of the desktop in articles, reviews, or educational material, citing the source.
+
+You may not:
+
+- Use the trademark to name a derived distribution without written authorization.
+- Present a modified version as if it were the official one.
+- Register domains, social media handles, or trademarks that create confusion with the project's identity.
+
+The source code remains under the Software license (GPL-3.0). The trademark is not licensed under the GPL; its use requires permission.
+
 ## Links to Other Websites
 
 Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.
@@ -58,31 +106,31 @@ We strongly advise You to read the terms and conditions and privacy policies of 
 
 ## Termination
 
-We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.
+We may terminate or suspend Your access to the Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.
 
-Upon termination, Your right to use the Service will cease immediately.
+Upon termination, Your right to use the Service will cease immediately. The provisions that by their nature should survive termination —including, without limitation, intellectual property provisions, warranty disclaimers, limitation of liability, and governing law— shall survive termination.
 
 ## Limitation of Liability
 
-Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.
+Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of these Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.
 
-To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.
+To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, business interruption, personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software or third-party hardware used with the Service, or otherwise in connection with any provision of these Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.
 
-Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.
+Some jurisdictions do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these jurisdictions, the Company's liability will be limited to the maximum extent permitted by law.
 
-## "AS IS" and "AS AVAILABLE" Disclaimer
+## "As Is" and "As Available" Disclaimer
 
-The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.
+The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory, or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title, and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage, or trade practice.
 
-Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.
+Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems, or services, operate without interruption, meet any performance or reliability standards, or be error free, or that any errors or defects can or will be corrected.
 
-Some jurisdictions do not allow the exclusion of certain types of warranties or limitations on applicable statutory rights of a consumer, so some or all of the above exclusions and limitations may not apply to You. But in such a case the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable under applicable law.
+Without limiting the foregoing, neither the Company nor any of the Company's providers makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs, or other harmful components.
 
 ## Governing Law
 
-The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.
+These Terms and Conditions shall be governed by and construed in accordance with the laws of the **Republic of Argentina**, without regard to its conflict of law provisions.
 
-## Disputes Resolution
+## Dispute Resolution
 
 If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.
 
@@ -98,27 +146,29 @@ You represent and warrant that (i) You are not located in a country that is subj
 
 ### Severability
 
-If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.
+If any provision of these Terms and Conditions is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.
 
 ### Waiver
 
-Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall the waiver of a breach constitute a waiver of any subsequent breach.
+Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms and Conditions shall not affect a party's ability to exercise such right or require such performance at any time thereafter, nor shall the waiver of a breach constitute a waiver of any subsequent breach.
 
-## Translation Interpretation
+## Interpretation
 
-These Terms and Conditions may have been translated if We have made them available to You on our Service.
-You agree that the original English text shall prevail in the case of a dispute.
+Except where the context requires otherwise, the singular includes the plural and vice versa. References to clauses, sections, or schedules are references to clauses, sections, or schedules of these Terms and Conditions. Headings are for convenience only and do not affect the interpretation of these Terms and Conditions.
 
 ## Changes to These Terms and Conditions
 
-We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.
+We reserve the right, at Our sole discretion, to modify or replace these Terms and Conditions at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.
 
-By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.
+By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree with the new terms, in whole or in part, please stop using the Website and the Service.
 
 ## Contact Us
 
-If you have any questions about these Terms and Conditions, You can contact us:
+If You have any questions about these Terms and Conditions, You can contact Us:
 
-- By email: info@vasak.net.ar
+- By email: legal@vasak.net.ar
+- By visiting the contact page on our Website: <https://os.vasak.net.ar/contact/>
 
-- By visiting this page on our website: [https://vasak.net.ar/](https://vasak.net.ar/)
+---
+
+*This document governs the use of the VasakOS website, distribution, and software. For the privacy policy, see the [Privacy Policy](/privacy/).*
