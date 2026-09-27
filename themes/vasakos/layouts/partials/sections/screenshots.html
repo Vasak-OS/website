@@ -135,11 +135,12 @@
   }
 
   function activeIndex() {
-    var edge = track.getBoundingClientRect().left + 60;
+    var trackRect = track.getBoundingClientRect();
+    var center = trackRect.left + trackRect.width / 2;
     var found = 0;
     slots.forEach(function (slot, i) {
       var r = slot.getBoundingClientRect();
-      if (r.left <= edge && r.right > edge) found = i;
+      if (r.left <= center && r.right > center) found = i;
     });
     return found;
   }
