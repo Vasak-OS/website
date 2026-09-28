@@ -105,23 +105,23 @@
   // `querySelector` desde el padre, dos barras de pestañas en la misma sección se
   // dos barras se contendrían por la primera: los dos scripts manejarían la misma.
   var raiz = document.currentScript.previousElementSibling;
-  if (!raiz || !raiz.hasAttribute || !raiz.hasAttribute('data-vsk-tabs')) return;
+  if (!raiz || !raiz.dataset || !raiz.dataset.vskTabs) return;
 
   var lista = raiz.querySelector('[role="tablist"]');
   var paneles = Array.prototype.slice.call(raiz.querySelectorAll('[role="tabpanel"]'));
   var pestanas = Array.prototype.slice.call(raiz.querySelectorAll('[role="tab"]'));
   if (!lista || !paneles.length || !pestanas.length) return;
 
-  var enfocada = pestanas.findIndex(function (p) { return p.getAttribute('aria-selected') === 'true'; });
+  var enfocada = pestanas.findIndex(function (p) { return p.dataset.ariaSelected === 'true'; });
   if (enfocada < 0) enfocada = 0;
 
   function elegir(indice, moverHash) {
     enfocada = indice;
     pestanas.forEach(function (p, i) {
       var activo = i === indice;
-      p.setAttribute('aria-selected', activo ? 'true' : 'false');
+      p.dataset.ariaSelected = activo ? 'true' : 'false';
       // Foco itinerante: una sola pestaña es alcanzable con Tab.
-      p.setAttribute('tabindex', activo ? '0' : '-1');
+      p.dataset.tabindex = activo ? '0' : '-1';
     });
     paneles.forEach(function (p, i) { p.hidden = i !== indice; });
     if (moverHash !== false) {

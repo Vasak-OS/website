@@ -57,12 +57,10 @@
   {{- if gt $numero 100 }}{{ $valor = 100 }}{{ end -}}
 {{- end -}}
 
-<div
-  role="progressbar"
+<progress
   aria-label="{{ $label }}"
-  {{ if ge $valor 0 }}aria-valuenow="{{ $valor }}"{{ end }}
-  aria-valuemin="0"
-  aria-valuemax="100"
+  {{ if ge $valor 0 }}value="{{ $valor }}"{{ end }}
+  max="100"
   class="h-2 w-full overflow-hidden rounded-corner bg-ui-surface/70">
   {{- if ge $valor 0 -}}
   <div class="h-full rounded-corner transition-[width] duration-300 ease-out {{ $color }}" style="width: {{ $valor }}%"></div>
@@ -73,4 +71,4 @@
          inventado. */ -}}
   <div class="motion-reduce:animate-none motion-reduce:bg-primary/40 h-full w-full animate-pulse rounded-corner bg-primary"></div>
   {{- end -}}
-</div>
+</progress>

@@ -2,10 +2,10 @@
  * Regenera las capturas a mayor calidad desde los 1536px actuales.
  * No borra los originales (son JPG, no PNG).
  */
-import { readdirSync, statSync, existsSync } from 'fs';
-import { join, basename, extname, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { execFileSync } from 'child_process';
+import { readdirSync, statSync, existsSync } from 'node:fs';
+import { join, basename, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SOURCE_DIR = join(__dirname, '..', 'themes', 'vasakos', 'static', 'img', 'screenshots');
@@ -17,7 +17,10 @@ const SOURCES = ['.jpg', '.JPG', '.png', '.PNG'];
 
 function convert(input, output, args) {
   try {
-    execFileSync('magick', [input, ...args, output], { stdio: 'inherit' });
+    execFileSync('magick', [input, ...args, output], {
+      stdio: 'inherit',
+      env: { ...process.env, PATH: '/usr/local/bin:/usr/bin:/bin' },
+    });
     return true;
   } catch (e) {
     console.error(`✗ Falló: ${input} -> ${output}`);

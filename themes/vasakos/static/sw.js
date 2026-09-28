@@ -25,7 +25,7 @@
 const VERSION = 'v2';
 const STATIC_CACHE = `vasakos-static-${VERSION}`;
 const PAGE_CACHE = `vasakos-pages-${VERSION}`;
-const KEEP = [STATIC_CACHE, PAGE_CACHE];
+const KEEP = new Set([STATIC_CACHE, PAGE_CACHE]);
 
 self.addEventListener('install', (event) => {
   // Nothing is precached. An empty install step that resolves immediately is
@@ -37,7 +37,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => !KEEP.includes(k)).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => !KEEP.has(k)).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -68,7 +68,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          if (response && response.ok) {
+          if (response?.ok) {
             const copy = response.clone();
             caches.open(PAGE_CACHE).then((cache) => cache.put(request, copy));
           }
@@ -85,7 +85,7 @@ self.addEventListener('fetch', (event) => {
       caches.match(request).then((cached) => {
         if (cached) return cached;
         return fetch(request).then((response) => {
-          if (response && response.ok) {
+          if (response?.ok) {
             const copy = response.clone();
             caches.open(STATIC_CACHE).then((cache) => cache.put(request, copy));
           }

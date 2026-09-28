@@ -116,7 +116,7 @@
           ? window.matchMedia('(prefers-color-scheme: dark)').matches
           : stored === 'true';
         if (dark) document.documentElement.classList.add('dark');
-      } catch (e) {}
+      } catch { /* localStorage puede estar deshabilitado o en modo privado; el tema claro es el fallback seguro */ }
     })();
   </script>
 

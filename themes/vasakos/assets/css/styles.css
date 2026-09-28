@@ -436,7 +436,7 @@ pre {
 }
 
 code {
-  @apply inline-grid p-0;
+  @apply inline-grid p-0 px-1 rounded-md font-mono;
   color: unset;
   border: none;
   background: none;
@@ -478,6 +478,14 @@ pre,
   color: var(--code-fg);
 }
 
+.highlight pre {
+  @apply text-sm m-0 p-4;
+}
+
+.highlight pre code {
+  @apply bg-none p-0;
+}
+
 hr {
   @apply my-8 border-t-2;
   border-color: var(--ui-border);
@@ -500,28 +508,15 @@ hr {
     no-repeat center / contain;
 }
 
-.highlight {
-  @apply my-2;
-  pre {
-    @apply text-sm m-0 p-4;
-
-    code {
-      @apply bg-none p-0;
-    }
-  }
-}
-
 pre:has(code) {
   @apply p-2 m-4 rounded-lg overflow-x-auto;
   background-color: var(--code-bg);
 }
 
-pre {
-  code {
-    @apply text-sm font-mono;
-    background-color: transparent;
-    color: inherit;
-  }
+pre code {
+  @apply text-sm font-mono;
+  background-color: transparent;
+  color: inherit;
 }
 
 /* `code` en linea es otra cosa: vive sobre la tarjeta, no sobre la terminal.
@@ -530,8 +525,7 @@ pre {
    dentro de los bloques —los `.nv` de Chroma salian verdes, a 2.48:1 sobre el
    fondo del bloque—, porque la regla de `pre code` no fijaba color. Ahora cada
    contexto pone el suyo. */
-code {
-  @apply px-1 rounded-md font-mono;
+p code, li code, td code {
   background-color: var(--ui-surface);
   color: var(--text-main);
 }

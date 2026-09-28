@@ -29,7 +29,11 @@
       <div class="w-full px-2 pb-8">
         <div class="overflow-x-auto rounded-corner bg-ui-bg/80 shadow-lg">
           <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-
+            <thead class="bg-ui-bg/80">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-tx-muted uppercase tracking-wider">Título</th>
+              </tr>
+            </thead>
             <tbody class="bg-ui-bg/80 divide-y divide-gray-200 dark:divide-gray-700">
               {{ range $articles }}
               <tr class="bg-ui-surface/80">

@@ -69,7 +69,7 @@
                que la plantilla no usa. */}}
           {{- $intro := T (printf "%s.intro" $key) (dict "Tool" (printf "<code>%s</code>" ($case.code | default ""))) -}}
           <p class="mb-6 text-gray-600 dark:text-gray-200">{{ $intro | safeHTML }}</p>
-          <ul role="list" class="list-disc space-y-3 pl-5 text-tx-muted marker:text-brand-text">
+          <ul class="list-disc space-y-3 pl-5 text-tx-muted marker:text-brand-text">
             {{- range seq 1 3 }}
             {{- $item := T (printf "%s.items.i%d" $key .) }}
             {{- if $item }}<li>{{ $item }}</li>{{ end }}

@@ -19,9 +19,9 @@
  * Necesita ImageMagick (`magick`) en el PATH. Es una tarea de una vez, así que
  * no va en el `build`: las imágenes se versionan ya optimizadas.
  */
-import { readdirSync, statSync, existsSync, unlinkSync } from 'fs';
-import { join, extname, basename } from 'path';
-import { execFileSync } from 'child_process';
+import { readdirSync, statSync, existsSync } from 'node:fs';
+import { join, extname, basename } from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const SOURCE_DIR = join(import.meta.dirname, '..', 'themes', 'vasakos', 'static', 'img', 'screenshots');
 
@@ -31,14 +31,17 @@ const WEBP_QUALITY = 92;
 const JPEG_QUALITY = 95;
 
 /** Extensiones que se consideran originales. */
-const SOURCES = ['.jpg', '.JPG', '.png', '.PNG'];
+const SOURCES = new Set(['.jpg', '.JPG', '.png', '.PNG']);
 
 const force = process.argv.includes('--force');
 const check = process.argv.includes('--check');
 
 function convert(input, output, args) {
   try {
-    execFileSync('magick', [input, ...args, output], { stdio: 'ignore' });
+    execFileSync('magick', [input, ...args, output], {
+      stdio: 'ignore',
+      env: { ...process.env, PATH: '/usr/local/bin:/usr/bin:/bin' },
+    });
     return true;
   } catch {
     return false;
@@ -50,7 +53,7 @@ if (!existsSync(SOURCE_DIR)) {
   process.exit(1);
 }
 
-const originals = readdirSync(SOURCE_DIR).filter((f) => SOURCES.includes(extname(f)));
+const originals = readdirSync(SOURCE_DIR).filter((f) => SOURCES.has(extname(f)));
 if (originals.length === 0) {
   console.log('No hay originales nuevos: la galería ya está preparada.');
   process.exit(0);

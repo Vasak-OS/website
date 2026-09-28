@@ -101,14 +101,14 @@ const ALIASES = {
 // readable keeps the file diffable and compresses better than base64.
 const encode = (svg) =>
   svg
-    .replace(/\s*<!--.*?-->\s*/gs, '')
-    .replace(/\s+/g, ' ')
+    .replaceAll(/<!--[\s\S]*?-->/g, '')
+    .replaceAll(/\s+/g, ' ')
     .trim()
-    .replace(/"/g, "'")
-    .replace(/%/g, '%25')
-    .replace(/#/g, '%23')
-    .replace(/</g, '%3C')
-    .replace(/>/g, '%3E');
+    .replaceAll('"', "'")
+    .replaceAll('%', '%25')
+    .replaceAll('#', '%23')
+    .replaceAll('<', '%3C')
+    .replaceAll('>', '%3E');
 
 if (!existsSync(FA)) {
   console.error('Font Awesome sources not found. Run `bun install` first.');
