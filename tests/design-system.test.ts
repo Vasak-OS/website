@@ -180,7 +180,7 @@ describe("los valores por defecto ceden ante la intención explícita", () => {
 describe("la estructura no se desarma al cambiar una plantilla", () => {
   test("el diálogo móvil tiene nombre accesible", () => {
     const header = readFileSync(`${TEMA}/layouts/partials/header.html`, "utf8");
-    const dialogo = header.match(/<div[^>]*role="dialog"[^>]*>/)?.[0] ?? "";
+    const dialogo = header.match(/<dialog[^>]*>/)?.[0] ?? "";
     expect(dialogo).toContain("aria-label");
   });
 

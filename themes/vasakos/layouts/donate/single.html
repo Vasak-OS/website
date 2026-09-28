@@ -52,7 +52,7 @@
                   <p class="mt-2 select-all break-all rounded-corner bg-ui-bg p-2 font-mono text-xs text-tx-main">{{ .address }}</p>
                   <button type="button" data-copy="{{ .address }}"
                     data-copied="{{ T "donate.copied" }}" data-select-hint="{{ T "donate.selectHint" }}"
-                    class="donate-copy mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-tx-on-primary hover:opacity-90">Copiar dirección ({{ T (printf "donate.summary.methods.%s.name" .id) }})</button>
+                    class="donate-copy mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-tx-on-primary hover:opacity-90">{{ T "donate.copyAddress" (dict "Name" (T (printf "donate.summary.methods.%s.name" .id))) }}</button>
                   {{ end }}
                 </div>
                 {{ end }}
