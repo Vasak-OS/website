@@ -88,8 +88,9 @@
             </article>
           </section>
 
+          {{ if .github_sponsors_embed }}
           <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80">
-            <iframe src="https://github.com/sponsors/Vasak-OS/card" title="Sponsor Vasak-OS" height="225" width="600" style="border: 0;" class="w-full rounded-corner"></iframe>
+            <iframe src="{{ .github_sponsors_embed }}" title="Sponsor Vasak-OS" height="225" width="600" style="border: 0;" class="w-full rounded-corner"></iframe>
           </section>
           {{ end }}
 

@@ -343,9 +343,9 @@
       stability = "Priorizamos gastos que impacten directamente en estabilidad, rendimiento y soporte."
       channels = "Publicamos cambios importantes y avances en canales oficiales del proyecto."
       purpose = "Los aportes no se usan para fines ajenos al desarrollo y sostenimiento de VasakOS."
-    [donate.summary.methods.kofi]
-      name = "Ko-fi"
-      note = "Aporte rápido con tarjeta o medios disponibles en tu región."
+    [donate.summary.methods.github-sponsors]
+      name = "GitHub Sponsors"
+      note = "Aporte recurrente desde GitHub con tarjeta o saldo."
     [donate.summary.methods.mercadopago]
       name = "Mercado Pago"
       note = "Tarjeta, dinero en cuenta o transferencia, desde Argentina."

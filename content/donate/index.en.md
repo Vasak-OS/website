@@ -34,8 +34,8 @@ donations:
     - id: channels
     - id: purpose
   methods:
-    - id: kofi
-      url: "https://ko-fi.com/vasakos"
+    - id: github-sponsors
+      url: "https://github.com/sponsors/Vasak-OS"
     - id: mercadopago
       url: "https://link.mercadopago.com.ar/joaquindecima"
     - id: paypal
@@ -48,7 +48,7 @@ donations:
       address: "bc1qjedvfvz6h9d0rjp2mz70y90mylpx8hr52fcmsp"
   community_url: "https://t.me/VasakOS"
   issues_url: "https://github.com/Vasak-OS"
-  kofi_embed: "https://ko-fi.com/vasakos/?hidefeed=true&widget=true&embed=true&preview=true"
+  github_sponsors_embed: "https://github.com/sponsors/Vasak-OS/card"
 ---
 
 Every contribution, however small, lets us sustain the project and keep building a
