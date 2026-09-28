@@ -304,7 +304,6 @@
   currentFocus = "Foco actual"
   monthlyGoal = "Objetivo mensual {{ .Amount }}"
   donateNow = "Donar ahora"
-  copy = "Copiar"
   copied = "Copiado"
   selectHint = "Seleccionado: Ctrl+C"
   copyAddress = "Copiar la dirección de {{ .Name }}"
