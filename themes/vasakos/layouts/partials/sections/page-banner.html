@@ -9,7 +9,7 @@
 {{- $page := . -}}
 {{- $heading := false -}}
 {{- if reflect.IsMap . }}{{ $page = .page }}{{ $heading = .heading }}{{ end -}}
-{{- $bannerID := printf "page-banner-%s" ($page.File.Path | md5 | string | slice 0 8) -}}
+{{- $bannerID := printf "page-banner-%s" ($page.Title | urlize) -}}
 {{/* `aria-labelledby`: un `<section>` sólo es un landmark —una región— si tiene
    nombre accesible. Sin nombre, el título de la página quedaba fuera de todo
    landmark y axe reportaba el contenido como "not contained by landmarks". Con
