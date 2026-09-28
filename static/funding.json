@@ -42,10 +42,10 @@
   "funding": {
     "channels": [
       {
-        "guid": "ko-fi",
+        "guid": "github-sponsors",
         "type": "payment-provider",
-        "address": "https://ko-fi.com/vasakos",
-        "description": "Card or any method Ko-fi supports in your region; one-time or recurring."
+        "address": "https://github.com/sponsors/Vasak-OS",
+        "description": "Recurring contribution from GitHub using card or balance."
       },
       {
         "guid": "mercadopago",
@@ -88,7 +88,7 @@
         "currency": "USD",
         "frequency": "monthly",
         "channels": [
-          "ko-fi",
+          "github-sponsors",
           "mercadopago",
           "paypal",
           "lemon",
@@ -105,7 +105,7 @@
         "currency": "USD",
         "frequency": "one-time",
         "channels": [
-          "ko-fi",
+          "github-sponsors",
           "mercadopago",
           "paypal",
           "lemon",

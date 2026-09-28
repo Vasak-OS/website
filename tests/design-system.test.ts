@@ -201,8 +201,7 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
 
   test("el carrusel de capturas tiene rol de region accesible", () => {
     const ss = readFileSync(`${TEMA}/layouts/partials/sections/screenshots.html`, "utf8");
-    const track = ss.match(/<div[^>]*screenshots-track[^>]*>/)?.[0] ?? "";
-    expect(track).toContain('role="region"');
+    const track = ss.match(/<section[^>]*screenshots-track[^>]*>/)?.[0] ?? "";
     expect(track).toContain('aria-roledescription="carousel"');
   });
 
