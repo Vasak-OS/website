@@ -36,7 +36,7 @@
 
     <div class="relative">
       <div class="screenshots-track flex snap-x snap-mandatory gap-6 overflow-x-auto scrollbar-hide pb-4"
-        data-screenshots role="group" aria-roledescription="carousel" tabindex="0"
+        data-screenshots role="scrollbox" aria-roledescription="carousel" tabindex="0"
         aria-label="{{ T "screenshots.title" }}">
         {{- range $index, $ss := $shots }}
         {{- $key := printf "screenshots.%s" $ss.identifier }}
@@ -128,7 +128,7 @@
      This marker is what switches the blurred-neighbours effect on (see
      `styles.css`). It is set only once the script is running, so the sharp
      images are what a visitor without JavaScript gets. */
-  track.setAttribute('data-carousel', '');
+  track.dataset.carousel = '';
 
   function card() {
     return cards[0];
@@ -151,7 +151,7 @@
       var on = i === active;
       dot.classList.toggle('bg-primary', on);
       dot.classList.toggle('bg-ui-border', !on);
-      dot.setAttribute('aria-selected', on ? 'true' : 'false');
+      dot.dataset.ariaSelected = on ? 'true' : 'false';
     });
     cards.forEach(function (el, i) {
       el.classList.toggle('is-active', i === active);
@@ -171,7 +171,7 @@
   if (next) next.addEventListener('click', function () { step(1); });
   dots.forEach(function (dot) {
     dot.addEventListener('click', function () {
-      var i = parseInt(dot.getAttribute('data-shots-dot'), 10);
+      var i = Number.parseInt(dot.dataset.shotsDot, 10);
       if (slots[i]) slots[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     });
   });

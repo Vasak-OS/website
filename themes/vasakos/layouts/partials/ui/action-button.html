@@ -122,16 +122,16 @@
 
 {{- $contenido := "" -}}
 {{- if $loading -}}
-  {{- $contenido = printf "%s<span class=\"h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent\" aria-hidden=\"true\"></span>" $contenido -}}
+  {{- $contenido = printf "%s<span class=\"h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent\" aria-hidden></span>" $contenido -}}
 {{- end -}}
 {{- if and $icon (not $iconRight) -}}
-  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden=\"true\"></i>" $contenido $icon -}}
+  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden></i>" $contenido $icon -}}
 {{- end -}}
 {{- with $label -}}
   {{- $contenido = printf "%s<span>%s</span>" $contenido . -}}
 {{- end -}}
 {{- if and $icon $iconRight -}}
-  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden=\"true\"></i>" $contenido $icon -}}
+  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden></i>" $contenido $icon -}}
 {{- end -}}
 
 {{- if $href -}}

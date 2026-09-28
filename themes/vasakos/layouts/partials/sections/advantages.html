@@ -19,7 +19,7 @@
     {{- range site.Params.advantages.main }}
     {{- $key := printf "advantages.%s" .identifier }}
     {{- $emblema := printf
-        "<div class=\"mb-8 flex h-[70px] w-[70px] items-center justify-center rounded-2xl bg-gradient-to-br from-secondary to-brand-text\"><i class=\"%s text-3xl text-white\" aria-hidden=\"true\"></i></div>"
+        "<div class=\"mb-8 flex h-[70px] w-[70px] items-center justify-center rounded-2xl bg-gradient-to-br from-secondary to-brand-text\"><i class=\"%s text-3xl text-white\" aria-hidden></i></div>"
         .params.icon }}
     {{- $nombre := printf "<h3 class=\"mb-3 text-xl font-semibold text-gray-800 dark:text-gray-100\">%s</h3>" (T (printf "%s.name" $key)) }}
     {{- $detalle := printf "<p class=\"text-gray-600 dark:text-gray-400\">%s</p>" (T (printf "%s.text" $key)) }}
