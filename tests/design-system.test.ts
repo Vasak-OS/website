@@ -199,10 +199,11 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     expect(pie).toContain("</footer>");
   });
 
-  test("el carrusel de capturas se puede enfocar con el teclado", () => {
+  test("el carrusel de capturas tiene rol de region accesible", () => {
     const ss = readFileSync(`${TEMA}/layouts/partials/sections/screenshots.html`, "utf8");
     const track = ss.match(/<div[^>]*screenshots-track[^>]*>/)?.[0] ?? "";
-    expect(track).toContain('tabindex="0"');
+    expect(track).toContain('role="region"');
+    expect(track).toContain('aria-roledescription="carousel"');
   });
 
   test("cada plantilla de página abre al menos un <main>", () => {
