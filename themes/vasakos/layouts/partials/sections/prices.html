@@ -1,39 +1,68 @@
 {{/* Renamed from "Nuestros Precios": the previous heading put a price table on
      the home page of a free operating system, which is the fastest way to make
-     a visitor assume there is a catch. */}}
+     a visitor assume there is a catch.
+
+     Every string here comes from i18n by `identifier`: the plan name, its
+     one-line description, the button and the five bullet points. The
+     `line-through` classes stay in the template because Tailwind only emits
+     classes it finds in the scanned source, and a class named only in a data
+     file is a class the compiler never sees. */}}
 <section class="my-20" id="apoyar">
   <div class="flex flex-col items-center justify-center px-4">
-    <h2 class="text-center text-4xl font-bold text-primary sm:text-5xl">{{ site.Params.support.title }}</h2>
+    <h2 class="text-center text-4xl font-bold text-brand-text sm:text-5xl">{{ T "support.title" }}</h2>
     <p class="max-w-2xl py-5 text-center text-gray-800 dark:text-gray-200">
-      {{ site.Params.support.subtitle }}
+      {{ T "support.subtitle" }}
     </p>
   </div>
   <div class="mx-auto mb-20 flex w-full flex-wrap items-center justify-center">
-    {{ range site.Params.support.main }}
-    <div
-      class="mx-2 mt-8 flex max-w-sm flex-grow transform flex-col overflow-hidden rounded-corner bg-ui-bg/80 drop-shadow-lg duration-700 hover:z-30 hover:-translate-y-5 hover:shadow-2xl {{ .class }}">
-      <div class="flex flex-col items-center bg-gradient-to-br from-secondary to-primary p-10">
-        <span class="font-semibold text-white">{{ .name }}</span>
-        <div class="flex items-center pt-3">
-          <span class="text-6xl font-bold text-white"><i class="{{ .params.icon }}" aria-hidden="true"></i></span>
-        </div>
-        {{ with .description }}<span class="mt-3 text-sm text-white/90">{{ . }}</span>{{ end }}
-      </div>
-      <div class="grow p-10">
-        <ul class="space-y-2 text-center">
-          {{ range .features }}
-          <li><span class="{{ .class }} text-gray-900 dark:text-gray-200">{{ .name }}</span></li>
-          {{ end }}
-        </ul>
-      </div>
-      <div class="justfy-center flex px-10 pb-10">
-        <a href="{{ .cta.url }}"{{ if strings.HasPrefix .cta.url "http" }} rel="noopener" target="_blank"{{ end }}
-          class="flex h-12 w-full items-center justify-center rounded-corner bg-gray-200 px-6 text-lg uppercase text-gray-950 hover:bg-primary hover:text-white dark:bg-gray-700 dark:text-gray-100">
-          {{ .cta.label }}
-        </a>
-      </div>
-    </div>
-    {{ end }}
+    {{- range site.Params.support.main }}
+    {{- $key := printf "support.%s" .identifier }}
+    {{- $externo := strings.HasPrefix .cta.url "http" }}
+    {{/* Los tres bloques del plan —cabecera, lista, botón— se arman aparte y se
+         le pasan a `ui/card` juntos: un partial no puede recibir un bloque. */}}
+    {{- $cabecera := printf
+        "<div class=\"flex flex-col items-center bg-gradient-to-br from-secondary to-brand-text p-10\"><span class=\"font-semibold text-white\">%s</span><div class=\"flex items-center pt-3\"><span class=\"text-6xl font-bold text-white\"><i class=\"%s\" aria-hidden></i></span></div><span class=\"mt-3 text-sm text-white/90\">%s</span></div>"
+        (T (printf "%s.name" $key))
+        .params.icon
+        (T (printf "%s.summary" $key)) }}
+    {{- $lineas := slice }}
+    {{- $i := 0 }}
+    {{- range .features }}
+      {{- $i = add $i 1 }}
+      {{- $line := T (printf "%s.features.f%d" $key $i) }}
+      {{- if $line }}
+      {{/* Which lines are struck through is a per-plan decision, not a
+           translation: the free and donations plans do not include the
+           assisted migration, so it is shown struck out. The class comes
+           from the list in params.yaml and the words from i18n, which is why
+           the numbering has to line up. Both sides are listed explicitly so
+           that a missing entry shows up as a missing line rather than as a
+           silently shifted one. */}}
+      {{- $lineas = $lineas | append (printf "<li><span class=\"text-gray-900 dark:text-gray-200 %s\">%s</span></li>" .class $line) }}
+      {{- end }}
+    {{- end }}
+    {{- $lista := printf "<div class=\"grow p-10\"><ul class=\"space-y-2 text-center\">%s</ul></div>" (delimit $lineas "") }}
+    {{- $boton := printf
+        "<div class=\"flex justify-center px-10 pb-10\">%s</div>"
+        (partial "ui/action-button.html" (dict
+            "href" (.cta.url | relLangURL)
+            "target" (cond $externo "_blank" "")
+            "rel" (cond $externo "noopener" "")
+            "tone" "neutral"
+            "size" "lg"
+            "full" true
+            "class" "h-12 uppercase"
+            "label" (T (printf "%s.ctaLabel" $key)))) }}
+    {{- /* La clase del plan sólo está en el de donaciones (`params.yaml`).
+            Con `printf`, un valor ausente sale como `%!s(<nil>)` en el atributo,
+            así que el que falta hay que mandarlo vacío a propósito. */ -}}
+    {{- $clase := printf "mx-2 mt-8 flex max-w-sm flex-grow transform flex-col overflow-hidden drop-shadow-lg duration-700 hover:z-30 hover:-translate-y-5 hover:shadow-2xl %s" (.class | default "") -}}
+    {{ partial "ui/card.html" (dict
+        "layout" "stack"
+        "pad" "none"
+        "class" $clase
+        "body" (slice $cabecera $lista $boton)) }}
+    {{- end }}
   </div>
   {{/* Tailwind only emits classes it finds in the source; these come from data
        files, which it does not scan. */}}

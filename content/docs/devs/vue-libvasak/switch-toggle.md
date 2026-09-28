@@ -1,14 +1,15 @@
 ---
 title: "Formulario | SwitchToggle"
 weight: 35
+description: "SwitchToggle: interruptor tipo toggle con animación que devuelve el nuevo estado mediante un evento."
 ---
 
 # `SwitchToggle`
 
-Descripción
+### Descripción
 - Interruptor tipo toggle con animación. Devuelve el nuevo estado mediante evento `toggle`.
 
-Props
+### Props
 - `isOn` (boolean) — Estado actual del switch. **Requerido**.
 - `disabled` (boolean) — Deshabilita la interacción. Por defecto: `false`.
 - `size` (`'small'|'medium'`) — Tamaño visual. Por defecto: `'small'`.
@@ -16,10 +17,10 @@ Props
 - `inactiveClass` (string) — Clase cuando está inactivo. Por defecto: `'background'`.
 - `customClass` (string) — Clases adicionales.
 
-Emite
+### Emite
 - `toggle` — Emite `[value: boolean]` con el nuevo estado.
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'

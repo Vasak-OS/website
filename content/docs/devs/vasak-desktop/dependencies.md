@@ -1,6 +1,7 @@
 ---
-title: "Gestion de dependencias | vasak-desktop"
+title: "Gestión de dependencias | vasak-desktop"
 weight: 10
+description: "Gestión de dependencias del proyecto: cómo se declaran, actualizan y resuelven las dependencias de Vasak Desktop."
 ---
 
 Guía completa para gestionar dependencias del proyecto.

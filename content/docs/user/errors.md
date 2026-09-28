@@ -152,7 +152,7 @@ echo "Sesión: $XDG_SESSION_TYPE" >> vasak-error-report-*.log
 
 El archivo generado puede ser adjuntado en un issue de GitHub.
 
-Ver también: [Cómo Reportar Errores](./reporte-errores.md)
+Ver también: [Cómo Reportar Errores](/docs/user/report-bugs/)
 
 ## Errores en la consola del navegador (herramientas de desarrollo)
 

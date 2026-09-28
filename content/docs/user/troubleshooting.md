@@ -597,9 +597,6 @@ xrdb -merge ~/.Xresources
 # Reinicia para aplicar
 pkill vasak-desktop && vasak-desktop &
 ```
-pkill -f vasak-desktop
-vasak-desktop &
-```
 
 ---
 
@@ -668,4 +665,4 @@ Si nada funciona:
 
 2. Abre un issue en GitHub adjuntando `vasak-debug-report.log`
 
-Ver [Cómo Reportar Errores](reporte-errores.md) para más detalles.
+Ver [Cómo Reportar Errores](/docs/user/report-bugs/) para más detalles.

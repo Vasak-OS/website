@@ -3,22 +3,25 @@
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
       <div class="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
         <img src="/img/community.svg" width="800" height="600" loading="lazy" decoding="async"
-          alt="Ilustración de un grupo de personas colaborando" class="absolute inset-0 h-full w-full object-cover" />
+          alt="{{ T "cta.imageAlt" }}" class="absolute inset-0 h-full w-full object-cover" />
       </div>
 
       <div class="lg:py-24 flex flex-col justify-center">
-        <h2 class="text-3xl font-bold sm:text-4xl text-gray-900 dark:text-white text-center">Forma parte de esta gran comunidad</h2>
+        <h2 class="text-3xl font-bold sm:text-4xl text-gray-900 dark:text-white text-center">{{ T "cta.title" }}</h2>
 
         <p class="mt-4 text-gray-600 dark:text-gray-300">
-          Podes formar parte de esta gran comunidad descargando nuestro sistema y utilizándolo, probándolo, o incluso
-          unirte al desarrollo del mismo. <span class="font-vsk">Vasak OS</span> lo hacemos entre todos, desde los
-          usuarios hasta los desarrolladores.
+          {{ T "cta.body" }}
         </p>
 
-        <a href="/downloads/"
-          class="mt-8 inline-block rounded-corner bg-primary text-center text-3xl px-12 py-4 font-medium text-white transition hover:shadow-2xl hover:text-white focus:outline-none">
-          Descargar
-        </a>
+        {{/* Sin overrides de tamaño: el `lg` de `ActionButton` es `px-4 py-2
+             text-base` y es el mismo botón que hay en cualquier aplicación del
+             escritorio. Ponerle `text-3xl` arriba lo dejaba igual de bien y
+             hacía que el sitio se viera distinto. */}}
+        {{ partial "ui/action-button.html" (dict
+            "href" ("/downloads/" | relLangURL)
+            "label" (T "cta.button")
+            "size" "lg"
+            "class" "mt-8 self-start") }}
       </div>
     </div>
   </div>

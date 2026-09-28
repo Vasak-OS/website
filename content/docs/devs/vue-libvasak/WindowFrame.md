@@ -1,21 +1,22 @@
 ---
 title: "Layout | WindowFrame"
 weight: 50
+description: "WindowFrame: el contenedor principal de vue-libvasak, que incluye la TopBar y renderiza el contenido de la aplicación."
 ---
 
 # `WindowFrame`
 
-Descripción
+### Descripción
 - Componente wrapper que incluye la `TopBar` (barra superior) y renderiza su contenido vía slot. Se usa como contenedor principal de vistas.
 
-Props
+### Props
 - `title` (string) — Título mostrado en la `TopBar`. Por defecto: `'Vasak'`.
 - `image` (string) — Imagen/ícono para la `TopBar`. Por defecto: `''`.
 
-Slots
+### Slots
 - Default — Contenido de la ventana.
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import WindowFrame from '../window/WindowFrame.vue'

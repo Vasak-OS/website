@@ -1,13 +1,13 @@
 {{ define "main" }}
 <main class="px-6 py-8">
-  {{ partial "widgets/breadcrumbs.html" . }}
+  {{ partial "ui/breadcrumbs.html" . }}
   <div class="flex justify-between mx-auto">
     <div class="w-full lg:w-8/12">
       <div class="px-8">
         <div
           class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner"
           id="article">
-          <h1 class="text-center text-primary">{{.Title}}</h1>
+          <h1 class="text-center text-brand-text">{{.Title}}</h1>
           {{ .Content }}
         </div>
 
@@ -25,8 +25,8 @@
           <!-- Artículo anterior -->
           {{ if gt $currentIndex 0 }}
             {{ $prevArticle := index $siblings (sub $currentIndex 1) }}
-            <a href="{{ $prevArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors">
-              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">← Anterior</div>
+            <a href="{{ $prevArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-tx-on-primary dark:hover:bg-primary transition-colors">
+              <div class="text-sm text-tx-muted mb-1">← {{ T "nav_docs.previous" }}</div>
               <div class="font-semibold">{{ $prevArticle.Title }}</div>
             </a>
           {{ else }}
@@ -36,8 +36,8 @@
           <!-- Artículo siguiente -->
           {{ if lt $currentIndex (sub (len $siblings) 1) }}
             {{ $nextArticle := index $siblings (add $currentIndex 1) }}
-            <a href="{{ $nextArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors text-right">
-              <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Siguiente →</div>
+            <a href="{{ $nextArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-tx-on-primary dark:hover:bg-primary transition-colors text-right">
+              <div class="text-sm text-tx-muted mb-1">{{ T "nav_docs.next" }} →</div>
               <div class="font-semibold">{{ $nextArticle.Title }}</div>
             </a>
           {{ else }}

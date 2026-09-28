@@ -1,6 +1,7 @@
 ---
 title: "Setup del Proyecto | vasak-desktop"
 weight: 1
+description: "Configurar el entorno de desarrollo de Vasak Desktop paso a paso, desde clonar el repositorio hasta compilarlo."
 ---
 
 # Setup del Proyecto - Vasak Desktop
@@ -16,7 +17,7 @@ Guía completa para configurar tu entorno de desarrollo de Vasak Desktop.
 - **Almacenamiento**: 5GB espacio libre
 - **Internet**: Conexión para descargar dependencias
 
-> Es sumamente importante realizar la [instalacion de dependencias para desarrolladores](/docs/devs/dev-dependencies/) dado que de aqui en adelante son dependnecias especificas de `vasak-desktop`
+> Es sumamente importante realizar la [instalación de dependencias para desarrolladores](/docs/devs/dev-dependencies/) dado que de aquí en adelante son dependencias específicas de `vasak-desktop`
 
 ### Dependencias del Sistema [`vasak-desktop`]
 
@@ -106,7 +107,7 @@ vasak-desktop/
 └── tauri.conf.json       # Configuración Tauri
 ```
 
-Si quieres entender mas sobre el [Sistemas de carpetas](/docs/devs/vasak-desktop/folders/) lee el articulo donde explicamos mas a fondo cada uno de estos lugares, para que sea mas facil encontrar lo que estas buscando
+Si quieres entender más sobre el [Sistemas de carpetas](/docs/devs/vasak-desktop/folders/) lee el artículo donde explicamos más a fondo cada uno de estos lugares, para que sea más fácil encontrar lo que estás buscando
 
 ## Verificar que Todo Está Correcto
 
@@ -117,4 +118,4 @@ bun run tauri build
 # Si finaliza sin errores, ¡estás listo!
 ```
 
-En caso de tener problemas revisa nuestra pagina de [Solucion de problemas](/docs/devs/vasak-desktop/troubleshooting/) antes de [reportar errores](/docs/user/reporte-errores/).
+En caso de tener problemas revisa nuestra página de [Solución de problemas](/docs/devs/vasak-desktop/troubleshooting/) antes de [reportar errores](/docs/user/reporte-errores/).

@@ -1,0 +1,187 @@
+{{/*
+  Screenshot gallery.
+
+  The images live in `static/`, so Hugo cannot resize them and cannot know
+  whether a `.webp` sibling exists. Each entry names its `.jpg` and the
+  `<picture>` below is built on that one assumption: a `.webp` of the same name
+  sits next to it. A `<source>` pointing at a `.webp` that was never generated
+  is exactly the bug this had once — a browser that supports WebP would prefer
+  it and then show nothing. `scripts/optimize-images.mjs` writes both files
+  together for that reason.
+
+  The markup is a real `<img>`, not something a script injects: these are the
+  pictures of the product, and a visitor without JavaScript — or a crawler —
+  should still see them. The script below is only the carousel.
+*/}}
+{{- $cfg := site.Params.images.screenshots | default dict -}}
+{{- $shots := slice -}}
+{{- range ($cfg.main | default slice) -}}
+  {{- if .image -}}
+    {{- $shots = $shots | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if and ($cfg.enabled | default false) $shots -}}
+{{- /* The keys the captions and alt text are looked up by. They come from
+       i18n/<lang>.toml, not from params.yaml, so a screenshot has one
+       description in one place instead of two that drift apart. */ -}}
+{{- $id := . -}}
+<section class="relative flex flex-col justify-center overflow-hidden bg-ui-bg/80 py-20">
+  <div class="mx-auto w-full max-w-screen-xl px-4">
+    <div class="mb-12 text-center">
+      <span class="text-sm font-semibold uppercase tracking-wider text-brand-text">{{ T "screenshots.eyebrow" }}</span>
+      <h2 class="mt-2 text-3xl font-bold text-tx-main">{{ T "screenshots.title" }}</h2>
+      <p class="mt-2 text-tx-muted">{{ T "screenshots.subtitle" }}</p>
+    </div>
+
+    <div class="relative">
+      <section class="screenshots-track flex snap-x snap-mandatory gap-6 overflow-x-auto scrollbar-hide pb-4"
+        data-screenshots aria-roledescription="carousel"
+        aria-label="{{ T "screenshots.title" }}">
+        {{- range $index, $ss := $shots }}
+        {{- $key := printf "screenshots.%s" $ss.identifier }}
+        {{- $alt := T (printf "%s.alt" $key) | default (T "screenshots.defaultAlt") }}
+        {{- $caption := T (printf "%s.caption" $key) }}
+        {{- /* `image` trae el ancho pegado al final (`shot-01-1536.jpg`), y el
+               `srcset` lo necesita sin él: los archivos se llaman
+               `shot-01-768.webp`, no `shot-01-1536-768.webp`. */ -}}
+        {{- $stem := (strings.TrimSuffix ".jpg" $ss.image) | replaceRE `-\d+$` "" -}}
+        {{- $w := $ss.width | default 1536 }}
+        {{- $h := $ss.height | default 836 }}
+        {{- /* Un `srcset` por formato. La tarjeta no pasa de 768 px, así que sin
+               esto el navegador estaría reduciendo siempre la imagen grande, y
+               el reescalado es justo lo que se ve borroso. */ -}}
+        {{- $srcsetWebp := slice -}}
+        {{- $srcsetJpg := slice -}}
+        {{- range ($ss.srcset | default (slice 768 1536)) -}}
+          {{- $srcsetWebp = $srcsetWebp | append (printf "%s-%d.webp %dw" $stem . .) -}}
+          {{- $srcsetJpg = $srcsetJpg | append (printf "%s-%d.jpg %dw" $stem . .) -}}
+        {{- end -}}
+        <figure class="snap-center w-[85vw] max-w-3xl shrink-0 first:pl-4 last:pr-4">
+          <div class="relative w-full overflow-hidden rounded-corner border border-ui-border bg-ui-surface shadow-xl"
+            style="aspect-ratio: {{ $w }} / {{ $h }}" data-shot>
+            {{/* `picture` es inline por defecto, y un alto en porcentaje contra
+                 una caja inline da `auto`: eso anula en silencio `h-full` y
+                 `object-cover`, y la imagen queda sin cubrir el marco. Tiene que
+                 ser un bloque que llene el marco para que el `img` de adentro
+                 pueda llenarlo a su vez.
+
+                 El marco toma la proporción de la propia imagen, así que no se
+                 recorta ni se letterboxea, y el navegador reserva la caja exacta
+                 antes de que llegue la imagen. */ -}}
+            <picture class="block h-full w-full">
+              <source srcset="{{ delimit $srcsetWebp ", " }}" type="image/webp"
+                sizes="(min-width: 768px) 768px, 85vw">
+              <img src="{{ $ss.image }}" srcset="{{ delimit $srcsetJpg ", " }}"
+                sizes="(min-width: 768px) 768px, 85vw"
+                alt="{{ $alt }}" width="{{ $w }}" height="{{ $h }}"
+                loading="lazy" decoding="async" class="block h-full w-full object-cover">
+            </picture>
+          </div>
+          {{- with $caption }}
+          <figcaption class="p-4 text-center text-sm font-medium text-tx-main">{{ . }}</figcaption>
+          {{- end }}
+        </figure>
+        {{- end }}
+      </div>
+
+      <button type="button"
+        class="screenshots-prev absolute left-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-brand-text md:flex"
+        aria-label="{{ T "screenshots.previous" }}" data-shots-prev>
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button type="button"
+        class="screenshots-next absolute right-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-lg backdrop-blur-sm transition-colors hover:text-brand-text md:flex"
+        aria-label="{{ T "screenshots.next" }}" data-shots-next>
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="screenshots-dots mt-6 flex justify-center gap-2" role="tablist" aria-label="{{ T "screenshots.title" }}">
+      {{- range $index, $ss := $shots }}
+      <button type="button" role="tab" data-shots-dot="{{ $index }}"
+        aria-label="{{ T "screenshots.goTo" (dict "Number" (add $index 1)) }}"
+        class="h-2.5 w-2.5 rounded-full transition-colors {{ if eq $index 0 }}bg-primary{{ else }}bg-ui-border hover:bg-primary{{ end }}"></button>
+      {{- end }}
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var track = document.querySelector('.screenshots-track');
+  if (!track) return;
+
+  var slots = Array.prototype.slice.call(track.querySelectorAll('[data-shot]'));
+  /* The cards the effect applies to are the `<figure class="snap-center">`
+     wrappers; `[data-shot]` is the frame inside them, which is what has to be
+     measured. Same count, same order, different element. */
+  var cards = Array.prototype.slice.call(track.querySelectorAll(':scope > .snap-center'));
+  var prev = document.querySelector('.screenshots-prev');
+  var next = document.querySelector('.screenshots-next');
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.screenshots-dot, [data-shots-dot]'));
+
+  /* The carousel only. Loading the images and falling back to a placeholder
+     used to live here, back when the gallery pointed at files that were not
+     there yet; the markup renders the images now.
+
+     This marker is what switches the blurred-neighbours effect on (see
+     `styles.css`). It is set only once the script is running, so the sharp
+     images are what a visitor without JavaScript gets. */
+  track.dataset.carousel = '';
+
+  function card() {
+    return cards[0];
+  }
+
+  function activeIndex() {
+    var trackRect = track.getBoundingClientRect();
+    var center = trackRect.left + trackRect.width / 2;
+    var found = 0;
+    slots.forEach(function (slot, i) {
+      var r = slot.getBoundingClientRect();
+      if (r.left <= center && r.right > center) found = i;
+    });
+    return found;
+  }
+
+  function paint() {
+    var active = activeIndex();
+    dots.forEach(function (dot, i) {
+      var on = i === active;
+      dot.classList.toggle('bg-primary', on);
+      dot.classList.toggle('bg-ui-border', !on);
+      dot.dataset.ariaSelected = on ? 'true' : 'false';
+    });
+    cards.forEach(function (el, i) {
+      el.classList.toggle('is-active', i === active);
+    });
+  }
+
+  track.addEventListener('scroll', paint, { passive: true });
+  window.addEventListener('resize', paint);
+  paint();
+
+  function step(dir) {
+    var c = card();
+    if (!c) return;
+    track.scrollBy({ left: dir * (c.offsetWidth + 24), behavior: 'smooth' });
+  }
+  if (prev) prev.addEventListener('click', function () { step(-1); });
+  if (next) next.addEventListener('click', function () { step(1); });
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      var i = Number.parseInt(dot.dataset.shotsDot, 10);
+      if (slots[i]) slots[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+
+  /* Keyboard: the track is horizontally scrollable, so it needs arrow-key
+     handling to be reachable without a pointer. */
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
+  });
+})();
+</script>
+{{- end -}}

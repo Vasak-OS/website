@@ -7,4 +7,8 @@ Disallow: /tags/
 Disallow: /categories/
 Disallow: /search-index.json
 
+{{/* With more than one language, `sitemap.xml` becomes an index that points at
+     one sitemap per language, and that is the only sitemap there is. This file
+     is generated once for the site rather than once per language, so it points
+     at the index. */}}
 Sitemap: {{ "sitemap.xml" | absURL }}

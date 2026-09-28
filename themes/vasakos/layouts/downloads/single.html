@@ -1,56 +1,70 @@
 {{ define "main" }}
 {{/* Release facts come from data/release.yml, not from this page's front
      matter: the home page and the structured data need the same numbers, and
-     three copies of a checksum is three chances to publish the wrong one. */}}
+     three copies of a checksum is three chances to publish the wrong one.
+
+     What is *prose* — the headings, the sentences, the status word — comes from
+     i18n. The requirements in `release.yml` are looked up by their Spanish name
+     under `requirement.<name>`, which is why that table is keyed on the YAML
+     text: it is a join key, not display text, and changing the wording of a
+     requirement in the YAML would then need a matching key. A requirement with
+     no key falls back to the YAML text, so a newly added one still shows up in
+     both languages rather than disappearing from one. */}}
 {{- $r := hugo.Data.release -}}
 <main class="px-4 py-8">
   <div class="mx-auto max-w-screen-xl">
 
     <header class="rounded-corner bg-ui-bg/80 p-8 text-center">
-      <h1 class="text-4xl font-bold text-tx-main">Descargar VasakOS</h1>
+      <h1 class="text-4xl font-bold text-tx-main">{{ T "downloads.title" }}</h1>
       <p class="mt-3 text-tx-muted">
-        Imagen oficial para {{ $r.arch }}, gratuita y sin registro.
+        {{ T "downloads.officialImage" (dict "Arch" $r.arch) }}
       </p>
+      {{/* Un botón por espejo. `ui/action-button` es el `ActionButton` del
+           escritorio: mismo fondo, mismo radio, mismo hover, mismo estado
+           deshabilitado. Los de la cabecera y los de soporte salen del mismo
+           partial y se ven iguales entre sí. */}}
       <div class="mt-6 flex flex-wrap justify-center gap-3">
         {{- range $r.mirrors }}
         {{- if .url }}
-        <a rel="noopener" target="_blank" href="{{ .url }}"
-          class="inline-flex items-center gap-2 rounded-corner bg-primary px-6 py-3 font-semibold text-white hover:opacity-90">
-          <i class="fa-solid fa-download" aria-hidden="true"></i>
-          {{ .name }}
-        </a>
+        {{ partial "ui/action-button.html" (dict
+            "href" .url
+            "target" "_blank"
+            "rel" "noopener"
+            "label" .name
+            "icon" "fa-solid fa-download"
+            "size" "lg") }}
         {{- end }}
         {{- end }}
       </div>
-      <p class="mt-4 text-sm text-tx-muted">{{ $r.image_name }} · {{ $r.size }} · publicada el {{ $r.published_at }}</p>
+      <p class="mt-4 text-sm text-tx-muted">{{ $r.image_name }} · {{ $r.size }} · {{ T "state.publishedOn" (dict "Date" (time.Format "2 January 2006" $r.published_at)) }}</p>
     </header>
 
     <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
       <article class="rounded-corner border border-primary bg-ui-bg/80 p-6 lg:col-span-2">
-        <p class="text-sm font-semibold uppercase tracking-wide text-primary">Release actual</p>
+        <p class="text-sm font-semibold uppercase tracking-wide text-brand-text">{{ T "state.currentRelease" }}</p>
         <h2 class="mt-1 text-2xl font-bold text-tx-main">{{ $r.release_name }}</h2>
-        <p class="mt-2 text-sm text-tx-muted">Canal {{ $r.channel }} · Estado {{ $r.status }}</p>
+        <p class="mt-2 text-sm text-tx-muted">{{ T "downloads.channel" (dict "Channel" $r.channel) }} · {{ T "state.colStatus" }} {{ T (printf "status.%s" (lower $r.status)) }}</p>
 
         <dl class="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-          <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Versión</dt>
+          <div class="rounded-corner bg-ui-bg/80 p-3">
+            <dt class="font-semibold">{{ T "components.version" }}</dt>
             <dd>{{ $r.version }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Arquitectura</dt>
+          <div class="rounded-corner bg-ui-bg/80 p-3">
+            <dt class="font-semibold">{{ T "downloads.architecture" }}</dt>
             <dd>{{ $r.arch }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Imagen</dt>
+          <div class="rounded-corner bg-ui-bg/80 p-3">
+            <dt class="font-semibold">{{ T "downloads.filename" }}</dt>
             <dd class="break-all">{{ $r.image_name }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3">
-            <dt class="font-semibold">Tamaño</dt>
+          <div class="rounded-corner bg-ui-bg/80 p-3">
+            <dt class="font-semibold">{{ T "downloads.size" }}</dt>
             <dd>{{ $r.size }}</dd>
           </div>
-          <div class="rounded-corner bg-ui-bg/70 p-3 sm:col-span-2">
-            <dt class="font-semibold">Publicado</dt>
-            <dd>{{ $r.published_at }}</dd>
+          <div class="rounded-corner bg-ui-bg/80 p-3 sm:col-span-2">
+            <dt class="font-semibold">{{ T "downloads.published" }}</dt>
+            <dd>{{ time.Format "2 January 2006" $r.published_at }}</dd>
           </div>
         </dl>
 
@@ -61,66 +75,74 @@
 
         {{ with $r.changelog_url }}
         <div class="mt-5 text-center">
-          <a href="{{ . }}" class="font-semibold text-primary hover:underline">Ver el changelog de esta versión</a>
+          <a href="{{ . | relLangURL }}" class="font-semibold text-brand-text hover:underline">{{ T "changelog.readMore" }}</a>
         </div>
         {{ end }}
       </article>
 
       <aside class="rounded-corner border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">Mirrors de descarga</h2>
+        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.mirrors" }}</h2>
+        {{/* Los espejos son filas de `ListCard`: título a la izquierda, acción a
+             la derecha. Un espejo que no está publicado no es un botón
+             deshabilitado sino texto, porque no hay nada que apretar. */}}
         <div class="mt-4 space-y-3">
           {{ range $r.mirrors }}
-          <div class="flex flex-row justify-between rounded-corner bg-ui-bg/70 p-3">
-            <div>
-              <p class="font-semibold">{{ .name }}</p>
-              <p class="text-xs text-gray-500 dark:text-gray-300">{{ .region }}</p>
-            </div>
-            <div>
-              {{ if .url }}
-              <a rel="noopener" target="_blank" href="{{ .url }}"
-                class="mt-2 inline-block rounded-corner bg-primary px-3 py-2 text-sm text-white hover:opacity-90">Descargar</a>
-              {{ else }}
-              <span class="mt-2 inline-block rounded-corner bg-gray-300 px-3 py-2 text-sm text-gray-700 dark:bg-gray-700 dark:text-gray-200">No disponible</span>
-              {{ end }}
-            </div>
-          </div>
+          {{- $accion := "" }}
+          {{ if .url }}
+            {{- $accion = partial "ui/action-button.html" (dict
+                "href" .url
+                "target" "_blank"
+                "rel" "noopener"
+                "label" (T "home.download")
+                "size" "sm") }}
+          {{ else }}
+            {{- $accion = printf "<span class=\"rounded-corner-sm bg-ui-surface/80 px-3 py-2 text-sm text-tx-muted\">%s</span>" (T "downloads.unavailable") }}
+          {{ end }}
+          {{ partial "ui/card.html" (dict
+              "title" .name
+              "subtitle" .region
+              "actions" $accion) }}
           {{ end }}
         </div>
 
         <div class="mt-5 text-sm">
-          {{ with $r.sha256_file }}<a href="{{ . }}" class="block text-primary hover:underline">Descargar SHA256SUMS</a>{{ end }}
-          {{ with $r.signature_file }}<a href="{{ . }}" class="mt-1 block text-primary hover:underline">Descargar la firma digital</a>{{ end }}
+          {{ with $r.sha256_file }}<a href="{{ . }}" class="block text-brand-text hover:underline">{{ T "downloads.downloadSums" }}</a>{{ end }}
+          {{ with $r.signature_file }}<a href="{{ . }}" class="mt-1 block text-brand-text hover:underline">{{ T "downloads.downloadSignature" }}</a>{{ end }}
         </div>
       </aside>
     </section>
 
     <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
       <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">Requisitos mínimos</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-primary">
-          {{ range $r.requirements.minimum }}<li>{{ . }}</li>{{ end }}
+        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.minimum" }}</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-brand-text">
+          {{ range $r.requirements.minimum }}<li>{{ partial "requirement.html" . }}</li>{{ end }}
         </ul>
       </article>
       <article class="rounded-corner border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">Requisitos recomendados</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-primary">
-          {{ range $r.requirements.recommended }}<li>{{ . }}</li>{{ end }}
+        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.recommended" }}</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-brand-text">
+          {{ range $r.requirements.recommended }}<li>{{ partial "requirement.html" . }}</li>{{ end }}
         </ul>
       </article>
     </section>
 
-    <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80 p-6">
-      <h2 class="text-lg font-bold text-tx-main">Verificar la integridad</h2>
-      <p class="mt-2 text-sm text-tx-muted">
-        Ejecutá uno de estos comandos en la carpeta donde descargaste la ISO y compará el
-        resultado con el SHA256 publicado arriba. Si no coincide, no la uses.
-      </p>
-      <div class="mt-4 grid grid-cols-1 gap-3">
+    {{/* La verificación de la integridad es un `ui/alert` en tono `info`, que es
+         lo que el escritorio usa para «esto tienes que saber antes de seguir»:
+         el mismo borde, la misma superficie al 70 % y el mismo texto de siempre.
+         Los tres comandos van en filas de `ListCard` porque son tres, y porque
+         la suma es lo que hay que copiar. */}}
+    <section class="mt-8">
+      {{ partial "ui/alert.html" (dict
+          "tone" "info"
+          "icon" "fa-solid fa-shield-halved"
+          "title" (T "downloads.verify")
+          "body" (T "downloads.verifyHint")) }}
+      <div class="mt-3 grid grid-cols-1 gap-3">
         {{ range slice (dict "os" "Linux" "cmd" $r.verify.linux) (dict "os" "macOS" "cmd" $r.verify.macos) (dict "os" "Windows" "cmd" $r.verify.windows) }}
-        <div class="rounded-corner bg-ui-bg/70 p-3">
-          <p class="text-xs font-semibold uppercase tracking-wide text-primary">{{ .os }}</p>
-          <code class="mt-1 block whitespace-pre-wrap break-all text-xs">{{ .cmd }}</code>
-        </div>
+        {{ partial "ui/card.html" (dict
+            "subtitle" (printf "<span class=\"text-xs font-semibold uppercase tracking-wide text-brand-text\">%s</span>" .os)
+            "body" (printf "<code class=\"block whitespace-pre-wrap break-all text-xs\">%s</code>" .cmd)) }}
         {{ end }}
       </div>
     </section>
@@ -130,19 +152,26 @@
     </section>
 
     <section class="mt-8 rounded-corner border border-primary bg-ui-bg/80 p-6">
-      <h2 class="text-lg font-bold text-tx-main">Soporte y reportes</h2>
+      <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.support" }}</h2>
       <p class="mt-2 text-sm text-tx-muted">
-        Si algo falla durante la instalación o el arranque, compartí información del
-        hardware, los logs y los pasos para reproducirlo.
+        {{ T "downloads.supportHint" }}
       </p>
       <div class="mt-4 flex flex-wrap gap-3">
         {{ with $r.support_url }}
-        <a rel="noopener" target="_blank" href="{{ . }}"
-          class="rounded-corner bg-secondary/80 px-4 py-2 text-white hover:opacity-90">Comunidad</a>
+        {{ partial "ui/action-button.html" (dict
+            "href" .
+            "target" "_blank"
+            "rel" "noopener"
+            "tone" "secondary"
+            "label" (T "donate.community")) }}
         {{ end }}
         {{ with $r.bug_report_url }}
-        <a rel="noopener" target="_blank" href="{{ . }}"
-          class="rounded-corner bg-primary px-4 py-2 text-white hover:opacity-90">Reportar un error</a>
+        {{ partial "ui/action-button.html" (dict
+            "href" .
+            "target" "_blank"
+            "rel" "noopener"
+            "label" (T "downloads.reportBug")
+            "icon" "fa-brands fa-github") }}
         {{ end }}
       </div>
     </section>

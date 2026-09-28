@@ -1,3 +1,11 @@
+# Menú principal, en español.
+#
+# Un archivo por idioma, con el mismo `identifier` y el mismo `weight` en
+# ambos, para que el menú no cambie de posición entre idiomas. El `identifier`
+# es la clave de unión —`docs` es la misma entrada en los dos archivos— y es lo
+# que permite que el selector de idioma empareje las páginas: la página
+# española de un documento tiene que encontrar su|English| por identificador de
+# menú o por ruta, no por posición.
 main:
     - identifier: inicio
       name: Inicio
@@ -8,43 +16,36 @@ main:
           haveChildren: false
     - identifier: blog
       name: Blog
-      url: /blog
+      url: /blog/
       weight: 2
       params:
           newTab: false
           haveChildren: false
     - identifier: sobre
       name: Sobre
-      url: /about
+      url: /about/
       weight: 3
       params:
           haveChildren: false
           children: false
     - identifier: downloads
       name: Descargas
-      url: /downloads
+      url: /downloads/
       weight: 4
       params:
           newTab: false
           haveChildren: false
     - identifier: docs
       name: Documentación
-      url: /docs
+      url: /docs/
       weight: 6
       params:
           newTab: false
           haveChildren: false
     - identifier: donate
       name: Donar
-      url: /donate
+      url: /donate/
       weight: 7
       params:
           newTab: false
           haveChildren: false
-    # - identifier: apps
-    #   name: Apps
-    #   url: /apps
-    #   weight: 5
-    #   params:
-    #       newTab: false
-    #       haveChildren: false

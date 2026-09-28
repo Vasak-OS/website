@@ -2,44 +2,51 @@
   What actually ships, with versions. A visitor evaluating a young distro wants
   to know what exists and how finished it is; a page that only says "moderno" and
   "potente" gives them nothing to check.
+
+  The group panel is `ui/card` and the status chip is `ui/badge`, so the home
+  page and /state/ draw the same thing with the same classes and look like the
+  component library the desktop ships.
 */}}
 {{- $data := partial "data/components.html" . -}}
 <section class="bg-ui-bg/80 px-4 py-16" id="componentes" data-repo-index="{{ site.Params.repository.index }}">
   <div class="mx-auto max-w-screen-xl">
     <div class="mx-auto mb-12 max-w-3xl text-center">
-      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">Qué incluye VasakOS</h2>
+      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">{{ T "components.title" }}</h2>
       <p class="mt-4 text-gray-600 dark:text-gray-300">
-        Cada pieza es un proyecto propio, con su repositorio público y su versión publicada
-        en el repositorio de paquetes.
+        {{ T "components.subtitle" }}
       </p>
     </div>
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {{- range $data.groups }}
-      <div class="rounded-corner bg-ui-surface/40 p-6">
-        <h3 class="mb-4 flex items-center gap-2 text-lg font-bold text-tx-main">
-          <i class="{{ .icon }} text-primary" aria-hidden="true"></i>
-          {{ .name }}
-        </h3>
-        <ul class="space-y-3">
-          {{- range .items }}
-          {{- $badge := index $data.legend .status }}
-          <li>
-            <div class="flex flex-wrap items-baseline gap-2">
-              <span class="font-semibold text-tx-main">{{ .title }}</span>
-              <span class="rounded-full px-2 py-0.5 text-xs font-semibold {{ $badge.class }}">{{ $badge.label }}</span>
-            </div>
-            <p class="text-sm text-tx-muted" data-pkg-version="{{ .name }}">{{ .version }}</p>
-          </li>
-          {{- end }}
-        </ul>
-      </div>
+      {{/* La lista se arma como texto porque `data-pkg-version` tiene que quedar
+           en el elemento que lleva el número, no en un envoltura: es el gancho
+           que `state-live.js` busca en toda la página —la portada también la
+           consulta— y escribe adentro. El chip sale de `ui/badge` igual. */}}
+      {{- $filas := slice }}
+      {{- range .items }}
+        {{- $badge := index $data.legend .status }}
+        {{- $filas = $filas | append (printf
+            "<li><div class=\"flex flex-wrap items-baseline gap-2\"><span class=\"font-semibold\">%s</span>%s</div><p class=\"text-sm text-tx-muted\" data-pkg-version=\"%s\">%s</p></li>"
+            .title
+            (partial "ui/badge.html" (dict "label" $badge.label "class" $badge.class))
+            .name
+            .version) }}
+      {{- end }}
+      {{ partial "ui/card.html" (dict
+          "layout" "stack"
+          "surface" true
+          "icon" .icon
+          "iconClass" "text-2xl text-brand-text"
+          "title" .name
+          "titleTag" "h3"
+          "body" (printf "<ul class=\"space-y-3\">%s</ul>" (delimit $filas ""))) }}
       {{- end }}
     </div>
 
     <div class="mt-10 text-center">
-      <a href="/state/" class="inline-flex items-center gap-2 font-semibold text-primary hover:text-secondary">
-        Ver el estado detallado de cada componente
+      <a href="{{ "/state/" | relLangURL }}" class="inline-flex items-center gap-2 font-semibold text-brand-text hover:text-secondary">
+        {{ T "components.detail" }}
         <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
       </a>
     </div>

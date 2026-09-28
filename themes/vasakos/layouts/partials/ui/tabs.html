@@ -1,0 +1,165 @@
+{{- /*
+  ui/tabs.html
+
+  La barra de pestañas. Espejo de `TabBar` de `@vasakgroup/vue-libvasak` 1.9.0,
+  con `ui/tab.html` como la pestaña.
+
+  Fuente: https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/tabs/TabBar.vue
+
+  ── Qué se copió tal cual ───────────────────────────────────────────────────
+
+  El contenedor `flex min-h-0 min-w-0 items-center gap-1 h-full` con
+  `role="tablist"`, el carril `flex items-center gap-1 overflow-x-auto
+  overflow-y-hidden`, y el botón de pestaña nueva —`flex size-7 shrink-0 items-
+  center justify-center rounded-corner border border-ui-border bg-ui-bg/80
+  hover:bg-ui-surface/70`—, que en la librería aparece sólo si se le pasa un
+  `newLabel` y acá sólo si se le pasa un `newLabel`.
+
+  ── Lo que hace el script, y por qué está acá ───────────────────────────────
+
+  El escritorio maneja la barra con Vue. Un sitio estático no tiene eso, y una
+  barra de pestañas que no cambia de panel es un adorno: un `tablist` con
+  `aria-selected` que nunca se mueve le dice al lector de pantalla que hay algo
+  interactivo donde no lo hay.
+
+  Por eso el script va **dentro** del partial y no en el paquete de
+  `footer/scripts.html`. Va en línea porque se ejecuta mientras se parsea, que es
+  lo único que garantiza que los paneles inactivos no se alcancen a pintar: un
+  `defer` puede correr después del primer pintado y el que ve la página es un
+  parpadeo con las cinco pestañas abiertas.
+
+  Y sólo se descarga donde hay pestañas, que hoy son cero: un partial que nadie
+  llama no agrega un script a ninguna página.
+
+  Hace tres cosas, las mismas que el componente:
+
+  1. Esconde los paneles que no son el activo. El servidor los dibuja todos
+     abiertos, para que sin JavaScript se lea la página entera.
+  2. Con un clic o con Enter o Espacio, cambia de panel y mueve la URL al
+     ancla, para que el enlace sea real y para que el botón «atrás» funcione.
+  3. Con las flechas, con Inicio y con Fin, recorre la barra —**foco itinerante**,
+     una sola pestaña en el orden de tabulación, que es el patrón que el propio
+     componente documenta.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     tabs     lista de pestañas: `id`, `label`, `icon`, `body` y opcionalmente
+              `active`. Al menos uno. `body` es el contenido del panel y va como
+              HTML: en la librería es un *slot*, y acá `{{ .body }}` a secas
+              escaparía un `<p>` y lo dejaría escrito en la página. Un texto con
+              `<` o `&` hay que pasarlo por `safeHTML` de antemano.
+     newLabel el texto del botón de pestaña nueva. Vacío: no se dibuja, igual
+              que en la librería.
+*/ -}}
+
+{{- $pestanas := .tabs | default slice -}}
+{{- $newLabel := .newLabel | default "" -}}
+
+{{- $activa := "" -}}
+{{- range $pestanas -}}
+  {{- if .active }}{{ $activa = .id }}{{ end -}}
+{{- end -}}
+{{- if not $activa -}}
+  {{- with index $pestanas 0 }}{{ $activa = .id }}{{ end -}}
+{{- end -}}
+
+<div class="js-tabs" data-vsk-tabs>
+  <div class="flex min-h-0 min-w-0 h-full items-center gap-1" role="tablist" aria-orientation="horizontal">
+    <div class="flex items-center gap-1 overflow-x-auto overflow-y-hidden">
+      {{- range $pestanas }}
+        {{- $panelId := printf "panel-%s" .id }}
+      {{ partial "ui/tab.html" (dict
+          "id" .id
+          "label" .label
+          "icon" (.icon | default "")
+          "active" (eq .id $activa)
+          "panelId" $panelId) }}
+      {{- end }}
+    </div>
+
+    {{- with $newLabel }}
+    <a href="#panel-nueva" class="flex size-7 shrink-0 items-center justify-center rounded-corner border border-ui-border bg-ui-bg/80 hover:bg-ui-surface/70" title="{{ . }}" aria-label="{{ . }}">
+      <i class="fa-solid fa-plus shrink-0" aria-hidden="true"></i>
+    </a>
+    {{- end }}
+  </div>
+
+  {{- range $pestanas }}
+  <div
+    id="panel-{{ .id }}"
+    role="tabpanel"
+    aria-labelledby="tab-{{ .id }}"
+    tabindex="0"
+    class="mt-4 focus:outline-none">
+    {{ .body | safeHTML }}
+  </div>
+  {{- end }}
+</div>
+
+{{- /* Corre mientras se parsea, antes del primer pintado. Sin él, los paneles
+       inactivos se ven un instante. Ver la nota de arriba. */ -}}
+{{- if $pestanas -}}
+<script>
+(function () {
+  // El contenedor es el hermano inmediato de este script. Con un
+  // `querySelector` desde el padre, dos barras de pestañas en la misma sección se
+  // dos barras se contendrían por la primera: los dos scripts manejarían la misma.
+  var raiz = document.currentScript.previousElementSibling;
+  if (!raiz || !raiz.dataset || !raiz.dataset.vskTabs) return;
+
+  var lista = raiz.querySelector('[role="tablist"]');
+  var paneles = Array.prototype.slice.call(raiz.querySelectorAll('[role="tabpanel"]'));
+  var pestanas = Array.prototype.slice.call(raiz.querySelectorAll('[role="tab"]'));
+  if (!lista || !paneles.length || !pestanas.length) return;
+
+  var enfocada = pestanas.findIndex(function (p) { return p.dataset.ariaSelected === 'true'; });
+  if (enfocada < 0) enfocada = 0;
+
+  function elegir(indice, moverHash) {
+    enfocada = indice;
+    pestanas.forEach(function (p, i) {
+      var activo = i === indice;
+      p.dataset.ariaSelected = activo ? 'true' : 'false';
+      // Foco itinerante: una sola pestaña es alcanzable con Tab.
+      p.dataset.tabindex = activo ? '0' : '-1';
+    });
+    paneles.forEach(function (p, i) { p.hidden = i !== indice; });
+    if (moverHash !== false) {
+      var ancla = '#' + paneles[indice].id;
+      if (window.history && window.history.replaceState) window.history.replaceState(null, '', ancla);
+      else if (window.location.hash !== ancla) window.location.hash = ancla;
+    }
+  }
+
+  pestanas.forEach(function (p, i) {
+    p.addEventListener('click', function (e) {
+      e.preventDefault();
+      elegir(i);
+    });
+  });
+
+  lista.addEventListener('keydown', function (e) {
+    var desde = pestanas.indexOf(document.activeElement);
+    if (desde < 0) return;
+    var hasta = null;
+    // Las flechas dan la vuelta, como en el componente.
+    if (e.key === 'ArrowRight') hasta = (desde + 1) % pestanas.length;
+    else if (e.key === 'ArrowLeft') hasta = (desde - 1 + pestanas.length) % pestanas.length;
+    else if (e.key === 'Home') hasta = 0;
+    else if (e.key === 'End') hasta = pestanas.length - 1;
+    if (hasta === null) return;
+    e.preventDefault();
+    elegir(hasta);
+    pestanas[hasta].focus();
+  });
+
+  // El ancla manda si la página se abrió con uno: recargar un panel tiene que
+  // devolver ese panel, no el primero.
+  var inicial = -1;
+  if (window.location.hash) {
+    paneles.forEach(function (p, i) { if ('#' + p.id === window.location.hash) inicial = i; });
+  }
+  elegir(inicial >= 0 ? inicial : enfocada, inicial >= 0);
+})();
+</script>
+{{- end -}}

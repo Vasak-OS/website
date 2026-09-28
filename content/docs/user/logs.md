@@ -97,13 +97,6 @@ find ~/.local/share/vasak-desktop/logs -name "*.log" -mtime +30 -delete
 
 ## Exportar Logs para Reporte
 
-Si necesitas compartir logs para un reporte de errores:
-
-```bash
-# Crear un archivo comprimido con todos los logs
-
-### Capturar logs para reportar un error
-
 Si necesitas compartir logs con los desarrolladores:
 
 ```bash
@@ -145,5 +138,5 @@ htop -p $(pgrep vasak-desktop)
 
 ---
 
-**Nota**: Si encuentras un error, consulta la [guía de reporte de errores](./reporte-errores.md) para saber qué información incluir.
+**Nota**: Si encuentras un error, consulta la [guía de reporte de errores](/docs/user/report-bugs/) para saber qué información incluir.
 

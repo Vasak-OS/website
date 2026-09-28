@@ -2,3 +2,10 @@ public/
 node_modules/
 resources/_gen/
 .hugo_build.lock
+
+# Copia de `axe-core` que el script `bun run a11y` deja en `static/` para que el
+# servidor de desarrollo pueda servirla. No se versiona por dos razones: pesa
+# 568K y Hugo copiaría todo lo de `static/` al sitio publicado, así que se
+# terminaría sirviendo a cualquiera. Vive en `node_modules/`, que ya está
+# ignorado.
+/static/axe.min.js

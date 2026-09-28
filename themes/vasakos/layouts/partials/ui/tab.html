@@ -1,0 +1,76 @@
+{{- /*
+  ui/tab.html
+
+  Una pestaña. Espejo de `TabItem` de `@vasakgroup/vue-libvasak` 1.9.0.
+
+  Fuente: https://raw.githubusercontent.com/vasak-os/vue-libvasak/v1.9.0/src/tabs/TabItem.vue
+
+  ── Qué se copió tal cual ───────────────────────────────────────────────────
+
+  La clase base —`group relative flex shrink-0 cursor-pointer items-center gap-2
+  rounded-corner border border-ui-border transition-colors`—, los dos estados
+  (`bg-primary font-bold text-tx-on-primary` contra `bg-ui-bg/80
+  hover:bg-ui-surface/70`), el ancho fijo de la barra horizontal (`w-34 max-w-34
+  px-3 py-1 text-sm`), el `role="tab"`, el `aria-selected` y el `tabindex`.
+
+  Y el patrón de foco que el componente documenta: **una sola pestaña entra en el
+  orden de tabulación** y adentro se navega con las flechas. Con las nueve
+  pestañas alcanzables con Tab, salir de la barra cuesta nueve pulsaciones.
+
+  ── Desviaciones, y por qué ─────────────────────────────────────────────────
+
+  Todo lo que hace la pestaña en el escritorio y no corresponde a una página se
+  deja, y no por falta de ganas:
+
+  - el botón de cerrar, el clic del medio, Suprimina: una pestaña de un sitio no
+    se cierra, se cambia de URL;
+  - el punto de «sin guardar» y el arrastre para reordenar: tampoco hay una
+    pestaña que perder ni un documento abierto;
+  - la barra vertical con la inicial y el nombre desplegado: `TabBar` la dibuja
+    cuando la ventana es angosta, no cuando el contenido lo pide;
+  - `ThemeIcon` → `<i>`, por las máscaras CSS del sitio.
+
+  Lo que sí cambia es el elemento. La librería dibuja un `div` porque el clic lo
+  maneja Vue. Acá es un `<a href="#panel">`: sin JavaScript el enlace lleva al
+  panel, que es lo que un sitio promete, y con él lo maneja el script de
+  `ui/tabs.html`.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+  Este partial es interno de `ui/tabs.html`, que es quien arma la barra: llamarlo
+  desde una página produce un segundo `<a role="tab">` suelto, sin su lista ni su
+  panel, y el lector de pantalla ve una pestaña que no lleva a ninguna parte. Los
+  que hacen falta son `id`, `label`, `icon`, `body` y `active`.
+
+     id       el identificador del panel al que apunta. Obligatorio.
+     label    el nombre de la pestaña. Obligatorio.
+     active   si es la que está elegida al cargar.
+     icon     clase de icono, antes del texto.
+     panelId  el id del panel, si no es `id`.
+*/ -}}
+
+{{- $id := .id -}}
+{{- $label := .label -}}
+{{- $active := .active | default false -}}
+{{- $icon := .icon | default "" -}}
+{{- $panelId := .panelId | default (printf "panel-%s" $id) -}}
+
+{{- $clases := "group relative flex shrink-0 cursor-pointer items-center gap-2 rounded-corner border border-ui-border transition-colors w-34 max-w-34 px-3 py-1 text-sm" -}}
+{{- if $active -}}
+  {{- $clases = printf "%s bg-primary font-bold text-tx-on-primary" $clases -}}
+{{- else -}}
+  {{- $clases = printf "%s bg-ui-bg/80 hover:bg-ui-surface/70" $clases -}}
+{{- end -}}
+
+<a
+  id="tab-{{ $id }}"
+  href="#{{ $panelId }}"
+  role="tab"
+  aria-selected="{{ if $active }}true{{ else }}false{{ end }}"
+  aria-controls="{{ $panelId }}"
+  {{ if $active }}tabindex="0"{{ else }}tabindex="-1"{{ end }}
+  title="{{ $label }}"
+  class="{{ $clases }}">
+  {{- with $icon }}<i class="{{ . }} shrink-0" aria-hidden="true"></i>{{ end }}
+  <span class="min-w-0 flex-1 truncate">{{ $label }}</span>
+</a>

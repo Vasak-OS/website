@@ -5,7 +5,7 @@ weight: 10
 ---
 
 VasakOS publica sus paquetes en un repositorio pacman propio llamado **`vasakos`**, firmado
-con GPG. Si instalaste desde la ISO ya lo tenés configurado y no necesitás hacer nada:
+con GPG. Si instalaste desde la ISO ya lo tienes configurado y no necesitas hacer nada:
 `sudo pacman -Syu` actualiza todo.
 
 Esta guía es para usar las aplicaciones de VasakOS sobre una instalación de **Arch Linux**
@@ -25,7 +25,7 @@ No hay paquetes de Arch duplicados: todo lo demás viene de los repositorios ofi
 
 ### 1. Configuración inicial
 
-Agregá al final de `/etc/pacman.conf`:
+Agrega al final de `/etc/pacman.conf`:
 
 ```conf
 [vasakos]
@@ -79,7 +79,7 @@ actualiza y se revoca como cualquier otro paquete.
 
 **`error: vasakos: signature from ... is unknown trust`**
 
-El llavero no está poblado. Ejecutá:
+El llavero no está poblado. Ejecuta:
 
 ```bash
 sudo pacman-key --populate vasakos
@@ -87,7 +87,7 @@ sudo pacman-key --populate vasakos
 
 **`error: failed retrieving file 'vasakos.db'`**
 
-El mirror no responde o `pacman.conf` apunta a una ruta vieja. Verificá que
+El mirror no responde o `pacman.conf` apunta a una ruta vieja. Verifica que
 `/etc/pacman.d/vasakos-mirrorlist` tenga:
 
 ```conf
@@ -98,7 +98,7 @@ Server = https://repo.vasak.net.ar/repo/$arch/$repo
 
 Las aplicaciones de VasakOS no reemplazan a las de GNOME o KDE, pero sí compiten por ser el
 manejador predeterminado de cada tipo de archivo y por implementar servicios D-Bus como el
-llavero o el agente de PolicyKit. Si ya tenés `gnome-keyring` corriendo, no instales
+llavero o el agente de PolicyKit. Si ya tienes `gnome-keyring` corriendo, no instales
 `vasak-keyring` sin desactivar el otro primero.
 
 ## Para desarrolladores

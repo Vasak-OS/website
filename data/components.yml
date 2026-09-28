@@ -1,150 +1,140 @@
 # The components of VasakOS, their published version and how far along they are.
 #
-# This drives the home page section and the /estado/ page. Being specific — and
+# This drives the home page section and the /state/ page. Being specific — and
 # honest about what is still rough — is what separates a project someone can
 # evaluate from a landing page full of adjectives.
 #
 # status: stable | beta | alpha | wip | planned
 # Versions match the packages published in the `vasakos` pacman repository.
+#
+# What is NOT here: the title and the description of each component, and the name
+# of each group. Those are prose, they change with the language, and they live in
+# i18n/<lang>.toml under `component.<name>` and `components_group.<id>`. What
+# stays here is what does not change: which packages exist, which version each
+# one is on, how finished it is, and where the code lives. Duplicating all of
+# that per language to carry five sentences of prose is how the two copies drift.
+#
+# The `id` of a group and the `name` of a package are the join keys against
+# i18n. They are stable identifiers, not display text, so they are not
+# translated.
 
 groups:
   - id: escritorio
-    name: Escritorio y sesión
     icon: fa-solid fa-desktop
     items:
       - name: vasak-desktop
-        title: Escritorio
         version: "1.1.3"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-desktop
-        text: Panel, menú de aplicaciones, área de notificación, control de red y de sonido. Corre sobre Wayfire con gtk-layer-shell.
       - name: vasak-session-manager
-        title: Gestor de sesión
         version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-session-manager
-        text: Pantalla de inicio de sesión (greeter de greetd) y bloqueo de pantalla con el aspecto del sistema.
       - name: vasak-desktop-settings
-        title: Configuración de sesión
         version: "0.4.0"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-desktop-settings
-        text: Sesión administrada por systemd (uwsm), plugins del compositor y arranque de los servicios del escritorio.
       - name: vasakos-icon-theme
-        title: Tema de iconos
         version: "0.6.0"
         status: stable
         repo: https://github.com/Vasak-OS/VasakOS-icon-theme
-        text: Iconografía plana y colorida propia, coherente en todas las aplicaciones del sistema.
 
   - id: aplicaciones
-    name: Aplicaciones
     icon: fa-solid fa-folder
     items:
       - name: vasak-file-manager
-        title: Gestor de archivos
         version: "0.4.1"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-file-manager
-        text: Pestañas, progreso y cancelación en copiar/mover/eliminar, deshacer con Ctrl+Z, compresión en varios formatos y montaje de SMB y sshfs.
       - name: vasak-terminal
-        title: Terminal
         version: "0.3.1"
         status: beta
         repo: https://github.com/Vasak-OS/vasak-terminal
-        text: Emulador de terminal con pestañas y paleta de colores integrada al tema del sistema.
       - name: vasak-settings
-        title: Ajustes del sistema
         version: "0.2.1"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-settings
-        text: Usuarios, fecha y hora, brillo y luz nocturna, energía, red, sonido, apariencia y plugins del compositor.
       - name: vasak-gallery
-        title: Galería
         version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-gallery
-        text: Visor y organizador de imágenes.
       - name: vasak-resonance
-        title: Resonance
         version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-resonance
-        text: Reproductor de audio del sistema.
 
   - id: servicios
-    name: Servicios del sistema
     icon: fa-solid fa-shield-halved
     items:
       - name: vasak-keyring
-        title: Llavero de claves
         version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-keyring
-        text: Implementación nativa de Secret Service con AES-256-GCM y Argon2id, y desbloqueo automático por PAM al iniciar sesión.
       - name: vasak-flare-daemon
-        title: Notificaciones
         version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-flare-daemon
-        text: Demonio de notificaciones freedesktop con historial persistente.
       - name: polkit-vasak-agent
-        title: Agente PolicyKit
         version: "0.1.0"
         status: alpha
         repo: https://github.com/Vasak-OS/polkit-vasak
-        text: Diálogos de autenticación para las acciones que requieren privilegios, sin depender de sudo.
       - name: vasak-permissions
-        title: Permisos de aplicaciones
         version: "0.1.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-permissions
-        text: Pregunta antes de que una aplicación use la cámara, el micrófono, la pantalla o una cuenta tuya, y recuerda la respuesta. Hoy sólo las cuentas se bloquean de verdad; cámara, micrófono y pantalla los entrega el portal, que todavía no consulta esta política.
       - name: vasak-accounts
-        title: Cuentas en línea
         version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-accounts
-        text: "Demonio centralizado de cuentas con OAuth2 y permisos por aplicación. Ajustes ya lo usa: el token se entrega una vez y ninguna aplicación conserva copia."
 
   - id: entrada
-    name: Entrada y accesibilidad
     icon: fa-solid fa-pen
     items:
       - name: vasak-press-and-hold
-        title: Pulsación sostenida
         version: "0.1.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-press-and-hold
-        text: Escribir acentos y caracteres especiales manteniendo apretada una tecla, como en macOS, sin depender de la distribución del teclado.
 
   - id: infraestructura
-    name: Distribución
     icon: fa-solid fa-download
     items:
       - name: archiso
-        title: Imagen ISO
         version: "Alpha 4"
         status: alpha
         repo: https://github.com/Vasak-OS/archiso
-        text: Perfil de archiso con sesión en vivo, instalador Calamares y el repositorio propio ya configurado.
       - name: repositorio vasakos
-        title: Repositorio pacman
-        version: "activo"
+        # No es un número de versión: lo que se publica es que el repositorio
+        # está en servicio. En inglés la columna Version decía "activo".
+        version: "active"
         status: stable
         repo: https://github.com/Vasak-OS/repository-script
-        text: Repositorio propio firmado con GPG, con los paquetes de VasakOS sobre Arch Linux.
       - name: vasakos-calamares
-        title: Instalador
         version: "3.4.2"
         status: beta
         repo: https://github.com/Vasak-OS/vasakos-calamares-config
-        text: Calamares con la configuración y las ramas de instalación de VasakOS.
 
-# Shown on /estado/ so nobody has to reverse-engineer what "Alpha" means here.
+# Shown on /state/ so nobody has to reverse-engineer what "Alpha" means here.
+# `class` is a Tailwind class and has to be in a scanned file, so it stays here;
+# `label` is prose and lives in i18n under `status.<key>`.
+#
+# The text is `text-tx-main` and the status tone only tints the chip. It used to
+# be the other way round — `text-status-success` on `bg-status-success/15` — and
+# the tone is a mid-value against a near-white chip of its own hue, so the label
+# landed at 1.55:1 to 2.91:1 in light mode against the 4.5:1 that WCAG 1.4.3
+# asks for. `alpha` at 1.55:1 was the worst: a warning chip whose text you
+# cannot read. Dark mode happened to pass, which is probably why it went
+# unnoticed.
+#
+# `text-tx-main` on the same chips measures 4.58:1 light and 6.62:1 dark, and it
+# is the rule `AlertMessage` already follows in the component library —
+# `border-status-*/40 bg-status-*/10 text-tx-main`. So this is also what makes
+# the badge match the OS: the status hue stays legible as an identity, carried
+# by the tint, instead of being spelled out in text nobody can read. The tint is
+# /10 rather than /15 for the same reason AlertMessage uses /10; at /15 the
+# `wip` chip measured 4.29:1, just short.
 legend:
-  stable: { label: "Estable", class: "bg-status-success/15 text-status-success" }
-  beta: { label: "Beta", class: "bg-primary/15 text-primary" }
-  alpha: { label: "Alpha", class: "bg-status-warning/15 text-status-warning" }
-  wip: { label: "En desarrollo", class: "bg-secondary/15 text-secondary" }
-  planned: { label: "Planificado", class: "bg-ui-surface text-tx-muted" }
+  stable: { class: "bg-status-success/10 text-tx-main" }
+  beta: { class: "bg-primary/10 text-tx-main" }
+  alpha: { class: "bg-status-warning/10 text-tx-main" }
+  wip: { class: "bg-secondary/10 text-tx-main" }
+  planned: { class: "bg-ui-surface text-tx-muted" }

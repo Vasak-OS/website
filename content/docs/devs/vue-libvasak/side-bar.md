@@ -1,20 +1,21 @@
 ---
 title: "Barra lateral | SideBar"
 weight: 55
+description: "SideBar: contenedor lateral simple que renderiza su contenido, útil como wrapper de botones de navegación."
 ---
 
 # `SideBar`
 
-Descripción
+### Descripción
 - Contenedor lateral simple que renderiza su slot. Útil como wrapper para botones de navegación o acciones.
 
-Props
+### Props
 - Ninguna específica.
 
-Slots
+### Slots
 - Default — Contenido del sidebar (por ejemplo varios `SideButton`).
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import SideBar from '../sidebar/SideBar.vue'

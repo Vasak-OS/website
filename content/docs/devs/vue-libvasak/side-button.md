@@ -1,21 +1,22 @@
 ---
 title: "Barra lateral | SideButton"
 weight: 55
+description: "SideButton: botón pequeño para el SideBar, con imagen y capaz de actuar como enlace o disparar un evento."
 ---
 
 # `SideButton`
 
-Descripción
+### Descripción
 - Botón pequeño para el `SideBar`. Muestra una imagen y puede usarse como enlace o disparador de acciones.
 
-Props
+### Props
 - `title` (string) — Texto descriptivo alternativo. Por defecto: `'Link'`.
 - `image` (string) — Ruta del icono/imágen. Por defecto: `''`.
 
-Emite
+### Emite
 - No emite eventos por defecto (es un `<a href="#">`). Puedes convertirlo en botón o manejar su click con `@click.prevent` en el padre.
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import SideButton from '../sidebar/SideButton.vue'
@@ -26,6 +27,6 @@ import SideButton from '../sidebar/SideButton.vue'
 </template>
 ```
 
-Notas
+### Notas
 - Si deseas comportamiento SPA, reemplaza el `a` por `router-link` o captura el evento en el padre.
 

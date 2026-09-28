@@ -12,5 +12,5 @@
 {{- $level := cond (eq .Level 1) 2 .Level -}}
 <h{{ $level }} id="{{ .Anchor }}">
   {{- .Text | safeHTML -}}
-  <a href="#{{ .Anchor }}" class="heading-anchor" aria-label="Enlace a esta sección">#</a>
+  <a href="#{{ .Anchor }}" class="heading-anchor" aria-label="{{ T "toc.linkToSection" }}">#</a>
 </h{{ $level }}>

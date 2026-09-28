@@ -43,6 +43,6 @@ Esta página se actualiza con cada release. Si algo no está listado, todavía n
 
 ## Reportar algo
 
-Si encontrás un problema, el reporte más útil incluye el modelo del equipo, qué esperabas
+Si encuentras un problema, el reporte más útil incluye el modelo del equipo, qué esperabas
 que pasara y los logs. La guía está en [reportar errores](/docs/user/reporte-errores/), y
 el seguimiento se hace en [GitHub](https://github.com/Vasak-OS).

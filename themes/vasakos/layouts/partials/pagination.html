@@ -1,14 +1,19 @@
 {{ if gt .TotalPages 1 }}
 <!-- Blog pagination -->
-<div class="w-full flex justify-center mt-10">
+{{/* `<nav>` con nombre y no un `<div>` suelto: son dos flechas que no dicen
+     para qué son, y sin el nombre el control de paginación es un conjunto de
+     enlaces sin contexto para quien navega con lector de pantalla. La clave
+     `pagination.label` existía y ninguna plantilla la leía. */}}
+<nav class="w-full flex justify-center mt-10" aria-label="{{ T "pagination.label" }}" aria-labelledby="pagination-label" role="navigation">
+  <span id="pagination-label" class="sr-only">{{ T "pagination.label" }}</span>
   <ul class="flex items-center gap-4 text-sm text-tx-on-primary">
     {{ if .HasPrev }}
-    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary hover:bg-secondary h-12 w-12" href="{{ .Prev.URL }}" aria-label="Previous"><em class="fa fa-chevron-left" aria-hidden="true"></em></a></li>
+    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary text-tx-on-primary hover:bg-secondary h-12 w-12" href="{{ .Prev.URL }}" aria-label="{{ T "pagination.previous" }}"><em class="fa fa-chevron-left" aria-hidden="true"></em></a></li>
     {{ end }}
     {{if .HasNext }}
-    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary hover:bg-secondary h-12 w-12" href="{{ .Next.URL }}" aria-label="Next"><em class="fa fa-chevron-right" aria-hidden="true"></em></a></li>
+    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary text-tx-on-primary hover:bg-secondary h-12 w-12" href="{{ .Next.URL }}" aria-label="{{ T "pagination.next" }}"><em class="fa fa-chevron-right" aria-hidden="true"></em></a></li>
     {{ end }}
   </ul>
-</div>
+</nav>
 <!-- End blog pagination -->
 {{ end }}

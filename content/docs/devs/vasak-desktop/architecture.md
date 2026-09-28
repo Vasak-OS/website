@@ -1,6 +1,7 @@
 ---
 title: "Arquitectura General | vasak-desktop"
 weight: 15
+description: "Arquitectura general de Vasak Desktop: cómo se estructuran los componentes, los procesos y la comunicación interna."
 ---
 
 Visión general de la arquitectura de Vasak Desktop y cómo se estructuran los componentes.
@@ -15,7 +16,7 @@ Vasak Desktop NO es un entorno de escritorio completo (como GNOME o KDE). Es una
 - **Menú de Aplicaciones** - Búsqueda y lanzamiento de apps
 - **File Manager** - Herramienta para revisar archivos
 - **Search Launcher** - Herramienta de busqueda rapida 
-- **Config Manager** - Herramienta de configuracion del sistema operativo
+- **Config Manager** - Herramienta de configuración del sistema operativo
 
 Se ejecuta como varias ventanas de Tauri independientes que se comunican vía IPC.
 
@@ -284,7 +285,7 @@ Interfaz estándar de Linux para:
 - Notificaciones (Freedesktop)
 - Energía (UPower)
 
-Ver [D-Bus](dbus.md) para más detalles.
+Ver [D-Bus](/docs/devs/vasak-desktop/dbus/) para más detalles.
 
 ### 5. Capa de Hardware/SO
 

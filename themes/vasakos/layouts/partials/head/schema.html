@@ -12,7 +12,7 @@
   "name" "VasakOS"
   "url" site.BaseURL
   "logo" ("/img/logo.svg" | absURL)
-  "description" site.Params.description
+  "description" (T "site.summary")
   "sameAs" (slice
     "https://github.com/Vasak-OS"
     "https://t.me/VasakOS"
@@ -26,7 +26,7 @@
   "@id" (printf "%s#website" site.BaseURL)
   "url" site.BaseURL
   "name" site.Title
-  "inLanguage" "es-AR"
+  "inLanguage" site.Language.Locale
   "publisher" (dict "@id" (printf "%s#organization" site.BaseURL))
 -}}
 
@@ -35,7 +35,7 @@
 {{/* Breadcrumbs: every page below the root, so search results show the section
      instead of a bare URL. */}}
 {{- if not .IsHome }}
-  {{- $items := slice (dict "@type" "ListItem" "position" 1 "name" "Inicio" "item" site.BaseURL) -}}
+  {{- $items := slice (dict "@type" "ListItem" "position" 1 "name" (T "breadcrumbs.home") "item" site.Home.Permalink) -}}
   {{- $pos := 1 -}}
   {{- range .Ancestors.Reverse -}}
     {{- if not .IsHome -}}
@@ -58,7 +58,7 @@
     "headline" .Title
     "description" (.Description | default .Summary | plainify | chomp | truncate 200)
     "url" .Permalink
-    "inLanguage" "es-AR"
+    "inLanguage" site.Language.Locale
     "publisher" (dict "@id" (printf "%s#organization" site.BaseURL))
     "author" (dict "@type" "Organization" "name" "VasakOS" "url" site.BaseURL)
     "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)

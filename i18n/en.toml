@@ -1,0 +1,466 @@
+# Site interface, in English.
+#
+# This is a translation written by someone who knows the subject, not a literal
+# rendering of `es.toml`. The keys must match exactly — Hugo falls back to the
+# key name when one is missing, so a typo shows up in the page as
+# `components.vasak-desktop.title` rather than as a failure.
+#
+# Out of scope here, on purpose: the Spanish content. Those pages need an
+# `.en.md` next to the `.md`, and that is written from the documents, not from
+# here.
+
+# `description` is a Hugo reserved key, and Hugo rejects a table that mixes it
+# with ordinary keys — so `[site]` could not hold both. That is why the default
+# description is called `summary`: it goes in the `description` meta of pages
+# that do not bring their own, and it is the `description` of the Organization
+# in the JSON-LD, so it changes with the language.
+[site]
+  summary = "VasakOS is a free operating system based on Arch Linux, with its own Wayland desktop and native applications in Rust. Rolling release, open source."
+  tagline = "A desktop of its own, built on Arch Linux, made so the system feels like yours."
+  homeTitle = "A desktop of its own, on Arch Linux"
+
+[nav]
+  main = "Main navigation"
+  openMenu = "Open the main menu"
+  closeMenu = "Close the menu"
+  language = "Language"
+
+[theme]
+  label = "Change theme"
+
+[home]
+  download = "Download"
+  available = "available"
+  state = "Project status"
+  heroRoll = "Rolling release, Wayland, native applications written in Rust, and an interface you can restyle with CSS. Free, and developed in the open."
+  releaseNote = "Version {{ .Channel }}: usable every day for testing, still not recommended as your only system."
+  seeWhatWorks = "See what works today"
+
+[404]
+  notFound = "This page does not exist"
+  explanation = "The link may be old or mistyped. These are the places people are usually trying to reach:"
+  arrivedBroken = "Did you get here from one of our links? Let us know on"
+  telegram = "Telegram"
+
+[breadcrumbs]
+  label = "Breadcrumb"
+  home = "Home"
+
+[head]
+  termDescription = "VasakOS articles and documentation about {{ .Term }}."
+
+[card]
+  read = "Read"
+
+[pagination]
+  previous = "Previous"
+  next = "Next"
+  label = "Pagination"
+  page = "Page"
+
+[search]
+  title = "Search the documentation"
+  placeholder = "e.g. IPC events, Vue, Tauri"
+  results = "Search results"
+  close = "Close"
+  noResults = "No results"
+  minChars = "Type at least 2 characters"
+  loading = "Loading…"
+  label = "Search"
+
+[recentPosts]
+  title = "Recent posts"
+
+[nav_docs]
+  title = "Documentation"
+  previous = "Previous"
+  next = "Next"
+  breadcrumb = "Documentation"
+
+[status]
+  stable = "Stable"
+  beta = "Beta"
+  alpha = "Alpha"
+  wip = "In development"
+  planned = "Planned"
+
+[state]
+  eyebrow = "Transparency"
+  currentRelease = "Current release"
+  lastReviewed = "Last reviewed"
+  liveVersions = "Versions read from the package repository"
+  publishedOn = "published on {{ .Date }}"
+  stale = "The repository did not respond: these are the versions from the last manual review."
+  loading = "Querying the repository…"
+  colComponent = "Component"
+  colVersion = "Version"
+  colStatus = "Status"
+  colWhat = "What it does"
+  colCode = "Code"
+  repoOf = "Repository for {{ .Repo }}"
+  extraPackages = "The repository also publishes {{ .Count }} support packages (keyring, mirror list, icon theme, wallpapers, and dependencies that are not in Arch)."
+  howToAdd = "How to add the repository"
+  seeRoadmap = "See the roadmap"
+
+[social]
+  title = "Social"
+
+[advantages]
+  title = "Why VasakOS"
+  subtitle = "It is not Arch with a different wallpaper: the desktop, the applications and the services were written for this system."
+
+  [advantages.arch]
+    name = "Built on Arch Linux"
+    text = "A rolling release, with no versions falling behind and the newest software available. All of Arch's ecosystem and documentation still applies."
+  [advantages.rust]
+    name = "Native applications in Rust"
+    text = "The file manager, terminal, gallery, settings and the desktop itself are applications of our own, not a collection of programs borrowed from other environments."
+  [advantages.wayland]
+    name = "Wayland from the start"
+    text = "A Wayfire session managed by systemd, with screen lock, night light and brightness control built in."
+  [advantages.css]
+    name = "Restyleable with CSS"
+    text = "The interface is styled with CSS and colour variables. Changing how the desktop looks does not mean recompiling anything."
+  [advantages.opensource]
+    name = "Actually open source"
+    text = "Every component lives in its own public repository under the GPL. The history, the issues and the decisions are all in the open."
+  [advantages.privacy]
+    name = "No telemetry"
+    text = "The system collects no usage data and sends nothing to any server. There is no account to create and no service to subscribe to."
+
+[support]
+  title = "How the project sustains itself"
+  subtitle = "VasakOS is free and is going to stay free. These are the ways to back it."
+
+  [support.free]
+    name = "Users"
+    summary = "Free, always"
+    ctaLabel = "Download"
+    [support.free.features]
+      f1 = "Unlimited machines, no licences."
+      f2 = "Continuous updates from the official repository."
+      f3 = "Community support on Telegram and GitHub."
+      f4 = "Direct attention from the development team."
+      f5 = "An assisted migration plan."
+  [support.donations]
+    name = "Donations"
+    summary = "Whatever you can give"
+    ctaLabel = "Donate"
+    [support.donations.features]
+      f1 = "Unlimited machines, no licences."
+      f2 = "Continuous updates from the official repository."
+      f3 = "Community support on Telegram and GitHub."
+      f4 = "Direct attention from the development team."
+      f5 = "An assisted migration plan."
+  [support.business]
+    name = "Businesses"
+    summary = "To be arranged"
+    ctaLabel = "Get in touch"
+    [support.business.features]
+      f1 = "Unlimited machines, no licences."
+      f2 = "Continuous updates from the official repository."
+      f3 = "Community support on Telegram and GitHub."
+      f4 = "Commercial support from Vasak Group."
+      f5 = "An assisted migration plan."
+
+[components]
+  title = "The system, piece by piece"
+  subtitle = "Every part of VasakOS lives in its own repository, with its published version and its status. What is still rough says so."
+  version = "Version"
+  detail = "See the detailed status of each component"
+
+[features]
+  openSourceTag = "OPEN SOURCE"
+  openSourceTitle = "All the work behind VasakOS is completely open to the community."
+  seeRepos = "See the repositories"
+  gplP1 = "Every component lives in its own public repository under the GPL: the desktop, the applications, the services, the PKGBUILDs, and this site. There is no closed part that the rest depends on."
+  helpP1 = "Whether you design, write code, or just use it, your help counts. From the moment you install VasakOS and report what is not working, you are part of the development."
+  list1 = "Fork, clone, modify, or send a pull request."
+  list2 = "Test, report, suggest, open issues, comment on them, or resolve them."
+  list3 = "Translate, document, or design icons and wallpapers."
+  ramP1 = "VasakOS is not trying to use less memory than anyone else. It would rather spend the resources needed to preload what you are about to use, so the system feels immediate, than leave RAM free that is of no use to anybody."
+  rollingTag = "CONTINUOUS UPDATES"
+  rollingTitle = "A rolling release on Arch, with its own repository for the VasakOS pieces."
+  addRepo = "How to add the repository"
+  rollingP1 = "Built on Arch Linux, the system is a rolling release: no versions fall behind, and no big migration every two years. Updates arrive through {{ .Tool }} from the Arch repositories and from ours."
+  rollingList1 = "Software that is always current, with no version jumps."
+  rollingList2 = "Continuous security patches."
+  rollingList3 = "Our own GPG-signed repository for the VasakOS packages."
+  gitAlt = "Illustration of branches and commits in a source repository"
+  balancedAlt = "Illustration of a system balancing its use of resources"
+
+[cta]
+  title = "Be part of this community"
+  body = "You can be part of this community by downloading the system and using it, testing it, or joining in on the development. Vasak OS is built by all of us, from the people who use it to the people who write it."
+  button = "Download"
+  imageAlt = "Illustration of a group of people collaborating"
+
+[screenshots]
+  eyebrow = "Gallery"
+  title = "Screenshots"
+  subtitle = "A look at what Vasak OS looks like"
+  previous = "Previous"
+  next = "Next"
+  goTo = "Go to image {{ .Number }}"
+  defaultAlt = "VasakOS screenshot"
+  [screenshots.shot01]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot02]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot03]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot04]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+  [screenshots.shot05]
+    alt = "A VasakOS screenshot"
+    caption = "VasakOS on screen"
+
+[footer]
+  softwareDev = "Software development"
+  privacy = "Privacy policy"
+  terms = "Terms of service"
+  changelogs = "Changelogs"
+  roadmap = "Roadmap"
+  rights = "All rights reserved"
+  backToTop = "Back to top"
+  sourceForge = "VasakOS on SourceForge"
+  oinMember = "VasakOS is a member of the Open Invention Network"
+  # Attribution required by CC BY 4.0, the licence of the Font Awesome Free icons.
+  # Not a courtesy: the licence requires visible credit, a link to the licence and
+  # a note that they were modified. The icons are turned into CSS masks with the
+  # SVG paths inlined —see scripts/build-icons.mjs— so they are derivative work.
+  iconsCredit = "Icons"
+  iconsCreditModified = "adapted to CSS masks"
+  iconsLicense = "CC BY 4.0"
+
+[downloads]
+  title = "Downloads"
+  mirrors = "Mirrors"
+  requirements = "Requirements"
+  minimum = "Minimum"
+  recommended = "Recommended"
+  verify = "Verify the download"
+  verifyHint = "Check the SHA-256 sum before installing: it is the only way to know the image was not altered on the way."
+  support = "Support"
+  reportBug = "Report a bug"
+  architecture = "Architecture"
+  filename = "File"
+  size = "Size"
+  channel = "Channel {{ .Channel }}"
+  officialImage = "This is the official image for {{ .Arch }}."
+  published = "Published"
+  unavailable = "Not available"
+  downloadSums = "Download the SHA-256 sums file"
+  downloadSignature = "Download the image signature"
+  supportHint = "If something fails during installation or startup, share your hardware details, the logs, and the steps to reproduce it."
+
+[about]
+  sourceCode = "Source code"
+  behindTitle = "Who is behind it"
+  roadmapLink = "public roadmap"
+  behindP1 = "VasakOS is developed by {{ .Group }} together with the community. The project is a member of {{ .Network }}, the patent-defence alliance of the Linux ecosystem."
+  behindP2 = "All of the code is public and under the GPL-3.0 licence. The decisions, the issues and the history of each component can be read on {{ .Code }}, and what is coming next is on the {{ .Roadmap }}."
+
+  [about.case.home]
+    tag = "AT HOME"
+    title = "Use VasakOS at home"
+    alt = "Illustration of a house with connected devices"
+    intro = "The GNU/Linux ecosystem put almost everything a family computer needs a {{ .Tool }} command away."
+    [about.case.home.items]
+      i1 = "The usual browsers —Firefox, Chrome, Vivaldi, Brave— with support for streaming services."
+      i2 = "Steam with thousands of native games and Proton for the rest, plus Lutris, Heroic and other stores."
+      i3 = "Playback and editing: VLC, MPV, GIMP, Krita, Kdenlive, Audacity, OBS."
+  [about.case.study]
+    tag = "STUDY"
+    title = "Use VasakOS to study"
+    alt = "Illustration of a person studying in front of a computer"
+    intro = "Everything needed to take a course, read, and hand in assignments, with no licences to pay for."
+    [about.case.study.items]
+      i1 = "Full office suites: LibreOffice, OnlyOffice, or WPS if you need strict MS Office compatibility."
+      i2 = "Readers for PDF, EPUB, DjVu and note formats, plus annotation tools."
+      i3 = "Video calls and group work: Zoom, Teams, Discord, Jitsi and Nextcloud."
+  [about.case.work]
+    tag = "WORK"
+    title = "Use VasakOS to work"
+    alt = "Illustration of a work desk with tools"
+    intro = "Arch Linux is a common base for development precisely because new versions of the tools arrive so quickly."
+    [about.case.work.items]
+      i1 = "IDEs and editors that are current: VS Code, JetBrains, Neovim, Zed."
+      i2 = "Toolchains for any language, containers with Docker and Podman, and virtual machines with libvirt."
+      i3 = "Compatibility with the enterprise software that already runs on GNU/Linux."
+
+[donate]
+  title = "Donate"
+  donations = "VasakOS donations"
+  howToDonate = "How to donate"
+  currentFocus = "Current focus"
+  monthlyGoal = "Monthly goal {{ .Amount }}"
+  donateNow = "Donate now"
+  copied = "Copied"
+  selectHint = "Selected: Ctrl+C"
+  copyAddress = "Copy the {{ .Name }} address"
+  infrastructure = "Infrastructure we keep running"
+  priority = "Priority {{ .Level }}"
+  transparency = "Transparency"
+  community = "Community"
+  reportIdea = "Report an idea or a problem"
+
+  # The `donations` block from the front matter of content/donate/index.md. The
+  # lists resolve by each element's `id`, in the same order as the YAML;
+  # `monthly_goal`, the addresses and the URLs stay there because they do not
+  # change with the language.
+  [donate.summary]
+    subtitle = "Every contribution is reinvested in the growth of the project"
+    status = "Community project"
+    focus = "Infrastructure, development and distribution quality"
+    [donate.summary.usage.distro]
+      title = "Improvements to the distribution"
+      detail = "Development of new features, bug fixes and stability testing."
+    [donate.summary.usage.hardware]
+      title = "Development hardware"
+      detail = "Buying or replacing hardware to compile, test and debug in more scenarios."
+    [donate.summary.usage.infra]
+      title = "Infrastructure and services"
+      detail = "Hosting, servers, domains, CI/CD and services to provide a more reliable experience."
+    [donate.summary.infra.hosting]
+      item = "Web hosting and download resources"
+      priority = "High"
+    [donate.summary.infra.build]
+      item = "Build and distribution servers"
+      priority = "High"
+    [donate.summary.infra.community]
+      item = "Supplementary services for the community"
+      priority = "Medium"
+    [donate.summary.transparency]
+      stability = "We prioritise spending that directly affects stability, performance and support."
+      channels = "We publish important changes and progress on the project's official channels."
+      purpose = "Contributions are never used for anything other than developing and sustaining VasakOS."
+    [donate.summary.methods.github-sponsors]
+      name = "GitHub Sponsors"
+      note = "Recurring contribution from GitHub using card or balance."
+    [donate.summary.methods.mercadopago]
+      name = "Mercado Pago"
+      note = "Card, money in account or transfer, from Argentina."
+    [donate.summary.methods.paypal]
+      name = "PayPal"
+      note = "Card or PayPal balance, from any country."
+    [donate.summary.methods.lemon]
+      name = "Lemon"
+      note = "From the Lemon app, to $lemontag."
+    [donate.summary.methods.ethereum]
+      name = "Ethereum (ETH or USDT)"
+      note = "Ethereum network only (ERC-20). Sent over another network, it is lost."
+    [donate.summary.methods.bitcoin]
+      name = "Bitcoin"
+      note = "On-chain (native SegWit). No Lightning."
+
+[pwa]
+  name = "VasakOS"
+  shortName = "VasakOS"
+  summary = "A free operating system based on Arch Linux, with its own Wayland desktop and native applications written in Rust."
+
+# Group labels from `data/components.yml`. The key is the group's `id`, which
+# does not change with the language.
+[components_group.escritorio]
+  name = "Desktop and session"
+[components_group.aplicaciones]
+  name = "Applications"
+[components_group.servicios]
+  name = "System services"
+[components_group.entrada]
+  name = "Input and accessibility"
+[components_group.infraestructura]
+  name = "Distribution"
+
+[component.vasak-desktop]
+  title = "Desktop"
+  text = "Panel, application menu, notification area, network and sound control. Runs on Wayfire with gtk-layer-shell."
+[component.vasak-session-manager]
+  title = "Session manager"
+  text = "The login screen (greetd's greeter) and the screen lock, both in the system's own look."
+[component.vasak-desktop-settings]
+  title = "Session settings"
+  text = "A systemd-managed session (uwsm), compositor plugins, and startup of the desktop services."
+[component.vasakos-icon-theme]
+  title = "Icon theme"
+  text = "A flat, colourful icon set of its own, consistent across every application in the system."
+[component.vasak-file-manager]
+  title = "File manager"
+  text = "Tabs, progress and cancellation on copy/move/delete, undo with Ctrl+Z, compression in several formats, and SMB and sshfs mounts."
+[component.vasak-terminal]
+  title = "Terminal"
+  text = "A terminal emulator with tabs, and a colour palette that follows the system theme."
+[component.vasak-settings]
+  title = "System settings"
+  text = "Users, date and time, brightness and night light, power, network, sound, appearance, and compositor plugins."
+[component.vasak-gallery]
+  title = "Gallery"
+  text = "An image viewer and organiser."
+[component.vasak-resonance]
+  title = "Resonance"
+  text = "The system audio player."
+[component.vasak-keyring]
+  title = "Keyring"
+  text = "A native Secret Service implementation using AES-256-GCM and Argon2id, with automatic unlock through PAM at login."
+[component.vasak-flare-daemon]
+  title = "Notifications"
+  text = "A freedesktop notification daemon with a persistent history."
+[component.polkit-vasak-agent]
+  title = "PolicyKit agent"
+  text = "Authentication dialogs for the actions that need privileges, without going through sudo."
+[component.vasak-permissions]
+  title = "Application permissions"
+  text = "Asks before an application uses the camera, the microphone, the screen, or one of your accounts, and remembers the answer. Today only the accounts are genuinely locked; the camera, microphone and screen are still handed over by the portal, which does not consult this policy yet."
+[component.vasak-accounts]
+  title = "Online accounts"
+  text = "A centralised accounts daemon with OAuth2 and per-application permissions. Settings already uses it: the token is handed over once and no application keeps a copy."
+[component.vasak-press-and-hold]
+  title = "Press and hold"
+  text = "Write accents and special characters by holding a key down, as on macOS, without depending on the keyboard layout."
+[component.archiso]
+  title = "ISO image"
+  text = "An archiso profile with a live session, the Calamares installer, and the project's own repository already configured."
+[component."repositorio vasakos"]
+  title = "pacman repository"
+  text = "The project's own GPG-signed repository, with the VasakOS packages for Arch Linux."
+[component.vasakos-calamares]
+  title = "Installer"
+  text = "Calamares with the VasakOS configuration and install branches."
+
+# ISO requirements, read from `data/release.yml`. The key is the requirement's
+# name exactly as it appears in the YAML.
+[requirement."CPU de 64 bits (x86-64)"]
+  text = "A 64-bit CPU (x86-64)"
+[requirement."4 GB de RAM"]
+  text = "4 GB of RAM"
+[requirement."30 GB de almacenamiento libre"]
+  text = "30 GB of free storage"
+[requirement."Pendrive de 8 GB para crear el USB booteable"]
+  text = "An 8 GB USB drive to create the bootable stick"
+[requirement."GPU con aceleración 3D básica"]
+  text = "A GPU with basic 3D acceleration"
+[requirement."CPU de 4 núcleos o superior"]
+  text = "A quad-core or better CPU"
+[requirement."8 GB de RAM o más"]
+  text = "8 GB of RAM or more"
+[requirement."40 GB de almacenamiento libre"]
+  text = "40 GB of free storage"
+[requirement."GPU con drivers libres (Intel, AMD) para la mejor experiencia en Wayland"]
+  text = "A GPU with free drivers (Intel, AMD) for the best Wayland experience"
+
+[changelog]
+  title = "Changelogs"
+  readMore = "Read the full changelog"
+
+# Fallback alt text for the `img` shortcode, when the image does not bring its
+# own. It used to say "IMG Post", which describes nothing in English.
+[img]
+  defaultAlt = "Image"
+
+# The anchor rendered next to every heading so a section can be linked to.
+[toc]
+  linkToSection = "Link to this section"

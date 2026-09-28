@@ -1,14 +1,15 @@
 ---
 title: "Formulario | SliderControl"
 weight: 35
+description: "SliderControl: control deslizante con icono, porcentaje calculado y botón opcional a un lado."
 ---
 
 # `SliderControl`
 
-Descripción
+### Descripción
 - Control deslizante personalizado con icono, porcentaje calculado y opción de boton lateral.
 
-Props
+### Props
 - `icon` (string) — Ruta del icono mostrado.
 - `alt` (string) — Texto alternativo del icono. Por defecto: `''`.
 - `tooltip` (string) — Texto `title` del icono.
@@ -19,11 +20,11 @@ Props
 - `iconClass` (string | Record<string, boolean>) — Clases para el icono.
 - `getPercentageClass` ((percentage: number) => string) — Callback opcional para retornar clases CSS según porcentaje.
 
-Emite
+### Emite
 - `update:modelValue` — Emite el nuevo valor numérico al arrastrar el slider.
 - `buttonClick` — Cuando se hace click en el botón lateral.
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -42,6 +43,6 @@ const value = ref(40)
 </template>
 ```
 
-Notas
+### Notas
 - `getPercentageClass` permite cambiar el color del texto de porcentaje según valor.
 

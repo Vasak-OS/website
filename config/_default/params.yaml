@@ -1,11 +1,109 @@
+# Parámetros de la plantilla.
+#
+# Lo que es estructura —el orden, los iconos, las clases de Tailwind, las URLs,
+# los identificadores— vive acá. Lo que es prosa va en `i18n/<lang>.toml`, y se
+# llega a él por el `identifier` de cada bloque.
+#
+# La razón es que la prosa es lo único que cambia entre idiomas: el orden de
+# las ventajas, el color del botón y la URL de la descarga son los mismos en los
+# dos. Con la prosa en el YAML había que duplicar el archivo entero por idioma, y
+# las dos copias terminaban deixando de coincidir.
+#
+# `Tailwind` no escanea los archivos de datos, así que las clases que aparecen
+# sólo en este archivo (`.class`, `.params.icon`) tienen que seguir escribidas
+# completas y con las mismas clases que usa el tema.
+
 description: "VasakOS es un sistema operativo libre basado en Arch Linux, con escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust. Gratuito, rolling release y de código abierto."
+
+images:
+  # Rutas de imagen del sitio.
+  #
+  # La home y las secciones de la portada las referencian desde acá; la seccion
+  # de capturas, ademas, usa la lista `screenshots` de mas abajo. Las imagenes
+  # viven en `themes/vasakos/static/img/`, asi que estas rutas son relativas a la
+  # raiz del sitio.
+  #
+  # `hero.*` ya no lo lee ninguna plantilla de la portada: la home genera sus
+  # derivados WebP desde `assets/img/hero.jpg` con `resources.Resize` (ver
+  # `partials/sections/hero.html`), que es la unica forma de que el navegador
+  # pueda elegir tamaño. Queda solo la imagen para Open Graph.
+  logo: /img/logo.svg
+  favicon: /img/icon.svg
+  logoOg: https://os.vasak.net.ar/img/logo.svg
+  hero:
+    og: /img/hero-fullscreen-bg.jpg
+  cta: /img/community.svg
+  about: /img/about.svg
+  features:
+    openSource: /img/features/git.svg
+    responsible: /img/features/balanced.svg
+  aboutPage:
+    home: /img/features/home.svg
+    study: /img/features/study.svg
+    work: /img/features/work.svg
+  posts:
+    news: /img/posts/news.svg
+    donate: /img/posts/donate.svg
+    download: /img/posts/download.svg
+    terms: /img/posts/terms.svg
+    policy: /img/posts/policy.svg
+  # Galeria de capturas de la portada.
+  #
+  # Cada entrada declara el `.jpg` de la medida mas grande, que es el `src` de
+  # respaldo, y la lista de anchos del `srcset`. El navegador elige solo y cada
+  # pantalla carga el tamaño que le corresponde de 1 a 1; sin el `srcset`
+  # estaria reduciendo siempre la imagen grande, que es lo que se ve borroso.
+  #
+  # `width` y `height` son los de la imagen mas grande. El marco de la tarjeta
+  # toma esa misma proporcion, asi que no se recorta nada, y el navegador
+  # reserva la caja exacta antes de que llegue la imagen.
+  #
+  # `scripts/optimize-images.mjs` escribe cada ancho en `.webp` y `.jpg` juntos:
+  # el navegador elige la rama WebP sin comprobar que el archivo exista.
+  #
+  # Los textos van por clave de traduccion (`screenshots.<identifier>.alt`),
+  # no traducidos aca, para que no haya dos lugares que mantener.
+  screenshots:
+    enabled: true
+    main:
+      - identifier: shot01
+        image: /img/screenshots/shot-01-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536, 2048]
+        weight: 1
+      - identifier: shot02
+        image: /img/screenshots/shot-02-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536, 2048]
+        weight: 2
+      - identifier: shot03
+        image: /img/screenshots/shot-03-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536, 2048]
+        weight: 3
+      - identifier: shot04
+        image: /img/screenshots/shot-04-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536, 2048]
+        weight: 4
+      - identifier: shot05
+        image: /img/screenshots/shot-05-1536.jpg
+        width: 1536
+        height: 836
+        srcset: [768, 1536, 2048]
+        weight: 5
 
 analytics:
   ga4: "G-5MYT335WZK"
 
 social:
   enabled: true
-  title: Redes Sociales
+  # El `title` es el encabezado de la sección: sale de i18n
+  # (`social.title`). Los nombres de cada red son nombres propios y no cambian.
   main:
     - identifier: telegram
       name: Comunidad Telegram
@@ -38,118 +136,77 @@ social:
       params:
         icon: fa-brands fa-twitter
 
-# What actually distinguishes the project, in terms a visitor can verify. The
-# previous list sold implementation details ("Framework VueJS") and claimed the
-# system adapts to phones and tablets, which is not something a desktop OS does.
+# Por qué VasakOS. El título, el subtítulo, el nombre y la descripción de cada
+# ventaja salen de i18n por `identifier`.
 advantages:
   enabled: true
-  title: "Por qué VasakOS"
-  subtitle: "No es Arch con otro fondo de pantalla: el escritorio, las aplicaciones y los servicios están escritos para este sistema."
   main:
     - identifier: arch
-      name: Base Arch Linux
-      text: Rolling release, sin versiones que se queden atrás y con acceso al software más nuevo. Todo el ecosistema y la documentación de Arch siguen valiendo.
       weight: 1
       params:
         icon: fa-brands fa-linux
     - identifier: rust
-      name: Aplicaciones nativas en Rust
-      text: Gestor de archivos, terminal, galería, ajustes y el escritorio son aplicaciones propias, no una colección de programas de otros entornos.
       weight: 2
       params:
         icon: fa-brands fa-rust
     - identifier: wayland
-      name: Wayland de entrada
-      text: Sesión sobre Wayfire administrada por systemd, con bloqueo de pantalla, luz nocturna y control de brillo integrados.
       weight: 3
       params:
         icon: fa-solid fa-desktop
     - identifier: css
-      name: Personalizable con CSS
-      text: La interfaz se estiliza con CSS y variables de color. Cambiar el aspecto del escritorio no requiere recompilar nada.
       weight: 4
       params:
         icon: fa-brands fa-css3
     - identifier: opensource
-      name: Código abierto, de verdad
-      text: Cada componente vive en su propio repositorio público bajo licencia GPL. El historial, los issues y las decisiones están a la vista.
       weight: 5
       params:
         icon: fa-brands fa-github
     - identifier: privacy
-      name: Sin telemetría
-      text: El sistema no recolecta datos de uso ni envía información a ningún servidor. No hay cuenta que crear ni servicio al que suscribirse.
       weight: 6
       params:
         icon: fa-solid fa-shield-halved
 
-# Not "prices": the system is free and always will be, and a pricing table on a
-# free distro reads as a bait-and-switch. This is how the project sustains
-# itself and what each kind of support gets you.
+# No se llama "precios": el sistema es gratuito y va a seguir siéndolo, y una
+# tabla de precios en la portada de una distribución libre se lee como una
+# trampa. Esto es cómo se sostiene el proyecto y qué da cada tipo de apoyo.
 support:
   enabled: true
-  title: "Cómo se sostiene el proyecto"
-  subtitle: "VasakOS es y va a seguir siendo gratuito. Estas son las formas de acompañarlo."
   main:
     - identifier: free
-      name: Usuarios
-      description: "Gratis, siempre"
-      cta:
-        label: Descargar
-        url: /downloads/
-      features:
-        - name: Uso en equipos ilimitados, sin licencias.
-          class: text-body-emphasis
-        - name: Actualizaciones continuas por el repositorio oficial.
-          class: text-body-emphasis
-        - name: Soporte de la comunidad en Telegram y GitHub.
-          class: text-body-emphasis
-        - name: Atención directa del equipo de desarrollo.
-          class: line-through
-        - name: Plan de migración asistido.
-          class: line-through
       weight: 1
+      features:
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: line-through
+        - class: line-through
+      cta:
+        url: /downloads/
       params:
         icon: fa-solid fa-user
     - identifier: donations
       class: md:scale-110 z-10
-      name: Donaciones
-      description: "Lo que puedas aportar"
-      cta:
-        label: Donar
-        url: /donate/
-      features:
-        - name: Uso en equipos ilimitados, sin licencias.
-          class: text-body-emphasis
-        - name: Actualizaciones continuas por el repositorio oficial.
-          class: text-body-emphasis
-        - name: Soporte de la comunidad en Telegram y GitHub.
-          class: text-body-emphasis
-        - name: Atención directa del equipo de desarrollo.
-          class: text-body-emphasis
-        - name: Plan de migración asistido.
-          class: line-through
       weight: 2
+      features:
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: line-through
+      cta:
+        url: /donate/
       params:
         icon: fa-solid fa-hand-holding-dollar
     - identifier: business
-      name: Empresas
-      description: "A convenir"
-      cta:
-        label: Contactar
-        url: https://vasak.net.ar/
-      features:
-        - name: Uso en equipos ilimitados, sin licencias.
-          class: text-body-emphasis
-        - name: Actualizaciones continuas por el repositorio oficial.
-          class: text-body-emphasis
-        - name: Soporte de la comunidad en Telegram y GitHub.
-          class: text-body-emphasis
-        - name: Soporte comercial de Vasak Group.
-          class: text-body-emphasis
-        - name: Plan de migración asistido.
-          class: text-body-emphasis
       weight: 3
+      features:
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+        - class: text-body-emphasis
+      cta:
+        url: https://vasak.net.ar/
       params:
         icon: fa-solid fa-user-tie
 

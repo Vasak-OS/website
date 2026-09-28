@@ -1,0 +1,31 @@
+{{/*
+  Page banner. Despite the file name it is not a breadcrumb trail — that lives in
+  ui/breadcrumbs.html.
+
+  The title is a <p>, not a heading: every layout that includes this partial also
+  renders its own <h1>, and two of them would give the page two competing top
+  headings. Layouts that do not have one pass `heading: true`.
+*/}}
+{{- $page := . -}}
+{{- $heading := false -}}
+{{- if reflect.IsMap . }}{{ $page = .page }}{{ $heading = .heading }}{{ end -}}
+{{- $bannerID := printf "page-banner-%s" ($page.Title | urlize) -}}
+{{/* `aria-labelledby`: un `<section>` sólo es un landmark —una región— si tiene
+   nombre accesible. Sin nombre, el título de la página quedaba fuera de todo
+   landmark y axe reportaba el contenido como "not contained by landmarks". Con
+   el nombre, el banner es la región que dice ser. */}}
+<section class="relative -mt-24 flex min-h-[45vh] items-center justify-center overflow-hidden pt-24"
+  aria-labelledby="{{ $bannerID }}">
+  {{- with $page.Params.img }}
+  <img src="{{ . }}" alt="" width="1200" height="675" fetchpriority="high" decoding="async"
+    class="absolute inset-0 -z-10 h-full w-full object-cover" />
+  {{- end }}
+  <div class="mx-4 max-w-5xl rounded-corner bg-ui-bg/80 p-10 text-center text-tx-main backdrop-blur-md">
+    {{- if $heading }}
+    <h1 id="{{ $bannerID }}" class="mb-3 text-4xl font-bold text-tx-main">{{ $page.Title }}</h1>
+    {{- else }}
+    <p id="{{ $bannerID }}" class="mb-3 text-4xl font-bold text-tx-main">{{ $page.Title }}</p>
+    {{- end }}
+    {{ $page.Summary }}
+  </div>
+</section>

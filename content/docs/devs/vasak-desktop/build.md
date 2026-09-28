@@ -1,6 +1,7 @@
 ---
-title: "Compilacion | vasak-desktop"
+title: "Compilación | vasak-desktop"
 weight: 5
+description: "Cómo compilar Vasak Desktop: comandos de desarrollo, compilación de producción y qué revisar cuando el build falla."
 ---
 
 Guía para compilar Vasak Desktop. Sobre la misma veremos como realizar compilaciones

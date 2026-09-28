@@ -13,7 +13,11 @@
 
 {{- $darkmode := resources.Get "js/darkmode.js" -}}
 {{- $menu := resources.Get "js/menu.js" -}}
-{{- $bundle := slice $darkmode $menu | resources.Concat "js/bundle.js" | minify | fingerprint -}}
+{{- /* The language switcher is in the same bundle: it is a few hundred bytes
+       and it runs on every page, so a separate request for it would cost more
+       than it saves. */ -}}
+{{- $langSwitch := resources.Get "js/lang-switch.js" -}}
+{{- $bundle := slice $darkmode $menu $langSwitch | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 <script defer src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous"></script>
 
 {{/* Consulta en vivo del repositorio de paquetes. Sólo en las dos páginas que
@@ -60,5 +64,18 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', '{{ site.Params.analytics.ga4 }}', { anonymize_ip: true });
+</script>
+{{- end }}
+
+{{/* Service worker: makes the site installable and usable offline.
+     Registered only over HTTPS — on a plain-HTTP preview the browser rejects it
+     and logs an error that says nothing useful. */}}
+{{- if and (not hugo.IsDevelopment) (or (strings.HasPrefix site.BaseURL "https://") hugo.IsServer) }}
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(function () {});
+    });
+  }
 </script>
 {{- end }}

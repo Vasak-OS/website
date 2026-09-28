@@ -6,8 +6,8 @@ weight: 20
 layout: faq
 
 intro: |
-  Si no encontrás tu respuesta acá, preguntá en
-  [Telegram](https://t.me/VasakOS) o abrí un issue en
+  Si no encuentras tu respuesta acá, pregunta en
+  [Telegram](https://t.me/VasakOS) o abre un issue en
   [GitHub](https://github.com/Vasak-OS).
 
 # Preguntas y respuestas. Viven en el front matter para que la página y los
@@ -45,7 +45,7 @@ faq:
     a: |
       Con los drivers libres (nouveau) y con las versiones recientes del driver propietario,
       sí. Las configuraciones híbridas Optimus y las tarjetas viejas con drivers legacy
-      pueden necesitar ajustes manuales. Probá siempre en modo Live antes de instalar.
+      pueden necesitar ajustes manuales. Prueba siempre en modo Live antes de instalar.
 
   - q: "¿Puedo usar el escritorio de VasakOS en otra distribución?"
     a: |
@@ -94,14 +94,14 @@ faq:
 
   - q: "¿Es gratis? ¿Va a seguir siéndolo?"
     a: |
-      Sí y sí. Todo el código es libre bajo licencia GPL y podés instalarlo en los equipos
+      Sí y sí. Todo el código es libre bajo licencia GPL y puedes instalarlo en los equipos
       que quieras. El proyecto se sostiene con [donaciones](/donate/) y con el trabajo de
       Vasak Group; nada de eso cambia la licencia ni agrega funciones de pago.
 
   - q: "¿Cómo puedo ayudar?"
     a: |
       Instalándolo y reportando lo que no funciona es la forma más útil, y no requiere saber
-      programar. Si además escribís código, la guía está en
+      programar. Si además escribes código, la guía está en
       [contribución](/docs/devs/contribution/). También hacen falta traducciones,
       documentación, iconos y fondos de pantalla.
 ---

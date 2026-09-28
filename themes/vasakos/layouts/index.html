@@ -1,10 +1,15 @@
 {{ define "main" }}
 
-  {{- partial "sections/hero.html" . -}}
-
+  {{/* El hero va dentro del `<main>` y no antes. Fuera de él, el título, el
+       subtítulo y los dos botones quedaban sin landmark —axe los reportaba
+       como "not contained by landmarks"— porque `sections/hero.html` se
+       emitía antes de que abriera el `main`. Es contenido de la portada, así
+       que le corresponde estar dentro. */}}
   <main id="main">
+    {{- partial "sections/hero.html" . -}}
     {{- partial "sections/advantages.html" . -}}
     {{- partial "sections/components.html" . -}}
+    {{- partial "sections/screenshots.html" . -}}
     {{- partial "sections/cta.html" . -}}
     {{- partial "sections/features.html" . -}}
     {{- partial "sections/prices.html" . -}}

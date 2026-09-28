@@ -1,14 +1,15 @@
 ---
 title: "Control | ActionButton"
 weight: 30
+description: "ActionButton: botón con variantes primary, secondary y danger, estado de carga y soporte para iconos."
 ---
 
 # `ActionButton`
 
-Descripción
+### Descripción
 - Componente de botón genérico con variantes (`primary`, `secondary`, `danger`), estados de carga y soporte para iconos.
 
-Props
+### Props
 - `label` (string) — Texto del botón. **Requerido**.
 - `disabled` (boolean) — Deshabilita el botón. Por defecto: `false`.
 - `variant` (`'primary'|'secondary'|'danger'`) — Estilo visual. Por defecto: `'primary'`.
@@ -23,10 +24,10 @@ Props
 - `stopPropagation` (boolean) — Llama `event.stopPropagation()` en click. Por defecto: `false`.
 - `preventDefault` (boolean) — Llama `event.preventDefault()` en click. Por defecto: `false`.
 
-Emite
+### Emite
 - `click` — Se emite cuando el usuario hace click y el botón no está deshabilitado ni en `loading`.
 
-Uso
+### Uso
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -44,7 +45,7 @@ const loading = ref(false)
 </template>
 ```
 
-Notas
+### Notas
 - `customClass` acepta objeto para clases reactivas.
 - Cuando `iconSrc` está presente y no hay `label`, el padding se ajusta automáticamente.
 

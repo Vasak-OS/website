@@ -1,0 +1,36 @@
+{{- /*
+  Web app manifest, generated per language.
+
+  This was a file in `static/`, which is the wrong place for something with words
+  in it: it said "Sistema operativo basado en GNU/Linux moderno, rápido y
+  accesible" and `"lang": "es-ES"` on every install, including the ones started
+  from `/en/`. The name in the installed-app list stayed Spanish and the start
+  URL dropped an English visitor back into the Spanish site.
+
+  As a template it follows `.Site.Language`, and the start URL points at the
+  root of the language it belongs to, so installing from `/en/downloads/` gives
+  an app that opens `/en/`.
+
+  `relLangURL` on the start URL is what puts the `/en/` prefix on it; with
+  `defaultContentLanguageInSubdir: false` it is a no-op for Spanish, which is
+  the point — the Spanish start URL stays `/`.
+*/ -}}
+{{- $lang := .Site.Language -}}
+{{- $start := .RelPermalink | default "/" | relLangURL -}}
+{{- dict
+  "name" (T "pwa.name")
+  "short_name" (T "pwa.shortName")
+  "description" (T "pwa.summary")
+  "lang" $lang.Locale
+  "dir" ($lang.Direction | default "ltr")
+  "start_url" $start
+  "scope" "/"
+  "display" "standalone"
+  "background_color" "#eff1f5"
+  "theme_color" "#dd7878"
+  "orientation" "any"
+  "categories" (slice "education" "utilities")
+  "icons" (slice
+    (dict "src" "/img/icon.svg" "sizes" "any" "type" "image/svg+xml" "purpose" "any maskable")
+  )
+  | jsonify -}}

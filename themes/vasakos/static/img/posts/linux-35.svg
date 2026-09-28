@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1e2e"/>
+      <stop offset="100%" style="stop-color:#2a2a3e"/>
+    </linearGradient>
+    <linearGradient id="tux" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fca311"/>
+      <stop offset="100%" style="stop-color:#ffcc00"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="600" cy="280" r="120" fill="url(#tux)" opacity="0.15"/>
+  <text x="600" y="300" font-family="system-ui, sans-serif" font-size="48" font-weight="bold" fill="#fca311" text-anchor="middle">🐧</text>
+  <text x="600" y="380" font-family="system-ui, sans-serif" font-size="42" font-weight="bold" fill="#fca311" text-anchor="middle">35 años de Linux</text>
+  <text x="600" y="440" font-family="system-ui, sans-serif" font-size="24" fill="#cdd6f4" text-anchor="middle">1991 – 2026</text>
+  <text x="600" y="520" font-family="system-ui, sans-serif" font-size="18" fill="#9399b2" text-anchor="middle">El hobby que cambió el mundo</text>
+  <text x="600" y="580" font-family="system-ui, sans-serif" font-size="14" fill="#6c7086" text-anchor="middle">VasakOS Blog</text>
+</svg>

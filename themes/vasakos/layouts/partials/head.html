@@ -1,17 +1,29 @@
 {{/*
-  Every page used to ship the same <title> and the same description, which is
-  the single worst thing a static site can do to itself in search: forty pages
-  competing for one snippet. Everything below is derived per page, with the
-  site-level values only as a fallback.
+  Everything in the document head, per page and per language.
+
+  This used to ship the same <title> and the same description on all forty-odd
+  pages, which is the single worst thing a static site can do to itself in
+  search: forty pages competing for one snippet. Everything below is derived per
+  page, with the site-level values only as a fallback.
 */}}
 {{- $isHome := .IsHome -}}
-{{- $title := cond $isHome (printf "%s — Un sistema operativo libre basado en Arch Linux" site.Title) (printf "%s | %s" .Title site.Title) -}}
+{{- $lang := .Site.Language -}}
+
+{{- $title := cond $isHome (printf "%s — %s" site.Title (T "site.homeTitle")) (printf "%s | %s" .Title site.Title) -}}
 {{- with .Params.seotitle }}{{ $title = . }}{{ end -}}
+
+{{/* El canonical no es siempre `.Permalink`. En una página paginada, Hugo
+     vuelve a renderizar la plantilla de la *sección* para cada tramo, así que
+     `.Permalink` sigue siendo la raíz de la sección: la página 2 se anunciaba
+     como duplicado de la página 1 y Google, que hace caso al canonical, la
+     sacaba del índice. `.Paginator.URL` sí es la URL del tramo. */}}
+{{- $canonical := .Permalink -}}
+{{- $paginado := false -}}
 
 {{- $description := "" -}}
 {{- with .Description }}{{ $description = . }}
 {{- else }}{{ with .Summary }}{{ $description = . }}
-{{- else }}{{ $description = site.Params.description }}{{ end }}{{ end -}}
+{{- else }}{{ $description = T "site.summary" }}{{ end }}{{ end -}}
 {{/* .Summary keeps the Markdown line breaks, which end up as literal newlines
      inside the meta tag and as ragged snippets in the results. */}}
 {{- $description = $description | plainify | htmlUnescape | replaceRE `\s+` " " | chomp | truncate 158 -}}
@@ -19,8 +31,8 @@
 {{/* A taxonomy term page describes itself; page 2 of anything is not the same
      page as page 1 and must not claim the same title. */}}
 {{- if eq .Kind "term" -}}
-  {{- $title = printf "Etiqueta: %s | %s" .Title site.Title -}}
-  {{- $description = printf "Artículos y documentación de VasakOS sobre %s." .Title -}}
+  {{- $title = printf "%s: %s | %s" (T "nav_docs.breadcrumb") .Title site.Title -}}
+  {{- $description = T "head.termDescription" (dict "Term" .Title) -}}
 {{- end -}}
 {{/* .Paginator errors outright on a page kind that cannot paginate — and
      *calling* it is what creates the pager, so the home page is left out: its
@@ -29,8 +41,10 @@
 {{- if or (eq .Kind "section") (eq .Kind "taxonomy") (eq .Kind "term") -}}
 {{- with .Paginator -}}
   {{- if gt .PageNumber 1 -}}
-    {{- $title = printf "%s — Página %d" $title .PageNumber -}}
-    {{- $description = printf "%s (página %d)" $description .PageNumber -}}
+    {{- $title = printf "%s — %s %d" $title (T "pagination.page" | default "Página") .PageNumber -}}
+    {{- $description = printf "%s (%s %d)" $description (T "pagination.page" | default "Página") .PageNumber -}}
+    {{- $canonical = .URL | absURL -}}
+    {{- $paginado = true -}}
   {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -47,10 +61,41 @@
 
   <title>{{ $title }}</title>
   <meta name="description" content="{{ $description }}" />
-  <link rel="canonical" href="{{ .Permalink }}" />
+
+  {{/* Canonical is per language, so the Spanish site does not tell Google that
+       its English twin is a duplicate of it. With two languages, the canonical
+       of a page in `/en/` points inside `/en/`. On a paginated page it is the
+       URL of that page of the list, not the root of the section. */}}
+  <link rel="canonical" href="{{ $canonical }}" />
+
+  {{/* hreflang. `.AllTranslations` only lists the pages that exist in more than
+       one language, so a page with no English counterpart is not advertised as
+       having one. `x-default` points at the Spanish version, because that is the
+       one whose URL has been published the longest and the one most links aim
+       at.
+
+       A paginated page is left out on purpose. It is a continuation of a list,
+       not a document with versions in two languages, and `.AllTranslations`
+       hands back the *section* of each language -- so the page 2 of the blog
+       was announcing itself as the Spanish translation of `/en/blog/`, while
+       its own canonical said it was `/blog/page/2/`. Two contradictory
+       declarations on the same page, and both of them wrong. */}}
+  {{- if not $paginado }}
+  {{- range .AllTranslations }}
+  <link rel="alternate" hreflang="{{ .Site.Language.Locale }}" href="{{ .Permalink }}" />
+  {{- end }}
+  {{- with .AllTranslations }}
+    {{- range . }}
+      {{- if eq .Site.Language.Lang site.Home.Lang }}
+  <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
 
   <link rel="icon" href="/img/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/img/icon.svg" />
+  <link rel="manifest" href="{{ "manifest.webmanifest" | relLangURL }}" />
   <meta name="theme-color" content="#dd7878" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)" />
 
@@ -71,17 +116,44 @@
           ? window.matchMedia('(prefers-color-scheme: dark)').matches
           : stored === 'true';
         if (dark) document.documentElement.classList.add('dark');
-      } catch (e) {}
+      } catch { /* localStorage puede estar deshabilitado o en modo privado; el tema claro es el fallback seguro */ }
     })();
   </script>
+
+  {{/* The hero picture is the home page's LCP element. Telling the browser to
+       start fetching it in the <head> buys back the time that used to be lost
+       discovering the <picture> in the body. Same resource pipeline hero.html
+       uses, so the bytes fetched are the bytes the browser ends up picking. */}}
+  {{- if .IsHome }}
+    {{- with resources.Get "img/hero.jpg" }}
+      {{- $srcset := (slice (.Resize "1024x webp q72") (.Resize "1920x webp q72")) }}
+  <link rel="preload" as="image" type="image/webp"
+    imagesrcset="{{ (index $srcset 0).RelPermalink }} 1024w, {{ (index $srcset 1).RelPermalink }} 1920w"
+    imagesizes="100vw" fetchpriority="high" />
+      {{- with (.Resize "1600x jpg q78") }}
+  <link rel="preload" as="image" type="image/jpeg" href="{{ .RelPermalink }}" fetchpriority="high" />
+      {{- end }}
+    {{- end }}
+  {{- end }}
 
   {{- partial "head/style.html" . -}}
 
   <!-- Open Graph -->
   <meta property="og:site_name" content="{{ site.Title }}" />
-  <meta property="og:locale" content="es_AR" />
+  {{/* og:locale wants the underscore form, and it changes with the language:
+       telling a Spanish page's crawler that it is en_US makes the wrong
+       translation the one that gets shared. */}}
+  <meta property="og:locale" content="{{ replace $lang.Locale "-" "_" }}" />
+  {{/* `og:locale:alternate` son las *otras* versiones de la página. Con
+       `.AllTranslations` cada página se anunciaba a sí misma como su propia
+       alternativa, que es ruido: el que comparte en Facebook se anuncia como
+       disponible en un idioma que ya es el suyo. `.Translations` excluye la
+       página actual. */}}
+  {{- range .Translations }}
+  <meta property="og:locale:alternate" content="{{ replace .Site.Language.Locale "-" "_" }}" />
+  {{- end }}
   <meta property="og:type" content="{{ $type }}" />
-  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:url" content="{{ $canonical }}" />
   <meta property="og:title" content="{{ $title }}" />
   <meta property="og:description" content="{{ $description }}" />
   <meta property="og:image" content="{{ $image }}" />

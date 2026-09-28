@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{- partial "sections/breadcrumbs.html" . -}}
+{{- partial "sections/page-banner.html" . -}}
 <main class="px-2 py-8">
   <div class="container flex justify-between mx-auto gap-2">
     <div class="w-full">
@@ -7,7 +7,7 @@
         <div
           class="flex flex-col px-6 md:px-14 py-10 bg-ui-bg/80 text-tx-main rounded-corner shadow-md"
           id="article">
-          <h1 class="text-center text-primary">{{.Title}}</h1>
+          <h1 class="text-center text-brand-text">{{.Title}}</h1>
           {{ .Content }}
         </div>
       </div>

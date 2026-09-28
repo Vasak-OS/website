@@ -57,7 +57,9 @@ const ICONS = {
   'chevron-left': 'solid',
   'chevron-right': 'solid',
   'circle-check': 'solid',
+  'circle-exclamation': 'solid',
   'circle-half-stroke': 'solid',
+  'circle-info': 'solid',
   clock: 'solid',
   code: 'solid',
   desktop: 'solid',
@@ -72,8 +74,10 @@ const ICONS = {
   'magnifying-glass': 'solid',
   moon: 'solid',
   pen: 'solid',
+  plus: 'solid',
   'shield-halved': 'solid',
   sun: 'solid',
+  'triangle-exclamation': 'solid',
   'up-right-from-square': 'solid',
   user: 'solid',
   'user-tie': 'solid',
@@ -97,14 +101,14 @@ const ALIASES = {
 // readable keeps the file diffable and compresses better than base64.
 const encode = (svg) =>
   svg
-    .replace(/\s*<!--.*?-->\s*/gs, '')
-    .replace(/\s+/g, ' ')
+    .replaceAll(/<!--[\s\S]*?-->/g, '')
+    .replaceAll(/\s+/g, ' ')
     .trim()
-    .replace(/"/g, "'")
-    .replace(/%/g, '%25')
-    .replace(/#/g, '%23')
-    .replace(/</g, '%3C')
-    .replace(/>/g, '%3E');
+    .replaceAll('"', "'")
+    .replaceAll('%', '%25')
+    .replaceAll('#', '%23')
+    .replaceAll('<', '%3C')
+    .replaceAll('>', '%3E');
 
 if (!existsSync(FA)) {
   console.error('Font Awesome sources not found. Run `bun install` first.');

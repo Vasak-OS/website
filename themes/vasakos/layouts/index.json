@@ -5,6 +5,14 @@
   produced a 250 KB JSON that the widget then downloaded to search a subset of
   it. Only documentation is searchable, and a snippet is enough to render a
   result, so the index holds the docs pages with their text capped.
+
+  One index per language, and it only holds the pages of *this* language.
+  `site.RegularPages` is already language-scoped, so an English page searches
+  English documents and finds English titles. Sharing one index across both
+  would have the box answering an English query with Spanish titles.
+
+  `.RelPermalink` is language-aware, so the results link into `/en/...` without
+  anything extra here.
 */ -}}
 {{- $index := slice -}}
 {{- range where site.RegularPages "Section" "docs" -}}
@@ -14,6 +22,7 @@
       "content" (.Plain | chomp | truncate 1200)
       "permalink" .RelPermalink
       "section" (path.Base .CurrentSection.RelPermalink)
+      "lang" site.Language.Lang
   ) -}}
 {{- end -}}
 {{- $index | jsonify -}}

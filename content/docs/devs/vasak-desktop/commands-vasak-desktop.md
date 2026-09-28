@@ -1,6 +1,7 @@
 ---
 title: "Comandos del escritorio | vasak-desktop"
 weight: 31
+description: "Catálogo de comandos que vasak-desktop expone al escritorio, para conectar funcionalidades nuevas a las que ya existen."
 ---
 
 Comandos implementados en `vasak-desktop` accesibles para nuevas funcionalidades dentro del escritorio

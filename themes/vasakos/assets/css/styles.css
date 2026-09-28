@@ -6,6 +6,16 @@
   /* general */
   --corner-radius: 10px;
 
+  /* Las tres fuentes que elige la Configuración del escritorio. Acá rigen los
+     valores por defecto, que es lo que queda si la lectura falla: un `var()` sin
+     valor descarta la regla entera, así que sin este piso el sitio se quedaría
+     sin ninguna fuente. Se declaran en `:root` para que, si algún día se
+     sobreescriben desde la Configuración del escritorio, ocurran sobre el
+     elemento raíz exactamente igual que en el shell. */
+  --vsk-font-apps: sans-serif;
+  --vsk-font-title: sans-serif;
+  --vsk-font-terminal: monospace;
+
   /* Colores de Marca */
   --primary: #dd7878;
   --secondary: #8839ef;
@@ -16,17 +26,55 @@
   --ui-background: #eff1f5;
   --ui-surface: #ccd0da;
   --ui-border: #dce0e8;
+  /* El borde de lo que **delimita un control** —un campo, un botón, un selector—.
+     `--ui-border` da 1.17 contra el fondo en claro y 1.14 en oscuro, contra el
+     mínimo de 3.0 que pide WCAG 1.4.11 para lo que no es texto: a esos valores el
+     contorno de un input no se percibe. Se separa en dos tokens en lugar de subir
+     uno solo, porque el mismo color también hace de separador decorativo, y subirlo
+     ahí convertiría cada tarjeta en una caja marcada.
+
+     Estos dos valores son los que calcula `bordeFuerteSobre` en
+     `tauri-plugin-config-manager` para el esquema por omisión, y no se eligieron a
+     ojo: el escritorio los escribe sobre `documentElement` en tiempo de ejecución, y
+     este sitio —que no tiene config-manager— tiene que ponerlos a mano para verse
+     igual. Estaban en `#7c7f93` / `#6c7086`, que es un valor que ningún runtime
+     llega a producir: daba 3.49 contra el fondo pero **2.56 contra la superficie**, o
+     sea invisible justo donde hay más controles, porque los paneles y las tarjetas
+     son de `surface`. Estos dan 7.06 y 11.34 contra el fondo, y 5.17 y 8.69 contra
+     la superficie. */
+  --ui-border-strong: #4c4f69;
   --ui-background-dark: #1e1e2e;
   --ui-surface-dark: #313244;
   --ui-border-dark: #11111b;
+  --ui-border-strong-dark: #cdd6f4;
+
+  /* La marca usada como TEXTO. `#dd7878` es un color de relleno: con texto
+     oscuro encima da 5.49:1 y como fondo de botón funciona perfecto, pero
+     pintado como letra sobre el modo claro da 1.93:1 contra la página y 2.64:1
+     contra el fondo — no hay forma de subirlo, porque el rosa es demasiado
+     claro. `#8a3550` es el mismo tono Carry con la luminancia bajada: da 5.03:1
+     contra la página y 6.45:1 contra la tarjeta, y sigue reconociéndose como
+     rosa. Es el mismo criterio que usa `AlertMessage` en la biblioteca: el
+     color de marca va en el relleno, el tinte y el borde, y el texto legible
+     va aparte. El modo oscuro no estaba roto — `#eba0ac` da 6.08:1 — así que
+     `--brand-text-dark` reusa ese valor en vez de inventar otro. */
+  --brand-text: #8a3550;
+  --brand-text-dark: #eba0ac;
 
   /* Colores de Texto */
   --text-main: #4c4f69;
-  --text-muted: #6c6f85;
-  --text-on-primary: #5c5f77;
+  /* #555869 y no #6c6f85: el anterior daba 4.37 sobre el fondo y 3.20 sobre la
+     superficie, contra el mínimo de 4.5 de WCAG 1.4.3 — y es el color de casi todo
+     el texto secundario, que además suele ir en 12px o menos. Éste da 6.22 y 4.56,
+     y sigue siendo más claro que el texto principal, así que la jerarquía se
+     mantiene. El del modo oscuro ya cumplía (7.37 y 5.65) y no se toca. */
+  --text-muted: #555869;
+  --text-on-primary: #1e1e2e;
+  --text-on-secondary: #eff1f5;
   --text-main-dark: #cdd6f4;
   --text-muted-dark: #a6adc8;
-  --text-on-primary-dark: #cdd6f4;
+  --text-on-primary-dark: #1e1e2e;
+  --text-on-secondary-dark: #1e1e2e;
 
   /* Status */
   --status-error: #d20f39;
@@ -86,9 +134,12 @@
   --use-ui-background: var(--ui-background);
   --use-ui-surface: var(--ui-surface);
   --use-ui-border: var(--ui-border);
+  --use-ui-border-strong: var(--ui-border-strong);
   --use-text-main: var(--text-main);
   --use-text-muted: var(--text-muted);
+  --use-brand-text: var(--brand-text);
   --use-text-on-primary: var(--text-on-primary);
+  --use-text-on-secondary: var(--text-on-secondary);
   --use-status-error: var(--status-error);
   --use-status-success: var(--status-success);
   --use-status-warning: var(--status-warning);
@@ -102,9 +153,12 @@ html.dark {
   --use-ui-background: var(--ui-background-dark);
   --use-ui-surface: var(--ui-surface-dark);
   --use-ui-border: var(--ui-border-dark);
+  --use-ui-border-strong: var(--ui-border-strong-dark);
   --use-text-main: var(--text-main-dark);
   --use-text-muted: var(--text-muted-dark);
+  --use-brand-text: var(--brand-text-dark);
   --use-text-on-primary: var(--text-on-primary-dark);
+  --use-text-on-secondary: var(--text-on-secondary-dark);
   --use-status-error: var(--status-error-dark);
   --use-status-success: var(--status-success-dark);
   --use-status-warning: var(--status-warning-dark);
@@ -113,8 +167,24 @@ html.dark {
 @custom-variant dark (&:where(.dark, .dark *, html.dark, html.dark *));
 
 @theme {
+  /* Las tres fuentes, como utilidades de Tailwind.
+
+     `font-sans` es además la que Tailwind aplica al documento sin que se
+     escriba ninguna clase, así que atarla acá hace que todo el sitio siga lo
+     configurado por defecto. `font-title` para los títulos de sección y
+     `font-mono` para la terminal y todo lo que se alinee por columnas. */
+  --font-sans: var(--vsk-font-apps);
+  --font-title: var(--vsk-font-title);
+  --font-mono: var(--vsk-font-terminal);
+
   /* radius */
   --radius-corner: var(--corner-radius);
+  /* El radio chico, para lo que no es una tarjeta: chips, insignias, el pulgar de
+     una barra. Derivado del general y no fijo, así que subir el radio general
+     deja las tarjetas redondas y los chips cuadrados — que es justo lo que
+     pasa en el escritorio. */
+  --radius-corner-sm: calc(var(--corner-radius) / 2.5);
+  --radius-corner-window: calc(var(--corner-radius) + 2px);
 
   /* Colores de Marca - responsive a dark mode */
   --color-primary: var(--use-primary);
@@ -124,11 +194,14 @@ html.dark {
   --color-ui-bg: var(--use-ui-background);
   --color-ui-surface: var(--use-ui-surface);
   --color-ui-border: var(--use-ui-border);
+  --color-ui-border-strong: var(--use-ui-border-strong);
 
   /* Colores de Texto - responsive a dark mode */
   --color-tx-main: var(--use-text-main);
   --color-tx-muted: var(--use-text-muted);
   --color-tx-on-primary: var(--use-text-on-primary);
+  --color-tx-on-secondary: var(--use-text-on-secondary);
+  --color-brand-text: var(--use-brand-text);
 
   /* Status - responsive a dark mode */
   --color-status-error: var(--use-status-error);
@@ -142,6 +215,37 @@ html.dark {
 
 ::view-transition-new(root) {
   animation: circle-in 500ms;
+}
+
+/* Los dos keyframes que la transición de tema usaba sin declarar. `circle-in`
+   estaba referenciado arriba y no existía en ninguna parte del archivo, así que
+   la transición al cambiar de tema no animaba nada: el navegador descartaba la
+   animación por nombre desconocido y cortaba directo. */
+@keyframes move-in {
+  from {
+    translate: 0 -100%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes circle-in {
+  from {
+    clip-path: circle(0% at 50% 0%);
+  }
+  to {
+    clip-path: circle(120% at 50% 0%);
+  }
+}
+
+/* `background` es la clase que el escritorio pone en cada superficie —la que
+   `ListCard` y `DeviceCard` llevan en su lista de clases—, y acá no estaba. Sin
+   ella, un componente que la nombra queda con el fondo del documento y las
+   tarjetas se pierden contra la página. Es la misma regla del shell, con el
+   mismo 80 %: `vasak-desktop/src/assets/main.css:232`. */
+.background {
+  @apply bg-ui-bg/80;
 }
 
 @layer base {
@@ -177,6 +281,17 @@ html.dark {
   font-family: VSKRegular, system-ui, sans-serif;
 }
 
+/* Todo lo que sigue son los valores por defecto de la tipografía del artículo:
+   encabezados, párrafos, listas, citas y bloques de código.
+
+   Van dentro de `@layer components` a propósito. Fuera de una capa, una regla
+   de autor le gana a todas las utilidades de Tailwind por muy baja que sea su
+   especificidad, y eso ya costó una vez: `:where(#article a)` —cero
+   especificidad— seguía pintando de rosa el botón de "Estado del proyecto" en
+   /about/, que declaraba su propio `text-tx-on-primary`. Dentro de la capa,
+   `utilities` va después y gana, que es lo que corresponde a un valor por
+   defecto. */
+@layer components {
 #article h1 {
   font-size: 2rem;
   margin-bottom: 2rem;
@@ -185,7 +300,7 @@ html.dark {
 
 #article h2 {
   font-size: 1.75rem;
-  @apply my-6 text-primary font-bold;
+  @apply my-6 text-brand-text font-bold;
 }
 
 #article h3 {
@@ -201,7 +316,7 @@ html.dark {
 /* The anchor added by render-heading.html: out of the way until you hover the
    heading it belongs to. */
 .heading-anchor {
-  @apply ml-2 text-primary opacity-0 transition-opacity;
+  @apply ml-2 text-brand-text opacity-0 transition-opacity;
 }
 
 h1:hover > .heading-anchor,
@@ -218,12 +333,69 @@ h4:hover > .heading-anchor,
   margin-bottom: 1rem;
 }
 
-#article a {
-  @apply text-primary;
+/* Los enlaces dentro de un párrafo van subrayados, y no por costumbre.
+
+   `#brand-text` es #8a3550 y `--text-main` es #4c4f69: entre los dos hay 1.02:1,
+   o sea que son prácticamente el mismo color. El rosa de marca era legible
+   —#dd7878 daba 2.64:1 sobre la superficie— pero no se distinguía del texto que
+   lo rodea, y eso es lo que mide la regla `link-in-text-block` de axe, que
+   marcó 4 enlaces del artículo, 9 de la documentación y 4 de descargas: un
+   enlace dentro de un párrafo tiene que poder reconocerse sin distinguir el tono,
+   y el subrayado es lo que lo resuelve.
+
+   Descartado el color: para que un rosa separe del #4c4f69 por tono hacen falta
+   3:1 entre los dos, y el rosa que cumple eso contra el fondo —#8a3550 o más
+   oscuro— se acerca al texto principal justo cuando se aclara. No hay ningún
+   valor del token que arregle esto, y no corresponde inventar uno. */
+/* `:where()` a propósito, y no por estilo. Un selector con ID le gana a
+   cualquier clase de utilidad, así que `#article a` se comía el color de los
+   enlaces que sí lo traen puesto: el botón de "Estado del proyecto" en
+   /about/ declaraba `text-tx-on-primary` y le pintaba el rosa de marca, con
+   2.59:1 sobre su propio fondo. Dentro de `:where()` la especificidad es cero
+   y la utilidad gana, que es lo que tiene que pasar: esto es el valor por
+   defecto de un enlace en un párrafo, no una imposición. */
+:where(#article a) {
+  @apply text-brand-text underline decoration-brand-text/40 underline-offset-2
+    hover:decoration-brand-text;
+}
+/* Los anclajes que `render-heading.html` cuelga de cada título ya son un símbolo
+   de enlace; subrayarlos sería un subrayado de nada. */
+#article .heading-anchor {
+  @apply no-underline;
 }
 
 #article li {
   list-style: disc;
+}
+
+/* Los `- [ ]` de Goldmark salen como `<input disabled type="checkbox">` pelado
+   dentro del `<li>`, sin etiqueta, y axe marcaba 11 en la guía de contribución
+   con la regla `label`: un control de formulario tiene que tener nombre.
+
+   No son un control: son una lista de comprobación dentro de un artículo, y
+   como `disabled` nunca se van a activar. Así que el `input` sale del árbol de
+   accesibilidad con `display: none` y la casilla la pone un `::before`, que no
+   se anuncia. El `li` sigue leyéndose como la frase que es, y el estado
+   marcado o desmarcado se ve igual. Sin JavaScript y sin tocar el markdown. */
+#article li:has(> input[type="checkbox"]) {
+  list-style: none;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+#article li > input[type="checkbox"] {
+  display: none;
+}
+
+#article li:has(> input[type="checkbox"])::before {
+  content: "\2610";
+  position: absolute;
+  left: 0;
+  font-family: var(--vsk-font-terminal);
+}
+
+#article li:has(> input[type="checkbox"]:checked)::before {
+  content: "\2611";
 }
 
 #article ul {
@@ -241,9 +413,21 @@ li {
 
 /* Syntax Highlighting Styles */
 
+/* Estas dos reglas pedían "Fira Code", pero el sitio no tiene ningún
+   `@font-face` para ella: la única fuente declarada es la de marca. O sea que
+   los dos `font-family` caían siempre al `monospace` del sistema, y el nombre
+   de Fira Code no hacía nada — sólo illusionaba una tipografía que nunca se
+   veía. Se apunta al token `--vsk-font-terminal`, que es el que resuelve
+   `font-mono` en el escritorio: el bloque de código pasa a depender del mismo
+   lugar que el resto del sistema, y si algún día se le da una fuente terminal
+   de verdad, es cambiar un token.
+
+   No se agrega Fira Code como webfont a propósito. Son decenas de KB por un
+   peso y un estilo que el sistema ya resuelve, y el sitio tiene como objetivo
+   no pagar descargas que no cambian nada. */
 pre {
   @apply p-4 overflow-x-auto;
-  font-family: "Fira Code", monospace;
+  font-family: var(--vsk-font-terminal);
   font-optical-sizing: auto;
   font-style: normal;
   display: block;
@@ -252,11 +436,11 @@ pre {
 }
 
 code {
-  @apply inline-grid p-0;
+  @apply inline-grid p-0 px-1 rounded-md font-mono;
   color: unset;
   border: none;
   background: none;
-  font-family: "Fira Code", monospace;
+  font-family: var(--vsk-font-terminal);
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -269,17 +453,42 @@ code::before {
   margin-left: -30px;
 }
 
+/* Bloques de codigo: son una terminal, y usan los tokens del terminal.
+
+   Estaba `bg-gray-200 dark:bg-gray-900` con `text-gray-800 dark:text-white`:
+   cuatro clases sueltas de la paleta de Tailwind que ademas cambiaban de color
+   con el modo de la pagina, de modo que el mismo bloque se veia distinto segun
+   donde estuviera. Ahora es el fondo y el texto del terminal, y siempre en su
+   tema oscuro: la paleta clara del terminal no tiene verde ni amarillo que
+   lleguen al 4.5:1, como ya se documento en `syntax.css`.
+
+   Estas reglas ganaban a las de `syntax.css` solo por orden de cascada —tres
+   declaraciones de fondo para el mismo elemento y ganaba la ultima—, asi que
+   sin este cambio el tema nuevo no llegaba a verse. */
 pre,
 .chroma {
-  @apply bg-gray-200 text-gray-800 dark:bg-gray-900 dark:text-white overflow-y-auto;
+  @apply overflow-y-auto;
+  background-color: var(--code-bg);
+  color: var(--code-fg);
 }
 
 .highlight {
-  @apply bg-gray-200 text-gray-800 dark:bg-gray-900 dark:text-white p-1 rounded-corner relative my-4 border-t-24 border-primary;
+  @apply p-1 rounded-corner relative my-4 border-t-24 border-primary;
+  background-color: var(--code-bg);
+  color: var(--code-fg);
+}
+
+.highlight pre {
+  @apply text-sm m-0 p-4;
+}
+
+.highlight pre code {
+  @apply bg-none p-0;
 }
 
 hr {
-  @apply my-8 border-t-2 border-gray-200 dark:border-gray-900;
+  @apply my-8 border-t-2;
+  border-color: var(--ui-border);
 }
 
 /* The code glyph on the tab of a highlighted block. It used to be a Font
@@ -299,33 +508,195 @@ hr {
     no-repeat center / contain;
 }
 
-.highlight {
-  @apply my-2;
-  pre {
-    @apply text-sm m-0 p-4;
-
-    code {
-      @apply bg-none p-0;
-    }
-  }
-}
-
 pre:has(code) {
-  @apply p-2 m-4 bg-gray-100 rounded-lg overflow-x-auto;
+  @apply p-2 m-4 rounded-lg overflow-x-auto;
+  background-color: var(--code-bg);
 }
 
-pre {
-  code {
-    @apply bg-inherit text-sm font-mono;
-  }
+pre code {
+  @apply text-sm font-mono;
+  background-color: transparent;
+  color: inherit;
 }
 
-code {
-  @apply bg-gray-200 px-1 rounded-md text-green-800;
+/* `code` en linea es otra cosa: vive sobre la tarjeta, no sobre la terminal.
+   Era `bg-gray-200` con `text-green-800`, dos colores de la paleta de Tailwind,
+   y como el selector era generico el `color` se colaba tambien al `code` de
+   dentro de los bloques —los `.nv` de Chroma salian verdes, a 2.48:1 sobre el
+   fondo del bloque—, porque la regla de `pre code` no fijaba color. Ahora cada
+   contexto pone el suyo. */
+p code, li code, td code {
+  background-color: var(--ui-surface);
+  color: var(--text-main);
 }
 
 /* BLOCKQUOTES */
 
 blockquote {
-  @apply px-6 py-4 rounded-corner bg-gradient-to-r from-secondary to-primary text-white font-semibold my-6 ;
+  @apply px-6 py-4 rounded-corner bg-gradient-to-r from-secondary to-brand-text text-white font-semibold my-6 ;
+}
+
+}
+
+/* ========== SCROLLBAR ESTÉTICO ========== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--use-ui-border);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--use-primary);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--use-ui-border) transparent;
+}
+
+/* ========== CARRUSEL: sin scrollbar + blur adyacente ========== */
+
+.screenshots-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.screenshots-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The "peek at the neighbours" effect, which is what makes a carousel read as a
+   carousel: the card in the middle is sharp and the ones on either side are
+   pushed back.
+
+   It is deliberately scoped to `[data-carousel]`, a marker the script sets on
+   the track once it has run. It used to be unconditional, with `.snap-center`
+   blurred and `.snap-center.active` sharp — but nothing ever added `.active`,
+   so all five captures rendered permanently blurred, at 50% opacity and 92%
+   scale, for every visitor. Scoping it to the marker makes the sharp state the
+   default, which is also the only state a crawler or a visitor without
+   JavaScript ever sees; the effect is added *over* the markup, not required by
+   it. That is the same reason the images are real `<img>` elements rather than
+   something a script injects. */
+.screenshots-track[data-carousel] > .snap-center {
+  transition:
+    filter 0.4s ease,
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  filter: blur(2px) saturate(0.6);
+  opacity: 0.5;
+  transform: scale(0.92);
+}
+
+.screenshots-track[data-carousel] > .snap-center.is-active {
+  filter: blur(0) saturate(1);
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* A touch screen has no hover and no cursor to aim with, so the sideways peek
+   reads as an accident rather than as depth — and blurring the product
+   screenshots is exactly the wrong thing to do on the device people are most
+   likely to be reading them on. They stay sharp. */
+@media (pointer: coarse) {
+  .screenshots-track[data-carousel] > .snap-center {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* Same reasoning as `prefers-reduced-motion` in the OS: a 2px blur on a moving
+   target is motion some people cannot sit through. The cards still scale and
+   fade, they just are not blurred. */
+@media (prefers-reduced-motion: reduce) {
+  .screenshots-track[data-carousel] > .snap-center {
+    filter: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+}
+/* ========== SELECTOR DE IDIOMA ========== */
+
+/* The menu opens on its own for a pointer (hover) and for a keyboard (focus
+   within), with no JavaScript involved. The script only adds the click, which is
+   what a touch screen has instead of a hover, and closes the list after a choice.
+   Both states are `:hover` and `:focus-within` on the same element, so the two
+   ways of opening it cannot disagree about whether it is open. */
+.js-lang-switch:hover .js-lang-menu,
+.js-lang-switch:focus-within .js-lang-menu,
+.js-lang-switch [aria-expanded='true'] + .js-lang-menu {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-lang-menu {
+    transition: none;
+  }
+}
+
+/* ========== ACCESIBILIDAD: EL FOCO Y EL MOVIMIENTO ========== */
+
+/*
+ * El foco del teclado tiene que verse (WCAG 2.4.7).
+ *
+ * Antes de escribir esto el sitio no declaraba ningún indicador: salvo los
+ * `outline-none` de los controles que lo traían de fábrica, recorrer la página
+ * con Tab era hacerlo a ciegas — y en un sitio con muchas filas de tabla de
+ * descargas, migas y botones de archivo, eso es mucho contenido.
+ *
+ * Va con `:where()` para que tenga especificidad cero: cualquier componente que
+ * quiera su propio indicador lo pisa sin peleas, y esto queda como piso. Es la
+ * misma regla que el escritorio.
+ */
+:where(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [role="button"],
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/*
+ * Menos movimiento para quien lo pidió (WCAG 2.3.3, y 2.2.2 para lo que no para).
+ *
+ * El sitio sólo lo respetaba en dos sitios sueltos — el carrusel de capturas y el
+ * menú de idioma — y dejaba pasar el resto, incluida la transición de tema, que
+ * es justamente la que mueve 500ms de `clip-path` sobre toda la pantalla.
+ *
+ * No se apaga del todo: una duración mínima en lugar de `none` conserva los
+ * eventos `transitionend` y `animationend`. Y `iteration-count: 1` es lo que
+ * detiene lo infinito, que es la parte que de verdad marea.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: es la forma canónica de respetar «reducir el movimiento»: tiene que ganarle a las declaraciones de animación y de transición que no usen `!important`, que son las de las clases de utilidad y las de los componentes */
+    animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: es la forma canónica de respetar «reducir el movimiento»: tiene que ganarle a las declaraciones de animación y de transición que no usen `!important`, que son las de las clases de utilidad y las de los componentes */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: es la forma canónica de respetar «reducir el movimiento»: tiene que ganarle a las declaraciones de animación y de transición que no usen `!important`, que son las de las clases de utilidad y las de los componentes */
+    transition-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: es la forma canónica de respetar «reducir el movimiento»: tiene que ganarle a las declaraciones de animación y de transición que no usen `!important`, que son las de las clases de utilidad y las de los componentes */
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,0 +1,64 @@
+{{/*
+  Language switcher.
+
+  The other languages of the current page, and only those. A page that has no
+  translation must not advertise one: linking to `/en/state/` when that file does
+  not exist gets the visitor a 404, which is worse than not offering the switch
+  at all. Hugo's `.AllTranslations` is already filtered to the pages that exist
+  in more than one language.
+
+  Showing the current language in the list is deliberate — it is a menu, not a
+  pair of arrows, and it is the thing that tells someone the page exists in both
+  languages at all. `Translations` excludes the current one, so the current one is
+  added back by hand.
+*/}}
+{{- $page := . -}}
+{{- $current := .Site.Language -}}
+
+{{- $translations := slice -}}
+{{- range .AllTranslations -}}
+  {{- $translations = $translations | append . -}}
+{{- end -}}
+{{- if lt (len .AllTranslations) 1 -}}
+  {{/* Only one language for this page: the switcher would be a menu of one. */}}
+{{- else -}}
+<div class="js-lang-switch relative" data-lang-switcher>
+  <button type="button" class="inline-flex items-center gap-1.5 rounded-corner px-3 py-2 text-lg leading-6 text-gray-900 hover:text-brand-text dark:text-white"
+    aria-label="{{ T "nav.language" }}" aria-expanded="false" aria-haspopup="true" data-lang-toggle>
+    <i class="fa-solid fa-globe text-sm" aria-hidden="true"></i>
+    <span data-lang-current>{{ $current.Label }}</span>
+    <i class="fa-solid fa-chevron-down text-xs" aria-hidden="true"></i>
+  </button>
+
+  {{/* Kept in the DOM and hidden rather than toggled with a class, so it works
+       with JavaScript off: `:hover` and `:focus-within` do the opening. The
+       button is then redundant, but it is what announces the state to a screen
+       reader, and it is what the click handler drives. */}}
+  <ul class="js-lang-menu absolute right-0 z-50 mt-2 hidden min-w-[10rem] overflow-hidden rounded-corner border border-ui-border bg-ui-surface py-1 shadow-lg"
+    data-lang-menu>
+    {{/* `.Translations` ya excluye la página actual; `.AllTranslations` la
+         incluye, y como la de arriba se agrega a mano, usar la otra lo
+         duplicaba: "Español" salía dos veces en el menú, las dos marcadas
+         como `aria-current="page"`. */}}
+    {{- $all := slice $page -}}
+    {{- range .Translations -}}
+      {{- $all = $all | append . -}}
+    {{- end -}}
+    {{- range $all -}}
+      {{- $lang := .Site.Language -}}
+      {{- $isCurrent := eq $lang.Lang $current.Lang -}}
+    <li>
+      <a href="{{ .RelPermalink }}" lang="{{ $lang.Lang }}" hreflang="{{ $lang.Locale }}"
+        data-lang-link="{{ $lang.Lang }}" rel="alternate"
+        class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-ui-bg hover:text-brand-text {{ if $isCurrent }}font-semibold text-brand-text{{ else }}text-tx-main{{ end }}"
+        {{ if $isCurrent }}aria-current="page"{{ end }}>
+        <span class="w-4 shrink-0">
+          {{- if $isCurrent }}<i class="fa-solid fa-check text-xs" aria-hidden="true"></i>{{ end -}}
+        </span>
+        <span>{{ $lang.Label }}</span>
+      </a>
+    </li>
+    {{- end -}}
+  </ul>
+</div>
+{{- end -}}

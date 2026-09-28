@@ -1,10 +1,23 @@
+{{/*
+  The document shell.
+
+  `lang` and `dir` come from the language block in config.yaml rather than being
+  written down. With the site hardcoded to `lang="es"`, an English page was
+  announced to the browser and to a screen reader as Spanish, and any right-to-
+  left language added later would have inherited the wrong text direction.
+*/}}
+{{- $lang := site.Language -}}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ $lang.Locale }}" dir="{{ $lang.Direction | default "ltr" }}"{{ with $lang.Params.headAttrs }} {{ . }}{{ end }}>
 {{- partial "head.html" . -}}
 
 <body class="transition-all duration-400">
   {{- partial "header.html" . -}}
 
+  {{/* No <main> wrapper here on purpose: the home page and the section
+       templates each open their own <main id="main">, and wrapping them all
+       would nest one <main> inside another, which is invalid and hides the
+       content landmark from a screen reader. */}}
   {{- block "main" . -}}{{- end -}}
 
   {{- partial "footer.html" . -}}

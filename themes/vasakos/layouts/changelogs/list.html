@@ -4,13 +4,13 @@
   <div class="container flex justify-between mx-auto">
     <div class="w-full lg:w-8/12">
 
-      <h1 class="mb-4 text-3xl font-bold text-tx-main">Changelogs</h1>
+      <h1 class="mb-4 text-3xl font-bold text-tx-main">{{ T "changelog.title" }}</h1>
       <ul class="px-8 mb-8">
       {{ range .Data.Pages.ByDate.Reverse }}
 
       
         <li
-          class="hover:text-primary font-bold">
+          class="hover:text-brand-text font-bold">
           <a href="{{ .Permalink }}">{{.Title}}</a>
       </li>
 
