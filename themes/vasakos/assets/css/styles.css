@@ -266,12 +266,12 @@ html.dark {
   }
 
 /* Dialog backdrop - matches navbar style */
-/* Dialog backdrop - matches navbar style */
-.mobile-menu-dialog {
+dialog.mobile-menu-dialog {
   background: transparent !important;
+  background-color: transparent !important;
 }
 
-.mobile-menu-dialog::backdrop {
+dialog.mobile-menu-dialog::backdrop {
   background: var(--color-ui-bg);
   backdrop-filter: blur(12px);
 }
