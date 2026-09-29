@@ -101,6 +101,8 @@
   extraPackages = "The repository also publishes {{ .Count }} support packages (keyring, mirror list, icon theme, wallpapers, and dependencies that are not in Arch)."
   howToAdd = "How to add the repository"
   seeRoadmap = "See the roadmap"
+  showMore = "Show more"
+  showLess = "Show less"
 
 [social]
   title = "Social"

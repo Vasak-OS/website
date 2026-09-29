@@ -100,3 +100,28 @@
       console.warn('No se pudo consultar el repositorio de paquetes:', err.message);
     });
 })();
+
+/* Toggle extra rows in state page tables */
+(function () {
+  document.querySelectorAll('.toggle-extra-rows').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var targetId = this.getAttribute('data-toggle-target');
+      var table = document.getElementById(targetId);
+      if (!table) return;
+
+      var extraRows = table.querySelectorAll('.extra-row');
+      var isExpanded = this.getAttribute('aria-expanded') === 'true';
+      var newState = !isExpanded;
+
+      extraRows.forEach(function (row) {
+        row.classList.toggle('hidden', !newState);
+      });
+
+      this.setAttribute('aria-expanded', newState.toString());
+      var textEl = this.querySelector('.toggle-text');
+      if (textEl) {
+        textEl.textContent = newState ? 'Ver menos' : 'Ver más';
+      }
+    });
+  });
+})();
