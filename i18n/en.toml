@@ -431,6 +431,58 @@
   title = "Installer"
   text = "Vasak Installer with the VasakOS configuration and install branches."
 
+[component.vasak-wayfire-plugins]
+  title = "Wayfire Plugins"
+  text = "Wayfire compositor plugins: panel, gestures, overlays and workspace management."
+
+[component.vasak-text]
+  title = "Text Editor"
+  text = "Plain text editor with syntax highlighting and multi-tab support."
+
+[component.vasak-calendar]
+  title = "Calendar"
+  text = "System calendar with online accounts integration and reminders."
+
+[component.vasak-mail]
+  title = "Mail"
+  text = "Email client with IMAP/SMTP support and PGP encryption."
+
+[component.vasak-contacts]
+  title = "Contacts"
+  text = "Address book integrated with online accounts and synchronization."
+
+[component.vasak-shot]
+  title = "Screenshot"
+  text = "Screenshot and screen recording tool with annotations."
+
+[component.vasak-monitor]
+  title = "System Monitor"
+  text = "Resource viewer: CPU, memory, disk, network and sensors."
+
+[component.vasak-store]
+  title = "Store"
+  text = "Flatpak and native app store with sandboxing and automatic updates."
+
+[component.vasak-prism]
+  title = "Prism"
+  text = "Document and PDF viewer with annotations and search."
+
+[component.vasak-installer]
+  title = "Vasak Installer"
+  text = "Native graphical installer for VasakOS, replacement for Calamares written in Rust/Tauri."
+
+[component.vasak-update]
+  title = "Updates"
+  text = "System update notifier with changelog details and deferral option."
+
+[component.vasak-wireplumber-modules]
+  title = "WirePlumber Modules"
+  text = "Audio policy modules for automatic routing and device profiles."
+
+[component.polkit-vasak]
+  title = "PolicyKit Agent"
+  text = "Native PolicyKit authentication agent, replaces polkit-gnome."
+
 # ISO requirements, read from `data/release.yml`. The key is the requirement's
 # name exactly as it appears in the YAML.
 [requirement."CPU de 64 bits (x86-64)"]
