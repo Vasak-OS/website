@@ -427,13 +427,13 @@
   text = "Escribir acentos y caracteres especiales manteniendo apretada una tecla, como en macOS, sin depender de la distribución del teclado."
 [component.archiso]
   title = "Imagen ISO"
-  text = "Perfil de archiso con sesión en vivo, instalador Calamares y el repositorio propio ya configurado."
+  text = "Perfil de archiso con sesión en vivo, instalador Vasak Installer y el repositorio propio ya configurado."
 [component."repositorio vasakos"]
   title = "Repositorio pacman"
   text = "Repositorio propio firmado con GPG, con los paquetes de VasakOS sobre Arch Linux."
 [component.vasakos-calamares]
   title = "Instalador"
-  text = "Calamares con la configuración y las ramas de instalación de VasakOS."
+  text = "Vasak Installer con la configuración y las ramas de instalación de VasakOS."
 
 # Requisitos de la ISO, leídos de `data/release.yml`. La clave es el nombre del
 # requisito tal como está en el YAML.

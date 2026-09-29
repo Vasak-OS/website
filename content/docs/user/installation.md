@@ -73,7 +73,7 @@ Si algo de esto no anda en Live, tampoco va a andar instalado. Es el momento de
 
 ## 5. Instalar
 
-El instalador es [Calamares](https://calamares.io/) y se abre desde el icono del escritorio.
+El instalador es **Vasak Installer** y se abre desde el icono del escritorio.
 
 1. **Idioma y zona horaria.**
 2. **Teclado**: pruébalo en el campo de prueba, sobre todo si usas distribución latinoamericana.
