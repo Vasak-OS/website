@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-tx-main hover:text-brand-text" onclick="openMobileMenu()" aria-expanded="false" aria-controls="mobile-menu" aria-label="{{ T "nav.openMenu" }}">
         <span class="sr-only">{{ T "nav.openMenu" }}</span>
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           aria-hidden="true">
@@ -38,7 +38,7 @@
         <span class="sr-only">VasakOS</span>
         <img class="h-10 w-auto" src="{{ .Site.Params.images.logo }}" alt="" title="VasakOS" />
       </a>
-      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-tx-main hover:text-brand-text" onclick="closeMobileMenu()" aria-label="{{ T "nav.closeMenu" }}">
         <span class="sr-only">{{ T "nav.closeMenu" }}</span>
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           aria-hidden="true">
