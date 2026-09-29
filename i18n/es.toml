@@ -105,6 +105,8 @@
   extraPackages = "El repositorio publica además {{ .Count }} paquetes de soporte (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch)."
   howToAdd = "Cómo agregar el repositorio"
   seeRoadmap = "Ver el roadmap"
+  showMore = "Ver más"
+  showLess = "Ver menos"
 
 [social]
   title = "Redes Sociales"

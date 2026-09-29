@@ -700,3 +700,60 @@ blockquote {
     scroll-behavior: auto !important;
   }
 }
+
+/* ========== ESTADO: TABLA CON FILAS EXTRA ========== */
+
+.extra-row {
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.extra-row.hidden {
+  opacity: 0;
+  transform: translateY(-8px);
+  visibility: hidden;
+}
+
+.toggle-extra-rows {
+  transition: color 0.2s ease;
+}
+
+.toggle-extra-rows:hover .toggle-text {
+  text-decoration: underline;
+}
+
+.toggle-extra-rows[aria-expanded="true"] .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.toggle-extra-rows .fa-chevron-down {
+  transition: transform 0.2s ease;
+}
+
+/* Animación suave al mostrar/ocultar filas extra */
+tbody:has(.extra-row:not(.hidden)) .extra-row:not(.hidden) {
+  animation: fadeInRow 0.3s ease forwards;
+}
+
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respetar prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .extra-row {
+    transition: none;
+  }
+  .toggle-extra-rows .fa-chevron-down {
+    transition: none;
+  }
+  tbody:has(.extra-row:not(.hidden)) .extra-row:not(.hidden) {
+    animation: none;
+  }
+}
