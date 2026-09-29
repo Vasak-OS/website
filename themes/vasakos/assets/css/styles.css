@@ -264,6 +264,13 @@ html.dark {
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+/* Dialog backdrop - matches navbar style */
+dialog::backdrop {
+  background: var(--color-ui-bg);
+  backdrop-filter: blur(12px);
+}
+
 }
 
 @font-face {
