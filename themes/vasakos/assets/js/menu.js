@@ -1,12 +1,12 @@
 const mobileMenu = document.getElementById('mobile-menu');
-const mobileDialog = mobileMenu ? mobileMenu.closest('dialog') : null;
+const mobileOverlay = document.getElementById('mobile-menu-overlay');
 
 function openMobileMenu() {
+  if (mobileOverlay) mobileOverlay.classList.remove('hidden');
   if (mobileMenu) mobileMenu.classList.remove('hidden');
-  if (mobileDialog) mobileDialog.showModal();
 }
 
 function closeMobileMenu() {
+  if (mobileOverlay) mobileOverlay.classList.add('hidden');
   if (mobileMenu) mobileMenu.classList.add('hidden');
-  if (mobileDialog) mobileDialog.close();
 }

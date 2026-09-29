@@ -178,10 +178,11 @@ describe("los valores por defecto ceden ante la intención explícita", () => {
 });
 
 describe("la estructura no se desarma al cambiar una plantilla", () => {
-  test("el diálogo móvil tiene nombre accesible", () => {
+  test("el menú móvil tiene nombre accesible", () => {
     const header = readFileSync(`${TEMA}/layouts/partials/header.html`, "utf8");
-    const dialogo = header.match(/<dialog[^>]*>/)?.[0] ?? "";
-    expect(dialogo).toContain("aria-label");
+    // El menú móvil ahora usa un <div> con role="dialog" y aria-labelledby
+    expect(header).toContain('role="dialog"');
+    expect(header).toContain('aria-labelledby="mobile-menu-title"');
   });
 
   test("el logo no repite su nombre en el alt y en el texto adyacente", () => {
