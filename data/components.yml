@@ -24,11 +24,11 @@ groups:
     items:
       - name: vasak-desktop
         version: "1.1.3"
-        status: beta
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-desktop
       - name: vasak-session-manager
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-session-manager
       - name: vasak-desktop-settings
         version: "0.4.0"
@@ -56,7 +56,7 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-terminal
       - name: vasak-settings
         version: "0.2.1"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-settings
       - name: vasak-gallery
         version: "0.2.0"
@@ -64,7 +64,7 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-gallery
       - name: vasak-resonance
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-resonance
       - name: vasak-text
         version: "0.1.0"
@@ -84,19 +84,19 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-contacts
       - name: vasak-shot
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-shot
       - name: vasak-monitor
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-monitor
       - name: vasak-store
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-store
       - name: vasak-prism
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-prism
 
   - id: servicios
@@ -104,15 +104,15 @@ groups:
     items:
       - name: vasak-keyring
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-keyring
       - name: vasak-flare-daemon
         version: "0.2.0"
-        status: alpha
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-flare-daemon
       - name: polkit-vasak
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/polkit-vasak
       - name: vasak-permissions
         version: "0.1.0"
@@ -124,11 +124,11 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-accounts
       - name: vasak-installer
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-installer
       - name: vasak-update
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-update
       - name: vasak-wireplumber-modules
         version: "0.1.0"
@@ -140,7 +140,7 @@ groups:
     items:
       - name: vasak-press-and-hold
         version: "0.1.0"
-        status: alpha
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-press-and-hold
 
   - id: infraestructura
@@ -157,10 +157,6 @@ groups:
         version: "active"
         status: stable
         repo: https://github.com/Vasak-OS/repository-script
-      - name: vasakos-calamares
-        version: "3.4.2"
-        status: beta
-        repo: https://github.com/Vasak-OS/vasakos-calamares-config
 
 # Shown on /state/ so nobody has to reverse-engineer what "Alpha" means here.
 # `class` is a Tailwind class and has to be in a scanned file, so it stays here;

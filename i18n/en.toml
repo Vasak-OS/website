@@ -170,6 +170,8 @@
   subtitle = "Every part of VasakOS lives in its own repository, with its published version and its status. What is still rough says so."
   version = "Version"
   detail = "See the detailed status of each component"
+  viewMore = "View {{ .Count }} more in {{ .Group }}"
+  viewAll = "View all {{ .Group }}"
 
 [features]
   openSourceTag = "OPEN SOURCE"
