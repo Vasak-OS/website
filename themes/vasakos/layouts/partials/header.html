@@ -31,9 +31,9 @@
 
 </header>
 <dialog class="lg:hidden" aria-label="{{ T "nav.main" }}"
-  style="background: var(--color-ui-bg); backdrop-filter: var(--backdrop-blur-md);">
+  style="background: transparent; backdrop-filter: none;">
   <div id="mobile-menu"
-    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto px-6 py-6 sm:max-w-sm hidden">
+    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-ui-bg/80 backdrop-blur-md px-6 py-6 sm:max-w-sm hidden">
     <div class="flex items-center justify-between">
       <a href="{{ site.Home.RelPermalink }}" class="-m-1.5">
         <span class="sr-only">VasakOS</span>
