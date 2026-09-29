@@ -423,13 +423,13 @@
   text = "Write accents and special characters by holding a key down, as on macOS, without depending on the keyboard layout."
 [component.archiso]
   title = "ISO image"
-  text = "An archiso profile with a live session, the Calamares installer, and the project's own repository already configured."
+  text = "An archiso profile with a live session, the Vasak Installer, and the project's own repository already configured."
 [component."repositorio vasakos"]
   title = "pacman repository"
   text = "The project's own GPG-signed repository, with the VasakOS packages for Arch Linux."
 [component.vasakos-calamares]
   title = "Installer"
-  text = "Calamares with the VasakOS configuration and install branches."
+  text = "Vasak Installer with the VasakOS configuration and install branches."
 
 # ISO requirements, read from `data/release.yml`. The key is the requirement's
 # name exactly as it appears in the YAML.

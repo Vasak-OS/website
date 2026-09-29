@@ -18,7 +18,7 @@ exist yet.
 
 ## What you can do today
 
-- Install the system to disk with Calamares, alongside another system or on its own.
+- Install the system to disk with Vasak Installer, alongside another system or on its own.
 - Use the desktop daily: files, terminal, browser, audio playback and image viewing.
 - Configure network, sound, brightness, date and time, users and appearance from
   Settings.
