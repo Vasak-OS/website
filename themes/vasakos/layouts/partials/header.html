@@ -1,4 +1,4 @@
-<header class="sticky top-0 bg-ui-bg/80 z-40 drop-shadow-xl m-2 mb-0 rounded-corner">
+<header class="sticky top-0 bg-ui-bg/80 backdrop-blur-md z-40 drop-shadow-xl m-2 mb-0 rounded-corner">
   <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="{{ T "nav.main" }}">
     <div class="flex lg:flex-1">
       <a href="{{ site.Home.RelPermalink }}" class="-m-1.5">
@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700" onclick="openMobileMenu()">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-tx-main hover:text-brand-text" onclick="openMobileMenu()" aria-expanded="false" aria-controls="mobile-menu" aria-label="{{ T "nav.openMenu" }}">
         <span class="sr-only">{{ T "nav.openMenu" }}</span>
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           aria-hidden="true">
@@ -30,15 +30,20 @@
   </nav>
 
 </header>
-<dialog class="lg:hidden" aria-label="{{ T "nav.main" }}">
+<div id="mobile-menu-overlay"
+    class="fixed inset-0 z-40 bg-black/20 hidden lg:hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mobile-menu-title">
+  <h2 id="mobile-menu-title" class="sr-only">{{ T "nav.main" }}</h2>
   <div id="mobile-menu"
-    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 hidden">
+    class="fixed inset-y-0 right-0 z-50 w-full max-w-sm overflow-y-auto bg-ui-bg/80 backdrop-blur-md px-6 py-6 hidden">
     <div class="flex items-center justify-between">
       <a href="{{ site.Home.RelPermalink }}" class="-m-1.5">
         <span class="sr-only">VasakOS</span>
         <img class="h-10 w-auto" src="{{ .Site.Params.images.logo }}" alt="" title="VasakOS" />
       </a>
-      <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMobileMenu()">
+      <button type="button" class="-m-2.5 rounded-md p-2.5 text-tx-main hover:text-brand-text" onclick="closeMobileMenu()" aria-label="{{ T "nav.closeMenu" }}">
         <span class="sr-only">{{ T "nav.closeMenu" }}</span>
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           aria-hidden="true">
@@ -53,7 +58,7 @@
           <a href="{{ .URL | relLangURL }}" {{ if eq .Params.newtab true }}target="_blank" {{ end }}
             title="{{- .Name -}}"
             onclick="closeMobileMenu()"
-            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:text-brand-text">
+            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-tx-main hover:text-brand-text">
             {{- .Name -}}
           </a>
           {{ end }}
@@ -65,4 +70,4 @@
       </div>
     </div>
   </div>
-</dialog>
+</div>

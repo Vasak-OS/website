@@ -59,7 +59,7 @@
           {{ .name }}
         </h2>
         <div class="overflow-x-auto">
-          <table class="w-full min-w-[42rem] text-left text-sm">
+          <table id="{{ .id }}" class="w-full min-w-[42rem] text-left text-sm">
             <thead class="bg-ui-surface/70 text-xs uppercase tracking-wide text-tx-muted">
               <tr>
                 <th scope="col" class="px-6 py-3">{{ T "state.colComponent" }}</th>
@@ -70,9 +70,11 @@
               </tr>
             </thead>
             <tbody>
-              {{- range .items }}
-              {{- $badge := index $data.legend .status }}
-              <tr class="border-t border-ui-border/60">
+              {{- $maxVisible := 5 -}}
+              {{- range $idx, $item := .items }}
+              {{- $badge := index $data.legend .status -}}
+              {{- $hidden := gt $idx (sub $maxVisible 1) -}}
+              <tr class="border-t border-ui-border/60 {{ if $hidden }}hidden extra-row{{ end }}">
                 <th scope="row" class="px-6 py-4 font-semibold text-tx-main">
                   {{ .title }}
                   <span class="block text-xs font-normal text-tx-muted">{{ .name }}</span>
@@ -99,6 +101,21 @@
               </tr>
               {{- end }}
             </tbody>
+            {{- if gt (len .items) 5 }}
+            <tfoot>
+              <tr>
+                <td colspan="5" class="px-6 py-3 text-center">
+                  <button type="button"
+                    class="toggle-extra-rows inline-flex items-center gap-2 text-sm font-semibold text-brand-text hover:text-secondary"
+                    data-toggle-target="{{ .id }}" aria-expanded="false"
+                    data-text-less='{{ T "state.showLess" }}'>
+                    <span class="toggle-text">{{ T "state.showMore" }}</span>
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+            </tfoot>
+            {{- end }}
           </table>
         </div>
       </div>

@@ -1,9 +1,12 @@
 const mobileMenu = document.getElementById('mobile-menu');
+const mobileOverlay = document.getElementById('mobile-menu-overlay');
 
 function openMobileMenu() {
-  mobileMenu.classList.remove('hidden');
+  if (mobileOverlay) mobileOverlay.classList.remove('hidden');
+  if (mobileMenu) mobileMenu.classList.remove('hidden');
 }
 
 function closeMobileMenu() {
-  mobileMenu.classList.add('hidden');
+  if (mobileOverlay) mobileOverlay.classList.add('hidden');
+  if (mobileMenu) mobileMenu.classList.add('hidden');
 }

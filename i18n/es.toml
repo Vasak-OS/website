@@ -105,6 +105,8 @@
   extraPackages = "El repositorio publica además {{ .Count }} paquetes de soporte (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch)."
   howToAdd = "Cómo agregar el repositorio"
   seeRoadmap = "Ver el roadmap"
+  showMore = "Ver más"
+  showLess = "Ver menos"
 
 [social]
   title = "Redes Sociales"
@@ -172,6 +174,8 @@
   subtitle = "Cada parte de VasakOS vive en su propio repositorio, con su versión publicada y su estado. Lo que todavía está en construcción dice que está en construcción."
   version = "Versión"
   detail = "Ver el estado detallado de cada componente"
+  viewMore = "Ver {{ .Count }} más en {{ .Group }}"
+  viewAll = "Ver todas las {{ .Group }}"
 
 [features]
   openSourceTag = "CÓDIGO ABIERTO"
@@ -380,6 +384,7 @@
 [components_group.infraestructura]
   name = "Distribución"
 
+# Textos para la sección de componentes en la portada (ver más / ver todos)
 [component.vasak-desktop]
   title = "Escritorio"
   text = "Panel, menú de aplicaciones, área de notificación, control de red y de sonido. Corre sobre Wayfire con gtk-layer-shell."
@@ -427,13 +432,65 @@
   text = "Escribir acentos y caracteres especiales manteniendo apretada una tecla, como en macOS, sin depender de la distribución del teclado."
 [component.archiso]
   title = "Imagen ISO"
-  text = "Perfil de archiso con sesión en vivo, instalador Calamares y el repositorio propio ya configurado."
+  text = "Perfil de archiso con sesión en vivo, instalador Vasak Installer y el repositorio propio ya configurado."
 [component."repositorio vasakos"]
   title = "Repositorio pacman"
   text = "Repositorio propio firmado con GPG, con los paquetes de VasakOS sobre Arch Linux."
 [component.vasakos-calamares]
   title = "Instalador"
-  text = "Calamares con la configuración y las ramas de instalación de VasakOS."
+  text = "Vasak Installer con la configuración y las ramas de instalación de VasakOS."
+
+[component.vasak-wayfire-plugins]
+  title = "Plugins de Wayfire"
+  text = "Plugins del compositor Wayfire: panel, gestos, overlays y gestión de espacios de trabajo."
+
+[component.vasak-text]
+  title = "Editor de textos"
+  text = "Editor de textos plano con resaltado de sintaxis y soporte para múltiples pestañas."
+
+[component.vasak-calendar]
+  title = "Calendario"
+  text = "Calendario del sistema con integración de cuentas en línea y recordatorios."
+
+[component.vasak-mail]
+  title = "Correo"
+  text = "Cliente de correo electrónico con soporte IMAP/SMTP y cifrado PGP."
+
+[component.vasak-contacts]
+  title = "Contactos"
+  text = "Agenda de contactos integrada con cuentas en línea y sincronización."
+
+[component.vasak-shot]
+  title = "Capturas"
+  text = "Herramienta de captura de pantalla y grabación con anotaciones."
+
+[component.vasak-monitor]
+  title = "Monitor del sistema"
+  text = "Visor de recursos: CPU, memoria, disco, red y sensores."
+
+[component.vasak-store]
+  title = "Tienda"
+  text = "Tienda de aplicaciones Flatpak y nativas con sandboxing y actualizaciones automáticas."
+
+[component.vasak-prism]
+  title = "Prism"
+  text = "Visor de documentos y PDF con anotaciones y búsqueda."
+
+[component.vasak-installer]
+  title = "Instalador Vasak"
+  text = "Instalador gráfico nativo de VasakOS, reemplazo de Calamares escrito en Rust/Tauri."
+
+[component.vasak-update]
+  title = "Actualizaciones"
+  text = "Notificador de actualizaciones del sistema con detalles de cambios y opción de diferir."
+
+[component.vasak-wireplumber-modules]
+  title = "Módulos WirePlumber"
+  text = "Módulos de política de audio para enrutamiento automático y perfiles de dispositivo."
+
+[component.polkit-vasak]
+  title = "Agente PolicyKit"
+  text = "Agente de autenticación PolicyKit nativo, reemplaza a polkit-gnome. Beta."
 
 # Requisitos de la ISO, leídos de `data/release.yml`. La clave es el nombre del
 # requisito tal como está en el YAML.

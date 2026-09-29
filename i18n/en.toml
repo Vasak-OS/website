@@ -101,6 +101,8 @@
   extraPackages = "The repository also publishes {{ .Count }} support packages (keyring, mirror list, icon theme, wallpapers, and dependencies that are not in Arch)."
   howToAdd = "How to add the repository"
   seeRoadmap = "See the roadmap"
+  showMore = "Show more"
+  showLess = "Show less"
 
 [social]
   title = "Social"
@@ -168,6 +170,8 @@
   subtitle = "Every part of VasakOS lives in its own repository, with its published version and its status. What is still rough says so."
   version = "Version"
   detail = "See the detailed status of each component"
+  viewMore = "View {{ .Count }} more in {{ .Group }}"
+  viewAll = "View all {{ .Group }}"
 
 [features]
   openSourceTag = "OPEN SOURCE"
@@ -423,13 +427,65 @@
   text = "Write accents and special characters by holding a key down, as on macOS, without depending on the keyboard layout."
 [component.archiso]
   title = "ISO image"
-  text = "An archiso profile with a live session, the Calamares installer, and the project's own repository already configured."
+  text = "An archiso profile with a live session, the Vasak Installer, and the project's own repository already configured."
 [component."repositorio vasakos"]
   title = "pacman repository"
   text = "The project's own GPG-signed repository, with the VasakOS packages for Arch Linux."
 [component.vasakos-calamares]
   title = "Installer"
-  text = "Calamares with the VasakOS configuration and install branches."
+  text = "Vasak Installer with the VasakOS configuration and install branches."
+
+[component.vasak-wayfire-plugins]
+  title = "Wayfire Plugins"
+  text = "Wayfire compositor plugins: panel, gestures, overlays and workspace management."
+
+[component.vasak-text]
+  title = "Text Editor"
+  text = "Plain text editor with syntax highlighting and multi-tab support."
+
+[component.vasak-calendar]
+  title = "Calendar"
+  text = "System calendar with online accounts integration and reminders."
+
+[component.vasak-mail]
+  title = "Mail"
+  text = "Email client with IMAP/SMTP support and PGP encryption."
+
+[component.vasak-contacts]
+  title = "Contacts"
+  text = "Address book integrated with online accounts and synchronization."
+
+[component.vasak-shot]
+  title = "Screenshot"
+  text = "Screenshot and screen recording tool with annotations."
+
+[component.vasak-monitor]
+  title = "System Monitor"
+  text = "Resource viewer: CPU, memory, disk, network and sensors."
+
+[component.vasak-store]
+  title = "Store"
+  text = "Flatpak and native app store with sandboxing and automatic updates."
+
+[component.vasak-prism]
+  title = "Prism"
+  text = "Document and PDF viewer with annotations and search."
+
+[component.vasak-installer]
+  title = "Vasak Installer"
+  text = "Native graphical installer for VasakOS, replacement for Calamares written in Rust/Tauri."
+
+[component.vasak-update]
+  title = "Updates"
+  text = "System update notifier with changelog details and deferral option."
+
+[component.vasak-wireplumber-modules]
+  title = "WirePlumber Modules"
+  text = "Audio policy modules for automatic routing and device profiles."
+
+[component.polkit-vasak]
+  title = "PolicyKit Agent"
+  text = "Native PolicyKit authentication agent, replaces polkit-gnome."
 
 # ISO requirements, read from `data/release.yml`. The key is the requirement's
 # name exactly as it appears in the YAML.
