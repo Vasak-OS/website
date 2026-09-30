@@ -38,9 +38,43 @@ Commands implemented in `vasak-desktop` that new desktop features can use
 - `music_now_playing()` - Current track information
 
 ## Search
-- `global_search(query: String)` - Global application search
-- `execute_search_result(result: SearchResult)` - Run a result
-- `toggle_search()` - Show/hide search
+
+Global search is no longer part of `vasak-desktop`: it lives in the launcher,
+[`vasak-prism`](https://github.com/Vasak-OS/vasak-prism), a separate
+application that stays resident. The `global_search`, `execute_search_result`
+and `toggle_search` commands left the desktop with
+[vasak-desktop#104](https://github.com/Vasak-OS/vasak-desktop/pull/104) and
+can no longer be invoked from the frontend.
+
+What the desktop keeps is a **D-Bus forward**: the `OpenSearch` and
+`ToggleSearch` methods of the `org.vasak.os.Desktop` service still exist so
+that a shortcut, script or configuration that still calls them does not go
+dead. They do not run the search: they call the launcher's `Toggle` method,
+which shows or hides its window.
+
+| | Bus name | Object | Interface | Method |
+|---|---|---|---|---|
+| Desktop (forwards) | `org.vasak.os.Desktop` | any | any | `OpenSearch`, `ToggleSearch` |
+| Launcher (target) | `ar.net.vasak.Prism` | `/ar/net/vasak/Prism` | `ar.net.vasak.Prism` | `Toggle` |
+
+```bash
+# Still works, for compatibility: goes through the desktop
+busctl --user --expect-reply=no call org.vasak.os.Desktop /org/vasak/os/Desktop \
+  org.vasak.os.Desktop ToggleSearch
+
+# What new code should use: straight to the launcher
+busctl --user call ar.net.vasak.Prism /ar/net/vasak/Prism \
+  ar.net.vasak.Prism Toggle
+```
+
+The desktop service handles everything addressed to its name without looking
+at the object or the interface, so the path in the first example is a
+convention, not a requirement. And since no method of that service replies, the caller
+has to ask not to wait for one (`--expect-reply=no` in `busctl`; `--type=method_call`
+without `--print-reply` in `dbus-send`); otherwise the call hangs until the D-Bus timeout. The launcher installs a D-Bus activation file:
+if it is not running, the bus starts it on that same call. If `vasak-prism` is
+not installed, the forward fails and the desktop logs it without crashing. The
+launcher also exposes `Show` and `Hide` on the same object.
 
 ## Keyboard Shortcuts
 - `get_shortcuts()` - Get all shortcuts

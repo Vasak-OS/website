@@ -29,6 +29,15 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Corregido
 
+- **La documentación de `vasak-desktop` ya no ofrece la búsqueda que se fue.**
+  El catálogo de comandos listaba `global_search`, `execute_search_result` y
+  `toggle_search`, que salieron del escritorio con la búsqueda global; quien los
+  copiaba recibía un error en tiempo de ejecución. Ahora la sección dice que la
+  búsqueda vive en `vasak-prism` y documenta lo que sí queda: el reenvío D-Bus
+  `OpenSearch`/`ToggleSearch` de `org.vasak.os.Desktop` al método `Toggle` del
+  lanzador, con el ejemplo por consola. El ejemplo de debounce de las buenas
+  prácticas de Vue usaba el mismo comando y ahora usa el del lanzador. En
+  español y en inglés.
 - **Varios textos que no se podían leer.** Las insignias de estado, las dos
   pastillas que avisan si los datos de la tabla de `/state/` están frescos o no,
   y el botón «Comunidad» de `/downloads/` pisaban su texto con el color del tono
