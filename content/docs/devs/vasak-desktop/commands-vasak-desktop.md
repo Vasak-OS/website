@@ -71,7 +71,8 @@ El servicio del escritorio atiende todo lo que llega a su nombre sin mirar el
 objeto ni la interfaz, así que la ruta del primer ejemplo es una convención y
 no un requisito. Y como ningún método de ese servicio contesta, quien
 llama tiene que pedir que no se espere respuesta (`--expect-reply=no` en
-`busctl`, `--no-reply` en `dbus-send`); si no, la llamada queda colgada hasta
+`busctl`; en `dbus-send`, `--type=method_call` sin
+`--print-reply`); si no, la llamada queda colgada hasta
 que vence el tiempo de D-Bus. El lanzador instala un archivo de activación por D-Bus: si no
 está corriendo, el bus lo levanta con esa misma llamada. Si `vasak-prism` no
 está instalado, el reenvío falla y el escritorio lo anota en su registro, sin

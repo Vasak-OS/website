@@ -70,8 +70,8 @@ busctl --user call ar.net.vasak.Prism /ar/net/vasak/Prism \
 The desktop service handles everything addressed to its name without looking
 at the object or the interface, so the path in the first example is a
 convention, not a requirement. And since no method of that service replies, the caller
-has to ask not to wait for one (`--expect-reply=no` in `busctl`, `--no-reply`
-in `dbus-send`); otherwise the call hangs until the D-Bus timeout. The launcher installs a D-Bus activation file:
+has to ask not to wait for one (`--expect-reply=no` in `busctl`; `--type=method_call`
+without `--print-reply` in `dbus-send`); otherwise the call hangs until the D-Bus timeout. The launcher installs a D-Bus activation file:
 if it is not running, the bus starts it on that same call. If `vasak-prism` is
 not installed, the forward fails and the desktop logs it without crashing. The
 launcher also exposes `Show` and `Hide` on the same object.
