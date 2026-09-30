@@ -210,8 +210,9 @@ const debouncedSearch = useDebounceFn(async (query: string) => {
   }
   
   try {
-    results.value = await invoke<SearchResult[]>('global_search', { 
-      query 
+    // El comando de búsqueda del lanzador, vasak-prism
+    results.value = await invoke<SearchResult[]>('buscar', {
+      consulta: query
     })
   } catch (error) {
     console.error('Search failed:', error)
