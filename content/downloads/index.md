@@ -6,7 +6,7 @@ tags: [descargas, download, iso, vasakos iso, descargar vasakos, arch linux, lin
 type: downloads
 img: "/img/posts/download.svg"
 date: "2022-03-19"
-lastmod: "2026-06-14"
+lastmod: "2026-10-04"
 ---
 
 > **Es una versión Beta.** Se instala y se usa, con las funciones completas, pero todavía quedan errores por pulir y puede haber cambios entre compilaciones. Antes de reemplazar tu sistema principal, revisa el [estado del proyecto](/state/).
@@ -21,7 +21,7 @@ lastmod: "2026-06-14"
    sirven `dd`, [balenaEtcher](https://etcher.balena.io/) o Rufus.
 
    ```bash
-   sudo dd if=vasakos-2026.06.14-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
+   sudo dd if=vasakos-2026.10.04-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
    ```
 
    Reemplazá `/dev/sdX` por tu pendrive — `lsblk` te dice cuál es. **Escribir en el disco
