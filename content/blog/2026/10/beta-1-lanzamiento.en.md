@@ -19,23 +19,23 @@ Today, that dream takes its first official step: **VasakOS Beta 1**.
 
 This isn't an alpha with promises. Beta 1 is the first version that **installs, works, and is ready for daily use**.
 
-## 🖥️ Complete Wayland Desktop
+## Complete Wayland Desktop
 The `vasak-desktop` runs on Wayfire (wlroots) and systemd. It has a panel, application menu, notification area, network control, sound, brightness, power, screen lock, and trackpad gestures. All written in Rust, with GTK4 and gtk-layer-shell. No X11, no compatibility layers: it's native Wayland through and through.
 
-## 📦 Native Apps (and they work)
+## Native Apps (and they work)
 - **Vasak Terminal** — terminal with tabs, system color palette, lightweight and fast
 - **Vasak File Manager** — tabs, split view, real progress on copy/move/delete, undo with Ctrl+Z, SMB/sshfs mounting
 - **Vasak Settings** — users, network, sound, display, power, appearance, compositor plugins
 - **Vasak Gallery** — image viewer and organizer
 - **Vasak Resonance** — audio player with playlists and radio
 
-## 🔧 Native Graphical Installer: **Vasak Installer**
+## Native Graphical Installer: **Vasak Installer**
 No more `sudo calamares` from the terminal. The ISO ships **Vasak Installer**, our own graphical installer written in Rust/Tauri. Based on Calamares, yes, but with our configuration, our install branches, and our integration. The ISO boots, you pick language, keyboard, timezone, partition (or let the installer handle it), create your user, and you're done. On reboot, you're in VasakOS.
 
-## 📦 Signed Repository
+## Signed Repository
 The ISO comes with the `vasakos` repository pre-configured and GPG-signed. `pacman -Syu` brings you updates from both Arch's base system **and** VasakOS packages (desktop, apps, services, installer) from our GPG-signed repository.
 
-## 🛡️ Security & Privacy
+## Security & Privacy
 - **Vasak Keyring** — native keyring (Secret Service) with AES-256-GCM + Argon2id, auto-unlock via PAM at login
 - **Vasak Permissions** — asks before an app uses camera, microphone, screen, or your accounts
 - **Polkit-vasak** — native PolicyKit agent, no `polkit-gnome` dependency
@@ -43,10 +43,10 @@ The ISO comes with the `vasakos` repository pre-configured and GPG-signed. `pacm
 - **Vasak Flare Daemon** — freedesktop notifications with persistent history
 - **Vasak Keyring** — native keyring with AES-256-GCM and Argon2id
 
-## 🎨 Real Customization
+## Real Customization
 The theming system uses **CSS variables** and **CSS masks**. Change colors, borders, rounding, shadows by editing a CSS file. No recompilation, no reboot. The desktop adapts live.
 
-## 📥 Downloads
+## Downloads
 
 | Mirror | Link |
 |--------|------|
@@ -57,6 +57,8 @@ The theming system uses **CSS variables** and **CSS masks**. Change colors, bord
 **SHA256:** `8c2d59a398f4c0f7046728a34419fe3dcb72e164acfb6faeb2d839b5d1749c75`
 
 > **Always verify the checksum** before writing the ISO. `sha256sum vasakos-2026.10.04-x86_64.iso`
+
+**ISO Size:** 2.13 GB
 
 ## Requirements
 
@@ -111,4 +113,4 @@ To everyone who tested alphas, reported bugs, proposed features, endured broken 
 
 ---
 
-*VasakOS Beta 1 — October 4, 2026 — Made with ❤️ in Argentina for the world*
+*VasakOS Beta 1 — October 4, 2026 — Made with love in Argentina for the world*

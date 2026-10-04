@@ -3,7 +3,7 @@ Title: "VasakOS Beta 1: el primer paso hacia un sistema completo"
 seotitle: "VasakOS Beta 1: instalador, apps nativas, Wayland | VasakOS"
 tags: ["beta", "lanzamiento", "iso", "descargas", "wayland", "rust"]
 date: "2026-10-04"
-img: "/img/posts/beta1-banner.jpg"
+img: "https://i.postimg.cc/4yNLXL7Y/image.png"
 description: "VasakOS Beta 1: primera versión completa con instalador gráfico, apps nativas y escritorio Wayland listo para usar."
 weight: 10
 layout: post
@@ -19,10 +19,10 @@ Hoy, ese sueño da su primer paso oficial: **VasakOS Beta 1**.
 
 Esta no es una alpha con promesas. La Beta 1 es la primera versión que **se instala, se usa y se vive**.
 
-### 🖥️ Escritorio completo en Wayland
+### Escritorio completo en Wayland
 El escritorio `vasak-desktop` corre sobre Wayfire (wlroots) y systemd. Tiene panel, menú de aplicaciones, área de notificaciones, control de red, sonido, brillo, energía, bloqueo de pantalla y gestos de trackpad. Todo escrito en Rust, con GTK4 y gtk-layer-shell. No hay X11, no hay capas de compatibilidad: es Wayland nativo de verdad.
 
-### 📦 Aplicaciones nativas (y funcionando)
+### Aplicaciones nativas (y funcionando)
 - **Vasak Terminal** — terminal con pestañas, paleta de colores del sistema, ligera y rápida
 - **Vasak File Manager** — pestañas, vista dividida, progreso real en copiar/mover/borrar, deshacer con Ctrl+Z, montaje SMB/sshfs
 - **Vasak Settings** — usuarios, red, sonido, pantalla, energía, apariencia, plugins del compositor
@@ -30,13 +30,13 @@ El escritorio `vasak-desktop` corre sobre Wayfire (wlroots) y systemd. Tiene pan
 - **Vasak Resonance** — reproductor de audio con listas de reproducción y radios
 - **Vasak Terminal** — terminal con pestañas, paleta de colores del sistema
 
-### 🔧 Instalador gráfico propio: **Vasak Installer**
+### Instalador gráfico propio: **Vasak Installer**
 Ya no hace falta `sudo calamares` desde la terminal. La ISO trae **Vasak Installer**, nuestro propio instalador gráfico escrito en Rust/Tauri. Parte de Calamares, sí, pero con nuestra configuración, nuestras ramas de instalación y nuestra integración. La ISO arranca, eliges idioma, teclado, zona horaria, particionas (o dejas que lo haga el instalador), creas tu usuario y listo. Al reiniciar, estás en VasakOS.
 
-### 📦 Repositorio propio firmado
+### Repositorio propio firmado
 La ISO viene con el repositorio `vasakos` ya configurado y firmado con GPG. `pacman -Syu` te trae actualizaciones del sistema base de Arch **y** de los paquetes de VasakOS (escritorio, apps, servicios, instalador) desde nuestro repositorio firmado con GPG.
 
-### 🛡️ Seguridad y privacidad
+### Seguridad y privacidad
 - **Vasak Keyring** — llavero nativo (Secret Service) con AES-256-GCM + Argon2id, desbloqueo automático por PAM al iniciar sesión
 - **Vasak Permissions** — pide permiso antes de que una app use cámara, micrófono, pantalla o tus cuentas
 - **Polkit-vasak** — agente PolicyKit nativo, sin depender de `polkit-gnome`
@@ -44,10 +44,10 @@ La ISO viene con el repositorio `vasakos` ya configurado y firmado con GPG. `pac
 - **Vasak Flare Daemon** — notificaciones freedesktop con historial persistente
 - **Vasak Keyring** — llavero nativo con AES-256-GCM y Argon2id
 
-### 🎨 Personalización real
+### Personalización real
 El sistema de temas usa **CSS variables** y **CSS masks**. Cambias colores, bordes, redondeos, sombras editando un archivo CSS. No hay que recompilar, no hay que reiniciar. El escritorio se adapta en caliente.
 
-### 📥 Descargas
+### Descargas
 
 | Espejo | Enlace |
 |--------|--------|
@@ -58,6 +58,8 @@ El sistema de temas usa **CSS variables** y **CSS masks**. Cambias colores, bord
 **SHA256:** `8c2d59a398f4c0f7046728a34419fe3dcb72e164acfb6faeb2d839b5d1749c75`
 
 > **Verifica siempre el checksum** antes de escribir la ISO. `sha256sum vasakos-2026.10.04-x86_64.iso`
+
+**Tamaño de la ISO:** 2.13 GB
 
 ## Requisitos
 
@@ -112,4 +114,4 @@ A los que probaron las alphas, reportaron bugs, propusieron features, aguantaron
 
 ---
 
-*VasakOS Beta 1 — 4 de octubre de 2026 — Hecho con ❤️ en Argentina para el mundo*
+*VasakOS Beta 1 — 4 de octubre de 2026 — Hecho con amor en Argentina para el mundo*
