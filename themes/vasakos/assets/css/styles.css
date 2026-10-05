@@ -4,7 +4,32 @@
 
 :root {
   /* general */
-  --corner-radius: 10px;
+
+  /* Alias viejos de radio, derivados de la escala de `@theme` más abajo.
+
+     Las plantillas ya no los usan: las 95 apariciones de `rounded-corner` y
+     `rounded-corner-sm` se repartieron entre `rounded-xs`, `rounded-s`,
+     `rounded-m`, `rounded-l` y `rounded-xl`. Quedan igual porque son los
+     nombres que escribe `main.css` del escritorio, y para que si alguien los
+     vuelve a usar salgan de la escala en vez de abrir una escala paralela.
+
+     Ojo con dónde viven: acá, en `:root`, y **no** en `@theme`. En `@theme` un
+     `--radius-*` publica la utilidad `rounded-*` correspondiente, y como estos
+     tres nombres también existen en Tailwind, publicar las utilidades por el
+     mismo nombre habría producido un choque. Al no estar en `@theme` no se
+     genera ninguna utilidad `rounded-corner`, que es lo que se quiere: la
+     escala se pide con los nombres de la escala.
+
+     `--corner-radius` era el único valor que había, y la razón por la que todo
+     el sitio se veía igual —tarjetas, botones, campos, celdas, chips,
+     pestañas y alertas, noventa y una clases con la misma esquina. Ahora hay
+     cinco pasos y cada elemento toma el que le corresponde por tamaño aparente.
+
+     Un `var()` sin valor descarta la regla entera, así que los tres están
+     declarados aunque hoy no los lea nadie. */
+  --radius-corner: var(--radius-m);
+  --radius-corner-sm: var(--radius-s);
+  --radius-corner-window: var(--radius-l);
 
   /* Las tres fuentes que elige la Configuración del escritorio. Acá rigen los
      valores por defecto, que es lo que queda si la lectura falla: un `var()` sin
@@ -143,6 +168,24 @@
   --use-status-error: var(--status-error);
   --use-status-success: var(--status-success);
   --use-status-warning: var(--status-warning);
+
+  /* Escalas de sombra, por la misma indirección que los `--use-*` de color:
+     el valor de cada modo vive acá y en el bloque `.dark` de más abajo, y
+     `@theme` sólo los publica como `shadow-s` / `shadow-m` / `shadow-l`.
+
+     En claro la sombra tiene que ser casi imperceptible: la página es clara y
+     una sombra de 0.15 negro se lee como un borde sucio, no como una
+     elevación. Por eso los tres pasos van de 0.03 a 0.08 de alfa.
+
+     En oscuro no puede ser al revés. Sobre `--ui-background-dark: #1e1e2e` una
+     sombra de 0.04 es literalmente invisible —no hay nada más oscuro que la
+     página contra lo que proyectarla—, así que la escala oscura es más densa:
+     hasta 0.45 en el paso largo. La mismaelevation se ve en los dos modos
+     porque lo que la hace visible no es el alfa sino el hecho de que haya
+     algo detrás. */
+  --use-shadow-s: 0 1px 2px 0 rgb(0 0 0 / 0.04), 0 1px 1px 0 rgb(0 0 0 / 0.03);
+  --use-shadow-m: 0 2px 4px 0 rgb(0 0 0 / 0.05), 0 4px 12px 0 rgb(0 0 0 / 0.06);
+  --use-shadow-l: 0 8px 24px 0 rgb(0 0 0 / 0.08), 0 2px 6px 0 rgb(0 0 0 / 0.04);
 }
 
 .dark,
@@ -162,6 +205,11 @@ html.dark {
   --use-status-error: var(--status-error-dark);
   --use-status-success: var(--status-success-dark);
   --use-status-warning: var(--status-warning-dark);
+
+  /* La escala de sombra del modo oscuro. Ver la nota de `:root`. */
+  --use-shadow-s: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --use-shadow-m: 0 2px 4px 0 rgb(0 0 0 / 0.35), 0 6px 16px 0 rgb(0 0 0 / 0.3);
+  --use-shadow-l: 0 12px 32px 0 rgb(0 0 0 / 0.45), 0 2px 8px 0 rgb(0 0 0 / 0.3);
 }
 
 @custom-variant dark (&:where(.dark, .dark *, html.dark, html.dark *));
@@ -177,14 +225,57 @@ html.dark {
   --font-title: var(--vsk-font-title);
   --font-mono: var(--vsk-font-terminal);
 
-  /* radius */
-  --radius-corner: var(--corner-radius);
-  /* El radio chico, para lo que no es una tarjeta: chips, insignias, el pulgar de
-     una barra. Derivado del general y no fijo, así que subir el radio general
-     deja las tarjetas redondas y los chips cuadrados — que es justo lo que
-     pasa en el escritorio. */
-  --radius-corner-sm: calc(var(--corner-radius) / 2.5);
-  --radius-corner-window: calc(var(--corner-radius) + 2px);
+  /* ── Escala de radio ──────────────────────────────────────────────────────
+
+     Antes había un solo valor, `--corner-radius: 10px`, y noventa y una clases
+     `rounded-corner` lo usaban: tarjetas, botones, campos, celdas, chips,
+     pestañas y alertas salían todos con la misma esquina, y una pantalla se
+     leía como una caja tras otra en lugar de como una jerarquía.
+
+     La escala tiene cinco pasos y cada elemento toma el que le corresponde por
+     **tamaño aparente**, no por lo que es: un chip de 20 px de alto con 14 de
+     radio es una pastilla, y una tarjeta de 400 px con 4 de radio es una
+     etiqueta pegada. Los valores salen de la misma rejilla de 8 px que el
+     espaciado, y `--radius-m` conserva los 10 px que tenía todo el sitio, así
+     que los botones y los campos —que son lo que la vista reconoce como
+     controles— no se mueven.
+
+     El orden de decisión, cuando dos cosas se parecen:
+       xs  chips, insignias, código en línea, el pulgar de una barra
+       s   controles chicos, celdas, pestañas
+       m   botones, campos, selectores
+       l   tarjetas, paneles, contenedores
+       xl  hero, banner de página, cajas grandes
+
+     Los anidados están para que lo que va dentro de una caja quede concéntrico
+     y no como un rectángulo con las esquinas al revés: el nombre dice el radio
+     del padre y cuántos píxeles entra, y el valor es la resta.
+     `--radius-l-8` es 14 − 8 = 6.
+
+     Que no aparezcan en el CSS publicado no es que estén mal: Tailwind v4 saca
+     del `@theme` todo lo que ninguna clase usa, así que `rounded-l-8` no
+     genera nada hasta que alguna plantilla lo pida. Eso es lo que hay que
+     entender al buscarlos en el CSS compilado y no encontrarlos. */
+
+  --radius-xs: 4px;
+  --radius-s: 8px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+  --radius-xl: 20px;
+
+  --radius-m-4: 6px;
+  --radius-l-4: 10px;
+  --radius-l-8: 6px;
+  --radius-xl-8: 12px;
+
+  /* Sombras. Se publican como utilidades `shadow-s`, `shadow-m` y `shadow-l`.
+     Los valores no están acá sino en `:root` y en `.dark`, porque son los dos
+     modos de la misma escala y esta es la misma indirección que usan los
+     colores: `--color-ui-bg` es `var(--use-ui-background)`, y así el modo
+     oscuro no necesita una variante de cada clase. */
+  --shadow-s: var(--use-shadow-s);
+  --shadow-m: var(--use-shadow-m);
+  --shadow-l: var(--use-shadow-l);
 
   /* Colores de Marca - responsive a dark mode */
   --color-primary: var(--use-primary);
@@ -207,6 +298,38 @@ html.dark {
   --color-status-error: var(--use-status-error);
   --color-status-success: var(--use-status-success);
   --color-status-warning: var(--use-status-warning);
+}
+
+/* ── Dos utilidades cuyo nombre ya lo tenía Tailwind ─────────────────────────
+
+   `rounded-s` y `rounded-l` **no** son nombres libres en Tailwind v4: existen
+   desde antes como radio de lado lógico —`rounded-s` pone
+   `border-start-start-radius` y `border-end-start-radius`, `rounded-l` pone las
+   dos esquinas izquierdas—, y valen `0.25rem` fijo, sin mirar ningún token.
+
+   Declarar `--radius-s` y `--radius-l` en `@theme` no las resuelve: Tailwind
+   emite las dos reglas con el mismo nombre, y la lógica —que se genera al final
+   de `@layer utilities`— gana por orden. Medido en el navegador, `.rounded-l`
+   quedaba con 14 px en las dos esquinas derechas y 4 px en las dos izquierdas.
+   `rounded-s` igual, con 8 y 4. `@utility` no sirve tampoco: se agrega antes que
+   las integradas y lo pierde igual.
+
+   La salida es declarar las dos reglas **fuera de toda capa**. En la cascada lo
+   que no está en capa le gana a lo que sí, así que estas ganan sobre las
+   lógicas sin importar el orden en que se generen, y `rounded-s` / `rounded-l`
+   vuelven a significar "el radio de la escala" como las otras tres.
+
+   Es el mismo mecanismo —y el mismo riesgo— que el de `:where(#article a)` de más
+   abajo, y acá está a propósito: no es un valor por defecto que una utilidad
+   pueda pisar, es la **definición** de la utilidad. Lo único que se pierde es
+   poder pedir estos dos radios con variantes —`md:rounded-l`, `hover:rounded-l`—,
+   que el sitio no usa en ninguna parte. */
+.rounded-s {
+  border-radius: var(--radius-s);
+}
+
+.rounded-l {
+  border-radius: var(--radius-l);
 }
 
 ::view-transition-old(root) {
@@ -265,17 +388,12 @@ html.dark {
     border-color: var(--color-gray-200, currentColor);
   }
 
-/* Dialog backdrop - matches navbar style */
-dialog.mobile-menu-dialog {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-dialog.mobile-menu-dialog::backdrop {
-  background: var(--color-ui-bg);
-  backdrop-filter: blur(12px);
-}
-
+/* El menú móvil de `header.html` es un `div` con `role="dialog"`, no un
+   `<dialog>`: lo abre `openMobileMenu()` cambiando `hidden`. Estas reglas
+   apuntaban a un `<dialog class="mobile-menu-dialog">` que no existe en ninguna
+   plantilla, así que nunca matched nada — ni el `!important` los revivía. El
+   velo es `#mobile-menu-overlay`, un `div` con `bg-black/20`, y el panel ya
+   lleva su `bg-ui-bg/80 backdrop-blur-md`. */
 }
 
 @font-face {
@@ -304,24 +422,57 @@ dialog.mobile-menu-dialog::backdrop {
    `utilities` va después y gana, que es lo que corresponde a un valor por
    defecto. */
 @layer components {
+/* ── Escala tipográfica ────────────────────────────────────────────────────
+
+   Los tamaños ya estaban; lo que faltaba era el **interlineado**, y sin él cada
+   bloque heredaba el del `body` (`normal`), que para un texto de 1 rem mide
+   1.2 — más apretado de lo que un cuerpo de texto legible necesita. Un título
+   grande necesita todavía menos (1.2 y 1.3), y un párrafo largo necesita
+   bastante más: 1.7.
+
+   Los roles, con lo que los usa el sitio:
+
+     h1  título de página   2rem    700  1.2
+     h2  título de sección  1.75rem 700  1.3   text-brand-text
+     h3  subtítulo          1.5rem  700  1.35  text-secondary
+     h4  sub-subtítulo      1.25rem 700  1.4
+     p   cuerpo             1rem    400  1.7
+     li  cuerpo, en lista   1rem    400  1.7
+     —   etiqueta/secundario 0.875rem 500 1.5   `text-sm text-tx-muted`
+     code código            0.875rem 400 1.5
+
+   El papel de etiqueta no tiene una regla propia acá porque en el artículo no
+   existe un elemento que sea una etiqueta: es el texto secundario que las
+   plantillas ya escriben como `text-sm text-tx-muted`, que es exactamente
+   0.875rem / 500 / 1.5.
+
+   Los tres `font-weight: 700` de los títulos no son un valor suelto: salen de
+   `@apply … font-bold`, que es 700. Los pesos de cuerpo y de código se dejan
+   en 400 a propósito —no declararlos también los deja en el peso que traigan,
+   que es el del padre, y así una cita o un `code` dentro de un `<strong>` no
+   cambian de grosor por estar dentro. */
 #article h1 {
   font-size: 2rem;
+  line-height: 1.2;
   margin-bottom: 2rem;
   @apply my-6 font-bold;
 }
 
 #article h2 {
   font-size: 1.75rem;
+  line-height: 1.3;
   @apply my-6 text-brand-text font-bold;
 }
 
 #article h3 {
   font-size: 1.5rem;
+  line-height: 1.35;
   @apply my-4 ms-2 text-secondary font-bold;
 }
 
 #article h4 {
   font-size: 1.25rem;
+  line-height: 1.4;
   @apply my-4 ms-4 font-bold;
 }
 
@@ -342,6 +493,9 @@ h4:hover > .heading-anchor,
 #article p,
 #article li {
   font-size: 1rem;
+  /* El 1.7 es lo único realmente nuevo de la escala: sin él el cuerpo del
+     artículo salía con el interlineado del `body`, que es `normal`. */
+  line-height: 1.7;
   margin-bottom: 1rem;
 }
 
@@ -370,14 +524,18 @@ h4:hover > .heading-anchor,
   @apply text-brand-text underline decoration-brand-text/40 underline-offset-2
     hover:decoration-brand-text;
 }
-/* Los anclajes que `render-heading.html` cuelga de cada título ya son un símbolo
-   de enlace; subrayarlos sería un subrayado de nada. */
+/* Los anclajes que `render-heading.html` cuelga de cada título estaban sin
+   subrayado, con la idea de que el `#` ya es un símbolo de enlace y el
+   subrayado sobraba. `axe` no comparte ese criterio: mide el contraste entre el
+   enlace y el texto que lo rodea y, si sólo cambia el color, marca
+   `link-in-text-block` (WCAG 1.4.1) — así salía en los changelogs, que son las
+   páginas con más títulos y por lo tanto más anclajes. El subrayado resuelve el
+   aviso y además no estorba: el ancla está en `opacity-0` hasta que se pasa el
+   mouse por encima del título, así que el subrayado sólo aparece junto con ella
+   y se ve como lo que es, la misma confirmación que ya daba el color. */
 #article .heading-anchor {
-  @apply no-underline;
-}
-
-#article li {
-  list-style: disc;
+  @apply underline decoration-brand-text/40 underline-offset-2
+    hover:decoration-brand-text;
 }
 
 /* Los `- [ ]` de Goldmark salen como `<input disabled type="checkbox">` pelado
@@ -419,8 +577,25 @@ ol {
   list-style: decimal;
 }
 
-li {
-  margin-left: 2.5rem;
+/* El margen de los `<li>` estaba en una regla global —`li`, sin `#article`— con
+   2.5rem. Eso no era un estilo de lista: era un desplazamiento que se aplicaba a
+   todas las listas del sitio, incluidas las que no son de texto.
+
+   En el artículo el problema es de las dos clases. Con el contenido en línea con
+   la sidebar y los desplegables, 2.5rem de sangría por nivel se comen el ancho
+   de la columna antes de que el texto llegue a su sitio, y una lista anidada a
+   dos niveles ya se sale de la caja.
+
+   Acá queda en `#article li`, a 1.25rem —la sangría que corresponde a un nivel— y
+   el resto del sitio vuelve a no tener sangría.
+
+   Lo que **dependía** de esa regla global hay que pagarlo en las plantillas que
+   la usaban de espaciado y no de sangría, que son dos: las migas de pan —que
+   llevan `gap-0` y se separaban sólo con estos 40 px— y la paginación del blog,
+   que suma un `gap-4` a otros 40. Las dos pasaron a declarar su propio `gap`. */
+#article li {
+  margin-left: 1.25rem;
+  list-style: disc;
 }
 
 /* Syntax Highlighting Styles */
@@ -448,22 +623,27 @@ pre {
 }
 
 code {
-  @apply inline-grid p-0 px-1 rounded-md font-mono;
+  @apply inline-grid p-0 px-1 rounded-xs font-mono;
   color: unset;
   border: none;
   background: none;
   font-family: var(--vsk-font-terminal);
   font-optical-sizing: auto;
   font-style: normal;
+  /* El código en línea es el rol más chico de la escala: 0.875rem / 400 / 1.5.
+     No se usa `text-sm` porque en Tailwind eso arrastra también el interlineado
+     de la escala —1.4286— y el papel pide 1.5. */
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
-code::before {
-  content: attr(data-lang);
-  position: absolute;
-  margin-top: -43px;
-  color: var(--bg-site);
-  margin-left: -30px;
-}
+/* `code::before` rótula cada bloque con `attr(data-lang)`, un atributo que
+   ninguna plantilla emite —los que existen son `data-lang-switcher`,
+   `data-lang-toggle`, `data-lang-menu` y `data-lang-link`, todos del selector de
+   idioma—, así que no dibujaba nada. Iba además con `color: var(--bg-site)`, una
+   variable que no está declarada en ningún lado: el `var()` sin respaldo no cae
+   a transparente, invalida la declaración entera y dejaba el pseudo-elemento
+   con el color heredado. Como el rótulo no aparece nunca, la regla se va. */
 
 /* Bloques de codigo: son una terminal, y usan los tokens del terminal.
 
@@ -485,7 +665,17 @@ pre,
 }
 
 .highlight {
-  @apply p-1 rounded-corner relative my-4 border-t-24 border-primary;
+  /* El marco de un bloque de código es un contenedor: radio `l` (14 px). El
+     `pre` de adentro lleva `rounded-m` (10 px), que es el radio del padre menos
+     los 4 px de aire del `p-1`: sin esa resta el bloque de adentro se ve como
+     un rectángulo con las esquinas vivas dentro de una caja redondeada.
+
+     El valor coincide con `--radius-l-4`, que es exactamente 14 − 4, pero no
+     es el token que lo produce: `rounded-m` resuelve a `--radius-m`. Se escriben
+     los dos cuando son el mismo número a propósito, porque son dos preguntas
+     distintas —«el bloque de código es un control, y los controles son `m`» y
+     «14 − 4 da 10»—, y si mañana el marco pasa a 16 hay que revisar las dos. */
+  @apply p-1 rounded-l relative my-4 border-t-24 border-primary;
   background-color: var(--code-bg);
   color: var(--code-fg);
 }
@@ -521,7 +711,9 @@ hr {
 }
 
 pre:has(code) {
-  @apply p-2 m-4 rounded-lg overflow-x-auto;
+  /* `rounded-m` y no el `rounded-lg` de la escala de Tailwind (8 px): el marco de
+     arriba ya es `l`, y el bloque va 4 px más adentro. */
+  @apply p-2 m-4 rounded-m overflow-x-auto;
   background-color: var(--code-bg);
 }
 
@@ -536,16 +728,61 @@ pre code {
    y como el selector era generico el `color` se colaba tambien al `code` de
    dentro de los bloques —los `.nv` de Chroma salian verdes, a 2.48:1 sobre el
    fondo del bloque—, porque la regla de `pre code` no fijaba color. Ahora cada
-   contexto pone el suyo. */
-p code, li code, td code {
-  background-color: var(--ui-surface);
-  color: var(--text-main);
+   contexto pone el suyo.
+
+   El `:not(pre code)` no es un detalle. Sin él, `td code` —(0,0,3)— le ganaba a
+   `pre code` —(0,0,2)— y el chip se le ponía encima al bloque entero. En una
+   tabla de un changelog Hugo renderiza el ejemplo como
+   `<td><pre class="chroma"><code>`, así que el chip de `--color-ui-surface`
+   tapaba el `--code-bg` del terminal y los comentarios de Chroma —`.c1`, que
+   son `#a6adc8`— quedaban a 1.44:1 sobre `#ccd0da`. Pasaba en los dos modos y
+   en ninguna página se veía raro: el bloque seguía siendo oscuro, sólo llevaba
+   una tira clara atrás del texto.
+
+   Los dos tokens son los que siguen al tema a propósito: `--color-ui-surface` y
+   `--color-tx-main`, no los literales `--ui-surface` y `--text-main`. Los
+   literales son el valor del modo claro, no un alias del tema, y escribirlos
+   compila igual y deja el modo oscuro con los colores del otro. */
+p code:not(pre code),
+li code:not(pre code),
+td code:not(pre code) {
+  background-color: var(--color-ui-surface);
+  color: var(--color-tx-main);
 }
 
 /* BLOCKQUOTES */
 
+/* La cita era lo más ajeno al resto del sitio que había: un degradado de morado
+   a rosa con el texto en blanco encima. Dos problemas, y el segundo no es de
+   gusto.
+
+   El primero es que el contraste del texto dependía de dónde caía el
+   degradado. `from-secondary` es `#8839ef` y `to-brand-text` es `#8a3550`, así
+   que el blanco pasa de 4.79:1 en el extremo morado a 5.03:1 en el rosa: hoy
+   se cumple, pero por casualidad de los dos valores, y alcanza para que un
+   cambio de tono cualquiera —o un modo oscuro, donde `--secondary` pasa a
+   `#cba6f7`— lo rompa sin que nada avise.
+
+   El segundo es que `font-semibold` convertía cada bloque citado en un cartel:
+   la cita es texto del autor, y pesa lo que pesa el texto. Va en `--text-main`,
+   que es el color del artículo.
+
+   Lo que reemplaza el degradado es lo que hace el escritorio con una cita: una
+   superficie apenas teñida de la marca y un borde de acento de 3 px del lado del
+   texto. El tinte sale de `--color-primary` al 6 % sobre `--color-ui-bg`, o sea
+   que es el mismo color que ya está en pantalla mezclado, no un color nuevo.
+
+   El color va como `--color-tx-main` y no como `--text-main` a propósito. Los
+   dos existen y parecen lo mismo, pero sólo el primero sigue al tema: el
+   segundo es el valor de modo claro, escrito. Con `--text-main` la cita queda
+   `#4c4f69` sobre un fondo oscuro —1.86:1— porque el token nunca cambia. Es
+   la forma más común de romper el contraste sin que nada avise: el valor es
+   válido, la regla compila, y el fallo sólo aparece en el otro modo. */
 blockquote {
-  @apply px-6 py-4 rounded-corner bg-gradient-to-r from-secondary to-brand-text text-white font-semibold my-6 ;
+  @apply my-6 rounded-l px-6 py-4 font-normal;
+  background-color: color-mix(in oklab, var(--color-primary) 6%, var(--color-ui-bg));
+  border-inline-start: 3px solid var(--color-primary);
+  color: var(--color-tx-main);
 }
 
 }
@@ -672,6 +909,17 @@ blockquote {
  * Va con `:where()` para que tenga especificidad cero: cualquier componente que
  * quiera su propio indicador lo pisa sin peleas, y esto queda como piso. Es la
  * misma regla que el escritorio.
+ *
+ * El color es `--color-brand-text`, no `--color-primary`, y no es una decisión
+ * de gusto: el anillo se dibuja sobre la página, y `--primary: #dd7878` da
+ * 1.93:1 contra el `#ccd0da` de la superficie, muy por debajo del 3:1 que WCAG
+ * 1.4.11 exige de un indicador de foco. `--brand-text: #8a3550` da 5.03:1. Son
+ * el mismo tono de marca con la luminancia bajada, que es exactamente el
+ * criterio que ya justifica `--brand-text` para el texto.
+ *
+ * Cambiar el foco a los botones rellenos no se rompe: `outline-offset: 2px`
+ * deja el anillo por fuera del botón, sobre la página, y no sobre su propio
+ * fondo.
  */
 :where(
   a,
@@ -683,7 +931,7 @@ blockquote {
   [role="button"],
   [tabindex]:not([tabindex="-1"])
 ):focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-brand-text);
   outline-offset: 2px;
 }
 

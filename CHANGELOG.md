@@ -27,17 +27,69 @@ importan a quien usa el sitio, no la lista de archivos.
   misma función se veían distintos según dónde estuvieran; ahora se ven
   iguales en toda la página y se parecen a los del sistema.
 
+### Cambiado
+
+- **El sitio habla el lenguaje visual de OnceUI.** La paleta no se tocó: `#dd7878`
+  sigue siendo el primario y `#8839ef` el secundario, con sus variantes de
+  modo oscuro, exactamente donde estaban. Lo que cambió es todo lo demás —la
+  escala de radios, las sombras por capas, los niveles de superficie, el ritmo de
+  espaciado y el comportamiento al pasar el mouse— para que las piezas que antes
+  se dibujaban cada una a su manera compartan una sola gramática. Antes el sitio
+  tenía tres radios con nombre, sombras de Tailwind escritas sueltas de cinco
+  formas distintas y transiciones de 700 ms; ahora hay una escala y una regla.
+- **Una escala de radios con nombre en vez de tres radios sueltos:** `xs` 4 px,
+  `s` 8 px, `m` 10 px, `l` 14 px y `xl` 20 px, más los radios anidados
+  (`m-4`, `l-4`, `l-8`, `xl-8`), que son lo que hace que un panel dentro de
+  una tarjeta se lea como una cosa dentro de otra y no como dos cajas pegadas.
+  El nombre dice para qué sirve cada uno —`xl` para el hero y los banners, `l`
+  para tarjetas y paneles, `m` para botones y campos, `s` para pastillas, `xs`
+  para la barra de progreso—, así que elegir uno es una decisión y no un número.
+  Los 95 usos de las plantillas se repartieron uno por uno contra esa regla, no
+  con un reemplazo automático.
+- **Las sombras tienen nombre y versión por modo.** `--use-shadow-s/m/l` para
+  modo claro y `-s/m/l-dark` para el oscuro, con tres niveles: tarjetas,
+  superficies superpuestas y controles chicos. El oscuro necesita más alfa que
+  el claro porque `#1e1e2e` se traga una sombra suave, así que tener un solo valor
+  para los dos modos obligaba a elegir el que se veía bien en el que se estava
+  mirando.
+- **El mouse ya no hace saltar las tarjetas.** El hover levantaba 20 px en
+  700 ms, que es más transición que movimiento y mareaba al recorrer una fila de
+  precios. Ahora levanta 4 px en 300 ms y además aclara el borde, que es lo que
+  de verdad distingue la tarjeta señalada cuando el salto es tan chico.
+- **El anillo de foco se ve en modo claro.** Era `var(--color-primary)`, que
+  sobre `#ccd0da` da 1.93:1, y un indicador de foco necesita 3:1 como mínimo
+  para que se distinga de lo que tiene alrededor. Ahora es `--brand-text`, que
+  da 5.03:1 en los dos modos.
+- **El texto del artículo respira.** La altura de línea del `body` pasó a 1.7 y
+  la sangría de las listas, que estaba como regla global y apartaba también a las
+  listas de navegación, ahora sólo se aplica dentro de `#article`.
+
 ### Corregido
 
-- **La documentación de `vasak-desktop` ya no ofrece la búsqueda que se fue.**
-  El catálogo de comandos listaba `global_search`, `execute_search_result` y
-  `toggle_search`, que salieron del escritorio con la búsqueda global; quien los
-  copiaba recibía un error en tiempo de ejecución. Ahora la sección dice que la
-  búsqueda vive en `vasak-prism` y documenta lo que sí queda: el reenvío D-Bus
-  `OpenSearch`/`ToggleSearch` de `org.vasak.os.Desktop` al método `Toggle` del
-  lanzador, con el ejemplo por consola. El ejemplo de debounce de las buenas
-  prácticas de Vue usaba el mismo comando y ahora usa el del lanzador. En
-  español y en inglés.
+- **Las citas ya no son un degradado de morado a rosa con el texto en blanco.**
+  Era lo más ajeno al resto del sitio que había, y además el texto no cumplía
+  con el contraste mínimo ni en el color de la marca. Ahora es lo que hace un
+  escritorio con una cita: una superficie apenas teñida del color de la marca
+  —`--color-primary` al 6 % sobre `--color-ui-bg`, o sea el color que ya estaba
+  en pantalla mezclado, no uno nuevo— con un borde de acento de 3 px del lado
+  del texto, y el texto en el color de lectura normal.
+- **El bloque de código de una celda de tabla llevaba una tira clara detrás.** La
+  regla de `code` en línea —la que pone el chip— no puede distinguir un `<code>`
+  de una palabra de un `<code>` que envuelve tres líneas, y ganaba por
+  especificidad a la del bloque. En los changelogs, donde Hugo renderiza el
+  ejemplo de bash dentro de una tabla, el chip se le ponía encima al terminal y
+  los comentarios quedaban a 1.44:1 sobre un fondo claro. El bloque seguía siendo
+  oscuro, así que no se veía raro: sólo llevaba una tira clara atrás del texto.
+- **El carrusel de capturas de la portada no se podía desplazar con el teclado.**
+  Se mueve con la rueda y con el dedo, y dentro no hay nada enfocable: las
+  capturas son `figure` y los botones de anterior y siguiente son hermanos, no
+  hijos. Con teclado no había manera de llegar a la tercera captura —WCAG 2.1.1—.
+  Ahora la pista es un punto de tabulación, y como ya tenía nombre y rol de
+  carrusel, lo que se anuncia es el carrusel y no un grupo genérico.
+- **Las migas de pan quedaron pegadas.** El separador era el margen izquierdo que
+  la regla global de las listas aplicaba a todos los `<li>`. Al limitar esa regla
+  al artículo —que era lo único que quería— las migas perdieron el espacio entre
+  crumbs y crumb, y ahora lo llevan con el `gap` de la propia lista.
 - **Varios textos que no se podían leer.** Las insignias de estado, las dos
   pastillas que avisan si los datos de la tabla de `/state/` están frescos o no,
   y el botón «Comunidad» de `/downloads/` pisaban su texto con el color del tono
@@ -154,6 +206,48 @@ importan a quien usa el sitio, no la lista de archivos.
   colaba en la etiqueta `description` y en los resultados del buscador. Las 134
   páginas de contenido tienen ahora una descripción escrita, en los dos idiomas,
   sin repetir una sola vez y ninguna de las dos cosas de antes.
+- **El «Vasak Group» del pie se leía a 1.93:1 en cada página del sitio, y
+  `axe` lo daba por bueno.** Es la segunda mitad de lo anterior: el texto iba
+  pintado con `bg-clip-text` y `text-transparent`, o sea que el color lo ponía el
+  degradado de la marca. `bg-clip-text` recorta el relleno a la forma del texto y
+  deja el `color` en transparente, así que la regla `color-contrast` no tiene nada
+  que comparar: marca el elemento como *incomplete* —«revisar a mano»— y la
+  auditoría sigue dando verde con el texto en 1.93:1. El degradado iba de
+  `--color-secondary` a `--color-primary`, y contra la superficie clara da 3.51:1
+  en el extremo violeta y 1.93:1 en el rosa; en el modo oscuro el mismo
+  degradado da 6.19:1 y 6.08:1 y pasaba de sobra, que es justo por qué nadie lo
+  notó mirando sólo el oscuro. Como el enlace estaba en el pie, el fallo se
+  repetía en las 166 páginas del sitio. No hay ningún par de la paleta que llegue
+  a 4.5:1 a lo largo de todo el degradado —`--secondary` y `--primary` son los dos
+  colores que más se usan de relleno—, así que ahora es `--color-brand-text`
+  sólido: 5.03:1 en claro y 6.08:1 en oscuro. El «404» de la página de error, que
+  usaba el mismo truco, también.
+- **Los paneles con degradado de marca ya no llevan texto encima.** Los degradados
+  a sangre —el hero de la portada, las fichas de la sección de características,
+  los tres planes de precios, los casos de `/about/`— no se pueden dejar: un degradado
+  de dos tonos de la paleta no tiene un color contra el que medir, y los dos
+  extremos piden colores de texto opuestos. `--secondary` necesita texto claro
+  —5.41:1 con blanco— y `--primary` necesita texto oscuro —5.49:1 con `#1e1e2e`—,
+  así que en la mitad del degradado cualquier texto que serve para un extremo
+  falla en el otro. Ahora son `bg-primary` sólido con `text-tx-on-primary`, que da
+  5.49:1 en claro y 7.93:1 en oscuro. El degradado se queda donde no hay nada que
+  leer: las baldosas de icono de 70 px, que llevan `aria-hidden`. La razón por la
+  que fallaba sólo en oscuro es que `--color-tx-on-primary` es `#1e1e2e` en los
+  dos modos mientras el degradado en oscuro se aclara —`--primary-dark` es
+  `#eba0ac`, `--secondary-dark` es `#cba6f7`—: el color de texto se quedaba
+  claro mientras el fondo se oscurecía.
+- **Los enlaces que cambiaban a violeta al pasar el mouse ahora se subrayan.**
+  `hover:text-secondary` estaba en seis sitios y `--secondary` da 3.51:1 sobre la
+  superficie y 3.73:1 sobre un panel al 80 %: por debajo de los 4.5:1 que pide un
+  enlace de 16 px, y por debajo del mínimo de 3:1 que ya le costaba al resto del
+  pie. No hay un violeta más oscuro en la paleta, así que el hover deja de cambiar
+  de tono y se resuelve con el subrayado, que es lo que ya hacían los siete
+  enlaces de marca del pie.
+- **El `iframe` de Telegram de la nota de votación no tenía nombre accesible.**
+  El `<script>` del widget lo crea sin `title` en ninguna versión, así que el
+  marco salía sin nombre en tres idiomas. `menu.js` ahora rotula los `iframe` de
+  terceros que llegan sin nombre y se queda observando el documento, porque el
+  marco lo inserta el script después de que la página haya cargado.
 
 ### Texto
 
@@ -228,11 +322,96 @@ importan a quien usa el sitio, no la lista de archivos.
   descripción, que hubo que hacer copiando una sobre la otra, porque cambiar el
   texto de una no crea un duplicado.
 - **La auditoría de accesibilidad se repite contra el build y se verifica a sí
-  misma.** 24 páginas × los dos modos, 48 auditorías, 0 violaciones. Antes de
+  misma.** 32 páginas × los dos modos, 64 auditorías, 0 violaciones. Antes de
   confiar en el cero se le inyectó una infracción a propósito —gris claro sobre
   blanco— y `color-contrast` la encontró. Un 0 de violaciones que en realidad
   sea un 0 de mediciones es el peor resultado posible: parece bien y no está
   diciendo nada.
+- **Los radios y las sombras quedaron como invariantes comprobables.** Los
+  tokens viven en `@theme`, así que `rounded-xs/s/m/l/xl` y `shadow-s/m/l` se
+  generan de verdad, y las pruebas comprueban que el CSS compilado los tiene y que
+  no queda ningún `rounded-corner` de la escala vieja colgando. Los tres alias
+  viejos —`--radius-corner`, `--radius-corner-sm`, `--radius-corner-window`— se
+  dejaron en `:root` y **fuera** de `@theme` a propósito: si vivieran dentro,
+  Tailwind genera un `rounded-corner` que nadie pidió y la escala deja de ser la
+  única forma de pedir un radio, que es justo lo que la escala tiene que ser.
+- **Las etiquetas del sitio ya no son tres páginas para la misma palabra.**
+  `vasak`, `vasak os` y `vasakos` eran la misma palabra escrita de tres formas;
+  `arch linux` y `arch-linux`, la misma; `open source` y `open-source`,
+  también; y `changelog` y `changelogs` convivían **en la misma lista** de los
+  cinco changelogs, en singular y plural. El término canónico es el que coincide
+  con el nombre de la sección —`vasakos`, `arch-linux`, `open-source`,
+  `changelogs`—, que además da la URL más corta. Se fueron siete términos que
+  sólo existían para repetir la marca —`download vasakos`, `descargar vasakos`,
+  `about vasakos`, `sobre vasakos`, `donations vasak`, `support vasakos`,
+  `vasak donatcion`—, una fecha suelta que se había colado como etiqueta, y
+  `download` de la página de descargas en español, que ya tenía `descargas` y
+  además repetía la palabra en inglés donde la versión inglesa ya la ponía. En
+  `/terms/` y `/en/terms/` las cuatro etiquetas se redujeron a las que de verdad
+  describen el documento. Quedan **78 términos distintos** —61 en español y 52 en
+  inglés, 36 compartidos—, sin repetidos dentro de una lista, sin dos que se
+  escriban igual y sin dos que peleen por la misma URL.
+- **Ocho pruebas nuevas vigilan la higiene de las etiquetas**
+  (`tests/tags.test.ts`): que ninguna lista repita un término, que nada se
+  escriba de dos formas —incluido el singular contra el plural—, que dos
+  términos no produzcan la misma carpeta, que ninguno sea una fecha ni una
+  marca inflada con una palabra de más, que el contenido en español no lleve el
+  término del otro idioma, y que todo término termine siendo una página
+  publicada. Se comprobaron una por una **mutando el contenido y viendo que la
+  prueba se pone roja**: `changelogs`→`changelog`, un término repetido en la
+  misma lista, y un término inglés en una página en española. Una de ellas
+  —la que revisa contra `public/`— necesita el build hecho y salta con un aviso
+  si no está: sin el salto, `bun test` sobre un clon recién bajado pasa en verde
+  con las 111 carpetas sin comprobar.
+- **Dos encargos resultaron no hacer falta, y conviene dejarlo escrito.** Los
+  paneles de `bg-*/60` a `/80` ya estaban en `/80` desde antes de esta rama —
+  comprobado contra `git show HEAD:`, no de memoria— y `/terms/` ya estaba
+  íntegramente en español: `lang="es-AR"`, 155 bloques de texto contra 158 del
+  inglés, y las únicas cadenas que comparten con la versión inglesa son URLs y el
+  correo. Se pierden dos tareas y no se toca nada.
+- **La limpieza de grises fuera de paleta dejó 51 usos y 7 radios.** `text-gray-*`
+  y `bg-gray-*` salían de la convención de Tailwind, no de la paleta: los grises
+  de Tailwind no están en ningún token y no cambian con el modo oscuro. Ahora
+  usan `text-tx-main`, `text-tx-muted` y `bg-ui-surface`. Los 7 radios que no
+  estaban en la escala pasaron a `rounded-xl` o `rounded-s`.
+- **Dos reglas de CSS muertas se fueron, con el motivo anotado en su lugar.**
+  `dialog.mobile-menu-dialog` describía un `<dialog>` que el sitio no tiene —el
+  menú es un `div` con `role="dialog"`—, y el `code::before` usaba una variable
+  `--bg-site` que no existe y un `data-lang` que ningún elemento declara.
+- **La auditoría de accesibilidad pasó de 32 páginas a 166, en los dos modos: 332
+  auditorías y 0 violaciones.** Las 32 eran una muestra elegida a mano; el
+  barrido completo es lo que destapó lo del degradado recortado. Las 9 páginas
+  de la lista que son *aliases* —un `meta-refresh` de ocho líneas que manda al
+  sitio en producción— quedan fuera: no hay nada que auditar y su redirección
+  sacaba la pestaña del servidor local.
+- **Medir el color de fondo a mano tiene una trampa que casi hace pasar un
+  defecto real.** Tailwind v4 serializa sus tokens en `oklab()`, no en `rgb()`,
+  y un lector con expresión regular tomaba las coordenadas de OKLab por canales
+  sRGB: `bg-ui-bg/80` es `oklab(0.9577… 0.0005… 0.0057… / 0.8)`, que leído como
+  RGB da `rgb(1,0,0)` y compuesto sobre la superficie da `rgb(42,42,44)`. Con eso
+  el pie entero «fallaba» con 1.85:1 en modo claro, cuando lo que se ve en
+  pantalla da 5.17:1. La conversión se validó contra tres colores conocidos
+  antes de confiar en un solo número.
+- **La auditoría tuvo que arreglar tres veces su propio
+  método antes de servir para algo**, y vale la pena anotarlo porque los tres
+  fallos daban el mismo resultado que un sitio roto:
+  1. Correr axe dentro de un `iframe` dio `#9a9dad` como color de un elemento
+     que en la pestaña real mide `#4c4f69`: 2.23:1 en vez de 6.64:1. El color
+     que axe calcula dentro de un marco no coincide con el de la pestaña, así
+     que las cifras no servían. Se audita navegando de verdad.
+  2. Cambiar el tema *después* de cargar hacía que axe midiera colores a medio
+     camino de la transición: `#9a9dad` y `#787c93` son `text-tx-main`
+     interpolando entre el valor de claro y el de oscuro. Un sitio entero
+     parecía tener dos infracciones de contraste que no tenía.
+  3. La última forma —cargar con el modo ya puesto en `localStorage` y recargar
+     con una URL distinta— es la que funciona: la página arranca en el modo que
+     se va a medir y no hay transición que medir.
+
+  Y el servidor importa: `python3 -m http.server` atiende un pedido a la vez.
+  Una página del blog pide cien recursos, el navegador los abre en paralelo y
+  cada uno espera al anterior, así que la navegación tardaba más de un minuto y
+  la herramienta la daba por perdida aunque la página cargara bien. Se auditó
+  contra un servidor concurrente.
 
 ## Notas
 

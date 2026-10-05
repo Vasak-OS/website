@@ -101,6 +101,71 @@ describe("los rellenos de marca llevan el token de texto que les corresponde", (
     });
     expect(malos).toEqual([]);
   });
+
+  /*
+    Un degradado de marca no admite un único color de texto. `#8839ef` da 5.41:1
+    con blanco pero 3.03:1 con `#1e1e2e`, y `#dd7878` al revés: 2.99:1 con
+    blanco, 5.49:1 con `#1e1e2e`. Como los dos extremos del degradado piden
+    colores opuestos, cualquier texto encima queda por debajo de 4.5:1 en uno de
+    ellos, y `axe` lo aprueba porque un fondo con degradado no lo sabe medir: lo
+    marca como *incomplete* y no lo cuenta como violación. Eso es exactamente lo
+    que pasó con los paneles de "features", "about" y "prices", donde
+    el encabezado quedaba en 3.03:1 —apenas sobre el 3:1 del texto grande— y la
+    etiqueta de 16 px se quedaba en ese mismo 3.03:1, cuando necesita 4.5:1.
+
+    La regla que lo sostiene: sobre un degradado de marca no se escribe texto.
+    El degradado queda para lo decorativo —los iconos de `advantages` y `docs`,
+    que son `aria-hidden`— y el panel que lleva texto usa el relleno sólido con
+    su token.
+  */
+  test("ningún texto se apoya en un degradado de marca", () => {
+    const malos = plantillas.flatMap((ruta) => {
+      const html = readFileSync(ruta, "utf8");
+      // Se lee etiqueta por etiqueta y no atributo por atributo porque la
+      // exención depende de un atributo vecino: un degradado cuyo único texto es
+      // un icono lleva `aria-hidden` en la misma etiqueta, y ese icono no tiene
+      // nada que leer. Lo que se busca es un degradado con texto *visible*.
+      return [...html.matchAll(/<(\w+)\b[^>]*>/g)]
+        .map((m) => m[0])
+        .filter((etiqueta) => /class="[^"]*bg-gradient-to-\w+/.test(etiqueta))
+        .filter((etiqueta) => !/aria-hidden/.test(etiqueta))
+        .filter((etiqueta) =>
+          /\btext-(white|tx-on-primary|tx-on-secondary|tx-main|tx-muted|brand-text)\b/.test(etiqueta))
+        .map((etiqueta) => `${ruta}  ${etiqueta.slice(0, 110)}`);
+    });
+    expect(malos).toEqual([]);
+  });
+
+  test("el texto no se pinta con un degradado recortado", () => {
+    /*
+      `bg-clip-text` + `text-transparent` pinta el texto con el degradado y le
+      saca el color. Es la forma más bonita de escribir «404» y también la
+      primera que `axe` no puede medir: al no haber un `color`, la regla
+      `color-contrast` no tiene nada que comparar, marca el elemento como
+      *incomplete* y la auditoría sigue dando verde con el texto en 1.93:1.
+
+      Se midió a mano antes de borrar nada. `from-secondary to-primary` sobre la
+      superficie clara da 3.51:1 en el extremo violeta y 1.93:1 en el rosa: el
+      "404" de 72 px necesita 3:1 y el enlace "Vasak Group" del pie, de 18 px,
+      necesita 4.5:1, así que los dos perdían. En oscuro el mismo degradado da
+      6.19:1 y 6.08:1 y pasaba, lo que explica que nadie lo notara mirando sólo
+      el modo oscuro. Ningún par de la paleta llega a 4.5:1 a lo largo de todo
+      el degradado, y por eso la salida es `--color-brand-text` sólido.
+
+      La prueba es bluntly total: `bg-clip-text` no aparece en ninguna plantilla.
+      Si algún día hace falta escribir un titular con degradado, la forma
+      correcta es medirlo a mano y dejarlo anotado acá, no confiar en el verde
+      de la auditoría.
+    */
+    const malos = plantillas.flatMap((ruta) => {
+      // Los comentarios de Hugo se limpian antes de buscar: el párrafo de arriba
+      // nombra la utilidad para explicar por qué no está, y contarlo como uso
+      // haría que la prueba no pudiera pasar nunca.
+      const html = readFileSync(ruta, "utf8").replace(/\{\{-?\s*\/\*[\s\S]*?\*\/\s*-?\}\}/g, "");
+      return (html.match(/bg-clip-text/g) ?? []).map((c) => `${ruta}  ${c}`);
+    });
+    expect(malos).toEqual([]);
+  });
 });
 
 describe("el resaltado de código es la terminal, no un tema ajeno", () => {
@@ -175,6 +240,26 @@ describe("los valores por defecto ceden ante la intención explícita", () => {
     const utilidades = aplicadas.split(/[\s;]+/).filter(Boolean);
     expect(utilidades).toContain("underline");
   });
+
+  test("también lo lleva el ancla que cuelga de cada título", () => {
+    /*
+      `render-heading.html` cuelga un `#` enlazado al propio título de cada
+      sección, y ese `#` estaba explícitamente sin subrayado: la idea era que el
+      símbolo ya era un enlace y el subrayado sobraba. `axe` no la comparte —mide
+      el contraste contra el texto vecino y, si sólo cambia el color, marca
+      `link-in-text-block` (WCAG 1.4.1)—, y los changelogs son las páginas con
+      más títulos, así que ahí salía la violación.
+
+      La prueba mira la regla por separado de la de los enlaces en línea porque
+      es la que puede volver a perder el subrayado sin que la otra se entere.
+    */
+    const css = readFileSync(`${TEMA}/assets/css/styles.css`, "utf8");
+    const i = css.indexOf("#article .heading-anchor {");
+    expect(i).toBeGreaterThan(-1);
+    const bloque = css.slice(i, css.indexOf("}", i));
+    expect(bloque).toContain("underline");
+    expect(bloque).not.toContain("no-underline");
+  });
 });
 
 describe("la estructura no se desarma al cambiar una plantilla", () => {
@@ -198,6 +283,49 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     const pie = readFileSync(`${TEMA}/layouts/partials/footer.html`, "utf8");
     expect(pie).toContain("<footer>");
     expect(pie).toContain("</footer>");
+  });
+
+  test("ningún enlace cambia de color al pasar el mouse", () => {
+    /*
+      Seis enlaces de marca usaban `hover:text-secondary`, y `--secondary` es
+      `#8839ef`: 3.51:1 contra `--color-ui-surface` y 3.73:1 contra el
+      `bg-ui-bg/80` que lo envuelve, cuando un enlace de 16 px necesita 4.5:1.
+      En oscuro el mismo salto da 6.19:1 y pasaba, así que el fallo sólo se veía
+      en el modo claro —y `axe` lo mide sobre el estado actual, con lo que
+      tampoco lo reportaba salvo que el puntero estuviera encima.
+
+      La respuesta no es buscar un violeta más oscuro —la paleta no tiene uno—,
+      sino dejar de cambiar el color: el hover pasa a subrayar, que es lo que ya
+      hacían los otros siete enlaces de marca del sitio y lo que resuelve
+      `link-in-text-block` sin depender de la luminosidad.
+    */
+    const malos = plantillas.flatMap((ruta) => {
+      const html = readFileSync(ruta, "utf8");
+      return (html.match(/hover:text-(primary|secondary|gray-\d+|white)\b/g) ?? [])
+        .map((c) => `${ruta}  ${c}`);
+    });
+    expect(malos).toEqual([]);
+  });
+
+  test("los iframes de terceros reciben nombre accesible", () => {
+    /*
+      El embed de Telegram es un `<script>` de `telegram.org` que crea el
+      `<iframe>` él mismo, sin `title` ni `aria-label`, y `axe` marcaba
+      `frame-title` (WCAG 4.1.2) en los dos idiomas de la entrada de icons.
+      Poner el nombre en el markdown no sirve: cuando el Markdown se procesa el
+      `iframe` todavía no existe. Tiene que hacerlo el script del sitio, y por eso la
+      prueba mira que la rotación exista y que respete los `iframe` que ya
+      vengan nombrados — el nombre del tercero es mejor que uno inventado acá.
+
+      El `t.me/` del final no es un detalle: el `iframe` que crea el widget
+      carga desde `t.me/.../?embed=1` y `telegram.org` es sólo el origen del
+      `<script>`. Buscar el dominio del script deja el `iframe` sin rotular y
+      `axe` vuelve a marcar `frame-title`.
+    */
+    const js = readFileSync(`${TEMA}/assets/js/menu.js`, "utf8");
+    expect(js).toContain("rotularIframes");
+    expect(js).toContain('iframe:not([title]):not([aria-label])');
+    expect(js).toContain("t.me/");
   });
 
   test("el carrusel de capturas tiene rol de region accesible", () => {
