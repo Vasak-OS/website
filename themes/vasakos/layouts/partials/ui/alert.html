@@ -10,7 +10,7 @@
 
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
-  La clase base, `flex gap-3 rounded-corner border px-4 py-2 text-sm`; las cuatro
+  La clase base, `flex gap-3 rounded-m border px-4 py-2 text-sm`; las cuatro
   listas de `CLASES_POR_TONO`, enteras; y el `role` de `rolDelTono`: `alert` para
   el error —que interrumpe— y `status` para los otros tres, que esperan su turno.
 
@@ -53,7 +53,7 @@
 {{- /* `rolDelTono`: sólo el error interrumpe. */ -}}
 {{- $rol := cond (eq $tone "error") "alert" "status" -}}
 
-<div role="{{ $rol }}" aria-atomic="true" class="flex gap-3 rounded-corner border px-4 py-2 text-sm {{ $clases }}">
+<div role="{{ $rol }}" aria-atomic="true" class="flex gap-3 rounded-m border px-4 py-2 text-sm {{ $clases }}">
   {{- /* Alineado con la primera línea y no centrado en la caja: con un aviso de
          cinco líneas, centrado queda flotando a la mitad del párrafo. */ -}}
   {{- with $icon }}<i class="{{ . }} mt-0.5 shrink-0" aria-hidden="true"></i>{{ end }}

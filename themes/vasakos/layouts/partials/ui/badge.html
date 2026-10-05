@@ -20,10 +20,15 @@
 
   `main.css` dice, sobre `--radius-corner-sm`: «El radio chico, para lo que no
   es una tarjeta: chips, insignias, el pulgar de una barra». Una insignia es
-  exactamente eso, así que va `rounded-corner-sm` y no `rounded-full`. La
-  diferencia no es de gusto: `rounded-corner-sm` sale de `--corner-radius`, que
-  Configuración deja cambiar, así que un escritorio con esquinas muy redondeadas
-  tiene insignias redondeadas también. Con `rounded-full` no.
+  exactamente eso, así que va el paso `s` de la escala —`rounded-s`— y no
+  `rounded-full`. La diferencia no es de gusto: `rounded-s` sale del token de
+  escala, así que un escritorio con esquinas muy redondeadas tiene insignias
+  redondeadas también. Con `rounded-full` no.
+
+  El nombre cambió de `rounded-corner-sm` a `rounded-s` porque la escala de radio
+  del sitio pasó de un valor único a cinco pasos, y los nombres viejos
+  —`--corner-radius`, `--radius-corner-sm`— quedan como alias en `:root` para
+  lo que escribe `main.css` del escritorio. `rounded-s` es el mismo valor, 8 px.
 
   ── El color ────────────────────────────────────────────────────────────────
 
@@ -52,4 +57,4 @@
 -}}
 {{- $clasesTamano := index $tamanos $size | default (index $tamanos "sm") -}}
 
-<span class="inline-flex items-center whitespace-nowrap rounded-corner-sm text-xs font-semibold {{ $clasesTamano }} {{ $class }}">{{ $label }}</span>
+<span class="inline-flex items-center whitespace-nowrap rounded-s text-xs font-semibold {{ $clasesTamano }} {{ $class }}">{{ $label }}</span>

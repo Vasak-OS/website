@@ -11,7 +11,7 @@
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
   La lista de clases base es la de `ListCard`: `flex items-center justify-between
-  background p-3 rounded-corner border border-ui-border transition-colors
+  background p-3 rounded-s border border-ui-border transition-colors
   duration-200`. Y el grupo de texto de adentro es el de `DeviceCard`:
   `flex items-center gap-3 flex-1 min-w-0`, con el título en `font-semibold` y
   el subtítulo en `text-xs text-tx-muted`.
@@ -110,7 +110,7 @@
 {{- $extra := .class | default "" -}}
 
 {{- $fondo := cond $surface "bg-ui-surface/70" "background" -}}
-{{- $clases := printf "%s rounded-corner border border-ui-border transition-colors duration-200" $fondo -}}
+{{- $clases := printf "%s rounded-l border border-ui-border transition-colors duration-200" $fondo -}}
 {{- if eq $pad "device" -}}
   {{- $clases = printf "%s px-6 py-3 mb-4" $clases -}}
 {{- else if ne $pad "none" -}}

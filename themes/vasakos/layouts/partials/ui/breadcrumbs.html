@@ -6,7 +6,7 @@
 
   No hay componente de migas en `@vasakgroup/vue-libvasak` 1.9.0 — se revisó el
   `src/` entero — así que no hay nada que espejar. Lo que sí se toma del
-  escritorio es el vocabulario: `rounded-corner` en los destinos, el hover en
+  escritorio es el vocabulario: `rounded-m` en los destinos, el hover en
   `--color-primary`, y el `--radius-corner` de `main.css` en todas partes.
 
   ── Lo que arregla ──────────────────────────────────────────────────────────
@@ -69,10 +69,10 @@
      todos los anteriores sí. Los `x-default` de los idiomas están en head.html,
      con el resto. */}}
 <nav class="breadcrumbs-container mb-6" aria-label="{{ T "breadcrumbs.label" }}">
-  <ol class="flex flex-wrap items-center gap-0 text-sm">
+  <ol class="flex flex-wrap items-center gap-2 text-sm">
     <li class="flex items-center">
       <a href="{{ site.Home.RelPermalink }}"
-        class="inline-flex items-center gap-1.5 rounded-corner px-3 py-2 transition-colors duration-200 hover:text-brand-text"
+        class="inline-flex items-center gap-1.5 rounded-m px-3 py-2 transition-colors duration-200 hover:text-brand-text"
         title="{{ T "breadcrumbs.home" }}">
         <i class="fa-solid fa-house text-sm" aria-hidden="true"></i>
         <span class="sr-only sm:not-sr-only">{{ T "breadcrumbs.home" }}</span>
@@ -83,7 +83,7 @@
     <li class="flex items-center">
       <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
       <a href="{{ .RelPermalink }}"
-        class="rounded-corner px-3 py-2 text-tx-muted transition-colors duration-200 hover:text-brand-text">
+        class="rounded-m px-3 py-2 text-tx-muted transition-colors duration-200 hover:text-brand-text">
         {{- with .Params.shortTitle }}{{ . }}{{ else }}{{ .Title }}{{ end -}}
       </a>
     </li>
@@ -92,8 +92,14 @@
     {{- if not $page.IsHome }}
     <li class="flex items-center">
       <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
+      {{- /* El ítem actual se pinta con `--color-primary` y `--color-tx-on-primary` en
+     lugar de con el degradado violeta→rosa que tenía antes. Sobre ese degradado
+     el blanco daba 2.70:1 en el extremo `--brand-text` y 2.03:1 en oscuro, y el
+     texto de la miga pesa 14 px, así que necesita 4.5:1 y no los alcanzaba en
+     ninguno de los dos modos. `axe` lo aprueba igual: un fondo con degradado no
+     lo sabe medir y lo deja como *incomplete* en vez de como violación. */}}
       <span aria-current="page"
-        class="rounded-corner bg-gradient-to-r from-secondary to-brand-text px-3 py-2 font-medium text-white">
+        class="rounded-m bg-primary px-3 py-2 font-medium text-tx-on-primary">
         {{- if in .RelPermalink "/docs/" }}
         <i class="fa-solid fa-book text-sm" aria-hidden="true"></i>
         {{- else if in .RelPermalink "/blog/" }}

@@ -9,7 +9,7 @@
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
   La caja `flex flex-col items-center justify-center gap-3 px-8 py-12
-  text-center`; el borde `rounded-corner border border-ui-border border-dashed
+  text-center`; el borde `rounded-l border border-ui-border border-dashed
   bg-ui-surface/20` para la variante con marco; el título en `font-medium text-sm
   text-tx-main` y la nota en `text-sm text-tx-muted`; y el `alt` vacío del icono,
   que acompaña a un texto que ya dice lo mismo.
@@ -40,7 +40,7 @@
 {{- $bordered := .bordered | default false -}}
 {{- $action := .action | default "" -}}
 
-<div class="flex flex-col items-center justify-center gap-3 px-8 py-12 text-center{{ if $bordered }} rounded-corner border border-dashed border-ui-border bg-ui-surface/20{{ end }}">
+<div class="flex flex-col items-center justify-center gap-3 px-8 py-12 text-center{{ if $bordered }} rounded-l border border-dashed border-ui-border bg-ui-surface/20{{ end }}">
   {{- with $icon }}<i class="{{ . }} mb-1 shrink-0 text-4xl opacity-60" aria-hidden="true"></i>{{ end }}
   <p class="text-sm font-medium text-tx-main">{{ $title }}</p>
   {{- with $note }}<p class="text-sm text-tx-muted">{{ . }}</p>{{ end }}

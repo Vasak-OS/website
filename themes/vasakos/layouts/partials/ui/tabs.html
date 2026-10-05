@@ -11,7 +11,7 @@
   El contenedor `flex min-h-0 min-w-0 items-center gap-1 h-full` con
   `role="tablist"`, el carril `flex items-center gap-1 overflow-x-auto
   overflow-y-hidden`, y el botón de pestaña nueva —`flex size-7 shrink-0 items-
-  center justify-center rounded-corner border border-ui-border bg-ui-bg/80
+  center justify-center rounded-l border border-ui-border bg-ui-bg/80
   hover:bg-ui-surface/70`—, que en la librería aparece sólo si se le pasa un
   `newLabel` y acá sólo si se le pasa un `newLabel`.
 
@@ -78,7 +78,7 @@
     </div>
 
     {{- with $newLabel }}
-    <a href="#panel-nueva" class="flex size-7 shrink-0 items-center justify-center rounded-corner border border-ui-border bg-ui-bg/80 hover:bg-ui-surface/70" title="{{ . }}" aria-label="{{ . }}">
+    <a href="#panel-nueva" class="flex size-7 shrink-0 items-center justify-center rounded-m border border-ui-border bg-ui-bg/80 hover:bg-ui-surface/70" title="{{ . }}" aria-label="{{ . }}">
       <i class="fa-solid fa-plus shrink-0" aria-hidden="true"></i>
     </a>
     {{- end }}

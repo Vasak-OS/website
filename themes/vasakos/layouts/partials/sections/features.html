@@ -3,7 +3,7 @@
     <div class="group grid w-full grid-cols-1 md:grid-cols-2">
       <div class="relative flex flex-col items-end overflow-hidden pb-6 pl-16 pr-16 md:pr-0">
         <div
-          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-corner bg-gradient-to-br from-secondary to-primary px-12 py-14">
+          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-xl bg-primary px-12 py-14">
           <span class="mb-10 block font-bold text-tx-on-primary">{{ T "features.openSourceTag" }}</span>
           <h2 class="text-3xl font-bold text-tx-on-primary">
             {{ T "features.openSourceTitle" }}
@@ -17,17 +17,17 @@
             "icon" "fa-brands fa-github"
             "size" "lg"
             "class" "mb-8 mt-2") }}
-        <div class="overflow-hidden rounded-corner">
+        <div class="overflow-hidden rounded-l">
           <img src="/img/features/git.svg" width="640" height="480" loading="lazy" decoding="async"
             alt="{{ T "features.gitAlt" }}" />
         </div>
       </div>
       <div class="flex flex-col justify-center">
         <div class="pl-12 pr-12 md:pr-0">
-          <p class="peer mb-6 text-gray-600 dark:text-gray-200">
+          <p class="peer mb-6 text-tx-muted">
             {{ T "features.gplP1" }}
           </p>
-          <p class="mb-6 text-gray-600 dark:text-gray-200">
+          <p class="mb-6 text-tx-muted">
             {{ T "features.helpP1" }}
           </p>
           <ul class="list-disc space-y-3 pl-5 text-tx-muted marker:text-brand-text">
@@ -46,10 +46,10 @@
     <div class="group grid w-full grid-cols-1 md:grid-cols-2">
       <div class="order-last flex flex-col justify-center pb-6 md:order-first">
         <div class="pl-12 pr-12 md:pl-0">
-          <p class="peer mb-6 text-gray-600 dark:text-gray-200">
+          <p class="peer mb-6 text-tx-muted">
             {{ T "features.ramP1" }}
           </p>
-          <p class="mb-6 text-gray-600 dark:text-gray-200">
+          <p class="mb-6 text-tx-muted">
             {{ T "features.rollingP1" (dict "Tool" "<code>pacman</code>") | safeHTML }}
           </p>
           <ul class="list-disc space-y-3 pl-5 text-tx-muted marker:text-brand-text">
@@ -69,14 +69,14 @@
       </div>
       <div class="relative order-first flex flex-col items-end overflow-hidden pl-16 pr-16 md:pr-0">
         <div
-          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-corner bg-gradient-to-br from-secondary to-primary px-12 py-14 group-hover:from-primary/90 group-hover:to-secondary/90">
+          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-xl bg-primary px-12 py-14 group-hover:bg-primary/90">
           <span class="mb-10 block font-bold text-tx-on-primary">{{ T "features.rollingTag" }}</span>
           <h2 class="text-3xl font-bold text-tx-on-primary">
             {{ T "features.rollingTitle" }}
           </h2>
         </div>
         <div class="mb-8 mt-2 h-7"></div>
-        <div class="overflow-hidden rounded-corner">
+        <div class="overflow-hidden rounded-l">
           <img src="/img/features/balanced.svg" width="640" height="480" loading="lazy" decoding="async"
             alt="{{ T "features.balancedAlt" }}" />
         </div>

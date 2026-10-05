@@ -20,7 +20,7 @@
       class="absolute inset-0 -z-10 h-full w-full object-cover" />
   </picture>
 
-  <div class="mx-4 max-w-3xl rounded-corner bg-ui-bg/80 p-8 text-center backdrop-blur-md sm:p-12">
+  <div class="mx-4 max-w-3xl rounded-xl bg-ui-bg/80 p-8 text-center backdrop-blur-md sm:p-12">
     <p class="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-brand-text">
       <span class="relative flex h-2 w-2">
         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
@@ -57,7 +57,7 @@
           "size" "lg") }}
     </div>
 
-    <p class="mt-5 text-sm text-gray-600 dark:text-gray-400">
+    <p class="mt-5 text-sm text-tx-muted">
       {{ T "home.releaseNote" (dict "Channel" $release.channel) }}
       <a href="{{ "/state/" | relLangURL }}" class="text-brand-text underline">{{ T "home.seeWhatWorks" }}</a>.
     </p>

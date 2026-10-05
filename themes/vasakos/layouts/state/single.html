@@ -7,7 +7,7 @@
 <main class="px-4 py-10" data-repo-index="{{ site.Params.repository.index }}">
   <div class="mx-auto max-w-screen-xl">
 
-    <header class="rounded-corner bg-ui-bg/80 p-8 text-center">
+    <header class="rounded-l bg-ui-bg/80 p-8 text-center">
       <p class="text-sm font-semibold uppercase tracking-wide text-brand-text">{{ T "state.eyebrow" }}</p>
       <h1 class="mt-2 text-4xl font-bold text-tx-main">{{ .Title }}</h1>
       <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
@@ -53,7 +53,7 @@
     {{/* The table first: it is the reason anyone opens this page. */}}
     <section class="mt-10 space-y-8">
       {{- range $data.groups }}
-      <div class="overflow-hidden rounded-corner bg-ui-bg/80">
+      <div class="overflow-hidden rounded-l bg-ui-bg/80">
         <h2 class="flex items-center gap-3 border-b border-ui-border px-6 py-4 text-xl font-bold text-tx-main">
           <i class="{{ .icon }} text-brand-text" aria-hidden="true"></i>
           {{ .name }}
@@ -94,7 +94,7 @@
                 <td class="px-6 py-4 text-tx-muted">{{ .text }}</td>
                 <td class="px-6 py-4">
                   <a href="{{ .repo }}" rel="noopener" target="_blank"
-                    class="inline-flex items-center gap-1 text-brand-text hover:text-secondary" aria-label="{{ T "state.repoOf" (dict "Repo" .title) }}">
+                    class="inline-flex items-center gap-1 text-brand-text hover:underline" aria-label="{{ T "state.repoOf" (dict "Repo" .title) }}">
                     <i class="fa-brands fa-github" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -106,7 +106,7 @@
               <tr>
                 <td colspan="5" class="px-6 py-3 text-center">
                   <button type="button"
-                    class="toggle-extra-rows inline-flex items-center gap-2 text-sm font-semibold text-brand-text hover:text-secondary"
+                    class="toggle-extra-rows inline-flex items-center gap-2 text-sm font-semibold text-brand-text hover:underline"
                     data-toggle-target="{{ .id }}" aria-expanded="false"
                     data-text-less='{{ T "state.showLess" }}'>
                     <span class="toggle-text">{{ T "state.showMore" }}</span>
@@ -127,7 +127,7 @@
       </p>
     </section>
 
-    <section id="article" class="mt-10 rounded-corner bg-ui-bg/80 px-6 py-10 text-tx-main md:px-14">
+    <section id="article" class="mt-10 rounded-l bg-ui-bg/80 px-6 py-10 text-tx-main md:px-14">
       {{ .Content }}
     </section>
 

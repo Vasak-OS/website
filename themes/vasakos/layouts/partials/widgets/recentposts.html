@@ -1,10 +1,10 @@
 <div class="px-8 w-full">
-    <div class="flex flex-col px-6 py-4 mx-auto bg-ui-bg/80 rounded-corner shadow-md">
+    <div class="flex flex-col px-6 py-4 mx-auto bg-ui-bg/80 rounded-l shadow-m">
         <h2 class="mb-4 text-xl font-bold text-tx-main">{{ T "recentPosts.title" }}</h2>
         {{ with .Site.RegularPages.ByDate.Reverse }}
         {{ range first 4 . }}
         <article
-            class="relative w-full h-40 bg-cover bg-center group rounded-corner overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 mb-3 ease-in-out"
+            class="relative w-full h-40 bg-cover bg-center group rounded-l overflow-hidden shadow-l hover:shadow-l transition duration-300 mb-3 ease-in-out"
             style="background-image: url('{{ .Params.img }}');">
             <div
                 class="absolute inset-0 bg-ui-bg/50 group-hover:bg-ui-bg/80 transition duration-300 ease-in-out">

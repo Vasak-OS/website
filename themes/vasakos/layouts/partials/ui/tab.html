@@ -8,7 +8,7 @@
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
   La clase base —`group relative flex shrink-0 cursor-pointer items-center gap-2
-  rounded-corner border border-ui-border transition-colors`—, los dos estados
+  rounded-m border border-ui-border transition-colors`—, los dos estados
   (`bg-primary font-bold text-tx-on-primary` contra `bg-ui-bg/80
   hover:bg-ui-surface/70`), el ancho fijo de la barra horizontal (`w-34 max-w-34
   px-3 py-1 text-sm`), el `role="tab"`, el `aria-selected` y el `tabindex`.
@@ -55,7 +55,7 @@
 {{- $icon := .icon | default "" -}}
 {{- $panelId := .panelId | default (printf "panel-%s" $id) -}}
 
-{{- $clases := "group relative flex shrink-0 cursor-pointer items-center gap-2 rounded-corner border border-ui-border transition-colors w-34 max-w-34 px-3 py-1 text-sm" -}}
+{{- $clases := "group relative flex shrink-0 cursor-pointer items-center gap-2 rounded-m border border-ui-border transition-colors w-34 max-w-34 px-3 py-1 text-sm" -}}
 {{- if $active -}}
   {{- $clases = printf "%s bg-primary font-bold text-tx-on-primary" $clases -}}
 {{- else -}}

@@ -112,7 +112,7 @@
 {{- $clasesTamano := index $tamanos $size | default (index $tamanos "md") -}}
 
 {{- /* La clase base, en el mismo orden que la plantilla del componente. */ -}}
-{{- $clases := printf "rounded-corner transition-[background-color,opacity] duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 %s %s" $clasesTono $clasesTamano -}}
+{{- $clases := printf "rounded-m transition-[background-color,opacity] duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 %s %s" $clasesTono $clasesTamano -}}
 {{- if $full }}{{ $clases = printf "%s w-full" $clases }}{{ end -}}
 {{- /* Sin texto el padding del tamaño no corresponde: el botón es del tamaño
        del icono, no de un `py-1` con un hueco al lado. Es la misma condición
