@@ -1,15 +1,16 @@
 ---
 Title: "Vasak Terminal: a Tauri-based terminal"
 aliases: ["/blog/2026/03/vasak-terminal-a-modern-tauri-based-terminal-for-the-vasak-os-ecosystem/"]
-tags: [ vasak os,
-    vasak terminal,
-    linux terminal,
-    tauri,
-    vuejs,
-    rust,
-    xterm,
-    arch linux,
-    open source]
+tags:
+  - "vasakos"
+  - "vasak terminal"
+  - "linux terminal"
+  - "tauri"
+  - "vuejs"
+  - "rust"
+  - "xterm"
+  - "arch-linux"
+  - "open-source"
 date: "2026-03-16"
 img: "https://i.postimg.cc/dVgZx66s/photo-2026-03-16-11-54-57.jpg"
 description: "Vasak Terminal: a terminal of our own for the VasakOS ecosystem, built with Tauri and Vue and integrated with the desktop."

@@ -1,7 +1,11 @@
 ---
 Title: "Vota por el siguiente pack de Iconos por Defecto"
 aliases: ["/blog/2025/08/votá-por-el-siguiente-pack-de-iconos-por-defecto/"]
-tags: [icons, iconos, vasak, vasakos, vasak-desktop]
+tags:
+  - "icons"
+  - "iconos"
+  - "vasakos"
+  - "vasak-desktop"
 date: "2025-08-22"
 img: "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/198823909/original/0636a767358eb189c2263c613146ece9fa6b8b12/android-app-icon-for-any-kind.jpg"
 description: "Votación entre los packs de iconos que envió la comunidad para elegir el pack por defecto del escritorio de VasakOS."

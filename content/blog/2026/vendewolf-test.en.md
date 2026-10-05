@@ -1,6 +1,13 @@
 ---
 Title: "Vendefoul Linux Vasak Version"
-tags: [version, linux, vasak, vendefoul, vasak-desktop, debian, devuan]
+tags:
+  - "version"
+  - "linux"
+  - "vasakos"
+  - "vendefoul"
+  - "vasak-desktop"
+  - "debian"
+  - "devuan"
 date: "2026-01-11"
 img: "https://i.postimg.cc/XJ2WY756/image.png"
 description: "Vendefoul Linux Vasak Version: the Vendefoul Linux distribution carrying the VasakOS desktop, currently experimental."

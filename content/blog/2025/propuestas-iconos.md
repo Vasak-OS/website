@@ -1,6 +1,10 @@
 ---
 Title: "Buscamos pack de Iconos por Defecto"
-tags: [icons, iconos, vasak, vasakos, vasak-desktop]
+tags:
+  - "icons"
+  - "iconos"
+  - "vasakos"
+  - "vasak-desktop"
 date: "2025-08-20"
 img: "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/198823909/original/0636a767358eb189c2263c613146ece9fa6b8b12/android-app-icon-for-any-kind.jpg"
 description: "Buscamos un pack de iconos propio para VasakOS. Explicamos por qué todavía no existe y qué haría falta para construirlo."

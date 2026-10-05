@@ -1,6 +1,6 @@
 ---
 Title: "Terms & Conditions"
-tags: ["Terms & Conditions", "terms", "conditions", "terms and conditions", "license", "GPL"]
+tags: ["terms", "conditions", "license", "GPL"]
 date: "2022-05-24"
 img: "/img/posts/terms.svg"
 description: "Terms and conditions for using the VasakOS website, the distribution, and the software: scope of the service, licenses, acceptance, and responsibilities."

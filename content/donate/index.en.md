@@ -1,15 +1,10 @@
 ---
 Title: "Donate"
 tags:
-  [
-    donate,
-    donations,
-    donations vasak,
-    vasak,
-    vasakos,
-    support vasakos,
-    donors,
-  ]
+  - "donate"
+  - "donations"
+  - "vasakos"
+  - "donors"
 img: "/img/posts/donate.svg"
 description: "Help sustain and improve VasakOS, with complete transparency about where the money goes."
 

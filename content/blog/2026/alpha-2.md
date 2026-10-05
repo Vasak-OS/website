@@ -1,6 +1,10 @@
 ---
 Title: "Alpha 2 de VasakOS"
-tags: [video, demo, vasak, vasakos, vasak-desktop]
+tags:
+  - "video"
+  - "demo"
+  - "vasakos"
+  - "vasak-desktop"
 date: "2026-01-06"
 img: "https://i.postimg.cc/3xXpdPxG/image.png"
 description: "Alpha 2 de VasakOS: qué trae la versión, por qué no recomendamos instalarla en tu equipo y dónde reportar lo que encuentres."
