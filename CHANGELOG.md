@@ -7,6 +7,27 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Cambios
 
+- El fundido del modo oscuro ya no se declara en los 573 nodos de `/state/`. La
+  regla era `body *`, y con eso hasta los nodos que heredan el color declaraban una
+  transición de la que no se servían —un color heredado sigue la interpolación de su
+  padre sin declarar nada— y, peor, cualquier hover que cambiara el color de un
+  contenedor hacía que todo su texto se encogiera y se estirara durante 200 ms. La
+  llevan ahora los elementos que declaran un color de token: 261 en `/state/` y 75
+  en `/docs/user/security/`, donde antes eran 573 y 242.
+
+- Una cuarta duración de la escala estaba oculta en el navegador: el ancla de cada
+  título, el campo de búsqueda y el punto del carrusel usaban `transition-*` sin
+  `duration-*`, así que tomaban los 150 ms por omisión de Tailwind. Las tres
+  declaran 200 ms ahora.
+
+### Verificación
+
+- La prueba de la escala de movimiento ahora lee la forma larga
+  `transition-duration` además del atajo `transition`, y exige que ninguna
+  utilidad de transición se quede sin duración, en la hoja y en las plantillas.
+
+### Cambios
+
 - El borde por omisión del sitio era `#e5e7eb`, el `--color-gray-200` de Tailwind,
   y no un token del tema. Venía del preflight de Tailwind v4 y se llevaba puesto a
   todo elemento que pidiera `border` sin decir de qué color. En claro pasaba

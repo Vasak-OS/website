@@ -454,19 +454,16 @@ html.dark {
     list-style: decimal;
   }
 
-  /* Por qué una regla tan ancha, y por qué 200 ms y no 300.
+  /*
+     El fundido del modo oscuro.
 
-     El motivo es el modo oscuro. Los colores del tema son utilidades que
-     resuelven a `var(--use-*)`, y ese `--use-*` cambia en una regla de `.dark`.
-     Sin transición, cambiar de modo es un corte: todos los nodos repintan en el
-     mismo cuadro. Con transición, el cambio se ve como un fundido de 200 ms.
-     Como el color está en una variable y no en la declaración, la transición
-     solamente se dispara en los nodos cuyo color *cambia de verdad*, así que el
-     fondo entero del sitio cruza y los detalles que no cambian color no hacen
-     nada — que es justo lo que se quiere.
-
-     `body *` y no `body` porque los tokens también están en los hijos: el color
-     de un enlace, el de un borde y el de un fondo propios salen de ahí.
+     Los colores del tema son utilidades que resuelven a `var(--use-*)`, y ese
+     `--use-*` cambia en una regla de `.dark`. Sin transición, cambiar de modo es
+     un corte: todos los nodos repintan en el mismo cuadro. Con transición se ve
+     como un fundido de 200 ms. Y como el color está en una variable y no en la
+     declaración, la transición sólo se dispara donde el color *cambia de verdad*:
+     el fondo entero del sitio cruza y los detalles que no cambian de color no
+     hacen nada, que es justo lo que se quiere.
 
      Los 200 ms son los mismos que usa `.btn`. Antes esta regla decía 300 y los
      botones 200, así que el mismo gesto —pasar el mouse por encima— duraba
@@ -475,17 +472,71 @@ html.dark {
      quedan para lo que de verdad tarda: el desenlace del carrusel, del acordeón
      y de la persiana del menú.
 
-     El costo conocido: la página más pesada del sitio, `/state/`, tiene 573 nodos
-     bajo el `<body>`, y los 573 tienen una transición declarada. En reposo eso no
-     cuesta nada —una transición declarada no se anima por sí sola—, pero
-     significa que *todo* cambio de color pasa por 200 ms, y para algo que
-     debería ser instantáneo eso se nota. Está anotado para que la decisión sea
-     visible y no heredada.
+     ── Por qué ya no es `body *` ────────────────────────────────────────────
 
-     Medido en `/docs/user/security/` después del cambio: 242 nodos y una sola
-     duración en toda la página, 0.2 s. Antes había dos, 0.25 s en las quince
-     tarjetas y 0.2 s en el resto, y el `<body>` tenía 0.4 s sobre `all`. */body * {
-    @apply transition-colors duration-200;
+     Era `body *`, y con eso los 573 nodos de `/state/` —la página más pesada del
+     sitio— quedaban con una transición declarada. En reposo eso no cuesta nada,
+     una transición no se anima por sí sola, pero la regla bite en dos cosas que
+     sí se notan.
+
+     La primera es que `transition-colors` es `color`, `background-color`,
+     `border-color`, `fill`, `stroke` y `outline-color` para *todo* lo que cuelga
+     del `<body>`, y muchos de esos nodos no tienen ningún color propio: heredan.
+     Y un color heredado no necesita transición para cruzar —`color` es heredada,
+     así que cada hijo vuelve a calcular el valor que su padre tiene en ese cuadro
+     y sigue la interpolación sin declarar nada—. La regla estaba pagando 573
+     declaraciones para conseguir el efecto en un puñado.
+
+     La segunda es peor: cualquier `color` que cambie por un hover en un contenedor
+     —un `.card-hover`, un `group-hover`— hacía que *todos* sus descendientes
+    animaran su color heredado durante 200 ms, aunque ninguno hubiera cambiado. El
+     puntero pasaba por encima de la tarjeta y el texto de adentro se encogía y se
+     volvía a estirar.
+
+     Así que la transición la llevan los elementos que **declaran** un color de
+     token: las utilidades que lo traen en el `class` y las clases de componente
+     que lo declaran. Los selectores de atributo en vez de una lista de clases
+     exactas son a propósito, porque las utilidades con alfa —`bg-ui-bg/80`,
+     `border-ui-border/60`, `bg-status-warning/10`— son nombres distintos que
+     cualquier lista se quedaría corta, y una lista corta es una lista que se
+     desactualiza sin avisar.
+
+     Y todo bajo `:where()`, que no aporta especificidad: las utilidades y las
+     clases de componente que traigan su propia `transition` —`.btn`, `.link-row`—
+     siguen mandando, sin importar en qué capa estén.
+
+     Medido en `/state/`, la página más pesada: 573 nodos bajo el `<body>` antes
+     y 261 con transición después. En `/docs/user/security/`, 242 antes y 75
+     después. La duración sigue siendo una sola en esa página: 0.2 s. */
+  :where(
+    body,
+    [class*="text-tx-"],
+    [class*="text-brand-"],
+    [class*="text-status-"],
+    [class*="decoration-tx-"],
+    [class*="bg-ui-"],
+    [class*="bg-primary"],
+    [class*="bg-secondary"],
+    [class*="bg-status-"],
+    [class*="border-ui-"],
+    [class*="border-primary"],
+    [class*="border-secondary"],
+    [class*="border-status-"],
+    [class*="divide-ui-"],
+    [class*="divide-primary"],
+    [class*="divide-secondary"],
+    [class*="divide-status-"],
+    [class*="outline-ui-"],
+    .btn,
+    .card,
+    .card-surface,
+    .empty-mark,
+    .pager-link,
+    .panel,
+    .rule
+  ) {
+    transition-property: color, background-color, border-color, fill, stroke, outline-color;
+    transition-duration: 200ms;
   }
 
   /*
@@ -1112,9 +1163,16 @@ html.dark {
 }
 
 /* The anchor added by render-heading.html: out of the way until you hover the
-   heading it belongs to. */
+   heading it belongs to.
+
+   `duration-200` es explícito porque `transition-opacity` sin él usa el default
+   de Tailwind, 150 ms. Ese 150 era una cuarta duración de la escala que no
+   aparecía en ningún lado escrito: aparecía en el navegador. Y 150 ms es
+   justamente la duración que hace que el ancla se disuelva en vez de aparecer —
+   una aparición tiene que ser legible o no ser nada—; a 200 ms, el mismo tiempo
+   que el hover de un botón y el de una tarjeta, se lee como el mismo gesto. */
 .heading-anchor {
-  @apply ml-2 text-brand-text opacity-0 transition-opacity;
+  @apply ml-2 text-brand-text opacity-0 transition-opacity duration-200;
 }
 
 h1:hover > .heading-anchor,

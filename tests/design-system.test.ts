@@ -500,6 +500,18 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
       El `0.01ms` de `prefers-reduced-motion` queda fuera a propósito: no es una
       duración del sistema, es la forma canónica de apagar la animación, y tiene
       que ganarle a todo lo demás, que es para lo que está el `!important`.
+
+      Se leen las dos formas. `transition: color .2s` es el atajo y
+      `transition-duration: 200ms` la forma larga, y la segunda estaba fuera de la
+      comprobación: la regla del fundido del modo oscuro la escribe así, así que
+      una duración colada por ahí no habría sonado.
+
+      Y se comprueba además que ninguna utilidad de transición se quede sin
+      duración, ni en la hoja ni en las plantillas. `transition-opacity` a secas
+      usa el default de Tailwind, que es 150 ms —una cuarta duración de la escala
+      que no aparecía escrita en ningún lado y sí en el navegador—. Tres la
+      tenían: el ancla de cada título, el campo de búsqueda y el punto del
+      carrusel. Y 150 ms es justo lo que hace que algo aparezca en vez de estar.
     */
     const css = sinComentarios(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
 
@@ -511,7 +523,9 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
       d.endsWith("ms") ? parseFloat(d) : parseFloat(d) * 1000;
 
     const duraciones = new Set<number>();
-    for (const decl of css.match(/transition:\s*([^;]+);/g) ?? []) {
+    const atajos = css.match(/(?:^|[;{]|\s)transition:\s*([^;}]+)/g) ?? [];
+    const largas = css.match(/transition-duration:\s*([^;}]+)/g) ?? [];
+    for (const decl of [...atajos, ...largas]) {
       for (const d of decl.match(/\b[0-9.]+m?s\b/g) ?? []) {
         if (d !== "0.01ms") duraciones.add(aMilisegundos(d));
       }
@@ -524,12 +538,35 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
       duraciones.add(Number(d.slice("duration-".length)));
     }
 
+    /*
+      Una `transition-*` sin `duration-*` no declara duración: hereda la de
+      Tailwind. Se listan las que lo hacen para que estén a la vista —cualquiera
+      que se agregue tiene que declarar su tiempo— en vez de confiar en que nadie
+      escribe `@apply transition-opacity` a secas.
+
+      Se mira la hoja por `@apply` y las plantillas por atributo `class`, porque la
+      misma falta se escribe de las dos formas.
+    */
+    const sinTiempoEnHoja = casos(estilos, (l) => {
+      const apply = l.match(/@apply\s+([^;]+);/);
+      if (!apply || !/\btransition-/.test(apply[1])) return false;
+      return !/duration-/.test(apply[1]) && !/\[/.test(apply[1]);
+    });
+    const sinTiempoEnPlantilla = casos(plantillas, (l) => {
+      const atributo = l.match(/class="([^"]*)"/);
+      if (!atributo) return false;
+      const clases = atributo[1].split(/\s+/);
+      const transiciona = clases.some((c) => /^transition-(?!none$)/.test(c));
+      return transiciona && !clases.some((c) => c.startsWith("duration-") || c.includes("["));
+    });
+
     const escala = [200, 300, 400];
     const ordenadas = (a: number, b: number) => a - b;
     expect({
       duraciones: [...duraciones].sort(ordenadas),
       fueraDeEscala: [...duraciones].filter((d) => !escala.includes(d)).sort(ordenadas),
-    }).toEqual({ duraciones: escala, fueraDeEscala: [] });
+      sinTiempo: [...sinTiempoEnHoja, ...sinTiempoEnPlantilla],
+    }).toEqual({ duraciones: escala, fueraDeEscala: [], sinTiempo: [] });
   });
 
   test("el punto activo del carrusel se anuncia como tal", () => {
