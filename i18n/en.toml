@@ -306,38 +306,47 @@
   copied = "Copied"
   selectHint = "Selected: Ctrl+C"
   copyAddress = "Copy the {{ .Name }} address"
-  infrastructure = "Infrastructure we keep running"
-  priority = "Priority {{ .Level }}"
+  budget = "Where the money goes"
+  budgetLead = "Five line items, each with its monthly amount. They add up to the goal."
+  budgetTotal = "Monthly total"
+  perMonth = "per month"
+  ecosystem = "The ecosystem you sustain"
+  ecosystemLead = "A contribution does not sustain a download: it sustains everything underneath it."
+  ecosystemCount = "Components: {{ .Count }}"
   transparency = "Transparency"
+  follow = "Take part"
+  followText = "The project is developed in the open: decisions, progress and problems are public."
   community = "Community"
   reportIdea = "Report an idea or a problem"
 
   # The `donations` block from the front matter of content/donate/index.md. The
   # lists resolve by each element's `id`, in the same order as the YAML;
-  # `monthly_goal`, the addresses and the URLs stay there because they do not
-  # change with the language.
+  # `monthly_goal`, the amounts, the addresses and the URLs stay there because
+  # they do not change with the language.
   [donate.summary]
     subtitle = "Every contribution is reinvested in the growth of the project"
     status = "Community project"
-    focus = "Infrastructure, development and distribution quality"
-    [donate.summary.usage.distro]
-      title = "Improvements to the distribution"
-      detail = "Development of new features, bug fixes and stability testing."
-    [donate.summary.usage.hardware]
-      title = "Development hardware"
-      detail = "Buying or replacing hardware to compile, test and debug in more scenarios."
-    [donate.summary.usage.infra]
-      title = "Infrastructure and services"
-      detail = "Hosting, servers, domains, CI/CD and services to provide a more reliable experience."
-    [donate.summary.infra.hosting]
-      item = "Web hosting and download resources"
-      priority = "High"
-    [donate.summary.infra.build]
-      item = "Build and distribution servers"
-      priority = "High"
-    [donate.summary.infra.community]
-      item = "Supplementary services for the community"
-      priority = "Medium"
+    focus = "Distribution, community and services for developers"
+    [donate.summary.budget.distribution]
+      title = "Distribution servers (pacman)"
+      detail = "The VasakOS package repository: without it, installing and updating the system depends on third parties."
+      items = "The vasakos repository and its mirrors · Package signing and keys · Download bandwidth and storage"
+    [donate.summary.budget.community]
+      title = "Forum and community server"
+      detail = "A place of our own to ask, answer and keep what has already been solved."
+      items = "Community forum · Support and moderation · Official project channels"
+    [donate.summary.budget.tooling]
+      title = "Developer work tools"
+      detail = "What gets used every day to design, write, review and publish."
+      items = "Development environments and licences · Design and prototyping · Code review"
+    [donate.summary.budget.services]
+      title = "Services for developers"
+      detail = "The infrastructure every contribution goes through before it reaches a user."
+      items = "Continuous integration and builds · Package and container registries · Domains, email and storage"
+    [donate.summary.budget.maintenance]
+      title = "Development and maintenance of the distro"
+      detail = "Everything around the distro: what gets fixed, tested and documented."
+      items = "New features, fixes and stability · Testing on real hardware · Website, documentation and project status"
     [donate.summary.transparency]
       stability = "We prioritise spending that directly affects stability, performance and support."
       channels = "We publish important changes and progress on the project's official channels."

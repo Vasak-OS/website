@@ -7,6 +7,36 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Cambios
 
+- La página de donaciones pedía plata sin decir cuánta ni para qué. Ahora
+  publica un presupuesto de USD $750 por mes en cinco rubros —servidores de
+  distribución ($150), foro y comunidad ($80), herramientas de trabajo ($120),
+  servicios para desarrolladores ($200) y desarrollo y mantenimiento de la
+  distro ($200)— y cada tarjeta lleva su importe al lado del título, una frase
+  que explica qué cubre y tres ítems concretos. La sexta celda de la grilla es
+  la suma: `monthly_goal`, el plan `monthly-goal` de `funding.json` y los cinco
+  importes dicen el mismo número en los dos idiomas. El bloque de
+  infraestructura con prioridades se va —el desglose ya responde qué se compra
+  y cuánto cuesta—.
+
+- La página decía que la donación sostiene un ecosistema y no lo mostraba.
+  Ahora lo muestra con los mismos datos que la portada y `/state/`
+  (`data/components.yml`): cinco tarjetas con el icono del grupo, cuántos
+  componentes tiene y los primeros tres con su insignia de estado, más «Ver N
+  más» y el enlace al estado del sistema. Los botones de comunidad e «idea o
+  problema», que vivían pegados a los ítems de transparencia, pasan a una
+  tarjeta «Participa» al lado.
+
+- El texto de cierre de la página no se publicaba en ningún idioma. `.Content`
+  se leía dentro del `with .Params.donations`, donde el punto es el mapa del
+  front matter y no la página: resolvía a vacío y el párrafo se caía en silencio.
+  La página guarda `$page` antes del `with`.
+
+- `ui/card` imprimía el `<i>` del icono sin la clase del icono: `if $icon`
+  abría el elemento pero el `printf` sólo recibía `$iconClass`, así que las
+  tarjetas de grupo de la portada, `/state/` y `/downloads/` publicaban
+  `<i class="text-2xl text-brand-text"></i>`, un elemento vacío. Estaba en
+  producción —se comprobó en `os.vasak.net.ar`—.
+
 - El pie no medía lo que la barra. La barra flota a 8 px de la pantalla con una
   esquina de 24 px; el pie estaba a 12 px en pantallas angostas y a 24 px en
   anchas, con una esquina de 14 px y un `max-w-6xl` que le cortaba el ancho:
@@ -63,6 +93,15 @@ importan a quien usa el sitio, no la lista de archivos.
   paso se parecen.
 
 ### Verificación
+
+- Dos pruebas nuevas, cada una comprobada reintroduciendo el defecto: que los
+  importes del presupuesto sumen la meta mensual y sean idénticos en los dos
+  idiomas, y que `ui/card` imprima `$icon` en el `class` del `<i>`. La de
+  i18n pasó a resolver los rubros (`budget`) en lugar de `usage`/`infra`, y a
+  leer el campo `items`.
+
+- axe-core sobre `/donate/` y `/en/donate/` y la portada —que cambia con el
+  arreglo del icono—, sin violaciones. 104 pruebas en verde.
 
 - Tres pruebas nuevas, cada una comprobada reintroduciendo el defecto —seis
   reintroducciones en total—: que el pie use el mismo paso de margen y la misma

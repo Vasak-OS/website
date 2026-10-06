@@ -310,38 +310,47 @@
   copied = "Copiado"
   selectHint = "Seleccionado: Ctrl+C"
   copyAddress = "Copiar la dirección de {{ .Name }}"
-  infrastructure = "Infraestructura que sostenemos"
-  priority = "Prioridad {{ .Level }}"
+  budget = "En qué se va el dinero"
+  budgetLead = "Cinco rubros, cada uno con su importe mensual. La suma da el objetivo."
+  budgetTotal = "Total mensual"
+  perMonth = "al mes"
+  ecosystem = "El ecosistema que sostienes"
+  ecosystemLead = "Un aporte no sostiene una descarga: sostiene todo lo que hay debajo."
+  ecosystemCount = "Componentes: {{ .Count }}"
   transparency = "Transparencia"
+  follow = "Participa"
+  followText = "El proyecto se desarrolla en abierto: las decisiones, los avances y los problemas son públicos."
   community = "Comunidad"
   reportIdea = "Reportar idea o problema"
 
   # El bloque `donations` del front matter de content/donate/index.md. Las
   # listas se resuelven por el `id` de cada elemento, en el mismo orden en que
-  # están en el YAML; `monthly_goal`, las direcciones y las URLs siguen ahí
-  # porque no cambian con el idioma.
+  # están en el YAML; `monthly_goal`, los importes, las direcciones y las URLs
+  # siguen ahí porque no cambian con el idioma.
   [donate.summary]
     subtitle = "Cada aporte se reinvierte en el crecimiento del proyecto"
     status = "Proyecto comunitario"
-    focus = "Infraestructura, desarrollo y calidad de la distribución"
-    [donate.summary.usage.distro]
-      title = "Mejoras de la distro"
-      detail = "Desarrollo de nuevas funciones, correcciones de errores y pruebas de estabilidad."
-    [donate.summary.usage.hardware]
-      title = "Equipamiento para desarrollo"
-      detail = "Compra o renovación de hardware para compilar, probar y depurar en más escenarios."
-    [donate.summary.usage.infra]
-      title = "Infraestructura y servicios"
-      detail = "Hosting, servidores, dominios, CI/CD y servicios para proveer una experiencia más confiable."
-    [donate.summary.infra.hosting]
-      item = "Hosting web y recursos de descarga"
-      priority = "Alta"
-    [donate.summary.infra.build]
-      item = "Servidores para build y distribución"
-      priority = "Alta"
-    [donate.summary.infra.community]
-      item = "Servicios complementarios para comunidad"
-      priority = "Media"
+    focus = "Distribución, comunidad y servicios para desarrolladores"
+    [donate.summary.budget.distribution]
+      title = "Servidores de distribución (pacman)"
+      detail = "El repositorio propio de VasakOS: sin él, instalar y actualizar el sistema depende de terceros."
+      items = "Repositorio vasakos y sus réplicas · Firmado de paquetes y claves · Ancho de banda y almacenamiento de descargas"
+    [donate.summary.budget.community]
+      title = "Servidor de foro y comunidad"
+      detail = "Un lugar propio para preguntar, responder y conservar lo que ya se resolvió."
+      items = "Foro de la comunidad · Soporte y moderación · Canales oficiales del proyecto"
+    [donate.summary.budget.tooling]
+      title = "Herramientas de trabajo para desarrolladores"
+      detail = "Lo que se usa cada día para diseñar, escribir, revisar y publicar."
+      items = "Entornos de desarrollo y licencias · Diseño y prototipado · Revisión de código"
+    [donate.summary.budget.services]
+      title = "Servicios para desarrolladores"
+      detail = "La infraestructura que atraviesa cada contribución antes de llegar a una persona usuaria."
+      items = "Integración continua y compilación · Registros de paquetes y contenedores · Dominios, correo y almacenamiento"
+    [donate.summary.budget.maintenance]
+      title = "Desarrollo y mantenimiento de la distro"
+      detail = "Todo lo que rodea a la distro: lo que se corrige, se prueba y se documenta."
+      items = "Funciones nuevas, correcciones y estabilidad · Pruebas en hardware real · Sitio, documentación y estado del proyecto"
     [donate.summary.transparency]
       stability = "Priorizamos gastos que impacten directamente en estabilidad, rendimiento y soporte."
       channels = "Publicamos cambios importantes y avances en canales oficiales del proyecto."

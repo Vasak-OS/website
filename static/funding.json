@@ -83,8 +83,8 @@
         "guid": "monthly-goal",
         "status": "active",
         "name": "Monthly goal",
-        "description": "Covers hosting and download mirrors, build and distribution servers, CI, and hardware to test the distribution on more machines.",
-        "amount": 250,
+        "description": "Covers the package repository and its mirrors, the forum and community server, developer work tools, developer services (CI, registries, domains, email and storage), and the development and maintenance of the distribution.",
+        "amount": 750,
         "currency": "USD",
         "frequency": "monthly",
         "channels": [

@@ -14,16 +14,23 @@ description: "Help sustain and improve VasakOS, with complete transparency about
 # desarrollo y calidad de la distribucion" as if it were the language of whoever
 # was reading. What stays here is the structure: the order, the addresses, the
 # amounts and the URLs, which are the same in both languages.
+#
+# The breakdown adds up to the goal: 150 + 80 + 120 + 200 + 200 = 750. Moving an
+# amount means moving the total too (and the `monthly-goal` plan in
+# static/funding.json, which the funding test reads next to this file).
 donations:
-  monthly_goal: "USD $250"
-  usage:
-    - id: distro
-    - id: hardware
-    - id: infra
-  infra:
-    - id: hosting
-    - id: build
+  monthly_goal: "USD $750"
+  budget:
+    - id: distribution
+      amount: "USD $150"
     - id: community
+      amount: "USD $80"
+    - id: tooling
+      amount: "USD $120"
+    - id: services
+      amount: "USD $200"
+    - id: maintenance
+      amount: "USD $200"
   transparency:
     - id: stability
     - id: channels

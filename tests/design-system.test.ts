@@ -767,6 +767,23 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     expect(huerfanas).toEqual([]);
   });
 
+  test("el icono de la tarjeta se imprime en el elemento", () => {
+    /*
+      `ui/card` sólo abría el `<i>` si venía `icon` —el símbolo de la
+      librería— pero la clase nunca llegaba al `printf`: los grupos de la
+      portada y de /state/ publicaban `<i class="text-2xl text-brand-text"></i>`,
+      un elemento vacío que no dibuja nada, y nadie lo veía porque un ícono
+      ausente no se lee como error. La comprobación es sobre el `printf`: dos
+      `%s` de clase y `$icon` el primero.
+    */
+    const card = readFileSync(`${TEMA}/layouts/partials/ui/card.html`, "utf8");
+    const inicio = card.indexOf("if $icon");
+    expect(inicio).toBeGreaterThan(-1);
+    const bloque = card.slice(inicio, card.indexOf("{{- end -}}", inicio));
+    expect(bloque).toMatch(/class=\\"%s %s shrink-0\\"/);
+    expect(bloque).toMatch(/\$icon \$iconClass \$texto/);
+  });
+
   test("los bordes de control no usan el color de marca", () => {
     /*
       `border-primary` mide 2.64:1 contra `--color-ui-bg` en modo claro, y WCAG

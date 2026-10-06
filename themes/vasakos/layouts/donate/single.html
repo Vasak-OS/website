@@ -1,4 +1,20 @@
 {{ define "main" }}
+{{- /*
+  La página de donaciones.
+
+  El bloque `donations` del front matter trae la estructura —los rubros con su
+  importe, las direcciones, las URLs— y las palabras salen de i18n por el `id`
+  de cada elemento, igual que en el resto del sitio. El orden de las secciones
+  también responde a esa idea: primero cuánto se necesita y en qué se va
+  (resumen y desglose), después qué se sostiene con eso (el ecosistema, que
+  sale de data/components.yml igual que la portada y /state/), y al final cómo
+  se maneja la plata y cómo participar.
+
+  `$page` guarda la página antes del `with`: adentro, el punto es el mapa
+  `donations`, y `.Content` —el texto en Markdown que trae el archivo— resolvía
+  a vacío, así que la página publicaba sin el párrafo de cierre.
+*/ -}}
+{{- $page := . -}}
 <main class="px-6 py-8">
   <div class="flex">
     <div class="w-full">
@@ -19,16 +35,6 @@
               <div class="card-surface mt-4 rounded-m border border-ui-border p-4">
                 <p class="font-semibold">{{ T "donate.currentFocus" }}</p>
                 <p class="mt-1 text-sm">{{ T "donate.summary.focus" }}</p>
-              </div>
-
-              <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                {{ range .usage }}
-                {{- $key := printf "donate.summary.usage.%s" .id }}
-                <div class="card-surface rounded-m border border-ui-border p-3">
-                  <p class="font-semibold">{{ T (printf "%s.title" $key) }}</p>
-                  <p class="mt-1 text-sm text-tx-muted">{{ T (printf "%s.detail" $key) }}</p>
-                </div>
-                {{ end }}
               </div>
             </article>
 
@@ -60,20 +66,95 @@
             </aside>
           </section>
 
-          <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <article class="card p-6">
-              <h3 class="section-title text-lg font-bold text-tx-main">{{ T "donate.infrastructure" }}</h3>
-              <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed marker:text-brand-text">
-                {{ range .infra }}
-                {{- $key := printf "donate.summary.infra.%s" .id }}
-                <li>
-                  <span class="font-semibold">{{ T (printf "%s.item" $key) }}</span>
-                  <span class="text-sm text-tx-muted"> · {{ T "donate.priority" (dict "Level" (T (printf "%s.priority" $key))) }}</span>
-                </li>
-                {{ end }}
-              </ul>
-            </article>
+          {{/* El desglose: cada rubro con su importe y lo que cubre, y la última
+               celda de la grilla es la suma — seis tarjetas, dos filas de a tres
+               en desktop: el total cierra la cuenta en el mismo renglón que la
+               cierra el objetivo. */}}
+          <section class="mt-8">
+            <h2 class="section-title text-2xl font-bold text-tx-main">{{ T "donate.budget" }}</h2>
+            <p class="mt-2 max-w-2xl text-sm text-tx-muted">{{ T "donate.budgetLead" }}</p>
 
+            <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {{ range .budget }}
+              {{- $key := printf "donate.summary.budget.%s" .id }}
+              <article class="card p-6">
+                <div class="flex items-baseline justify-between gap-3">
+                  <h3 class="section-title text-lg font-bold text-tx-main">{{ T (printf "%s.title" $key) }}</h3>
+                  <p class="shrink-0 whitespace-nowrap text-sm font-semibold text-brand-text">{{ .amount }} <span class="font-normal text-tx-muted">{{ T "donate.perMonth" }}</span></p>
+                </div>
+                <p class="mt-2 text-sm text-tx-muted">{{ T (printf "%s.detail" $key) }}</p>
+                <ul class="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-tx-muted marker:text-brand-text">
+                  {{- range split (T (printf "%s.items" $key)) " · " }}
+                  <li>{{ . }}</li>
+                  {{- end }}
+                </ul>
+              </article>
+              {{ end }}
+
+              <article class="card p-6">
+                <p class="text-sm uppercase tracking-wide text-brand-text font-semibold">{{ T "donate.budgetTotal" }}</p>
+                <p class="mt-1 font-mono text-3xl font-bold text-tx-main">{{ .monthly_goal }}</p>
+              </article>
+            </div>
+          </section>
+
+          {{/* El ecosistema con los mismos datos que la portada y /state/:
+               `data/components.html` resuelve grupos, títulos y badges, así que
+               lo que la página dice que se sostiene es lo que realmente existe.
+               Se muestran tres componentes por grupo —en una página de donaciones
+               importa el pulmón, no el inventario— y el resto se abre en /state/. */}}
+          {{- $ecosistema := partial "data/components.html" $page }}
+          <section class="mt-8">
+            <h2 class="section-title text-2xl font-bold text-tx-main">{{ T "donate.ecosystem" }}</h2>
+            <p class="mt-2 max-w-2xl text-sm text-tx-muted">{{ T "donate.ecosystemLead" }}</p>
+
+            <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {{- range $ecosistema.groups }}
+              {{- $maxVisible := 3 }}
+              {{- $total := len .items }}
+              {{- $filas := slice }}
+              {{- range $idx, $item := .items }}
+                {{- if le $idx (sub $maxVisible 1) }}
+                  {{- $badge := index $ecosistema.legend .status }}
+                  {{- $filas = $filas | append (printf
+                      "<li><div class=\"flex flex-wrap items-baseline gap-2\"><span class=\"font-semibold\">%s</span>%s</div></li>"
+                      .title
+                      (partial "ui/badge.html" (dict "label" $badge.label "class" $badge.class))) }}
+                {{- end }}
+              {{- end }}
+              {{- $cuerpo := slice (printf "<ul class=\"space-y-2\">%s</ul>" (delimit $filas "")) }}
+              {{- if gt $total $maxVisible }}
+                {{- $cuerpo = $cuerpo | append (printf
+                    "<a href=\"%s\" class=\"mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-text hover:underline\">%s<i class=\"fa-solid fa-chevron-right text-sm\" aria-hidden=\"true\"></i></a>"
+                    ("/state/" | relLangURL)
+                    (T "components.viewMore" (dict "Count" (sub $total $maxVisible) "Group" .name))) }}
+              {{- end }}
+              {{ partial "ui/card.html" (dict
+                  "layout" "stack"
+                  "surface" true
+                  "icon" .icon
+                  "iconClass" "text-2xl text-brand-text"
+                  "title" .name
+                  "titleTag" "h3"
+                  "subtitle" (T "donate.ecosystemCount" (dict "Count" $total))
+                  "body" $cuerpo) }}
+              {{- end }}
+            </div>
+
+            <p class="mt-6 text-center">
+              <a href="{{ "/state/" | relLangURL }}" class="inline-flex items-center gap-2 font-semibold text-brand-text hover:underline">
+                {{ T "components.detail" }}
+                <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
+              </a>
+            </p>
+          </section>
+
+          {{/* La lista de infraestructura con prioridades se fue: el desglose de
+               arriba ya dice qué se compra y cuánto cuesta. Queda transparencia
+               y, al lado, cómo seguir el proyecto — antes los dos botones
+               vivían pegados a los items de transparencia, que era el único
+               par que le quedaba a la grilla. */}}
+          <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <article class="card p-6">
               <h3 class="section-title text-lg font-bold text-tx-main">{{ T "donate.transparency" }}</h3>
               <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed marker:text-brand-text">
@@ -81,6 +162,11 @@
                 <li>{{ T (printf "donate.summary.transparency.%s" .id) }}</li>
                 {{ end }}
               </ul>
+            </article>
+
+            <article class="card p-6">
+              <h3 class="section-title text-lg font-bold text-tx-main">{{ T "donate.follow" }}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-tx-muted">{{ T "donate.followText" }}</p>
               <div class="mt-5 flex flex-wrap gap-3">
                 {{ partial "ui/action-button.html" (dict
                     "href" .community_url "target" "_blank" "rel" "noopener"
@@ -97,10 +183,13 @@
             <iframe src="{{ .github_sponsors_embed }}" title="Sponsor Vasak-OS" height="225" width="600" class="block w-full"></iframe>
           </section>
           {{ end }}
+          {{ end }}{{/* with .Params.donations */}}
 
+          {{ with $page.Content }}
           <section class="mt-8 text-tx-main">
-          {{ .Content }}
+          {{ . }}
           </section>
+          {{ end }}
         </div>
       </div>
     </div>
@@ -133,5 +222,4 @@
     });
   });
 </script>
-{{ end }}
 {{ end }}

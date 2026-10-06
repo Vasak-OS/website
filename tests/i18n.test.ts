@@ -231,8 +231,8 @@ describe("el bloque de donaciones", () => {
     expect(ids.length).toBeGreaterThan(0);
     const faltan: string[] = [];
     for (const id of ids) {
-      for (const prefijo of ["usage", "infra", "transparency", "methods"]) {
-        for (const campo of ["title", "detail", "item", "priority", "name", "note"]) {
+      for (const prefijo of ["budget", "transparency", "methods"]) {
+        for (const campo of ["title", "detail", "items", "name", "note"]) {
           const ruta = `donate.summary.${prefijo}.${id}.${campo}`;
           const existe = claves.es.has(ruta) || claves.en.has(ruta);
           if (!existe) continue; // el campo no aplica a esta lista
@@ -265,7 +265,7 @@ describe("el bloque de donaciones", () => {
         (m) => m[1],
       );
     };
-    for (const prefijo of ["usage", "infra", "transparency", "methods"]) {
+    for (const prefijo of ["budget", "transparency", "methods"]) {
       expect({ prefijo, orden: idsDeI18n(prefijo) }).toEqual({
         prefijo,
         orden: idsDelYaml(prefijo),
