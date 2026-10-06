@@ -14,9 +14,9 @@
 <main class="px-4 py-8">
   <div class="mx-auto max-w-screen-xl">
 
-    <header class="rounded-l bg-ui-bg/80 p-8 text-center">
-      <h1 class="text-4xl font-bold text-tx-main">{{ T "downloads.title" }}</h1>
-      <p class="mt-3 text-tx-muted">
+    <header class="card p-8 text-center">
+      <h1 class="section-title text-4xl font-bold text-tx-main">{{ T "downloads.title" }}</h1>
+      <p class="section-lead mt-3 text-tx-muted">
         {{ T "downloads.officialImage" (dict "Arch" $r.arch) }}
       </p>
       {{/* Un botón por espejo. `ui/action-button` es el `ActionButton` del
@@ -40,35 +40,35 @@
     </header>
 
     <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-      <article class="rounded-l border border-primary bg-ui-bg/80 p-6 lg:col-span-2">
-        <p class="text-sm font-semibold uppercase tracking-wide text-brand-text">{{ T "state.currentRelease" }}</p>
-        <h2 class="mt-1 text-2xl font-bold text-tx-main">{{ $r.release_name }}</h2>
+      <article class="card p-6 lg:col-span-2">
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-text">{{ T "state.currentRelease" }}</p>
+        <h2 class="section-title mt-1 text-2xl font-bold text-tx-main">{{ $r.release_name }}</h2>
         <p class="mt-2 text-sm text-tx-muted">{{ T "downloads.channel" (dict "Channel" $r.channel) }} · {{ T "state.colStatus" }} {{ T (printf "status.%s" (lower $r.status)) }}</p>
 
         <dl class="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-          <div class="rounded-s bg-ui-bg/80 p-3">
-            <dt class="font-semibold">{{ T "components.version" }}</dt>
-            <dd>{{ $r.version }}</dd>
+          <div class="card-surface rounded-m border border-ui-border p-3">
+            <dt class="text-xs uppercase tracking-wide text-tx-muted">{{ T "components.version" }}</dt>
+            <dd class="font-semibold">{{ $r.version }}</dd>
           </div>
-          <div class="rounded-s bg-ui-bg/80 p-3">
-            <dt class="font-semibold">{{ T "downloads.architecture" }}</dt>
-            <dd>{{ $r.arch }}</dd>
+          <div class="card-surface rounded-m border border-ui-border p-3">
+            <dt class="text-xs uppercase tracking-wide text-tx-muted">{{ T "downloads.architecture" }}</dt>
+            <dd class="font-semibold">{{ $r.arch }}</dd>
           </div>
-          <div class="rounded-s bg-ui-bg/80 p-3">
-            <dt class="font-semibold">{{ T "downloads.filename" }}</dt>
-            <dd class="break-all">{{ $r.image_name }}</dd>
+          <div class="card-surface rounded-m border border-ui-border p-3">
+            <dt class="text-xs uppercase tracking-wide text-tx-muted">{{ T "downloads.filename" }}</dt>
+            <dd class="break-all font-semibold">{{ $r.image_name }}</dd>
           </div>
-          <div class="rounded-s bg-ui-bg/80 p-3">
-            <dt class="font-semibold">{{ T "downloads.size" }}</dt>
-            <dd>{{ $r.size }}</dd>
+          <div class="card-surface rounded-m border border-ui-border p-3">
+            <dt class="text-xs uppercase tracking-wide text-tx-muted">{{ T "downloads.size" }}</dt>
+            <dd class="font-semibold">{{ $r.size }}</dd>
           </div>
-          <div class="rounded-s bg-ui-bg/80 p-3 sm:col-span-2">
-            <dt class="font-semibold">{{ T "downloads.published" }}</dt>
-            <dd>{{ time.Format "2 January 2006" $r.published_at }}</dd>
+          <div class="card-surface rounded-m border border-ui-border p-3 sm:col-span-2">
+            <dt class="text-xs uppercase tracking-wide text-tx-muted">{{ T "downloads.published" }}</dt>
+            <dd class="font-semibold">{{ time.Format "2 January 2006" $r.published_at }}</dd>
           </div>
         </dl>
 
-        <div class="mt-5 rounded-s border border-primary bg-primary/5 p-4">
+        <div class="card-surface mt-5 rounded-m border border-ui-border p-4">
           <p class="font-semibold text-tx-main">SHA256</p>
           <code class="mt-2 block whitespace-pre-wrap break-all text-xs">{{ $r.sha256 }}</code>
         </div>
@@ -80,8 +80,8 @@
         {{ end }}
       </article>
 
-      <aside class="rounded-l border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.mirrors" }}</h2>
+      <aside class="card p-6">
+        <h2 class="section-title text-lg font-bold text-tx-main">{{ T "downloads.mirrors" }}</h2>
         {{/* Los espejos son filas de `ListCard`: título a la izquierda, acción a
              la derecha. Un espejo que no está publicado no es un botón
              deshabilitado sino texto, porque no hay nada que apretar. */}}
@@ -96,7 +96,7 @@
                 "label" (T "home.download")
                 "size" "sm") }}
           {{ else }}
-            {{- $accion = printf "<span class=\"rounded-s bg-ui-surface/80 px-3 py-2 text-sm text-tx-muted\">%s</span>" (T "downloads.unavailable") }}
+            {{- $accion = printf "<span class=\"rounded-m border border-ui-border bg-ui-surface/80 px-3 py-2 text-sm text-tx-muted\">%s</span>" (T "downloads.unavailable") }}
           {{ end }}
           {{ partial "ui/card.html" (dict
               "title" .name
@@ -113,15 +113,15 @@
     </section>
 
     <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <article class="rounded-l border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.minimum" }}</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-brand-text">
+      <article class="card p-6">
+        <h2 class="section-title text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.minimum" }}</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed marker:text-brand-text">
           {{ range $r.requirements.minimum }}<li>{{ partial "requirement.html" . }}</li>{{ end }}
         </ul>
       </article>
-      <article class="rounded-l border border-primary bg-ui-bg/80 p-6">
-        <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.recommended" }}</h2>
-        <ul class="mt-3 list-disc space-y-2 pl-5 marker:text-brand-text">
+      <article class="card p-6">
+        <h2 class="section-title text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.recommended" }}</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed marker:text-brand-text">
           {{ range $r.requirements.recommended }}<li>{{ partial "requirement.html" . }}</li>{{ end }}
         </ul>
       </article>
@@ -147,12 +147,12 @@
       </div>
     </section>
 
-    <section id="article" class="mt-8 rounded-l bg-ui-bg/80 px-6 py-8 text-tx-main md:px-12">
+    <section id="article" class="card mt-8 px-6 py-8 text-tx-main md:px-12">
       {{ .Content }}
     </section>
 
-    <section class="mt-8 rounded-l border border-primary bg-ui-bg/80 p-6">
-      <h2 class="text-lg font-bold text-tx-main">{{ T "downloads.support" }}</h2>
+    <section class="card mt-8 p-6">
+      <h2 class="section-title text-lg font-bold text-tx-main">{{ T "downloads.support" }}</h2>
       <p class="mt-2 text-sm text-tx-muted">
         {{ T "downloads.supportHint" }}
       </p>

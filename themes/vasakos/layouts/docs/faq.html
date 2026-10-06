@@ -7,23 +7,52 @@
   <div class="mx-auto flex justify-between">
     <div class="w-full lg:w-8/12">
       <div class="px-8">
-        <div class="mx-auto flex flex-col rounded-l bg-ui-bg/80 px-6 py-10 md:px-16" id="article">
-          <h1 class="text-center text-brand-text">{{ .Title }}</h1>
+        {{/* El mismo cuerpo que en `docs/single.html`: `.card`, con el canto y
+             la sombra, y el titular por `.section-title`. Lo que cambia aquí es
+             lo que va adentro —el acordeón, que ya es una tarjeta— así que el
+             artículo tiene que ser la caja de afuera y el acordeón la de
+             adentro, y no al revés. */}}
+        <div class="card mx-auto flex flex-col px-6 py-10 md:px-16" id="article">
+          <h1 class="section-title text-center text-brand-text">{{ .Title }}</h1>
 
           {{ with .Params.intro }}
           <div class="mb-8 text-center text-tx-muted">{{ . | markdownify }}</div>
           {{ end }}
 
-          <div class="space-y-3">
+          {{/* El acordeón.
+
+               Era `<details class="rounded-m border border-ui-border
+               bg-ui-surface/80 p-4">`: superficie al 80 % sobre una caja que
+               también es superficie, El `#article` de afuera es `bg-ui-bg/80` y el acordeón
+               `bg-ui-surface/80`, que son dos superficies distintas, así que la
+               diferencia de tono estaba. Lo que no encajaba era el radio: 8 px, que es el de una
+               etiqueta, para una caja de texto de 24 px. El de una tarjeta es
+               16, y es el que corresponde.
+
+               Ahora es `.card`, con el resumen como fila pulsable y el chevron
+               adentro de un círculo que gira: el giro es lo que dice que se abre
+               y se cierra, y antes estaba suelto en el extremo de la línea, que
+               con una pregunta de dos renglones quedaba descolgado.
+
+               El `details` no lleva altura animada porque no se puede sin
+               `interpolate-size: allow-keywords` o JavaScript, y el
+               `::details-content` que la trae no está en los navegadores que se
+               usan acá. Se abre y se cierra de golpe, que es lo que hace
+               `<details>` y no es un defecto: es un elemento nativo.
+
+               La respuesta va con `[&>p]:mb-0`: el markdown de una respuesta
+               suelta es un párrafo, y el `#article p` del artículo le pone un
+               margen inferior de 1 rem que aquí sobra porque no sigue nada. */}}
+          <div class="mt-8 space-y-3">
             {{- range $i, $item := .Params.faq }}
-            <details class="group rounded-m border border-ui-border bg-ui-surface/80 p-4"{{ if eq $i 0 }} open{{ end }}>
-              <summary class="cursor-pointer list-none font-semibold text-tx-main marker:content-none">
-                <span class="flex items-start justify-between gap-4">
-                  <span>{{ $item.q }}</span>
-                  <i class="fa-solid fa-chevron-right mt-1 shrink-0 text-brand-text transition-transform group-open:rotate-90" aria-hidden="true"></i>
+            <details class="card group p-0"{{ if eq $i 0 }} open{{ end }}>
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-4 p-5 marker:content-none">
+                <span class="font-medium leading-relaxed text-tx-main">{{ $item.q }}</span>
+                <span class="empty-mark mt-0.5 !h-8 !w-8 shrink-0 !rounded-full transition-transform duration-200 group-open:rotate-90">
+                  <i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i>
                 </span>
               </summary>
-              <div class="faq-answer mt-3 text-tx-muted">{{ $item.a | markdownify }}</div>
+              <div class="border-ui-border mx-5 border-t pt-4 pb-5 text-tx-muted [&>p]:mb-0 [&>p:last-child]:mb-0">{{ $item.a | markdownify }}</div>
             </details>
             {{- end }}
           </div>
