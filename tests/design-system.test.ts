@@ -59,6 +59,20 @@ function sinComentarios(texto: string): string {
 }
 
 /**
+ * La hoja sin sus comentarios de CSS.
+ *
+ * Es el hermano de `sinComentarios` para el otro lenguaje: los comentarios de
+ * Hugo y de HTML no tocan `styles.css`, y los comentarios de CSS —que son veinte
+ * párrafos que explican por qué se quitó cada cosa— tampoco se quitan con
+ * `sinComentarios`. Hace falta porque una prueba que busca el texto de una regla
+ * puede aparecer primero en el párrafo que explica por qué esa regla cambió, y
+ * Lee la explicación como si fuera la regla.
+ */
+function sinComentariosCSS(texto: string): string {
+  return texto.replace(/\/\*[\s\S]*?\*\//g, "");
+}
+
+/**
  * Los nombres de clase que aparecen **de verdad** en los atributos `class`, con
  * el atributo ya partido por espacios.
  *
@@ -1048,5 +1062,228 @@ describe("cada imagen dice qué es, o está junto a lo que ya lo dice", () => {
       )
       .map(([ruta]) => ruta);
     expect(sinMotivo).toEqual([]);
+  });
+});
+
+/*
+  La tipografía.
+
+  Las tres fuentes eran palabras clave —`sans-serif`, `monospace`— que no son
+  fuentes sino «la que el sistema elija»: en Windows `sans-serif` es Arial y en
+  Linux es DejaVu Sans, así que el mismo sitio se leía distinto en cada sistema
+  operativo. Y el espaciado entre letras no estaba en ninguna parte, salvo un
+  `tracking-tight` escrito a mano en `.section-title` que la mitad de las veces
+  perdía contra la utilidad `text-*` del mismo elemento.
+
+  Las dos cosas se arreglan desde la hoja y no desde las plantillas: las fuentes
+  son tres pilas, y el tracking se publica como `--text-*--letter-spacing`, que es
+  la forma en que Tailwind empareja el espaciado con el cuerpo. Por eso la
+  comprobación es sobre `styles.css` y no sobre las plantillas: lo que hay que
+  vigilar es que la escala siga siendo la única fuente de verdad.
+*/
+
+describe("las fuentes son pilas y el tracking sale de una escala", () => {
+  const css = sinComentariosCSS(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
+
+  test("ninguna fuente es una palabra clave genérica", () => {
+    /*
+      `sans-serif` y `monospace` no eligen una cara: la dejan a cargo del sistema
+      operativo, y los resultados van de Arial a DejaVu Sans. Las tres tienen que
+      ser pilas que empiezan con `system-ui` primero, que es la cara que el sistema
+      diseñó para interfaz.
+
+      Se comprueba sobre el texto sin comentarios porque el párrafo que explica el
+      cambio tiene que nombrar las palabras clave para poder explicar que ya no
+      están.
+    */
+    const genericas = casos(
+      [`${TEMA}/assets/css/styles.css`],
+      (l) => /--vsk-font-[a-z]+:\s*(sans-serif|monospace|serif|system-ui)\s*;/.test(l)
+    );
+    expect(genericas).toEqual([]);
+
+    for (const fuente of ["apps", "title", "terminal"]) {
+      expect(css).toMatch(new RegExp(`--vsk-font-${fuente}:`));
+    }
+    // La de interfaz tiene que preferir `system-ui`; la de terminal, `ui-monospace`.
+    const apps = css.match(/--vsk-font-apps:\s*([^;]+);/)?.[1] ?? "";
+    const terminal = css.match(/--vsk-font-terminal:\s*([^;]+);/)?.[1] ?? "";
+    expect(apps).toContain("system-ui");
+    expect(terminal).toContain("ui-monospace");
+    // Y las dos terminan en la palabra clave, como red de seguridad y no como elección.
+    expect(apps.trimEnd()).toMatch(/sans-serif$/);
+    expect(terminal.trimEnd()).toMatch(/monospace$/);
+  });
+
+  test("cada paso de la escala declara su espaciado", () => {
+    /*
+      El espaciado entre letras acompaña al cuerpo, no es un número suelto: a 12 px
+      hace falta aire entre dos letras y a 48 px el mismo aire se ve y abre la
+      línea como un cartel. Publicarlo como `--text-*--letter-spacing` es lo que
+      hace que la utilidad `text-3xl` salga con las tres propiedades juntas, y por
+      eso las cuarenta apariciones de `text-3xl` en las plantillas mejoran sin
+      tocar ninguna.
+
+      La lista se comprueba completa —los nueve pasos, del `xs` al `5xl`— porque
+      un paso que se olvide queda con el tracking de Tailwind, que es cero, y es
+      un fallo que no se ve en la fuente sino en el navegador.
+    */
+    const pasos = ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl"];
+    const faltan = pasos.filter((p) => !new RegExp(`--text-${p}--letter-spacing:\\s*[^;]+;`).test(css));
+    expect(faltan).toEqual([]);
+
+    // Y la curva tiene que cambiar de signo: positiva en los chicos, negativa en
+    // los grandes. Una escala toda positiva —o toda negativa— no acompaña al
+    // tamaño, y para eso no hace falta una lista.
+    const valor = (p: string) =>
+      css.match(new RegExp(`--text-${p}--letter-spacing:\\s*(-?[\\d.]+)(?:em)?\\b`))?.[1];
+    expect(Number(valor("xs"))).toBeGreaterThan(0);
+    expect(Number(valor("sm"))).toBeGreaterThan(0);
+    expect(Number(valor("base"))).toBe(0);
+    expect(Number(valor("xl"))).toBeLessThan(0);
+    expect(Number(valor("5xl"))).toBeLessThan(0);
+  });
+
+  test("el espaciado no se escribe a mano en ninguna clase de título", () => {
+    /*
+      El `letter-spacing: -0.025em` de `.section-title` estaba muerto en casi todos
+      los elementos que lo llevaban: casi todos los títulos traen su propia utilidad
+      `text-3xl` o `text-4xl`, y como las utilidades van después de esta capa,
+      ganaba la de ellos. Dos fuentes de verdad para el mismo número es la forma
+      más segura de que una de las dos se quede vieja.
+
+      Se comprueba sobre las clases de título conocidas y no sobre la hoja entera
+      porque hay `letter-spacing` legítimos en otros lados —el interlineado del
+      código, por ejemplo— y lo que se vigila es que el título no tenga el suyo.
+    */
+    const deTitulo = [".section-title", ".section-lead", ".page-title"];
+    for (const selector of deTitulo) {
+      const i = css.indexOf(selector + " {");
+      expect(i).toBeGreaterThan(-1);
+      const bloque = css.slice(i, css.indexOf("}", i));
+      expect(bloque).not.toContain("letter-spacing");
+    }
+  });
+
+  test("los encabezados del artículo toman el espaciado de la escala", () => {
+    /*
+      Los tres tenían su tracking escrito a mano —-0.025, -0.02 y -0.015 em— y los
+      tres ya coincidían con un paso: `3xl`, `2xl` y `xl`. La página no cambió de
+      aspecto al enchufarlos; lo que cambió es que ahora dicen a qué paso se
+      parecen. Mover un paso de la curva mueve los tres encabezados del artículo
+      junto con los cuarenta títulos de las plantillas, en vez de dejar tres
+      números que alguien tiene que acordarse de tocar a mano.
+
+      La forma de referenciarlos importa: `letter-spacing: var(...)`. Un
+      `letter-spacing: -0.025em` volvería a ser una segunda fuente de verdad, y
+      por eso se comprueba que sea una referencia y no un número.
+    */
+    for (const [nivel, paso] of [["h2", "3xl"], ["h3", "2xl"], ["h4", "xl"]]) {
+      const i = css.indexOf(`#article ${nivel} {`);
+      expect(i).toBeGreaterThan(-1);
+      const bloque = css.slice(i, css.indexOf("}", i));
+      expect(bloque).toContain(`letter-spacing: var(--text-${paso}--letter-spacing)`);
+      expect(bloque).not.toMatch(/letter-spacing:\s*-?[\d.]/);
+    }
+  });
+});
+
+describe("los títulos del sitio tienen una escala, no una elección por plantilla", () => {
+  const css = sinComentariosCSS(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
+
+  test("todo <h1> de las plantillas usa la escala de títulos de página", () => {
+    /*
+      Había tres tamaños para lo mismo: 30 px en `/docs/`, 36 px en `/state/` y en
+      `/downloads/`, y 32 px en `/faq/` y en los artículos —donde el `<h1>` no
+      declaraba ninguna utilidad de tamaño y lo que lo sostenía era
+      `#article h1 { font-size: 2rem }`, o sea el tamaño del encabezado de artículo
+      aplicándose al título de página por accidente—.
+
+      Cada plantilla elige sus clases de color, de alineación y de aire, pero el
+      tamaño no es suyo. La comprobación es sobre el texto de los atributos
+      `class` ya partido por espacios, con `{{ }}` de Hugo adentro, y por eso usa
+      la plantilla entera y no renglón por renglón.
+    */
+    const sinEscala = plantillas.flatMap((ruta) => {
+      const texto = sinComentarios(readFileSync(ruta, "utf8"));
+      return [...texto.matchAll(/<h1\b[^>]*>/g)]
+        .filter((h1) => !/\bpage-title\b/.test(h1[0]))
+        .map((h1) => `${ruta.replace(`${TEMA}/layouts/`, "")}  ${h1[0].slice(0, 80)}`);
+    });
+    expect(sinEscala).toEqual([]);
+  });
+
+  test("#article h1 no vuelve a decidir el tamaño del título", () => {
+    /*
+      `render-heading.html` degrada el `#` del markdown a `<h2>`, de modo que un
+      `<h1>` dentro de `#article` es siempre y sólo el título de página. Por eso su
+      tamaño lo dice `.page-title`, y `#article h1` se queda con la caja —el aire
+      que separa el título del cuerpo— y nada más.
+
+      Si `#article h1` vuelve a declarar un `font-size`, además le gana a
+      `.page-title` por especificidad —1-0-1 contra 0-1-0, los dos en la capa de
+      componentes— y los cuatro títulos de página vuelven a quedar en 32 px sin
+      que ninguna plantilla haya cambiado.
+    */
+    const i = css.indexOf("#article h1 {");
+    expect(i).toBeGreaterThan(-1);
+    const bloque = css.slice(i, css.indexOf("}", i));
+    expect(bloque).not.toContain("font-size");
+    expect(bloque).not.toContain("line-height");
+    expect(bloque).not.toContain("letter-spacing");
+    // La caja sí: sin el margen el título queda pegado al primer párrafo.
+    expect(bloque).toContain("margin-bottom");
+  });
+
+  test("los encabezados del artículo llevan un solo color", () => {
+    /*
+      Eran tres colores para cuatro niveles: el `h1` en el color del texto, el `h2`
+      en `--brand-text` y el `h3` en `--secondary`. Dos jerarquías contradictorias
+      en la misma columna — por tamaño el `h3` era un escalón más abajo que el
+      `h2`, por color era un salto de tono entero.
+
+      Y `--secondary` además no daba la talla para el peso que tiene: `#8839ef` da
+      3.51:1 sobre la superficie, y un `h3` de 24 px en negrita necesita 3:1, así
+      que pasaba por menos de medio punto. `--brand-text` da 5.03:1.
+
+      El `h1` sí queda en el color del texto: es el título de la página, el único
+      que no hace falta marcar porque ya está solo arriba de todo.
+    */
+    const bloque = (nivel: string) => {
+      const i = css.indexOf(`#article ${nivel} {`);
+      expect(i).toBeGreaterThan(-1);
+      return css.slice(i, css.indexOf("}", i));
+    };
+    for (const nivel of ["h2", "h3", "h4"]) {
+      expect(bloque(nivel)).toContain("text-brand-text");
+      /*
+        Y que ninguno se escape por su cuenta al `--secondary`, lo escriban como
+        `@apply text-secondary` o como `color: var(--secondary)`: las dos formas
+        lesionan el contraste y sólo la segunda no la delata un `grep`.
+      */
+      expect(bloque(nivel)).not.toMatch(/secondary/);
+    }
+    expect(bloque("h1")).not.toMatch(/brand-text|secondary/);
+  });
+
+  test("los encabezados del artículo no se sangran para marcar su nivel", () => {
+    /*
+      El `h3` venía con `ms-2` y el `h4` con `ms-4`. Un encabezado que se sangra
+      para indicar su nivel es una convención de imprenta, no de diseño de
+      interfaces: en pantalla lo que separa los niveles es el aire y el cuerpo, y
+      la sangra hacía que dos subtítulos de distinto nivel no alinearan entre sí
+      dentro del mismo artículo.
+
+      La comprobación lee los cuatro bloques enteros. Por renglón no serviría: la
+      sangra estaba en su propia línea, debajo de la que abre el bloque, y una
+      prueba línea a línea la deja pasar sin enterarse.
+    */
+    for (const nivel of ["h2", "h3", "h4"]) {
+      const i = css.indexOf(`#article ${nivel} {`);
+      expect(i).toBeGreaterThan(-1);
+      const bloque = css.slice(i, css.indexOf("}", i));
+      // `my-*` sí puede: es aire vertical, que es justo lo que separa los niveles.
+      expect(bloque).not.toMatch(/\b(ms|ml|ps|pl)-\d/);
+    }
   });
 });

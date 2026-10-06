@@ -7,6 +7,61 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Cambios
 
+- Las tres fuentes eran palabras clave: `sans-serif` y `monospace`. No son fuentes
+  sino «la que el sistema operativo elija», así que el mismo sitio se leía en
+  Arial en Windows y en DejaVu Sans en Linux. Ahora son tres pilas reales, y la de
+  interfaz empieza por `system-ui`, que es la cara que el sistema diseñó para
+  interfaz. En una web con tan poco texto propio —casi todo sale de Hugo y de
+  Tailwind— la tipografía es el único Finished work del sitio, y estaba delegada.
+
+- El espaciado entre letras no estaba en ninguna parte, salvo un `tracking-tight`
+  escrito a mano en `.section-title` que perdía contra la utilidad `text-*` del
+  mismo elemento la mitad de las veces. Se publica ahora como
+  `--text-*--letter-spacing`, que es la forma en que Tailwind empareja el
+  espaciado con el cuerpo: a 12 px hace falta aire entre dos letras y a 48 px el
+  mismo aire abre la línea como un cartel. Con esto, las cuarenta apariciones de
+  `text-3xl` en las plantillas mejoran sin tocar ninguna.
+
+- Los títulos de página tenían tres tamaños: 30 px en `/docs/`, 36 px en `/state/`
+  y `/downloads/`, y 32 px en `/faq/` y en los artículos. Los 32 px los sostenía
+  `#article h1 { font-size: 2rem }` por accidente: `render-heading.html` degrada
+  el `#` del markdown a `<h2>`, de modo que un `<h1>` dentro de `#article` es
+  siempre el título de la página, y lo que era el tamaño del encabezado de
+  artículo le tocaba al título de página. Ahora los trece `<h1>` de las
+  plantillas usan `.page-title`, y `#article h1` conserva sólo el aire que separa
+  el título del cuerpo.
+
+- Los encabezados del artículo tenían tres colores para cuatro niveles: el `h2` en
+  `--brand-text` y el `h3` en `--secondary`, que da 3.51:1 sobre la superficie
+  para un texto de 24 px en negrita que pide 3:1 —pasaba por menos de medio
+  punto—. Los tres niveles comparten `--brand-text`, que da 5.03:1. Y se van las
+  sangras con que el `h3` y el `h4` marcaban su nivel: en pantalla lo que separa
+  los niveles es el aire y el cuerpo.
+
+- El espaciado de los encabezados del artículo sale de la escala. Los tres lo
+  tenían escrito a mano y los tres ya coincidían con un paso —`3xl`, `2xl` y `xl`—,
+  así que la página no cambia de aspecto: lo que cambia es que ahora dicen a qué
+  paso se parecen.
+
+### Verificación
+
+- Ocho pruebas nuevas, cada una comprobada reintroduciendo el defecto: que
+  ninguna fuente sea una palabra clave genérica, que los nueve pasos de la escala
+  declaren su espaciado y que la curva cambie de signo, que ninguna clase de
+  título escriba su tracking a mano, que los encabezados del artículo lo referencien
+  en vez de copiarlo, que todo `<h1>` de las plantillas use `.page-title`, que
+  `#article h1` no vuelva a declarar un tamaño, que los encabezados del artículo
+  lleven un solo color y que ninguno se sangre.
+
+- axe-core sobre 27 páginas reales en español e inglés, sin violaciones.
+
+- Se descubrió una cuarta duración de la escala y, con ella, dos afirmaciones
+  muertas: las pruebas de tipografía leían renglón por renglón y no mordían, porque
+  el defecto estaba en su propia línea debajo de la que abre el bloque. Ahora
+  leen el bloque entero.
+
+### Cambios
+
 - La barra deja de proyectar una sombra desde el primer píxel. Una sombra es la
   forma que tiene una caja de decir «estoy delante», y arriba del todo de una
   página no hay nada detrás: la de la barra dibujaba una banda oscura y difusa

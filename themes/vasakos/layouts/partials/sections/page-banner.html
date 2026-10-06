@@ -22,9 +22,9 @@
   {{- end }}
   <div class="mx-4 max-w-5xl rounded-xl border border-ui-border bg-ui-bg/80 p-10 text-center text-tx-main shadow-l backdrop-blur-md">
     {{- if $heading }}
-    <h1 id="{{ $bannerID }}" class="section-title mx-auto mb-4 max-w-3xl text-4xl font-bold text-tx-main">{{ $page.Title }}</h1>
+    <h1 id="{{ $bannerID }}" class="section-title page-title mx-auto mb-4 max-w-3xl text-tx-main">{{ $page.Title }}</h1>
     {{- else }}
-    <p id="{{ $bannerID }}" class="section-title mx-auto mb-4 max-w-3xl text-4xl font-bold text-tx-main">{{ $page.Title }}</p>
+    <p id="{{ $bannerID }}" class="section-title page-title mx-auto mb-4 max-w-3xl text-tx-main">{{ $page.Title }}</p>
     {{- end }}
     {{ $page.Summary }}
   </div>

@@ -5,7 +5,7 @@
     <div class="w-full">
 
       {{/* A listing without an <h1> is a page search engines cannot label. */}}
-      <h1 class="section-title mb-2 text-3xl font-bold text-tx-main">{{ .Title }}</h1>
+      <h1 class="section-title page-title mb-2 text-tx-main">{{ .Title }}</h1>
       {{ with .Description }}<p class="mb-6 text-tx-muted">{{ . }}</p>{{ end }}
 
       {{ $paginator := .Paginate .Data.Pages.ByDate.Reverse }}

@@ -13,7 +13,7 @@
              artículo tiene que ser la caja de afuera y el acordeón la de
              adentro, y no al revés. */}}
         <div class="card mx-auto flex flex-col px-6 py-10 md:px-16" id="article">
-          <h1 class="section-title text-center text-brand-text">{{ .Title }}</h1>
+          <h1 class="section-title page-title text-center text-brand-text">{{ .Title }}</h1>
 
           {{ with .Params.intro }}
           <div class="mb-8 text-center text-tx-muted">{{ . | markdownify }}</div>
