@@ -24,13 +24,56 @@
           <h1 class="section-title page-title mt-4 text-center text-tx-main">{{ .Title }}</h1>
 
           {{ with .Params.donations }}
+          {{/* El objetivo anual no está escrito en ninguna parte: sale de
+               `monthly_goal` —quitándole todo lo que no es dígito y por
+               doce—, así que un cambio de meta no deja un número viejo
+               suelto en la página. */}}
+          {{- $anual := printf "USD $%d" (mul (int (replaceRE `[^0-9]` "" .monthly_goal)) 12) }}
           <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
             <article class="card lg:col-span-2 p-6">
               <p class="text-sm uppercase tracking-wide text-brand-text font-semibold">{{ T "donate.donations" }}</p>
               <h2 class="section-title mt-1 text-2xl font-bold text-tx-main">{{ T "donate.summary.subtitle" }}</h2>
-              <p class="mt-2 text-sm text-tx-muted">
-                {{ T "donate.summary.status" }} · {{ T "donate.monthlyGoal" (dict "Amount" .monthly_goal) }}
-              </p>
+              <p class="mt-2 text-sm text-tx-muted">{{ T "donate.summary.status" }}</p>
+
+              {{/* La ficha es la página entera en miniatura —de qué va, cuánto,
+                   por qué mensual y qué no es—. Sin esto quedaba media vacía al
+                   lado de los seis medios de pago: el objetivo en grande y seis
+                   datos que el desglose de abajo no puede decir antes de que
+                   exista. */}}
+              <div class="card-surface mt-4 rounded-m border border-ui-border p-4">
+                <p class="text-sm uppercase tracking-wide text-brand-text font-semibold">{{ T "donate.summary.goalLabel" }}</p>
+                <p class="mt-1 font-mono text-3xl font-bold text-tx-main">{{ .monthly_goal }}</p>
+                <p class="mt-1 text-sm text-tx-muted">{{ T "donate.summary.annual" (dict "Amount" $anual) }}</p>
+              </div>
+
+              <p class="mt-4 text-sm leading-relaxed text-tx-muted">{{ T "donate.summary.lead" }}</p>
+
+              <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="card-surface rounded-m border border-ui-border p-4">
+                  <p class="text-sm font-semibold">{{ T "donate.summary.factMonthTitle" }}</p>
+                  <p class="mt-1 text-sm text-tx-muted">{{ T "donate.summary.factMonthDetail" }}</p>
+                </div>
+                <div class="card-surface rounded-m border border-ui-border p-4">
+                  <p class="text-sm font-semibold">{{ T "donate.summary.factBreakdownTitle" }}</p>
+                  <p class="mt-1 text-sm text-tx-muted">{{ T "donate.summary.factBreakdownDetail" }}</p>
+                </div>
+                <div class="card-surface rounded-m border border-ui-border p-4">
+                  <p class="text-sm font-semibold">{{ T "donate.summary.factPrivacyTitle" }}</p>
+                  <p class="mt-1 text-sm text-tx-muted">{{ T "donate.summary.factPrivacyDetail" }}</p>
+                </div>
+                <div class="card-surface rounded-m border border-ui-border p-4">
+                  <p class="text-sm font-semibold">{{ T "donate.summary.factHelpTitle" }}</p>
+                  <p class="mt-1 text-sm text-tx-muted">{{ T "donate.summary.factHelpDetail" }}</p>
+                </div>
+                <div class="card-surface rounded-m border border-ui-border p-4">
+                  <p class="text-sm font-semibold">{{ T "donate.summary.factIndependenceTitle" }}</p>
+                  <p class="mt-1 text-sm text-tx-muted">{{ T "donate.summary.factIndependenceDetail" }}</p>
+                </div>
+                <div class="card-surface rounded-m border border-ui-border p-4">
+                  <p class="text-sm font-semibold">{{ T "donate.summary.factTiersTitle" }}</p>
+                  <p class="mt-1 text-sm text-tx-muted">{{ T "donate.summary.factTiersDetail" }}</p>
+                </div>
+              </div>
 
               <div class="card-surface mt-4 rounded-m border border-ui-border p-4">
                 <p class="font-semibold">{{ T "donate.currentFocus" }}</p>
@@ -179,8 +222,11 @@
           </section>
 
           {{ if .github_sponsors_embed }}
-          <section class="card mt-8 overflow-hidden p-0">
-            <iframe src="{{ .github_sponsors_embed }}" title="Sponsor Vasak-OS" height="225" width="600" class="block w-full"></iframe>
+          {{/* El iframe va con aire adentro de la tarjeta y redondeado él mismo:
+               pegado al borde, su rectángulo se cortaba contra el radio de la
+               card y se veía como un recorte. */}}
+          <section class="card mt-8 p-4">
+            <iframe src="{{ .github_sponsors_embed }}" title="Sponsor Vasak-OS" height="225" width="600" class="block w-full rounded-m"></iframe>
           </section>
           {{ end }}
           {{ end }}{{/* with .Params.donations */}}

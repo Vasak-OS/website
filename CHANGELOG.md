@@ -8,15 +8,27 @@ importan a quien usa el sitio, no la lista de archivos.
 ### Cambios
 
 - La página de donaciones pedía plata sin decir cuánta ni para qué. Ahora
-  publica un presupuesto de USD $750 por mes en cinco rubros —servidores de
-  distribución ($150), foro y comunidad ($80), herramientas de trabajo ($120),
-  servicios para desarrolladores ($200) y desarrollo y mantenimiento de la
-  distro ($200)— y cada tarjeta lleva su importe al lado del título, una frase
+  publica un presupuesto de USD $1500 por mes en cinco rubros —servidores de
+  distribución ($300), foro y comunidad ($150), herramientas de trabajo ($250),
+  servicios para desarrolladores ($400) y desarrollo y mantenimiento de la
+  distro ($400)— y cada tarjeta lleva su importe al lado del título, una frase
   que explica qué cubre y tres ítems concretos. La sexta celda de la grilla es
   la suma: `monthly_goal`, el plan `monthly-goal` de `funding.json` y los cinco
   importes dicen el mismo número en los dos idiomas. El bloque de
   infraestructura con prioridades se va —el desglose ya responde qué se compra
   y cuánto cuesta—.
+
+- La ficha del resumen quedó media vacía al lado de los seis medios de pago.
+  Ahora cuenta qué es esto antes de pedir: el objetivo en grande con su
+  equivalente anual calculado desde `monthly_goal` —si cambia la meta, cambia
+  el anual—, un párrafo con el costo del mes y seis datos: el mes completo
+  que cubre la meta, que los cinco rubros suman justo el objetivo, que no hay
+  publicidad ni datos en el medio, otras formas de ayudar sin plata, que el
+  aporte no compra influencia y que no hay niveles ni recompensas.
+
+- El iframe de GitHub Sponsors se cortaba contra el radio de la tarjeta:
+  iba pegado al borde con `p-0` y `overflow-hidden`, y su rectángulo se recortaba.
+  Ahora tiene aire adentro y su propia esquina redondeada.
 
 - La página decía que la donación sostiene un ecosistema y no lo mostraba.
   Ahora lo muestra con los mismos datos que la portada y `/state/`
@@ -95,13 +107,15 @@ importan a quien usa el sitio, no la lista de archivos.
 ### Verificación
 
 - Dos pruebas nuevas, cada una comprobada reintroduciendo el defecto: que los
-  importes del presupuesto sumen la meta mensual y sean idénticos en los dos
-  idiomas, y que `ui/card` imprima `$icon` en el `class` del `<i>`. La de
-  i18n pasó a resolver los rubros (`budget`) en lugar de `usage`/`infra`, y a
-  leer el campo `items`.
+  importes del presupuesto sumen la meta mensual —USD $1500— y sean idénticos
+  en los dos idiomas, y que `ui/card` imprima `$icon` en el `class` del `<i>`.
+  La de i18n pasó a resolver los rubros (`budget`) en lugar de `usage`/`infra`,
+  y a leer el campo `items`.
 
 - axe-core sobre `/donate/` y `/en/donate/` y la portada —que cambia con el
-  arreglo del icono—, sin violaciones. 104 pruebas en verde.
+  arreglo del icono—, sin violaciones. 104 pruebas en verde. La ficha del
+  resumen mide 912 px contra los 948 del aside de medios de pago a 1440 de
+  ancho: la fila cierra sin hueco.
 
 - Tres pruebas nuevas, cada una comprobada reintroduciendo el defecto —seis
   reintroducciones en total—: que el pie use el mismo paso de margen y la misma
