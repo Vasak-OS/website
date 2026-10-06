@@ -1287,3 +1287,116 @@ describe("los títulos del sitio tienen una escala, no una elección por plantil
     }
   });
 });
+
+/*
+  La ventana de arriba y la de abajo.
+
+  El pie era otro objeto que el header: estaba a 24 px de los bordes con radio de
+  14 px cuando la barra estaba a 8 px con radio de 24, y con `max-w-6xl` le
+  cortaba el ancho —942 px contra los 974 de la barra en la misma ventana—. Los
+  dos son la misma cosa: una caja flotando sobre la página, una arriba y una
+  abajo. Si se ven distintos es porque alguien midió una y no la otra.
+
+  Y los botones de icono eran óvalos: `.btn-icon` anulaba el relleno y dejaba que
+  el contenido diera el ancho —20 px, el ancho del `<em>`— mientras el alto lo
+  daba el tamaño del botón, 40 px. Con `border-radius: 9999px` eso es un óvalo de
+  20 × 40, no un círculo.
+*/
+describe("el pie lleva la misma ventana que la barra", () => {
+  const barra = sinComentarios(readFileSync(`${TEMA}/layouts/partials/header.html`, "utf8"));
+  const pie = sinComentarios(readFileSync(`${TEMA}/layouts/partials/footer.html`, "utf8"));
+
+  test("los dos flotan a la misma distancia de la pantalla y con la misma esquina", () => {
+    /*
+      Dos medidas y sólo dos. La primera es el paso de margen: `m-2` en la barra y
+      `mx-2` en el envoltorio del pie, que son los dos 8 px. La segunda es la
+      utilidad de radio, `rounded-xl` en los dos, que son 24 px.
+
+      Se comparan entre sí y no contra un valor escrito en la prueba. Si mañana
+      la escala de radios mueve `xl` a 20 px, los dos siguen iguales y la prueba
+      no molesta. Lo que no puede pasar es que uno de los dos se mueva solo.
+
+      Y el panel del pie no puede llevar `max-w-*`: la barra no lo lleva, y con
+      un tope de ancho el pie queda más angosto que la barra en cualquier ventana
+      mayor que 1152 px, que es justamente donde se nota.
+    */
+    const claseBarra = barra.match(/<header[^>]*\sclass="([^"]*)"/)?.[1] ?? "";
+    const pasoBarra = claseBarra.match(/\bm-(\d+)\b/)?.[1];
+    const radioBarra = claseBarra.match(/\brounded-[\w-]+\b/)?.[0];
+    expect(pasoBarra).toBeDefined();
+    expect(radioBarra).toBeDefined();
+
+    // El envoltorio del pie: el primer `<div>` del partial, el que contiene al panel.
+    const pasoPie = pie.match(/<div class="mx-(\d+)\s/)?.[1];
+    const clasePanel = pie.match(/<div class="panel[^"]*"/)?.[0] ?? "";
+    const radioPie = clasePanel.match(/\brounded-[\w-]+\b/)?.[0];
+
+    expect(pasoPie).toBe(pasoBarra);
+    expect(radioPie).toBe(radioBarra);
+    expect(clasePanel).not.toMatch(/\bmax-w-/);
+
+    // Y los dos pasos son el 2 de la escala —8 px—, no cualquier cosa que coincida.
+    expect(pasoBarra).toBe("2");
+    expect(radioBarra).toBe("rounded-xl");
+  });
+
+  test("ningún botón de icono declara un lado que rompa el cuadrado", () => {
+    /*
+      `.btn-icon` tiene `aspect-ratio: 1`, que le da el ancho al botón desde su
+      alto. Eso basta mientras nada lo contradiga: una utilidad `w-12` encima
+      fija el ancho y la relación no tiene nada que decidir, así que la caja
+      queda 48 × 40 con el radio de 9999 px del medio dibujando un óvalo otra vez.
+
+      Un `h-*` suelto rompe el cuadrado por el otro lado, y además contradice a la
+      clase de tamaño —`.btn-md` ya puso el alto—, que es otro defecto con el mismo
+      origen: dos lugares diciendo la altura.
+
+      Por eso la regla es que si un lado numérico aparece, los dos tienen que
+      aparecer y tener el mismo número. `size-10`, el de las flechas del carrusel,
+      no es un lado suelto: lo declara el par entero y cuadrado. `w-full` no entra
+      porque no es un número —un botón de icono a ancho completo no tiene forma de
+      ser cuadrado y no hay ninguno en el sitio—.
+    */
+    const con_lado = plantillas.flatMap((ruta) =>
+      [...sinComentarios(readFileSync(ruta, "utf8")).matchAll(/<[^>]*\bbtn-icon\b[^>]*>/g)]
+        .map((m) => m[0])
+        .filter((etiqueta) => {
+          const w = etiqueta.match(/\bw-(\d+)\b/)?.[1];
+          const h = etiqueta.match(/\bh-(\d+)\b/)?.[1];
+          // O los dos con el mismo número, o ninguno: con uno solo la caja
+          // deja de ser cuadrada aunque `.btn-icon` pida la relación.
+          return (w !== undefined || h !== undefined) && w !== h;
+        })
+        .map((etiqueta) => `${ruta.replace(`${TEMA}/layouts/`, "")}  ${etiqueta.slice(0, 90)}`),
+    );
+    expect(con_lado).toEqual([]);
+  });
+});
+
+describe("un botón de icono es un círculo, no un óvalo", () => {
+  const css = sinComentariosCSS(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
+
+  test(".btn-icon le da el ancho desde el alto", () => {
+    /*
+      Medido en el navegador: los del pie eran 20 × 40 y los de la tabla de estado
+      de `/state/` 14 × 32, con `border-radius: 9999px`. Un rectángulo con radio
+      de círculo es un óvalo, y lo que se ve es una mancha alargada, no un botón
+      redondo: ni los cuatro lados miden lo mismo ni el radio se cumple.
+
+      Con `aspect-ratio: 1` y el alto puesto por `.btn-md` o `.btn-sm`, el ancho
+      sale de la altura: 40 × 40 y 32 × 32. Las flechas del carrusel no se notaban
+      porque traen `size-10`, que fija las dos dimensiones.
+
+      Se comprueba la regla y no una medición: la medición ya la hace el navegador
+      y aquí no hay. Lo que hay que vigilar es que nadie le quite la relación.
+    */
+    const i = css.indexOf(".btn-icon {");
+    expect(i).toBeGreaterThan(-1);
+    const bloque = css.slice(i, css.indexOf("}", i));
+    expect(bloque).toMatch(/aspect-ratio:\s*1\b/);
+    // Y el radio sigue siendo el de círculo: sin él sería un rectángulo.
+    expect(bloque).toMatch(/border-radius:\s*9999px/);
+    // Y sin relleno: el relleno horizontal es lo que hacía falta antes de la relación.
+    expect(bloque).toMatch(/padding-inline:\s*0\b/);
+  });
+});

@@ -7,6 +7,25 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Cambios
 
+- El pie no medía lo que la barra. La barra flota a 8 px de la pantalla con una
+  esquina de 24 px; el pie estaba a 12 px en pantallas angostas y a 24 px en
+  anchas, con una esquina de 14 px y un `max-w-6xl` que le cortaba el ancho:
+  942 px contra los 974 de la barra en la misma ventana. Son la misma cosa, una
+  arriba y una abajo —una caja flotando sobre la página—, y si se veían
+  distintos era porque uno de los dos se había medido y el otro no. Ahora el pie
+  lleva `mx-2`, `rounded-xl` y ningún tope de ancho: mide 974 px en `x=8` con
+  radio de 24 px, igual que la barra, en cualquier ventana. La banda de badges,
+  que iba pegada al borde izquierdo del panel, se centra con `mx-auto`.
+
+- Los botones de icono eran óvalos. `.btn-icon` anulaba el relleno horizontal y
+  dejaba que el contenido diera el ancho —20 px, el ancho del `<em>`— mientras el
+  alto lo daba el tamaño del botón, 40 px: con `border-radius: 9999px` eso es un
+  óvalo de 20 × 40 en el pie y de 14 × 32 en el GitHub de la tabla de estado, una
+  mancha alargada en vez del círculo que prometía el radio. Un `aspect-ratio: 1`
+  le da el ancho desde el alto, y los tres tamaños quedan cuadrados: 40 × 40 en
+  `md`, 32 × 32 en `sm` y 48 × 48 en `lg`. Las flechas del carrusel no se
+  notaban porque traen `size-10`, que ya fija las dos dimensiones.
+
 - Las tres fuentes eran palabras clave: `sans-serif` y `monospace`. No son fuentes
   sino «la que el sistema operativo elija», así que el mismo sitio se leía en
   Arial en Windows y en DejaVu Sans en Linux. Ahora son tres pilas reales, y la de
@@ -44,6 +63,20 @@ importan a quien usa el sitio, no la lista de archivos.
   paso se parecen.
 
 ### Verificación
+
+- Tres pruebas nuevas, cada una comprobada reintroduciendo el defecto —seis
+  reintroducciones en total—: que el pie use el mismo paso de margen y la misma
+  utilidad de radio que la barra y no lleve tope de ancho, que ningún botón de
+  icono declare un lado numérico que rompa el cuadrado, y que `.btn-icon`
+  conserve la relación de aspecto, el radio de 9999 px y el relleno anulado.
+
+- axe-core sobre las 28 páginas reales de la muestra, sin violaciones. Las tres
+  URLs que dieron violaciones no existían: el servidor estático devuelve su
+  propio 404 sin `<main>`, que es justo lo que axe acusaba.
+
+- La estructura de landmarks es idéntica a la de HEAD en las 542 páginas del
+  build, de modo que esta ronda no mueve nada de lo que la auditoría anterior ya
+  había revisado.
 
 - Ocho pruebas nuevas, cada una comprobada reintroduciendo el defecto: que
   ninguna fuente sea una palabra clave genérica, que los nueve pasos de la escala

@@ -824,9 +824,18 @@ html.dark {
 
 /* Un botón sin texto es un cuadrado del tamaño del icono, no un `py-1` con un
    hueco al lado. La misma condición que usa el `ActionButton` de la librería
-   (`iconSrc && !label`), que acá la pasa el partial. */
+   (`iconSrc && !label`), que acá la pasa el partial.
+
+   `aspect-ratio: 1` es lo que hace que sea un cuadrado. Sin él el ancho lo pone
+   el contenido —el `<em>` mide 20 px— y el alto lo pone el tamaño del botón
+   —40 px en el `md`—, así que con `border-radius: 9999px` la caja resultante
+   era un óvalo de 20 × 40 en el pie y de 14 × 32 en el GitHub de la tabla de
+   estado: una mancha alargada y no un círculo, y la mitad de la promesa del
+   radio. Las flechas del carrusel no se notaban porque traen `size-10`, que fija
+   las dos dimensiones y deja el aspecto sin efecto. */
 .btn-icon {
   padding-inline: 0;
+  aspect-ratio: 1;
   border-radius: 9999px;
 }
 
