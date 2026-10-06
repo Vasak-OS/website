@@ -55,7 +55,9 @@ const casos = (archivos_: string[], donde: (c: string) => boolean) =>
  * el archivo entero se acusaría a sí misma.
  */
 function sinComentarios(texto: string): string {
-  return texto.replace(/\{\{-?\s*\/\*[\s\S]*?\*\/\s*-?\}\}/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  return texto
+    .replace(/\{\{-?\s*\/\*[\s\S]*?\*\/\s*-?\}\}/g, "")
+    .replace(/<!--[\s\S]*?-->/g, "");
 }
 
 /**
@@ -659,7 +661,10 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     expect(ss).toContain("dot.firstElementChild");
     // Sólo el código, no el comentario que explica el cambio: la palabra aparece
     // ahí a propósito, y buscarla en todo el archivo la haría sonar siempre.
-    const codigo = ss.replace(/\{\{-[\s\S]*?-\}\}|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g, "");
+    const codigo = ss.replace(
+      /\{\{-[\s\S]*?-\}\}|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g,
+      "",
+    );
     expect(codigo).not.toContain("dataset.ariaSelected");
   });
 
@@ -828,64 +833,70 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     expect(codigo).toContain("btn btn-icon btn-md btn-primary sheen");
   });
 
-  test("cada celda de una lista de definiciones empieza por su término", () => {
-    /*
-      `/about/` dibujo seis hechos como `<dl>` y, dentro de cada celda, puso el
-      ícono como hermano **antes** del `<dt>`:
+  // Lee `public/`, así que en CI se saltea donde no hay build: `app / revisar`
+  // (workflow de la organización, sin Hugo) la saltea y el `sitio` de este
+  // repositorio, que compila, la corre. Ver el comentario largo en `tags`.
+  test.skipIf(process.env.CI && !existsSync("public"))(
+    "cada celda de una lista de definiciones empieza por su término",
+    () => {
+      /*
+        `/about/` dibujo seis hechos como `<dl>` y, dentro de cada celda, puso el
+        ícono como hermano **antes** del `<dt>`:
 
-          <div><span class="empty-mark">…</span><dt>…</dt><dd>…</dd></div>
+            <div><span class="empty-mark">…</span><dt>…</dt><dd>…</dd></div>
 
-      HTML permite ese `<div>` agrupando términos, pero tiene que empezar por un
-      `dt`: el contenido de un `div` dentro de un `dl` es la definición completa,
-      y un `span` antes del `dt` lo convierte en algo que no es ni término ni
-      definición. `axe` lo marca como `definition-list`, impacto serio.
+        HTML permite ese `<div>` agrupando términos, pero tiene que empezar por un
+        `dt`: el contenido de un `div` dentro de un `dl` es la definición completa,
+        y un `span` antes del `dt` lo convierte en algo que no es ni término ni
+        definición. `axe` lo marca como `definition-list`, impacto serio.
 
-      Se ve en pantalla exactamente igual, y por eso lo encontró la auditoría y
-      no la vista. El ícono ahora va adentro del `dt`, que es lo que además dice
-      que decora el término y no la fila.
+        Se ve en pantalla exactamente igual, y por eso lo encontró la auditoría y
+        no la vista. El ícono ahora va adentro del `dt`, que es lo que además dice
+        que decora el término y no la fila.
 
-      Se comprueba sobre el HTML que Hugo genera, no sobre la plantilla: la
-      regla es del HTML final, y en la plantilla hay `{{ range }}` de por medio.
-    */
-    const rutas = [
-      "public/about/index.html",
-      "public/en/about/index.html",
-      "public/downloads/index.html",
-      "public/en/downloads/index.html",
-    ].filter((ruta) => existsSync(ruta));
+        Se comprueba sobre el HTML que Hugo genera, no sobre la plantilla: la
+        regla es del HTML final, y en la plantilla hay `{{ range }}` de por medio.
+      */
+      const rutas = [
+        "public/about/index.html",
+        "public/en/about/index.html",
+        "public/downloads/index.html",
+        "public/en/downloads/index.html",
+      ].filter((ruta) => existsSync(ruta));
 
-    let revisados = 0;
-    for (const ruta of rutas) {
-      const html = readFileSync(ruta, "utf8");
-      for (const dl of html.match(/<dl\b[\s\S]*?<\/dl>/g) ?? []) {
-        for (const celda of dl.match(/<div\b[\s\S]*?<\/div>/g) ?? []) {
-          revisados++;
-          // El primer `<div>` es la celda misma, así que su interior empieza
-          // después del cierre de la etiqueta de apertura.
-          const interior = celda.replace(/^<div\b[^>]*>/, "");
+      let revisados = 0;
+      for (const ruta of rutas) {
+        const html = readFileSync(ruta, "utf8");
+        for (const dl of html.match(/<dl\b[\s\S]*?<\/dl>/g) ?? []) {
+          for (const celda of dl.match(/<div\b[\s\S]*?<\/div>/g) ?? []) {
+            revisados++;
+            // El primer `<div>` es la celda misma, así que su interior empieza
+            // después del cierre de la etiqueta de apertura.
+            const interior = celda.replace(/^<div\b[^>]*>/, "");
 
-          // El primer elemento de la celda tiene que ser el `dt`. Se comparan los
-          // nombres de las etiquetas de apertura, no las de cierre: `matchAll`
-          // sobre `<\/?(dt|dd)>` devolvería `dt, dt, dd, dd` —una por cada
-          // apertura y otra por cada cierre— y no diría nada.
-          const nombres = [...interior.matchAll(/<([a-z]+)\b(?![^>]*\/>)/g)].map(
-            (m) => m[1],
-          );
-          expect({ ruta, primero: nombres[0] }).toEqual({ ruta, primero: "dt" });
+            // El primer elemento de la celda tiene que ser el `dt`. Se comparan los
+            // nombres de las etiquetas de apertura, no las de cierre: `matchAll`
+            // sobre `<\/?(dt|dd)>` devolvería `dt, dt, dd, dd` —una por cada
+            // apertura y otra por cada cierre— y no diría nada.
+            const nombres = [...interior.matchAll(/<([a-z]+)\b(?![^>]*\/>)/g)].map(
+              (m) => m[1],
+            );
+            expect({ ruta, primero: nombres[0] }).toEqual({ ruta, primero: "dt" });
 
-          // Y tiene que haber exactamente un `dt` y un `dd`: la celda es una
-          // definición, no un grupo de varias.
-          const cuenta = (t: string) => nombres.filter((n) => n === t).length;
-          expect({ ruta, dt: cuenta("dt"), dd: cuenta("dd") }).toEqual({
-            ruta,
-            dt: 1,
-            dd: 1,
-          });
+            // Y tiene que haber exactamente un `dt` y un `dd`: la celda es una
+            // definición, no un grupo de varias.
+            const cuenta = (t: string) => nombres.filter((n) => n === t).length;
+            expect({ ruta, dt: cuenta("dt"), dd: cuenta("dd") }).toEqual({
+              ruta,
+              dt: 1,
+              dd: 1,
+            });
+          }
         }
       }
-    }
-    expect(revisados).toBeGreaterThan(0);
-  });
+      expect(revisados).toBeGreaterThan(0);
+    },
+  );
 
   test("el índice de cada artículo se estila con el marcado que Hugo emite", () => {
     /*

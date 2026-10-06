@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { YAML } from "bun";
 
@@ -167,29 +167,37 @@ describe("etiquetas", () => {
     expect(sinUrl).toEqual([]);
   });
 
-  test("todo término tiene una carpeta y una página en el sitio publicado", () => {
-    // Igual que la anterior pero contra `public/`. A diferencia del resto de la
-    // suite, esta prueba sí lee del build —no hay otra forma de saber qué
-    // carpeta le puso Hugo a un término—, así que salta si todavía no se
-    // compiló. Sin este salto, `bun test` sobre un clon recién bajado pasa en
-    // verde con las 111 carpetas sin comprobar, que es peor que no comprobar.
-    if (!statSync("public").isDirectory()) {
-      throw new Error(
-        "falta public/: corré `bun run build` antes de los tests, o esta prueba no está mirando nada",
-      );
-    }
-    // Un término que sólo existe en un idioma publica su página en el árbol de
-    // ese idioma, así que se buscan los dos.
-    const faltan = terminos.filter((t) => {
-      for (const prefijo of ["", "/en"]) {
-        try {
-          if (statSync(`public${prefijo}/tags/${slug(t)}/index.html`).isFile()) return false;
-        } catch {
-          /* sigue */
-        }
+  // Igual que la anterior pero contra `public/`. A diferencia del resto de la
+  // suite, esta prueba sí lee del build —no hay otra forma de saber qué carpeta
+  // le puso Hugo a un término—.
+  //
+  // En CI la suite corre en dos trabajos: `app / revisar`, que viene del
+  // workflow de la organización y no trae Hugo, y el `sitio` de este
+  // repositorio, que sí compila y corre la suite entera contra el sitio armado.
+  // Allá se saltea sólo si falta el build; local, sin compilar, sigue siendo un
+  // error: pasar en verde con las 111 carpetas sin comprobar es peor que no
+  // comprobar.
+  test.skipIf(process.env.CI && !existsSync("public"))(
+    "todo término tiene una carpeta y una página en el sitio publicado",
+    () => {
+      if (!existsSync("public")) {
+        throw new Error(
+          "falta public/: corré `bun run build` antes de los tests, o esta prueba no está mirando nada",
+        );
       }
-      return true;
-    });
-    expect(faltan).toEqual([]);
-  });
+      // Un término que sólo existe en un idioma publica su página en el árbol de
+      // ese idioma, así que se buscan los dos.
+      const faltan = terminos.filter((t) => {
+        for (const prefijo of ["", "/en"]) {
+          try {
+            if (statSync(`public${prefijo}/tags/${slug(t)}/index.html`).isFile()) return false;
+          } catch {
+            /* sigue */
+          }
+        }
+        return true;
+      });
+      expect(faltan).toEqual([]);
+    },
+  );
 });

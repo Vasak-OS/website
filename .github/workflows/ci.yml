@@ -24,3 +24,51 @@ jobs:
     # instala dependencias de terceros.
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  # El trabajo de arriba clona, instala y comprueba: no compila, porque es el
+  # mismo para todos los repos de la organización y no trae Hugo. Dos de las
+  # pruebas de `bun test` sí leen `public/` —la de etiquetas y la del `dl` de
+  # /about/— porque sólo el build dice qué carpetas abre Hugo y con qué HTML
+  # cierra; allá se saltean y acá corren, contra el sitio armado.
+  #
+  # Es el mismo build que hace `compilar` en `deploy.yml`, con la receta
+  # clavada igual: acá está para que la suite completa tenga un `public/` donde
+  # mirar, no para publicar.
+  sitio:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+
+      # Misma versión y hash que `deploy.yml`: lo que se baja acá se ejecuta.
+      - name: Instalar Hugo
+        env:
+          HUGO_VERSION: 0.166.0
+          HUGO_SHA256: 0e39b901e3f919f1daae05c8ff64f0c14c8a348ef46886d63f8e6d1bb2653885
+        run: |
+          set -euo pipefail
+          paquete="$RUNNER_TEMP/hugo.tar.gz"
+          curl -fsSL --proto '=https' --tlsv1.2 -o "$paquete" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          echo "$HUGO_SHA256  $paquete" | sha256sum -c --quiet -
+          mkdir -p "$RUNNER_TEMP/hugo"
+          tar -xzf "$paquete" -C "$RUNNER_TEMP/hugo" hugo
+          echo "$RUNNER_TEMP/hugo" >> "$GITHUB_PATH"
+
+      # Sin scripts de instalación, como en `deploy.yml`: son código de terceros
+      # y el build no necesita ninguno.
+      - name: Instalar dependencias
+        run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Compilar
+        env:
+          HUGO_ENVIRONMENT: production
+        run: bun run build
+
+      - name: Pruebas contra el sitio compilado
+        run: bun test
