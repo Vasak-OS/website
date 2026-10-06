@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 /*
@@ -44,6 +44,36 @@ const casos = (archivos_: string[], donde: (c: string) => boolean) =>
       donde(linea) ? [`${ruta}:${i + 1}  ${linea.trim().slice(0, 90)}`] : []
     );
   });
+
+/**
+ * Una plantilla sin sus comentarios: los de Hugo, que pueden ocupar veinte
+ * renglones y cuyo interior es prosa —donde el nombre de una clase prohibida
+ * aparece a propósito—, y los de HTML.
+ *
+ * Hace falta porque las plantillas del sitio explican en el comentario por qué
+ * se quitó un patrón, y ese comentario nombra el patrón. Una prueba que leyera
+ * el archivo entero se acusaría a sí misma.
+ */
+function sinComentarios(texto: string): string {
+  return texto.replace(/\{\{-?\s*\/\*[\s\S]*?\*\/\s*-?\}\}/g, "").replace(/<!--[\s\S]*?-->/g, "");
+}
+
+/**
+ * Los nombres de clase que aparecen **de verdad** en los atributos `class`, con
+ * el atributo ya partido por espacios.
+ *
+ * Se separa por espacios y no con `\b` porque `\b` de la cadena completa hace
+ * que `card` case dentro de `card-hover`: en `class="card card-hover"` el
+ * nombre está, y en `class="card-surface"` no —con `\b` los dos casos, que es
+ * exactamente al revés de lo que se quiere comprobar.
+ */
+function clasesUsadas(texto: string): Set<string> {
+  const usadas = new Set<string>();
+  for (const atributo of texto.matchAll(/class="([^"{}]*)"/g)) {
+    for (const nombre of atributo[1].split(/\s+/)) if (nombre) usadas.add(nombre);
+  }
+  return usadas;
+}
 
 describe("el texto de marca usa su propio token", () => {
   /*
@@ -298,10 +328,20 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
       sino dejar de cambiar el color: el hover pasa a subrayar, que es lo que ya
       hacían los otros siete enlaces de marca del sitio y lo que resuelve
       `link-in-text-block` sin depender de la luminosidad.
+
+      Se cuentan los atributos de verdad, no las palabras: el nombre de la clase
+      aparece dentro de los comentarios de las plantillas —este mismo lo cita,
+      y el de los resultados del buscador explica por qué el título conserva el
+      subrayado—, y una prueba que leyera el archivo entero accusationaría al
+      comentario. Lo que importa es lo que el navegador recibe.
     */
     const malos = plantillas.flatMap((ruta) => {
       const html = readFileSync(ruta, "utf8");
-      return (html.match(/hover:text-(primary|secondary|gray-\d+|white)\b/g) ?? [])
+      // Sólo dentro de una etiqueta: en la prosa de un comentario la palabra no
+      // es un atributo.
+      const atributos = html.match(/class="[^"]*hover:text-[a-z0-9-]+[^"]*"/g) ?? [];
+      return atributos
+        .filter((c) => /hover:text-(primary|secondary|gray-\d+|white)\b/.test(c))
         .map((c) => `${ruta}  ${c}`);
     });
     expect(malos).toEqual([]);
@@ -332,6 +372,390 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     const ss = readFileSync(`${TEMA}/layouts/partials/sections/screenshots.html`, "utf8");
     const track = ss.match(/<section[^>]*screenshots-track[^>]*>/)?.[0] ?? "";
     expect(track).toContain('aria-roledescription="carousel"');
+  });
+
+  test("los puntos del carrusel se pueden tocar", () => {
+    /*
+      WCAG 2.5.8 (AA) pide 24 px de objetivo. Los puntos eran el `<button>` entero:
+      `h-2.5 w-2.5`, o sea 10, con 8 de separación. Además eran lo único que
+      No era un detalle: el botón era también lo único que permitía saltar de
+      captura sin deslizar, porque el `pre` y el `next` están ocultos en móvil por
+      `md:flex` — en un teléfono el carrusel se recorría entero a dedo para cambiar
+      de foto.
+
+      El botón pasa a `size-6` con el círculo visible dibujado adentro como un
+      `span` de 10, así que la vista no cambia. Se comprueba que el `size-6` esté
+      en el `<button>` y que el `span` de 10 esté adentro: si alguien achica el
+      `<button>` para "optimizar", el `size-6` se va y esto lo dice.
+    */
+    const ss = readFileSync(`${TEMA}/layouts/partials/sections/screenshots.html`, "utf8");
+    // La apertura del `<button>` y lo que va inmediatamente después: el `>` del
+    // regex corta en la primera etiqueta, así que el `span` del punto —que es
+    // hijo, no atributo— hay que buscarlo aparte.
+    const apertura = ss.match(/<button[^>]*data-shots-dot[\s\S]*?>/)?.[0] ?? "";
+    expect(apertura).toContain("size-6");
+    const despues = ss.slice(ss.indexOf(apertura) + apertura.length);
+    expect(despues.slice(0, 400)).toContain('<span class="size-2.5 rounded-full');
+  });
+
+  test("el movimiento del sitio tiene tres duraciones y ninguna más", () => {
+    /*
+      El sitio tenía cuatro tiempos distintos para gestos que son el mismo gesto.
+
+      El caso más claro: `<body class="transition-all duration-400">` en
+      `baseof.html`, `body * { transition-colors duration-300 }` en la hoja y
+      `.btn` a 0.2 s. Al cambiar de modo oscuro el fondo cruzaba en 400 ms, un
+      subtítulo en 300 y un botón en 200, y eso se veía como una onda que venía
+      del fondo para adentro. Y `.card` estaba a 250 ms, que no estaba en ninguna
+      parte de la escala.
+
+      Los tres que quedan, y por qué son tres y no uno:
+
+        · **200 ms** — reaccionar. Hover de un botón, de una tarjeta, de una fila
+          de enlace, de una entrada del índice; y el fundido del modo oscuro, que
+          es una reacción. Un número para "al pasar el mouse", y el mismo para
+          todos: dos elementos que se elevan tienen que sentirse del mismo
+          material.
+
+        · **300 ms** — entrar y salir. Lo que aparece y lo que desaparece, que
+          tiene que tener el tiempo de ser entendido. La barra de progreso y la
+          persiana del menú.
+
+        · **400 ms** — el recorrido del carrusel, que es la única animación que
+          mueve algo un trecho y no un píxel. Va con el `transform` del
+          desplazamiento y con el desenfoque de la foto que no está en el centro.
+
+      Lo que se comprueba es que no aparezca un cuarto número. No porque tres sea
+      un número mágico: cada número que se cuela vuelve a hacer que dos elementos
+      que hacen lo mismo se sientan distintos, y eso es exactamente lo que la
+      escala evita. Agregar uno es fácil —una línea— y por eso tiene que exigir que
+      se escriba el por qué.
+
+      El `0.01ms` de `prefers-reduced-motion` queda fuera a propósito: no es una
+      duración del sistema, es la forma canónica de apagar la animación, y tiene
+      que ganarle a todo lo demás, que es para lo que está el `!important`.
+    */
+    const css = sinComentarios(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
+
+    // Todo se normaliza a milisegundos antes de comparar. La hoja escribe `0.2s`
+    // y las plantillas `duration-200`, y son la misma duración; comparando las
+    // dos formas literales el test fallaría siempre por la unidad y dejaría de
+    // avisar de lo único que importa.
+    const aMilisegundos = (d: string): number =>
+      d.endsWith("ms") ? parseFloat(d) : parseFloat(d) * 1000;
+
+    const duraciones = new Set<number>();
+    for (const decl of css.match(/transition:\s*([^;]+);/g) ?? []) {
+      for (const d of decl.match(/\b[0-9.]+m?s\b/g) ?? []) {
+        if (d !== "0.01ms") duraciones.add(aMilisegundos(d));
+      }
+    }
+
+    const enPlantillas = plantillas
+      .map((ruta) => sinComentarios(readFileSync(ruta, "utf8")))
+      .join("\n");
+    for (const d of enPlantillas.match(/\bduration-\d+\b/g) ?? []) {
+      duraciones.add(Number(d.slice("duration-".length)));
+    }
+
+    const escala = [200, 300, 400];
+    const ordenadas = (a: number, b: number) => a - b;
+    expect({
+      duraciones: [...duraciones].sort(ordenadas),
+      fueraDeEscala: [...duraciones].filter((d) => !escala.includes(d)).sort(ordenadas),
+    }).toEqual({ duraciones: escala, fueraDeEscala: [] });
+  });
+
+  test("el punto activo del carrusel se anuncia como tal", () => {
+    /*
+      `role="tab"` exige `aria-selected`, y el script lo escribía como
+      `dot.dataset.ariaSelected = …`. No es un error de sintaxis sino de
+      objetivo: `dataset` produce `data-aria-selected`, un atributo sin ningún
+      significado para un lector de pantalla. El estado del carrusel no se
+      anunciaba.
+
+      También importa que el color esté en el `span` de adentro y no en el
+      botón: el botón mide 24 px y el círculo 10, así que el `classList.toggle`
+      del `paint()` tiene que apuntarle al hijo. Si volviera al botón, el punto
+      activo se vería como un cuadrado de 24.
+    */
+    const ss = readFileSync(`${TEMA}/layouts/partials/sections/screenshots.html`, "utf8");
+    expect(ss).toContain("aria-selected=");
+    expect(ss).toContain("dot.firstElementChild");
+    // Sólo el código, no el comentario que explica el cambio: la palabra aparece
+    // ahí a propósito, y buscarla en todo el archivo la haría sonar siempre.
+    const codigo = ss.replace(/\{\{-[\s\S]*?-\}\}|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g, "");
+    expect(codigo).not.toContain("dataset.ariaSelected");
+  });
+
+  test("el efecto de profundidad del carrusel no baja el texto de opacidad", () => {
+    /*
+      El `opacity: 0.5` de la tarjeta se aplicaba al `<figure>` completo, así que
+      arrastraba al `<figcaption>`: el nombre de la captura quedaba al 50 %, que
+      sobre el fondo de la página mide 3.8:1 contra los 10.8:1 de entero — y el 4.5
+      que pide WCAG 1.4.3 para 14 px. `axe` lo marcó como `color-contrast` en la
+      portada y su versión inglesa.
+
+      La profundidad la tiene que contar la fotografía, que es una imagen y no
+      tiene contraste que perder; el rótulo es texto. Se comprueba que el `filter`
+      y el `opacity` estén sobre `[data-shot]` —el marco de la imagen— y no sobre
+      `.snap-center`.
+    */
+    const css = readFileSync(`${TEMA}/assets/css/styles.css`, "utf8");
+    const bloque = css.match(/\.screenshots-track\[data-carousel\][\s\S]*?\n\}/g) ?? [];
+    const conOpacidad = bloque.filter((r) => /opacity:\s*0\.5/.test(r));
+    for (const regla of conOpacidad) {
+      expect(regla).toContain("[data-shot]");
+    }
+    // La profundidad por escala se queda en la tarjeta: un `transform` no altera
+    // el color, así que no tiene contraste que perder.
+    const escala = bloque.find((r) => /transform:\s*scale\(0\.92\)/.test(r)) ?? "";
+    expect(escala).toContain(".snap-center");
+  });
+
+  test("los encabezados de tabla tienen texto", () => {
+    /*
+      `/docs/user/security` y su versión inglesa tenían la fila de encabezado
+      vacía —`| | |` en el markdown— porque la tabla se escribió como una lista
+      de plazos y nadie le puso título a las columnas. `axe` lo marcó como
+      `empty-table-header`: un `<th>` sin texto no le dice nada a quien navega
+      con lector de pantalla, y la primera fila de datos se lee como si fuera otra
+      cosa.
+
+      No alcanza con mirar el markdown renderizado, que es donde el hueco ya no
+      se ve: se lee el fuente, que es lo que se edita.
+    */
+    const docs = archivos("content/docs", ".md").filter((r) => !r.includes("/en."));
+    for (const ruta of docs.concat(docs.map((r) => r.replace(/\.md$/, ".en.md")))) {
+      if (!existsSync(ruta)) continue;
+      const html = readFileSync(ruta, "utf8");
+      const cabeceras = html.match(/^\|[\s|:-]*\|$/gm) ?? [];
+      for (const linea of cabeceras) {
+        // Una fila de encabezado es la que sólo tiene guiones y espacios entre
+        // barras. Si además tiene texto, es una fila de datos y no importa.
+        expect(linea).toMatch(/\|[-\s:|]*\|/);
+      }
+      const filasVacias = html.match(/^\|\s*\|\s*\|/gm) ?? [];
+      if (html.includes("|---|") && filasVacias.length > 0) {
+        throw new Error(`${ruta}: hay una fila de tabla sin texto (${filasVacias[0]})`);
+      }
+    }
+  });
+
+  test("la gramática de componentes se usa, no se reescribe a mano", () => {
+    /*
+      La razón de que la capa exista: estos patrones estaban escritos a mano en
+      cada plantilla, con tres variantes distintas de la misma intención cada uno,
+      y todos se leían distinto entre sí. `.btn` con sus tres tamaños y sus
+      cuatro tonos, `.card` para toda caja, `.panel` para la superficie anidada,
+      `.link-row` para los enlaces que no tienen caja, `.pager-link` para el
+      paginador, `.rule` para un separador, `.empty-mark` para el ícono de un
+      estado vacío, `.icon-tile` para el emblema de 70 px, `.badge` para la
+      pastilla de estado.
+
+      Dos cosas se comprueban, y las dos importan:
+
+      1. Que la pieza exista **y se use**. Una clase del sistema que nadie usa es
+         código muerto que además da la impresión de que el sitio la respeta.
+
+      2. Que exista **de verdad**. Tailwind v4 descarta en silencio lo que no
+         reconoce, así que un `.btn` mal escrito deja al elemento sin nada y no
+         hay ningún aviso: sólo se ve mirando el CSS emitido.
+
+      `.btn-secondary` y `.btn-danger` no aparecen en ningún atributo `class` de
+      las plantillas, y no es que estén sin usar: `ui/action-button.html` elige
+      la clase desde un mapa de tonos con `printf`, así que el nombre se compone
+      en el momento de renderizar. Por eso las dos comprobaciones miran
+      lugares distintos —el CSS para la primera, todo el texto ya sin comentarios
+      para la segunda— y por eso la segunda no filtra por `class=`.
+    */
+    const css = readFileSync(`${TEMA}/assets/css/styles.css`, "utf8");
+    const capa = [
+      "btn", "btn-sm", "btn-md", "btn-lg", "btn-icon",
+      "btn-primary", "btn-secondary", "btn-neutral", "btn-danger",
+      "card", "card-surface", "card-hover", "panel",
+      "link-row", "pager-link", "rule",
+      "empty-mark", "icon-tile", "sheen", "badge",
+      "section-title", "section-lead",
+    ];
+    for (const clase of capa) {
+      expect(css).toMatch(new RegExp(`\\.${clase}(?![-\\w])`));
+    }
+    // Se lee la plantilla entera sin comentarios, y no sólo lo que hay dentro de
+    // un `class="…"`: los tonos del partial se escriben como cadenas sueltas.
+    const todas = sinComentarios(
+      plantillas.map((ruta) => readFileSync(ruta, "utf8")).join("\n"),
+    );
+    const huerfanas = capa.filter(
+      (clase) => !new RegExp(`(^|[\\s"'])${clase}([\\s"'/]|$)`).test(todas),
+    );
+    expect(huerfanas).toEqual([]);
+  });
+
+  test("los bordes de control no usan el color de marca", () => {
+    /*
+      `border-primary` mide 2.64:1 contra `--color-ui-bg` en modo claro, y WCAG
+      1.4.11 pide 3:1 para el borde que identifica un control. En oscuro daba
+      7.93:1 y pasaba, así que el fallo sólo se veía en claro — y por eso hace
+      falta la prueba y no la vista.
+
+      `--color-ui-border-strong` da 7.06:1 en claro y 11.34:1 en oscuro, y es el
+      token que existe justo para esto: los bordes de botón, campo, insignia y
+      número de página ya lo usan. Quedaban seis cajas con el de marca, entre ellas
+      todas las tarjetas de /downloads/ y /donate/.
+    */
+    // Mismo criterio de la prueba anterior: dentro de un atributo `class` y
+    // como nombre completo. Un `border-primary` citado en un comentario no
+    // es un borde, y el comentario de esta prueba lo cita.
+    const malos = plantillas.filter((ruta) =>
+      clasesUsadas(sinComentarios(readFileSync(ruta, "utf8"))).has("border-primary"),
+    );
+    expect(malos).toEqual([]);
+  });
+
+  test("las flechas del paginador usan el vocabulario de botones", () => {
+    /*
+      El paginador eran dos flechas de 48 px con `bg-primary hover:bg-secondary`:
+      el hover componía el violeta al 90 % contra lo que hubiera detrás, y eso
+      cambia entre la página y el listado, así que el mismo botón se oscurecía
+      distinto según dónde estuviera. `.btn-primary:hover` usa `color-mix` contra
+      negro y da el mismo tono en todas partes.
+
+      Y ahora hay números, con `.pager-link`: sin ellos no se decía en qué
+      página se estaba ni cuántas había.
+
+      Se lee la plantilla sin comentarios: el nombre de la clase vieja está en el
+      de arriba, a propósito, y en el archivo entero lo haría sonar siempre.
+    */
+    const codigo = sinComentarios(
+      readFileSync(`${TEMA}/layouts/partials/pagination.html`, "utf8"),
+    );
+    expect(codigo).not.toMatch(/hover:bg-secondary/);
+    expect(codigo).toContain("pager-link");
+    expect(codigo).toContain('aria-current="page"');
+    expect(codigo).toContain("btn btn-icon btn-md btn-primary sheen");
+  });
+
+  test("cada celda de una lista de definiciones empieza por su término", () => {
+    /*
+      `/about/` dibujo seis hechos como `<dl>` y, dentro de cada celda, puso el
+      ícono como hermano **antes** del `<dt>`:
+
+          <div><span class="empty-mark">…</span><dt>…</dt><dd>…</dd></div>
+
+      HTML permite ese `<div>` agrupando términos, pero tiene que empezar por un
+      `dt`: el contenido de un `div` dentro de un `dl` es la definición completa,
+      y un `span` antes del `dt` lo convierte en algo que no es ni término ni
+      definición. `axe` lo marca como `definition-list`, impacto serio.
+
+      Se ve en pantalla exactamente igual, y por eso lo encontró la auditoría y
+      no la vista. El ícono ahora va adentro del `dt`, que es lo que además dice
+      que decora el término y no la fila.
+
+      Se comprueba sobre el HTML que Hugo genera, no sobre la plantilla: la
+      regla es del HTML final, y en la plantilla hay `{{ range }}` de por medio.
+    */
+    const rutas = [
+      "public/about/index.html",
+      "public/en/about/index.html",
+      "public/downloads/index.html",
+      "public/en/downloads/index.html",
+    ].filter((ruta) => existsSync(ruta));
+
+    let revisados = 0;
+    for (const ruta of rutas) {
+      const html = readFileSync(ruta, "utf8");
+      for (const dl of html.match(/<dl\b[\s\S]*?<\/dl>/g) ?? []) {
+        for (const celda of dl.match(/<div\b[\s\S]*?<\/div>/g) ?? []) {
+          revisados++;
+          // El primer `<div>` es la celda misma, así que su interior empieza
+          // después del cierre de la etiqueta de apertura.
+          const interior = celda.replace(/^<div\b[^>]*>/, "");
+
+          // El primer elemento de la celda tiene que ser el `dt`. Se comparan los
+          // nombres de las etiquetas de apertura, no las de cierre: `matchAll`
+          // sobre `<\/?(dt|dd)>` devolvería `dt, dt, dd, dd` —una por cada
+          // apertura y otra por cada cierre— y no diría nada.
+          const nombres = [...interior.matchAll(/<([a-z]+)\b(?![^>]*\/>)/g)].map(
+            (m) => m[1],
+          );
+          expect({ ruta, primero: nombres[0] }).toEqual({ ruta, primero: "dt" });
+
+          // Y tiene que haber exactamente un `dt` y un `dd`: la celda es una
+          // definición, no un grupo de varias.
+          const cuenta = (t: string) => nombres.filter((n) => n === t).length;
+          expect({ ruta, dt: cuenta("dt"), dd: cuenta("dd") }).toEqual({
+            ruta,
+            dt: 1,
+            dd: 1,
+          });
+        }
+      }
+    }
+    expect(revisados).toBeGreaterThan(0);
+  });
+
+  test("el índice de cada artículo se estila con el marcado que Hugo emite", () => {
+    /*
+      El índice lateral no tiene clase: lo genera Hugo dentro de
+      `<nav id="TableOfContents">` y su plantilla es fija, así que el estilo tiene
+      que salir de `styles.css` contra ese ID.
+
+      Lo que se comprueba es que la regla apunte a la lista que Hugo escribe de
+      verdad. Y esa lista es un **`<ol>`**, aunque no haya nada que ordenar — se
+      comprobó en `/docs/user/security/`. Una regla escrita contra `ul` no falla
+      de ninguna forma visible: el CSS se emite, el test de que la clase existe
+      pasa, y el índice sigue saliendo con la numeración del navegador pegada,
+      porque `list-style` nunca se aplicó a la lista que está ahí.
+
+      Por eso la comprobación no es «existe una regla que mencione
+      `#TableOfContents`» sino «la regla que quita la numeración alcanza a `ol`».
+      */
+    const css = readFileSync(`${TEMA}/assets/css/styles.css`, "utf8");
+
+    // La numeración del navegador sale, y sale sobre la lista que Hugo emite.
+    const sinNumeros = css.match(
+      /:where\(#TableOfContents\)[^{]*\{[^}]*list-style:\s*none/,
+    );
+    expect(sinNumeros).not.toBeNull();
+    expect(sinNumeros![0]).toMatch(/:is\(ol,\s*ul\)|(^|[^-\w])ol\b/);
+
+    // Y el enlace es el elemento que lleva el gesto del hover, no el `<li>`.
+    expect(css).toMatch(/:where\(#TableOfContents\)[^{]*\ba\b[^{]*\{[^}]*display:\s*block/);
+
+    // El `<nav>` no lleva clase en ninguna plantilla, y por eso el ID es lo
+    // único contra lo que se puede|stylear: si algún día el partial empieza a
+    // poner `class`, estas reglas dejan de aplicar y hay que saberlo.
+    const navConId = plantillas.filter((ruta) =>
+      readFileSync(ruta, "utf8").includes("TableOfContents"),
+    );
+    expect(navConId.length).toBeGreaterThan(0);
+  });
+
+  test("nada marca un icono como oculto con el atributo vacío", () => {
+    /*
+      `aria-hidden` sin valor no es «oculto»: en HTML un atributo sin valor es
+      una cadena vacía, y la cadena vacía no es un valor de ARIA. El parser la
+      trata como si el atributo no estuviera, y lo que el lector de pantalla
+      hace con `<i class="…"></i>` es leerlo como texto vacío en algunos casos o
+      ignorarlo en otros. `axe` lo marcó como `aria-valid-attr-value` en 12
+      páginas: los iconos de los botones, el emblema de las ventajas y el de los
+      planes.
+
+      Además las comillas tienen que ir escapadas cuando el atributo está dentro
+      de un `printf` de Go, y sin `\"` el build entero falla al parsear la
+      plantilla — eso también lo atrapa esta prueba, porque lee el fuente.
+    */
+    /*
+      Sólo dentro de una etiqueta: en la prosa de los comentarios `aria-hidden`
+      aparece souvent como nombre de atributo, y eso no es un atributo sin valor.
+      Se exige, entonces, que la palabra esté pegada a algo que la convierta en
+      atributo —comillas, barra o cierre de la etiqueta— y que no tenga `=` o
+      `value` adelante, que es la forma en que sí lleva valor.
+    */
+    const etiqueta = /aria-hidden(?![-\w=])[\s/>]/;
+    const malos = casos(plantillas, (l) => etiqueta.test(l) && !l.includes("`aria-hidden`"));
+    expect(malos).toEqual([]);
   });
 
   test("cada plantilla de página abre al menos un <main>", () => {
