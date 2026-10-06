@@ -40,8 +40,14 @@
 {{- $bordered := .bordered | default false -}}
 {{- $action := .action | default "" -}}
 
+{{- /* El ícono deja de ser un glifo suelto de 48 px al 60 % y pasa a ir dentro
+     de un `.empty-mark`: un cuadrado de 56 px con superficie, borde del color de
+     la página y sombra. La razón es la misma que en el botón neutro —sin borde,
+     un ícono de 48 px es una mancha que puede ser un hueco en el renderizado— y
+     además baja el peso visual: un `EmptyState` dice «no hay nada», y un ícono
+     gigante compite con el texto que explica por qué. */ -}}
 <div class="flex flex-col items-center justify-center gap-3 px-8 py-12 text-center{{ if $bordered }} rounded-l border border-dashed border-ui-border bg-ui-surface/20{{ end }}">
-  {{- with $icon }}<i class="{{ . }} mb-1 shrink-0 text-4xl opacity-60" aria-hidden="true"></i>{{ end }}
+  {{- with $icon }}<span class="empty-mark mb-1"><i class="{{ . }} text-2xl" aria-hidden="true"></i></span>{{ end }}
   <p class="text-sm font-medium text-tx-main">{{ $title }}</p>
   {{- with $note }}<p class="text-sm text-tx-muted">{{ . }}</p>{{ end }}
   {{- with $action }}<div class="mt-1">{{ . }}</div>{{ end }}

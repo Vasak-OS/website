@@ -10,27 +10,30 @@
 
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
-  La lista de clases base es la de `ListCard`: `flex items-center justify-between
-  background p-3 rounded-s border border-ui-border transition-colors
-  duration-200`. Y el grupo de texto de adentro es el de `DeviceCard`:
+  La estructura: el grupo de texto de adentro es el de `DeviceCard` —
   `flex items-center gap-3 flex-1 min-w-0`, con el título en `font-semibold` y
-  el subtítulo en `text-xs text-tx-muted`.
+  el subtítulo en `text-xs text-tx-muted`—, y `layout: "stack"` sólo cambia el
+  eje del `flex` de `ListCard`, que es una fila, a una columna, sin tocar el
+  fondo, el borde ni la transición.
 
-  `background` es la clase del escritorio que equivale a `bg-ui-bg/80`
-  (`vasak-desktop/src/assets/main.css:232`); acá está definida igual en
-  `assets/css/styles.css`.
+  ── Dónde deja de ser un espejo ─────────────────────────────────────────────
+
+  La lista de clases base también. `ListCard` escribe
+  `background p-3 rounded-s border border-ui-border`, y acá eso son cinco
+  valores que ningún componente del sitio comparte: cada tarjeta que necesitaba
+  sombra la pedía desde su plantilla, con tres variantes distintas de la misma
+  intención, y las que no la pedían se quedaban en un rectángulo de color con un
+  borde.
+
+  Ahora las cuatro cosas que hacen que una caja se lea como tarjeta —el plano de
+  fondo, el radio de 16 px, la sombra en dos capas y la elevación al hover— están
+  en `.card` y `.card-hover`, en `assets/css/styles.css`. Un solo lugar, y
+  `p-3` —doce píxeles, que es poco para una tarjeta con título y contenido—
+  sube a `p-5`.
 
   ── Desviaciones, y por qué ─────────────────────────────────────────────────
 
-  1. `layout: "stack"`. `ListCard` es una fila: sus clases llevan
-     `items-center justify-between` porque lo que va adentro es otra tarjeta más
-     un botón. Los grupos de la portada, las ventajas y los planes de apoyo
-     llevan título arriba y contenido abajo, así que `layout: "stack"` cambia
-     sólo el eje —`flex-col` en lugar de `items-center justify-between`— y no
-     toca ni el fondo, ni el borde, ni la transición. La lista de clases por
-     omisión sigue siendo la del componente, palabra por palabra.
-
-  2. `pad`. `DeviceCard` usa `px-6 py-3 mb-4` en lugar del `p-3` de
+  1. `pad`. `DeviceCard` usa `px-6 py-3 mb-4` en lugar del `p-3` de
      `ListCard`; está a mano con `pad: "device"` para las cajas más altas del
      sitio. `pad: "none"` deja el relleno en manos de quien llama: sin él no se
      emite ninguna clase de relleno, y el `class` que venga después pone la
@@ -39,37 +42,43 @@
      fondo alrededor— y para las que ya tenían su propio relleno, que de otro
      modo queda duplicado en la lista de clases.
 
-  3. `surface`. `ListCard` usa `background`, que es el fondo de una ventana del
+  2. `surface`. `ListCard` usa `background`, que es el fondo de una ventana del
      escritorio: `bg-ui-bg/80`. En el sitio una tarjeta a veces va *encima* de
      otra cosa —los grupos de la portada viven dentro de una sección
      `bg-ui-bg/80`— y ahí lo que hace falta es la superficie. `surface: true`
-     cambia `background` por `bg-ui-surface/70`, que es exactamente el fondo que
+     cambia el plano por `bg-ui-surface/70`, que es exactamente el fondo que
      `AlertMessage` usa en el tono `info`: el mismo plano elevado que ya usa el
      escritorio, al mismo 70 %.
 
-  4. `tone: "success"`. El `border-l-4 border-status-success` con que
+  3. `tone: "success"`. El `border-l-4 border-status-success` con que
      `DeviceCard` marca un dispositivo conectado. Acá no hay dispositivos
      conectados, pero el mismo borde de acento sirve para marcar «esto anda»,
      que es lo único para lo que el escritorio lo usa.
 
-  5. `truncate`. `DeviceCard` recorta el título porque es una lista de ancho
+  4. `truncate`. `DeviceCard` recorta el título porque es una lista de ancho
      fijo. Acá los títulos son cortos y ninguno tiene un ancho que recortar, y un
      título que se parte en dos líneas dice más que uno con puntos suspensivos.
 
-  6. `ThemeIcon` → `<i>`. La librería pide el icono por **nombre** y lo resuelve
+  5. `ThemeIcon` → `<i>`. La librería pide el icono por **nombre** y lo resuelve
      con su composable, que requiere el tema del escritorio. El sitio no tiene
      ese tema: sus iconos son máscaras CSS (`assets/css/icons.css`). `icon`
      recibe la clase, como en el resto de las plantillas.
 
-  7. `role="button"` y `tabindex` se van. Las que en el escritorio son filas con
+  6. `role="button"` y `tabindex` se van. Las que en el escritorio son filas con
      JavaScript —click, Enter, Espacio— acá son enlaces, y un enlace ya lleva su
      papel y su foco. Poner `role="button"` sobre un `<a>` sería mentirle al
      lector de pantalla.
 
-  8. El título es un `div`. En el escritorio la fila no es un encabezado: es un
+  7. El título es un `div`. En el escritorio la fila no es un encabezado: es un
      control con un texto adentro. En una página puede serlo, y `titleTag` dice
      con qué nivel —`h3` en los grupos de la portada, que cuelgan del `h2` de la
      sección—. Por omisión `div`, que es lo que produce el componente.
+
+  8. `hover`. Una tarjeta con `href` se levanta sola dos píxeles al pasar el
+     mouse y crece su sombra; sin `href` no, porque una tarjeta que sube y baja
+     sola no es una tarjeta sino una marquesina. Las informativas que sí quieren
+     el gesto lo piden con `class: "card-hover"`, como hacen las ventajas de la
+     portada.
 
   ── Parámetros ──────────────────────────────────────────────────────────────
 
@@ -109,12 +118,13 @@
 {{- $surface := .surface | default false -}}
 {{- $extra := .class | default "" -}}
 
-{{- $fondo := cond $surface "bg-ui-surface/70" "background" -}}
-{{- $clases := printf "%s rounded-l border border-ui-border transition-colors duration-200" $fondo -}}
+{{- $clases := "card" -}}
+{{- if $surface }}{{ $clases = printf "%s card-surface" $clases }}{{ end -}}
+{{- if $href }}{{ $clases = printf "%s card-hover" $clases }}{{ end -}}
 {{- if eq $pad "device" -}}
-  {{- $clases = printf "%s px-6 py-3 mb-4" $clases -}}
+  {{- $clases = printf "%s px-6 py-4 mb-4" $clases -}}
 {{- else if ne $pad "none" -}}
-  {{- $clases = printf "%s p-3" $clases -}}
+  {{- $clases = printf "%s p-5" $clases -}}
 {{- end -}}
 {{- if eq $layout "stack" -}}
   {{- $clases = printf "flex flex-col %s" $clases -}}

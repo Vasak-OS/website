@@ -5,14 +5,16 @@
 
   The group panel is `ui/card` and the status chip is `ui/badge`, so the home
   page and /state/ draw the same thing with the same classes and look like the
-  component library the desktop ships.
+  component library the desktop ships. The panel's plane, radius and shadow come
+  from `.card` rather than from a class written here, which is why this file no
+  longer has a `shadow-` in it.
 */}}
 {{- $data := partial "data/components.html" . -}}
-<section class="bg-ui-bg/80 px-4 py-16" id="componentes" data-repo-index="{{ site.Params.repository.index }}">
+<section class="bg-ui-bg/80 px-4 py-20" id="componentes" data-repo-index="{{ site.Params.repository.index }}">
   <div class="mx-auto max-w-screen-xl">
     <div class="mx-auto mb-12 max-w-3xl text-center">
-      <h2 class="text-3xl font-bold text-tx-main sm:text-4xl dark:text-white">{{ T "components.title" }}</h2>
-      <p class="mt-4 text-tx-muted">
+      <h2 class="section-title text-3xl font-bold text-tx-main sm:text-4xl">{{ T "components.title" }}</h2>
+      <p class="section-lead mx-auto mt-4 max-w-2xl text-tx-muted">
         {{ T "components.subtitle" }}
       </p>
     </div>

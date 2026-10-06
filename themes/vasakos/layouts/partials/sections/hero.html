@@ -20,8 +20,13 @@
       class="absolute inset-0 -z-10 h-full w-full object-cover" />
   </picture>
 
-  <div class="mx-4 max-w-3xl rounded-xl bg-ui-bg/80 p-8 text-center backdrop-blur-md sm:p-12">
-    <p class="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-brand-text">
+  {{- /* La caja del hero: `rounded-xl` —24 px, el paso más grande de la escala—
+         más el borde y la sombra larga. El borde es lo que la separa de la foto:
+         `bg-ui-bg/80` sobre una imagen no tiene otro borde, y sin él el texto
+         del hero queda flotando sobre la fotografía. La sombra larga es la que
+         dice «esta caja está delante». */ -}}
+  <div class="mx-4 max-w-3xl rounded-xl border border-ui-border bg-ui-bg/80 p-8 text-center shadow-l backdrop-blur-md sm:p-12">
+    <p class="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-brand-text">
       <span class="relative flex h-2 w-2">
         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
         <span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
@@ -29,13 +34,13 @@
       {{ $release.release_name }} {{ T "home.available" }} · {{ time.Format "2 January 2006" $release.published_at }}
     </p>
 
-    <h1 class="text-4xl font-bold text-tx-main sm:text-5xl">
+    <h1 class="section-title text-4xl font-bold text-tx-main sm:text-5xl">
       <span class="family-vsk text-brand-text">VasakOS</span>
     </h1>
-    <p class="mt-3 text-xl text-tx-muted">
+    <p class="section-lead mt-3 text-xl text-tx-muted">
       {{ T "site.tagline" }}
     </p>
-    <p class="mt-4 text-tx-muted">
+    <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
       {{ T "home.heroRoll" }}
     </p>
 
@@ -57,7 +62,7 @@
           "size" "lg") }}
     </div>
 
-    <p class="mt-5 text-sm text-tx-muted">
+    <p class="mx-auto mt-6 max-w-2xl text-sm text-tx-muted">
       {{ T "home.releaseNote" (dict "Channel" $release.channel) }}
       <a href="{{ "/state/" | relLangURL }}" class="text-brand-text underline">{{ T "home.seeWhatWorks" }}</a>.
     </p>

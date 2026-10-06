@@ -1,37 +1,48 @@
 <footer>
-<div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-l">
-  <div class="w-full draggable">
-    <div class="container flex flex-col mx-auto">
-      <div class="flex flex-col items-center w-full my-20">
-        <span class="mb-8">
-          <img src="{{ .Site.Params.images.logo }}" alt="VasakOS" loading="lazy" class="h-20" />
-        </span>
-        <div class="flex flex-col items-center gap-6">
-          <div
-            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
-            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-tx-muted hover:text-brand-text">{{ T "footer.softwareDev" }}</a>
-            <a href="{{ "/privacy/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.privacy" }}</a>
-            <a href="{{ "/terms/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.terms" }}</a>
-            <a href="{{ "/changelogs/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.changelogs" }}</a>
-            <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-tx-muted hover:text-brand-text">{{ T "footer.roadmap" }}</a>
-          </div>
-          <div class="flex items-center gap-8">
-            {{ range .Site.Params.social.main }}
-            <a href="{{ .url }}" alt="{{ .name }}" aria-label="{{ .name }}" target="_blank"
-              class="text-brand-text hover:underline">
-              <em class="{{ .params.icon }}"></em>
-            </a>
-            {{ end }}
-          </div>
-          {{ partial "footer/badgets.html" . }}
-        </div>
+<div class="mx-3 mt-3 md:mx-6">
+  <div class="panel mx-auto w-full max-w-6xl px-6 py-14 md:px-10">
+    <div class="flex flex-col items-center">
+      <span class="mb-8">
+        <img src="{{ .Site.Params.images.logo }}" alt="VasakOS" loading="lazy" class="h-20" />
+      </span>
+      <nav aria-label="{{ T "footer.links" }}"
+        class="flex flex-wrap items-center justify-center gap-2 lg:gap-3 gap-y-2 lg:flex-nowrap">
+        <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.softwareDev" }}</a>
+        <a href="{{ "/privacy/" | relLangURL }}" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.privacy" }}</a>
+        <a href="{{ "/terms/" | relLangURL }}" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.terms" }}</a>
+        <a href="{{ "/changelogs/" | relLangURL }}" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.changelogs" }}</a>
+        <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.roadmap" }}</a>
+      </nav>
+      {{/* Los iconos de las redes: botones de icono, no un `<em>` suelto.
+
+           Antes eran enlaces cuyo único contenido era un `<em>` con una clase de
+           fuente de íconos, sin caja, sin tamaño y sin nada que les dijera que
+           eran pulsables: el mismo texto, en 18 px, que los cinco enlaces de
+           arriba. Ahora son `.btn .btn-icon .btn-neutral`, que es un círculo de
+           40 px con borde fuerte y sombra —identificable sin depender del color,
+           que es lo que pide WCAG 1.4.11— y que al hover se acerca un píxel.
+
+           El nombre accesible lo tenía el atributo `alt` de un `<a>`, que no
+           existe: `alt` es de `<img>`. Para un enlace hace falta `aria-label`, y
+           ya lo traía, así que sólo se le saca el `alt` muerto. */}}
+      <div class="mt-8 flex items-center gap-3">
+        {{ range .Site.Params.social.main }}
+        <a href="{{ .url }}" aria-label="{{ .name }}" title="{{ .name }}" target="_blank" rel="noopener"
+          class="btn btn-icon btn-md btn-neutral text-tx-muted hover:text-brand-text">
+          <em class="{{ .params.icon }} text-lg" aria-hidden="true"></em>
+        </a>
+        {{ end }}
+      </div>
+      <div class="mt-8 w-full">
+        <hr class="rule mx-auto mb-8 w-24" />
+        {{ partial "footer/badgets.html" . }}
       </div>
     </div>
   </div>
 </div>
 
-<div class="flex flex-wrap my-5">
-  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+<div class="mx-3 md:mx-6 mb-5">
+  <div class="mx-auto w-full max-w-6xl px-6 text-center md:px-10">
     {{/* "Vasak Group" llevaba el degradado de marca pintado con `bg-clip-text`
          y `text-transparent`. Se ve bien y es ilegible: el degradado va de
          `--color-secondary` (#8839ef) a `--color-primary` (#dd7878), y contra
@@ -99,7 +110,7 @@
    era de la v3—, así que el arreglo del nombre queda dicho acá para que el
    próximo que busque el degradado en este botón sepa por qué no lo hay. */}}
 <a rel="noopener" href="#" aria-label="{{ T "footer.backToTop" }}"
-  class="bg-primary text-tx-on-primary fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-m hover:bg-primary/90 text-xl">
+  class="btn btn-icon btn-lg btn-primary sheen fixed bottom-4 right-4 z-30 text-xl md:bottom-6 md:right-6">
   <em class="fas fa-arrow-up" aria-hidden="true"></em>
 </a>
 

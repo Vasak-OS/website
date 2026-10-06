@@ -1,4 +1,19 @@
-<header class="sticky top-0 bg-ui-bg/80 backdrop-blur-md z-40 drop-shadow-xl m-2 mb-0 rounded-l">
+{{- /* La barra.
+
+     `drop-shadow-xl` era un filtro: dibuja la silueta con su alfa, así que sobre
+     una barra translúcida con `backdrop-blur` pintaba una mancha oscura con el
+     borde de la imagen, no una sombra. Y como el `header` es el elemento que
+     tapaba el contenido al desplazarse —tiene `m-2` y radio—, esa mancha era la
+     primera cosa que se veía en cada página.
+
+     Ahora es una sombra de verdad, la corta de la escala, más el borde de un
+     píxel. El borde es lo que separa la barra del contenido que pasa por debajo
+     cuando la página scrollea: sin él, `bg-ui-bg/80` deja pasar el texto y la
+     barra queda pegada al párrafo.
+
+     `m-2 mb-0` se queda: es lo que hace que la barra parezca una ventana
+     apoyada en la página y no una franja de.color. */ -}}
+<header class="sticky top-0 z-40 m-2 mb-0 rounded-l border border-ui-border bg-ui-bg/80 shadow-m backdrop-blur-md">
   <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="{{ T "nav.main" }}">
     <div class="flex lg:flex-1">
       <a href="{{ site.Home.RelPermalink }}" class="-m-1.5">
@@ -52,7 +67,12 @@
       </button>
     </div>
     <div class="mt-6 flow-root">
-      <div class="-my-6 divide-y divide-gray-500/10">
+      {{/* El separador entre entradas del menú móvil era `divide-gray-500/10`:
+             un gris suelto de la paleta de Tailwind, y al 10 % de opacidad, lo
+             que da menos de 1.1:1 contra la superficie — o sea, un separador que
+             en modo claro no se ve. `divide-ui-border` es el token que ya separa
+             todo lo demás del sitio y cambia con el modo. */}}
+      <div class="-my-6 divide-y divide-ui-border">
         <div class="space-y-2 py-6">
           {{ range .Site.Menus.main }}
           <a href="{{ .URL | relLangURL }}" {{ if eq .Params.newtab true }}target="_blank" {{ end }}

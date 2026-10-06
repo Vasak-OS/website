@@ -23,7 +23,7 @@
   {{/* Only one language for this page: the switcher would be a menu of one. */}}
 {{- else -}}
 <div class="js-lang-switch relative" data-lang-switcher>
-  <button type="button" class="inline-flex items-center gap-1.5 rounded-m px-3 py-2 text-lg leading-6 text-tx-main hover:text-brand-text"
+  <button type="button" class="btn btn-sm btn-neutral gap-1.5"
     aria-label="{{ T "nav.language" }}" aria-expanded="false" aria-haspopup="true" data-lang-toggle>
     <i class="fa-solid fa-globe text-sm" aria-hidden="true"></i>
     <span data-lang-current>{{ $current.Label }}</span>
@@ -34,7 +34,7 @@
        with JavaScript off: `:hover` and `:focus-within` do the opening. The
        button is then redundant, but it is what announces the state to a screen
        reader, and it is what the click handler drives. */}}
-  <ul class="js-lang-menu absolute right-0 z-50 mt-2 hidden min-w-[10rem] overflow-hidden rounded-l border border-ui-border bg-ui-surface py-1 shadow-l"
+  <ul class="js-lang-menu card absolute right-0 z-50 mt-2 hidden min-w-[10rem] overflow-hidden p-1"
     data-lang-menu>
     {{/* `.Translations` ya excluye la página actual; `.AllTranslations` la
          incluye, y como la de arriba se agrega a mano, usar la otra lo
@@ -50,7 +50,7 @@
     <li>
       <a href="{{ .RelPermalink }}" lang="{{ $lang.Lang }}" hreflang="{{ $lang.Locale }}"
         data-lang-link="{{ $lang.Lang }}" rel="alternate"
-        class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-ui-bg hover:text-brand-text {{ if $isCurrent }}font-semibold text-brand-text{{ else }}text-tx-main{{ end }}"
+        class="link-row w-full px-3 py-2 text-sm hover:text-tx-main {{ if $isCurrent }}font-semibold text-brand-text{{ else }}text-tx-main{{ end }}"
         {{ if $isCurrent }}aria-current="page"{{ end }}>
         <span class="w-4 shrink-0">
           {{- if $isCurrent }}<i class="fa-solid fa-check text-xs" aria-hidden="true"></i>{{ end -}}

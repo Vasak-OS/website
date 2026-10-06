@@ -30,7 +30,7 @@
   <div class="mx-auto w-full max-w-screen-xl px-4">
     <div class="mb-12 text-center">
       <span class="text-sm font-semibold uppercase tracking-wider text-brand-text">{{ T "screenshots.eyebrow" }}</span>
-      <h2 class="mt-2 text-3xl font-bold text-tx-main">{{ T "screenshots.title" }}</h2>
+      <h2 class="section-title mt-2 text-3xl font-bold text-tx-main">{{ T "screenshots.title" }}</h2>
       <p class="mt-2 text-tx-muted">{{ T "screenshots.subtitle" }}</p>
     </div>
 
@@ -92,23 +92,58 @@
         {{- end }}
       </div>
 
+      {{/* Las flechas pasan por `.btn .btn-icon .btn-neutral`: eran un círculo
+           de `bg-ui-bg/80` con sombra corta y nada más, sin canto, sobre una
+           banda que también es `bg-ui-bg/80`. Compuesto contra sí mismo eso da
+           cerca de 1.1:1, o sea que el botón no se distinguía de lo que tenía
+           detrás y no había forma de saber dónde terminaba el control —WCAG
+           1.4.11 pide 3:1 para el borde que lo identifica—. `--ui-border-strong`
+           da 7.06:1 en claro y 11.34:1 en oscuro.
+
+           La posición vertical va con `inset-y-0 my-auto` y no con
+           `-translate-y-1/2`, por una razón concreta: `.btn:hover` levanta el
+           botón con la propiedad `translate`, que es la misma que usa
+           `-translate-y-1/2`. Si el centrado viviera en el botón, al pasar el
+           mouse se caería cuatro píxeles y el hover lo delataría. El `backdrop-blur`
+           se queda: el botón se posa sobre la captura que se está viendo, que
+           cambia con el scroll, y el fondo de `.btn-neutral` es semitransparente,
+           así que sin el velo se le transparentaría la fotografía. */}}
       <button type="button"
-        class="screenshots-prev absolute left-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-s backdrop-blur-sm transition-colors hover:text-brand-text md:flex"
+        class="screenshots-prev btn btn-icon btn-md btn-neutral sheen absolute left-2 top-0 bottom-0 z-10 my-auto hidden size-10 backdrop-blur-sm md:flex"
         aria-label="{{ T "screenshots.previous" }}" data-shots-prev>
         <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
       </button>
       <button type="button"
-        class="screenshots-next absolute right-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-ui-bg/80 text-tx-main shadow-s backdrop-blur-sm transition-colors hover:text-brand-text md:flex"
+        class="screenshots-next btn btn-icon btn-md btn-neutral sheen absolute right-2 top-0 bottom-0 z-10 my-auto hidden size-10 backdrop-blur-sm md:flex"
         aria-label="{{ T "screenshots.next" }}" data-shots-next>
         <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
       </button>
     </div>
 
-    <div class="screenshots-dots mt-6 flex justify-center gap-2" role="tablist" aria-label="{{ T "screenshots.title" }}">
+    {{- /* Los puntos del carrusel.
+
+         El punto visible es de 10 px, y el botón era de 10 px también: eso no
+         pasa WCAG 2.5.8, que pide un objetivo de 24 px. No es un detalle menor,
+         porque los puntos son lo único que permite saltar de captura sin deslizar
+         —el `pre` y el `next` de arriba están ocultos en móvil por `md:flex`—, así
+         que en un teléfono el carrusel se recorría entero a dedo para cambiar de
+         captura, y a diez píxeles de separación los dedos se pisan.
+
+         El botón pasa a 24 (`size-6`, el mínimo de la regla) con el punto dibujado
+         adentro como un `span` de 10. La vista no cambia ni un píxel —el mismo
+         círculo, en el mismo lugar— y el dedo tiene dónde caer.
+
+         El `gap-2` se queda: a 24 de ancho con 8 de separación los botones quedan
+         a 32 de centro, que es lo que la regla además pide para que un dedo que
+         apunta a un punto no caiga sobre el vecino. */ -}}
+    <div class="screenshots-dots mt-4 flex justify-center gap-2" role="tablist" aria-label="{{ T "screenshots.title" }}">
       {{- range $index, $ss := $shots }}
       <button type="button" role="tab" data-shots-dot="{{ $index }}"
         aria-label="{{ T "screenshots.goTo" (dict "Number" (add $index 1)) }}"
-        class="h-2.5 w-2.5 rounded-full transition-colors {{ if eq $index 0 }}bg-primary{{ else }}bg-ui-border hover:bg-primary{{ end }}"></button>
+        aria-selected="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+        class="flex size-6 items-center justify-center rounded-full">
+        <span class="size-2.5 rounded-full transition-colors {{ if eq $index 0 }}bg-primary{{ else }}bg-ui-border hover:bg-primary{{ end }}"></span>
+      </button>
       {{- end }}
     </div>
   </div>
@@ -156,9 +191,21 @@
     var active = activeIndex();
     dots.forEach(function (dot, i) {
       var on = i === active;
-      dot.classList.toggle('bg-primary', on);
-      dot.classList.toggle('bg-ui-border', !on);
-      dot.dataset.ariaSelected = on ? 'true' : 'false';
+      /* El color vive en el `span` de adentro, porque el botón mide 24 px y el
+         círculo que se ve mide 10. Antes se alternaba la clase sobre el botón
+         mismo y el botón no tenía tamaño propio: `h-2.5 w-2.5` lo definía. */
+      var punto = dot.firstElementChild;
+      if (punto) {
+        punto.classList.toggle('bg-primary', on);
+        punto.classList.toggle('bg-ui-border', !on);
+      }
+      /* Esto es `aria-selected`, el atributo que `role="tab"` exige para decir
+         cuál es la pestaña elegida. Estaba escrito como
+         `dot.dataset.ariaSelected = …`, que no es un error de sintaxis sino de
+         objetivo: `dataset` escribe `data-aria-selected`, un atributo sin ningún
+         significado para el lector de pantalla. Es decir: el estado del
+         carrusel se anunciaba como si no existiera. */
+      dot.setAttribute('aria-selected', on ? 'true' : 'false');
     });
     cards.forEach(function (el, i) {
       el.classList.toggle('is-active', i === active);
