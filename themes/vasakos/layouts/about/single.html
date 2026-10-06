@@ -5,27 +5,56 @@
      marketing blocks and never output .Content. */}}
 <main>
 <section class="px-4 py-16">
-  <div class="mx-auto max-w-4xl" id="article">
+  {{/* `/about/` era la única página cuyo texto no estaba sobre ninguna caja:
+         `max-w-4xl` y nada más, el markdown pegado al fondo de la página, y en
+         modo oscuro —fondo `--ui-bg`, 18 px de aire— el bloque de texto se leía
+         como si flotara. Todas las demás páginas lo envuelven en `.card`. */}}
+  <div class="card mx-auto max-w-4xl px-6 py-10 md:px-12" id="article">
     {{ .Content }}
 
     {{ with .Params.facts }}
     <dl class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3">
       {{ range . }}
-      <div class="rounded-corner bg-ui-bg/80 p-4 text-center">
-        <i class="{{ .icon }} text-2xl text-brand-text" aria-hidden="true"></i>
-        <dt class="mt-2 text-xs uppercase tracking-wide text-tx-muted">{{ .label }}</dt>
-        <dd class="font-semibold text-tx-main">{{ .value }}</dd>
+      {{/* El ícono va **dentro** del `dt`, y antes del texto.
+
+         Es la forma válida y además la que dice lo que quiere decir: el ícono
+         decora el término, no la fila. Un `dt` admite contenido de flujo, así que
+         un `span` con un ícono `aria-hidden` adentro está bien.
+
+         Estaba como hermano, antes del `dt`, y `axe` lo marcó como
+         `definition-list` de impacto serio: dentro de un `dl` un `div` tiene que
+         empezar por un `dt` y seguir con un `dd`, sin nada en el medio. El
+         sintoma en pantalla era invisible —el ícono se veía igual de bien— y por
+         eso sólo lo encontró la auditoría.
+
+         Y no es una cuestión de estilo: la pantalla de lector de pantalla
+         anunciaba el ícono como si fuera parte del término, porque `aria-hidden`
+         lo saca de la árvore pero no lo saca de la lectura visual, y el texto
+         alternativo de la celda terminaba siendo el nombre del término sin el
+         valor. */}}
+      <div class="card-surface flex flex-col items-center rounded-m border border-ui-border p-5 text-center">
+        <dt class="flex flex-col items-center gap-3 text-xs uppercase tracking-wide text-tx-muted">
+          <span class="empty-mark"><i class="{{ .icon }} text-xl" aria-hidden="true"></i></span>
+          {{ .label }}
+        </dt>
+        <dd class="mt-1 text-lg font-semibold tracking-tight text-tx-main">{{ .value }}</dd>
       </div>
       {{ end }}
     </dl>
     {{ end }}
 
     <div class="mt-10 flex flex-wrap justify-center gap-3">
-      <a href="{{ "/state/" | relLangURL }}" class="rounded-corner bg-primary px-6 py-3 font-semibold text-tx-on-primary hover:opacity-90">{{ T "home.state" }}</a>
-      <a href="https://github.com/Vasak-OS" rel="noopener" target="_blank"
-        class="rounded-corner border border-primary px-6 py-3 font-semibold text-brand-text hover:bg-primary hover:text-tx-on-primary">
-        <i class="fa-brands fa-github" aria-hidden="true"></i> {{ T "about.sourceCode" }}
-      </a>
+      {{ partial "ui/action-button.html" (dict
+          "href" ("/state/" | relLangURL)
+          "label" (T "home.state")
+          "size" "lg") }}
+      {{ partial "ui/action-button.html" (dict
+          "href" "https://github.com/Vasak-OS"
+          "target" "_blank"
+          "rel" "noopener"
+          "label" (T "about.sourceCode")
+          "icon" "fa-brands fa-github"
+          "size" "lg") }}
     </div>
   </div>
 </section>
@@ -52,12 +81,12 @@
     <div class="group grid w-full grid-cols-1 md:grid-cols-2">
       <div class="relative flex flex-col items-end overflow-hidden px-16 md:pr-0 {{ if eq (mod $i 2) 1 }}order-first{{ end }}">
         <div
-          class="absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-corner bg-gradient-to-br from-secondary to-primary px-12 py-14">
-          <span class="mb-10 block font-bold text-tx-on-primary">{{ T (printf "%s.tag" $key) }}</span>
-          <h2 class="text-3xl font-bold text-tx-on-primary">{{ T (printf "%s.title" $key) }}</h2>
+          class="sheen absolute left-0 top-0 flex w-4/6 flex-col justify-center rounded-xl px-12 py-14 shadow-l bg-primary">
+          <span class="mb-10 block text-xs font-semibold uppercase tracking-wide text-tx-on-primary">{{ T (printf "%s.tag" $key) }}</span>
+          <h2 class="section-title text-3xl font-bold text-tx-on-primary">{{ T (printf "%s.title" $key) }}</h2>
         </div>
         <div class="mb-8 mt-2 h-7"></div>
-        <div class="overflow-hidden rounded-corner">
+        <div class="overflow-hidden rounded-l border border-ui-border shadow-l">
           <img src="{{ $case.img }}" width="640" height="480" loading="lazy" decoding="async" alt="{{ T (printf "%s.alt" $key) }}" />
         </div>
       </div>
@@ -68,7 +97,7 @@
                —que no lo tienen— no molesta: Hugo simplemente ignora las claves
                que la plantilla no usa. */}}
           {{- $intro := T (printf "%s.intro" $key) (dict "Tool" (printf "<code>%s</code>" ($case.code | default ""))) -}}
-          <p class="mb-6 text-gray-600 dark:text-gray-200">{{ $intro | safeHTML }}</p>
+          <p class="mb-6 text-tx-muted">{{ $intro | safeHTML }}</p>
           <ul class="list-disc space-y-3 pl-5 text-tx-muted marker:text-brand-text">
             {{- range seq 1 3 }}
             {{- $item := T (printf "%s.items.i%d" $key .) }}
@@ -83,8 +112,8 @@
 {{- end }}
 
 <section class="px-4 py-16">
-  <div class="mx-auto max-w-4xl rounded-corner bg-ui-bg/80 p-8 text-center">
-    <h2 class="text-2xl font-bold text-tx-main">{{ T "about.behindTitle" }}</h2>
+  <div class="card mx-auto max-w-4xl p-8 text-center">
+    <h2 class="section-title text-2xl font-bold text-tx-main">{{ T "about.behindTitle" }}</h2>
     <p class="mx-auto mt-4 max-w-2xl text-tx-muted">
       {{ T "about.behindP1" (dict
         "Group" `<a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-brand-text underline">Vasak Group</a>`

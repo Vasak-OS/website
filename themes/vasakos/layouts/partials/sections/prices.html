@@ -9,8 +9,8 @@
      file is a class the compiler never sees. */}}
 <section class="my-20" id="apoyar">
   <div class="flex flex-col items-center justify-center px-4">
-    <h2 class="text-center text-4xl font-bold text-brand-text sm:text-5xl">{{ T "support.title" }}</h2>
-    <p class="max-w-2xl py-5 text-center text-gray-800 dark:text-gray-200">
+    <h2 class="section-title text-center text-4xl font-bold text-brand-text sm:text-5xl">{{ T "support.title" }}</h2>
+    <p class="max-w-2xl py-5 text-center text-tx-main">
       {{ T "support.subtitle" }}
     </p>
   </div>
@@ -21,10 +21,15 @@
     {{/* Los tres bloques del plan —cabecera, lista, botón— se arman aparte y se
          le pasan a `ui/card` juntos: un partial no puede recibir un bloque. */}}
     {{- $cabecera := printf
-        "<div class=\"flex flex-col items-center bg-gradient-to-br from-secondary to-brand-text p-10\"><span class=\"font-semibold text-white\">%s</span><div class=\"flex items-center pt-3\"><span class=\"text-6xl font-bold text-white\"><i class=\"%s\" aria-hidden></i></span></div><span class=\"mt-3 text-sm text-white/90\">%s</span></div>"
+        "<div class=\"flex flex-col items-center bg-primary p-10\"><span class=\"font-semibold text-tx-on-primary\">%s</span><div class=\"flex items-center pt-3\"><span class=\"text-6xl font-bold text-tx-on-primary\"><i class=\"%s\" aria-hidden=\"true\"></i></span></div><span class=\"mt-3 text-sm text-tx-on-primary\">%s</span></div>"
         (T (printf "%s.name" $key))
         .params.icon
         (T (printf "%s.summary" $key)) }}
+    {{/* La apertura de la lista va antes del rango que llena `$lineas`: Sonar
+         lee la plantilla como HTML crudo y, si el `li` del `printf` aparece
+         antes que el `ul`, lo cuenta como elemento suelto fuera de su
+         contenedor. El HTML final es idéntico. */}}
+    {{- $lista := "<div class=\"grow p-10\"><ul class=\"space-y-2 text-center\">" }}
     {{- $lineas := slice }}
     {{- $i := 0 }}
     {{- range .features }}
@@ -38,10 +43,14 @@
            the numbering has to line up. Both sides are listed explicitly so
            that a missing entry shows up as a missing line rather than as a
            silently shifted one. */}}
-      {{- $lineas = $lineas | append (printf "<li><span class=\"text-gray-900 dark:text-gray-200 %s\">%s</span></li>" .class $line) }}
+      {{/* El `dark:text-gray-200` sobra y además está mal: `--tx-main` ya es
+             `#cdd6f4` en el modo oscuro, y `#e5e7eb` es el mismo tono con otro
+             nombre y sin token detrás. Se puso cuando `--tx-main` no seguía al
+             modo. */}}
+      {{- $lineas = $lineas | append (printf "<li><span class=\"text-tx-main %s\">%s</span></li>" .class $line) }}
       {{- end }}
     {{- end }}
-    {{- $lista := printf "<div class=\"grow p-10\"><ul class=\"space-y-2 text-center\">%s</ul></div>" (delimit $lineas "") }}
+    {{- $lista = printf "%s%s</ul></div>" $lista (delimit $lineas "") }}
     {{- $boton := printf
         "<div class=\"flex justify-center px-10 pb-10\">%s</div>"
         (partial "ui/action-button.html" (dict
@@ -51,12 +60,17 @@
             "tone" "neutral"
             "size" "lg"
             "full" true
-            "class" "h-12 uppercase"
+            "class" "uppercase tracking-wide"
             "label" (T (printf "%s.ctaLabel" $key)))) }}
     {{- /* La clase del plan sólo está en el de donaciones (`params.yaml`).
             Con `printf`, un valor ausente sale como `%!s(<nil>)` en el atributo,
             así que el que falta hay que mandarlo vacío a propósito. */ -}}
-    {{- $clase := printf "mx-2 mt-8 flex max-w-sm flex-grow transform flex-col overflow-hidden drop-shadow-lg duration-700 hover:z-30 hover:-translate-y-5 hover:shadow-2xl %s" (.class | default "") -}}
+    {{- /* `drop-shadow-lg` y `hover:-translate-y-1 hover:shadow-l` salen: el plano
+            y la sombra corta ya vienen de `.card`, y la elevación al pasar el
+            mouse es de `.card-hover`. `drop-shadow-*` además dibujaba la silueta
+            con su alfa, así que sobre una caja con `overflow-hidden` pintaba un
+            borde sucio alrededor de la foto, no una sombra. */ -}}
+    {{- $clase := printf "card-hover mx-2 mt-8 flex max-w-sm flex-grow flex-col overflow-hidden hover:z-30 %s" (.class | default "") -}}
     {{ partial "ui/card.html" (dict
         "layout" "stack"
         "pad" "none"

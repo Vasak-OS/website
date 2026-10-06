@@ -1,6 +1,9 @@
 ---
 Title: "Vote for the next default icon pack"
-tags: [icons, vasak, vasakos, vasak-desktop]
+tags:
+  - "icons"
+  - "vasakos"
+  - "vasak-desktop"
 date: "2025-08-22"
 img: "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/198823909/original/0636a767358eb189c2263c613146ece9fa6b8b12/android-app-icon-for-any-kind.jpg"
 description: "A vote among the icon sets sent by the community to pick the default icon set for the VasakOS desktop."

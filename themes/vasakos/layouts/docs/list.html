@@ -2,20 +2,29 @@
 
 <main class="px-6 py-8">
   <div class="container flex flex-col justify-between mx-auto">
-    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-10 text-center">{{ .Title }}</h1>
+    <h1 class="section-title page-title mb-10 text-center text-tx-main">{{ .Title }}</h1>
 
     {{ partial "ui/breadcrumbs.html" . }}
     <div class="w-full flex flex-wrap py-2">
       {{ range .Data.Pages.ByWeight }}
       {{ if .IsSection }}
       <div class="w-full md:w-1/2 px-4 pb-4">
-        <a href="{{ .RelPermalink }}">
-          <div class="p-5 md:px-7 xl:px-10 rounded-corner bg-ui-bg/80 shadow-lg h-[100%]">
-            <div
-              class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8 bg-gradient-to-br from-secondary to-brand-text">
+        {{/* El `<a>` envuelve toda la tarjeta, con `h-full` en ella para que las
+             dos columnas de la fila midan lo mismo: sin eso, la tarjeta de una
+             sección con título de una línea queda más baja que la de dos y la
+             grilla se ve desalineada.
+
+             El degradado del emblema es `aria-hidden` y no lleva texto, así que
+             no tiene contraste que cumplir —y por eso puede seguir siendo
+             degradado, que es lo que le da el salto de color de la portada. Lo
+             que le faltaba era el marco, y eso es lo que aporta `.icon-tile`. */}}
+        <a href="{{ .RelPermalink }}" class="card card-hover block h-full">
+          <div class="flex h-full flex-col p-5 md:px-7 xl:px-10">
+            <span class="icon-tile mb-8 flex h-[70px] w-[70px] items-center justify-center bg-linear-to-br from-secondary to-brand-text">
               <i class="{{ .Params.icon | default "fa-solid fa-folder" }} text-3xl text-white" aria-hidden="true"></i>
-            </div>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 mb-3">{{ .Title }}</h2>
+            </span>
+            <h2 class="section-title font-semibold text-xl text-tx-main">{{ .Title }}</h2>
+            {{ with .Description }}<p class="mt-2 text-sm text-tx-muted">{{ . }}</p>{{ end }}
           </div>
         </a>
       </div>
@@ -27,18 +36,35 @@
       {{ $articles := where .Data.Pages ".IsSection" false }}
       {{ if $articles }}
       <div class="w-full px-2 pb-8">
-        <div class="overflow-x-auto rounded-corner bg-ui-bg/80 shadow-lg">
-          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead class="bg-ui-bg/80">
+        {{/* La tabla de artículos.
+
+             Estaba con `divide-gray-200 dark:divide-gray-700`: dos grises sueltos
+             de la paleta de Tailwind que no son de este sistema de diseño, y el
+             oscuro además no se ajustaba al modo —`--ui-border` sí cambia con
+             él—. El encabezado llevaba el mismo `bg-ui-bg/80` que el contenedor,
+             o sea que la cabecera no se distinguía del cuerpo: ahora usa
+             `card-surface`, que es la superficie elevada del sistema.
+
+             Y el separador de filas pasa a `border-ui-border`, que es el token
+             que ya usa `.card` para su propio borde: una tabla dentro de una
+             tarjeta tiene que separar con lo mismo que la tarjeta separa del
+             fondo.
+
+             El encabezado decía «Título» escrito en la plantilla, así que en
+             /en/docs/ la columna seguía en español. Va por i18n como las de
+             /state/, que ya lo hacen. */}}
+        <div class="card overflow-x-auto p-0">
+          <table class="min-w-full divide-y divide-ui-border">
+            <thead class="card-surface">
               <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-tx-muted uppercase tracking-wider">Título</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-tx-muted">{{ T "docs.columnTitle" }}</th>
               </tr>
             </thead>
-            <tbody class="bg-ui-bg/80 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody class="divide-y divide-ui-border">
               {{ range $articles }}
-              <tr class="bg-ui-surface/80">
+              <tr>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <a href="{{ .RelPermalink }}" class="text-brand-text hover:text-secondary font-medium">
+                  <a href="{{ .RelPermalink }}" class="link-row px-2 py-1 font-medium text-brand-text hover:underline">
                     {{ .Title }}
                   </a>
                 </td>

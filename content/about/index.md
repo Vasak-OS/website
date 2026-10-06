@@ -6,7 +6,7 @@ img: "/img/about.svg"
 type: about
 date: "2022-03-19"
 lastmod: "2026-08-10"
-tags: [sobre vasakos, quienes somos, vasak group, linux argentina, distro argentina]
+tags: [quienes somos, vasak group, linux argentina, distro argentina]
 
 facts:
   - label: "Base"

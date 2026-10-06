@@ -1,28 +1,80 @@
 {{ define "main" }}
+{{/* La lista de changelogs.
 
+   Era un `<ul>` de `<li>` sin nada: cada línea con `hover:text-brand-text` y el
+   enlace adentro con el color heredado. En una lista de versiones —que es lo que
+   es, y la razón de que la página exista— eso da una columna de texto sin nada
+   que la ordene: no hay fecha, no hay insignia de canal, no hay caja.
+
+   Ahora cada versión es una `.card .card-hover`: el número como titular en
+   `--brand-text`, el canal como insignia, la fecha al final en `--text-muted` —
+   que es el orden en que se lee una lista de versiones, y con la fecha al final
+   la esquina izquierda queda para lo que identifica.
+
+   El canal estaba metido dentro del título —«Changelogs 04-10-2026 [Beta]»—, y
+   por eso el artículo se titula así y no así. Se sigue titulando así, porque el
+   `h1` de la página tiene que decir lo mismo que dice la lista, y cambiarlo en un
+   lado y no en el otro sería una inconsistencia nueva. Pero en la lista el canal
+   sale de ahí y va en una insignia, que es lo que es: una etiqueta de estado, con
+   el color de la leyenda de `data/components.yml` —la misma que usa `/state/`— y
+   no con un rosa suelto. Un estado del sitio dibujado de una manera distinta en
+   cada página es un estado del sitio que no es un sistema.
+
+   Se infiere del título y no de un parámetro del front matter porque no está
+   declarado en ninguno de los 24 changelogs: está en el nombre. Inferirlo del
+   nombre es exacto; pedir que se declare otra vez es pedir el mismo dato dos
+   veces, y las dos veces se van a desincronizar.
+
+   Del título se sacan los corchetes con `replaceRE`, porque `[Beta]` no es parte
+   del nombre de la versión y con el tracking cerrado de `.section-title` se leía
+   pegado a la fecha. Sin `humanize` detrás: convierte los guiones de `04-10-2026`
+   en espacios y la fecha se lee como tres números sueltos.
+*/}}
+{{- $canales := slice
+      (dict "patron" "Stable" "etiqueta" "Stable" "fondo" "bg-status-success/10")
+      (dict "patron" "Beta" "etiqueta" "Beta" "fondo" "bg-primary/10")
+      (dict "patron" "Alpha" "etiqueta" "Alpha" "fondo" "bg-status-warning/10")
+-}}
 <main class="px-6 py-8">
-  <div class="container flex justify-between mx-auto">
-    <div class="w-full lg:w-8/12">
+  <div class="container mx-auto flex justify-between gap-2">
+    <div class="w-full">
+      <h1 class="section-title page-title mb-2 text-tx-main">{{ T "changelog.title" }}</h1>
+      {{ with .Description }}<p class="section-lead mb-8 text-tx-muted">{{ . }}</p>{{ end }}
 
-      <h1 class="mb-4 text-3xl font-bold text-tx-main">{{ T "changelog.title" }}</h1>
-      <ul class="px-8 mb-8">
-      {{ range .Data.Pages.ByDate.Reverse }}
-
-      
-        <li
-          class="hover:text-brand-text font-bold">
-          <a href="{{ .Permalink }}">{{.Title}}</a>
-      </li>
-
-      {{ end }}
-      
+      {{ with .Data.Pages.ByDate.Reverse }}
+      <ul class="space-y-3">
+        {{ range . }}
+        {{- /* La página va en una variable porque adentro de `range $canales` el
+               punto pasa a ser el canal, y `$` es el contexto de la plantilla —
+               la página de la lista—, no esta. Sin esto el `in` comparaba el
+               título de la lista contra cada patrón y no encontraba nunca nada. */ -}}
+        {{- $pagina := . -}}
+        {{- $canal := "" -}}
+        {{- range $canales -}}
+          {{- if and (not $canal) (in $pagina.Title (printf "[%s]" .patron)) -}}
+            {{- $canal = . -}}
+          {{- end -}}
+        {{- end -}}
+        <li>
+          <a href="{{ $pagina.RelPermalink }}" class="card card-hover flex flex-wrap items-center gap-x-4 gap-y-2 p-5">
+            <span class="min-w-0 flex-1 text-lg font-bold tracking-tight text-brand-text">{{ replaceRE `\[\w+\]\s*$` "" $pagina.Title }}</span>
+            {{ with $canal }}
+            {{ partial "ui/badge.html" (dict
+                "label" .etiqueta
+                "class" (printf "%s text-tx-main" .fondo)
+                "size" "sm") }}
+            {{ end }}
+            <span class="text-sm text-tx-muted">{{ partial "date.html" $pagina.Date }}</span>
+          </a>
+        </li>
+        {{ end }}
       </ul>
+      {{ end }}
     </div>
 
-    <div class="hidden w-4/12 mx-8 lg:block">
+    <div class="mx-8 hidden w-4/12 lg:block">
       {{ partial "sections/sidebar.html" . -}}
     </div>
-
   </div>
 </main>
 

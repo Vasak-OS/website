@@ -1,8 +1,17 @@
-<section class="bg-ui-bg/80 rounded-corner p-5 mb-3">
+{{/* La caja del buscador es un `.panel` como el índice que va debajo, para que
+     los dos bloques de la barra lateral se lean como la misma cosa y no como
+     dos cajas de distinto origen. El panel ya trae el borde; el campo va con la
+     superficie encima, que es lo que separa un campo de un panel.
+
+     El foco del campo lo decide el design system —borde de marca, sin
+     `ring-primary`— y `focus:outline-none` lo apagaba sin reemplazarlo: el
+     anillo global del final de la hoja no reaparece porque `outline-none` gana
+     por aparecer después en la capa de utilidades. Por eso se quitó. */}}
+<section class="panel p-5 mb-3">
 	<header class="flex items-center gap-2 mb-4">
-		<i class="fa-solid fa-magnifying-glass"></i>
+		<span class="empty-mark !h-8 !w-8 !rounded-m"><i class="fa-solid fa-magnifying-glass text-sm" aria-hidden="true"></i></span>
 		<div>
-			<h2 class="text-base font-semibold">{{ T "search.title" }}</h2>
+			<h2 class="text-base font-semibold tracking-tight">{{ T "search.title" }}</h2>
 		</div>
 	</header>
 
@@ -12,7 +21,7 @@
 			type="search"
 			aria-label="{{ T "search.label" }}"
 			placeholder="{{ T "search.placeholder" }}"
-			class="w-full rounded-corner bg-ui-surface px-4 py-2.5 text-sm text-tx-main placeholder:text-tx-muted focus:outline-none focus:ring-2 focus:ring-primary"
+			class="w-full h-10 rounded-m border border-ui-border-strong bg-ui-surface px-4 text-sm text-tx-main placeholder:text-tx-muted transition-colors duration-200"
 			autocomplete="off"
 		/>
 		<span id="docs-search-status" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-tx-muted"></span>
@@ -26,15 +35,21 @@
 	
 	<!-- Results Container -->
 	<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-2xl max-h-[75vh]">
-		<div class="bg-ui-bg/80 rounded-corner shadow-2xl overflow-hidden flex flex-col">
+		{{/* El modal es una superficie elevada, no un panel: va más arriba que
+		     todo lo demás, así que le corresponde la sombra larga y el radio de
+		     ventana. La cabecera es una barra de 40 px con el borde que la separa
+		     de la lista, y el botón de cerrar es un botón de icono de verdad —
+		     32 px de objetivo en vez del texto suelto de 18 px que era. */}}
+		<div class="card overflow-hidden flex flex-col rounded-xl border-ui-border-strong shadow-l">
 			<!-- Header -->
-			<div class="px-6 py-4 border-b border-ui-border flex items-center justify-between">
+			<div class="px-6 py-3 border-b border-ui-border flex items-center justify-between bg-ui-surface/60">
 				<div class="flex items-center gap-2">
-					<i class="fa-solid fa-magnifying-glass text-tx-muted"></i>
-					<h3 class="font-semibold text-tx-main">{{ T "search.results" }}</h3>
+					<i class="fa-solid fa-magnifying-glass text-tx-muted" aria-hidden="true"></i>
+					<h3 class="font-semibold tracking-tight text-tx-main">{{ T "search.results" }}</h3>
 				</div>
-				<button id="docs-search-close" type="button" aria-label="{{ T "search.close" }}" class="text-tx-muted hover:text-brand-text transition-colors">
-					<i class="fa-solid fa-xmark text-lg"></i>
+				<button id="docs-search-close" type="button" aria-label="{{ T "search.close" }}"
+					class="btn btn-icon btn-sm btn-neutral text-tx-muted hover:text-brand-text">
+					<i class="fa-solid fa-xmark" aria-hidden="true"></i>
 				</button>
 			</div>
 			
@@ -125,10 +140,16 @@
 			resultsEl.innerHTML = '<p class="text-center text-tx-muted py-8">' + {{ T "search.noResults" | jsonify }} + '</p>';
 			return;
 		}
+		/* Cada resultado es una `.card .card-hover`: el radio de 16, el borde y la
+		   elevación al pasar el mouse. Antes era `border rounded-m` a mano, con un
+		   radio de 8 que era el de una etiqueta y no el de una tarjeta —diez
+		   resultados con radios distintos entre sí se leen como diez cosas
+		   distintas—. El título conserva `hover:underline`: `hover:text-secondary`
+		   daría 3.51:1 sobre la superficie y este es texto de 14 px. */
 		resultsEl.innerHTML = items.map(item => `
-			<article class="border border-ui-border rounded-corner p-4 hover:bg-ui-surface transition-colors">
+			<article class="card card-hover p-4">
 				<a href="${item.permalink}" class="text-sm font-semibold text-brand-text hover:underline flex items-center gap-2">
-					<i class="fa-solid fa-file-lines"></i>
+					<i class="fa-solid fa-file-lines" aria-hidden="true"></i>
 					${highlight(item.title, q)}
 				</a>
 				<p class="mt-2 text-tx-muted leading-relaxed text-xs">${highlight(snippet(item.content || item.summary, q), q)}</p>

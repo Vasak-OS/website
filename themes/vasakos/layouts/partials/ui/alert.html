@@ -10,7 +10,7 @@
 
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
-  La clase base, `flex gap-3 rounded-corner border px-4 py-2 text-sm`; las cuatro
+  La clase base, `flex gap-3 rounded-m border px-4 py-2 text-sm`; las cuatro
   listas de `CLASES_POR_TONO`, enteras; y el `role` de `rolDelTono`: `alert` para
   el error —que interrumpe— y `status` para los otros tres, que esperan su turno.
 
@@ -52,8 +52,12 @@
 
 {{- /* `rolDelTono`: sólo el error interrumpe. */ -}}
 {{- $rol := cond (eq $tone "error") "alert" "status" -}}
+{{- /* `rounded-l` y no el `rounded-m` del escritorio: el aviso es una caja de
+       bloque, del tamaño de un párrafo, y a 16 px se apoya; a 8 px se lee como
+       una línea de menú. La sombra corta es la misma de las tarjetas —es el
+       mismo plano— y sin ella el aviso queda pegado al párrafo que lo sigue. */ -}}
 
-<div role="{{ $rol }}" aria-atomic="true" class="flex gap-3 rounded-corner border px-4 py-2 text-sm {{ $clases }}">
+<div role="{{ $rol }}" aria-atomic="true" class="flex gap-3 rounded-l border px-5 py-4 text-sm shadow-s {{ $clases }}">
   {{- /* Alineado con la primera línea y no centrado en la caja: con un aviso de
          cinco líneas, centrado queda flotando a la mitad del párrafo. */ -}}
   {{- with $icon }}<i class="{{ . }} mt-0.5 shrink-0" aria-hidden="true"></i>{{ end }}

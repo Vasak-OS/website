@@ -1,5 +1,10 @@
 public/
 node_modules/
+
+# Informe de cobertura que deja `bun test --coverage-reporter=lcov` cuando la
+# CI (y quien corra la suite con cobertura) lo genera. Es un artefacto de la
+# corrida, no código.
+/coverage/
 resources/_gen/
 .hugo_build.lock
 

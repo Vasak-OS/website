@@ -8,7 +8,7 @@
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
   La clase base —`group relative flex shrink-0 cursor-pointer items-center gap-2
-  rounded-corner border border-ui-border transition-colors`—, los dos estados
+  rounded-m border border-ui-border transition-colors`—, los dos estados
   (`bg-primary font-bold text-tx-on-primary` contra `bg-ui-bg/80
   hover:bg-ui-surface/70`), el ancho fijo de la barra horizontal (`w-34 max-w-34
   px-3 py-1 text-sm`), el `role="tab"`, el `aria-selected` y el `tabindex`.
@@ -55,9 +55,21 @@
 {{- $icon := .icon | default "" -}}
 {{- $panelId := .panelId | default (printf "panel-%s" $id) -}}
 
-{{- $clases := "group relative flex shrink-0 cursor-pointer items-center gap-2 rounded-corner border border-ui-border transition-colors w-34 max-w-34 px-3 py-1 text-sm" -}}
+{{/* El ancho va fijo a propósito: las pestañas de un mismo carril tienen que
+     alinearse entre sí aunque una tenga un ícono y otra no, y un `auto` las
+     hace dancer al cambiar el conjunto.
+
+     El borde es `--ui-border-strong` y no `--ui-border` por el mismo motivo que
+     el botón neutro: una pestaña es un control, y `#dce0e8` da 1.17:1 contra el
+     carril, de modo que la única cosa que dice cuál está elegida es el relleno
+     de marca —y en el modo oscuro el rosa apagado no alcanza a separar dos
+     pestañas contiguas. */ -}}
+{{- $clases := "group relative flex shrink-0 cursor-pointer items-center gap-2 rounded-m border border-ui-border-strong transition-colors w-34 max-w-34 px-3 py-1 text-sm" -}}
 {{- if $active -}}
-  {{- $clases = printf "%s bg-primary font-bold text-tx-on-primary" $clases -}}
+  {{- /* La pestaña activa lleva `sheen`: es el mismo relleno de marca que el
+         botón primario, y sin la luz de arriba `#dd7878` se lee como una
+         etiqueta al lado de las otras, no como la que está elegida. */ -}}
+  {{- $clases = printf "%s bg-primary font-semibold text-tx-on-primary sheen" $clases -}}
 {{- else -}}
   {{- $clases = printf "%s bg-ui-bg/80 hover:bg-ui-surface/70" $clases -}}
 {{- end -}}

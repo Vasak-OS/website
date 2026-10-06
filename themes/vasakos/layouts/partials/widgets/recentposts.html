@@ -1,25 +1,48 @@
+{{/* Las últimas entradas, en tarjetas con foto.
+
+     El contenedor era `bg-ui-bg/80 rounded-l shadow-m` —el mismo panel sin
+     borde que tenían el índice y el buscador—, así que pasa a `.panel`.
+
+     Cada miniatura usaba un `background-image` en el `article` con un `div`
+     encima al 50 % para tapar la foto: dos capas de opacidad apiladas y un
+     texto de 24 px sobre una imagen cualquiera. Ahora es un `<img>` real con un
+     velo encima.
+
+     El título va abajo y a la izquierda, y el velo sube hacia arriba. La razón
+     es una medición, no una preferencia: el texto era de 18 px y necesita
+     4.5:1, y el blanco no llega a eso sobre el velo al 35 % que quedaba detrás
+     de la línea central —2.43:1—, y al 50 % tampoco: el negro tendría que
+     llegar al 53 % para que el blanco dé 4.5:1. Con el velo concentrado en la
+     mitad inferior la parte de arriba del texto queda sobre negro al 72 %, que
+     da 7.35:1, y la foto se sigue viendo entera en su mitad de arriba, que es
+     donde está el dibujo de la portada.
+
+     El `span` absoluto que hace de enlace es lo que permite que toda la tarjeta
+     sea pulsable; se queda, porque es el patrón correcto. Lo que se le suma es
+     la elevación, y como ahora es un `.card .card-hover` sube junto con la
+     sombra en vez de con un `transition` propio. */}}
 <div class="px-8 w-full">
-    <div class="flex flex-col px-6 py-4 mx-auto bg-ui-bg/80 rounded-corner shadow-md">
-        <h2 class="mb-4 text-xl font-bold text-tx-main">{{ T "recentPosts.title" }}</h2>
+    <div class="panel flex flex-col px-5 py-5">
+        <h2 class="section-title mb-4 text-lg font-bold text-tx-main">{{ T "recentPosts.title" }}</h2>
         {{ with .Site.RegularPages.ByDate.Reverse }}
         {{ range first 4 . }}
-        <article
-            class="relative w-full h-40 bg-cover bg-center group rounded-corner overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 mb-3 ease-in-out"
-            style="background-image: url('{{ .Params.img }}');">
-            <div
-                class="absolute inset-0 bg-ui-bg/50 group-hover:bg-ui-bg/80 transition duration-300 ease-in-out">
-            </div>
-            <div class="relative w-full h-full px-4 sm:px-6 lg:px-4 flex justify-center items-center">
-                <h3 class="text-center">
-                    <a class="text-tx-main text-2xl font-bold text-center" href="{{ .Permalink }}">
-                        <span class="absolute inset-0"></span>
-                        {{ .Title }}
-                    </a>
-                </h3>
-            </div>
+        <article class="card card-hover group relative mb-3 h-40 w-full overflow-hidden rounded-l bg-ui-surface">
+          {{ with .Params.img }}
+          <img src="{{ . }}" alt="" loading="lazy" decoding="async"
+            class="absolute inset-0 h-full w-full object-cover" />
+          {{ end }}
+          <div class="absolute inset-0"
+            style="background-image: linear-gradient(to top, rgb(0 0 0 / 0.9), rgb(0 0 0 / 0.72) 40%, rgb(0 0 0 / 0) 75%);"></div>
+          <div class="relative flex h-full w-full items-end px-4 pb-4 sm:px-5">
+            <h3 class="line-clamp-2 text-sm font-bold tracking-tight text-white">
+              <a href="{{ .Permalink }}">
+                <span class="absolute inset-0" aria-hidden="true"></span>
+                {{ .Title }}
+              </a>
+            </h3>
+          </div>
         </article>
         {{ end }}
         {{ end }}
-
     </div>
 </div>

@@ -74,8 +74,7 @@ moment to [report it](/en/docs/user/report-bugs/).
 
 ## 5. Install
 
-The installer is [Calamares](https://calamares.io/) and it opens from the icon on the
-desktop.
+The installer is **Vasak Installer** and it opens from the icon on the desktop.
 
 1. **Language and time zone.**
 2. **Keyboard**: try it in the test field, especially if you use a Latin American layout.

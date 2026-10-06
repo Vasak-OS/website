@@ -1,39 +1,63 @@
 <footer>
-<div class="flex flex-col mx-3 mt-3 bg-ui-bg/80 rounded-corner">
-  <div class="w-full draggable">
-    <div class="container flex flex-col mx-auto">
-      <div class="flex flex-col items-center w-full my-20">
-        <span class="mb-8">
-          <img src="{{ .Site.Params.images.logo }}" alt="VasakOS" loading="lazy" class="h-20" />
-        </span>
-        <div class="flex flex-col items-center gap-6">
-          <div
-            class="flex flex-wrap items-center justify-center gap-5 lg:gap-12 gap-y-3 lg:flex-nowrap text-dark-grey-900">
-            <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="text-tx-muted hover:text-brand-text">{{ T "footer.softwareDev" }}</a>
-            <a href="{{ "/privacy/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.privacy" }}</a>
-            <a href="{{ "/terms/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.terms" }}</a>
-            <a href="{{ "/changelogs/" | relLangURL }}" class="text-tx-muted hover:text-brand-text">{{ T "footer.changelogs" }}</a>
-            <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="text-tx-muted hover:text-brand-text">{{ T "footer.roadmap" }}</a>
-          </div>
-          <div class="flex items-center gap-8">
-            {{ range .Site.Params.social.main }}
-            <a href="{{ .url }}" alt="{{ .name }}" aria-label="{{ .name }}" target="_blank"
-              class="text-brand-text hover:text-secondary">
-              <em class="{{ .params.icon }}"></em>
-            </a>
-            {{ end }}
-          </div>
-          {{ partial "footer/badgets.html" . }}
-        </div>
+<div class="mx-2 mt-3">
+  <div class="panel mx-auto w-full rounded-xl px-6 py-14 md:px-10">
+    <div class="flex flex-col items-center">
+      <span class="mb-8">
+        <img src="{{ .Site.Params.images.logo }}" alt="VasakOS" loading="lazy" class="h-20" />
+      </span>
+      <nav aria-label="{{ T "footer.links" }}"
+        class="flex flex-wrap items-center justify-center gap-2 lg:gap-3 gap-y-2 lg:flex-nowrap">
+        <a href="https://vasak.net.ar/" rel="noopener" target="_blank" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.softwareDev" }}</a>
+        <a href="{{ "/privacy/" | relLangURL }}" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.privacy" }}</a>
+        <a href="{{ "/terms/" | relLangURL }}" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.terms" }}</a>
+        <a href="{{ "/changelogs/" | relLangURL }}" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.changelogs" }}</a>
+        <a href="https://roadmap.os.vasak.net.ar/" rel="noopener" target="_blank" class="link-row px-3 py-2 text-sm text-tx-muted hover:text-tx-main">{{ T "footer.roadmap" }}</a>
+      </nav>
+      {{/* Los iconos de las redes: botones de icono, no un `<em>` suelto.
+
+           Antes eran enlaces cuyo único contenido era un `<em>` con una clase de
+           fuente de íconos, sin caja, sin tamaño y sin nada que les dijera que
+           eran pulsables: el mismo texto, en 18 px, que los cinco enlaces de
+           arriba. Ahora son `.btn .btn-icon .btn-neutral`, que es un círculo de
+           40 px con borde fuerte y sombra —identificable sin depender del color,
+           que es lo que pide WCAG 1.4.11— y que al hover se acerca un píxel.
+
+           El nombre accesible lo tenía el atributo `alt` de un `<a>`, que no
+           existe: `alt` es de `<img>`. Para un enlace hace falta `aria-label`, y
+           ya lo traía, así que sólo se le saca el `alt` muerto. */}}
+      <div class="mt-8 flex items-center gap-3">
+        {{ range .Site.Params.social.main }}
+        <a href="{{ .url }}" aria-label="{{ .name }}" title="{{ .name }}" target="_blank" rel="noopener"
+          class="btn btn-icon btn-md btn-neutral text-tx-muted hover:text-brand-text">
+          <em class="{{ .params.icon }} text-lg" aria-hidden="true"></em>
+        </a>
+        {{ end }}
+      </div>
+      <div class="mt-8 w-full">
+        <hr class="rule mx-auto mb-8 w-24" />
+        {{ partial "footer/badgets.html" . }}
       </div>
     </div>
   </div>
 </div>
 
-<div class="flex flex-wrap my-5">
-  <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
+<div class="mx-2 mb-2">
+  <div class="mx-auto w-full max-w-6xl px-6 text-center md:px-10">
+    {{/* "Vasak Group" llevaba el degradado de marca pintado con `bg-clip-text`
+         y `text-transparent`. Se ve bien y es ilegible: el degradado va de
+         `--color-secondary` (#8839ef) a `--color-primary` (#dd7878), y contra
+         la superficie clara el primer extremo da 3.51:1 y el último 1.93:1,
+         cuando este enlace de 18 px necesita 4.5:1. `axe` lo aprueba porque un
+         texto con el relleno recortado no lo sabe medir: lo deja como
+         *incomplete* y no lo cuenta como violación. En oscuro el mismo
+         degradado da 6.19:1 y 6.08:1, así que el fallo sólo existía en claro.
+
+         No hay ningún par de la paleta que dé los 4.5:1 a lo largo de todo el
+         degradado —`--secondary` y `--primary` son los dos colores que más se
+         usan de fondo— así que la respuesta es el color sólido de marca:
+         `--color-brand-text` da 5.03:1 en claro y 6.08:1 en oscuro. */}}
     <p class="text-lg text-tx-muted py-1"><a href="{{ site.Home.RelPermalink }}"
-        class="router-link-active router-link-exact-active text-transparent bg-clip-text bg-gradient-to-br from-secondary to-primary family-vsk font-bold"
+        class="router-link-active router-link-exact-active text-brand-text family-vsk font-bold"
         rel="nofollow" aria-current="page">Vasak Group</a> © {{ T "footer.rights" }}</p>
     {{/* La atribución de los iconos.
 
@@ -70,14 +94,24 @@
   </div>
 </div>
 
-{{/* `bg-linear-to-br`, y no `bg-lineal-to-br` como estaba: la `a` de sobra lo
-   convertía en una utilidad inexistente, que Tailwind no emite y que el build no
-   avisa. El botón se quedaba sin fondo —los `from-secondary to-brand-text` de al lado
-   no hacen nada sin una utilidad de degradado delante— y con eso tampoco se veía
-   el degradado de marca. En v4 el nombre es `bg-linear-*`; `bg-gradient-*` era de
-   la v3. */}}
-<a rel="noopener" href="#" aria-label="{{ T "footer.backToTop" }}" class="bg-linear-to-br text-white from-secondary to-brand-text fixed bottom-2 right-2 z-30 flex justify-center items-center aspect-square h-12 w-12 rounded-corner hover:text-white text-xl">
-  <em class="fas fa-arrow-up"></em>
+{{/* El botón de "volver arriba" llevaba `bg-lineal-to-br`, con una `a` de sobra:
+   eso lo convertía en una utilidad inexistente, que Tailwind no emite y que el
+   build no avisa, así que el botón se quedaba sin fondo —los
+   `from-secondary to-brand-text` de al lado no hacen nada sin una utilidad de
+   degradado delante—. Corregir el nombre lo dejaba con el degradado de nuevo,
+   pero el degradado no sirve aquí: la flecha es un objeto gráfico y necesita
+   3:1, y el extremo `--brand-text` le daba 2.70:1 en claro. Con `#8839ef` el
+   otro extremo daba 5.41:1, o sea que un degradado de marca nunca alcanza el
+   mínimo en los dos extremos a la vez.
+
+   Por eso es `bg-primary` con `text-tx-on-primary`: 5.49:1 en claro y 7.93:1
+   en oscuro, y el mismo relleno que los botones del resto del sitio. La `a` de
+   `bg-linear-*` sigue siendo el nombre correcto de Tailwind v4 —`bg-gradient-*`
+   era de la v3—, así que el arreglo del nombre queda dicho acá para que el
+   próximo que busque el degradado en este botón sepa por qué no lo hay. */}}
+<a rel="noopener" href="#" aria-label="{{ T "footer.backToTop" }}"
+  class="btn btn-icon btn-lg btn-primary sheen fixed bottom-4 right-4 z-30 text-xl md:bottom-6 md:right-6">
+  <em class="fas fa-arrow-up" aria-hidden="true"></em>
 </a>
 
 {{/* Not partialCached: the scripts a page needs depend on the page — Mermaid is

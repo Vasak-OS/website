@@ -1,7 +1,16 @@
 ---
 Title: "Vasak File Manager: un explorador de archivos propio"
 aliases: ["/blog/2026/03/vasak-file-manager-un-nuevo-explorador-de-archivos-para-vasak-os/"]
-tags: [vasak os, vasak file manager, linux desktop, file manager, open source, rust, tauri, vuejs, linux desktop environment]
+tags:
+  - "vasakos"
+  - "vasak file manager"
+  - "linux desktop"
+  - "file manager"
+  - "open-source"
+  - "rust"
+  - "tauri"
+  - "vuejs"
+  - "linux desktop environment"
 date: "2026-03-10"
 img: "https://i.postimg.cc/9QN6TtXx/image.png"
 description: "Vasak File Manager: el nuevo explorador de archivos de VasakOS, con pestañas, búsqueda integrada y una interfaz renovada."

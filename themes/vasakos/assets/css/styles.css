@@ -4,17 +4,81 @@
 
 :root {
   /* general */
-  --corner-radius: 10px;
+
+  /* Alias viejos de radio, derivados de la escala de `@theme` más abajo.
+
+     Las plantillas ya no los usan: las 95 apariciones de `rounded-corner` y
+     `rounded-corner-sm` se repartieron entre `rounded-xs`, `rounded-s`,
+     `rounded-m`, `rounded-l` y `rounded-xl`. Quedan igual porque son los
+     nombres que escribe `main.css` del escritorio, y para que si alguien los
+     vuelve a usar salgan de la escala en vez de abrir una escala paralela.
+
+     Ojo con dónde viven: acá, en `:root`, y **no** en `@theme`. En `@theme` un
+     `--radius-*` publica la utilidad `rounded-*` correspondiente, y como estos
+     tres nombres también existen en Tailwind, publicar las utilidades por el
+     mismo nombre habría producido un choque. Al no estar en `@theme` no se
+     genera ninguna utilidad `rounded-corner`, que es lo que se quiere: la
+     escala se pide con los nombres de la escala.
+
+     `--corner-radius` era el único valor que había, y la razón por la que todo
+     el sitio se veía igual —tarjetas, botones, campos, celdas, chips,
+     pestañas y alertas, noventa y una clases con la misma esquina. Ahora hay
+     cinco pasos y cada elemento toma el que le corresponde por tamaño aparente.
+
+     Un `var()` sin valor descarta la regla entera, así que los tres están
+     declarados aunque hoy no los lea nadie. */
+  --radius-corner: var(--radius-m);
+  --radius-corner-sm: var(--radius-s);
+  --radius-corner-window: var(--radius-l);
 
   /* Las tres fuentes que elige la Configuración del escritorio. Acá rigen los
      valores por defecto, que es lo que queda si la lectura falla: un `var()` sin
      valor descarta la regla entera, así que sin este piso el sitio se quedaría
      sin ninguna fuente. Se declaran en `:root` para que, si algún día se
      sobreescriben desde la Configuración del escritorio, ocurran sobre el
-     elemento raíz exactamente igual que en el shell. */
-  --vsk-font-apps: sans-serif;
-  --vsk-font-title: sans-serif;
-  --vsk-font-terminal: monospace;
+     elemento raíz exactamente igual que en el shell.
+
+     Los valores por defecto eran las palabras clave `sans-serif` y `monospace`, y
+     eso no es una fuente: es «la que el sistema elija». En Windows `sans-serif`
+     es Arial y en Linux es DejaVu Sans —ancho, de trazo plano, con una `a` de dos
+     pisos y una `g` de ojo doble que se ven a 16 px—, así que el mismo sitio se
+     leía distinto en cada sistema operativo, y ninguno de los dos resultados es
+     la cara que el sistema diseñó para interfaz.
+
+     Ahora son pilas explícitas y el orden importa: primero `ui-sans-serif` y
+     `system-ui`, que son las caras de interfaz que el sistema diseñó para
+     pantalla —SF en Apple, Segoe UI Variable en Windows, Cantarell o Ubuntu en
+     Linux—, y recién después las familias por nombre para los sistemas que las
+     tienen pero no las declaran bajo esos alias. `sans-serif` queda al final como
+     red de seguridad y no como elección: nunca se llega ahí en una plataforma que
+     tenga cualquiera de las anteriores.
+
+     La terminal sigue la misma lógica. El sitio ya traía sus propios tokens
+     `--terminal-*` —el fondo del bloque de código y sus colores—, o sea que la
+     idea de una tipografía de terminal ya estaba; lo que faltaba era el nombre de
+     la cara, y `monospace` entregaba Courier en Windows.
+
+     La única fuente binaria del sitio sigue siendo `VSKRegular` —Chailce Noggin,
+     81 glifos—, que es una fuente de logotipo y por eso sólo escribe la palabra
+     «VasakOS». No se puede poner de cuerpo de texto: no tiene los signos de
+     puntuación de un artículo, y un párrafo con ella sería ilegible. */
+  --vsk-font-apps: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --vsk-font-title: var(--vsk-font-apps);
+  --vsk-font-terminal: ui-monospace, "JetBrains Mono", "Cascadia Code", "SF Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+
+  /* La altura de la barra.
+
+     Estaba implícita en el relleno del `<nav>` —`p-6`, o sea 24 px arriba y 24 px
+     abajo más el logo— y por eso nadie la conocía: 76 px medidos. Lo que hace
+     falta conocerla es para el `scroll-padding-top` del `<html>`, que tiene que
+     saber cuánto tapa la barra, y para que la barra no dependa de la altura
+     accidental de su contenido. Con el token, la barra mide lo que dice y el
+     relleno pasa a ser horizontal.
+
+     64 px es la altura de la barra de OnceUI, y es lo que hace que un logo de 40
+     px quede centrado con aire por los dos lados en vez de flotar en una franja
+     de 76. */
+  --header-h: 4rem;
 
   /* Colores de Marca */
   --primary: #dd7878;
@@ -143,6 +207,44 @@
   --use-status-error: var(--status-error);
   --use-status-success: var(--status-success);
   --use-status-warning: var(--status-warning);
+
+  /* Escalas de sombra, por la misma indirección que los `--use-*` de color:
+     el valor de cada modo vive acá y en el bloque `.dark` de más abajo, y
+     `@theme` sólo los publica como `shadow-s` / `shadow-m` / `shadow-l`.
+
+     La forma es la de OnceUI, y la forma es todo: **dos capas, unapegada y otra
+     difusa**. `0 8px 24px` sola es una mancha —la sombra que produce el filtro
+     `drop-shadow-*`, que es lo que usaban antes la barra del encabezado y las
+     cajas de planes—. Lo que la hace ver como una tarjeta es la capa corta de
+     2 px pegada al borde, que dibuja la arista, sumada a la larga que se
+     derrama abajo. Sin la primera, el elemento flota; con las dos, se apoya.
+
+     En claro la sombra tiene que ser casi imperceptible: la página es clara y
+     una sombra de 0.15 negro se lee como un borde sucio, no como una
+     elevación. Por eso los tres pasos van de 0.02 a 0.09 de alfa.
+
+     En oscuro no puede ser al revés. Sobre `--ui-background-dark: #1e1e2e` una
+     sombra de 0.04 es literalmente invisible —no hay nada más oscuro que la
+     página contra lo que proyectarla—, así que la escala oscura es más densa:
+     hasta 0.45 en el paso largo. La misma elevación se ve en los dos modos
+     porque lo que la hace visible no es el alfa sino el hecho de que haya
+     algo detrás.
+
+     Y en oscuro cada capa lleva además un `inset 0 1px 0` de blanco al 4-6 %:
+     es el pelo de luz del borde superior. Sin él, una tarjeta oscura sobre una
+     página oscura se recorta por abajo y por los lados pero se **desvanece por
+     arriba**, que es justo el lado contra el que viene la luz; el pelo le
+     devuelve ese borde. Es la mitad de por qué el modo oscuro se ve «plano» y
+     no escalonado. */
+  --use-shadow-s: 0 1px 2px 0 rgb(0 0 0 / 0.04), 0 1px 1px 0 rgb(0 0 0 / 0.02);
+  --use-shadow-m: 0 2px 4px 0 rgb(0 0 0 / 0.04), 0 8px 20px 0 rgb(0 0 0 / 0.06);
+  --use-shadow-l: 0 4px 8px 0 rgb(0 0 0 / 0.04), 0 20px 44px 0 rgb(0 0 0 / 0.09);
+
+  /* El halo del foco. Va aparte de `--color-brand-text` para que el modo
+     oscuro pueda bajarlo sin tocar el color del texto: el anillo sobre el
+     oscuro tiene que brillar, y a 20 % sobre `#1e1e2e` un rosa al 5 % es
+     invisible. Ver la regla del foco, más abajo. */
+  --use-focus-halo: 0 0 0 6px color-mix(in oklab, var(--use-brand-text) 22%, transparent);
 }
 
 .dark,
@@ -162,11 +264,51 @@ html.dark {
   --use-status-error: var(--status-error-dark);
   --use-status-success: var(--status-success-dark);
   --use-status-warning: var(--status-warning-dark);
+
+  /* La escala de sombra del modo oscuro. Ver la nota de `:root`: la forma es
+     la misma —capa corta pegada más capa larga difusa— pero con el pelo de luz
+     del `inset`, que es lo que hace que una caja oscura se lea apoyada sobre la
+     página en vez de recortada. */
+  --use-shadow-s: 0 1px 2px 0 rgb(0 0 0 / 0.3), inset 0 1px 0 0 rgb(255 255 255 / 0.04);
+  --use-shadow-m: 0 2px 4px 0 rgb(0 0 0 / 0.3), 0 8px 20px 0 rgb(0 0 0 / 0.35),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.05);
+  --use-shadow-l: 0 4px 10px 0 rgb(0 0 0 / 0.35), 0 24px 48px 0 rgb(0 0 0 / 0.45),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.06);
+
+  /* El halo del foco del modo oscuro, más presente: sobre `#1e1e2e` el 22 % de
+     `#eba0ac` compone casi contra el negro, y se nota el doble que en claro. */
+  --use-focus-halo: 0 0 0 6px color-mix(in oklab, var(--use-brand-text) 32%, transparent);
 }
 
 @custom-variant dark (&:where(.dark, .dark *, html.dark, html.dark *));
 
 @theme {
+  /* La paleta por omisión de Tailwind no se publica.
+
+     Sin esta línea, `@theme` hereda los veintidós grises de Tailwind y el sitio
+     tiene a mano una segunda paleta, paralela a la de `:root`, que no cambia con
+     el modo oscuro y que nadie audita. Ya se habían quitado de las plantillas
+     las cincuenta y una clases que la usaban —`divide-gray-500/10`,
+     `text-gray-400`, `dark:divide-gray-700`—, pero quedaban dos caminos por los
+     que volvía a colarse: el preflight, que pedía `--color-gray-200` para el
+     borde por omisión, y los bloques de código de la documentación, donde hay un
+     `text-gray-400` de ejemplo en `vue-libvasak` que Tailwind escanea igual que
+     si fuera una clase del sitio.
+
+     Con la lista vaciada, un `gray-*` equivocado produce una clase sin color en
+     vez de un color fuera de la paleta, que es un fallo que se ve al primer
+     pintado en lugar de uno que se descubre leyendo el CSS publicado.
+
+     Faltan los dos colores que el sitio sí usa y que no son de la paleta: el
+     velo del menú móvil —`bg-black/20` y `bg-black/30`— y el titular de las
+     últimas notas, que va en blanco sobre su propia fotografía degradada. Blanco
+     y negro no son colores de paleta: son la luz y su ausencia, y ya estaban
+     escritos a mano en el brillo de `.sheen` y en los degradados de las
+     miniaturas. */
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+
   /* Las tres fuentes, como utilidades de Tailwind.
 
      `font-sans` es además la que Tailwind aplica al documento sin que se
@@ -177,14 +319,102 @@ html.dark {
   --font-title: var(--vsk-font-title);
   --font-mono: var(--vsk-font-terminal);
 
-  /* radius */
-  --radius-corner: var(--corner-radius);
-  /* El radio chico, para lo que no es una tarjeta: chips, insignias, el pulgar de
-     una barra. Derivado del general y no fijo, así que subir el radio general
-     deja las tarjetas redondas y los chips cuadrados — que es justo lo que
-     pasa en el escritorio. */
-  --radius-corner-sm: calc(var(--corner-radius) / 2.5);
-  --radius-corner-window: calc(var(--corner-radius) + 2px);
+  /* ── Escala tipográfica ────────────────────────────────────────────────────
+
+     El espaciado entre letras es la mitad de lo que hace que un texto se lea
+     como diseñado, y no estaba en ninguna parte: sólo `.section-title` tenía un
+     `tracking-tight` escrito a mano, o sea que una de cada cuarenta apariciones
+     de `text-3xl` en las plantillas cerraba y las otras treinta y nueve se
+     abrían.
+
+     Por qué el tracking depende del tamaño, que es lo que hace que esto sea una
+     escala y no un número suelto. Los trazos de una letra guardan proporción
+     con el cuerpo: a 12 px el hueco entre dos letras es una fracción del glifo y
+     se necesita aire para que `a` no se coma a la `v` de al lado; a 48 px el mismo
+     hueco es una corrimiento que se ve y hace que la línea se abra como un cartel
+     en vez de cerrar en un bloque. El interlineado también se abre un poco más en
+     los cuerpos grandes, y por eso el valor de cada paso va acompañado del suyo.
+
+     La curva no es lineal en el signo: pasa de positivo en los pasos chicos a
+     negativo en los grandes, y el salto más fuerte está entre `lg` y `2xl`, que
+     es donde el cuerpo deja de ser una línea y pasa a ser un titular. Los números
+     son los que usa Tailwind por omisión para su propia escala de colores y los
+     de la tipografía de sistema de Apple, que es de donde viene la forma de la
+     curva; lo que cambia es que acá están escritos y que siguen al tamaño.
+
+     Se publica como `--text-*--letter-spacing`, que es la forma en que Tailwind
+     empareja el interlineado con el cuerpo: la utilidad `text-3xl` sale con las
+     tres propiedades juntas. Por eso no hay que tocar las plantillas para que
+     mejoren los cuarenta títulos a la vez — lo que hay que tocar es esta lista. */
+  --text-xs--letter-spacing: 0.05em;
+  --text-sm--letter-spacing: 0.015em;
+  --text-base--letter-spacing: 0;
+  --text-lg--letter-spacing: -0.008em;
+  --text-xl--letter-spacing: -0.014em;
+  --text-2xl--letter-spacing: -0.02em;
+  --text-3xl--letter-spacing: -0.025em;
+  --text-4xl--letter-spacing: -0.03em;
+  --text-5xl--letter-spacing: -0.035em;
+
+  /* ── Escala de radio ──────────────────────────────────────────────────────
+
+     Antes había un solo valor, `--corner-radius: 10px`, y noventa y una clases
+     `rounded-corner` lo usaban: tarjetas, botones, campos, celdas, chips,
+     pestañas y alertas salían todos con la misma esquina, y una pantalla se
+     leía como una caja tras otra en lugar de como una jerarquía.
+
+     La escala tiene cinco pasos y cada elemento toma el que le corresponde por
+     **tamaño aparente**, no por lo que es: un chip de 20 px de alto con 16 de
+     radio es una pastilla, y una tarjeta de 400 px con 4 de radio es una
+     etiqueta pegada.
+
+     Los cinco valores son los de OnceUI —4, 6, 8, 16 y 24 px—, que es lo que
+     hace que un conjunto de cajas con estos radios se lea como OnceUI y no como
+     «tarjetas redondeadas». La forma de esa escala es la parte que importa, más
+     que los números: los tres pasos chicos casi no se separan entre sí y hay un
+     salto real entre el medio y el grande. Una escala de radiospareja —10, 12,
+     14, 16— produce esquinas todas parecidas y ninguna se lee como una caja;
+     una escala con ese salto produce botones, tarjetas yestadios.
+
+     El orden de decisión, cuando dos cosas se parecen:
+       xs  chips, insignias, código en línea, el pulgar de una barra
+       s   controles chicos, celdas, pestañas
+       m   botones, campos, selectores
+       l   tarjetas, paneles, contenedores
+       xl  hero, banner de página, cajas grandes
+
+     Los anidados están para que lo que va dentro de una caja quede concéntrico
+     y no como un rectángulo con las esquinas al revés: el nombre dice el radio
+     del padre y cuántos píxeles entra, y el valor es la resta.
+     `--radius-l-8` es 16 − 8 = 8.
+
+     Que no aparezcan en el CSS publicado no es que estén mal: Tailwind v4 saca
+     del `@theme` todo lo que ninguna clase usa, así que `rounded-l-8` no
+     genera nada hasta que alguna plantilla lo pida. Eso es lo que hay que
+     entender al buscarlos en el CSS compilado y no encontrarlos. */
+
+  --radius-xs: 4px;
+  --radius-s: 6px;
+  --radius-m: 8px;
+  --radius-l: 16px;
+  --radius-xl: 24px;
+
+  --radius-m-2: 4px;
+  --radius-l-2: 14px;
+  --radius-l-4: 12px;
+  --radius-l-8: 8px;
+  --radius-xl-4: 20px;
+  --radius-xl-8: 16px;
+  --radius-xl-12: 12px;
+
+  /* Sombras. Se publican como utilidades `shadow-s`, `shadow-m` y `shadow-l`.
+     Los valores no están acá sino en `:root` y en `.dark`, porque son los dos
+     modos de la misma escala y esta es la misma indirección que usan los
+     colores: `--color-ui-bg` es `var(--use-ui-background)`, y así el modo
+     oscuro no necesita una variante de cada clase. */
+  --shadow-s: var(--use-shadow-s);
+  --shadow-m: var(--use-shadow-m);
+  --shadow-l: var(--use-shadow-l);
 
   /* Colores de Marca - responsive a dark mode */
   --color-primary: var(--use-primary);
@@ -207,6 +437,38 @@ html.dark {
   --color-status-error: var(--use-status-error);
   --color-status-success: var(--use-status-success);
   --color-status-warning: var(--use-status-warning);
+}
+
+/* ── Dos utilidades cuyo nombre ya lo tenía Tailwind ─────────────────────────
+
+   `rounded-s` y `rounded-l` **no** son nombres libres en Tailwind v4: existen
+   desde antes como radio de lado lógico —`rounded-s` pone
+   `border-start-start-radius` y `border-end-start-radius`, `rounded-l` pone las
+   dos esquinas izquierdas—, y valen `0.25rem` fijo, sin mirar ningún token.
+
+   Declarar `--radius-s` y `--radius-l` en `@theme` no las resuelve: Tailwind
+   emite las dos reglas con el mismo nombre, y la lógica —que se genera al final
+   de `@layer utilities`— gana por orden. Medido en el navegador, `.rounded-l`
+   quedaba con 14 px en las dos esquinas derechas y 4 px en las dos izquierdas.
+   `rounded-s` igual, con 8 y 4. `@utility` no sirve tampoco: se agrega antes que
+   las integradas y lo pierde igual.
+
+   La salida es declarar las dos reglas **fuera de toda capa**. En la cascada lo
+   que no está en capa le gana a lo que sí, así que estas ganan sobre las
+   lógicas sin importar el orden en que se generen, y `rounded-s` / `rounded-l`
+   vuelven a significar "el radio de la escala" como las otras tres.
+
+   Es el mismo mecanismo —y el mismo riesgo— que el de `:where(#article a)` de más
+   abajo, y acá está a propósito: no es un valor por defecto que una utilidad
+   pueda pisar, es la **definición** de la utilidad. Lo único que se pierde es
+   poder pedir estos dos radios con variantes —`md:rounded-l`, `hover:rounded-l`—,
+   que el sitio no usa en ninguna parte. */
+.rounded-s {
+  border-radius: var(--radius-s);
+}
+
+.rounded-l {
+  border-radius: var(--radius-l);
 }
 
 ::view-transition-old(root) {
@@ -253,19 +515,162 @@ html.dark {
     @apply text-tx-main bg-ui-surface;
   }
 
-  body * {
-    @apply transition-colors duration-300;
+  /*
+     Dónde tiene que terminar un salto a un ancla.
+
+     No había nada, y la barra es `sticky`: al saltar al ancla de un título —el
+     que pone `render-heading.html` al lado de cada encabezado, o cualquier
+     enlace del índice lateral— el destino quedaba debajo de la barra, con la
+     mitad del título tapado. Se notaba sobre todo en los artículos largos, donde
+     se salta de sección en sección.
+
+     El valor es la altura de la barra más un aire de un rem, y el aire es lo que
+     evita que el destino quede pegado al borde de abajo de la barra. Vive en un
+     token porque la barra mide lo mismo en todos lados: la declara `.header-bar`.
+
+     `scroll-padding-top` y no un `scroll-margin` por ancla, porque el elemento que
+     tapa es el mismo para todos los destinos y ponerlo en el `<html>` lo resuelve
+     una vez. */
+  html {
+    scroll-padding-top: calc(var(--header-h) + 1rem);
   }
 
+  /* Esta es la lista ordenada del navegador puesta de nuevo, y va en `base` y no
+     suelta en la hoja. La razón es el orden: una regla de elemento desnuda tiene
+     especificidad 0-0-1, y la del índice lateral —`:where(#TableOfContents)
+     :is(ol, ul)`— tiene la misma, porque `:where()` no aporta y `:is()` aporta la
+     de su argumento más específico, que es un selector de tipo. Las dos empatan
+     y gana la que esté más abajo en el archivo.
+
+     Con la regla en `base`, el índice gana por capa y no por posición,
+     y así seguir escribiendo encima del bloque del índice no las va a pisar.
+     Antes, cualquier `list-style` nuevo que se agregara más abajo en la hoja
+     alcanzaba a poner numeración en el índice sin tocar una sola línea de él. */
+  ol {
+    list-style: decimal;
+  }
+
+  /*
+     El fundido del modo oscuro.
+
+     Los colores del tema son utilidades que resuelven a `var(--use-*)`, y ese
+     `--use-*` cambia en una regla de `.dark`. Sin transición, cambiar de modo es
+     un corte: todos los nodos repintan en el mismo cuadro. Con transición se ve
+     como un fundido de 200 ms. Y como el color está en una variable y no en la
+     declaración, la transición sólo se dispara donde el color *cambia de verdad*:
+     el fondo entero del sitio cruza y los detalles que no cambian de color no
+     hacen nada, que es justo lo que se quiere.
+
+     Los 200 ms son los mismos que usa `.btn`. Antes esta regla decía 300 y los
+     botones 200, así que el mismo gesto —pasar el mouse por encima— duraba
+     distinto según si el elemento era un botón o no, y se notaba sobre todo en
+     las tarjetas con sombra, que a 300 ms se venían arrastrando. Los 300 ms
+     quedan para lo que de verdad tarda: el desenlace del carrusel, del acordeón
+     y de la persiana del menú.
+
+     ── Por qué ya no es `body *` ────────────────────────────────────────────
+
+     Era `body *`, y con eso los 573 nodos de `/state/` —la página más pesada del
+     sitio— quedaban con una transición declarada. En reposo eso no cuesta nada,
+     una transición no se anima por sí sola, pero la regla bite en dos cosas que
+     sí se notan.
+
+     La primera es que `transition-colors` es `color`, `background-color`,
+     `border-color`, `fill`, `stroke` y `outline-color` para *todo* lo que cuelga
+     del `<body>`, y muchos de esos nodos no tienen ningún color propio: heredan.
+     Y un color heredado no necesita transición para cruzar —`color` es heredada,
+     así que cada hijo vuelve a calcular el valor que su padre tiene en ese cuadro
+     y sigue la interpolación sin declarar nada—. La regla estaba pagando 573
+     declaraciones para conseguir el efecto en un puñado.
+
+     La segunda es peor: cualquier `color` que cambie por un hover en un contenedor
+     —un `.card-hover`, un `group-hover`— hacía que *todos* sus descendientes
+    animaran su color heredado durante 200 ms, aunque ninguno hubiera cambiado. El
+     puntero pasaba por encima de la tarjeta y el texto de adentro se encogía y se
+     volvía a estirar.
+
+     Así que la transición la llevan los elementos que **declaran** un color de
+     token: las utilidades que lo traen en el `class` y las clases de componente
+     que lo declaran. Los selectores de atributo en vez de una lista de clases
+     exactas son a propósito, porque las utilidades con alfa —`bg-ui-bg/80`,
+     `border-ui-border/60`, `bg-status-warning/10`— son nombres distintos que
+     cualquier lista se quedaría corta, y una lista corta es una lista que se
+     desactualiza sin avisar.
+
+     Y todo bajo `:where()`, que no aporta especificidad: las utilidades y las
+     clases de componente que traigan su propia `transition` —`.btn`, `.link-row`—
+     siguen mandando, sin importar en qué capa estén.
+
+     Medido en `/state/`, la página más pesada: 573 nodos bajo el `<body>` antes
+     y 261 con transición después. En `/docs/user/security/`, 242 antes y 75
+     después. La duración sigue siendo una sola en esa página: 0.2 s. */
+  :where(
+    body,
+    [class*="text-tx-"],
+    [class*="text-brand-"],
+    [class*="text-status-"],
+    [class*="decoration-tx-"],
+    [class*="bg-ui-"],
+    [class*="bg-primary"],
+    [class*="bg-secondary"],
+    [class*="bg-status-"],
+    [class*="border-ui-"],
+    [class*="border-primary"],
+    [class*="border-secondary"],
+    [class*="border-status-"],
+    [class*="divide-ui-"],
+    [class*="divide-primary"],
+    [class*="divide-secondary"],
+    [class*="divide-status-"],
+    [class*="outline-ui-"],
+    .header-bar,
+    .btn,
+    .card,
+    .card-surface,
+    .empty-mark,
+    .pager-link,
+    .panel,
+    .rule
+  ) {
+    transition-property: color, background-color, border-color, fill, stroke, outline-color;
+    transition-duration: 200ms;
+  }
+
+  /*
+     El color de borde por omisión.
+
+     Tailwind v4 pone `border-color: var(--color-gray-200, currentColor)` en su
+     preflight, y esa línea es la razón por la que el sitio tenía un color fuera
+     de la paleta: cualquier elemento que pidiera `border` sin decir de qué color
+     recibía `#e5e7eb` —el `--color-gray-200` de Tailwind—, que no es ninguno de
+     los tokens del tema y que en modo oscuro es un gris claro. En claro se
+     notaba poco porque `#e5e7eb` y `--ui-border` (`#dce0e8`) se parecen; en
+     oscuro, `--ui-border` es `#11111b` y el borde salía claro.
+
+     Este selector es el del preflight, con los mismos pseudos y la misma
+     especificidad, y va después del `@import`, así que gana por posición. Y como
+     ahora el color sale de un token, el fundido del modo oscuro lo alcanza sin
+     que haga falta declararlo en cada borde.
+
+     Se sustituyó también la lista por omisión de Tailwind entera —`--color-*: initial`
+     más los dos colores que el sitio sí usa— para que ningún `text-gray-400`
+     escrito dentro de un bloque de código de la documentación vuelva a filtrar
+     una paleta ajena al CSS publicado. */
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-ui-border);
   }
-}
 
+/* El menú móvil de `header.html` es un `div` con `role="dialog"`, no un
+   `<dialog>`: lo abre `openMobileMenu()` cambiando `hidden`. Estas reglas
+   apuntaban a un `<dialog class="mobile-menu-dialog">` que no existe en ninguna
+   plantilla, así que nunca matched nada — ni el `!important` los revivía. El
+   velo es `#mobile-menu-overlay`, un `div` con `bg-black/20`, y el panel ya
+   lleva su `bg-ui-bg/80 backdrop-blur-md`. */
+}
 @font-face {
   font-family: VSKRegular;
   src: url(/fonts/VSKRegular.ttf) format("truetype");
@@ -292,31 +697,696 @@ html.dark {
    `utilities` va después y gana, que es lo que corresponde a un valor por
    defecto. */
 @layer components {
+
+/* ── La gramática de componentes ────────────────────────────────────────────
+
+   OnceUI se reconoce por cuatro cosas, y son cuatro cosas que se pueden
+   escribir: un **radio por tamaño aparente**, una **sombra en dos capas**, una
+   **luz que entra por arriba** en los rellenos sólidos, y **elevación** al pasar
+   el mouse. Ninguna necesita un color nuevo —todas salen de los tokens que ya
+   están— y juntas son la diferencia entre «tarjetas redondeadas» y «OnceUI».
+
+   viven en clases y no en utilidades repetidas porque el brillo de un botón
+   escrito treinta veces a mano se cambia en un solo lugar la próxima vez, y las
+   otras veintinueve quedan viejas. Todas en `@layer components`: `ui/
+   action-button.html` emite `.btn` y encima `px-4`, y el relleno tiene que
+   ganarle al relleno.
+
+   ── El brillo ──────────────────────────────────────────────────────────────
+
+   Una capa de blanco al 18 % que se apaga al 60 % de la altura, sobre el color
+   del token. Es lo que separa un botón de una etiqueta pintada: el mismo
+   `#dd7878` a plano es un rectángulo, y con el degradado tiene un canto.
+
+   No le roba nada al texto: la capa va **encima** del color de fondo y **debajo**
+   del `color`, así que el contraste de `--text-on-primary` sobre `--primary` es
+   exactamente el de antes, 5.49:1. Y en el modo oscuro el brillo es negro al
+   6 %, porque `--primary` pasa a `#eba0ac` y un blanco encima de un rosa claro
+   no se ve; sobre un relleno claro, la luz tiene que ser sombra. */
+
+.sheen {
+  background-image: linear-gradient(to bottom, rgb(255 255 255 / 0.18), rgb(255 255 255 / 0) 60%);
+}
+
+:where(.dark, html.dark) .sheen {
+  background-image: linear-gradient(to bottom, rgb(0 0 0 / 0.06), rgb(0 0 0 / 0) 60%);
+}
+
+/* ── La barra ────────────────────────────────────────────────────────────────
+
+   El gesto de OnceUI del que la barra más se alejaba era éste: en OnceUI la barra
+   no es una caja, es una ventana. Al llegar a la página es transparente y no
+   proyecta nada; en cuanto el contenido pasa por debajo, toma material —borde,
+   sombra— y recién ahí se lee como algo que está *encima* de la página.
+
+   Aquí hace lo contrario y está mal: `shadow-m` y `border-ui-border` desde el
+   primer píxel. Una sombra es la manera que tiene una caja de decir «estoy
+   delante», y arriba del todo de una página no hay nada detrás: la sombra
+   dibujaba una banda oscura y difusa sobre el encabezado de todas las páginas
+   del sitio, y era la primera cosa que se veía al abrir cualquiera de ellas.
+
+   Lo que madura al scrollear es el borde y la sombra. El fondo no, y es a
+   propósito: en la portada la barra queda sobre la fotografía del hero —el
+   `<section>` del hero tiene `-mt-24`, o sea que la barra se superpone a la
+   imagen— y una barra transparente ahí pone los enlaces del menú y el logo
+   encima de una foto, con el contraste que toque. El fondo translúcido con
+   desenfoque es lo que hace legible esa zona, y por eso no se toca.
+
+   La altura viene del token, no del relleno del `<nav>`; y el radio sube a
+   `--radius-xl` porque la barra es el objeto más ancho de la página y la escala
+   de radios pide el paso grande para lo grande: con 16 px en una caja de 64 de
+   alto se leía como un rectángulo apenas redondeado y no como una ventana. El
+   `m-2` se queda —es lo que la separa de los bordes de la pantalla— y las
+   esquinas de abajo también se redondean, porque cuando el contenido pasa por
+   debajo son justo las que le dicen que el objeto tiene fondo. */
+
+.header-bar {
+  height: var(--header-h);
+  border-color: transparent;
+  box-shadow: none;
+  transition: box-shadow 200ms ease;
+}
+
+.header-bar.is-scrolled {
+  border-color: var(--color-ui-border);
+  box-shadow: var(--use-shadow-m);
+}
+
+/* ── Botones ────────────────────────────────────────────────────────────────
+
+   Antes el `md` —el tamaño por omisión, o sea el de casi todos los botones del
+   sitio— medía 28 px de alto con `px-3 py-1 text-sm`. Veintiocho píxeles es la
+   altura de una fila de tabla: el puntero encima, pero el dedo al otro lado no
+   lo distingue de un chip. Los tres tamaños pasan a 32, 40 y 48, que es donde
+   un botón se reconoce como botón.
+
+   El radio sube con el tamaño y el `lg` es una pastilla: es el gesto de OnceUI
+   en su propia portada, y los `lg` del sitio son los de las llamadas a la
+   acción —el hero, los dos paneles de características, el cierre— que es
+   exactamente donde tiene que verse. Los `sm` y `md` siguen la escala, porque
+   un control de 32 px con radio de 24 px es un óvalo, no un botón. */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease, translate 0.2s ease;
+}
+
+.btn-sm {
+  height: 2rem;
+  padding-inline: 0.75rem;
+  font-size: 0.75rem;
+  border-radius: var(--radius-s);
+}
+
+.btn-md {
+  height: 2.5rem;
+  padding-inline: 1rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius-m);
+}
+
+.btn-lg {
+  height: 3rem;
+  padding-inline: 1.75rem;
+  font-size: 1rem;
+  border-radius: 9999px;
+}
+
+/* Un botón sin texto es un cuadrado del tamaño del icono, no un `py-1` con un
+   hueco al lado. La misma condición que usa el `ActionButton` de la librería
+   (`iconSrc && !label`), que acá la pasa el partial.
+
+   `aspect-ratio: 1` es lo que hace que sea un cuadrado. Sin él el ancho lo pone
+   el contenido —el `<em>` mide 20 px— y el alto lo pone el tamaño del botón
+   —40 px en el `md`—, así que con `border-radius: 9999px` la caja resultante
+   era un óvalo de 20 × 40 en el pie y de 14 × 32 en el GitHub de la tabla de
+   estado: una mancha alargada y no un círculo, y la mitad de la promesa del
+   radio. Las flechas del carrusel no se notaban porque traen `size-10`, que fija
+   las dos dimensiones y deja el aspecto sin efecto. */
+.btn-icon {
+  padding-inline: 0;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+}
+
+/* ── Los tonos ──────────────────────────────────────────────────────────────
+
+   `hover:bg-primary/90` compositaba el rosa al 90 % contra lo que hubiera
+   detrás, y lo que hay detrás cambia: el mismo botón se oscurece más sobre el
+   hero que dentro de una tarjeta. `color-mix` contra negro da el mismo tono en
+   todas partes, y de paso aclara un poco el borde de la sombra al hover, que es
+   lo que da la sensación de que el botón se acerca. */
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-tx-on-primary);
+  box-shadow: var(--use-shadow-s);
+}
+
+.btn-primary:hover {
+  background-color: color-mix(in oklab, var(--color-primary) 88%, black);
+  translate: 0 -1px;
+  box-shadow: var(--use-shadow-m);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-tx-on-secondary);
+  box-shadow: var(--use-shadow-s);
+}
+
+.btn-secondary:hover {
+  background-color: color-mix(in oklab, var(--color-secondary) 88%, black);
+  translate: 0 -1px;
+  box-shadow: var(--use-shadow-m);
+}
+
+.btn-neutral {
+  background-color: color-mix(in oklab, var(--color-ui-bg) 80%, transparent);
+  border: 1px solid var(--color-ui-border-strong);
+  color: var(--color-tx-main);
+  box-shadow: var(--use-shadow-s);
+}
+
+/* El borde del botón neutro cambia de token, y no es una cuestión de gusto.
+   `border-ui-border` es `#dce0e8`: 1.17:1 contra el fondo y menos contra la
+   tarjeta, o sea un contorno que no está. Y hace falta, porque el fondo del
+   botón —`bg-ui-bg/80`— tampoco se separa del de la sección: compuesto da
+   cerca de 1.2:1. Un control cuyo relleno y cuyo borde se pierden contra la
+   página no es un control, y WCAG 1.4.11 pide 3:1 para identificarlo.
+   `--ui-border-strong` está en `:root` con la nota que lo dice —7.06:1 contra el
+   fondo, 5.17 contra la superficie— y es el token que existe justo para esto;
+   el botón era el que faltaba. Un campo y un selector lo tomas igual. */
+.btn-neutral:hover {
+  background-color: color-mix(in oklab, var(--color-ui-surface) 70%, transparent);
+  translate: 0 -1px;
+  box-shadow: var(--use-shadow-m);
+}
+
+.btn-danger {
+  background-color: var(--color-status-error);
+  color: var(--color-tx-on-primary);
+  box-shadow: var(--use-shadow-s);
+}
+
+.btn-danger:hover {
+  background-color: color-mix(in oklab, var(--color-status-error) 88%, black);
+  translate: 0 -1px;
+  box-shadow: var(--use-shadow-m);
+}
+
+/* El hover levanta y el:active lo vuelve a bajar. Un botón que sólo cambia de
+   color al pasar el mouse se lee como un enlace; uno que además se acerca un
+   píxel se lee como algo que se puede apretar. */
+.btn:active {
+  translate: 0 0;
+  box-shadow: var(--use-shadow-s);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  translate: 0 0;
+}
+
+/* ── Tarjetas ───────────────────────────────────────────────────────────────
+
+   `rounded-l` (16 px) más `shadow-m`, que es la sombra en dos capas de arriba:
+   la corta pegada dibuja la arista y la larga la despega de la página. Antes
+   las tarjetas del sitio eran `border` y nada más —salían del color de la
+   superficie y por eso una grilla de cuatro se leía como cuatro rectángulos de
+   color— y las que tenían sombra la pedían una por una desde la plantilla, con
+   tres variantes distintas de la misma intención.
+
+   `card-hover` es el gesto de elevación: dos píxeles hacia arriba y la sombra
+   larga. Sólo para lo que se puede pulsar; una tarjeta que informative sube y
+   baja sola no es una tarjeta, es una marquesina.
+
+   Los 200 ms de la transición son los del resto del hover del sitio —los botones,
+   las filas de enlace, la barra del índice—, y no un número propio de la tarjeta.
+   Antes eran 250, que no estaba en ninguna parte de la escala: el mismo gesto se
+   duraba distinto en cada componente y no había forma de saber cuál era el
+   correcto. Un solo número para "al pasar el mouse" es lo que hace que dos
+   elementos elevationados se sientan del mismo material. Los 300 ms quedan para
+   lo que entra y sale, no para lo que reacciona. */
+
+.card {
+  background-color: color-mix(in oklab, var(--color-ui-bg) 80%, transparent);
+  border: 1px solid var(--color-ui-border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--use-shadow-m);
+  transition:
+    box-shadow 0.2s ease, translate 0.2s ease, border-color 0.2s ease;
+}
+
+/* El plano elevado, para lo que va *encima* de otra cosa: los grupos de la
+   portada y las ventajas viven dentro de una sección `bg-ui-bg/80`, y ahí lo
+   que hace falta es la superficie y no el fondo de ventana. El mismo 70 % que
+   usa `AlertMessage` en el tono `info`. */
+.card-surface {
+  background-color: color-mix(in oklab, var(--color-ui-surface) 70%, transparent);
+}
+
+/* El gesto no mueve el borde. Lo muevo a propósito: `--ui-border-strong` es
+   `#4c4f69`, un gris muy oscuro, y en una tarjeta informativa —las ventajas de
+   la portada, que no son un enlace— un borde que se pone casi negro al pasar el
+   mouse dice «esto se puede apretar» sobre algo que no se puede. La elevación
+   y el crecimiento de la sombra ya avisan, y avisan sin mentir. */
+.card-hover:hover {
+  translate: 0 -2px;
+  box-shadow: var(--use-shadow-l);
+}
+
+/* ── Foco ───────────────────────────────────────────────────────────────────
+
+   El anillo global vive al final del archivo, fuera de toda capa, y sólo pinta
+   el `outline`. El halo —el segundo anillo, difuso, que separa el foco de lo
+   que tiene detrás— se compone acá para los componentes que traen sombra,
+   porque un `box-shadow` se reemplaza entero y un halo solo se comería la
+   elevación que los hace legibles.
+
+   Los enlaces en línea no llevan halo: el `box-shadow` se pinta como un
+   rectángulo, y en un enlace que salta de línea se vería un bloque de color
+   detrás del texto. Para esos, el `outline` alcanza y es lo que corresponde. */
+
+:where(button, .btn, [role="button"], [role="tab"], summary):focus-visible {
+  box-shadow: var(--use-focus-halo), var(--use-shadow-m);
+}
+
+.card:focus-visible {
+  box-shadow: var(--use-focus-halo), var(--use-shadow-m);
+}
+
+.card-hover:focus-visible {
+  box-shadow: var(--use-focus-halo), var(--use-shadow-l);
+}
+
+.card-hover:hover:focus-visible {
+  box-shadow: var(--use-focus-halo), var(--use-shadow-l);
+}
+
+/* Los campos no llevan halo: llevan el borde de marca. Es el gesto de OnceUI
+   para un control de texto —el anillo suena a botón, el borde encendido suena
+   a «escribí acá»— y no depende de un `box-shadow` que algunos controles ya
+   traigan. */
+:where(input, select, textarea):focus-visible {
+  border-color: var(--color-brand-text);
+}
+
+/* ── Títulos ────────────────────────────────────────────────────────────────
+
+   `.section-title` es sólo el ajuste de línea: `text-wrap: balance`, que reparte
+   un titular de dos líneas en vez de dejar la primera corta y la segunda llena.
+
+   El `letter-spacing` que tenía acá −0.025 em estaba muerto en casi todos los
+   elementos que lo llevaban. Casi todos los títulos del sitio traen su propia
+   utilidad `text-3xl` o `text-4xl`, y como las utilidades van después de esta
+   capa, ganaba la de ellos —que hasta hace poco no fijaba tracking ninguno, así
+   que el titular se abría como un cartel sin que nadie lo notara—. Ahora el
+   espaciado sale de la escala tipográfica de arriba, que sí acompaña cada
+   utilidad de su valor, así que dejarlo escrito acá era una segunda fuente de
+   verdad para el mismo número.
+
+   `.page-title` es el tamaño del título de página. Había tres: 30 px en
+   `/docs/`, 36 px en `/state/` y en `/downloads/`, y 32 px en `/faq/` y en los
+   artículos —donde el `<h1>` no declara ninguna utilidad de tamaño y lo que lo
+   sostenía era `#article h1 { font-size: 2rem }`, o sea el tamaño del `<h1>` de
+   un artículo aplicándose al título de la página por accidente—. Tres tamaños
+   para lo mismo, y el más chico en la portada de la documentación, que es la
+   página por la que se empieza.
+
+   El salto va en `sm` y no en `lg`: 36 px en 375 px de ancho obliga a que los
+   títulos largos partan en tres líneas, y 30 px en 375 deja dos. La barra del
+   sitio usa `lg` para lo suyo; esto usa `sm` porque el que decide es el ancho
+   del texto, no el de la pantalla. */
+
+.section-title {
+  text-wrap: balance;
+}
+
+.page-title {
+  @apply text-3xl font-bold sm:text-4xl;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.section-lead {
+  text-wrap: balance;
+}
+
+/* ── Insignias ──────────────────────────────────────────────────────────────
+
+   El chip más chico del sitio, y el único que no lleva sombra: una pastilla de
+   24 px con sombra se lee como un botón en miniatura, y una insignia no se
+   aprieta. Lo que la separa del fondo es el borde —`--ui-border-strong`, 6.98:1
+   en claro y 11.24:1 en oscuro—, porque un relleno al 10 % sobre el fondo de la
+   grilla no llega ni a 1.2:1 y una pastilla sin canto es una mancha de color.
+
+   El alto de 24 px lo fija el partial, no la utilidad `py-*`: con `text-xs` el
+   relleno se translate en unos píxeles según la fuente, y dos insignias de
+   distinta longitud quedaban con distinta altura dentro de la misma fila.
+
+   El color no está acá: lo trae la utilidad que emite el partial desde la
+   leyenda de `data/components.yml`, y como `utilities` va después de esta capa,
+   gana. Acá sólo está la forma. */
+
+.badge {
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* ── Paneles ────────────────────────────────────────────────────────────────
+
+   El pie y las bandas de página eran `bg-ui-bg/80 rounded-l` y nada más: un
+   rectángulo de color sin canto, que contra el fondo casi igual se pierde. El
+   panel es lo que ya es una tarjeta pero sin radio de tarjeta —`--radius-l-2`
+   (14 px) en vez de 16— porque es una superficie grande y anidada: cuando el
+   radio del hijo no es un par del del padre, el de adentro asoma por fuera y el
+   conjunto se ve cortado. El pie es el caso canónico. */
+
+.panel {
+  background-color: color-mix(in oklab, var(--color-ui-bg) 80%, transparent);
+  border: 1px solid var(--color-ui-border);
+  border-radius: var(--radius-l-2);
+  box-shadow: var(--use-shadow-m);
+}
+
+/* ── Tile de ícono ──────────────────────────────────────────────────────────
+
+   El emblema de las ventajas y el de los planes son cuadrados de 70 px con un
+   degradado de marca. El degradado está bien —es `aria-hidden`, no lleva texto
+   y una imagen no tiene contraste que cumplir—, pero el marco le faltaba: sin
+   radio y sin sombra el cuadrado se leía como una mancha de color pegada al
+   texto. Radio de tarjeta y sombra corta, que es la sombra de un objeto de ese
+   tamaño. */
+
+.icon-tile {
+  border-radius: var(--radius-l);
+  box-shadow: var(--use-shadow-s);
+}
+
+/* ── Links de navegación ────────────────────────────────────────────────────
+
+   Los enlaces del pie, del índice lateral y de la tabla de contenido son texto
+   sobre texto: no hay caja que los delate, así que el hover tiene que cambiar la
+   superficie. `color-mix` al 70 % del color de superficie da una banda apenas
+   perceptible —que es lo que tiene que ser un hover— sin inventar un tono. El
+   radio se lo da el hover y no el estado de reposo, para que en reposo el texto
+   quede alineado con el resto y no haya nada que esperar. */
+
+.link-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.link-row:hover {
+  background-color: color-mix(in oklab, var(--color-ui-surface) 70%, transparent);
+  border-radius: var(--radius-s);
+}
+
+/* ── Índice de cada artículo ────────────────────────────────────────────────
+
+   El índice lo genera Hugo dentro de un `#TableOfContents`, y su marcado no se
+   toca desde la plantilla: no hay clase que pegarle. Todo lo que se pueda hacer
+   con este bloque se hace desde acá, una sola vez.
+
+   Dos cosas del marcado que hay que respetar y que no son las que uno se
+   espera:
+
+   1. La lista es un **`<ol>`**, no un `<ul>`. La plantilla de índice de Hugo es
+      fija y escribe `<ol>` aunque no haya nada que ordenar, así que el índice
+      venía con la numeración del navegador —1., 2., 3.— pegada a cada entrada.
+      Eso no es una jerarquía, es un contador, y además el número ocupa ancho en
+      una columna de 260 px y empuja el texto de la entrada. `list-style: none` lo
+      saca. La regla dice `:is(ol, ul)` y no sólo `ol` porque un índice escrito a
+      mano en markdown entraría como `ul`, y tiene que servir para los dos.
+
+   2. El árbol de niveles es un `<ol>` anidado **adentro** del `<li>`, no hermano.
+      Por eso la sangría va como `padding-inline-start` sobre la lista anidada y no
+      como margen al lado del `a`: si la sangría viviera en el enlace, en el hover
+      la banda de fondo arrancaría más adentro que el texto en reposo y los
+      renglones darían un escalón.
+
+   El mismo gesto que `.link-row` —la banda en el hover— se declara una vez acá.
+   No se reutiliza la clase porque el marcado no lleva `class`, y una regla que
+   depende de una clase que no se puede poner es una regla que después nadie va a
+   mantener junto a la otra.
+
+   La barra de 2 px del lado del texto queda transparente en reposo y no se usa:
+   no hay script que sepa qué encabezado se está leyendo, y sin JavaScript no se
+   puede saber. Se deja el hueco reservado para el día que lo haya, en vez de
+   inventar una clase que nada pone —una clase activa que nunca se aplica es la
+   peor de las dos opciones, porque desde el código parece que el estado existe.
+
+   `:where()` a propósito, por la misma razón que en `:where(#article a)`: sin
+   él, un selector con ID le ganaría a cualquier clase de utilidad y el tema no
+   podría pintar de otro color un enlace del índice que lo pida. Con
+   especificidad cero gana la utilidad, que es lo que corresponde a un valor por
+   defecto.
+
+   Y los niveles: el segundo ya es una subsección y tiene que pesar menos, con el
+   texto un punto más chico; el tercero se oculta, porque en 260 px es ruido y
+   porque un índice que no se puede recorrer entero tampoco se puede recorrer a
+   ojo. */
+
+:where(#TableOfContents) :is(ol, ul) {
+  list-style: none;
+  margin: 0;
+}
+
+:where(#TableOfContents) li {
+  margin-block: 0.0625rem;
+}
+
+:where(#TableOfContents) li :is(ol, ul) {
+  padding-inline-start: 0.75rem;
+}
+
+:where(#TableOfContents) a {
+  display: block;
+  padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+  border-inline-start: 2px solid transparent;
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-tx-muted);
+  transition:
+    border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+:where(#TableOfContents) a:hover {
+  background-color: color-mix(in oklab, var(--color-ui-surface) 70%, transparent);
+  color: var(--color-tx-main);
+}
+
+:where(#TableOfContents) :is(ol, ul) :is(ol, ul) a {
+  font-size: 0.8125rem;
+}
+
+:where(#TableOfContents) :is(ol, ul) :is(ol, ul) :is(ol, ul) {
+  display: none;
+}
+
+/* ── Paginador ──────────────────────────────────────────────────────────────
+
+   Una fila de números con el mismo lenguaje de los puntos del carrusel: 40 px
+   de alto, radio de la escala, `--ui-border-strong` en el borde para que el
+   control se vea contra la página (WCAG 1.4.11) y la misma elevación de `.btn`.
+   El número actual no se pinta de marca —un número no es una acción—: se
+   distingue por el peso y por la superficie. */
+
+.pager-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding-inline: 0.75rem;
+  border: 1px solid var(--color-ui-border-strong);
+  border-radius: var(--radius-m);
+  background-color: color-mix(in oklab, var(--color-ui-bg) 80%, transparent);
+  box-shadow: var(--use-shadow-s);
+  transition:
+    background-color 0.2s ease, box-shadow 0.2s ease, translate 0.2s ease,
+    color 0.2s ease;
+}
+
+.pager-link:hover {
+  background-color: color-mix(in oklab, var(--color-ui-surface) 70%, transparent);
+  translate: 0 -1px;
+  box-shadow: var(--use-shadow-m);
+}
+
+.pager-link[aria-current="page"] {
+  background-color: var(--color-ui-surface);
+  border-color: var(--color-brand-text);
+  font-weight: 500;
+}
+
+.pager-link[aria-disabled="true"] {
+  opacity: 0.45;
+  box-shadow: none;
+  translate: none;
+  pointer-events: none;
+}
+
+:where(.pager-link):focus-visible {
+  box-shadow: var(--use-focus-halo), var(--use-shadow-m);
+}
+
+/* ── Regla ──────────────────────────────────────────────────────────────────
+
+   Un separador de un píxel con el color de borde. La alternativa habitual —un
+   `<div>` con un fondo al 10 %— produce un gris que no es ningún token y que en
+   oscuro queda invisible; `color-mix` sobre `--ui-border` sí cambia con el modo
+   porque el token cambia. */
+
+.rule {
+  height: 1px;
+  border: 0;
+  background-color: color-mix(in oklab, var(--color-ui-border) 100%, transparent);
+}
+
+/* ── Estado vacío ───────────────────────────────────────────────────────────
+
+   El ícono grande arriba, el título, la explicación y la acción. El ícono va
+   en `--ui-surface` con el borde fuerte, que es lo que hace que se lea como un
+   ícono y no como un hueco. */
+
+.empty-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-l);
+  background-color: color-mix(in oklab, var(--color-ui-surface) 70%, transparent);
+  border: 1px solid var(--color-ui-border);
+  color: var(--color-tx-muted);
+}
+/* ── Escala tipográfica ────────────────────────────────────────────────────
+
+   Los tamaños ya estaban; lo que faltaba era el **interlineado**, y sin él cada
+   bloque heredaba el del `body` (`normal`), que para un texto de 1 rem mide
+   1.2 — más apretado de lo que un cuerpo de texto legible necesita. Un título
+   grande necesita todavía menos (1.2 y 1.3), y un párrafo largo necesita
+   bastante más: 1.7.
+
+   Los roles, con lo que los usa el sitio:
+
+     h1  título de página   2rem    700  1.2
+     h2  título de sección  1.75rem 700  1.3   text-brand-text
+     h3  subtítulo          1.5rem  700  1.35  text-secondary
+     h4  sub-subtítulo      1.25rem 700  1.4
+     p   cuerpo             1rem    400  1.7
+     li  cuerpo, en lista   1rem    400  1.7
+     —   etiqueta/secundario 0.875rem 500 1.5   `text-sm text-tx-muted`
+     code código            0.875rem 400 1.5
+
+   El papel de etiqueta no tiene una regla propia acá porque en el artículo no
+   existe un elemento que sea una etiqueta: es el texto secundario que las
+   plantillas ya escriben como `text-sm text-tx-muted`, que es exactamente
+   0.875rem / 500 / 1.5.
+
+   Los tres `font-weight: 700` de los títulos no son un valor suelto: salen de
+   `@apply … font-bold`, que es 700. Los pesos de cuerpo y de código se dejan
+   en 400 a propósito —no declararlos también los deja en el peso que traigan,
+   que es el del padre, y así una cita o un `code` dentro de un `<strong>` no
+   cambian de grosor por estar dentro. */
+/* Los encabezados del artículo.
+
+   Los tres eran del mismo tamaño rounded —2 rem, 1.75, 1.5, 1.25— pero cada uno
+   con un color distinto: el `h1` en el color del texto, el `h2` en `--brand-text`
+   y el `h3` en `--secondary`. Dos jerarquías contradictorias en la misma columna:
+   por tamaño el `h3` era un escalón más abajo que el `h2`, por color era un salto
+   de tono entero. Ahora los tres que llevan color llevan el mismo, y el color se
+   lee como marca de título y no como nivel.
+
+   El `--secondary` además no daba la talla para el peso que tiene: `#8839ef` da
+   3.51:1 sobre la superficie, y un `h3` de 24 px en negrita necesita 3:1 — pasa
+   por menos de medio punto—; `--brand-text` da 5.03:1.
+
+   El tracking es el de la escala tipográfica de arriba, que ya lo publica por
+   tamaño; el `h1` a 32 px con el espaciado por omisión se abría como un cartel.
+   El `h1` sí se queda en el color del texto: es el título de la página, el único
+   que no hace falta marcar porque ya está solo arriba de todo.
+
+   El `ms-2` del `h3` y el `ms-4` del `h4` se van. Un encabezado que se sangra
+   para indicar su nivel es una convención de la época de las imprentas, no del
+   diseño de interfaces: en pantalla lo que separa los niveles es el aire y el
+   cuerpo, y la sangra hacía que dos subtítulos de distinto nivel no alinearan
+   entre sí.
+
+   `#article h1` no dice el tamaño, y antes sí lo decía —2 rem—, porque era lo
+   único que había. Y nunca se treatable como «un encabezado más del artículo»:
+   `render-heading.html` degrada el `#` del markdown a `<h2>`, de modo que un
+   `<h1>` dentro de `#article` es siempre y sólo el título de la página. Los cuatro
+   layouts que lo hacen —el artículo suelto, el changelog, el de la documentación
+   y el de preguntas frecuentes— lo declaraban sin tamaño, y los 2 rem de acá los
+   sostenían por accidente. Cuatro títulos de página a 32 px contra los 36 de
+   `/state/` y `/downloads/`, y el más chico en la página por la que se empieza.
+
+   Así que el tipo lo dice `.page-title` y acá queda sólo la caja: el aire que el
+   título necesita para separarse del cuerpo. */
 #article h1 {
-  font-size: 2rem;
   margin-bottom: 2rem;
   @apply my-6 font-bold;
 }
 
+/* El espaciado sale de la escala y no del renglón. Los tres valores que estaban
+   escritos acá —-0.025, -0.02 y -0.015 em— ya coincidían con los pasos `3xl`,
+   `2xl` y casi con `xl`, así que la página no cambia: lo que cambia es que ahora
+   los tres dicen a qué paso se parecen, y mover un paso mueve los tres.
+
+   Los cuerpos siguen siendo propios —1.75, 1.5 y 1.25 rem no son pasos de
+   Tailwind— porque el article lleva su propio ritmo, más apretado que el de la
+   portada. Lo que se comparte con la escala es la decisión de cuánto se cierra
+   una línea a cada tamaño, que es universal. */
 #article h2 {
   font-size: 1.75rem;
+  line-height: 1.25;
+  letter-spacing: var(--text-3xl--letter-spacing);
   @apply my-6 text-brand-text font-bold;
 }
 
 #article h3 {
   font-size: 1.5rem;
-  @apply my-4 ms-2 text-secondary font-bold;
+  line-height: 1.3;
+  letter-spacing: var(--text-2xl--letter-spacing);
+  @apply my-5 text-brand-text font-bold;
 }
 
 #article h4 {
   font-size: 1.25rem;
-  @apply my-4 ms-4 font-bold;
+  line-height: 1.4;
+  letter-spacing: var(--text-xl--letter-spacing);
+  @apply my-4 text-brand-text font-bold;
 }
 
 /* The anchor added by render-heading.html: out of the way until you hover the
-   heading it belongs to. */
+   heading it belongs to.
+
+   `duration-200` es explícito porque `transition-opacity` sin él usa el default
+   de Tailwind, 150 ms. Ese 150 era una cuarta duración de la escala que no
+   aparecía en ningún lado escrito: aparecía en el navegador. Y 150 ms es
+   justamente la duración que hace que el ancla se disuelva en vez de aparecer —
+   una aparición tiene que ser legible o no ser nada—; a 200 ms, el mismo tiempo
+   que el hover de un botón y el de una tarjeta, se lee como el mismo gesto. */
 .heading-anchor {
-  @apply ml-2 text-brand-text opacity-0 transition-opacity;
+  @apply ml-2 text-brand-text opacity-0 transition-opacity duration-200;
 }
 
 h1:hover > .heading-anchor,
@@ -330,6 +1400,9 @@ h4:hover > .heading-anchor,
 #article p,
 #article li {
   font-size: 1rem;
+  /* El 1.7 es lo único realmente nuevo de la escala: sin él el cuerpo del
+     artículo salía con el interlineado del `body`, que es `normal`. */
+  line-height: 1.7;
   margin-bottom: 1rem;
 }
 
@@ -358,14 +1431,18 @@ h4:hover > .heading-anchor,
   @apply text-brand-text underline decoration-brand-text/40 underline-offset-2
     hover:decoration-brand-text;
 }
-/* Los anclajes que `render-heading.html` cuelga de cada título ya son un símbolo
-   de enlace; subrayarlos sería un subrayado de nada. */
+/* Los anclajes que `render-heading.html` cuelga de cada título estaban sin
+   subrayado, con la idea de que el `#` ya es un símbolo de enlace y el
+   subrayado sobraba. `axe` no comparte ese criterio: mide el contraste entre el
+   enlace y el texto que lo rodea y, si sólo cambia el color, marca
+   `link-in-text-block` (WCAG 1.4.1) — así salía en los changelogs, que son las
+   páginas con más títulos y por lo tanto más anclajes. El subrayado resuelve el
+   aviso y además no estorba: el ancla está en `opacity-0` hasta que se pasa el
+   mouse por encima del título, así que el subrayado sólo aparece junto con ella
+   y se ve como lo que es, la misma confirmación que ya daba el color. */
 #article .heading-anchor {
-  @apply no-underline;
-}
-
-#article li {
-  list-style: disc;
+  @apply underline decoration-brand-text/40 underline-offset-2
+    hover:decoration-brand-text;
 }
 
 /* Los `- [ ]` de Goldmark salen como `<input disabled type="checkbox">` pelado
@@ -403,12 +1480,25 @@ h4:hover > .heading-anchor,
   margin-top: 1rem;
 }
 
-ol {
-  list-style: decimal;
-}
+/* El margen de los `<li>` estaba en una regla global —`li`, sin `#article`— con
+   2.5rem. Eso no era un estilo de lista: era un desplazamiento que se aplicaba a
+   todas las listas del sitio, incluidas las que no son de texto.
 
-li {
-  margin-left: 2.5rem;
+   En el artículo el problema es de las dos clases. Con el contenido en línea con
+   la sidebar y los desplegables, 2.5rem de sangría por nivel se comen el ancho
+   de la columna antes de que el texto llegue a su sitio, y una lista anidada a
+   dos niveles ya se sale de la caja.
+
+   Acá queda en `#article li`, a 1.25rem —la sangría que corresponde a un nivel— y
+   el resto del sitio vuelve a no tener sangría.
+
+   Lo que **dependía** de esa regla global hay que pagarlo en las plantillas que
+   la usaban de espaciado y no de sangría, que son dos: las migas de pan —que
+   llevan `gap-0` y se separaban sólo con estos 40 px— y la paginación del blog,
+   que suma un `gap-4` a otros 40. Las dos pasaron a declarar su propio `gap`. */
+#article li {
+  margin-left: 1.25rem;
+  list-style: disc;
 }
 
 /* Syntax Highlighting Styles */
@@ -436,22 +1526,27 @@ pre {
 }
 
 code {
-  @apply inline-grid p-0 px-1 rounded-md font-mono;
+  @apply inline-grid p-0 px-1 rounded-xs font-mono;
   color: unset;
   border: none;
   background: none;
   font-family: var(--vsk-font-terminal);
   font-optical-sizing: auto;
   font-style: normal;
+  /* El código en línea es el rol más chico de la escala: 0.875rem / 400 / 1.5.
+     No se usa `text-sm` porque en Tailwind eso arrastra también el interlineado
+     de la escala —1.4286— y el papel pide 1.5. */
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
-code::before {
-  content: attr(data-lang);
-  position: absolute;
-  margin-top: -43px;
-  color: var(--bg-site);
-  margin-left: -30px;
-}
+/* `code::before` rótula cada bloque con `attr(data-lang)`, un atributo que
+   ninguna plantilla emite —los que existen son `data-lang-switcher`,
+   `data-lang-toggle`, `data-lang-menu` y `data-lang-link`, todos del selector de
+   idioma—, así que no dibujaba nada. Iba además con `color: var(--bg-site)`, una
+   variable que no está declarada en ningún lado: el `var()` sin respaldo no cae
+   a transparente, invalida la declaración entera y dejaba el pseudo-elemento
+   con el color heredado. Como el rótulo no aparece nunca, la regla se va. */
 
 /* Bloques de codigo: son una terminal, y usan los tokens del terminal.
 
@@ -473,7 +1568,17 @@ pre,
 }
 
 .highlight {
-  @apply p-1 rounded-corner relative my-4 border-t-24 border-primary;
+  /* El marco de un bloque de código es un contenedor: radio `l` (14 px). El
+     `pre` de adentro lleva `rounded-m` (10 px), que es el radio del padre menos
+     los 4 px de aire del `p-1`: sin esa resta el bloque de adentro se ve como
+     un rectángulo con las esquinas vivas dentro de una caja redondeada.
+
+     El valor coincide con `--radius-l-4`, que es exactamente 14 − 4, pero no
+     es el token que lo produce: `rounded-m` resuelve a `--radius-m`. Se escriben
+     los dos cuando son el mismo número a propósito, porque son dos preguntas
+     distintas —«el bloque de código es un control, y los controles son `m`» y
+     «14 − 4 da 10»—, y si mañana el marco pasa a 16 hay que revisar las dos. */
+  @apply p-1 rounded-l relative my-4 border-t-24 border-primary;
   background-color: var(--code-bg);
   color: var(--code-fg);
 }
@@ -509,7 +1614,9 @@ hr {
 }
 
 pre:has(code) {
-  @apply p-2 m-4 rounded-lg overflow-x-auto;
+  /* `rounded-m` y no el `rounded-lg` de la escala de Tailwind (8 px): el marco de
+     arriba ya es `l`, y el bloque va 4 px más adentro. */
+  @apply p-2 m-4 rounded-m overflow-x-auto;
   background-color: var(--code-bg);
 }
 
@@ -524,16 +1631,61 @@ pre code {
    y como el selector era generico el `color` se colaba tambien al `code` de
    dentro de los bloques —los `.nv` de Chroma salian verdes, a 2.48:1 sobre el
    fondo del bloque—, porque la regla de `pre code` no fijaba color. Ahora cada
-   contexto pone el suyo. */
-p code, li code, td code {
-  background-color: var(--ui-surface);
-  color: var(--text-main);
+   contexto pone el suyo.
+
+   El `:not(pre code)` no es un detalle. Sin él, `td code` —(0,0,3)— le ganaba a
+   `pre code` —(0,0,2)— y el chip se le ponía encima al bloque entero. En una
+   tabla de un changelog Hugo renderiza el ejemplo como
+   `<td><pre class="chroma"><code>`, así que el chip de `--color-ui-surface`
+   tapaba el `--code-bg` del terminal y los comentarios de Chroma —`.c1`, que
+   son `#a6adc8`— quedaban a 1.44:1 sobre `#ccd0da`. Pasaba en los dos modos y
+   en ninguna página se veía raro: el bloque seguía siendo oscuro, sólo llevaba
+   una tira clara atrás del texto.
+
+   Los dos tokens son los que siguen al tema a propósito: `--color-ui-surface` y
+   `--color-tx-main`, no los literales `--ui-surface` y `--text-main`. Los
+   literales son el valor del modo claro, no un alias del tema, y escribirlos
+   compila igual y deja el modo oscuro con los colores del otro. */
+p code:not(pre code),
+li code:not(pre code),
+td code:not(pre code) {
+  background-color: var(--color-ui-surface);
+  color: var(--color-tx-main);
 }
 
 /* BLOCKQUOTES */
 
+/* La cita era lo más ajeno al resto del sitio que había: un degradado de morado
+   a rosa con el texto en blanco encima. Dos problemas, y el segundo no es de
+   gusto.
+
+   El primero es que el contraste del texto dependía de dónde caía el
+   degradado. `from-secondary` es `#8839ef` y `to-brand-text` es `#8a3550`, así
+   que el blanco pasa de 4.79:1 en el extremo morado a 5.03:1 en el rosa: hoy
+   se cumple, pero por casualidad de los dos valores, y alcanza para que un
+   cambio de tono cualquiera —o un modo oscuro, donde `--secondary` pasa a
+   `#cba6f7`— lo rompa sin que nada avise.
+
+   El segundo es que `font-semibold` convertía cada bloque citado en un cartel:
+   la cita es texto del autor, y pesa lo que pesa el texto. Va en `--text-main`,
+   que es el color del artículo.
+
+   Lo que reemplaza el degradado es lo que hace el escritorio con una cita: una
+   superficie apenas teñida de la marca y un borde de acento de 3 px del lado del
+   texto. El tinte sale de `--color-primary` al 6 % sobre `--color-ui-bg`, o sea
+   que es el mismo color que ya está en pantalla mezclado, no un color nuevo.
+
+   El color va como `--color-tx-main` y no como `--text-main` a propósito. Los
+   dos existen y parecen lo mismo, pero sólo el primero sigue al tema: el
+   segundo es el valor de modo claro, escrito. Con `--text-main` la cita queda
+   `#4c4f69` sobre un fondo oscuro —1.86:1— porque el token nunca cambia. Es
+   la forma más común de romper el contraste sin que nada avise: el valor es
+   válido, la regla compila, y el fallo sólo aparece en el otro modo. */
 blockquote {
-  @apply px-6 py-4 rounded-corner bg-gradient-to-r from-secondary to-brand-text text-white font-semibold my-6 ;
+  @apply my-6 rounded-l px-6 py-4 font-normal;
+  background-color: color-mix(in oklab, var(--color-primary) 6%, var(--color-ui-bg));
+  border-inline-start: 3px solid var(--color-primary);
+  color: var(--color-tx-main);
 }
 
 }
@@ -591,41 +1743,69 @@ blockquote {
    default, which is also the only state a crawler or a visitor without
    JavaScript ever sees; the effect is added *over* the markup, not required by
    it. That is the same reason the images are real `<img>` elements rather than
-   something a script injects. */
+   something a script injects.
+
+   ── Por qué el `opacity` va en el marco y no en la tarjeta ────────────────────
+
+   Estaba en `.snap-center`, o sea en el `<figure>` completo, y eso arrastraba al
+   `<figcaption>` de adentro. Un texto al 50 % de opacidad sobre el fondo de la
+   página mide 3.8:1 en vez de los 10.8:1 que da entero, contra el 4.5:1 que
+   pide WCAG 1.4.3 para texto de 14 px — y no para una captura de pantalla: para
+   el nombre de la captura, que es texto. Y es peor de lo que parece, porque el
+   script recalcula el activo en cada `scroll`: el pie de foto que alguien está
+   leyendo puede haber estado al 50 % hace 400 ms.
+
+   No hacía falta. La profundidad la tiene que contar la fotografía, que es una
+   imagen y a la que no se le exige contraste; el rótulo es texto y tiene que
+   seguir legible pase lo que pase. El `transform` se queda en la tarjeta
+   entera porque el escalado es lo que hace que la de al lado asome, y un
+   `transform` no toca el color: no tiene contraste que perder. */
 .screenshots-track[data-carousel] > .snap-center {
-  transition:
-    filter 0.4s ease,
-    opacity 0.4s ease,
-    transform 0.4s ease;
-  filter: blur(2px) saturate(0.6);
-  opacity: 0.5;
+  transition: transform 0.4s ease;
   transform: scale(0.92);
 }
 
+.screenshots-track[data-carousel] > .snap-center > [data-shot] {
+  transition:
+    filter 0.4s ease,
+    opacity 0.4s ease;
+  filter: blur(2px) saturate(0.6);
+  opacity: 0.5;
+}
+
 .screenshots-track[data-carousel] > .snap-center.is-active {
+  transform: scale(1);
+}
+
+.screenshots-track[data-carousel] > .snap-center.is-active > [data-shot] {
   filter: blur(0) saturate(1);
   opacity: 1;
-  transform: scale(1);
 }
 
 /* A touch screen has no hover and no cursor to aim with, so the sideways peek
    reads as an accident rather than as depth — and blurring the product
    screenshots is exactly the wrong thing to do on the device people are most
-   likely to be reading them on. They stay sharp. */
+   likely to be reading them on. They stay sharp, and the scale goes too: sin
+   `transform` en la tarjeta, la de al lado queda pegada a la del medio y no se
+   ve que hay más. */
 @media (pointer: coarse) {
-  .screenshots-track[data-carousel] > .snap-center {
+  .screenshots-track[data-carousel] > .snap-center > [data-shot] {
     filter: none;
     opacity: 1;
+  }
+
+  .screenshots-track[data-carousel] > .snap-center {
+    transform: none;
   }
 }
 
 /* Same reasoning as `prefers-reduced-motion` in the OS: a 2px blur on a moving
-   target is motion some people cannot sit through. The cards still scale and
-   fade, they just are not blurred. */
+   target is motion some people cannot sit through. The photos still fade, they
+   just are not blurred. */
 @media (prefers-reduced-motion: reduce) {
-  .screenshots-track[data-carousel] > .snap-center {
+  .screenshots-track[data-carousel] > .snap-center > [data-shot] {
     filter: none;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.4s ease;
   }
 }
 /* ========== SELECTOR DE IDIOMA ========== */
@@ -660,6 +1840,17 @@ blockquote {
  * Va con `:where()` para que tenga especificidad cero: cualquier componente que
  * quiera su propio indicador lo pisa sin peleas, y esto queda como piso. Es la
  * misma regla que el escritorio.
+ *
+ * El color es `--color-brand-text`, no `--color-primary`, y no es una decisión
+ * de gusto: el anillo se dibuja sobre la página, y `--primary: #dd7878` da
+ * 1.93:1 contra el `#ccd0da` de la superficie, muy por debajo del 3:1 que WCAG
+ * 1.4.11 exige de un indicador de foco. `--brand-text: #8a3550` da 5.03:1. Son
+ * el mismo tono de marca con la luminancia bajada, que es exactamente el
+ * criterio que ya justifica `--brand-text` para el texto.
+ *
+ * Cambiar el foco a los botones rellenos no se rompe: `outline-offset: 2px`
+ * deja el anillo por fuera del botón, sobre la página, y no sobre su propio
+ * fondo.
  */
 :where(
   a,
@@ -671,7 +1862,7 @@ blockquote {
   [role="button"],
   [tabindex]:not([tabindex="-1"])
 ):focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-brand-text);
   outline-offset: 2px;
 }
 
@@ -698,5 +1889,62 @@ blockquote {
     transition-duration: 0.01ms !important;
     /* biome-ignore lint/complexity/noImportantStyles: es la forma canónica de respetar «reducir el movimiento»: tiene que ganarle a las declaraciones de animación y de transición que no usen `!important`, que son las de las clases de utilidad y las de los componentes */
     scroll-behavior: auto !important;
+  }
+}
+
+/* ========== ESTADO: TABLA CON FILAS EXTRA ========== */
+
+.extra-row {
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.extra-row.hidden {
+  opacity: 0;
+  transform: translateY(-8px);
+  visibility: hidden;
+}
+
+.toggle-extra-rows {
+  transition: color 0.2s ease;
+}
+
+.toggle-extra-rows:hover .toggle-text {
+  text-decoration: underline;
+}
+
+.toggle-extra-rows[aria-expanded="true"] .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.toggle-extra-rows .fa-chevron-down {
+  transition: transform 0.2s ease;
+}
+
+/* Animación suave al mostrar/ocultar filas extra */
+tbody:has(.extra-row:not(.hidden)) .extra-row:not(.hidden) {
+  animation: fadeInRow 0.3s ease forwards;
+}
+
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respetar prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .extra-row {
+    transition: none;
+  }
+  .toggle-extra-rows .fa-chevron-down {
+    transition: none;
+  }
+  tbody:has(.extra-row:not(.hidden)) .extra-row:not(.hidden) {
+    animation: none;
   }
 }

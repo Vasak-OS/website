@@ -189,7 +189,6 @@ git pull upstream main
 2. Sigue la arquitectura establecida
 3. Añade tests
 4. Documenta el cambio
-5. Actualiza CHANGELOG
 
 ### Corrección de Bugs
 

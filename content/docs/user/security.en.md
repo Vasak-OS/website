@@ -21,7 +21,7 @@ how to reproduce it. An exploit is not necessary.
 
 ## What happens next
 
-| | |
+| Stage | Deadline |
 |---|---|
 | Acknowledgement | 72 business hours |
 | First assessment | 7 days |

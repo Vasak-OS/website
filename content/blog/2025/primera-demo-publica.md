@@ -1,6 +1,10 @@
 ---
 Title: "Primera demo pública de VasakOS"
-tags: [video, demo, vasak, vasakos, vasak-desktop]
+tags:
+  - "video"
+  - "demo"
+  - "vasakos"
+  - "vasak-desktop"
 date: "2025-04-08"
 img: "https://i.postimg.cc/FsfTyKFn/image.png"
 description: "Primera demo pública de VasakOS: el escritorio funcionando en un equipo real, grabado en una máquina física y no virtual."

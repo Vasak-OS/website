@@ -71,6 +71,9 @@
 [recentPosts]
   title = "Recent posts"
 
+[docs]
+  columnTitle = "Title"
+
 [nav_docs]
   title = "Documentation"
   previous = "Previous"
@@ -101,6 +104,8 @@
   extraPackages = "The repository also publishes {{ .Count }} support packages (keyring, mirror list, icon theme, wallpapers, and dependencies that are not in Arch)."
   howToAdd = "How to add the repository"
   seeRoadmap = "See the roadmap"
+  showMore = "Show more"
+  showLess = "Show less"
 
 [social]
   title = "Social"
@@ -168,6 +173,8 @@
   subtitle = "Every part of VasakOS lives in its own repository, with its published version and its status. What is still rough says so."
   version = "Version"
   detail = "See the detailed status of each component"
+  viewMore = "View {{ .Count }} more in {{ .Group }}"
+  viewAll = "View all {{ .Group }}"
 
 [features]
   openSourceTag = "OPEN SOURCE"
@@ -202,24 +209,20 @@
   previous = "Previous"
   next = "Next"
   goTo = "Go to image {{ .Number }}"
-  defaultAlt = "VasakOS screenshot"
+  defaultAlt = "VasakOS screenshot {{ .Number }} of {{ .Total }}"
   [screenshots.shot01]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot02]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot03]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot04]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot05]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
 
 [footer]
+  links = "Site links"
   softwareDev = "Software development"
   privacy = "Privacy policy"
   terms = "Terms of service"
@@ -298,43 +301,66 @@
   donations = "VasakOS donations"
   howToDonate = "How to donate"
   currentFocus = "Current focus"
-  monthlyGoal = "Monthly goal {{ .Amount }}"
   donateNow = "Donate now"
   copied = "Copied"
   selectHint = "Selected: Ctrl+C"
   copyAddress = "Copy the {{ .Name }} address"
-  infrastructure = "Infrastructure we keep running"
-  priority = "Priority {{ .Level }}"
+  budget = "Where the money goes"
+  budgetLead = "Five line items, each with its monthly amount. They add up to the goal."
+  budgetTotal = "Monthly total"
+  perMonth = "per month"
+  ecosystem = "The ecosystem you sustain"
+  ecosystemLead = "A contribution does not sustain a download: it sustains everything underneath it."
+  ecosystemCount = "Components: {{ .Count }}"
   transparency = "Transparency"
+  follow = "Take part"
+  followText = "The project is developed in the open: decisions, progress and problems are public."
   community = "Community"
   reportIdea = "Report an idea or a problem"
 
   # The `donations` block from the front matter of content/donate/index.md. The
   # lists resolve by each element's `id`, in the same order as the YAML;
-  # `monthly_goal`, the addresses and the URLs stay there because they do not
-  # change with the language.
+  # `monthly_goal`, the amounts, the addresses and the URLs stay there because
+  # they do not change with the language.
   [donate.summary]
     subtitle = "Every contribution is reinvested in the growth of the project"
     status = "Community project"
-    focus = "Infrastructure, development and distribution quality"
-    [donate.summary.usage.distro]
-      title = "Improvements to the distribution"
-      detail = "Development of new features, bug fixes and stability testing."
-    [donate.summary.usage.hardware]
-      title = "Development hardware"
-      detail = "Buying or replacing hardware to compile, test and debug in more scenarios."
-    [donate.summary.usage.infra]
-      title = "Infrastructure and services"
-      detail = "Hosting, servers, domains, CI/CD and services to provide a more reliable experience."
-    [donate.summary.infra.hosting]
-      item = "Web hosting and download resources"
-      priority = "High"
-    [donate.summary.infra.build]
-      item = "Build and distribution servers"
-      priority = "High"
-    [donate.summary.infra.community]
-      item = "Supplementary services for the community"
-      priority = "Medium"
+    focus = "Distribution, community and services for developers"
+    goalLabel = "Monthly goal"
+    annual = "A year: {{ .Amount }}"
+    lead = "This is what a month of the project costs. There are no ads and nobody's data in the middle: whatever comes in is reinvested, every line item below carries its amount so a contribution is never a bet, and the full breakdown is below with the sum that closes the month."
+    factMonthTitle = "A full month"
+    factMonthDetail = "The forum, the servers, the tooling and the support are billed every month, good month or bad. The goal covers one full month without depending on some stray contribution coming to the rescue."
+    factBreakdownTitle = "Five line items, five amounts"
+    factBreakdownDetail = "The list below adds up to exactly the goal: repository, community, tooling, services and maintenance, each with its price on display and no hidden line items summing somewhere else."
+    factPrivacyTitle = "No ads, no data"
+    factPrivacyDetail = "The site shows no ads, neither sells nor shares anyone's data, and there are no sponsorships deciding what gets published: the project is sustained by its community and nothing else."
+    factHelpTitle = "Other ways to help"
+    factHelpDetail = "Reporting a bug, translating, testing an update or telling someone we exist also sustains the project. The ways to give money are below; these ones cost nothing."
+    factIndependenceTitle = "It buys no influence"
+    factIndependenceDetail = "The contribution sustains the project, it does not steer it: direction is discussed in the open — forum and public issues — and the same breakdown applies to whoever gives and whoever cannot."
+    factTiersTitle = "No tiers, no perks"
+    factTiersDetail = "There are no privileged contributions and no rewards to fulfil: whoever gives a dollar and whoever gives a thousand sustain the same project, see the same thing and have the same say."
+    [donate.summary.budget.distribution]
+      title = "Distribution servers (pacman)"
+      detail = "The VasakOS package repository: without it, installing and updating the system depends on third parties."
+      items = "The vasakos repository and its mirrors · Package signing and keys · Download bandwidth and storage"
+    [donate.summary.budget.community]
+      title = "Forum and community server"
+      detail = "A place of our own to ask, answer and keep what has already been solved."
+      items = "Community forum · Support and moderation · Official project channels"
+    [donate.summary.budget.tooling]
+      title = "Developer work tools"
+      detail = "What gets used every day to design, write, review and publish."
+      items = "Development environments and licences · Design and prototyping · Code review"
+    [donate.summary.budget.services]
+      title = "Services for developers"
+      detail = "The infrastructure every contribution goes through before it reaches a user."
+      items = "Continuous integration and builds · Package and container registries · Domains, email and storage"
+    [donate.summary.budget.maintenance]
+      title = "Development and maintenance of the distro"
+      detail = "Everything around the distro: what gets fixed, tested and documented."
+      items = "New features, fixes and stability · Testing on real hardware · Website, documentation and project status"
     [donate.summary.transparency]
       stability = "We prioritise spending that directly affects stability, performance and support."
       channels = "We publish important changes and progress on the project's official channels."
@@ -423,13 +449,65 @@
   text = "Write accents and special characters by holding a key down, as on macOS, without depending on the keyboard layout."
 [component.archiso]
   title = "ISO image"
-  text = "An archiso profile with a live session, the Calamares installer, and the project's own repository already configured."
+  text = "An archiso profile with a live session, the Vasak Installer, and the project's own repository already configured."
 [component."repositorio vasakos"]
   title = "pacman repository"
   text = "The project's own GPG-signed repository, with the VasakOS packages for Arch Linux."
 [component.vasakos-calamares]
   title = "Installer"
-  text = "Calamares with the VasakOS configuration and install branches."
+  text = "Vasak Installer with the VasakOS configuration and install branches."
+
+[component.vasak-wayfire-plugins]
+  title = "Wayfire Plugins"
+  text = "Wayfire compositor plugins: panel, gestures, overlays and workspace management."
+
+[component.vasak-text]
+  title = "Text Editor"
+  text = "Plain text editor with syntax highlighting and multi-tab support."
+
+[component.vasak-calendar]
+  title = "Calendar"
+  text = "System calendar with online accounts integration and reminders."
+
+[component.vasak-mail]
+  title = "Mail"
+  text = "Email client with IMAP/SMTP support and PGP encryption."
+
+[component.vasak-contacts]
+  title = "Contacts"
+  text = "Address book integrated with online accounts and synchronization."
+
+[component.vasak-shot]
+  title = "Screenshot"
+  text = "Screenshot and screen recording tool with annotations."
+
+[component.vasak-monitor]
+  title = "System Monitor"
+  text = "Resource viewer: CPU, memory, disk, network and sensors."
+
+[component.vasak-store]
+  title = "Store"
+  text = "Flatpak and native app store with sandboxing and automatic updates."
+
+[component.vasak-prism]
+  title = "Prism"
+  text = "Document and PDF viewer with annotations and search."
+
+[component.vasak-installer]
+  title = "Vasak Installer"
+  text = "Native graphical installer for VasakOS, replacement for Calamares written in Rust/Tauri."
+
+[component.vasak-update]
+  title = "Updates"
+  text = "System update notifier with changelog details and deferral option."
+
+[component.vasak-wireplumber-modules]
+  title = "WirePlumber Modules"
+  text = "Audio policy modules for automatic routing and device profiles."
+
+[component.polkit-vasak]
+  title = "PolicyKit Agent"
+  text = "Native PolicyKit authentication agent, replaces polkit-gnome."
 
 # ISO requirements, read from `data/release.yml`. The key is the requirement's
 # name exactly as it appears in the YAML.
@@ -455,11 +533,6 @@
 [changelog]
   title = "Changelogs"
   readMore = "Read the full changelog"
-
-# Fallback alt text for the `img` shortcode, when the image does not bring its
-# own. It used to say "IMG Post", which describes nothing in English.
-[img]
-  defaultAlt = "Image"
 
 # The anchor rendered next to every heading so a section can be linked to.
 [toc]

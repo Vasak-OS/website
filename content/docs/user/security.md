@@ -20,7 +20,7 @@ reproducirlo. Un exploit no hace falta.
 
 ## Qué pasa después
 
-| | |
+| Etapa | Plazo |
 |---|---|
 | Acuse de recibo | 72 horas hábiles |
 | Primer diagnóstico | 7 días |

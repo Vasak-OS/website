@@ -11,7 +11,26 @@
 <html lang="{{ $lang.Locale }}" dir="{{ $lang.Direction | default "ltr" }}"{{ with $lang.Params.headAttrs }} {{ . }}{{ end }}>
 {{- partial "head.html" . -}}
 
-<body class="transition-all duration-400">
+{{/* El fundido del modo oscuro.
+
+   Era `transition-all duration-400`, y las dos partes estaban mal.
+
+   `transition-all` anima *cualquier* propiedad que cambie en el elemento. Con el
+   modo oscuro eso parece inocuo, pero el `<body>` también es el que cambia de
+   `background-image` cuando hay un degradado de fondo, y lo anima como si fuera
+   una imagen: cuatro imágenes que se descargan por quadro durante 400 ms. Lo que
+   se quiere cruzar son los colores, y `transition-colors` dice exactamente eso.
+
+   Los 400 ms tampoco coincidían con nada: la regla `body *` de la hoja decía 300
+   y los botones 200, así que el mismo cambio de temaorzaba en tres tiempos según
+   dónde estuviera el nodo — el fondo a 400, un subtítulo a 300, un botón a 200 —
+   y se veía como una onda que va del fondo para adentro. Ahora los tres son
+   200, que es el número de la escala, y el cambio entra como un solo gesto.
+
+   La clase va en el `<body>` y no en la regla de la hoja porque el `<body>` es el
+   elemento al que se le cambia la clase del modo — `:where` y capas no alcanzan
+   a un elemento al que no se le pone nada, y un `!important` habría sido peor. */}}
+<body class="transition-colors duration-200">
   {{- partial "header.html" . -}}
 
   {{/* No <main> wrapper here on purpose: the home page and the section

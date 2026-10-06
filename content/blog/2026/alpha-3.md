@@ -1,6 +1,10 @@
 ---
 Title: "Alpha 3 de VasakOS"
-tags: [video, demo, vasak, vasakos, vasak-desktop]
+tags:
+  - "video"
+  - "demo"
+  - "vasakos"
+  - "vasak-desktop"
 date: "2026-04-01"
 img: "https://i.postimg.cc/3xXpdPxG/image.png"
 description: "Alpha 3 de VasakOS: llega Calamares al instalador, con mejoras y correcciones respecto a la versión anterior."

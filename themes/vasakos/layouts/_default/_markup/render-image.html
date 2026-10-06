@@ -1,3 +1,19 @@
-<div class="text-center">
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" class="rounded-corner my-2" />
-</div>
+{{/* Las imágenes del markdown.
+
+   `render-image.html` es el único punto por donde pasa una imagen escrita en
+   markdown, así que el marco va acá y no en cada artículo.
+
+   Antes era `rounded-l my-2`: el radio sin nada alrededor. Una imagen con el
+   radio puesto y sin borde parece un recorte mal hecho en lugar de una
+   fotografía, y el marco es lo que la despega del texto. `.icon-tile` no sirve —
+   es para el emblema de 70 px— pero el gesto es el mismo: radio de la escala de
+   tarjeta, sombra corta, que es la sombra de un objeto de ese tamaño.
+
+   Y el `text-center` del contenedor no alcanza para centrar la imagen cuando la
+   imagen es más angosta que la columna: `mx-auto` sí, porque el `<div>` es de
+   bloque y el `img` es inline, así que sin `block` el `margin-inline` no
+   aplica. */}}
+<figure class="my-6">
+  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" loading="lazy" decoding="async"
+    class="mx-auto block max-w-full rounded-l border border-ui-border bg-ui-surface shadow-s" />
+</figure>

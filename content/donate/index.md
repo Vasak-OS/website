@@ -1,19 +1,15 @@
 ---
 Title: "Donaciones"
 tags:
-  [
-    donar,
-    donaciones,
-    colaborar,
-    ayudar,
-    vasak,
-    vasakos,
-    vasak donatcion,
-    donate,
-    donations,
-    donadores,
-    donators,
-  ]
+  - "donar"
+  - "donaciones"
+  - "colaborar"
+  - "ayudar"
+  - "vasakos"
+  - "donate"
+  - "donations"
+  - "donadores"
+  - "donators"
 img: "/img/posts/donate.svg"
 description: "Ayuda a sostener y mejorar VasakOS con total transparencia sobre el destino de los fondos."
 
@@ -21,18 +17,25 @@ description: "Ayuda a sostener y mejorar VasakOS con total transparencia sobre e
 # elemento, igual que los componentes en `data/components.yml`. Quedarse con
 # los textos en el front matter hacía que la página en inglés mostrara
 # "Infraestructura, desarrollo y calidad de la distribución" como si fuera el
-# idioma de quien la lee. Acá queda la estructura: el orden, las direcciones, los
-# importes y las URLs, que son los mismos en los dos idiomas.
+# idioma de quien la lee. Acá queda la estructura: el orden, las direcciones,
+# los importes y las URLs, que son los mismos en los dos idiomas.
+#
+# El desglose suma el objetivo: 300 + 150 + 250 + 400 + 400 = 1500. Si se mueve un
+# importe hay que mover el total (y el plan `monthly-goal` de static/funding.json,
+# que la prueba de funding lee junto a este archivo).
 donations:
-  monthly_goal: "USD $250"
-  usage:
-    - id: distro
-    - id: hardware
-    - id: infra
-  infra:
-    - id: hosting
-    - id: build
+  monthly_goal: "USD $1500"
+  budget:
+    - id: distribution
+      amount: "USD $300"
     - id: community
+      amount: "USD $150"
+    - id: tooling
+      amount: "USD $250"
+    - id: services
+      amount: "USD $400"
+    - id: maintenance
+      amount: "USD $400"
   transparency:
     - id: stability
     - id: channels

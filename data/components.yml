@@ -24,11 +24,11 @@ groups:
     items:
       - name: vasak-desktop
         version: "1.1.3"
-        status: beta
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-desktop
       - name: vasak-session-manager
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-session-manager
       - name: vasak-desktop-settings
         version: "0.4.0"
@@ -38,6 +38,10 @@ groups:
         version: "0.6.0"
         status: stable
         repo: https://github.com/Vasak-OS/VasakOS-icon-theme
+      - name: vasak-wayfire-plugins
+        version: "0.2.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-wayfire-plugins
 
   - id: aplicaciones
     icon: fa-solid fa-folder
@@ -52,7 +56,7 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-terminal
       - name: vasak-settings
         version: "0.2.1"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-settings
       - name: vasak-gallery
         version: "0.2.0"
@@ -60,23 +64,55 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-gallery
       - name: vasak-resonance
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-resonance
+      - name: vasak-text
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-text
+      - name: vasak-calendar
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-calendar
+      - name: vasak-mail
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-mail
+      - name: vasak-contacts
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-contacts
+      - name: vasak-shot
+        version: "0.1.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-shot
+      - name: vasak-monitor
+        version: "0.1.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-monitor
+      - name: vasak-store
+        version: "0.1.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-store
+      - name: vasak-prism
+        version: "0.1.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-prism
 
   - id: servicios
     icon: fa-solid fa-shield-halved
     items:
       - name: vasak-keyring
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-keyring
       - name: vasak-flare-daemon
         version: "0.2.0"
-        status: alpha
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-flare-daemon
-      - name: polkit-vasak-agent
+      - name: polkit-vasak
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/polkit-vasak
       - name: vasak-permissions
         version: "0.1.0"
@@ -86,21 +122,34 @@ groups:
         version: "0.2.0"
         status: alpha
         repo: https://github.com/Vasak-OS/vasak-accounts
+      - name: vasak-installer
+        version: "0.1.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-installer
+      - name: vasak-update
+        version: "0.1.0"
+        status: beta
+        repo: https://github.com/Vasak-OS/vasak-update
+      - name: vasak-wireplumber-modules
+        version: "0.1.0"
+        status: alpha
+        repo: https://github.com/Vasak-OS/vasak-wireplumber-modules
 
   - id: entrada
     icon: fa-solid fa-pen
     items:
       - name: vasak-press-and-hold
         version: "0.1.0"
-        status: alpha
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-press-and-hold
 
   - id: infraestructura
     icon: fa-solid fa-download
     items:
       - name: archiso
-        version: "Alpha 4"
-        status: alpha
+        title: Imagen ISO
+        version: "Beta 1"
+        status: beta
         repo: https://github.com/Vasak-OS/archiso
       - name: repositorio vasakos
         # No es un número de versión: lo que se publica es que el repositorio
@@ -108,14 +157,18 @@ groups:
         version: "active"
         status: stable
         repo: https://github.com/Vasak-OS/repository-script
-      - name: vasakos-calamares
-        version: "3.4.2"
-        status: beta
-        repo: https://github.com/Vasak-OS/vasakos-calamares-config
 
 # Shown on /state/ so nobody has to reverse-engineer what "Alpha" means here.
 # `class` is a Tailwind class and has to be in a scanned file, so it stays here;
 # `label` is prose and lives in i18n under `status.<key>`.
+#
+# The text is `text-tx-main` and the status tone only tints the chip. It used to
+# be the other way round — `text-status-success` on `bg-status-success/15` — and
+# the tone is a mid-value against a near-white chip of its own hue, so the label
+# landed at 1.55:1 to 2.91:1 in light mode against the 4.5:1 that WCAG 1.4.3
+# asks for. `alpha` at 1.55:1 was the worst: a warning chip whose text you
+# cannot read. Dark mode happened to pass, which is probably why it went
+# unnoticed.
 #
 # The text is `text-tx-main` and the status tone only tints the chip. It used to
 # be the other way round — `text-status-success` on `bg-status-success/15` — and

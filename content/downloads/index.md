@@ -2,14 +2,14 @@
 Title: "Descargas"
 seotitle: "Descargar VasakOS: ISO x86_64 y SHA256 | VasakOS"
 description: "Descarga la ISO oficial de VasakOS para x86_64. Mirrors, checksum SHA256, requisitos mínimos y guía paso a paso para crear el USB booteable e instalar."
-tags: [descargas, download, iso, vasakos iso, descargar vasakos, arch linux, linux]
+tags: [descargas, iso, vasakos iso, linux]
 type: downloads
 img: "/img/posts/download.svg"
 date: "2022-03-19"
-lastmod: "2026-06-14"
+lastmod: "2026-10-04"
 ---
 
-> **Es una versión Alpha.** Se instala y se usa, pero hay funciones incompletas y cambios entre compilaciones. Antes de reemplazar tu sistema principal, revisa el [estado del proyecto](/state/).
+> **Es una versión Beta.** Se instala y se usa, con las funciones completas, pero todavía quedan errores por pulir y puede haber cambios entre compilaciones. Antes de reemplazar tu sistema principal, revisa el [estado del proyecto](/state/).
 
 ## Instalar paso a paso
 
@@ -21,7 +21,7 @@ lastmod: "2026-06-14"
    sirven `dd`, [balenaEtcher](https://etcher.balena.io/) o Rufus.
 
    ```bash
-   sudo dd if=vasakos-2026.06.14-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
+   sudo dd if=vasakos-2026.10.04-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
    ```
 
    Reemplazá `/dev/sdX` por tu pendrive — `lsblk` te dice cuál es. **Escribir en el disco

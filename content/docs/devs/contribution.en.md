@@ -193,7 +193,6 @@ git pull upstream main
 2. Follow the established architecture
 3. Add tests
 4. Document the change
-5. Update the CHANGELOG
 
 ### Bug fixes
 

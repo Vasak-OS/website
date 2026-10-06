@@ -87,6 +87,25 @@ describe('funding.json', () => {
     expect(goal).toBeDefined();
     expect(plan.amount).toBe(Number(goal));
   });
+
+  test('el desglose por rubro suma la meta, en los dos idiomas', () => {
+    // La página publica el importe de cada rubro al lado del total: si la suma
+    // no da la meta, la página dice dos cosas distintas y una de las dos es
+    // mentira. Los importes viven en el front matter de los dos idiomas y
+    // tienen a su vez que ser idénticos, como todo lo estructural del bloque.
+    const es = readFileSync('content/donate/index.md', 'utf8');
+    const en = readFileSync('content/donate/index.en.md', 'utf8');
+    const desglose = (texto: string) => {
+      const bloque = texto.slice(texto.indexOf('  budget:'), texto.indexOf('  transparency:'));
+      return [...bloque.matchAll(/amount:\s*"USD \$(\d+)"/g)].map((m) => Number(m[1]));
+    };
+    const montos = desglose(es);
+    expect(montos.length).toBeGreaterThan(1);
+    expect(desglose(en)).toEqual(montos);
+    const goal = es.match(/monthly_goal:\s*"USD \$(\d+)"/)?.[1];
+    expect(goal).toBeDefined();
+    expect(montos.reduce((a, b) => a + b, 0)).toBe(Number(goal));
+  });
 });
 
 describe('.well-known/funding-manifest-urls', () => {

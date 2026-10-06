@@ -4,10 +4,18 @@
   <div class="flex justify-between mx-auto">
     <div class="w-full lg:w-8/12">
       <div class="px-8">
+        {{/* El cuerpo de la documentación era `bg-ui-bg/80 rounded-l` a secas: ni
+             borde ni sombra, o sea un rectángulo de color. Es la última caja del
+             sitio con esa forma, y la que más se nota porque es la más grande de
+             las tres columnas.
+
+             El `px-16` fijo bajaba a `px-6 md:px-16` como en el resto de las
+             plantillas: en una ventana de 1280 la columna de contenido mide unos
+             660 px, y 64 px de aire a cada lado son casi un quinto de ella. */}}
         <div
-          class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 rounded-corner"
+          class="card mx-auto flex flex-col px-6 py-10 md:px-16"
           id="article">
-          <h1 class="text-center text-brand-text">{{.Title}}</h1>
+          <h1 class="section-title page-title text-center text-brand-text">{{ .Title }}</h1>
           {{ .Content }}
         </div>
 
@@ -25,9 +33,9 @@
           <!-- Artículo anterior -->
           {{ if gt $currentIndex 0 }}
             {{ $prevArticle := index $siblings (sub $currentIndex 1) }}
-            <a href="{{ $prevArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-tx-on-primary dark:hover:bg-primary transition-colors">
+            <a href="{{ $prevArticle.RelPermalink }}" class="card card-hover flex-1 p-5">
               <div class="text-sm text-tx-muted mb-1">← {{ T "nav_docs.previous" }}</div>
-              <div class="font-semibold">{{ $prevArticle.Title }}</div>
+              <div class="font-semibold tracking-tight text-tx-main">{{ $prevArticle.Title }}</div>
             </a>
           {{ else }}
             <div class="flex-1"></div>
@@ -36,9 +44,9 @@
           <!-- Artículo siguiente -->
           {{ if lt $currentIndex (sub (len $siblings) 1) }}
             {{ $nextArticle := index $siblings (add $currentIndex 1) }}
-            <a href="{{ $nextArticle.RelPermalink }}" class="flex-1 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-primary hover:text-tx-on-primary dark:hover:bg-primary transition-colors text-right">
+            <a href="{{ $nextArticle.RelPermalink }}" class="card card-hover flex-1 p-5 text-right">
               <div class="text-sm text-tx-muted mb-1">{{ T "nav_docs.next" }} →</div>
-              <div class="font-semibold">{{ $nextArticle.Title }}</div>
+              <div class="font-semibold tracking-tight text-tx-main">{{ $nextArticle.Title }}</div>
             </a>
           {{ else }}
             <div class="flex-1"></div>

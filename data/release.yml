@@ -4,30 +4,30 @@
 # so publishing a new ISO is one file to edit instead of three templates to
 # hunt through.
 
-release_name: "VasakOS Alpha 4"
-channel: "Alpha"
-version: "2026.08.19"
+release_name: "VasakOS Beta 1"
+channel: "Beta"
+version: "2026.10.04"
 arch: "x86_64"
-image_name: "vasakos-2026.08.19-x86_64.iso"
-size: "2.5 GB"
-published_at: "2026-08-19"
-status: "Alpha"
-sha256: "992a14b1eaf7f9741ee1d36223923b3e504d9373b1c7697b594096146253d419"
+image_name: "vasakos-2026.10.04-x86_64.iso"
+size: "2.13 GB"
+published_at: "2026-10-04"
+status: "Beta"
+sha256: "8c2d59a398f4c0f7046728a34419fe3dcb72e164acfb6faeb2d839b5d1749c75"
 sha256_file: ""
 signature_file: ""
-changelog_url: "/changelogs/20260819/"
+changelog_url: "/changelogs/20261004/"
 support_url: "https://t.me/VasakOS"
 bug_report_url: "https://github.com/Vasak-OS"
 
 mirrors:
-  - name: "SourceForge"
-    url: "https://sourceforge.net/projects/vasakos/files/Alpha/vasakos-2026.08.19-x86_64.iso/download"
-    region: "Global"
   - name: "MediaFire"
-    url: "https://www.mediafire.com/file/mj4uo40cnlcq2q8/vasakos-2026.08.19-x86_64.iso/file"
+    url: "https://www.mediafire.com/file/10rjk90eojzjkl3/vasakos-2026.10.04-x86_64.iso/file"
     region: "Global"
   - name: "Mega"
-    url: "https://mega.nz/file/3tJDnAQb#3Tis-vppTbVTpgfmg2VVNKNhqq0kqzfK7Ak6vXM3cnE"
+    url: "https://mega.nz/file/P9BlhDLQ#Wp6SizDnHWMMW9uGPvUYDXb5bmjLfzsBpHPHD7CP6eQ"
+    region: "Global"
+  - name: "SourceForge"
+    url: "https://sourceforge.net/projects/vasakos/files/Beta/vasakos-2026.10.04-x86_64.iso/download"
     region: "Global"
 
 requirements:
@@ -44,6 +44,6 @@ requirements:
     - "GPU con drivers libres (Intel, AMD) para la mejor experiencia en Wayland"
 
 verify:
-  linux: "sha256sum vasakos-2026.08.19-x86_64.iso"
-  macos: "shasum -a 256 vasakos-2026.08.19-x86_64.iso"
-  windows: "CertUtil -hashfile vasakos-2026.08.19-x86_64.iso SHA256"
+  linux: "sha256sum vasakos-2026.10.04-x86_64.iso"
+  macos: "shasum -a 256 vasakos-2026.10.04-x86_64.iso"
+  windows: "CertUtil -hashfile vasakos-2026.10.04-x86_64.iso SHA256"

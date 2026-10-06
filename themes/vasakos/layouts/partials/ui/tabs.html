@@ -11,7 +11,7 @@
   El contenedor `flex min-h-0 min-w-0 items-center gap-1 h-full` con
   `role="tablist"`, el carril `flex items-center gap-1 overflow-x-auto
   overflow-y-hidden`, y el botón de pestaña nueva —`flex size-7 shrink-0 items-
-  center justify-center rounded-corner border border-ui-border bg-ui-bg/80
+  center justify-center rounded-l border border-ui-border bg-ui-bg/80
   hover:bg-ui-surface/70`—, que en la librería aparece sólo si se le pasa un
   `newLabel` y acá sólo si se le pasa un `newLabel`.
 
@@ -78,7 +78,18 @@
     </div>
 
     {{- with $newLabel }}
-    <a href="#panel-nueva" class="flex size-7 shrink-0 items-center justify-center rounded-corner border border-ui-border bg-ui-bg/80 hover:bg-ui-surface/70" title="{{ . }}" aria-label="{{ . }}">
+    {{- /* El botón de «nueva pestaña» pasa por `.btn .btn-icon .btn-sm
+           .btn-neutral`, que es la misma razón que estaba escrita dos veces en
+           este lugar y ahora está una sola: es un control, no un separador, y con
+           `#dce0e8` su contorno no se ve contra el carril —1.17:1— mientras que
+           WCAG 1.4.11 pide 3:1 para el borde que identifica un control.
+           `--ui-border-strong` da 7.06:1 en claro y 11.34:1 en oscuro.
+
+           Y pasa a 32 px, el tamaño chico de la escala de botones, porque
+           `size-7` son 28: la altura de una fila de tabla, que es exactamente
+           donde un puntero está pero un dedo no distingue de un chip. */ -}}
+    <a href="#panel-nueva" class="btn btn-icon btn-sm btn-neutral shrink-0"
+       title="{{ . }}" aria-label="{{ . }}">
       <i class="fa-solid fa-plus shrink-0" aria-hidden="true"></i>
     </a>
     {{- end }}

@@ -10,7 +10,7 @@ un Arch Linux que ya tienes, salta a [repositorio de paquetes](/docs/user/reposi
 ## Antes de empezar
 
 - **Haz una copia de seguridad.** Cualquier instalación puede tocar la tabla de
-  particiones. VasakOS está en Alpha; tratalo como tal.
+  particiones. VasakOS está en Beta; tratalo como tal.
 - Necesitas un pendrive de 8 GB o más y una conexión a internet durante la instalación.
 - Revisa los [requisitos](/downloads/) del sistema.
 
@@ -73,7 +73,7 @@ Si algo de esto no anda en Live, tampoco va a andar instalado. Es el momento de
 
 ## 5. Instalar
 
-El instalador es [Calamares](https://calamares.io/) y se abre desde el icono del escritorio.
+El instalador es **Vasak Installer** y se abre desde el icono del escritorio.
 
 1. **Idioma y zona horaria.**
 2. **Teclado**: pruébalo en el campo de prueba, sobre todo si usas distribución latinoamericana.

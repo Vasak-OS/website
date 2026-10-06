@@ -75,6 +75,9 @@
 [recentPosts]
   title = "Publicaciones recientes"
 
+[docs]
+  columnTitle = "Título"
+
 [nav_docs]
   title = "Documentación"
   previous = "Anterior"
@@ -105,6 +108,8 @@
   extraPackages = "El repositorio publica además {{ .Count }} paquetes de soporte (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch)."
   howToAdd = "Cómo agregar el repositorio"
   seeRoadmap = "Ver el roadmap"
+  showMore = "Ver más"
+  showLess = "Ver menos"
 
 [social]
   title = "Redes Sociales"
@@ -172,6 +177,8 @@
   subtitle = "Cada parte de VasakOS vive en su propio repositorio, con su versión publicada y su estado. Lo que todavía está en construcción dice que está en construcción."
   version = "Versión"
   detail = "Ver el estado detallado de cada componente"
+  viewMore = "Ver {{ .Count }} más en {{ .Group }}"
+  viewAll = "Ver todas las {{ .Group }}"
 
 [features]
   openSourceTag = "CÓDIGO ABIERTO"
@@ -206,24 +213,20 @@
   previous = "Anterior"
   next = "Siguiente"
   goTo = "Ir a la imagen {{ .Number }}"
-  defaultAlt = "Captura de pantalla de VasakOS"
+  defaultAlt = "Captura {{ .Number }} de {{ .Total }} de VasakOS"
   [screenshots.shot01]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot02]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot03]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot04]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot05]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
 
 [footer]
+  links = "Enlaces del sitio"
   softwareDev = "Desarrollo de Software"
   privacy = "Política de privacidad"
   terms = "Términos del servicio"
@@ -302,43 +305,66 @@
   donations = "Donaciones VasakOS"
   howToDonate = "Cómo donar"
   currentFocus = "Foco actual"
-  monthlyGoal = "Objetivo mensual {{ .Amount }}"
   donateNow = "Donar ahora"
   copied = "Copiado"
   selectHint = "Seleccionado: Ctrl+C"
   copyAddress = "Copiar la dirección de {{ .Name }}"
-  infrastructure = "Infraestructura que sostenemos"
-  priority = "Prioridad {{ .Level }}"
+  budget = "En qué se va el dinero"
+  budgetLead = "Cinco rubros, cada uno con su importe mensual. La suma da el objetivo."
+  budgetTotal = "Total mensual"
+  perMonth = "al mes"
+  ecosystem = "El ecosistema que sostienes"
+  ecosystemLead = "Un aporte no sostiene una descarga: sostiene todo lo que hay debajo."
+  ecosystemCount = "Componentes: {{ .Count }}"
   transparency = "Transparencia"
+  follow = "Participa"
+  followText = "El proyecto se desarrolla en abierto: las decisiones, los avances y los problemas son públicos."
   community = "Comunidad"
   reportIdea = "Reportar idea o problema"
 
   # El bloque `donations` del front matter de content/donate/index.md. Las
   # listas se resuelven por el `id` de cada elemento, en el mismo orden en que
-  # están en el YAML; `monthly_goal`, las direcciones y las URLs siguen ahí
-  # porque no cambian con el idioma.
+  # están en el YAML; `monthly_goal`, los importes, las direcciones y las URLs
+  # siguen ahí porque no cambian con el idioma.
   [donate.summary]
     subtitle = "Cada aporte se reinvierte en el crecimiento del proyecto"
     status = "Proyecto comunitario"
-    focus = "Infraestructura, desarrollo y calidad de la distribución"
-    [donate.summary.usage.distro]
-      title = "Mejoras de la distro"
-      detail = "Desarrollo de nuevas funciones, correcciones de errores y pruebas de estabilidad."
-    [donate.summary.usage.hardware]
-      title = "Equipamiento para desarrollo"
-      detail = "Compra o renovación de hardware para compilar, probar y depurar en más escenarios."
-    [donate.summary.usage.infra]
-      title = "Infraestructura y servicios"
-      detail = "Hosting, servidores, dominios, CI/CD y servicios para proveer una experiencia más confiable."
-    [donate.summary.infra.hosting]
-      item = "Hosting web y recursos de descarga"
-      priority = "Alta"
-    [donate.summary.infra.build]
-      item = "Servidores para build y distribución"
-      priority = "Alta"
-    [donate.summary.infra.community]
-      item = "Servicios complementarios para comunidad"
-      priority = "Media"
+    focus = "Distribución, comunidad y servicios para desarrolladores"
+    goalLabel = "Objetivo mensual"
+    annual = "Al año: {{ .Amount }}"
+    lead = "Este es el costo de un mes de proyecto. No hay publicidad ni datos de nadie en el medio: lo que se recauda se reinvierte, cada rubro del desglose trae su importe para que un aporte no sea una apuesta, y el desglose completo está abajo con la suma que cierra el mes."
+    factMonthTitle = "Un mes completo"
+    factMonthDetail = "El foro, los servidores, las herramientas y el soporte se pagan todos los meses, sea bueno o malo el mes que entra. El objetivo cubre uno completo sin depender de que haya un aporte suelto que lo salve."
+    factBreakdownTitle = "Cinco rubros, cinco importes"
+    factBreakdownDetail = "Lo de abajo suma justo el objetivo: repositorio, comunidad, herramientas, servicios y mantenimiento, cada uno con su precio a la vista y sin rubros escondidos que sumen por otro lado."
+    factPrivacyTitle = "Ni publicidad ni datos"
+    factPrivacyDetail = "El sitio no muestra anuncios, no vende ni comparte datos de nadie y no hay patrocinios que condicionen lo que se publica: el proyecto se sostiene con su comunidad y nada más."
+    factHelpTitle = "Hay otras formas de ayudar"
+    factHelpDetail = "Reportar un problema, traducir, probar una actualización o contarle a alguien que existimos también sostiene el proyecto. Las formas de aportar plata están abajo; éstas no piden una."
+    factIndependenceTitle = "No compra influencia"
+    factIndependenceDetail = "El aporte sostiene el proyecto, no lo dirige: el rumbo se discute en público —foro y problemas abiertos— y el mismo desglose vale para el que aporta y para el que no puede hacerlo."
+    factTiersTitle = "Sin niveles ni recompensas"
+    factTiersDetail = "No hay aportes con privilegio ni recompensas que pagar: quien pone un peso y quien pone mil sostienen el mismo proyecto, ven lo mismo y opinan igual."
+    [donate.summary.budget.distribution]
+      title = "Servidores de distribución (pacman)"
+      detail = "El repositorio propio de VasakOS: sin él, instalar y actualizar el sistema depende de terceros."
+      items = "Repositorio vasakos y sus réplicas · Firmado de paquetes y claves · Ancho de banda y almacenamiento de descargas"
+    [donate.summary.budget.community]
+      title = "Servidor de foro y comunidad"
+      detail = "Un lugar propio para preguntar, responder y conservar lo que ya se resolvió."
+      items = "Foro de la comunidad · Soporte y moderación · Canales oficiales del proyecto"
+    [donate.summary.budget.tooling]
+      title = "Herramientas de trabajo para desarrolladores"
+      detail = "Lo que se usa cada día para diseñar, escribir, revisar y publicar."
+      items = "Entornos de desarrollo y licencias · Diseño y prototipado · Revisión de código"
+    [donate.summary.budget.services]
+      title = "Servicios para desarrolladores"
+      detail = "La infraestructura que atraviesa cada contribución antes de llegar a una persona usuaria."
+      items = "Integración continua y compilación · Registros de paquetes y contenedores · Dominios, correo y almacenamiento"
+    [donate.summary.budget.maintenance]
+      title = "Desarrollo y mantenimiento de la distro"
+      detail = "Todo lo que rodea a la distro: lo que se corrige, se prueba y se documenta."
+      items = "Funciones nuevas, correcciones y estabilidad · Pruebas en hardware real · Sitio, documentación y estado del proyecto"
     [donate.summary.transparency]
       stability = "Priorizamos gastos que impacten directamente en estabilidad, rendimiento y soporte."
       channels = "Publicamos cambios importantes y avances en canales oficiales del proyecto."
@@ -380,6 +406,7 @@
 [components_group.infraestructura]
   name = "Distribución"
 
+# Textos para la sección de componentes en la portada (ver más / ver todos)
 [component.vasak-desktop]
   title = "Escritorio"
   text = "Panel, menú de aplicaciones, área de notificación, control de red y de sonido. Corre sobre Wayfire con gtk-layer-shell."
@@ -427,13 +454,65 @@
   text = "Escribir acentos y caracteres especiales manteniendo apretada una tecla, como en macOS, sin depender de la distribución del teclado."
 [component.archiso]
   title = "Imagen ISO"
-  text = "Perfil de archiso con sesión en vivo, instalador Calamares y el repositorio propio ya configurado."
+  text = "Perfil de archiso con sesión en vivo, instalador Vasak Installer y el repositorio propio ya configurado."
 [component."repositorio vasakos"]
   title = "Repositorio pacman"
   text = "Repositorio propio firmado con GPG, con los paquetes de VasakOS sobre Arch Linux."
 [component.vasakos-calamares]
   title = "Instalador"
-  text = "Calamares con la configuración y las ramas de instalación de VasakOS."
+  text = "Vasak Installer con la configuración y las ramas de instalación de VasakOS."
+
+[component.vasak-wayfire-plugins]
+  title = "Plugins de Wayfire"
+  text = "Plugins del compositor Wayfire: panel, gestos, overlays y gestión de espacios de trabajo."
+
+[component.vasak-text]
+  title = "Editor de textos"
+  text = "Editor de textos plano con resaltado de sintaxis y soporte para múltiples pestañas."
+
+[component.vasak-calendar]
+  title = "Calendario"
+  text = "Calendario del sistema con integración de cuentas en línea y recordatorios."
+
+[component.vasak-mail]
+  title = "Correo"
+  text = "Cliente de correo electrónico con soporte IMAP/SMTP y cifrado PGP."
+
+[component.vasak-contacts]
+  title = "Contactos"
+  text = "Agenda de contactos integrada con cuentas en línea y sincronización."
+
+[component.vasak-shot]
+  title = "Capturas"
+  text = "Herramienta de captura de pantalla y grabación con anotaciones."
+
+[component.vasak-monitor]
+  title = "Monitor del sistema"
+  text = "Visor de recursos: CPU, memoria, disco, red y sensores."
+
+[component.vasak-store]
+  title = "Tienda"
+  text = "Tienda de aplicaciones Flatpak y nativas con sandboxing y actualizaciones automáticas."
+
+[component.vasak-prism]
+  title = "Prism"
+  text = "Visor de documentos y PDF con anotaciones y búsqueda."
+
+[component.vasak-installer]
+  title = "Instalador Vasak"
+  text = "Instalador gráfico nativo de VasakOS, reemplazo de Calamares escrito en Rust/Tauri."
+
+[component.vasak-update]
+  title = "Actualizaciones"
+  text = "Notificador de actualizaciones del sistema con detalles de cambios y opción de diferir."
+
+[component.vasak-wireplumber-modules]
+  title = "Módulos WirePlumber"
+  text = "Módulos de política de audio para enrutamiento automático y perfiles de dispositivo."
+
+[component.polkit-vasak]
+  title = "Agente PolicyKit"
+  text = "Agente de autenticación PolicyKit nativo, reemplaza a polkit-gnome. Beta."
 
 # Requisitos de la ISO, leídos de `data/release.yml`. La clave es el nombre del
 # requisito tal como está en el YAML.
@@ -460,11 +539,6 @@
 [changelog]
   title = "Changelogs"
   readMore = "Leer el changelog completo"
-
-# Texto alternativo del shortcode `img`, cuando la imagen no lo trae. Antes era
-# "IMG Post", que en inglés describía algo que no existe.
-[img]
-  defaultAlt = "Imagen"
 
 # El ancla que se pone al lado de cada encabezado para poder enlazarlo.
 [toc]

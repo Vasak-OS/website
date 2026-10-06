@@ -1,4 +1,18 @@
 <div
-  class="flex flex-col mb-3 px-6 py-4 mx-auto bg-ui-bg/80 text-tx-main rounded-corner shadow-md">
+  class="panel flex flex-col mx-auto mb-3 px-6 py-4 text-tx-main">
+  {{- /* La caja del índice es un `.panel`, que es la superficie anidada del
+         sistema: el contenido del artículo ya es una tarjeta, así que lo que va
+         al lado es una capa más adentro, con el radio más chico —14 en vez de
+         16— que es lo que hace que las dos cajas no se lean como la misma.
+
+         El interior no lleva clase y no puede llevar: lo genera Hugo dentro de
+         `<nav id="TableOfContents">` con una plantilla fija, sin `<ol>` numerado
+         ni nada que se pueda enganchar. Por eso el estilo de las entradas vive
+         en `styles.css`, bajo `#TableOfContents`, con `:where()` para que el tema
+         no le gane a ninguna clase de utilidad.
+
+         El `p-0` y el `m-0` del panel no alcanzan al contenido del índice: el
+         `padding` del panel es el de la caja, y el del índice va en su propia
+         regla, sobre el enlace. */ -}}
   {{ .TableOfContents }}
 </div>

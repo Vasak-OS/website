@@ -1,19 +1,39 @@
-<div class="mt-6">
-  <div class="max-w-4xl px-10 py-6 mx-auto bg-cover bg-center rounded-corner shadow-md"
-    style="background-image: url('{{ .Params.img }}');">
-    <div class="bg-ui-bg/80 rounded-corner backdrop-blur-md p-3">
-      <div class="flex items-center justify-between">
-        <span class="font-light text-tx-muted">
-          {{ partial "date.html" .Date}}
-        </span>
-      </div>
-      <div class="mt-2 text-tx-muted">
-        <a href="{{ .RelPermalink }}" class="text-2xl font-bold text-secondary hover:underline">{{ .Title }}</a>
-        <p class="mt-2">{{ .Summary }}</p>
-      </div>
-      <div class="flex items-center justify-end m-4">
-        <a href="{{ .RelPermalink }}" class="text-brand-text hover:underline">{{ T "card.read" }} <em class="fas fa-eye" aria-hidden="true"></em></a>
-      </div>
+{{/* La tarjeta del listado.
+
+   El contenedor era `rounded-l shadow-m` sobre una foto de fondo, y el panel de
+   adentro `bg-ui-bg/80 rounded-s backdrop-blur-md` —radio de 6 px para un bloque
+   de texto de 24 px. El radio del hijo tiene que ser un par del del padre o
+   asoma por fuera y el conjunto se ve cortado: de 16 a 6 no lo es, y el texto
+   quedaba con esquinas de un radio que no correspondía a nada.
+
+   Ahora es `.card .card-hover`, el mismo lenguaje de las ventajas de la portada:
+   la foto sigue detrás, pero el texto va en la superficie del panel con su
+   sombra, y todo el bloque se acerca un píxel al pasar el mouse porque sí es un
+   enlace.
+
+   El título baja de `--secondary` a `--brand-text`: `#8839ef` da 3.51:1 sobre la
+   superficie, y un titular de 24 px necesita 3:1, así que pasaba por poco y sin
+   margen; `--brand-text` da 5.03:1. Y el "leer más" se vuelve un `.btn-sm` en
+   vez de un enlace suelto con un ícono pegado al texto. */}}
+<div class="card card-hover mt-6 mx-auto max-w-4xl overflow-hidden p-0">
+  {{ with .Params.img }}
+  <div class="relative aspect-[1536/400] bg-cover bg-center bg-ui-surface">
+    <img src="{{ . }}" alt="" loading="lazy" decoding="async" class="block h-full w-full object-cover" />
+  </div>
+  {{ end }}
+  <div class="flex flex-col gap-3 p-6">
+    <div class="flex items-center justify-between gap-4">
+      <span class="font-light text-sm text-tx-muted">{{ partial "date.html" .Date }}</span>
+      {{ range .Params.tags }}<span class="badge badge-neutral">{{ . }}</span>{{ end }}
+    </div>
+    <h2 class="text-2xl font-bold tracking-tight text-brand-text">
+      <a href="{{ .RelPermalink }}" class="hover:underline">{{ .Title }}</a>
+    </h2>
+    <p class="text-tx-muted leading-relaxed">{{ .Summary }}</p>
+    <div class="flex items-center justify-end pt-1">
+      <a href="{{ .RelPermalink }}" class="btn btn-sm btn-neutral text-brand-text">
+        {{ T "card.read" }} <em class="fas fa-eye" aria-hidden="true"></em>
+      </a>
     </div>
   </div>
 </div>

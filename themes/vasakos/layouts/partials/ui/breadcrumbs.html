@@ -6,7 +6,7 @@
 
   No hay componente de migas en `@vasakgroup/vue-libvasak` 1.9.0 — se revisó el
   `src/` entero — así que no hay nada que espejar. Lo que sí se toma del
-  escritorio es el vocabulario: `rounded-corner` en los destinos, el hover en
+  escritorio es el vocabulario: `rounded-m` en los destinos, el hover en
   `--color-primary`, y el `--radius-corner` de `main.css` en todas partes.
 
   ── Lo que arregla ──────────────────────────────────────────────────────────
@@ -69,10 +69,18 @@
      todos los anteriores sí. Los `x-default` de los idiomas están en head.html,
      con el resto. */}}
 <nav class="breadcrumbs-container mb-6" aria-label="{{ T "breadcrumbs.label" }}">
-  <ol class="flex flex-wrap items-center gap-0 text-sm">
+  {{/* Cada miga es un `.link-row`: son enlaces sobre texto, sin caja que los
+       delate, así que el hover tiene que cambiar la superficie. Antes sólo
+       cambiaba el color, y eso para un enlace de 14 px es 4.5:1.
+
+       El separador era un `chevron-right` con `opacity-40`, que en oscuro es un
+       gris sobre gris y se come; ahora es `text-tx-muted` con el color entero,
+       que es 7.37:1 en oscuro y 6.22:1 en claro. Un separador que no se ve es
+       un separador que no separa. */}}
+  <ol class="flex flex-wrap items-center gap-1 text-sm">
     <li class="flex items-center">
       <a href="{{ site.Home.RelPermalink }}"
-        class="inline-flex items-center gap-1.5 rounded-corner px-3 py-2 transition-colors duration-200 hover:text-brand-text"
+        class="link-row px-2.5 py-1.5 text-tx-muted hover:text-tx-main"
         title="{{ T "breadcrumbs.home" }}">
         <i class="fa-solid fa-house text-sm" aria-hidden="true"></i>
         <span class="sr-only sm:not-sr-only">{{ T "breadcrumbs.home" }}</span>
@@ -81,9 +89,9 @@
 
     {{- range $crumbs }}
     <li class="flex items-center">
-      <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
+      <i class="fa-solid fa-chevron-right mx-1 text-xs text-tx-muted" aria-hidden="true"></i>
       <a href="{{ .RelPermalink }}"
-        class="rounded-corner px-3 py-2 text-tx-muted transition-colors duration-200 hover:text-brand-text">
+        class="link-row px-2.5 py-1.5 text-tx-muted hover:text-tx-main">
         {{- with .Params.shortTitle }}{{ . }}{{ else }}{{ .Title }}{{ end -}}
       </a>
     </li>
@@ -92,8 +100,19 @@
     {{- if not $page.IsHome }}
     <li class="flex items-center">
       <i class="fa-solid fa-chevron-right text-xs opacity-40" aria-hidden="true"></i>
+      {{- /* El ítem actual se pinta con `--color-primary` y `--color-tx-on-primary`
+     en lugar de con el degradado violeta→rosa que tenía antes. Sobre ese
+     degradado el blanco daba 2.70:1 en el extremo `--brand-text` y 2.03:1 en
+     oscuro, y el texto de la miga pesa 14 px, así que necesita 4.5:1 y no los
+     alcanzaba en ninguno de los dos modos. `axe` lo aprueba igual: un fondo con
+     degradado no lo sabe medir y lo deja como *incomplete* en vez de como
+     violación.
+
+     Lo que se le suma acá es el brillo de `.sheen`, que es la capa de OnceUI:
+     el mismo relleno de marca con un canto de luz en el borde superior. Sin
+     ella el chip es un rectángulo rosa; con ella es un objeto. */ -}}
       <span aria-current="page"
-        class="rounded-corner bg-gradient-to-r from-secondary to-brand-text px-3 py-2 font-medium text-white">
+        class="sheen rounded-m bg-primary px-3 py-2 font-medium text-tx-on-primary">
         {{- if in .RelPermalink "/docs/" }}
         <i class="fa-solid fa-book text-sm" aria-hidden="true"></i>
         {{- else if in .RelPermalink "/blog/" }}

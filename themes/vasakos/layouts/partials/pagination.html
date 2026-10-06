@@ -4,14 +4,50 @@
      para qué son, y sin el nombre el control de paginación es un conjunto de
      enlaces sin contexto para quien navega con lector de pantalla. La clave
      `pagination.label` existía y ninguna plantilla la leía. */}}
-<nav class="w-full flex justify-center mt-10" aria-label="{{ T "pagination.label" }}" aria-labelledby="pagination-label" role="navigation">
-  <span id="pagination-label" class="sr-only">{{ T "pagination.label" }}</span>
-  <ul class="flex items-center gap-4 text-sm text-tx-on-primary">
+{{/* Los números no estaban: el paginador eran dos flechas de 48 px en rosa, sin
+     decir en qué página estabas ni cuántas había. Ahora hay la fila completa
+     con los números, y las flechas pasan a `.btn` con el vocabulario del sitio.
+
+     El `hover:bg-secondary` de antes era el problema de siempre: componía el
+     violeta `--secondary` al 90 % sobre lo que hubiera detrás, y eso cambia
+     entre la página y el listado. `.btn-primary:hover` usa `color-mix` contra
+     negro y da el mismo tono en todas partes. */}}
+{{/* `.PageNumber` no existe en el objeto paginador de Hugo: la propiedad se
+     llama `.PageNumber` sobre la *página*, y el paginador lleva su número en
+     `.PageNumber` sólo a partir de la v0.128 —en esta build no existe, y el
+     error es `can't evaluate field PageNumber in type *page.Paginator`. La
+     forma que sí funciona y no depende de la versión es comparar la URL de cada
+     paginador con la de la página actual: la del paginador activo es la misma
+     ruta, con lo cual no se está inventando una aritmética de números de
+     página. Por eso `current` se calcula antes del `range`. */ -}}
+{{- $actual := .URL -}}
+{{/* El paginador se guarda en una variable antes del `range` porque adentro del
+     `range` el punto cambia: `.Pagers` dentro del bucle sería el entero del
+     número de página, no el paginador, y el error lo dice tal cual —
+     `can't evaluate field Pagers in type int`. */ -}}
+{{- $pag := . -}}
+<nav class="w-full flex justify-center mt-12" aria-label="{{ T "pagination.label" }}" role="navigation">
+  <span class="sr-only">{{ T "pagination.label" }}</span>
+  <ul class="flex flex-wrap items-center justify-center gap-2">
     {{ if .HasPrev }}
-    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary text-tx-on-primary hover:bg-secondary h-12 w-12" href="{{ .Prev.URL }}" aria-label="{{ T "pagination.previous" }}"><em class="fa fa-chevron-left" aria-hidden="true"></em></a></li>
+    <li><a rel="noopener" class="btn btn-icon btn-md btn-primary sheen" href="{{ .Prev.URL }}" aria-label="{{ T "pagination.previous" }}"><em class="fa fa-chevron-left" aria-hidden="true"></em></a></li>
+    {{ else }}
+    <li><span class="btn btn-icon btn-md btn-neutral" aria-disabled="true"><em class="fa fa-chevron-left" aria-hidden="true"></em></span></li>
     {{ end }}
-    {{if .HasNext }}
-    <li><a rel="noopener" class="rounded-full flex justify-center items-center bg-primary text-tx-on-primary hover:bg-secondary h-12 w-12" href="{{ .Next.URL }}" aria-label="{{ T "pagination.next" }}"><em class="fa fa-chevron-right" aria-hidden="true"></em></a></li>
+    {{- range $i := seq 1 .TotalPages }}
+    {{- $p := index $pag.Pagers (sub $i 1) }}
+    <li>
+      {{- if eq $p.URL $actual }}
+      <span class="pager-link" aria-current="page" aria-label="{{ T "pagination.page" }} {{ $i }}">{{ $i }}</span>
+      {{- else }}
+      <a rel="noopener" class="pager-link" href="{{ $p.URL }}" aria-label="{{ T "pagination.page" }} {{ $i }}">{{ $i }}</a>
+      {{- end }}
+    </li>
+    {{- end }}
+    {{ if .HasNext }}
+    <li><a rel="noopener" class="btn btn-icon btn-md btn-primary sheen" href="{{ .Next.URL }}" aria-label="{{ T "pagination.next" }}"><em class="fa fa-chevron-right" aria-hidden="true"></em></a></li>
+    {{ else }}
+    <li><span class="btn btn-icon btn-md btn-neutral" aria-disabled="true"><em class="fa fa-chevron-right" aria-hidden="true"></em></span></li>
     {{ end }}
   </ul>
 </nav>

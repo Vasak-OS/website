@@ -18,12 +18,26 @@
 
   ── El radio ────────────────────────────────────────────────────────────────
 
-  `main.css` dice, sobre `--radius-corner-sm`: «El radio chico, para lo que no
-  es una tarjeta: chips, insignias, el pulgar de una barra». Una insignia es
-  exactamente eso, así que va `rounded-corner-sm` y no `rounded-full`. La
-  diferencia no es de gusto: `rounded-corner-sm` sale de `--corner-radius`, que
-  Configuración deja cambiar, así que un escritorio con esquinas muy redondeadas
-  tiene insignias redondeadas también. Con `rounded-full` no.
+  Va `rounded-full`, y es el cambio más grande de este partial.
+
+  Estaba en `rounded-s`, con un argumento que era bueno: `main.css` dice, sobre
+  `--radius-corner-sm`: «El radio chico, para lo que no es una tarjeta: chips,
+  insignias, el pulgar de una barra», y una insignia es exactamente eso. Pero
+  el argumento era para el escritorio, donde la insignia acompaña a un texto
+  corto dentro de una barra de estado; acá la insignia está sola en una grilla,
+  con un color de fondo al 10 % y la palabra «beta» o «wip» dentro. A seis
+  píxeles de radio, con veinte de alto, eso no se lee como una pastilla: se lee
+  como un rectángulo con el fondo teñido, que es la forma que menos se distingue
+  del resto de la grilla.
+
+  La pastilla sí se distingue, y es el gesto que OnceUI usa para todos sus
+  chips. Con el sitio completo en la escala de radio —que ya tiene su propio
+  `--radius-full` implícito en `rounded-full`— no hace falta en ningún otro
+  lado: el resto de las esquinas del sitio sigue saliendo de los cinco pasos.
+
+  El nombre del paso chico sigue siendo `rounded-s` para todo lo demás que lo
+  usa, y los alias viejos —`--corner-radius`, `--radius-corner-sm`— quedan en
+  `:root` para lo que escribe `main.css` del escritorio.
 
   ── El color ────────────────────────────────────────────────────────────────
 
@@ -52,4 +66,16 @@
 -}}
 {{- $clasesTamano := index $tamanos $size | default (index $tamanos "sm") -}}
 
-<span class="inline-flex items-center whitespace-nowrap rounded-corner-sm text-xs font-semibold {{ $clasesTamano }} {{ $class }}">{{ $label }}</span>
+{{- /* `.badge` trae lo que es igual en todas las insignias —alto, forma de
+       pastilla, peso, sin partirse— y `$class` sólo trae el color, que es lo
+       que cambia entre estados y ya vive en la leyenda de
+       `data/components.yml`. LaPastilla no se ve con un fondo al 10 % si el
+       borde no dice dónde termina: `border-ui-border-strong` es lo que la
+       separa del fondo de la grilla, y es el mismo token que usa `.btn-neutral`
+       por la misma razón —WCAG 1.4.11 pide 3:1 para identificar un borde, y una
+       insignia es un borde.
+
+       El alto se fija en 1.5 rem para que todas midan lo mismo aunque el texto
+       sea de otra longitud: `py-0.5` con `text-xs` daba 22 px, y con el padding
+       nuevo 24. */}}
+<span class="badge inline-flex h-6 items-center whitespace-nowrap rounded-full border border-ui-border-strong px-2.5 text-xs font-semibold {{ $class }}">{{ $label }}</span>

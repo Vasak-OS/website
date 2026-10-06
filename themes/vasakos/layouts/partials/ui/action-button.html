@@ -9,10 +9,29 @@
 
   ── Qué se copió tal cual ───────────────────────────────────────────────────
 
-  Las clases base, las de cada tono y las de cada tamaño son las del
-  componente, sin cambiar ni una. La idea de este partial es que el botón de
-  la web y el de Configuración sean el mismo componente escrito en otro idioma,
-  no dos cosas parecidas.
+  La estructura del componente: el mismo orden de las clases base, los mismos
+  tonos, los mismos parámetros y las mismas reglas de `disabled`, `loading`,
+  `iconSrc` e `iconRight`. La idea de este partial es que el botón de la web y el
+  de Configuración sean el mismo componente escrito en otro idioma, no dos cosas
+  parecidas.
+
+  ── Dónde deja de ser un espejo ─────────────────────────────────────────────
+
+  Los valores de la clase base y los de cada tono y de cada tamaño **no** se
+  copiaron. Se escriben una vez, en `assets/css/styles.css`, como `.btn`,
+  `.btn-md`, `.btn-primary` y así.
+
+  La razón es la misma por la que los colores viven en tokens. Los tres tamaños
+  del sitio medían 24, 28 y 40 px de alto, y el `md` —el tamaño por omisión, o
+  sea el de casi todos los botones de la página— era un rectángulo de 28 px con
+  radio de 8, indistinguible de una fila de tabla. Corregir eso desde el partial
+  significa cambiar tres números acá y replicarlos en cada botón escrito a mano;
+  corregirlo en la capa de componentes es cambiar tres números en un lugar. El
+  sitio tiene 166 páginas: una clase que cambia de valor se propaga sola.
+
+  Lo que no cambió es el vocabulario. Los cuatro tonos siguen siendo `primary`,
+  `secondary`, `danger` y `neutral`, y los tres tamaños `sm`, `md` y `lg`, con
+  `md` por omisión, como en la librería.
 
   ── Desviaciones, y por qué ─────────────────────────────────────────────────
 
@@ -32,15 +51,17 @@
      no carga el framework: sus iconos son máscaras CSS generadas por
      `scripts/build-icons.mjs` (ver `assets/css/icons.css`). `icon` recibe la
      clase y se dibuja un `<i>`, con el mismo `aria-hidden` que usa el resto
-     del tema. El tamaño del icono del escritorio son 16 px; el sitio no fija
-     un tamaño porque `icons.css` ya trae el suyo.
+     del tema.
 
   4. `neutral`. No existe en la librería, que sólo tiene `primary`, `secondary`
      y `danger`. Se arma con el vocabulario que sí usa el escritorio para un
-     control que no manda: el de una pestaña inactiva en `TabItem`
-     (`border-ui-border` + `bg-ui-bg/80` + `hover:bg-ui-surface/70`), más el
-     texto de siempre. No se inventó ningún color: son tokens de
-     `assets/css/styles.css`.
+     control que no manda: el de una pestaña inactiva en `TabItem` —el fondo de
+     ventana y el plano elevado—, más el texto de siempre. No se inventó ningún
+     color: son tokens de `assets/css/styles.css`. Lo que sí cambia es el borde,
+     que pasa de `ui-border` a `ui-border-strong`, el token que `:root` declara
+     para «lo que delimita un control» y que el botón era el único que no
+     usaba: con `#dce0e8` el contorno del botón no se veía contra la sección, ni
+     el relleno, y un control que no se distingue de la página no es un control.
 
   ── Parámetros ──────────────────────────────────────────────────────────────
 
@@ -75,63 +96,64 @@
 {{- $ariaLabel := .ariaLabel | default "" -}}
 {{- $extra := .class | default "" -}}
 
-{{- /* Las clases del componente, copiadas de `variantClasses`.
+{{- /* Los tonos, que ahora son clases de la capa de componentes. Los dos
+      rellenos de marca llevan `sheen`: la luz que entra por arriba, que es lo
+      que hace que `#dd7878` a plano se lea como un botón y no como una etiqueta
+      de color.
 
-     Única divergencia deliberada con la librería: el `secondary` usa
-     `text-tx-on-secondary` y no `text-tx-on-primary` como hace
-     `ActionButton` en `@vasakgroup/vue-libvasak@1.9.0`.
+      Única divergencia deliberada que queda con la librería, y es de color: el
+      `secondary` usa `text-tx-on-secondary` y no `text-tx-on-primary` como hace
+      `ActionButton` en `@vasakgroup/vue-libvasak@1.9.0`.
 
-     El motivo es que el token equivocado no se puede leer. `text-tx-on-primary` es
-     `#1e1e2e` —un casi negro— y sobre `--secondary: #8839ef` da 3.03:1, contra el
-     4.5:1 de WCAG 1.4.3 para texto normal. El botón afectado es el de «Comunidad»
-     de `/downloads/`, o sea un enlace visible en la página principal de descargas.
-     `text-tx-on-secondary` es `#eff1f5` y da 4.79:1.
+      El motivo es que el token equivocado no se puede leer. `text-tx-on-primary` es
+      `#1e1e2e` —un casi negro— y sobre `--secondary: #8839ef` da 3.03:1, contra el
+      4.5:1 de WCAG 1.4.3 para texto normal. El botón afectado es el de «Comunidad»
+      de `/downloads/`, o sea un enlace visible en la página principal de descargas.
+      `text-tx-on-secondary` es `#eff1f5` y da 4.79:1.
 
-     El token para el secundario ya existía y el propio commentario de la librería
-     explica por qué: el secundario no se parece al primario, así que el color de
-     texto tiene que ser propio. Acá lo que falta es aplicarlo. El modo oscuro no
-     tiene el problema —`#1e1e2e` sobre `#cba6f7` da 8.07:1— porque ahí el
-     secundario es claro y el texto oscuro.
+      El token para el secundario ya existía y el propio comentario de la librería
+      explica por qué: el secundario no se parece al primario, así que el color de
+      texto tiene que ser propio. Acá lo que falta es aplicarlo. El modo oscuro no
+      tiene el problema —`#1e1e2e` sobre `#cba6f7` da 8.07:1— porque ahí el
+      secundario es claro y el texto oscuro.
 
-     Es un defecto de la librería, no del sitio, y corresponde arreglarlo también
-     arriba para que las dos cosas vuelvan a coincidir. */ -}}
+      Es un defecto de la librería, no del sitio, y corresponde arreglarlo también
+      arriba para que las dos cosas vuelvan a coincidir. */ -}}
 {{- $tonos := dict
-  "primary" "bg-primary text-tx-on-primary hover:bg-primary/90"
-  "secondary" "bg-secondary text-tx-on-secondary hover:bg-secondary/80"
-  "danger" "bg-status-error text-tx-on-primary hover:bg-status-error/90"
-  "neutral" "border border-ui-border bg-ui-bg/80 text-tx-main hover:bg-ui-surface/70"
+  "primary" "btn-primary sheen"
+  "secondary" "btn-secondary sheen"
+  "danger" "btn-danger"
+  "neutral" "btn-neutral"
 -}}
 {{- $clasesTono := index $tonos $tone | default (index $tonos "primary") -}}
 
-{{- /* Y las de `sizeClasses`. */ -}}
 {{- $tamanos := dict
-  "sm" "px-2 py-1 text-xs"
-  "md" "px-3 py-1 text-sm"
-  "lg" "px-4 py-2 text-base"
+  "sm" "btn-sm"
+  "md" "btn-md"
+  "lg" "btn-lg"
 -}}
 {{- $clasesTamano := index $tamanos $size | default (index $tamanos "md") -}}
 
-{{- /* La clase base, en el mismo orden que la plantilla del componente. */ -}}
-{{- $clases := printf "rounded-corner transition-[background-color,opacity] duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 %s %s" $clasesTono $clasesTamano -}}
+{{- $clases := printf "btn %s %s" $clasesTamano $clasesTono -}}
 {{- if $full }}{{ $clases = printf "%s w-full" $clases }}{{ end -}}
-{{- /* Sin texto el padding del tamaño no corresponde: el botón es del tamaño
-       del icono, no de un `py-1` con un hueco al lado. Es la misma condición
-       que usa la librería (`iconSrc && !label`). */ -}}
-{{- if and $icon (not $label) }}{{ $clases = printf "%s px-2 py-2" $clases }}{{ end -}}
+{{- /* Sin texto el botón es un cuadrado del tamaño del icono, no una barra con
+       un hueco al lado. Es la misma condición que usa la librería
+       (`iconSrc && !label`). */ -}}
+{{- if and $icon (not $label) }}{{ $clases = printf "%s btn-icon" $clases }}{{ end -}}
 {{- with $extra }}{{ $clases = printf "%s %s" $clases . }}{{ end -}}
 
 {{- $contenido := "" -}}
 {{- if $loading -}}
-  {{- $contenido = printf "%s<span class=\"h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent\" aria-hidden></span>" $contenido -}}
+  {{- $contenido = printf "%s<span class=\"h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent\" aria-hidden=\"true\"></span>" $contenido -}}
 {{- end -}}
 {{- if and $icon (not $iconRight) -}}
-  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden></i>" $contenido $icon -}}
+  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden=\"true\"></i>" $contenido $icon -}}
 {{- end -}}
 {{- with $label -}}
   {{- $contenido = printf "%s<span>%s</span>" $contenido . -}}
 {{- end -}}
 {{- if and $icon $iconRight -}}
-  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden></i>" $contenido $icon -}}
+  {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden=\"true\"></i>" $contenido $icon -}}
 {{- end -}}
 
 {{- if $href -}}

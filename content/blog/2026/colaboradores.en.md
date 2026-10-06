@@ -1,7 +1,16 @@
 ---
 Title: "We are looking for contributors to VasakOS"
 aliases: ["/blog/2026/03/we-are-looking-for-contributors-to-vasak-os-help-us-build-a-new-linux-experience/"]
-tags: [vasak os, arch linux distro, linux desktop environment, open source linux, linux development, linux community, arch based distro, linux ui ux, linux desktop]
+tags:
+  - "vasakos"
+  - "arch linux distro"
+  - "linux desktop environment"
+  - "open source linux"
+  - "linux development"
+  - "linux community"
+  - "arch based distro"
+  - "linux ui ux"
+  - "linux desktop"
 date: "2026-03-11"
 img: "https://i.postimg.cc/8cyKzg0Q/Captura-de-pantalla-20260311-102113.jpg"
 description: "We are looking for contributors to build VasakOS: who we are after, the profiles we lack, and how to join the project."

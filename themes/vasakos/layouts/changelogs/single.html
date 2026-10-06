@@ -3,10 +3,17 @@
   <div class="container flex justify-between mx-auto">
     <div class="w-full lg:w-8/12">
       <div class="px-8">
+        {{/* El mismo cambio que en `_default/single.html`, y con una diferencia
+             más: el `text-tx-muted` iba en la caja. El artículo entero salía en
+             el color del texto secundario —4.37:1 sobre `--ui-bg`, por debajo del
+             4.5 que pide WCAG 1.4.3 para 16 px— y la regla de la tipografía ya
+             pinta los párrafos con `--text-main`. El color de la caja se queda
+             para lo que no es texto corrido, que son los `<pre>`, y ésos tienen su
+             propio fondo. */}}
         <div
-          class="flex flex-col px-16 py-10 mx-auto bg-ui-bg/80 text-gray-600 dark:text-gray-200 rounded-corner shadow-md"
+          class="card mx-auto flex flex-col px-6 py-10 text-tx-main md:px-16"
           id="article">
-          <h1 class="text-center text-brand-text">{{.Title}}</h1>
+          <h1 class="section-title page-title text-center text-brand-text">{{ .Title }}</h1>
           {{ .Content }}
         </div>
       </div>
