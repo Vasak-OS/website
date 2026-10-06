@@ -25,6 +25,11 @@
         (T (printf "%s.name" $key))
         .params.icon
         (T (printf "%s.summary" $key)) }}
+    {{/* La apertura de la lista va antes del rango que llena `$lineas`: Sonar
+         lee la plantilla como HTML crudo y, si el `li` del `printf` aparece
+         antes que el `ul`, lo cuenta como elemento suelto fuera de su
+         contenedor. El HTML final es idéntico. */}}
+    {{- $lista := "<div class=\"grow p-10\"><ul class=\"space-y-2 text-center\">" }}
     {{- $lineas := slice }}
     {{- $i := 0 }}
     {{- range .features }}
@@ -45,7 +50,7 @@
       {{- $lineas = $lineas | append (printf "<li><span class=\"text-tx-main %s\">%s</span></li>" .class $line) }}
       {{- end }}
     {{- end }}
-    {{- $lista := printf "<div class=\"grow p-10\"><ul class=\"space-y-2 text-center\">%s</ul></div>" (delimit $lineas "") }}
+    {{- $lista = printf "%s%s</ul></div>" $lista (delimit $lineas "") }}
     {{- $boton := printf
         "<div class=\"flex justify-center px-10 pb-10\">%s</div>"
         (partial "ui/action-button.html" (dict
