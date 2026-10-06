@@ -26,6 +26,33 @@ importan a quien usa el sitio, no la lista de archivos.
   escritorio. Antes cada sección tenía sus propias clases y dos botones con la
   misma función se veían distintos según dónde estuvieran; ahora se ven
   iguales en toda la página y se parecen a los del sistema.
+- **El índice lateral de cada artículo se ve como un índice.** Salía con la
+  numeración del navegador —1., 2., 3.— pegada a cada entrada: no es una
+  jerarquía, es un contador, y el número además ocupaba ancho en una columna de
+  260 px. Ahora son filas con una barra de 2 px reservada para el estado activo,
+  con el hover del mismo `.link-row` que el resto de los enlaces sueltos del
+  sitio, el segundo nivel un punto más chico y el tercero oculto. No hay estado
+  activo todavía: no hay JavaScript que sepa qué encabezado se está leyendo, y
+  no se inventó una clase que nada pone.
+- **El índice de changelogs es una lista de versiones y ahora se lee como
+  una.** Eran 24 líneas de texto sin nada que las ordenara: sin fecha, sin
+  insignia, sin caja. Cada versión es una tarjeta con su número, su canal —que
+  estaba metido dentro del título, como «Changelogs 04-10-2026 [Beta]», y sale
+  a una insignia con el color de la leyenda de `data/components.yml`— y la
+  fecha.
+- **Las flechas del carrusel de capturas son botones.** Eran círculos de
+  `bg-ui-bg/80` con sombra corta y nada más, sin canto, sobre una banda que
+  también es `bg-ui-bg/80`: compuesto contra sí mismo eso da cerca de 1.1:1, así
+  que no se distinguían de lo que tenían detrás. `--ui-border-strong` da 7.06:1
+  en claro y 11.34:1 en oscuro, y WCAG 1.4.11 pide 3:1 para el borde que
+  identifica un control.
+- **El botón de «nueva pestaña» y el selector de idioma son botones.** El
+  primero estaba a 28 px —la altura de una fila de tabla, que es exactamente
+  donde un puntero está pero un dedo no distingue de un chip— y con
+  `#dce0e8` de contorno. El segundo era texto de 18 px sin caja, o sea
+  indistinguible de los enlaces que lo rodeaban. El menú que abre ahora es una
+  tarjeta y no una superficie plana: es lo único del sitio que flota **encima** de
+  otra cosa, y la sombra larga es lo que dice que está arriba.
 
 ### Cambiado
 
@@ -63,8 +90,32 @@ importan a quien usa el sitio, no la lista de archivos.
 - **El texto del artículo respira.** La altura de línea del `body` pasó a 1.7 y
   la sangría de las listas, que estaba como regla global y apartaba también a las
   listas de navegación, ahora sólo se aplica dentro de `#article`.
+- **El movimiento del sitio tiene tres duraciones: 200, 300 y 400 ms.** Antes
+  tenía cuatro, y eran para el mismo gesto. `<body>` iba a 400 ms con
+  `transition-all`, la regla `body *` a 300 ms y los botones a 200; las tarjetas
+  estaban a 250 ms, que no estaba en ninguna parte de la escala. Al cambiar de
+  modo oscuro el fondo cruzaba en 400, un subtítulo en 300 y un botón en 200, y
+  eso se veía como una onda que venía del fondo para adentro. Ahora **200 ms**
+  para reaccionar —el hover de un botón, de una tarjeta, de una fila de enlace,
+  de una entrada del índice—; **300 ms** para entrar y salir; **400 ms** para el
+  recorrido del carrusel, que es la única animación que mueve algo un trecho.
+  Medido en `/docs/user/security/`: 242 nodos y una sola duración en toda la
+  página. También `transition-all` pasó a `transition-colors`: `all` animaba
+  cualquier propiedad, y el `<body>` también cambia de `background-image` cuando
+  hay un degradado de fondo, así que se veían cruzar cuatro imágenes por cuadro
+  durante 400 ms.
 
 ### Corregido
+
+- **Cada hecho de `/about/` era una definición mal formada.** Los seis datos que
+  la página muestra —el número de paquetes, el de colaboradores— se dibujan con
+  `<dl>` y `<div>` para poder ponerlos en una grilla, y dentro de cada celda el
+  ícono estaba como hermano **antes** del `<dt>`. HTML permite ese `<div>`
+  agrupando términos, pero tiene que empezar por un `dt`: un `span` antes lo
+  convierte en algo que no es ni término ni definición, y `axe` lo marca como
+  `definition-list`, impacto serio. En pantalla se veía exactamente igual, así
+  que sólo lo encontró la auditoría. El ícono ahora va adentro del `dt`, que es
+  además lo que dice que decora el término y no la fila.
 
 - **Las citas ya no son un degradado de morado a rosa con el texto en blanco.**
   Era lo más ajeno al resto del sitio que había, y además el texto no cumplía
@@ -248,6 +299,33 @@ importan a quien usa el sitio, no la lista de archivos.
   marco salía sin nombre en tres idiomas. `menu.js` ahora rotula los `iframe` de
   terceros que llegan sin nombre y se queda observando el documento, porque el
   marco lo inserta el script después de que la página haya cargado.
+- **Las tablas de la documentación tenían una fila de encabezado sin texto.**
+  En `content/docs/user/security{,.en}.md` la primera fila de la tabla de sus
+  herramientas era `| | | | |`: separadores, guiones y barras pero ninguna
+  palabra. El navegador la dibuja como si fuera un encabezado, y quien lee con
+  lector de pantalla oye cuatro celdas de encabezado vacías y después una tabla
+  de cuatro columnas que no anuncia. Ahora la fila dice qué contiene cada
+  columna, y una prueba de `tests/design-system.test.ts` arma la misma clave de
+  encabezado para cada tabla de cada documento y falla si alguna sale vacía.
+- **El separador del menú móvil era un gris de Tailwind al 10 %.** Es
+  `divide-gray-500/10`, que compuesto contra la superficie da menos de 1.1:1: en
+  modo claro no se veía. `divide-ui-border` es el token que ya separa todo lo
+  demás del sitio y cambia con el modo. Es el último gris suelto que quedaba en
+  las plantillas, junto con un `dark:text-gray-200` en los planes de
+  `/precios/` que además estaba mal: `--tx-main` ya es `#cdd6f4` en el modo
+  oscuro, así que `#e5e7eb` era el mismo tono con otro nombre y sin token detrás.
+- **`img-fluid` era una clase de Bootstrap y no existe en este tema.** La
+  usaba el shortcode `img` —ninguna imagen del sitio lo usa, pero estaba— y
+  Tailwind v4 descarta en silencio lo que no reconoce, así que la imagen salía
+  con el ancho del atributo y sin nada más, que es lo contrario de lo fluid que
+  el nombre promete. Además el `title` caía por omisión al mismo texto que el
+  `alt`, y con el `title` igual al `alt` el navegador muestra una burbuja que
+  repite lo que el lector de pantalla acaba de decir. Ahora el `title` sale
+  sólo si el autor lo escribe.
+- **La clase `faq-answer` no existía en ningún CSS.** Estaba en el acordeón de
+  la FAQ, y como Tailwind v4 no avisa de las clases que no reconoce, el nombre
+  sugería un estilo que no había. El acordeón ahora es una tarjeta por pregunta,
+  con el chevron adentro de un círculo que gira al abrirse.
 
 ### Texto
 
@@ -281,6 +359,31 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Administrado
 
+- **La gramática de componentes se comprueba en los dos sentidos.** Una clase de
+  `@layer components` que nadie usa es código muerto que además da la impresión
+  de que el sitio la respeta; y como Tailwind v4 descarta en silencio lo que no
+  reconoce, una clase mal escrita deja al elemento sin nada y no hay ningún
+  aviso —sólo se ve mirando el CSS emitido—. La prueba hace las dos cosas.
+  `.btn-secondary` y `.btn-danger` no aparecen en ningún atributo `class` de las
+  plantillas y no es que estén sin usar: `ui/action-button.html` elige el tono
+  desde un mapa con `printf`, así que el nombre se compone en el momento de
+  renderizar.
+- **Tres pruebas nuevas sobre cosas que fallan sin avisar:**
+  - *El índice lateral se estila con el marcado que Hugo emite.* La plantilla de
+    índice de Hugo es fija y escribe un `<ol>` aunque no haya nada que ordenar.
+    Una regla escrita contra `ul` no falla de ninguna forma visible: el CSS se
+    emite, la prueba de que la clase existe pasa, y el índice sigue con la
+    numeración del navegador porque `list-style` nunca se aplicó a la lista que
+    está ahí. La prueba no comprueba que exista una regla que mencione
+    `#TableOfContents`, sino que la que quita la numeración alcance a `ol`.
+  - *El movimiento tiene tres duraciones y ninguna más.* Cada número que se cuela
+    vuelve a hacer que dos elementos que hacen lo mismo se sientan distintos.
+    Agregar uno es fácil —una línea— y por eso tiene que exigir que se escriba el
+    por qué.
+  - *Cada celda de una lista de definiciones empieza por su término.* La que
+    encontró el `definition-list` de `/about/`. Se lee el HTML que Hugo genera y
+    no la plantilla, porque la regla es del HTML final y en la plantilla hay
+    `{{ range }}` de por medio.
 - **Una prueba impide que los dos idiomas se separen** (`tests/i18n.test.ts`):
   las 294 claves de `i18n/es.toml` y `i18n/en.toml` tienen que seguir siendo
   las mismas. Agregar la traducción a un idioma y olvidar el otro es un error
