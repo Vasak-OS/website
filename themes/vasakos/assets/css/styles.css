@@ -41,6 +41,20 @@
   --vsk-font-title: sans-serif;
   --vsk-font-terminal: monospace;
 
+  /* La altura de la barra.
+
+     Estaba implícita en el relleno del `<nav>` —`p-6`, o sea 24 px arriba y 24 px
+     abajo más el logo— y por eso nadie la conocía: 76 px medidos. Lo que hace
+     falta conocerla es para el `scroll-padding-top` del `<html>`, que tiene que
+     saber cuánto tapa la barra, y para que la barra no dependa de la altura
+     accidental de su contenido. Con el token, la barra mide lo que dice y el
+     relleno pasa a ser horizontal.
+
+     64 px es la altura de la barra de OnceUI, y es lo que hace que un logo de 40
+     px quede centrado con aire por los dos lados en vez de flotar en una franja
+     de 76. */
+  --header-h: 4rem;
+
   /* Colores de Marca */
   --primary: #dd7878;
   --secondary: #8839ef;
@@ -439,6 +453,26 @@ html.dark {
     @apply text-tx-main bg-ui-surface;
   }
 
+  /*
+     Dónde tiene que terminar un salto a un ancla.
+
+     No había nada, y la barra es `sticky`: al saltar al ancla de un título —el
+     que pone `render-heading.html` al lado de cada encabezado, o cualquier
+     enlace del índice lateral— el destino quedaba debajo de la barra, con la
+     mitad del título tapado. Se notaba sobre todo en los artículos largos, donde
+     se salta de sección en sección.
+
+     El valor es la altura de la barra más un aire de un rem, y el aire es lo que
+     evita que el destino quede pegado al borde de abajo de la barra. Vive en un
+     token porque la barra mide lo mismo en todos lados: la declara `.header-bar`.
+
+     `scroll-padding-top` y no un `scroll-margin` por ancla, porque el elemento que
+     tapa es el mismo para todos los destinos y ponerlo en el `<html>` lo resuelve
+     una vez. */
+  html {
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
   /* Esta es la lista ordenada del navegador puesta de nuevo, y va en `base` y no
      suelta en la hoja. La razón es el orden: una regla de elemento desnuda tiene
      especificidad 0-0-1, y la del índice lateral —`:where(#TableOfContents)
@@ -527,6 +561,7 @@ html.dark {
     [class*="divide-secondary"],
     [class*="divide-status-"],
     [class*="outline-ui-"],
+    .header-bar,
     .btn,
     .card,
     .card-surface,
@@ -574,7 +609,6 @@ html.dark {
    velo es `#mobile-menu-overlay`, un `div` con `bg-black/20`, y el panel ya
    lleva su `bg-ui-bg/80 backdrop-blur-md`. */
 }
-
 @font-face {
   font-family: VSKRegular;
   src: url(/fonts/VSKRegular.ttf) format("truetype");
@@ -634,6 +668,46 @@ html.dark {
 
 :where(.dark, html.dark) .sheen {
   background-image: linear-gradient(to bottom, rgb(0 0 0 / 0.06), rgb(0 0 0 / 0) 60%);
+}
+
+/* ── La barra ────────────────────────────────────────────────────────────────
+
+   El gesto de OnceUI del que la barra más se alejaba era éste: en OnceUI la barra
+   no es una caja, es una ventana. Al llegar a la página es transparente y no
+   proyecta nada; en cuanto el contenido pasa por debajo, toma material —borde,
+   sombra— y recién ahí se lee como algo que está *encima* de la página.
+
+   Aquí hace lo contrario y está mal: `shadow-m` y `border-ui-border` desde el
+   primer píxel. Una sombra es la manera que tiene una caja de decir «estoy
+   delante», y arriba del todo de una página no hay nada detrás: la sombra
+   dibujaba una banda oscura y difusa sobre el encabezado de todas las páginas
+   del sitio, y era la primera cosa que se veía al abrir cualquiera de ellas.
+
+   Lo que madura al scrollear es el borde y la sombra. El fondo no, y es a
+   propósito: en la portada la barra queda sobre la fotografía del hero —el
+   `<section>` del hero tiene `-mt-24`, o sea que la barra se superpone a la
+   imagen— y una barra transparente ahí pone los enlaces del menú y el logo
+   encima de una foto, con el contraste que toque. El fondo translúcido con
+   desenfoque es lo que hace legible esa zona, y por eso no se toca.
+
+   La altura viene del token, no del relleno del `<nav>`; y el radio sube a
+   `--radius-xl` porque la barra es el objeto más ancho de la página y la escala
+   de radios pide el paso grande para lo grande: con 16 px en una caja de 64 de
+   alto se leía como un rectángulo apenas redondeado y no como una ventana. El
+   `m-2` se queda —es lo que la separa de los bordes de la pantalla— y las
+   esquinas de abajo también se redondean, porque cuando el contenido pasa por
+   debajo son justo las que le dicen que el objeto tiene fondo. */
+
+.header-bar {
+  height: var(--header-h);
+  border-color: transparent;
+  box-shadow: none;
+  transition: box-shadow 200ms ease;
+}
+
+.header-bar.is-scrolled {
+  border-color: var(--color-ui-border);
+  box-shadow: var(--use-shadow-m);
 }
 
 /* ── Botones ────────────────────────────────────────────────────────────────

@@ -274,8 +274,7 @@ describe("el resaltado de código es la terminal, no un tema ajeno", () => {
     expect(css).toMatch(/--color-black:\s*#000/);
   });
 
-  test("el borde por omisión es un token del tema", () => {
-    /*
+  test("el borde por omisión es un token del tema", () => {    /*
       El preflight de Tailwind v4 pone `border-color: var(--color-gray-200,
       currentColor)` sobre `*, ::after, ::before, ::backdrop,
       ::file-selector-button`. En claro `#e5e7eb` y `--ui-border` (`#dce0e8`) se
@@ -292,6 +291,65 @@ describe("el resaltado de código es la terminal, no un tema ajeno", () => {
     const bloque = css.slice(i, css.indexOf("}", i));
     expect(bloque).toContain("border-color: var(--color-ui-border)");
     expect(bloque).not.toContain("gray");
+  });
+
+  test("la barra es una ventana: en reposo no proyecta nada", () => {
+    /*
+      La barra era `shadow-m border-ui-border` desde el primer píxel, que es al revés
+      de como lo hace OnceUI. Una sombra es la forma que tiene una caja de decir
+      «estoy delante», y arriba del todo de una página no hay nada detrás: la
+      sombra dibujaba una banda oscura y difusa sobre el encabezado de todas las
+      páginas, y era la primera cosa que se veía al abrir cualquiera.
+
+      Ahora el borde y la sombra maduran al scrollear. Se comprueban los dos
+      estados y no sólo que la clase exista, porque el defecto anterior era
+      justamente una clase que sí existía y pintaba de más.
+
+      El fondo translúcido no se comprueba: en la portada la barra queda sobre la
+      fotografía del hero y sin él los enlaces del menú se leerían sobre la foto.
+    */
+    const css = sinComentarios(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
+
+    const bloque = (sel: string) => {
+      const i = css.indexOf(sel);
+      expect(i).toBeGreaterThan(-1);
+      return css.slice(i, css.indexOf("}", i));
+    };
+
+    expect(bloque(".header-bar {")).toMatch(/box-shadow:\s*none/);
+    expect(bloque(".header-bar {")).toMatch(/border-color:\s*transparent/);
+    expect(bloque(".header-bar.is-scrolled {")).toContain("var(--use-shadow-m)");
+    expect(bloque(".header-bar.is-scrolled {")).toContain("var(--color-ui-border)");
+
+    // Y la sombra corta no puede volver a escribirse en la plantilla.
+    const barra = sinComentarios(readFileSync(`${TEMA}/layouts/partials/header.html`, "utf8"));
+    expect(barra).toContain("header-bar");
+    expect(barra).toContain("data-header");
+    expect(barra).not.toMatch(/shadow-[sml]/);
+  });
+
+  test("la altura de la barra la dice un token, y el salto al ancla lo sabe", () => {
+    /*
+      La altura estaba implícita en el relleno del `<nav>` —`p-6`— y nadie la
+      conocía: 76 px medidos. Hacía falta conocerla para el `scroll-padding-top`,
+      que no existía, y sin él cualquier salto a un ancla —el de cada título, el
+      del índice lateral— dejaba el destino debajo de la barra, que es `sticky`.
+
+      Se comprueban las tres cosas juntas porque son las tres que tienen que
+      concordar: el token, la barra que lo toma y el `<html>` que lo usa para dejar
+      el aire. Si una cambia y las otras dos no, el salto vuelve a quedar tapado.
+    */
+    const css = sinComentarios(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
+    expect(css).toMatch(/--header-h:\s*4rem/);
+    expect(css).toMatch(/scroll-padding-top:\s*calc\(var\(--header-h\)/);
+
+    const i = css.indexOf(".header-bar {");
+    expect(css.slice(i, css.indexOf("}", i))).toContain("height: var(--header-h)");
+
+    // El alto sale del token y no de un relleno vertical en la plantilla.
+    const barra = sinComentarios(readFileSync(`${TEMA}/layouts/partials/header.html`, "utf8"));
+    expect(barra).toMatch(/<nav class="[^"]*\bh-full\b/);
+    expect(barra).not.toMatch(/<nav class="[^"]*\bpy-/);
   });
 });
 

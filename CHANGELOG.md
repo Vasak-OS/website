@@ -7,6 +7,30 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Cambios
 
+- La barra deja de proyectar una sombra desde el primer píxel. Una sombra es la
+  forma que tiene una caja de decir «estoy delante», y arriba del todo de una
+  página no hay nada detrás: la de la barra dibujaba una banda oscura y difusa
+  sobre el encabezado de todas las páginas. Ahora el borde y la sombra maduran al
+  scrollear, que es el gesto de OnceUI del que más se alejaba.
+
+- La barra mide 64 px en vez de 76, con la altura en un token en vez de implícita
+  en el relleno del menú, y sube de radio a 24 px —el paso grande de la escala,
+  que es el que le corresponde por tamaño aparente. Los enlaces del menú bajan de
+  18 px en negrita a 15 px de peso medio, y las separaciones de 48 a 32 px: con
+  cinco entradas la barra se leía como un quinto encabezado.
+
+- Los saltos a un ancla ya no dejan el destino debajo de la barra. No había
+  `scroll-padding-top`, y la barra es `sticky`.
+
+### Verificación
+
+- Dos pruebas nuevas sobre la barra: que en reposo no tenga borde ni sombra y que
+  los dos aparezcan al scrollear, y que la altura la diga `--header-h` y el
+  `<html>` la use para dejar el aire del salto. Se comprobó que las dos suenan al
+  reintroducir el defecto.
+
+### Cambios
+
 - El fundido del modo oscuro ya no se declara en los 573 nodos de `/state/`. La
   regla era `body *`, y con eso hasta los nodos que heredan el color declaraban una
   transición de la que no se servían —un color heredado sigue la interpolación de su
