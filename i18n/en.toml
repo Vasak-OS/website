@@ -71,6 +71,9 @@
 [recentPosts]
   title = "Recent posts"
 
+[docs]
+  columnTitle = "Title"
+
 [nav_docs]
   title = "Documentation"
   previous = "Previous"
@@ -224,6 +227,7 @@
     caption = "VasakOS on screen"
 
 [footer]
+  links = "Site links"
   softwareDev = "Software development"
   privacy = "Privacy policy"
   terms = "Terms of service"
