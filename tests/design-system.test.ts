@@ -57,7 +57,10 @@ const casos = (archivos_: string[], donde: (c: string) => boolean) =>
 function sinComentarios(texto: string): string {
   return texto
     .replace(/\{\{-?\s*\/\*[\s\S]*?\*\/\s*-?\}\}/g, "")
-    .replace(/<!--[\s\S]*?-->/g, "");
+    // El `|-->$` no es capricho: un comentario sin cerrar —un `<!--` suelto en
+    // un archivo— no lo matchearía el `*?` y quedaría en el texto, que es
+    // exactamente lo que CodeQL marca como `incomplete-multi-character-sanitization`.
+    .replace(/<!--[\s\S]*?(?:-->|$)/g, "");
 }
 
 /**
@@ -662,7 +665,7 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     // Sólo el código, no el comentario que explica el cambio: la palabra aparece
     // ahí a propósito, y buscarla en todo el archivo la haría sonar siempre.
     const codigo = ss.replace(
-      /\{\{-[\s\S]*?-\}\}|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g,
+      /\{\{-[\s\S]*?-\}\}|\/\*[\s\S]*?\*\/|<!--[\s\S]*?(?:-->|$)/g,
       "",
     );
     expect(codigo).not.toContain("dataset.ariaSelected");
