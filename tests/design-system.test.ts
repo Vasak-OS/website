@@ -794,3 +794,98 @@ describe("la estructura no se desarma al cambiar una plantilla", () => {
     expect(indice.slice(main, hero)).not.toContain("</main>");
   });
 });
+
+/*
+  Las imágenes del sitio y su texto alternativo.
+
+  `alt=""` es la respuesta correcta cuando la imagen no agrega nada a lo que el
+  texto de al lado ya dice —el logo junto al nombre, la portada de una nota junto
+  a su título— y es la respuesta equivocada cuando la imagen *es* el contenido.
+  Las dos se escriben exactamente igual, así que la lista de las decorativas es
+  explícita y cada entrada tiene que estar justificada dentro de su propia
+  plantilla: para sumar una imagen decorativa hay que escribir el motivo acá y
+  que ese motivo aparezca en el archivo, con lo que no se agrega una excepción sin
+  decir por qué.
+
+  Los motivos no son adorno del test: son los que permiten leer la lista.
+  `sr-only` en el header es el nombre accesible del enlace del logo. `-z-10` en
+  el hero y en el banner de página es lo que pone la imagen detrás del panel, que
+  ya dice el título. `<h2` en la tarjeta y `text-white` en las últimas notas son el
+  titular de la nota, que es justamente la imagen de la que hablan.
+*/
+const DECORATIVAS: Record<string, { veces: number; motivo: string }> = {
+  "partials/header.html": { veces: 2, motivo: "sr-only" },
+  "partials/sections/hero.html": { veces: 1, motivo: "-z-10" },
+  "partials/sections/page-banner.html": { veces: 1, motivo: "-z-10" },
+  "_default/card.html": { veces: 1, motivo: "<h2" },
+  "partials/widgets/recentposts.html": { veces: 1, motivo: "text-white" },
+};
+
+describe("cada imagen dice qué es, o está junto a lo que ya lo dice", () => {
+  /** Todas las `<img>` de una plantilla, con los atributos sin partir en renglones. */
+  function imagenes(ruta: string): string[] {
+    const texto = sinComentarios(readFileSync(ruta, "utf8"));
+    return [...texto.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+  }
+
+  test("ninguna <img> se queda sin alt", () => {
+    /*
+      El atributo es obligatorio aunque sea vacío: `alt=""` marca la imagen como
+      decorativa a propósito, y sin el atributo el lector de pantalla inventa el
+      nombre a partir del nombre del archivo. Se lee la plantilla entera y no
+      renglón por renglón porque los atributos están partidos en varias líneas.
+    */
+    const sinAlt = plantillas.flatMap((ruta) =>
+      imagenes(ruta)
+        .filter((img) => !/\salt\s*=/.test(img))
+        .map((img) => `${ruta.replace(`${TEMA}/layouts/`, "")}  ${img.slice(0, 80)}`)
+    );
+    expect(sinAlt).toEqual([]);
+  });
+
+  test("ninguna imagen se describe con una sola palabra", () => {
+    /*
+      `img.defaultAlt = "Imagen"` caía por omisión en el shortcode `img` cuando el
+      autor no escribía el `alt`, y «Imagen» no describe nada: es una palabra que no
+      le sirve a nadie y que además tapa el aviso de que faltaba algo.
+
+      No se prohíbe la palabra `defaultAlt` en general, porque la del carrusel sí
+      describe —dice qué es— y ahora además dice cuál de cuántas. Lo que se
+      prohíbe es la descripción que no dice nada: la palabra suelta.
+
+      Se lee el archivo entero sin comentarios, y no renglón por renglón, porque la
+      plantilla que quita la clave necesita nombrarla para explicar la quita.
+    */
+    const archivos = [
+      ...plantillas.map((ruta) => [ruta, sinComentarios(readFileSync(ruta, "utf8"))] as const),
+      ["i18n/es.toml", readFileSync("i18n/es.toml", "utf8")] as const,
+      ["i18n/en.toml", readFileSync("i18n/en.toml", "utf8")] as const,
+    ];
+    const genericas = archivos
+      .filter(([, texto]) => /alt\s*=\s*"(Imagen|Image|Picture|Photo|Foto)"/.test(texto))
+      .map(([ruta]) => ruta.replace(`${TEMA}/layouts/`, ""));
+    expect(genericas).toEqual([]);
+  });
+
+  test("toda imagen sin descripción está junto a su texto, y sólo en el lugar debido", () => {
+    const encontradas: Record<string, number> = {};
+    for (const ruta of plantillas) {
+      const veces = imagenes(ruta).filter((img) => /\salt\s*=\s*""/.test(img)).length;
+      if (veces) encontradas[ruta.replace(`${TEMA}/layouts/`, "")] = veces;
+    }
+    // Sólo las cantidades se comparan aquí; los motivos se comprueban abajo.
+    const esperadas = Object.fromEntries(
+      Object.entries(DECORATIVAS).map(([ruta, { veces }]) => [ruta, veces])
+    );
+    expect(encontradas).toEqual(esperadas);
+
+    // Y el motivo de cada excepción tiene que estar escrito en su plantilla.
+    const sinMotivo = Object.entries(DECORATIVAS)
+      .filter(
+        ([ruta, { motivo }]) =>
+          !sinComentarios(readFileSync(`${TEMA}/layouts/${ruta}`, "utf8")).includes(motivo)
+      )
+      .map(([ruta]) => ruta);
+    expect(sinMotivo).toEqual([]);
+  });
+});

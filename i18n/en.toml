@@ -209,21 +209,16 @@
   previous = "Previous"
   next = "Next"
   goTo = "Go to image {{ .Number }}"
-  defaultAlt = "VasakOS screenshot"
+  defaultAlt = "VasakOS screenshot {{ .Number }} of {{ .Total }}"
   [screenshots.shot01]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot02]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot03]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot04]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
   [screenshots.shot05]
-    alt = "A VasakOS screenshot"
     caption = "VasakOS on screen"
 
 [footer]
@@ -515,11 +510,6 @@
 [changelog]
   title = "Changelogs"
   readMore = "Read the full changelog"
-
-# Fallback alt text for the `img` shortcode, when the image does not bring its
-# own. It used to say "IMG Post", which describes nothing in English.
-[img]
-  defaultAlt = "Image"
 
 # The anchor rendered next to every heading so a section can be linked to.
 [toc]

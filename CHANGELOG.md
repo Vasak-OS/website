@@ -5,6 +5,26 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ## Sin publicar
 
+### Cambios
+
+- Los cinco textos alternativos del carrusel de la portada decían los cinco lo
+  mismo —«Captura de pantalla de VasakOS»—, así que quien lo recorría con el
+  lector de pantalla oía la misma frase cinco veces sin poder ubicar ninguna.
+  Ahora dicen cuál de cuántas: «Captura 3 de 5 de VasakOS». La posición es un
+  dato que el markup ya tenía; no se décritió el contenido de las capturas.
+
+- El shortcode `img` ya no cae en un texto alternativo de una sola palabra cuando
+  el autor se olvida de escribirlo. Decía «Imagen», que no le sirve a nadie y
+  además tapa el aviso de que faltaba algo.
+
+### Verificación
+
+- Tres pruebas nuevas sobre las imágenes: que ninguna se quede sin `alt`, que
+  ninguna se describa con una sola palabra, y que las cinco decorativas del
+  sitio —todas con el motivo escrito en su propia plantilla— sigan siendo las
+  únicas. Se comprobó que las tres suenan al reintroducir el defecto.
+
+
 ### Añadido
 
 - **El sitio está en inglés.** La sección `/en/` sirve el mismo sitio en

@@ -47,7 +47,16 @@
         aria-label="{{ T "screenshots.title" }}">
         {{- range $index, $ss := $shots }}
         {{- $key := printf "screenshots.%s" $ss.identifier }}
-        {{- $alt := T (printf "%s.alt" $key) | default (T "screenshots.defaultAlt") }}
+        {{- /* Los cinco `alt` del carrusel decían los cinco la misma frase, así que
+               quien recorre la galería con el lector de pantalla oye cinco veces
+               «Captura de pantalla de VasakOS» sin poder saber dónde está. La
+               posición —cuál de cuántas— es un dato que el markup ya tiene y que no
+               hay que inventar: se le pasa el índice y el total, y el texto
+               alternativo pasa a distinguir una captura de la otra. Lo que la
+               captura muestra no se describe acá porque el `caption` de al lado ya
+               es la leyenda; lo que faltaba era poder ubicar cada una. */ -}}
+        {{- $posicion := dict "Number" (add $index 1) "Total" (len $shots) }}
+        {{- $alt := T (printf "%s.alt" $key) | default (T "screenshots.defaultAlt" $posicion) }}
         {{- $caption := T (printf "%s.caption" $key) }}
         {{- /* `image` trae el ancho pegado al final (`shot-01-1536.jpg`), y el
                `srcset` lo necesita sin él: los archivos se llaman

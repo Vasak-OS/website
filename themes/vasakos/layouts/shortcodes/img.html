@@ -23,8 +23,15 @@
   bloquear el primer pintado, y `loading="lazy"` ya estaba —que es lo que hace
   que el ancho y el alto declarados sirvan para reservar la caja y no para
   aplazar el salto.
+
+  El `alt` ya no cae en «Imagen». `defaultAlt = "Imagen"` era lo que emitía
+  cuando el autor se olvidaba de escribirlo, y «Imagen» no describe nada: es
+  una palabra que no le sirve a nadie y que silencia el aviso de que faltaba
+  algo. Ahora sale lo que el autor puso —nada si no puso nada—, que es el mismo
+  contrato que el de `_markup/render-image.html`, y un `alt` vacío se ve en el
+  HTML publicado en lugar de pasar por una descripción.
 */}}
-{{- $alt := .Get "alt" | default (T "img.defaultAlt") -}}
+{{- $alt := .Get "alt" -}}
 {{- $titulo := .Get "title" -}}
 <figure class="my-6">
   <img src="{{ .Get "src" | safeURL }}" alt="{{ $alt }}"

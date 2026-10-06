@@ -213,21 +213,16 @@
   previous = "Anterior"
   next = "Siguiente"
   goTo = "Ir a la imagen {{ .Number }}"
-  defaultAlt = "Captura de pantalla de VasakOS"
+  defaultAlt = "Captura {{ .Number }} de {{ .Total }} de VasakOS"
   [screenshots.shot01]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot02]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot03]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot04]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
   [screenshots.shot05]
-    alt = "Captura de pantalla de VasakOS"
     caption = "VasakOS en pantalla"
 
 [footer]
@@ -521,11 +516,6 @@
 [changelog]
   title = "Changelogs"
   readMore = "Leer el changelog completo"
-
-# Texto alternativo del shortcode `img`, cuando la imagen no lo trae. Antes era
-# "IMG Post", que en inglés describía algo que no existe.
-[img]
-  defaultAlt = "Imagen"
 
 # El ancla que se pone al lado de cada encabezado para poder enlazarlo.
 [toc]
