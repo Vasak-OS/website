@@ -46,3 +46,11 @@ new MutationObserver((cambios) => {
     }
   }
 }).observe(document.documentElement, { childList: true, subtree: true });
+
+// `onclick` del HTML las llama desde el scope global, que en un script clásico
+// ya las tiene por ser de primer nivel. Se exponen además a mano para que el
+// contrato quede escrito —y sobreviva si el bundle algún día se carga como
+// módulo— y para que las pruebas del repositorio puedan llamarlas sin montar
+// un navegador entero.
+globalThis.openMobileMenu = openMobileMenu;
+globalThis.closeMobileMenu = closeMobileMenu;
