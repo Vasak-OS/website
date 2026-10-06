@@ -1,9 +1,33 @@
+{{/* Los metadatos de una entrada: fecha, minutos de lectura, palabras.
+
+     Eran tres `<li>` con un ícono pegado al texto y un salto de línea entre
+     ellos, sin separación horizontal. En una barra lateral de 260 px eso
+     necesita tres renglones para decir tres cosas que caben en uno, y el ícono
+     pegado a la fecha la hace más difícil de leer de lo que está.
+
+     Ahora es una fila: los tres datos en una línea y no en tres renglones, con
+     el ícono en `--brand-text` —5.03:1 a 14 px en claro— y el valor en
+     `--text-main`, que es lo que se lee.
+
+     Sin texto oculto para los íconos: un `sr-only` que nombra el ícono
+     duplicaría lo que ya dice el dato que tiene al lado, y un lector de
+     pantalla anunciaría «calendario, 8 de marzo» dos veces. El ícono es
+     decorativo y va marcado como tal. */}}
 <div class="mb-3 w-full">
-  <div class="flex flex-col px-6 py-4 mx-auto bg-ui-bg/80 text-tx-muted rounded-l shadow-m">
-    <ul>
-      <li><em class="fas fa-calendar"></em> <time datetime='{{ partial "date.html" .Date }}'>{{ partial "date.html" .Date }}</time></li>
-      <li><em class="fas fa-clock"></em> {{ .ReadingTime }}m</li>
-      <li><em class="fas fa-pen"></em> {{ .WordCount }}</li>
+  <div class="panel flex flex-col px-5 py-4 text-tx-muted">
+    <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+      <li class="flex items-center gap-1.5">
+        <em class="fas fa-calendar text-brand-text" aria-hidden="true"></em>
+        <time datetime='{{ partial "date.html" .Date }}'>{{ partial "date.html" .Date }}</time>
+      </li>
+      <li class="flex items-center gap-1.5">
+        <em class="fas fa-clock text-brand-text" aria-hidden="true"></em>
+        <span class="text-tx-main">{{ .ReadingTime }}m</span>
+      </li>
+      <li class="flex items-center gap-1.5">
+        <em class="fas fa-pen text-brand-text" aria-hidden="true"></em>
+        <span class="text-tx-main">{{ .WordCount }}</span>
+      </li>
     </ul>
   </div>
 </div>

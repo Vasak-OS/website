@@ -4,10 +4,18 @@
   <div class="container flex justify-between mx-auto gap-2">
     <div class="w-full">
       <div class="md:px-8">
+        {{/* El cuerpo del artículo era `bg-ui-bg/80 rounded-l shadow-m`: la sombra
+             estaba, el borde no. Una caja con sombra y sin canto se lee como
+             una sombra, no como una tarjeta —el borde es lo que dice dónde
+             termina— y todas las cajas del sitio ya llevan `.card`.
+
+             El `h1` centrado sin `tracking-tight` es lo que lo delata: a 36 px con
+             el espaciado por omisión el título se abre como un cartel. Va por
+             `.section-title`. */}}
         <div
-          class="flex flex-col px-6 md:px-14 py-10 bg-ui-bg/80 text-tx-main rounded-l shadow-m"
+          class="card flex flex-col px-6 py-10 text-tx-main md:px-14"
           id="article">
-          <h1 class="text-center text-brand-text">{{.Title}}</h1>
+          <h1 class="section-title text-center text-brand-text">{{ .Title }}</h1>
           {{ .Content }}
         </div>
       </div>

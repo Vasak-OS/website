@@ -1,3 +1,34 @@
-<div class="text-center">
-  <img src='{{ .Get "src" }}' alt="{{ .Get "alt" | default (T "img.defaultAlt") }}" title="{{ .Get "title" | default (T "img.defaultAlt") }}" class="img-fluid" />
-</div>
+{{/*
+  La imagen del markdown que necesita atributos: medidas, `loading`, un marco.
+
+  El mismo marco que en `_default/_markup/render-image.html`, y por el mismo
+  motivo: el radio sin nada alrededor parece un recorte mal hecho en lugar de
+  una fotografía.
+
+  Dos cosas que estaban mal además del marco.
+
+  `img-fluid` es una clase de Bootstrap y no existe en el CSS de este tema: la
+  imagen salía con el ancho del atributo y sin nada más, que es lo contrario de
+  lo fluid que el nombre promete. Tailwind v4 no avisa de una clase que no
+  reconoce —la descarta en silencio—, así que el nombre era una promesa que no
+  se cumplía y nadie se enteraba. `max-w-full` sí se emite, y es lo que hace que
+  una imagen más ancha que la columna no desborde.
+
+  El `title` caía por omisión al mismo texto que el `alt`. Con el `title` igual al
+  `alt`, el navegador muestra una burbuja que repite lo que el lector de pantalla
+  acaba de decir, y en los Exploradores el texto alternativo se lee dos veces.
+  Ahora sale sólo si el autor lo escribe.
+
+  Y `decoding="async"`: la decodificación del JPEG o el WebP no tiene que
+  bloquear el primer pintado, y `loading="lazy"` ya estaba —que es lo que hace
+  que el ancho y el alto declarados sirvan para reservar la caja y no para
+  aplazar el salto.
+*/}}
+{{- $alt := .Get "alt" | default (T "img.defaultAlt") -}}
+{{- $titulo := .Get "title" -}}
+<figure class="my-6">
+  <img src="{{ .Get "src" | safeURL }}" alt="{{ $alt }}"
+    {{ with $titulo }}title="{{ . }}"{{ end }}
+    loading="lazy" decoding="async"
+    class="mx-auto block max-w-full rounded-l border border-ui-border bg-ui-surface shadow-s" />
+</figure>
