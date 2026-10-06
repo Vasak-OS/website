@@ -227,6 +227,72 @@ describe("el resaltado de código es la terminal, no un tema ajeno", () => {
     }
     expect(css).not.toMatch(/^\.chroma\s*\{[^}]*bg-gray-200/m);
   });
+
+  test("la paleta de Tailwind no se publica", () => {
+    /*
+      `@theme` hereda por omisión los veintidós grises de Tailwind, y con ellos el
+      sitio tenía una segunda paleta: paralela a la de `:root`, que no cambia con
+      el modo oscuro y que nadie audita. Ya se habían quitado de las plantillas las
+      cincuenta y una clases que la usaban, pero el preflight seguía pidiendo
+      `--color-gray-200` para el borde por omisión —de modo que todo `border` sin
+      color recibía `#e5e7eb`, un gris que no es del tema— y el `text-gray-400` de
+      un bloque de código de la documentación lo volvía a colar.
+
+      Con `--color-*: initial` un `gray-*` equivocado produce una clase sin color,
+      que se ve al primer pintado, en vez de un color ajeno que sólo se descubre
+      leyendo el CSS publicado. Se comprueba contra las fuentes del tema y no
+      contra el CSS compilado, porque el punto es que la paleta no llegue a
+      declararse nunca.
+
+      Se lee sin comentarios porque esta misma prueba tiene que nombrar el gris
+      que prohíbe para explicar por qué lo prohíbe, igual que las plantillas
+      nombran los patrones que quitaron. `sinComentarios` alcanza para los
+      comentarios de Hugo y de HTML, así que los de CSS —que es donde vive la
+      paleta— se quitan aparte.
+    */
+    const depurado = (ruta: string) =>
+      sinComentarios(readFileSync(ruta, "utf8")).replace(/\/\*[\s\S]*?\*\//g, "");
+
+    const conGris = estilos
+      .concat(plantillas)
+      .filter((ruta) => /--color-(gray|slate|zinc|stone|neutral)-\d/.test(depurado(ruta)))
+      .map((ruta) => ruta.replace(`${TEMA}/`, ""));
+    expect(conGris).toEqual([]);
+
+    /*
+      Y la lista tiene que estar vaciada a propósito, no por casualidad. Sin esta
+      línea, Tailwind publica los veintidós grises aunque el sitio no los pida, y
+      ninguna otra comprobación sobre las fuentes lo vería: en el CSS fuente no
+      hay ningún `--color-gray-*` que cazar, sólo la herencia que lo trae. Se
+      comprueba sobre el texto sin comentarios porque el párrafo de arriba nombra
+      la línea para explicarla.
+    */
+    const css = depurado(`${TEMA}/assets/css/styles.css`);
+    expect(css).toContain("--color-*: initial");
+    // Y los dos colores que sí están fuera de la paleta tienen que seguir.
+    expect(css).toMatch(/--color-white:\s*#fff/);
+    expect(css).toMatch(/--color-black:\s*#000/);
+  });
+
+  test("el borde por omisión es un token del tema", () => {
+    /*
+      El preflight de Tailwind v4 pone `border-color: var(--color-gray-200,
+      currentColor)` sobre `*, ::after, ::before, ::backdrop,
+      ::file-selector-button`. En claro `#e5e7eb` y `--ui-border` (`#dce0e8`) se
+      parecen tanto que el defecto pasaba desapercibido; en oscuro `--ui-border`
+      es `#11111b` y el borde de todo salía claro.
+
+      Se comprueba el bloque entero y no la línea suelta porque lo que importa es
+      que sea el selector del preflight el que quedó escrito con el token, y no
+      una regla nueva que lo pise por casualidad.
+    */
+    const css = sinComentarios(readFileSync(`${TEMA}/assets/css/styles.css`, "utf8"));
+    const i = css.indexOf("::file-selector-button {");
+    expect(i).toBeGreaterThan(-1);
+    const bloque = css.slice(i, css.indexOf("}", i));
+    expect(bloque).toContain("border-color: var(--color-ui-border)");
+    expect(bloque).not.toContain("gray");
+  });
 });
 
 describe("los valores por defecto ceden ante la intención explícita", () => {

@@ -7,6 +7,21 @@ importan a quien usa el sitio, no la lista de archivos.
 
 ### Cambios
 
+- El borde por omisión del sitio era `#e5e7eb`, el `--color-gray-200` de Tailwind,
+  y no un token del tema. Venía del preflight de Tailwind v4 y se llevaba puesto a
+  todo elemento que pidiera `border` sin decir de qué color. En claro pasaba
+  desapercibido —se parece a `--ui-border`—; en oscuro, donde `--ui-border` es
+  `#11111b`, el borde de todo salía claro.
+
+- La paleta por omisión de Tailwind ya no se publica. `@theme` heredaba sus
+  veintidós grises, de modo que el sitio tenía una segunda paleta paralela que no
+  cambia con el modo oscuro. Ya no queda ningún `--color-gray-*` en el CSS
+  publicado; un `gray-*` equivocado dentro de la documentación produce ahora una
+  clase sin color, que se ve al primer pintado, y no un color ajeno que sólo se
+  descubre leyendo el CSS.
+
+### Cambios
+
 - Los cinco textos alternativos del carrusel de la portada decían los cinco lo
   mismo —«Captura de pantalla de VasakOS»—, así que quien lo recorría con el
   lector de pantalla oía la misma frase cinco veces sin poder ubicar ninguna.

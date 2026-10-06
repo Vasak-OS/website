@@ -244,6 +244,32 @@ html.dark {
 @custom-variant dark (&:where(.dark, .dark *, html.dark, html.dark *));
 
 @theme {
+  /* La paleta por omisión de Tailwind no se publica.
+
+     Sin esta línea, `@theme` hereda los veintidós grises de Tailwind y el sitio
+     tiene a mano una segunda paleta, paralela a la de `:root`, que no cambia con
+     el modo oscuro y que nadie audita. Ya se habían quitado de las plantillas
+     las cincuenta y una clases que la usaban —`divide-gray-500/10`,
+     `text-gray-400`, `dark:divide-gray-700`—, pero quedaban dos caminos por los
+     que volvía a colarse: el preflight, que pedía `--color-gray-200` para el
+     borde por omisión, y los bloques de código de la documentación, donde hay un
+     `text-gray-400` de ejemplo en `vue-libvasak` que Tailwind escanea igual que
+     si fuera una clase del sitio.
+
+     Con la lista vaciada, un `gray-*` equivocado produce una clase sin color en
+     vez de un color fuera de la paleta, que es un fallo que se ve al primer
+     pintado en lugar de uno que se descubre leyendo el CSS publicado.
+
+     Faltan los dos colores que el sitio sí usa y que no son de la paleta: el
+     velo del menú móvil —`bg-black/20` y `bg-black/30`— y el titular de las
+     últimas notas, que va en blanco sobre su propia fotografía degradada. Blanco
+     y negro no son colores de paleta: son la luz y su ausencia, y ya estaban
+     escritos a mano en el brillo de `.sheen` y en los degradados de las
+     miniaturas. */
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+
   /* Las tres fuentes, como utilidades de Tailwind.
 
      `font-sans` es además la que Tailwind aplica al documento sin que se
@@ -462,12 +488,32 @@ html.dark {
     @apply transition-colors duration-200;
   }
 
+  /*
+     El color de borde por omisión.
+
+     Tailwind v4 pone `border-color: var(--color-gray-200, currentColor)` en su
+     preflight, y esa línea es la razón por la que el sitio tenía un color fuera
+     de la paleta: cualquier elemento que pidiera `border` sin decir de qué color
+     recibía `#e5e7eb` —el `--color-gray-200` de Tailwind—, que no es ninguno de
+     los tokens del tema y que en modo oscuro es un gris claro. En claro se
+     notaba poco porque `#e5e7eb` y `--ui-border` (`#dce0e8`) se parecen; en
+     oscuro, `--ui-border` es `#11111b` y el borde salía claro.
+
+     Este selector es el del preflight, con los mismos pseudos y la misma
+     especificidad, y va después del `@import`, así que gana por posición. Y como
+     ahora el color sale de un token, el fundido del modo oscuro lo alcanza sin
+     que haga falta declararlo en cada borde.
+
+     Se sustituyó también la lista por omisión de Tailwind entera —`--color-*: initial`
+     más los dos colores que el sitio sí usa— para que ningún `text-gray-400`
+     escrito dentro de un bloque de código de la documentación vuelva a filtrar
+     una paleta ajena al CSS publicado. */
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-ui-border);
   }
 
 /* El menú móvil de `header.html` es un `div` con `role="dialog"`, no un
