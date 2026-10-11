@@ -60,13 +60,22 @@ describe('comandos que salieron del escritorio', () => {
     }
   });
 
-  test('el ejemplo por consola no espera una respuesta que el escritorio no da', () => {
-    for (const catalog of catalogs) {
+  test('el ejemplo por consola espera la respuesta que el escritorio ahora da', () => {
+    // Desde vasak-desktop 1.64.1 (Vasak-OS/vasak-desktop#226) todos los
+    // métodos de org.vasak.os.Desktop contestan: el ejemplo ya no necesita
+    // pedir que no se espere respuesta, y el texto lo explica.
+    const replies = [/todos los métodos[^.]*contestan/, /every method[^.]*replies/];
+    catalogs.forEach((catalog, index) => {
       const desktopCalls = catalog
         .split('\n')
         .filter((line) => line.includes('busctl') && line.includes('org.vasak.os.Desktop'));
       expect(desktopCalls.length).toBeGreaterThan(0);
-      for (const line of desktopCalls) expect(line).toContain('--expect-reply=no');
-    }
+      for (const line of desktopCalls) expect(line).not.toContain('--expect-reply=no');
+      expect(catalog).toMatch(replies[index]);
+      expect(catalog).toContain('org.vasak.os.Desktop.Error');
+      expect(catalog).toContain('UnknownMethod');
+      // Quien sigue pidiendo no recibir respuesta no se rompe.
+      expect(catalog).toContain('--expect-reply=no');
+    });
   });
 });
