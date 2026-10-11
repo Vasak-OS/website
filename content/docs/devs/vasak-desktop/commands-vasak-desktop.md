@@ -59,7 +59,7 @@ lanzador, que muestra u oculta su ventana.
 
 ```bash
 # Lo que sigue funcionando por compatibilidad: pasa por el escritorio
-busctl --user --expect-reply=no call org.vasak.os.Desktop /org/vasak/os/Desktop \
+busctl --user call org.vasak.os.Desktop /org/vasak/os/Desktop \
   org.vasak.os.Desktop ToggleSearch
 
 # Lo que conviene usar en algo nuevo: directo al lanzador
@@ -69,11 +69,14 @@ busctl --user call ar.net.vasak.Prism /ar/net/vasak/Prism \
 
 El servicio del escritorio atiende todo lo que llega a su nombre sin mirar el
 objeto ni la interfaz, así que la ruta del primer ejemplo es una convención y
-no un requisito. Y como ningún método de ese servicio contesta, quien
-llama tiene que pedir que no se espere respuesta (`--expect-reply=no` en
-`busctl`; en `dbus-send`, `--type=method_call` sin
-`--print-reply`); si no, la llamada queda colgada hasta
-que vence el tiempo de D-Bus. El lanzador instala un archivo de activación por D-Bus: si no
+no un requisito. Desde `vasak-desktop` 1.64.1 todos los métodos del servicio
+contestan, así que la llamada vuelve en el acto: un retorno vacío cuando la
+acción se despachó, un error `org.vasak.os.Desktop.Error` si no se pudo, y
+`org.freedesktop.DBus.Error.UnknownMethod` para un nombre que el servicio no
+tiene. Quien pide no recibir respuesta (`--expect-reply=no` en `busctl`, o
+`dbus-send` sin `--print-reply`) sigue funcionando igual: a ése no se le
+contesta. Antes de la 1.64.1 casi ningún método contestaba y la llamada sin esa
+marca quedaba colgada hasta que vencía el tiempo de D-Bus. El lanzador instala un archivo de activación por D-Bus: si no
 está corriendo, el bus lo levanta con esa misma llamada. Si `vasak-prism` no
 está instalado, el reenvío falla y el escritorio lo anota en su registro, sin
 caerse. El lanzador expone además `Show` y `Hide` en el mismo objeto.

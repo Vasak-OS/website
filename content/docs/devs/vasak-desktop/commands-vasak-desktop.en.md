@@ -59,7 +59,7 @@ which shows or hides its window.
 
 ```bash
 # Still works, for compatibility: goes through the desktop
-busctl --user --expect-reply=no call org.vasak.os.Desktop /org/vasak/os/Desktop \
+busctl --user call org.vasak.os.Desktop /org/vasak/os/Desktop \
   org.vasak.os.Desktop ToggleSearch
 
 # What new code should use: straight to the launcher
@@ -69,9 +69,14 @@ busctl --user call ar.net.vasak.Prism /ar/net/vasak/Prism \
 
 The desktop service handles everything addressed to its name without looking
 at the object or the interface, so the path in the first example is a
-convention, not a requirement. And since no method of that service replies, the caller
-has to ask not to wait for one (`--expect-reply=no` in `busctl`; `--type=method_call`
-without `--print-reply` in `dbus-send`); otherwise the call hangs until the D-Bus timeout. The launcher installs a D-Bus activation file:
+convention, not a requirement. Since `vasak-desktop` 1.64.1 every method of the
+service replies, so the call returns right away: an empty return once the action
+has been dispatched, an `org.vasak.os.Desktop.Error` if it could not be done, and
+`org.freedesktop.DBus.Error.UnknownMethod` for a name the service does not have.
+Callers that ask for no reply (`--expect-reply=no` in `busctl`, or `dbus-send`
+without `--print-reply`) keep working the same: they get none. Before 1.64.1
+almost no method replied, and a call without that flag hung until the D-Bus
+timeout. The launcher installs a D-Bus activation file:
 if it is not running, the bus starts it on that same call. If `vasak-prism` is
 not installed, the forward fails and the desktop logs it without crashing. The
 launcher also exposes `Show` and `Hide` on the same object.
