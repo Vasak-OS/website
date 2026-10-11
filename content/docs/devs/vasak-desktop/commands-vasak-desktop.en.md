@@ -70,9 +70,23 @@ busctl --user call ar.net.vasak.Prism /ar/net/vasak/Prism \
 The desktop service handles everything addressed to its name without looking
 at the object or the interface, so the path in the first example is a
 convention, not a requirement. Since `vasak-desktop` 1.64.1 every method of the
-service replies, so the call returns right away: an empty return once the action
-has been dispatched, an `org.vasak.os.Desktop.Error` if it could not be done, and
-`org.freedesktop.DBus.Error.UnknownMethod` for a name the service does not have.
+service replies, so the call returns right away. What it replies depends on the
+method:
+
+- `ListWindows` returns the window list as JSON.
+- `PresentWindow`, `OpenMenu`, `OpenControlCenter`, `OpenWallpaperPicker`,
+  `PauseWallpaper` and `ResumeWallpaper` perform the action before replying: an
+  empty return if it worked, `org.vasak.os.Desktop.Error` with the reason if not.
+- `OpenSearch`, `ToggleSearch`, `OpenSessionPopup`, `PowerButtonPressed`,
+  `ClearScreenTime` and `PresentApp` keep working in another task, so they reply
+  with an empty return **as soon as the request is dispatched**. If something
+  fails afterwards —for instance, the forward to `vasak-prism`— it is logged by
+  the desktop, not reported in the reply.
+- `PresentWindow` and `PresentApp` without the argument they expect return
+  `org.freedesktop.DBus.Error.InvalidArgs`.
+- A name the service does not have returns
+  `org.freedesktop.DBus.Error.UnknownMethod`.
+
 Callers that ask for no reply (`--expect-reply=no` in `busctl`, or `dbus-send`
 without `--print-reply`) keep working the same: they get none. Before 1.64.1
 almost no method replied, and a call without that flag hung until the D-Bus
