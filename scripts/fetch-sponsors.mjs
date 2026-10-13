@@ -6,14 +6,16 @@
 //
 // Hay dos caminos, y el script elige el mejor que tenga a mano:
 //
-//   1. Con `SPONSORS_TOKEN` en el entorno consulta la API GraphQL oficial
+//   1. Con `GH_TOKEN` en el entorno consulta la API GraphQL oficial
 //      (`organization.sponsorshipsAsMaintainer`) y trae, además del login y el
 //      avatar, la fecha de inicio del patrocinio y el nombre del tier. El token
-//      es un PAT con `read:org`, y sin él GitHub no entrega el listado.
+//      es un PAT con `read:org`; sin ese scope GitHub no entrega el listado, y
+//      si la consulta falla igual se baja a la vía 2.
 //
-//   2. Sin token lee la página pública `github.com/sponsors/Vasak-OS`, que
-//      GitHub renderiza en el servidor con los patrocinios públicos: una sola
-//      petición por deploy, sin autenticación y sin secret que crear.
+//   2. Sin token —o si la GraphQL no sirvió— lee la página pública
+//      `github.com/sponsors/Vasak-OS`, que GitHub renderiza en el servidor con
+//      los patrocinios públicos: una sola petición por deploy, sin
+//      autenticación y sin secret que crear.
 //
 // Los patrocinios privados no se publican nunca, ni con token: GitHub sólo se
 // los muestra al maintainer, y publicarlos sería romper la confianza de quien
@@ -199,20 +201,27 @@ const sinFecha = (texto) =>
     .join("\n");
 
 async function main() {
-  const token = process.env.SPONSORS_TOKEN?.trim();
+  const token = process.env.GH_TOKEN?.trim();
   let sponsors;
   let source;
-  try {
-    if (token) {
+  if (token) {
+    try {
       sponsors = await fetchSponsorsGraphQL(ACCOUNT, token);
       source = "graphql";
-    } else {
+    } catch (error) {
+      // Un PAT que no es de sponsors —o sin `read:org`— falla acá; se baja a la
+      // página pública en vez de quedarse con el archivo anterior.
+      console.warn(`[sponsors] La GraphQL no sirvió (${error.message}); pruebo la página pública.`);
+    }
+  }
+  if (!sponsors) {
+    try {
       sponsors = await fetchSponsorsPage(ACCOUNT);
       source = "public-page";
+    } catch (error) {
+      console.warn(`[sponsors] No se pudo actualizar (${error.message}); queda el archivo anterior.`);
+      return;
     }
-  } catch (error) {
-    console.warn(`[sponsors] No se pudo actualizar (${error.message}); queda el archivo anterior.`);
-    return;
   }
 
   const contenido = serialize(sponsors, source, new Date().toISOString());
