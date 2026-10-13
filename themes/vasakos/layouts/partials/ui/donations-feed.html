@@ -1,0 +1,89 @@
+{{- /*
+  ui/donations-feed.html
+
+  La vista de últimas donaciones: el listado completo de los aportes, del más
+  nuevo al más viejo. Módulo suelto, igual que `ui/donor-wall.html`: no trae
+  título, lo pone quien lo llama.
+
+  ── Qué muestra ─────────────────────────────────────────────────────────────
+
+  La lista que recibe es completa por contrato: cada donador de GitHub Sponsors
+  es una donación, y quien llama al módulo arma la lista juntando el registro
+  curado de `data/donations.yml` (con monto y mensaje) con todos los donadores
+  de `data/sponsors.yml`. Así una donación aparece apenas alguien patrocina, y
+  un muro con donadores nunca deja el feed vacío.
+
+  GitHub no expone el monto de una donación por ninguna vía —lo declara
+  privado—, así que la cifra, cuando se quiere publicar, va en el YAML curado.
+  El muro de donadores, en cambio, se arma solo en cada deploy.
+
+  Cada entrada acepta: `name` / `anonymous`, `avatar`, `url`, `date`, `tier`,
+  `amount` y el mensaje en una de dos formas:
+
+    message    texto libre, tal cual. No se traduce: si se escribe en un idioma,
+               se lee en ese idioma en las dos versiones del sitio.
+    message_id clave de i18n (`donate.latest.<id>`). Es lo que hay que usar
+               cuando el mensaje tiene que verse traducido.
+
+  Si vienen los dos, gana `message_id`.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     donations       la lista, con `name` (o `anonymous`), `amount`, `date`,
+                     `tier`, `avatar`, `url`, `message` / `message_id`.
+     anonymousLabel  cómo se nombra a quien no quiso aparecer.
+     empty           el título del estado vacío. Sin él, una lista vacía no
+                     dibuja nada.
+     emptyNote       la segunda línea del estado vacío.
+     class           clases extra de la lista.
+*/ -}}
+
+{{- $donations := .donations | default (slice) -}}
+{{- $anonymous := .anonymousLabel | default "Anónimo" -}}
+{{- $empty := .empty | default "" -}}
+{{- $emptyNote := .emptyNote | default "" -}}
+{{- $extra := .class | default "" -}}
+
+{{- if $donations -}}
+<ul class="space-y-3 {{ $extra }}">
+  {{- range $donations }}
+  {{- $nombre := .name | default $anonymous -}}
+  <li class="card-surface rounded-m border border-ui-border p-4">
+    <div class="flex items-start gap-3">
+      {{- with .avatar }}
+      <img src="{{ . }}" alt="" width="40" height="40" loading="lazy" decoding="async"
+        class="h-10 w-10 shrink-0 rounded-full border border-ui-border object-cover">
+      {{- end }}
+      <div class="min-w-0 flex-1">
+        <p class="truncate font-semibold text-tx-main">
+          {{- if .url -}}
+            <a href="{{ .url }}" target="_blank" rel="noopener" class="hover:text-brand-text hover:underline">{{ $nombre }}</a>
+          {{- else -}}
+            {{ $nombre }}
+          {{- end -}}
+        </p>
+        {{- with .date }}
+        <p class="text-xs text-tx-muted">{{ (time.AsTime .) | time.Format ":date_medium" }}</p>
+        {{- end }}
+        {{- with .tier }}<span class="badge mt-1 bg-ui-surface text-tx-muted">{{ . }}</span>{{ end }}
+      </div>
+      {{- with .amount }}
+      <p class="shrink-0 whitespace-nowrap text-sm font-semibold text-brand-text">{{ . }}</p>
+      {{- end }}
+    </div>
+    {{- $mensaje := "" -}}
+    {{- with .message_id }}{{ $mensaje = T (printf "donate.latest.%s" .) }}{{ end -}}
+    {{- if not $mensaje }}{{ $mensaje = .message | default "" }}{{ end -}}
+    {{- with $mensaje }}
+    <p class="mt-2 text-sm leading-relaxed text-tx-muted">{{ . }}</p>
+    {{- end }}
+  </li>
+  {{- end }}
+</ul>
+{{- else if $empty -}}
+{{ partial "ui/empty-state.html" (dict
+    "title" $empty
+    "note" $emptyNote
+    "icon" "fa-solid fa-clock"
+    "bordered" true) }}
+{{- end -}}

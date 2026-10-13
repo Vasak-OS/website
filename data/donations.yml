@@ -1,0 +1,41 @@
+# Donaciones cargadas a mano, las que llevan monto y mensaje.
+#
+# Lo dibuja `ui/donations-feed.html` al costado del muro de donadores de
+# /donate/, dentro de «Últimas donaciones». Ese listado es completo: primero
+# estas entradas y después cada donador de `data/sponsors.yml` —un patrocinio
+# de GitHub Sponsors es una donación—, del más nuevo al más viejo. Por eso una
+# donación puede aparecer acá sin anotarla: apenas alguien patrocina, entra por
+# el muro.
+#
+# Este archivo es para lo que GitHub no da: el monto de una donación es privado
+# y no lo entrega por ninguna vía, así que las cifras y los mensajes que quieran
+# mostrarse se cargan a mano, como registro curado.
+#
+# Cada entrada admite:
+#
+#   name        el nombre a mostrar. Si falta, se usa `anonymous`.
+#   anonymous   true para mostrar la etiqueta de anónimo en lugar de un nombre.
+#   amount      el monto, ya formateado ("USD $50"). Opcional.
+#   date        la fecha, en ISO ("2026-10-01"). Se muestra en el idioma de la
+#               página. Opcional.
+#   url         el perfil o sitio de quien aportó. Opcional.
+#   message_id  una clave de i18n (`donate.latest.<id>`) para el mensaje. Es la
+#               forma de que el mensaje se lea traducido en las dos versiones.
+#   message     el mensaje tal cual, sin traducir. Sirve para un texto corto.
+#
+# Si el monto no se publica (GitHub puede pedirlo a cuentas chicas), se puede
+# dejar una entrada sin `amount` y aparece igual, como las del muro.
+#
+# Ejemplo (borrar el comentario para publicarlo):
+#
+#   donations:
+#     - name: "Ada Lovelace"
+#       url: "https://github.com/ada"
+#       amount: "USD $25"
+#       date: "2026-10-01"
+#       message_id: "thanks"
+#     - anonymous: true
+#       amount: "USD $5"
+#       date: "2026-09-28"
+
+donations: []

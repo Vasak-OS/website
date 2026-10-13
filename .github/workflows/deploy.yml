@@ -70,6 +70,19 @@ jobs:
       - name: Instalar dependencias
         run: bun install --frozen-lockfile --ignore-scripts
 
+      # El muro de donadores de /donate/ se rehace en cada build. Con
+      # `GH_TOKEN` (un PAT con `read:org`) consulta la API oficial de GitHub y
+      # trae además fecha y tier; sin el secret —o en un PR de fork—, lee la
+      # página pública de Sponsors, que rinde lo mismo para el muro. Si la
+      # GraphQL falla con un token que no sirve, el script igual baja a la
+      # página pública.
+      # El script no rompe el build si la red falla: deja el archivo que ya
+      # está commiteado, que es el respaldo para compilar sin red.
+      - name: Actualizar donadores de GitHub Sponsors
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: bun run sponsors
+
       # `bun run build` regenera `icons.css` y después corre `hugo --gc`, con
       # `node_modules/.bin` en el PATH, que es donde Hugo busca `tailwindcss`.
       # Es el mismo build que hacía `deploy.sh`, sin depender de lo que hubiera

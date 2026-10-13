@@ -1,0 +1,9 @@
+# GENERADO por scripts/fetch-sponsors.mjs — no editar a mano.
+# Lo rehace cada deploy; el que está commiteado es sólo el respaldo para
+# compilar sin red. Ver el encabezado del script para las dos vías.
+updated: "2026-10-13T13:47:47.630Z"
+source: "public-page"
+sponsors:
+  - login: "alantonche"
+    avatar: "https://avatars.githubusercontent.com/u/72902088?s=144&v=4"
+    url: "https://github.com/alantonche"

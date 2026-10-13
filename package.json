@@ -4,6 +4,7 @@
   "description": "Sitio oficial de VasakOS \u2014 https://os.vasak.net.ar/",
   "scripts": {
     "icons": "node scripts/build-icons.mjs",
+    "sponsors": "bun scripts/fetch-sponsors.mjs",
     "build": "bun run icons && hugo --gc --cleanDestinationDir",
     "dev": "bun run icons && hugo server --disableFastRender",
     "preview": "bun run build && hugo server --renderToMemory --disableFastRender",

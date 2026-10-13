@@ -109,6 +109,84 @@
             </aside>
           </section>
 
+          {{/* Quiénes ya aportan: el muro de donadores públicos de GitHub
+               Sponsors y, al lado, las últimas donaciones. Son dos módulos
+               sueltos (`ui/donor-wall.html` y `ui/donations-feed.html`) para
+               poder reusarlos en otra página; acá las viste una sección.
+
+               El muro se arma solo: `data/sponsors.yml` lo rehace cada deploy
+               `scripts/fetch-sponsors.mjs` —con token de GitHub o leyendo la
+               página pública—. Sin red, o sin donadores, el módulo cae a su
+               estado vacío, invitando a ser el primero, y no deja un hueco
+               roto.
+
+               La lista de últimas donaciones es completa: el registro curado de
+               `data/donations.yml` —el monto lo declara privado GitHub y no
+               sale de la API, así que la cifra se publica a mano— más cada
+               donador, que es una donación. Ordenada de la más nueva a la más
+               vieja; quien patrocina hoy aparece sin que nadie la anote. */}}
+          {{- $donadores := slice -}}
+          {{- with hugo.Data.sponsors }}{{ $donadores = .sponsors | default (slice) }}{{ end -}}
+          {{- $curadas := slice -}}
+          {{- with hugo.Data.donations }}{{ $curadas = .donations | default (slice) }}{{ end -}}
+          {{- /* La lista completa, normalizada para poder ordenarla por fecha:
+               toda entrada lleva `date`, aunque venga vacía. */ -}}
+          {{- $donaciones := slice -}}
+          {{- $yaVistos := slice -}}
+          {{- range $curadas }}
+          {{- $donaciones = $donaciones | append (dict
+                "name" (.name | default "")
+                "anonymous" (.anonymous | default false)
+                "amount" (.amount | default "")
+                "date" (.date | default "")
+                "url" (.url | default "")
+                "message" (.message | default "")
+                "message_id" (.message_id | default "")) }}
+          {{- $yaVistos = $yaVistos | append (.name | default "") }}
+          {{- end }}
+          {{- range $donadores }}
+          {{- $nombre := .name | default .login -}}
+          {{- if not (in $yaVistos $nombre) }}
+          {{- $donaciones = $donaciones | append (dict
+                "name" $nombre
+                "avatar" (.avatar | default "")
+                "url" (.url | default "")
+                "date" (.since | default "")
+                "tier" (.tier | default "")) }}
+          {{- $yaVistos = $yaVistos | append $nombre }}
+          {{- end }}
+          {{- end }}
+          {{- $donaciones = sort $donaciones "date" "desc" -}}
+          <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <article class="card lg:col-span-2 p-6">
+              <h2 class="section-title text-2xl font-bold text-tx-main">{{ T "donate.sponsorsTitle" }}</h2>
+              <p class="mt-2 max-w-2xl text-sm text-tx-muted">{{ T "donate.sponsorsLead" }}</p>
+              <div class="mt-4">
+                {{ partial "ui/donor-wall.html" (dict
+                    "sponsors" $donadores
+                    "empty" (T "donate.sponsorsEmpty")
+                    "emptyNote" (T "donate.sponsorsEmptyNote")
+                    "emptyAction" (partial "ui/action-button.html" (dict
+                        "href" "https://github.com/sponsors/Vasak-OS"
+                        "target" "_blank" "rel" "noopener"
+                        "label" (T "donate.donateNow")
+                        "icon" "fa-brands fa-github"))) }}
+              </div>
+            </article>
+
+            <aside class="card p-6">
+              <h2 class="section-title text-lg font-bold text-tx-main">{{ T "donate.latestTitle" }}</h2>
+              <p class="mt-2 text-sm text-tx-muted">{{ T "donate.latestLead" }}</p>
+              <div class="mt-4">
+                {{ partial "ui/donations-feed.html" (dict
+                    "donations" $donaciones
+                    "anonymousLabel" (T "donate.anonymous")
+                    "empty" (T "donate.latestEmpty")
+                    "emptyNote" (T "donate.latestEmptyNote")) }}
+              </div>
+            </aside>
+          </section>
+
           {{/* El desglose: cada rubro con su importe y lo que cubre, y la última
                celda de la grilla es la suma — seis tarjetas, dos filas de a tres
                en desktop: el total cierra la cuenta en el mismo renglón que la
