@@ -95,6 +95,7 @@
 {{- $type := .type | default "button" -}}
 {{- $ariaLabel := .ariaLabel | default "" -}}
 {{- $extra := .class | default "" -}}
+{{- $attrs := .attrs | default dict -}}
 
 {{- /* Los tonos, que ahora son clases de la capa de componentes. Los dos
       rellenos de marca llevan `sheen`: la luz que entra por arriba, que es lo
@@ -156,6 +157,11 @@
   {{- $contenido = printf "%s<i class=\"%s shrink-0\" aria-hidden=\"true\"></i>" $contenido $icon -}}
 {{- end -}}
 
+{{- $attrsString := "" -}}
+{{- range $key, $value := $attrs -}}
+  {{- $attrsString = printf "%s %s=\"%s\"" $attrsString $key $value -}}
+{{- end -}}
+
 {{- if $href -}}
   {{- /* Deshabilitado en un enlace: sin `href` deja de ser un enlace, y
          `aria-disabled` dice por qué. Es la traducción de `disabled:` que un
@@ -167,7 +173,8 @@
   {{ with $rel }}rel="{{ . }}"{{ end }}
   {{ if $disabled }}aria-disabled="true"{{ end }}
   {{ with $ariaLabel }}aria-label="{{ . }}"{{ end }}
-  class="{{ $clases }}">
+  class="{{ $clases }}"
+  {{ $attrsString | safeHTMLAttr }}>
   {{- $contenido | safeHTML -}}
 </a>
 {{- else -}}
@@ -175,7 +182,8 @@
   type="{{ $type }}"
   {{ if or $disabled $loading }}disabled{{ end }}
   {{ with $ariaLabel }}aria-label="{{ . }}"{{ end }}
-  class="{{ $clases }}">
+  class="{{ $clases }}"
+  {{ $attrsString | safeHTMLAttr }}>
   {{- $contenido | safeHTML -}}
 </button>
 {{- end -}}

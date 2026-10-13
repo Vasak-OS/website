@@ -1,0 +1,136 @@
+{{/*
+  ui/download-modal.html
+
+  Modal que aparece al hacer clic en un botón de descarga externo (los espejos
+  de data/release.yml). Ofrece donar en GitHub Sponsors antes de continuar al
+  sitio de la descarga, sin obligar a nadie a hacerlo.
+
+  El modal es autocontenido: se incluye una vez en `downloads/single.html` y su
+  script engancha por delegación de eventos cualquier `.download-mirror-btn` de
+  la página, leyendo la URL del atributo `data-mirror-url`. Así funciona igual
+  para los botones de la cabecera y para los de la lista de espejos, y no hace
+  falta cablear un `onclick` por botón.
+
+  Forma de OnceUI: superficie elevada (`shadow-l`), radio de ventana
+  (`rounded-xl`), borde fuerte y una cabecera separada por la línea del borde.
+  Los colores salen de los tokens del tema —`brand-text`, `ui-surface`,
+  `btn-primary`, `btn-secondary`—, nunca de una paleta propia.
+*/}}
+<div id="download-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="download-modal-title">
+  <!-- Backdrop -->
+  <div id="download-modal-backdrop" class="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 transition-opacity duration-200"></div>
+
+  <!-- Modal Container -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-lg max-h-[90vh] overflow-y-auto">
+    <div class="card overflow-hidden flex flex-col rounded-xl border-ui-border-strong shadow-l">
+      <!-- Header -->
+      <div class="px-8 py-6 border-b border-ui-border bg-ui-surface/60">
+        <div class="flex items-start justify-between gap-6">
+          <div class="flex items-center gap-4">
+            <div class="empty-mark h-12 w-12 shrink-0 rounded-l">
+              <i class="fa-solid fa-heart text-brand-text text-2xl" aria-hidden="true"></i>
+            </div>
+            <h3 id="download-modal-title" class="text-xl font-bold tracking-tight text-tx-main text-balance">
+              {{ T "downloads.downloadModalTitle" }}
+            </h3>
+          </div>
+          <button id="download-modal-close" type="button" aria-label="{{ T "search.close" }}"
+            class="btn btn-icon btn-md btn-neutral shrink-0 text-tx-muted hover:text-brand-text">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="p-8 space-y-6">
+        <p class="leading-relaxed text-tx-muted">{{ T "downloads.downloadModalMessage" }}</p>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col gap-3">
+          {{/* Botón de donar - primario, con icono de GitHub */}}
+          <a id="download-modal-donate" href="https://github.com/sponsors/Vasak-OS" target="_blank" rel="noopener"
+            class="btn btn-lg btn-primary sheen w-full justify-center">
+            <i class="fa-brands fa-github shrink-0" aria-hidden="true"></i>
+            <span>{{ T "downloads.downloadModalDonate" }}</span>
+          </a>
+
+          {{/* Botón de continuar - secundario */}}
+          <button id="download-modal-continue" type="button"
+            class="btn btn-lg btn-secondary sheen w-full justify-center">
+            <i class="fa-solid fa-download shrink-0" aria-hidden="true"></i>
+            <span>{{ T "downloads.downloadModalContinue" }}</span>
+          </button>
+        </div>
+
+        <p class="text-center text-sm leading-relaxed text-tx-muted">
+          {{ T "downloads.modalNoObligation" | default "La donación es totalmente opcional. El enlace de descarga se abrirá igual." }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const modal = document.getElementById('download-modal');
+  const backdrop = document.getElementById('download-modal-backdrop');
+  const closeBtn = document.getElementById('download-modal-close');
+  const continueBtn = document.getElementById('download-modal-continue');
+  const donateLink = document.getElementById('download-modal-donate');
+
+  let pendingUrl = null;
+
+  const showModal = (url) => {
+    pendingUrl = url;
+    modal.classList.remove('hidden');
+    // Forzar reflow para que la transición funcione
+    requestAnimationFrame(() => {
+      backdrop.classList.remove('opacity-0');
+    });
+    // Foco en el botón de continuar para accesibilidad
+    setTimeout(() => continueBtn.focus(), 100);
+  };
+
+  const hideModal = () => {
+    backdrop.classList.add('opacity-0');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      pendingUrl = null;
+    }, 200);
+  };
+
+  const goToDownload = () => {
+    if (pendingUrl) {
+      window.open(pendingUrl, '_blank', 'noopener');
+    }
+    hideModal();
+  };
+
+  // Event delegation para los botones de descarga
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.download-mirror-btn');
+    if (btn) {
+      e.preventDefault();
+      const url = btn.getAttribute('data-mirror-url') || btn.getAttribute('href');
+      if (url && url !== 'javascript:void(0)') {
+        showModal(url);
+      }
+    }
+  });
+
+  // Event listeners del modal
+  closeBtn.addEventListener('click', hideModal);
+  backdrop.addEventListener('click', hideModal);
+  continueBtn.addEventListener('click', goToDownload);
+
+  // Cerrar con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      hideModal();
+    }
+  });
+
+  // Exponer función global para compatibilidad
+  window.showDownloadModal = showModal;
+})();
+</script>
