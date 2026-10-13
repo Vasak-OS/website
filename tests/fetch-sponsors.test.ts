@@ -185,8 +185,9 @@ describe("main elige la vía y escribe el YAML", () => {
     // el muro no puede quedarse con la lista vieja si la página pública sirve.
     const llamadas: string[] = [];
     globalThis.fetch = async (url: string | URL | Request) => {
-      llamadas.push(String(url));
-      if (String(url).includes("api.github.com")) {
+      const link = String(url);
+      llamadas.push(link);
+      if (link === "https://api.github.com/graphql") {
         return new Response("no", { status: 401 });
       }
       return new Response(PAGINA, { status: 200 });
