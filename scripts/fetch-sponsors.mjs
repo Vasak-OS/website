@@ -194,13 +194,19 @@ export function serialize(sponsors, source, updated) {
 }
 
 /** Lo que cambió se compara sin la fecha, para no ensuciar el árbol por un deploy sin novedades. */
-const sinFecha = (texto) =>
+export const sinFecha = (texto) =>
   texto
     .split("\n")
     .filter((linea) => !linea.startsWith("updated:"))
     .join("\n");
 
-async function main() {
+/**
+ * Rehace `data/sponsors.yml` con los donadores actuales. El destino se puede
+ * pasar distinto para probar sin tocar el respaldo commiteado.
+ *
+ * @param {string} out
+ */
+export async function main(out = OUT) {
   const token = process.env.GH_TOKEN?.trim();
   let sponsors;
   let source;
@@ -225,12 +231,12 @@ async function main() {
   }
 
   const contenido = serialize(sponsors, source, new Date().toISOString());
-  const previo = existsSync(OUT) ? await readFile(OUT, "utf8") : "";
+  const previo = existsSync(out) ? await readFile(out, "utf8") : "";
   if (sinFecha(previo) === sinFecha(contenido)) {
     console.log(`[sponsors] Sin cambios: ${sponsors.length} donadores (${source}).`);
     return;
   }
-  await writeFile(OUT, contenido);
+  await writeFile(out, contenido);
   console.log(`[sponsors] ${sponsors.length} donadores escritos en data/sponsors.yml (${source}).`);
 }
 
