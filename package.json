@@ -1,7 +1,7 @@
 {
   "name": "vasakos-website",
   "private": true,
-  "description": "Sitio oficial de VasakOS \u2014 https://os.vasak.net.ar/",
+  "description": "Sitio oficial de VasakOS — https://os.vasak.net.ar/",
   "scripts": {
     "icons": "node scripts/build-icons.mjs",
     "sponsors": "bun scripts/fetch-sponsors.mjs",
@@ -14,7 +14,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",
     "@tailwindcss/cli": "^4.3.3",
-    "axe-core": "^4.13.0",
+    "axe-core": "^4.14.0",
     "tailwindcss": "^4.3.3"
   },
   "dependencies": {

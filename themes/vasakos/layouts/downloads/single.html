@@ -14,15 +14,16 @@
 <main class="px-4 py-8">
   <div class="mx-auto max-w-screen-xl">
 
+    {{/* Modal de confirmación de descarga — se incluye una vez en la página */}}
+    {{ partial "ui/download-modal.html" . }}
+
     <header class="card p-8 text-center">
       <h1 class="section-title page-title text-tx-main">{{ T "downloads.title" }}</h1>
       <p class="section-lead mt-3 text-tx-muted">
         {{ T "downloads.officialImage" (dict "Arch" $r.arch) }}
       </p>
-      {{/* Un botón por espejo. `ui/action-button` es el `ActionButton` del
-           escritorio: mismo fondo, mismo radio, mismo hover, mismo estado
-           deshabilitado. Los de la cabecera y los de soporte salen del mismo
-           partial y se ven iguales entre sí. */}}
+      {{/* Un botón por espejo. El modal intercepta el clic; el enlace sigue
+           siendo real, así que sin JavaScript la descarga funciona igual. */}}
       <div class="mt-6 flex flex-wrap justify-center gap-3">
         {{- range $r.mirrors }}
         {{- if .url }}
@@ -32,7 +33,9 @@
             "rel" "noopener"
             "label" .name
             "icon" "fa-solid fa-download"
-            "size" "lg") }}
+            "size" "lg"
+            "class" "download-mirror-btn"
+            "attrs" (dict "data-mirror-url" .url "data-mirror-name" .name)) }}
         {{- end }}
         {{- end }}
       </div>
@@ -94,7 +97,9 @@
                 "target" "_blank"
                 "rel" "noopener"
                 "label" (T "home.download")
-                "size" "sm") }}
+                "size" "sm"
+                "class" "download-mirror-btn"
+                "attrs" (dict "data-mirror-url" .url "data-mirror-name" .name)) }}
           {{ else }}
             {{- $accion = printf "<span class=\"rounded-m border border-ui-border bg-ui-surface/80 px-3 py-2 text-sm text-tx-muted\">%s</span>" (T "downloads.unavailable") }}
           {{ end }}

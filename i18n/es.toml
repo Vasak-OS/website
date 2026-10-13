@@ -264,6 +264,11 @@
   downloadSums = "Descargar el archivo de sumas SHA-256"
   downloadSignature = "Descargar la firma de la imagen"
   supportHint = "Si algo falla durante la instalación o el arranque, compartí información del hardware, los logs y los pasos para reproducirlo."
+  downloadModalTitle = "¿Quieres apoyar VasakOS?"
+  downloadModalMessage = "VasakOS es un proyecto comunitario gratuito y de código abierto. Cada donación nos ayuda a mantener los servidores, desarrollar nuevas funciones y mejorar la experiencia para todos."
+  downloadModalDonate = "Donar en GitHub Sponsors"
+  downloadModalContinue = "Continuar a la descarga"
+  modalNoObligation = "La donación es totalmente opcional. El enlace de descarga se abrirá igual."
 
 [about]
   sourceCode = "Código fuente"
