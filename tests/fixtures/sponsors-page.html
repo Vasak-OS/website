@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GitHub Sponsors · Vasak-OS</title>
+</head>
+<body>
+  <!-- El encabezado enlaza al maintainer con su avatar. Está AFUERA del bloque
+       #sponsors, así que no es un donador y no debe entrar al muro. -->
+  <header class="position-relative z-2">
+    <a class="d-inline-flex flex-items-center flex-justify-center" href="/joaquindecima">
+      <img class="avatar avatar-user circle" src="https://avatars.githubusercontent.com/u/12718376?s=60&amp;v=4" width="60" height="60" alt="@joaquindecima">
+      <span class="ml-2">joaquindecima</span>
+    </a>
+  </header>
+
+  <div class="container-lg p-responsive">
+    <div class="d-flex flex-column flex-items-center">
+      <h2 class="h2 mb-4">About Vasak-OS</h2>
+    </div>
+
+    <!-- El bloque que el script recorta: de `id="sponsors"` hasta que cierra
+         `remote-pagination`. Es lo único que se lee como donadores. -->
+    <div id="sponsors" class="col-9">
+      <div class="d-flex flex-items-center flex-justify-between mb-3">
+        <h3>Sponsors</h3>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex flex-wrap flex-items-center flex-justify-center text-center">
+          <ul class="d-flex flex-wrap list-style-none">
+            <li class="px-3">
+              <a class="no-underline text-center" href="/alantonche">
+                <span class="d-inline-block mb-1">
+                  <img class="avatar avatar-user rounded-2" src="https://avatars.githubusercontent.com/u/72902088?s=60&amp;v=4" width="60" height="60" alt="@alantonche">
+                </span>
+                <span class="d-block text-small">alantonche</span>
+              </a>
+            </li>
+            <li class="px-3">
+              <a class="no-underline text-center" href="/some-org">
+                <span class="d-inline-block mb-1">
+                  <img class="avatar avatar-org rounded-2" src="https://avatars.githubusercontent.com/u/4821567?s=60&amp;v=4" width="60" height="60" alt="@some-org">
+                </span>
+                <span class="d-block text-small">some-org</span>
+              </a>
+            </li>
+            <li class="px-3">
+              <!-- Un enlace cuyo href no coincide con el alt de su imagen: el
+                   script exige que los dos digan lo mismo para contar a alguien
+                   como donador, así que esto no debe aparecer. -->
+              <a class="no-underline text-center" href="/definitely-a-user">
+                <span class="d-inline-block mb-1">
+                  <img class="avatar avatar-user rounded-2" src="https://avatars.githubusercontent.com/u/31337?s=60&amp;v=4" width="60" height="60" alt="@an-org">
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <remote-pagination data-total="2" data-per-page="12" data-target="sponsors" data-url="/sponsors/Vasak-OS?p=1">
+          <include-fragment loading="lazy" src="/sponsors/Vasak-OS?after=MjAyNi0wMS0wMQ%3D%3D" aria-busy="true"></include-fragment>
+        </remote-pagination>
+      </div>
+    </div>
+
+    <!-- Los miembros del equipo, después de cerrar el bloque. Tienen avatar y
+         alt iguales, y sin el recorte del script se contarían como donadores. -->
+    <div class="col-3">
+      <h3>Team</h3>
+      <a class="d-flex flex-items-center" href="/vasakos-devs">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/54983580?s=60&amp;v=4" width="40" height="40" alt="@vasakos-devs">
+        <span class="ml-2">vasakos-devs</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

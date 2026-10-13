@@ -1025,6 +1025,12 @@ const DECORATIVAS: Record<string, { veces: number; motivo: string }> = {
   "partials/sections/page-banner.html": { veces: 1, motivo: "-z-10" },
   "_default/card.html": { veces: 1, motivo: "<h2" },
   "partials/widgets/recentposts.html": { veces: 1, motivo: "text-white" },
+  // El muro de donadores y las últimas donaciones: el avatar del donador va
+  // dentro del mismo enlace que su nombre, así que el nombre es el texto
+  // accesible y el avatar no dice nada que el nombre no diga ya. `truncate` es
+  // la clase del nombre que lo acompaña en los dos parciales.
+  "partials/ui/donor-wall.html": { veces: 1, motivo: "truncate" },
+  "partials/ui/donations-feed.html": { veces: 1, motivo: "truncate" },
 };
 
 describe("cada imagen dice qué es, o está junto a lo que ya lo dice", () => {

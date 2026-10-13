@@ -321,6 +321,16 @@
   followText = "El proyecto se desarrolla en abierto: las decisiones, los avances y los problemas son públicos."
   community = "Comunidad"
   reportIdea = "Reportar idea o problema"
+  sponsorsTitle = "Quiénes ya aportan"
+  sponsorsLead = "Los donadores públicos de GitHub Sponsors. La lista se actualiza sola en cada publicación del sitio; quien aporta en privado no aparece acá."
+  sponsorsEmpty = "Todavía no hay donadores públicos"
+  sponsorsEmptyNote = "Podés ser el primero."
+  sponsorSince = "Desde el {{ .Date }}"
+  latestTitle = "Últimas donaciones"
+  latestLead = "El listado completo de las donaciones, de la más reciente a la primera. Quienes aportan desde GitHub Sponsors aparecen solos, apenas patrocinan."
+  latestEmpty = "Todavía no hay donaciones"
+  latestEmptyNote = "Cuando entre la primera, aparece acá."
+  anonymous = "Anónimo"
 
   # El bloque `donations` del front matter de content/donate/index.md. Las
   # listas se resuelven por el `id` de cada elemento, en el mismo orden en que

@@ -317,6 +317,16 @@
   followText = "The project is developed in the open: decisions, progress and problems are public."
   community = "Community"
   reportIdea = "Report an idea or a problem"
+  sponsorsTitle = "Who already gives"
+  sponsorsLead = "The public GitHub Sponsors donors. The list refreshes on its own with every site deploy; whoever gives privately does not appear here."
+  sponsorsEmpty = "No public donors yet"
+  sponsorsEmptyNote = "You can be the first."
+  sponsorSince = "Sponsoring since {{ .Date }}"
+  latestTitle = "Latest donations"
+  latestLead = "The complete list of donations, from the newest to the oldest. GitHub Sponsors donors show up here by themselves, right after they sponsor."
+  latestEmpty = "No donations yet"
+  latestEmptyNote = "The moment the first one arrives, it shows up here."
+  anonymous = "Anonymous"
 
   # The `donations` block from the front matter of content/donate/index.md. The
   # lists resolve by each element's `id`, in the same order as the YAML;

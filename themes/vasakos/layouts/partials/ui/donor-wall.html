@@ -1,0 +1,77 @@
+{{- /*
+  ui/donor-wall.html
+
+  El muro de donadores: una grilla de avatares enlazados al perfil de quien
+  aporta. Es un módulo suelto —no trae título ni sección— para poder ponerlo en
+  /donate/ y, si hace falta, en cualquier otra página; el encabezado y la prosa
+  los pone quien lo llama, desde i18n.
+
+  Los datos salen de `data/sponsors.yml`, que rehace cada deploy
+  `scripts/fetch-sponsors.mjs`. El módulo no sabe de dónde vienen: recibe la
+  lista y la dibuja.
+
+  Con token, cada donador trae `since` y `tier`; sin token, sólo el login y el
+  avatar. Por eso los dos son opcionales y el módulo se ve bien sin ellos.
+
+  ── Decisión: la tarjeta y no la tira de avatares ───────────────────────────
+
+  Un muro de sólo avatares se ve más apretado, pero no dice quién es nadie hasta
+  que el mouse pasa por encima, y en un teléfono no hay hover. La tarjeta con el
+  avatar arriba y el nombre abajo dice el nombre siempre, y sigue siendo
+  compacta: cuatro por fila en escritorio, dos en un teléfono.
+
+  ── Accesibilidad ───────────────────────────────────────────────────────────
+
+  El avatar va con `alt=""`: es decorativo, y el nombre que lo acompaña es el
+  nombre accesible del enlace. Poner el login en el `alt` lo leería dos veces.
+
+  ── Parámetros ──────────────────────────────────────────────────────────────
+
+     sponsors  la lista, con `login`, `avatar`, `url` y, opcionalmente, `name`,
+               `since` y `tier`.
+     limit     cuántos mostrar como máximo. 0 (por omisión) los muestra todos.
+     empty     el título del estado vacío. Sin él, una lista vacía no dibuja
+               nada: así el módulo se puede soltar en cualquier lado sin miedo
+               a que deje un hueco.
+     emptyNote la segunda línea del estado vacío.
+     emptyAction el botón del estado vacío. Acepta HTML.
+     class     clases extra de la grilla.
+*/ -}}
+
+{{- $sponsors := .sponsors | default (slice) -}}
+{{- $limit := .limit | default 0 -}}
+{{- if and (gt $limit 0) (gt (len $sponsors) $limit) -}}
+  {{- $sponsors = first $limit $sponsors -}}
+{{- end -}}
+{{- $empty := .empty | default "" -}}
+{{- $emptyNote := .emptyNote | default "" -}}
+{{- $emptyAction := .emptyAction | default "" -}}
+{{- $extra := .class | default "" -}}
+
+{{- if $sponsors -}}
+<ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 {{ $extra }}">
+  {{- range $sponsors }}
+  <li>
+    <a href="{{ .url }}" target="_blank" rel="noopener"
+      class="card card-hover flex h-full flex-col items-center gap-2 p-4 text-center">
+      {{- with .avatar }}
+      <img src="{{ . }}" alt="" width="48" height="48" loading="lazy" decoding="async"
+        class="h-12 w-12 rounded-full border border-ui-border object-cover">
+      {{- end }}
+      <span class="w-full truncate text-sm font-semibold text-tx-main">{{ .name | default .login }}</span>
+      {{- with .tier }}<span class="badge bg-ui-surface text-tx-muted">{{ . }}</span>{{ end }}
+      {{- with .since }}
+      <span class="text-xs text-tx-muted">{{ T "donate.sponsorSince" (dict "Date" ((time.AsTime .) | time.Format ":date_medium")) }}</span>
+      {{- end }}
+    </a>
+  </li>
+  {{- end }}
+</ul>
+{{- else if $empty -}}
+{{ partial "ui/empty-state.html" (dict
+    "title" $empty
+    "note" $emptyNote
+    "icon" "fa-solid fa-heart"
+    "bordered" true
+    "action" $emptyAction) }}
+{{- end -}}
