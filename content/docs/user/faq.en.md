@@ -23,11 +23,11 @@ faq:
 
   - q: "Is it ready to use every day?"
     a: |
-      It is in **Alpha**. It installs, runs and updates, but there are incomplete features
-      and changes that break compatibility between versions. It is perfectly good for trying
-      it out and reporting problems; we do not yet recommend it as the only system on a work
-      machine. The detail, component by component, is in
-      [state of the project](/en/state/).
+      It is in **Beta**. It installs, runs and updates, with the features complete, but
+      there are still bugs to polish and there may be changes that break compatibility
+      between versions. It is perfectly good for using it and reporting problems; we do not
+      yet recommend it as the only system on a work machine. The detail, component by
+      component, is in [state of the project](/en/state/).
 
   - q: "What requirements do I need?"
     a: |

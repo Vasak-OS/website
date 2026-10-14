@@ -6,12 +6,13 @@ img: "/img/posts/roadmap.svg"
 type: state
 date: "2026-08-10"
 lastmod: "2026-08-10"
-tags: [state, roadmap, vasakos, alpha, development]
+tags: [state, roadmap, vasakos, beta, development]
 ---
 
-VasakOS is in **Alpha**. That word means different things in different projects, so here
-is what it means in this one: the system boots, installs and runs, but there are
-half-finished features and changes that break compatibility between versions.
+VasakOS is in **Beta**. That word means different things in different projects, so here
+is what it means in this one: the system boots, installs and is used daily, with the
+features we planned now complete. What remains is polishing out bugs, and there may still
+be changes that break compatibility between versions.
 
 This page is updated with every release. If something is not listed here, it does not
 exist yet.
