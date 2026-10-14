@@ -1,215 +1,79 @@
 ---
-title: "Seeing errors in real time"
-weight: 40
-description: "How to see VasakOS errors in real time with RUST_LOG, journalctl and the system tools."
+title: "The desktop does not start"
+weight: 41
+description: "What to do when the VasakOS desktop does not start: get to a terminal, read the boot errors and get back to a working state."
 aliases: ["/docs/user/errores/"]
 ---
 
-## How to see errors in real time
+With the desktop up, errors are seen in the **System Monitor**, on the **Logs** screen (see
+[Errors and logs in the monitor](/en/docs/user/monitoring/)). This page is for when the
+desktop **never paints** and the monitor is not available: you have to look from a
+terminal.
 
-Vasak Desktop uses Rust's standard logging system. Errors are sent to `stderr` and can be
-viewed in several ways.
+## Getting to a terminal
 
-### 1. Run with logs enabled
+- With the system booted but no desktop, switch to a text terminal with **Ctrl+Alt+F2** (or
+  F3 through F6) and log in with your user and password. To go back to the desktop, try
+  **Ctrl+Alt+F1**.
+- If the machine does not boot, boot from the installation USB in Live mode.
 
-#### See all logs (including errors)
-
-```bash
-RUST_LOG=debug vasak-desktop
-```
-
-#### See only warnings and errors
-
-```bash
-RUST_LOG=warn vasak-desktop
-```
-
-#### Save logs to a file
+## Reading the boot errors
 
 ```bash
-RUST_LOG=debug vasak-desktop 2>&1 | tee vasak-errors-$(date +%Y%m%d).log
+# Errors of the current boot, for the system
+journalctl -b -p err
+
+# Errors of your desktop session
+journalctl --user -b -p err
+
+# The desktop service, with the last lines
+systemctl --user status vasak-desktop.service
+journalctl --user -u vasak-desktop.service -b --no-pager | tail -50
 ```
 
-### 2. Use journalctl (if the app runs as a service)
+`-b` limits it to the current boot and `-p err` keeps the errors. `--no-pager` prints it all
+at once and `tail -50` shows the end, which is the most recent part.
+
+## The desktop's own file
+
+`vasak-desktop` also leaves one file per day, with more detail than what goes to the
+journal:
 
 ```bash
-# See logs in real time at ERROR level or above
-journalctl --user -p err -f | grep vasak
-
-# See the last hour of errors
-journalctl --user -p err --since "1 hour ago" | grep vasak
-
-# See all logs
-journalctl --user | grep vasak
+less ~/.local/share/vasak-desktop/logs/vasak-desktop-$(date +%F).log
 ```
 
-### 3. See errors specific to a component
+## If the machine does not boot
 
-#### Network errors
+Boot from the installation USB in Live mode, mount your installation and get in with
+`arch-chroot`:
 
 ```bash
-RUST_LOG=vasak_desktop::network=debug vasak-desktop 2>&1 | grep -i error
+sudo mount /dev/sdXY /mnt
+sudo arch-chroot /mnt
+journalctl -b -1 -p err
 ```
 
-#### Bluetooth errors
+`-b -1` is the previous boot, the one that failed. From there you can reinstall packages or
+fix the configuration.
+
+## A program that closes on its own
 
 ```bash
-RUST_LOG=vasak_desktop::bluetooth=debug vasak-desktop 2>&1 | grep -i error
-```
-
-#### Audio errors
-
-```bash
-RUST_LOG=vasak_desktop::audio=debug vasak-desktop 2>&1 | grep -i error
-```
-
-#### D-Bus errors
-
-```bash
-# See system D-Bus activity
-dbus-monitor --system | grep -i error
-
-# See user session D-Bus activity
-dbus-monitor --session | grep -i error
-```
-
-## Understanding error messages
-
-### Structure of a log message
-
-```
-[TIMESTAMP] [LEVEL] [MODULE] - MESSAGE
-```
-
-Example:
-```
-[2024-01-12T14:35:22Z] ERROR vasak_desktop::audio - Failed to connect to PulseAudio: Connection refused
-```
-
-- **TIMESTAMP** - Date and time of the error
-- **LEVEL** - Severity level (ERROR, WARN, etc.)
-- **MODULE** - Component that produced the error
-- **MESSAGE** - Description of the problem
-
-### Common errors and what they mean
-
-#### "Connection refused"
-It means an attempt was made to connect to a service (such as PulseAudio or D-Bus) and it
-is not available.
-
-**Common fix:** restart the service
-```bash
-systemctl --user restart pulseaudio
-# or for PipeWire:
-systemctl --user restart pipewire
-```
-
-#### "Permission denied"
-It means the permissions to access a resource are missing.
-
-**Common fix:** check your membership of user groups
-```bash
-# For audio
-sudo usermod -a -G audio $USER
-
-# For bluetooth
-sudo usermod -a -G bluetooth $USER
-```
-
-#### "Failed to load configuration"
-The configuration file is corrupt or cannot be read.
-
-**Common fix:** restore the configuration to default values
-```bash
-# Move the configuration out of the way as a backup
-mv ~/.config/vasak ~/.config/vasak.backup
-
-# On the next run it is recreated with default values
-vasak-desktop
-```
-
-#### "D-Bus service not available"
-A system service is not available.
-
-**Common fix:** check that the services are running
-```bash
-systemctl --user status
-```
-
-## Generating a detailed error report
-
-If you need to share error information for a report:
-
-```bash
-# Run with logs and capture everything
-RUST_LOG=debug vasak-desktop 2>&1 | tee vasak-error-report-$(date +%Y%m%d-%H%M%S).log
-
-# Append system information to the file
-echo "=== SYSTEM INFORMATION ===" >> vasak-error-report-*.log
-echo "Date: $(date)" >> vasak-error-report-*.log
-echo "Distro: $(lsb_release -d)" >> vasak-error-report-*.log
-echo "Kernel: $(uname -r)" >> vasak-error-report-*.log
-echo "Session: $XDG_SESSION_TYPE" >> vasak-error-report-*.log
-```
-
-The generated file can be attached to a GitHub issue.
-
-See also: [how to report bugs](/en/docs/user/report-bugs/)
-
-## Errors in the browser console (developer tools)
-
-If you run Vasak Desktop in development mode:
-
-1. Press `F12` to open the Developer Tools
-2. Go to the **Console** tab
-3. Look for messages in red (errors) or yellow (warnings)
-
-Example of a console error:
-```
-TypeError: Cannot read property 'forEach' of undefined
-    at AudioControl.vue:45:12
-```
-
-## Continuous error monitoring
-
-To monitor errors while you use the application:
-
-```bash
-# Run with logs in a terminal
-RUST_LOG=warn vasak-desktop
-
-# Or watch the system logs in real time
-journalctl --user -f | grep vasak
-```
-
-## Capturing crash information
-
-If the application closes unexpectedly:
-
-```bash
-# See whether there are recent core dumps
+# Was there a core dump?
 coredumpctl list | grep vasak
 
-# See details of the last core dump
+# Details of the last one
 coredumpctl info
-
-# Extract a backtrace from the last crash
-coredumpctl debug
 ```
 
-## Less verbose logs (reducing noise)
+## Trying again
 
-If the logs are too detailed:
+- Restart the desktop: `systemctl --user restart vasak-desktop.service`.
+- Log out and back in.
+- Reboot the machine.
 
-```bash
-# Only critical errors
-RUST_LOG=error vasak-desktop
+## Before reporting
 
-# Only warnings and errors
-RUST_LOG=warn vasak-desktop
-
-# Run without showing errors in the interface
-VASAK_SUPPRESS_ERRORS=1 vasak-desktop
-```
-
-**Note:** this only hides the visual notification; the errors are still written to the logs.
+Gather what you got and follow the [bug report guide](/en/docs/user/report-bugs/). With the
+desktop up, on the other hand, the messages are copied straight from the monitor.

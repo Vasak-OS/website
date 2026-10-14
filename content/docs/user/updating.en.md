@@ -101,7 +101,10 @@ incompatible with the rest of the system.
    sudo arch-chroot /mnt
    ```
 
-   From there you can reinstall packages or read the logs with `journalctl -b -1 -p err`.
+   From there you can reinstall packages or read the boot errors with
+   `journalctl -b -1 -p err`. Once the system boots, those same errors are seen in
+   **System Monitor → Logs** (see
+   [Errors and logs in the monitor](/en/docs/user/monitoring/)).
 
 3. Save those logs: they are exactly what is needed to
    [report the problem](/en/docs/user/report-bugs/).

@@ -71,10 +71,18 @@ faq:
 
   - q: "¿Dónde se guarda mi configuración?"
     a: |
-      En `~/.config/vasak/`. Ahí viven `vasak.conf` con la configuración del sistema y
-      `shortcuts.json` con los atajos de teclado personalizados. Conviene cambiarlos desde
-      Ajustes en vez de editarlos a mano: la interfaz valida los valores y aplica los
-      cambios en el momento.
+      La configuración del sistema vive en `~/.config/vasak/vasak.conf`, un archivo de
+      `clave = valor`. Los atajos de teclado y la distribución del teclado están en
+      `~/.config/wayfire.ini`, la configuración del compositor. Conviene cambiarlos desde
+      **Ajustes** en vez de editarlos a mano: la interfaz valida los valores y los aplica
+      en el momento.
+
+  - q: "¿Dónde veo los errores si algo falla?"
+    a: |
+      En **Monitor del sistema → Registros**. La pantalla muestra los mensajes de las
+      aplicaciones y los servicios, y con la casilla **Sólo errores** quedan únicamente los
+      errores. Está explicado en
+      [Errores y registros en el monitor](/docs/user/monitoring/).
 
   - q: "¿Puedo personalizar los atajos de teclado?"
     a: |

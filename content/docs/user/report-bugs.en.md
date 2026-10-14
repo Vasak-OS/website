@@ -36,16 +36,13 @@ echo "=== SYSTEM ==="
 uname -a
 
 echo -e "\n=== DISTRIBUTION ==="
-cat /etc/os-release | grep PRETTY_NAME
+grep PRETTY_NAME /etc/os-release
 
-echo -e "\n=== VASAK DESKTOP VERSION ==="
-vasak-desktop --version 2>/dev/null || echo "Not installed globally"
+echo -e "\n=== VASAK-DESKTOP VERSION ==="
+pacman -Q vasak-desktop 2>/dev/null || echo "Not installed"
 
-echo -e "\n=== SESSION MANAGER ==="
-echo $XDG_SESSION_TYPE
-
-echo -e "\n=== SCREENS ==="
-xrandr --query 2>/dev/null | grep connected || wayland-info 2>/dev/null | head -20
+echo -e "\n=== SESSION ==="
+echo "$XDG_SESSION_TYPE ($XDG_CURRENT_DESKTOP)"
 ```
 
 ### Steps to reproduce
@@ -61,18 +58,17 @@ List the exact steps to reproduce the error:
 
 ### Relevant logs
 
-Gather the logs following this guide:
+The messages are copied from the **System Monitor**, on the **Logs** screen (see
+[Errors and logs in the monitor](/en/docs/user/monitoring/)):
 
-```bash
-# Run the application with detailed logs
-RUST_LOG=debug vasak-desktop 2>&1 | tee ~/vasak-debug-$(date +%Y%m%d-%H%M%S).log
+1. Open **System Monitor → Logs**.
+2. In **Application** leave **The whole ecosystem** and turn on **Errors only**.
+3. Reproduce the error and copy the messages from that moment, with the time.
 
-# Reproduce the error, then capture the log file
-```
-
-Include both:
-- The generated log file
-- The output of the terminal where you ran the command
+If the desktop does not start, the same messages come out of the journal with
+`journalctl`, as told in [The desktop does not start](/en/docs/user/errors/). And if the
+failure is in the desktop itself, its file for the day carries more detail:
+`~/.local/share/vasak-desktop/logs/vasak-desktop-YYYY-MM-DD.log`.
 
 ### Useful attachments
 
@@ -81,7 +77,7 @@ If relevant, include:
 - **Video** - If it is hard to reproduce in text
 - **Configuration file** - If the error is related to the configuration
   ```bash
-  cat ~/.config/vasak/system_config.json
+  cat ~/.config/vasak/vasak.conf
   ```
 
 ## Report template
@@ -104,9 +100,9 @@ Use this template when creating an issue:
 [What actually happens]
 
 ## System information
-- OS: [e.g: Linux - Fedora 40]
-- Vasak Desktop version: [e.g: 0.5.2]
-- Session type: [X11 / Wayland]
+- OS: [e.g: VasakOS (Arch Linux)]
+- vasak-desktop version: [output of `pacman -Q vasak-desktop`]
+- Session type: Wayland
 - GPU: [e.g: NVIDIA / AMD / Intel]
 
 ## Logs
@@ -136,7 +132,7 @@ $(uname -a)
 $(cat /etc/os-release | grep PRETTY_NAME)
 
 ## Version
-$(vasak-desktop --version 2>/dev/null || echo "Unknown")
+$(pacman -Q vasak-desktop 2>/dev/null || echo "Unknown")
 
 ## Logs
 EOF
@@ -179,12 +175,10 @@ coredumpctl info [number]
 
 ### Gather debug information
 
-```bash
-# Run with maximum verbosity
-RUST_LOG=trace RUST_BACKTRACE=1 vasak-desktop 2>&1 | tee crash-$(date +%s).log
-
-# Reproduce the crash
-```
+The desktop's file for the day already carries the detail of the crash: reproduce the
+failure and attach `~/.local/share/vasak-desktop/logs/vasak-desktop-YYYY-MM-DD.log` together
+with the output of `coredumpctl info`. The messages from the other applications are copied
+from **System Monitor → Logs**.
 
 ### Attach to the report
 
@@ -200,19 +194,18 @@ If the error is related to:
 
 ```bash
 # Capture Bluetooth information
-hciconfig -a
+rfkill list bluetooth
 bluetoothctl show
-journalctl --user -u bluetooth -n 100
+journalctl -u bluetooth -n 100
 ```
 
-### Audio (PulseAudio)
+### Audio (PipeWire)
 
 ```bash
 # Audio information
-pactl info
-pactl list sinks short
-pactl list sources short
-journalctl --user | grep -i pulse | tail -50
+wpctl status
+systemctl --user status pipewire wireplumber --no-pager
+journalctl --user -u wireplumber | tail -50
 ```
 
 ### Network/WiFi
@@ -221,7 +214,7 @@ journalctl --user | grep -i pulse | tail -50
 # Network information
 nmcli device
 nmcli radio
-journalctl --user | grep -i network | tail -50
+journalctl -u NetworkManager | tail -50
 ```
 
 ## Following up on the report

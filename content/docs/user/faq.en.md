@@ -70,10 +70,16 @@ faq:
 
   - q: "Where is my configuration stored?"
     a: |
-      In `~/.config/vasak/`. That is where `vasak.conf` holds the system configuration and
-      `shortcuts.json` the custom keyboard shortcuts. It is best to change them from Settings
-      rather than editing them by hand: the interface validates the values and applies the
-      changes immediately.
+      The system configuration lives in `~/.config/vasak/vasak.conf`, a `key = value` file.
+      Keyboard shortcuts and the keyboard layout live in `~/.config/wayfire.ini`, the
+      compositor's configuration. It is best to change them from **Settings** rather than
+      editing them by hand: the interface validates the values and applies them immediately.
+
+  - q: "Where do I see the errors if something fails?"
+    a: |
+      In **System Monitor → Logs**. The screen shows the messages from the applications and
+      the services, and with the **Errors only** box only the errors remain. It is explained
+      in [Errors and logs in the monitor](/en/docs/user/monitoring/).
 
   - q: "Can I customise the keyboard shortcuts?"
     a: |
