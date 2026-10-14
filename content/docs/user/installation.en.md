@@ -9,7 +9,7 @@ Arch Linux you already have, skip to [package repository](/en/docs/user/reposito
 
 ## Before you start
 
-- **Make a backup.** Any installation can touch the partition table. VasakOS is in Alpha;
+- **Make a backup.** Any installation can touch the partition table. VasakOS is in Beta;
   treat it accordingly.
 - You will need an 8 GB USB stick or larger and an internet connection during the
   installation.
