@@ -1,142 +1,62 @@
 ---
 title: "Logs y diagnóstico"
 weight: 45
-description: "Dónde viven los logs de VasakOS y cómo leerlos para entender qué falló."
+description: "Dónde quedan los mensajes de VasakOS: la pantalla Registros del monitor del sistema y los archivos de log que escribe cada aplicación."
 ---
 
-## Sistema de Logging
+Los **errores** de VasakOS se ven en el **Monitor del sistema**, en la pantalla
+**Registros**. Esta página explica además dónde queda cada archivo, por si hay que
+adjuntarlo a un reporte.
 
-Vasak Desktop utiliza el sistema de logging estándar de Rust mediante el crate `log`. Los mensajes de registro **no se guardan en archivos** por defecto, sino que se envían a la salida de error estándar (`stderr`).
+## Los errores, en el monitor
 
-## Cómo ver los logs
+Abre **Monitor del sistema → Registros** y activa **Sólo errores**. La pantalla lee el
+diario del sistema del arranque actual y lo acota por aplicación; está explicada en
+[Errores y registros en el monitor](/docs/user/monitoring/).
 
-### Ejecutar con logs habilitados
+El monitor necesita el escritorio en marcha. Si el problema es justamente que el escritorio
+no arranca, la vía es la terminal: ver [El escritorio no arranca](/docs/user/errors/).
 
-Para ver los logs al ejecutar la aplicación, usa la variable de entorno `RUST_LOG`:
+## El archivo de log del escritorio
+
+Además del diario, `vasak-desktop` escribe su propio archivo, con más detalle del que va al
+diario:
+
+```
+~/.local/share/vasak-desktop/logs/vasak-desktop-AAAA-MM-DD.log
+```
+
+Es un archivo por día y se conservan los últimos siete: los más viejos se borran solos. Ahí
+queda todo lo que pasa en el escritorio —errores y avisos incluidos—, y es lo que conviene
+mirar cuando el escritorio hace algo raro.
+
+## Desde la terminal
+
+El diario completo se consulta con `journalctl`, sin interfaz. Es la misma información que
+muestra el monitor:
 
 ```bash
-# Ver todos los logs (muy detallado)
-RUST_LOG=debug vasak-desktop
+# Errores del arranque actual, del sistema
+journalctl -b -p err
 
-# Ver solo advertencias y errores
-RUST_LOG=warn vasak-desktop
+# Errores del arranque actual, de tu sesión de escritorio
+journalctl --user -b -p err
 
-# Ver logs específicos de un módulo
-RUST_LOG=vasak_desktop::audio=debug vasak-desktop
+# Un servicio puntual
+journalctl --user -u vasak-desktop.service -b
 ```
 
-**Niveles de log disponibles:**
-- `error` - Solo errores críticos
-- `warn` - Advertencias y errores
-- `info` - Información general + warn + error
-- `debug` - Información detallada (recomendado para depuración)
-- `trace` - Extremadamente detallado (para desarrollo)
+`-b` limita al arranque actual y `-p err` deja los errores. Para seguirlos en vivo, agrega
+`-f`; para ver todo, sin filtrar por nivel, quita el `-p err`.
 
-### Ver logs si ejecutas desde un lanzador
+## Exportar para un reporte
 
-Si inicias Vasak Desktop desde un lanzador de aplicaciones o al iniciar sesión, puedes ver los logs con `journalctl`:
+Para adjuntar los mensajes a un [reporte de error](/docs/user/report-bugs/), guarda la
+salida en un archivo:
 
 ```bash
-# Ver logs en tiempo real
-journalctl --user -f | grep vasak
-
-# Ver logs recientes
-journalctl --user --since "10 minutes ago" | grep vasak
-
-# Ver solo errores
-journalctl --user -p err | grep vasak
+journalctl -b -p err --no-pager > errores-$(date +%F).log
+journalctl --user -b -p err --no-pager >> errores-$(date +%F).log
 ```
 
-### Redirigir logs a un archivo
-
-Si necesitas guardar los logs en un archivo para análisis:
-
-```bash
-# Guardar logs en un archivo
-RUST_LOG=debug vasak-desktop 2>&1 | tee ~/vasak-desktop.log
-
-# Solo guardar stderr (logs)
-RUST_LOG=debug vasak-desktop 2> ~/vasak-desktop.log
-```
-
-## Archivos de configuración
-
-La configuración del sistema se guarda en:
-
-```
-~/.config/vasak/system_config.json
-```
-
-Este archivo contiene:
-- `dark_mode` - Estado del modo oscuro
-- `icon_pack` - Pack de iconos seleccionado
-- `cursor_theme` - Tema del cursor
-- `gtk_theme` - Tema GTK
-
-## Depuración avanzada
-
-Los archivos de log contienen información con diferentes niveles de detalle:
-
-- **DEBUG** - Información detallada para desarrolladores (mucho contenido)
-- **INFO** - Información general sobre el funcionamiento
-- **WARN** - Advertencias (algo podría no funcionar correctamente)
-- **ERROR** - Errores (algo dejó de funcionar)
-- **CRITICAL** - Errores graves que pueden causar crashes
-
-## Limpieza de Logs
-
-Los logs se regeneran automáticamente. Si necesitas limpiar logs antiguos:
-
-```bash
-# Eliminar todos los logs
-rm -rf ~/.local/share/vasak-desktop/logs/
-
-# Eliminar solo logs de más de 30 días
-find ~/.local/share/vasak-desktop/logs -name "*.log" -mtime +30 -delete
-```
-
-## Exportar Logs para Reporte
-
-Si necesitas compartir logs con los desarrolladores:
-
-```bash
-# Ejecutar con logs completos y guardar
-RUST_LOG=debug vasak-desktop 2>&1 | tee vasak-debug-$(date +%Y%m%d-%H%M%S).log
-```
-
-Esto creará un archivo con fecha y hora que puedes adjuntar en un reporte de error.
-
-## Logs de D-Bus
-
-Para depurar la comunicación D-Bus (utilizada para audio, bluetooth, notificaciones):
-
-```bash
-# Ver mensajes D-Bus del sistema
-dbus-monitor --system
-
-# Ver mensajes D-Bus de sesión de usuario
-dbus-monitor --session
-```
-
-## Información adicional
-
-### Verificar si la aplicación está ejecutándose
-
-```bash
-ps aux | grep vasak-desktop
-```
-
-### Ver uso de recursos
-
-```bash
-# CPU y memoria
-top -p $(pgrep vasak-desktop)
-
-# O con htop
-htop -p $(pgrep vasak-desktop)
-```
-
----
-
-**Nota**: Si encuentras un error, consulta la [guía de reporte de errores](/docs/user/report-bugs/) para saber qué información incluir.
-
+Los del monitor se copian directo de la pantalla **Registros**.

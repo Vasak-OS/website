@@ -102,8 +102,10 @@ termina siendo incompatible con el resto del sistema.
    sudo arch-chroot /mnt
    ```
 
-   Desde ahí puedes reinstalar paquetes o revisar los logs con
-   `journalctl -b -1 -p err`.
+   Desde ahí puedes reinstalar paquetes o revisar los errores del arranque con
+   `journalctl -b -1 -p err`. Una vez que el sistema arranca, esos mismos errores se ven en
+   **Monitor del sistema → Registros** (ver
+   [Errores y registros en el monitor](/docs/user/monitoring/)).
 
 3. Guarda esos logs: son exactamente lo que hace falta para
    [reportar el problema](/docs/user/report-bugs/).

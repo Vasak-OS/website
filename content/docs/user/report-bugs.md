@@ -32,20 +32,17 @@ Un buen reporte de error debe incluir:
 
 ```bash
 # Copia y pega el resultado de estos comandos
-echo "=== SISTEMA ===" 
+echo "=== SISTEMA ==="
 uname -a
 
 echo -e "\n=== DISTRIBUCIÓN ==="
-cat /etc/os-release | grep PRETTY_NAME
+grep PRETTY_NAME /etc/os-release
 
-echo -e "\n=== VERSIÓN DE VASAK DESKTOP ==="
-vasak-desktop --version 2>/dev/null || echo "No instalada globalmente"
+echo -e "\n=== VERSIÓN DE VASAK-DESKTOP ==="
+pacman -Q vasak-desktop 2>/dev/null || echo "No instalado"
 
-echo -e "\n=== GESTOR DE SESIÓN ==="
-echo $XDG_SESSION_TYPE
-
-echo -e "\n=== PANTALLAS ==="
-xrandr --query 2>/dev/null | grep connected || wayland-info 2>/dev/null | head -20
+echo -e "\n=== SESIÓN ==="
+echo "$XDG_SESSION_TYPE ($XDG_CURRENT_DESKTOP)"
 ```
 
 ### Pasos para Reproducir
@@ -61,18 +58,17 @@ Lista los pasos exactos para reproducir el error:
 
 ### Logs Relevantes
 
-Recopila los logs siguiendo esta guía:
+Los mensajes se copian desde el **Monitor del sistema**, en la pantalla **Registros** (ver
+[Errores y registros en el monitor](/docs/user/monitoring/)):
 
-```bash
-# Ejecutar la aplicación con logs detallados
-RUST_LOG=debug vasak-desktop 2>&1 | tee ~/vasak-debug-$(date +%Y%m%d-%H%M%S).log
+1. Abre **Monitor del sistema → Registros**.
+2. En **Aplicación** deja **Todo el ecosistema** y activa **Sólo errores**.
+3. Reproduce el error y copia los mensajes del momento, con la hora.
 
-# Reproducer el error, luego captura el archivo de log
-```
-
-Incluye tanto:
-- El archivo de log generado
-- La salida de la terminal donde ejecutaste el comando
+Si el escritorio no arranca, los mismos mensajes salen del diario con `journalctl`, como
+cuenta [El escritorio no arranca](/docs/user/errors/). Y si el fallo es del propio
+escritorio, su archivo del día trae más detalle:
+`~/.local/share/vasak-desktop/logs/vasak-desktop-AAAA-MM-DD.log`.
 
 ### Adjuntos Útiles
 
@@ -81,7 +77,7 @@ Si es relevante, incluye:
 - **Video** - Si es difícil de reproducir en texto
 - **Archivo de configuración** - Si el error está relacionado con configuración
   ```bash
-  cat ~/.config/vasak/system_config.json
+  cat ~/.config/vasak/vasak.conf
   ```
 
 ## Plantilla para Reporte
@@ -104,9 +100,9 @@ Usa esta plantilla al crear un issue:
 [Qué sucede realmente]
 
 ## Información del Sistema
-- OS: [ej: Linux - Fedora 40]
-- Versión Vasak Desktop: [ej: 0.5.2]
-- Tipo de Sesión: [X11 / Wayland]
+- OS: [ej: VasakOS (Arch Linux)]
+- Versión de vasak-desktop: [salida de `pacman -Q vasak-desktop`]
+- Tipo de Sesión: Wayland
 - GPU: [ej: NVIDIA / AMD / Intel]
 
 ## Logs
@@ -136,7 +132,7 @@ $(uname -a)
 $(cat /etc/os-release | grep PRETTY_NAME)
 
 ## Versión
-$(vasak-desktop --version 2>/dev/null || echo "Desconocida")
+$(pacman -Q vasak-desktop 2>/dev/null || echo "Desconocida")
 
 ## Logs
 EOF
@@ -179,12 +175,10 @@ coredumpctl info [number]
 
 ### Recolecta Información de Debug
 
-```bash
-# Ejecutar con máxima verbosidad
-RUST_LOG=trace RUST_BACKTRACE=1 vasak-desktop 2>&1 | tee crash-$(date +%s).log
-
-# Reproduce el crash
-```
+El archivo del día del escritorio ya trae el detalle del cierre: reproduce el fallo y
+adjunta `~/.local/share/vasak-desktop/logs/vasak-desktop-AAAA-MM-DD.log` junto con la salida
+de `coredumpctl info`. Los mensajes de las demás aplicaciones se copian desde
+**Monitor del sistema → Registros**.
 
 ### Adjunta al Reporte
 
@@ -200,19 +194,18 @@ Si el error es relacionado con:
 
 ```bash
 # Captura información de Bluetooth
-hciconfig -a
+rfkill list bluetooth
 bluetoothctl show
-journalctl --user -u bluetooth -n 100
+journalctl -u bluetooth -n 100
 ```
 
-### Audio (PulseAudio)
+### Audio (PipeWire)
 
 ```bash
 # Información de audio
-pactl info
-pactl list sinks short
-pactl list sources short
-journalctl --user | grep -i pulse | tail -50
+wpctl status
+systemctl --user status pipewire wireplumber --no-pager
+journalctl --user -u wireplumber | tail -50
 ```
 
 ### Red/WiFi
@@ -221,7 +214,7 @@ journalctl --user | grep -i pulse | tail -50
 # Información de red
 nmcli device
 nmcli radio
-journalctl --user | grep -i network | tail -50
+journalctl -u NetworkManager | tail -50
 ```
 
 ## Seguimiento del Reporte
