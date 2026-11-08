@@ -42,7 +42,7 @@ Documenta todo lo que no sea obvio:
 /// 
 /// # Returns
 /// El volumen en porcentaje (0-100)
-pub fn get_volume() -> Result<u32> {
+pub fn get_audio_volume() -> Result<u32> {
     // Implementación
 }
 ```
@@ -150,7 +150,7 @@ if (condition)       // ❌
 <script setup lang="ts">
 // Importa en orden: externos, internos, tipos
 import { ref, computed, onMounted } from 'vue';
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/core';
 
 import Button from '@/components/buttons/Button.vue';
 import type { Device } from '@/interfaces/device';
@@ -209,7 +209,7 @@ onMounted(() => {
 ```typescript
 // ✅ Manejo explícito
 try {
-  const volume = await invoke('get_volume') as number;
+  const volume = await invoke('get_audio_volume') as number;
   handleVolumeUpdate(volume);
 } catch (error) {
   console.error('Error al obtener volumen:', error);
@@ -217,7 +217,7 @@ try {
 }
 
 // ❌ Ignorar errores
-const volume = await invoke('get_volume');
+const volume = await invoke('get_audio_volume');
 handleVolumeUpdate(volume); // ¿Qué si falla?
 ```
 
@@ -274,7 +274,7 @@ let long_name = function_with_many_arguments(
 ///
 /// # Errors
 /// Retorna error si D-Bus no está disponible
-pub fn get_volume() -> Result<u32> {
+pub fn get_audio_volume() -> Result<u32> {
     // implementación
 }
 
@@ -312,7 +312,7 @@ impl AudioService {
     }
 
     // Métodos públicos
-    pub fn get_volume(&self) -> Result<u32> {
+    pub fn get_audio_volume(&self) -> Result<u32> {
         // ...
     }
 
@@ -327,7 +327,7 @@ impl AudioService {
 
 ```rust
 // ✅ Usar Result<T>
-pub fn set_volume(level: u32) -> Result<()> {
+pub fn set_audio_volume(level: u32) -> Result<()> {
     if level > 100 {
         return Err(Error::InvalidVolume);
     }
@@ -385,9 +385,9 @@ mod tests {
     }
     
     #[tokio::test]
-    async fn test_get_volume() {
+    async fn test_get_audio_volume() {
         // Para tests async
-        let result = get_volume().await;
+        let result = get_audio_volume().await;
         assert!(result.is_ok());
     }
 }

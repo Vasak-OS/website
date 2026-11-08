@@ -83,7 +83,8 @@ El instalador es **Vasak Installer** y se abre desde el icono del escritorio.
    - *Manual*: si sabes lo que haces. Como mínimo necesitas una partición raíz `/` de
      20 GB y, en equipos UEFI, una partición EFI de 512 MB montada en `/boot/efi`.
 4. **Usuario y contraseña.** La contraseña del usuario también sirve para desbloquear el
-   [llavero de claves](/state/).
+   [llavero de claves](/docs/user/security/). Si más tarde la cambiás, el llavero se vuelve
+   a cifrar con la nueva y sigue abriéndose con la contraseña de la cuenta.
 5. **Resumen y confirmación.** Es el último punto en el que puedes volver atrás.
 
 Al terminar, reinicia y quita el pendrive.

@@ -48,10 +48,11 @@ sentido en Linux lo declaran, con la dependencia de sistema que necesitan.
 - [config-manager](/docs/devs/tauri-plugins/config-manager/) — Lee y escribe la configuración de VasakOS en tiempo real, y deriva el esquema de color del fondo de pantalla.
 - [user-data](/docs/devs/tauri-plugins/user-data/) — Los datos de la cuenta que inició sesión: nombre, foto y carpetas del sistema.
 - [i18n](/docs/devs/tauri-plugins/i18n/) — Traducciones para las aplicaciones, con el idioma del sistema como valor por omisión.
+- [vsk-store](/docs/devs/tauri-plugins/vsk-store/) — El almacén del sistema: pedir una vuelta al sincronizador, leer el estado y enterarse de los cambios.
 
 ### Interfaz
 - [vicons](/docs/devs/tauri-plugins/vicons/) — Íconos del tema del sistema como data URI para `<img>`, con caché y aviso de cambios de tema.
-- [vsk-journal](/docs/devs/tauri-plugins/vsk-journal/) — Un registro de lo que hace la aplicación, a la terminal y a la consola del navegador.
+- [vsk-journal](/docs/devs/tauri-plugins/vsk-journal/) — Lo que hace la aplicación, al diario del sistema con su nombre; también recoge los errores de la interfaz.
 - [vsk-contextual-menu](/docs/devs/tauri-plugins/vsk-contextual-menu/) — El menú contextual del sistema, dibujado en una ventana propia o dentro de la página.
 - [drag-and-drop-wayland](/docs/devs/tauri-plugins/drag-and-drop-wayland/) — Arrastrar y soltar nativo en Wayland, para mover archivos dentro y fuera de la aplicación.
 

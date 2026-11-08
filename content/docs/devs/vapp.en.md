@@ -127,6 +127,9 @@ URL.
 - `useConfigStore()` from the settings plugin, and `App.vue` listening for
   `config-changed` so the theme change applies without restarting. Colors come
   from CSS variables (`--use-*`), not fixed values.
+- `src/tools/theme-cache.ts` saves the applied theme and a script in the `<head>`
+  of `index.html` reapplies it before mounting: without it the window opens with
+  the default scheme and shifts to the user's with the 300 ms fade.
 - Buttons, fields, cards, menus, tabs, bubbles and dialogs come from
   `@vasakgroup/vue-libvasak`; an application does not draw its own. The shape —
   radii, borders, shadows, states and timings— comes from
@@ -159,6 +162,21 @@ and interpolation markers. The template ships both sides wired up:
 - `tests/interpolar.test.ts` — interpolation, with the three `$` cases.
 - `tests/design-guard.test.ts` — the design guard: scheme colors, system radii,
   theme icons and no screen breakpoints.
+- `tests/marco.test.ts` — the window frame, which is the mould every other
+  application is born from.
+- `tests/theme-cache.test.ts` — the saved theme, reapplied before mounting.
+- `tests/csp.test.ts` — that the URL recorded when a resource is blocked carries
+  no credentials into the log.
+- `tests/deb-depends.test.ts` — that the `.deb` declares what the binary links,
+  measured with `readelf`.
+- `tests/tipos-de-libvasak.test.ts` — that no file shadows the types the library
+  publishes.
+- `tests/typecheck-mira-los-vue.test.ts` — that the type check looks at the
+  `.vue` files and does not finish at zero without opening them.
+- `tests/rasgo-custom-protocol.test.ts` — that the template declares the feature
+  that opens the compiled window.
+- `tests/la-plantilla-no-copia.test.ts` — that the template ships no copies of
+  what the library already exports.
 - `src-tauri/tests/locales.rs` — that the catalogs parse, share the same keys,
   hold no empty text and match their markers.
 - `src-tauri/src/locales.rs` — language detection.

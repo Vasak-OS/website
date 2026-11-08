@@ -25,7 +25,7 @@ Guía para desarrollar componentes Vue en Vasak Desktop.
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/core';
 import { listen, UnlistenFn } from '@tauri-apps/api/event';
 
 import type { Device } from '@/interfaces/device';
@@ -53,7 +53,7 @@ const isActive = computed(() => !props.disabled && !isLoading.value);
 async function loadVolume() {
   try {
     isLoading.value = true;
-    volume.value = await invoke<number>('get_volume');
+    volume.value = await invoke<number>('get_audio_volume');
   } catch (error) {
     console.error('Error loading volume:', error);
   } finally {
@@ -63,7 +63,7 @@ async function loadVolume() {
 
 async function handleVolumeChange() {
   try {
-    await invoke('set_volume', { level: volume.value });
+    await invoke('set_audio_volume', { volume: volume.value });
   } catch (error) {
     console.error('Error setting volume:', error);
   }
@@ -215,7 +215,7 @@ Para lógica compartida entre componentes:
 ```typescript
 // src/composables/useAudio.ts
 import { ref, onMounted, onUnmounted } from 'vue';
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/core';
 import { listen, UnlistenFn } from '@tauri-apps/api/event';
 
 export function useAudio() {
@@ -229,7 +229,7 @@ export function useAudio() {
   async function loadVolume() {
     try {
       isLoading.value = true;
-      volume.value = await invoke<number>('get_volume');
+      volume.value = await invoke<number>('get_audio_volume');
       isMuted = await invoke<boolean>('get_mute_status');
     } catch (error) {
       console.error('Error loading audio:', error);
@@ -240,7 +240,7 @@ export function useAudio() {
 
   async function setVolume(newVolume: number) {
     try {
-      await invoke('set_volume', { level: newVolume });
+      await invoke('set_audio_volume', { volume: newVolume });
       volume.value = newVolume;
     } catch (error) {
       console.error('Error setting volume:', error);
@@ -249,7 +249,7 @@ export function useAudio() {
 
   async function toggleMute() {
     try {
-      await invoke('toggle_mute');
+      await invoke('toggle_audio_mute');
       isMuted.value = !isMuted.value;
     } catch (error) {
       console.error('Error toggling mute:', error);
@@ -300,19 +300,19 @@ export default {
 ### Invocar Comandos
 
 ```typescript
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/core';
 
 // Sin argumentos
 const version = await invoke<string>('get_version');
 
 // Con argumentos
-const result = await invoke('set_volume', {
+const result = await invoke('set_audio_volume', {
   level: 50
 });
 
 // Con manejo de errores
 try {
-  await invoke('set_volume', { level: 150 }); // Invalid
+  await invoke('set_audio_volume', { volume: 150 }); // Invalid
 } catch (error) {
   console.error('Validation error:', error);
 }

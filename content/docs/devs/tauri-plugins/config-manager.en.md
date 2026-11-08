@@ -9,7 +9,7 @@ weight: 1
 Reads and writes the VasakOS configuration (`vasak.conf`) and tells every open
 application when it changes. It also ships the Pinia store that applies it, the
 color and contrast helpers, and since 2.10.0 the calculation of the color scheme
-from the wallpaper.
+from the wallpaper. Since 2.13.0 it also carries the desktop text size.
 
 - **Crate:** `tauri-plugin-config-manager`
 - **JS package:** `@vasakgroup/plugin-config-manager`
@@ -112,7 +112,7 @@ Returns the Pinia store `useConfigStore`, which exposes:
 - `config: Ref<VSKConfig | null>` — the loaded configuration.
 - `loadConfig(): Promise<void>` — reads it, adds or removes the `dark` class on
   `:root`, writes every CSS variable of the scheme, applies the three fonts and
-  enables the fade between schemes.
+  the text size, and enables the fade between schemes.
 
 The store is defined once, so every call returns the same store.
 
@@ -138,6 +138,34 @@ Turns `style.border` into the two variables of the outer border:
 `--window-border-width` and `--ui-window-border`. Anything unrecognized falls back
 to the usual border: thin and scheme-colored. The `WindowBorder` type has
 `width` (`"normal"`, `"thick"` or `"heavy"`) and `color` (`"scheme"` or `"accent"`).
+
+### Text scale
+
+`fonts.scale` in `vasak.conf` is the text size of the whole desktop, as a factor:
+`1` is the usual one. It is applied on the three sides at once, with the same
+limits, because a VasakOS application and a GTK one next to it have to look alike.
+
+#### `escalaDeFuente(valor): number`
+
+The scale that gets applied: the configured one, clamped between `ESCALA_MINIMA`
+(`0.75`) and `ESCALA_MAXIMA` (`2`). Anything that is not a finite number reads as
+`1`: an invented scale does not cost the whole configuration file.
+
+#### `propiedadesDeEscala(valor): { variable, tamanoBase }`
+
+What is written on the root element for a scale: `variable` is the factor for
+`--vsk-font-scale`, and `tamanoBase` the base font size as a percentage —what every
+`rem` moves—. With the scale at `1`, `tamanoBase` is `null`: nothing is written and
+whatever was there is removed, so an application that sets its own in its stylesheet
+keeps it instead of having a 100 % nobody asked for written over it.
+
+`loadConfig` applies both to `:root` on every load.
+
+#### `ESCALA_MINIMA` and `ESCALA_MAXIMA`
+
+`0.75` and `2`. Below that it cannot be read and above it fixed-size windows break.
+They are the same numbers the Rust side uses, and GTK and Qt receive them through
+`gsettings`' `text-scaling-factor`, which is only written when it changed.
 
 ### Schemes
 

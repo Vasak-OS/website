@@ -9,7 +9,8 @@ weight: 1
 Lee y escribe la configuración de VasakOS (`vasak.conf`) y avisa a todas las
 aplicaciones abiertas cuando cambia. Trae además el store de Pinia que la
 aplica, las utilidades de color y contraste, y desde la 2.10.0 el cálculo del
-esquema de color a partir del fondo de pantalla.
+esquema de color a partir del fondo de pantalla. Desde la 2.13.0 lleva también el
+tamaño del texto del escritorio.
 
 - **Crate:** `tauri-plugin-config-manager`
 - **Paquete JS:** `@vasakgroup/plugin-config-manager`
@@ -111,8 +112,8 @@ Devuelve el store de Pinia `useConfigStore`, que expone:
 
 - `config: Ref<VSKConfig | null>` — la configuración cargada.
 - `loadConfig(): Promise<void>` — la lee, pone o quita la clase `dark` en
-  `:root`, escribe todas las variables CSS del esquema, aplica las tres fuentes
-  y habilita el fundido entre esquemas.
+  `:root`, escribe todas las variables CSS del esquema, aplica las tres fuentes y
+  el tamaño del texto, y habilita el fundido entre esquemas.
 
 El store se define una sola vez, así que todas las llamadas devuelven la misma
 tienda.
@@ -139,6 +140,35 @@ Traduce `style.border` a las dos variables del borde de afuera:
 `--window-border-width` y `--ui-window-border`. Lo desconocido cae en el borde de
 siempre: fino y del color del esquema. El tipo `WindowBorder` tiene
 `width` (`"normal"`, `"thick"` o `"heavy"`) y `color` (`"scheme"` o `"accent"`).
+
+### Escala del texto
+
+`fonts.scale` en `vasak.conf` es el tamaño del texto de todo el escritorio, como
+factor: `1` es el de siempre. Se aplica en los tres lados a la vez, y con los
+mismos límites, porque una aplicación propia y una GTK al lado tienen que verse
+igual.
+
+#### `escalaDeFuente(valor): number`
+
+La escala que se aplica: la configurada, acotada entre `ESCALA_MINIMA` (`0,75`) y
+`ESCALA_MAXIMA` (`2`). Lo que no es un número finito se lee como `1`: una escala
+inventada no cuesta el archivo de configuración entero.
+
+#### `propiedadesDeEscala(valor): { variable, tamanoBase }`
+
+Lo que se escribe en el elemento raíz para una escala: `variable` es el factor para
+`--vsk-font-scale`, y `tamanoBase` el tamaño de letra base en porcentaje —lo que
+mueven todos los `rem`—. Con la escala en `1`, `tamanoBase` es `null`: no se escribe
+nada y se quita lo que hubiera, para que una aplicación que fija el suyo en su hoja
+de estilo lo conserve en vez de ver pisado un 100 % que nadie pidió.
+
+`loadConfig` aplica las dos cosas sobre `:root` en cada carga.
+
+#### `ESCALA_MINIMA` y `ESCALA_MAXIMA`
+
+`0,75` y `2`. Por debajo no se lee y por encima las ventanas de tamaño fijo se
+rompen. Son los mismos números que usa el lado de Rust, y GTK y Qt los reciben por
+`text-scaling-factor` de `gsettings`, que sólo se escribe cuando cambió.
 
 ### Esquemas
 

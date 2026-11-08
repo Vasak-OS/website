@@ -133,7 +133,7 @@ eprintln!("Error: {}", error);
 
 ```rust
 // The dbg! macro
-let volume = dbg!(get_volume()); // Prints the value and returns it
+let volume = dbg!(get_audio_volume()); // Prints the value and returns it
 
 // assert!/assert_eq!
 assert_eq!(volume, 50, "Volume should be 50");
@@ -196,10 +196,10 @@ lldb target/debug/vasak-desktop
 **Frontend**:
 ```typescript
 // Before calling the command
-console.log('Calling:', 'set_volume', { level: 50 });
+console.log('Calling:', 'set_audio_volume', { volume: 50 });
 
 // In the call
-const result = await invoke('set_volume', { level: 50 });
+const result = await invoke('set_audio_volume', { volume: 50 });
 
 console.log('Result:', result);
 ```
@@ -207,8 +207,8 @@ console.log('Result:', result);
 **Backend**:
 ```rust
 #[tauri::command]
-pub fn set_volume(level: u32) -> Result<(), String> {
-    eprintln!("📡 IPC set_volume called with level: {}", level);
+pub async fn set_audio_volume(volume: i64) -> Result<(), String> {
+    eprintln!("📡 IPC set_audio_volume called with level: {}", level);
     // implementation
 }
 ```
@@ -344,13 +344,13 @@ perf report
 
 ```typescript
 // See the promise state
-const promise = invoke('get_volume');
+const promise = invoke('get_audio_volume');
 console.log(promise); // See in the console what it does
 
 // Using async/await
 async function checkVolume() {
   try {
-    const volume = await invoke('get_volume');
+    const volume = await invoke('get_audio_volume');
     console.log('Volume:', volume);
   } catch (error) {
     console.error('Error:', error);
