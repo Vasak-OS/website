@@ -197,7 +197,7 @@ const { list, containerProps, wrapperProps } = useVirtualList(
 ```vue
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 
 const searchQuery = ref('')
 const results = ref<SearchResult[]>([])
@@ -273,7 +273,7 @@ const filteredApps = computed(() => {
 ```typescript
 // stores/audio.ts
 import { defineStore } from 'pinia'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 
 export const useAudioStore = defineStore('audio', () => {
@@ -331,7 +331,7 @@ export const useAudioStore = defineStore('audio', () => {
 ```typescript
 // composables/useBackendCommand.ts
 import { ref } from 'vue'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 
 export function useBackendCommand<T, P = void>(
   command: string
@@ -367,7 +367,7 @@ export function useBackendCommand<T, P = void>(
 
 // Uso en componente
 const { loading, error, data, execute } = useBackendCommand<SystemInfo>(
-  'get_system_info'
+  'system_stats'
 )
 
 onMounted(() => {
@@ -381,26 +381,26 @@ onMounted(() => {
 
 ```vue
 <script setup lang="ts">
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 
-const brightness = ref(50)
+const volume = ref(50)
 const isUpdating = ref(false)
 const updateError = ref<string | null>(null)
 
 // ✅ Manejo completo de async con loading y errores
-async function updateBrightness(newValue: number) {
+async function updateVolume(newValue: number) {
   isUpdating.value = true
   updateError.value = null
 
   try {
-    await invoke('set_brightness_info', { brightness: newValue })
-    brightness.value = newValue
+    await invoke('set_audio_volume', { volume: newValue })
+    volume.value = newValue
   } catch (error) {
-    updateError.value = 'Failed to update brightness'
-    console.error('Brightness update failed:', error)
+    updateError.value = 'No se pudo cambiar el volumen'
+    console.error('Falló el cambio de volumen:', error)
     
     // Revertir al valor anterior
-    // brightness permanece sin cambios
+    // volume queda como estaba
   } finally {
     isUpdating.value = false
   }
@@ -408,8 +408,8 @@ async function updateBrightness(newValue: number) {
 
 // ❌ Evitar esto
 // async function badUpdate(value: number) {
-//   await invoke('set_brightness_info', { brightness: value })
-//   brightness.value = value // ¿Y si falla?
+//   await invoke('set_audio_volume', { volume: value })
+//   volume.value = value // ¿Y si falla?
 // }
 </script>
 ```
@@ -673,7 +673,7 @@ import { describe, it, expect, vi } from 'vitest'
 import AudioControl from './AudioControl.vue'
 
 // Mock Tauri
-vi.mock('@tauri-apps/api/tauri', () => ({
+vi.mock('@tauri-apps/api/core', () => ({
   invoke: vi.fn()
 }))
 

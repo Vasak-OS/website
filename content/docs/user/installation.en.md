@@ -84,7 +84,8 @@ The installer is **Vasak Installer** and it opens from the icon on the desktop.
    - *Manual*: if you know what you are doing. At minimum you need a 20 GB root `/`
      partition and, on UEFI machines, a 512 MB EFI partition mounted at `/boot/efi`.
 4. **User and password.** The user's password is also used to unlock the
-   [keyring](/en/state/).
+   [keyring](/en/docs/user/security/). If you change it later, the keyring is re-encrypted
+   with the new one and keeps opening with the account password.
 5. **Summary and confirmation.** This is the last point at which you can go back.
 
 When it finishes, reboot and remove the USB stick.

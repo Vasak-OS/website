@@ -230,20 +230,18 @@ graph LR
     Backend --> Utils["📁 utils/<br/><small>Utility functions</small>"]
     
     Commands --> AudioCmd["📄 audio.rs<br/><small>Audio control</small>"]
-    Commands --> BluetoothCmd["📄 bluetooth.rs<br/><small>Bluetooth control</small>"]
-    Commands --> NetworkCmd["📄 network.rs<br/><small>Network control</small>"]
-    Commands --> BrightnessCmd["📄 brightness.rs<br/><small>Brightness control</small>"]
+    Commands --> AppletsCmd["📄 applets.rs<br/><small>Panel applets</small>"]
     Commands --> NotificationsCmd["📄 notifications.rs<br/><small>Notification system</small>"]
-    Commands --> ShortcutsCmd["📄 shortcuts.rs<br/><small>Shortcut management</small>"]
-    Commands --> SearchCmd["📄 search.rs<br/><small>App search</small>"]
-    Commands --> SystemConfigCmd["📄 system_config.rs<br/><small>OS configuration</small>"]
-    Commands --> ThemeCmd["📄 theme.rs<br/><small>GTK themes, icons</small>"]
+    Commands --> MenuCmd["📄 menu.rs<br/><small>Application menu</small>"]
+    Commands --> ClipboardCmd["📄 clipboard.rs<br/><small>Clipboard history</small>"]
     Commands --> SessionCmd["📄 session.rs<br/><small>Logout, shutdown, suspend</small>"]
+    Commands --> TrayCmd["📄 tray.rs<br/><small>System tray</small>"]
     
-    WindowMgr --> WinMod["📄 window_controller.rs"]
+    WindowMgr --> WinMod["📄 wayland.rs"]
+    WindowMgr --> WinPresent["📄 present.rs"]
     
-    Utils --> UtilShortcuts["📁 shortcuts/"]
-    Utils --> UtilSearch["📁 search/"]
+    Utils --> UtilCommand["📄 command.rs"]
+    Utils --> UtilPerf["📄 performance.rs"]
     
     style Backend fill:#667eea,stroke:#764ba2,color:#fff
     style Main fill:#4facfe,stroke:#00f2fe,color:#fff
@@ -256,15 +254,12 @@ graph LR
     style Tray fill:#fa709a,stroke:#f5576c,color:#fff
     style Utils fill:#4facfe,stroke:#00f2fe,color:#fff
     style AudioCmd fill:#43e97b,stroke:#38f9d7,color:#fff
-    style BluetoothCmd fill:#f093fb,stroke:#f5576c,color:#fff
-    style NetworkCmd fill:#fa709a,stroke:#f5576c,color:#fff
-    style BrightnessCmd fill:#feca57,stroke:#ff9a56,color:#fff
+    style AppletsCmd fill:#f093fb,stroke:#f5576c,color:#fff
     style NotificationsCmd fill:#43e97b,stroke:#38f9d7,color:#fff
-    style ShortcutsCmd fill:#feca57,stroke:#ff9a56,color:#fff
-    style SearchCmd fill:#feca57,stroke:#ff9a56,color:#fff
-    style SystemConfigCmd fill:#4facfe,stroke:#00f2fe,color:#fff
-    style ThemeCmd fill:#feca57,stroke:#ff9a56,color:#fff
+    style MenuCmd fill:#feca57,stroke:#ff9a56,color:#fff
+    style ClipboardCmd fill:#4facfe,stroke:#00f2fe,color:#fff
     style SessionCmd fill:#f093fb,stroke:#f5576c,color:#fff
+    style TrayCmd fill:#fa709a,stroke:#f5576c,color:#fff
 {{< /mermaid >}}
 
 **Backend responsibilities**:
@@ -320,7 +315,7 @@ sequenceDiagram
     PiniaStore->>PiniaStore: updates local state
     deactivate PiniaStore
     
-    VueComponent->>BackendHandler: invoke('set_audio_volume', {level: 50})
+    VueComponent->>BackendHandler: invoke('set_audio_volume', {volume: 50})
     deactivate VueComponent
     
     activate BackendHandler
@@ -343,7 +338,7 @@ sequenceDiagram
     deactivate DBusEvent
     deactivate BackendRust
     
-    BackendRust->>VueComponent: event('audio_volume_changed', newValue)
+    BackendRust->>VueComponent: event('volume-changed', newValue)
     activate VueComponent
     VueComponent->>User: Reflects the visual change
     deactivate VueComponent
@@ -429,9 +424,9 @@ graph LR
     SrcTauri --> Commands["📁 commands/<br/><small>IPC commands</small>"]
     SrcTauri --> WinMgr["📁 window_manager/<br/><small>Window management</small>"]
     SrcTauri --> AudioRs["📄 audio.rs<br/><small>Audio control</small>"]
-    SrcTauri --> BrightRs["📄 brightness.rs<br/><small>Brightness control</small>"]
-    SrcTauri --> BTRs["📄 bluetooth.rs<br/><small>Bluetooth control</small>"]
-    SrcTauri --> NetRs["📄 network.rs<br/><small>Network control</small>"]
+    SrcTauri --> BrightRs["📄 applets/brightness.rs<br/><small>Brightness control</small>"]
+    SrcTauri --> BTRs["📄 applets/bluetooth.rs<br/><small>Bluetooth control</small>"]
+    SrcTauri --> NetRs["📄 applets/network.rs<br/><small>Network control</small>"]
     SrcTauri --> NotifRs["📄 notifications.rs<br/><small>Notification system</small>"]
     SrcTauri --> DBusRs["📄 dbus_service.rs<br/><small>D-Bus integration</small>"]
     SrcTauri --> EventsRs["📄 eventloops.rs<br/><small>Event loops</small>"]
@@ -442,16 +437,17 @@ graph LR
     SrcTauri --> Utils["📁 utils/<br/><small>Utility functions</small>"]
     SrcTauri --> WinApps["📁 windows_apps/<br/><small>Application handling</small>"]
     
-    Commands --> AudioCmd["📄 audio_commands.rs"]
-    Commands --> BTCmd["📄 bluetooth_commands.rs"]
-    Commands --> NetCmd["📄 network_commands.rs"]
+    Commands --> AudioCmd["📄 audio.rs"]
+    Commands --> BTCmd["📄 applets.rs"]
+    Commands --> NetCmd["📄 tray.rs"]
     
     WinMgr --> ModWin["📄 mod.rs"]
     WinMgr --> WinCtrl["📄 window_controller.rs"]
     WinMgr --> MonMgr["📄 monitor_handler.rs"]
     
     Tray --> ModTray["📄 mod.rs"]
-    Tray --> TrayIcon["📄 tray_icon.rs"]
+    Tray --> TrayIcon["📄 sni_watcher.rs"]
+    Tray --> TrayMenu["📄 dbus_menu.rs"]
     
     style SrcTauri fill:#667eea,stroke:#764ba2,color:#fff
     style Commands fill:#4facfe,stroke:#00f2fe,color:#fff
@@ -488,14 +484,14 @@ For system events:
 
 ```rust
 // Backend: emit the event
-window.emit("audio_volume_changed", {level: 50})?;
+window.emit("volume-changed", {current: 50})?;
 ```
 
 ```js
 // Frontend: listen for the event
 onMounted(() => {
-  listen('audio_volume_changed', (event) => {
-    state.volume = event.payload.level;
+  listen('volume-changed', (event) => {
+    state.volume = event.payload.current;
   });
 });
 ```
@@ -504,8 +500,8 @@ onMounted(() => {
 
 Every feature has its own service layer:
 - `audio.rs` - Audio service
-- `network.rs` - Network service
-- `bluetooth.rs` - Bluetooth service
+- `applets/network.rs` - Network service
+- `applets/bluetooth.rs` - Bluetooth service
 
 ## Information Flows
 
@@ -513,19 +509,18 @@ Every feature has its own service layer:
 
 ```typescript
 // Frontend
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/core';
 
-const result = await invoke('set_brightness', { 
-  level: 75 
+await invoke('set_audio_volume', {
+  volume: 50
 });
 ```
 
 ```rust
 // Backend
 #[tauri::command]
-pub fn set_brightness(level: u32) -> Result<(), String> {
-    brightness::set_level(level)?;
-    Ok(())
+pub async fn set_audio_volume(volume: i64, app: AppHandle) -> Result<(), String> {
+    audio::set_volume(volume, app)
 }
 ```
 
@@ -533,8 +528,8 @@ pub fn set_brightness(level: u32) -> Result<(), String> {
 
 ```rust
 // Backend
-window.emit("brightness_changed", json!({
-    "level": 75
+window.emit("volume-changed", json!({
+    "current": 50
 }))?;
 ```
 
@@ -542,8 +537,8 @@ window.emit("brightness_changed", json!({
 // Frontend
 import { listen } from '@tauri-apps/api/event';
 
-listen('brightness_changed', (event) => {
-  console.log('Brightness:', event.payload.level);
+listen('volume-changed', (event) => {
+  console.log('Volume:', event.payload.current);
 });
 ```
 

@@ -99,7 +99,7 @@ pub fn get_config(state: State<AppConfig>) -> Result<String, String> {
 
 ## Registrar Comandos
 
-En `src/main.rs` o `src/lib.rs`:
+En `src-tauri/src/main.rs` o `src-tauri/src/lib.rs`:
 
 ```rust
 use tauri::Manager;

@@ -163,7 +163,7 @@ impl DbusService {
 - Connect/Disconnect
 - Read properties
 
-**Code**: `src-tauri/src/bluetooth.rs`
+**Code**: `src-tauri/src/applets/bluetooth.rs`
 
 #### Network (NetworkManager)
 
@@ -180,7 +180,7 @@ impl DbusService {
 - Connect to WiFi
 - Get connection properties
 
-**Code**: `src-tauri/src/network.rs`
+**Code**: `src-tauri/src/applets/network.rs`
 
 #### Notifications (Freedesktop)
 

@@ -264,21 +264,6 @@ graph TD
 - Procesar datos
 - Manejar lógica compleja
 
-### `src/types/`
-
-Definiciones de tipos TypeScript:
-
-{{< mermaid >}}
-graph TD
-    Types["📁 src/types/"]
-    Types --> LibVasakTypes["📄 vue-libvasak.d.ts<br/><small>Tipos de librerías externas</small>"]
-    
-    style Types fill:#667eea,stroke:#764ba2,color:#fff
-    style LibVasakTypes fill:#fa709a,stroke:#f5576c,color:#fff
-{{< /mermaid >}}
-
-**Uso**: Extiende tipos de librerías o define tipos globales
-
 ### `src/views/`
 
 Vistas/Páginas principales:

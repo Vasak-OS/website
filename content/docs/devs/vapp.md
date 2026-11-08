@@ -128,6 +128,9 @@ protocolo de assets.
 - `useConfigStore()` del plugin de configuración, y `App.vue` escuchando
   `config-changed` para que el cambio de tema se aplique sin reiniciar. Los
   colores salen de variables CSS (`--use-*`), no de valores fijos.
+- `src/tools/theme-cache.ts` guarda el tema aplicado y un script en el `<head>` de
+  `index.html` lo reaplica antes de montar: sin eso la ventana abre con el esquema
+  por defecto y vira al del usuario con el fade de 300 ms.
 - Los botones, campos, tarjetas, menús, pestañas, globos y diálogos salen de
   `@vasakgroup/vue-libvasak`; una aplicación no dibuja los suyos. La forma —radios,
   bordes, sombras, estados y tiempos— viene de
@@ -160,6 +163,21 @@ plurales y marcadores de interpolación. La plantilla trae los dos lados armados
 - `tests/interpolar.test.ts` — la interpolación, con los tres casos del `$`.
 - `tests/design-guard.test.ts` — la guardia del diseño: colores del esquema,
   radios del sistema, iconos del tema y sin puntos de corte de la pantalla.
+- `tests/marco.test.ts` — el marco de la ventana, que es el molde del que nacen
+  las demás aplicaciones.
+- `tests/theme-cache.test.ts` — el tema guardado, que se reaplica antes de montar.
+- `tests/csp.test.ts` — que la URL que se registra al bloquearse un recurso no
+  lleve credenciales al diario.
+- `tests/deb-depends.test.ts` — que el `.deb` declare lo que el binario enlaza,
+  medido con `readelf`.
+- `tests/tipos-de-libvasak.test.ts` — que ningún archivo tape los tipos que publica
+  la librería.
+- `tests/typecheck-mira-los-vue.test.ts` — que el chequeo de tipos mire los `.vue`
+  y no termine en cero sin haberlos abierto.
+- `tests/rasgo-custom-protocol.test.ts` — que la plantilla declare el rasgo que
+  abre la ventana compilada.
+- `tests/la-plantilla-no-copia.test.ts` — que la plantilla no traiga copias de lo
+  que la librería ya exporta.
 - `src-tauri/tests/locales.rs` — que los catálogos parseen, tengan las mismas
   claves, ningún texto vacío y los marcadores coincidan.
 - `src-tauri/src/locales.rs` — la detección de idioma.
