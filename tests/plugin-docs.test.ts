@@ -1,5 +1,5 @@
 // Las páginas de `content/docs/devs/tauri-plugins/` describen plugins que viven
-// en otros once repositorios: el sitio no compila nada de ellos y nada avisa
+// en otros doce repositorios: el sitio no compila nada de ellos y nada avisa
 // cuando su API cambia. Un comando que se renombra, una sección que se cae al
 // reescribir una página o un idioma que se queda atrás no rompen el build: la
 // página sigue publicada, ofreciendo algo que ya no existe.
@@ -14,7 +14,7 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync, readFileSync } from "node:fs";
 
-/** Los once plugins documentados, en el orden de la fuente. */
+/** Los doce plugins documentados, en el orden de la fuente. */
 const PLUGINS = [
   "bluetooth-manager",
   "config-manager",
@@ -27,6 +27,7 @@ const PLUGINS = [
   "vicons",
   "vsk-contextual-menu",
   "vsk-journal",
+  "vsk-store",
 ] as const;
 
 /**
@@ -117,6 +118,8 @@ const COMANDOS: Record<string, string[]> = {
   ],
   // tauri-plugin-vsk-journal/src/lib.rs:154
   "vsk-journal": ["registrar", "identificador"],
+  // tauri-plugin-vsk-store/src/lib.rs:60
+  "vsk-store": ["request_sync", "sync_status"],
 };
 
 /** Los dos idiomas del sitio, con los títulos que usa cada uno. */
@@ -250,7 +253,7 @@ describe("las páginas de los plugins de Tauri", () => {
     expect(faltantes).toEqual([]);
   });
 
-  test("el índice enlaza las once páginas en los dos idiomas", () => {
+  test("el índice enlaza las doce páginas en los dos idiomas", () => {
     // El índice es la puerta de entrada: una página que no está enlazada existe
     // y no se encuentra.
     const faltantes: string[] = [];
