@@ -9,7 +9,7 @@ tags:
   - "tauri"
 date: "2026-10-11"
 img: "https://i.ytimg.com/vi/h5K1UfeYFkw/maxresdefault.jpg"
-description: "Italian channel Linux Distros focused on what makes VasakOS different: a desktop, apps and services built for the system with Rust and CSS. Thanks for the technical look."
+description: "Italian channel Linux Distros focused on what makes VasakOS different: a desktop, apps and services built for the system with Rust and CSS."
 layout: post
 ---
 

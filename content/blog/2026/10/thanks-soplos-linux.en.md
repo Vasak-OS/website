@@ -6,10 +6,10 @@ tags:
   - "community"
   - "soplos-linux"
   - "vasak-installer"
-  - "vasak-file-manager"
+  - "vasak file manager"
 date: "2026-10-19"
 img: "https://i.ytimg.com/vi/0_Qkd3Ewdns/maxresdefault.jpg"
-description: "Soplos Linux tried VasakOS on VMware, Virt-Manager and Proxmox. We thank them for the review and go through every point they raised, the ones already fixed and the ones we're still working on."
+description: "Soplos Linux tried VasakOS on VMware, Virt-Manager and Proxmox. We go through every point they raised: what's fixed and what we're still working on."
 layout: post
 ---
 

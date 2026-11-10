@@ -9,7 +9,7 @@ tags:
   - "tauri"
 date: "2026-10-11"
 img: "https://i.ytimg.com/vi/h5K1UfeYFkw/maxresdefault.jpg"
-description: "El canal italiano Linux Distros puso el foco en lo que hace distinta a VasakOS: un escritorio, apps y servicios hechos a medida con Rust y CSS. Gracias por la mirada técnica."
+description: "El canal italiano Linux Distros puso el foco en lo que hace distinta a VasakOS: un escritorio, apps y servicios hechos a medida con Rust y CSS."
 layout: post
 ---
 
