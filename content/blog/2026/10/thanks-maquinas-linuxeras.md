@@ -25,7 +25,7 @@ Repasamos cada punto del video. Los que ya están resueltos los dejamos marcados
 
 - 🔧 **El instalador no toma la opción del combo al elegirla con el mouse** (hay que apretar Enter, y si no te das cuenta queda la opción vieja). Lo estamos corrigiendo: [vasak-installer#91](https://github.com/Vasak-OS/vasak-installer/issues/91).
 - 🔧 **No hay atajo directo `Super+1…4` para saltar entre escritorios** (hoy va con el mouse o con el overview). Vamos a sumar el salto directo por número: [vasak-desktop-settings#14](https://github.com/Vasak-OS/vasak-desktop-settings/issues/14).
-- ✅ **El pendrive nuevo no se detectaba ni se montaba en el gestor de archivos.** Ya resuelto: [vasak-file-manager#44](https://github.com/Vasak-OS/vasak-file-manager/issues/44).
+- ✅ **Al hacer clic en una unidad no se montaba ni se abría** (y menos si estaba cifrada). Resuelto: [vasak-file-manager#44](https://github.com/Vasak-OS/vasak-file-manager/issues/44). 🔎 La detección automática de una unidad recién enchufada la seguimos revisando.
 - ✅ **La tienda todavía no instalaba aplicaciones.** La tienda ya descubre, busca e instala (incluido el AUR): [vasak-store#5](https://github.com/Vasak-OS/vasak-store/issues/5) y [vasak-store#1](https://github.com/Vasak-OS/vasak-store/issues/1).
 - ✅ **El WebKit consumía de más y se sentía pesado.** Afinamos el WebKit de las apps para bajar el consumo: [vasak-desktop#265](https://github.com/Vasak-OS/vasak-desktop/issues/265). Es una mejora que seguimos puliendo.
 

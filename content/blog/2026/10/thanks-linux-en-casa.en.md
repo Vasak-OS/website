@@ -22,10 +22,10 @@ Over at **[Linux en Casa](https://www.youtube.com/watch?v=02CL5nXxwqU)** they ro
 ## What you pointed out, and where it stands
 
 - 🔧 **In the virtual machine the cursor showed up inverted and doubled** (you had to export `WLR_NO_HARDWARE_CURSORS=1` by hand). We want to detect the virtual environment and do it automatically, so it just works: [vasak-desktop-settings#15](https://github.com/Vasak-OS/vasak-desktop-settings/issues/15).
-- 🔧 **The keyboard started in English in the live session** (you fixed it by editing `wifier.ini`). Under review: [vasak-installer#92](https://github.com/Vasak-OS/vasak-installer/issues/92).
+- 🔧 **The keyboard started in English in the live session** (you fixed it by editing `wayfire.ini`). Under review: [vasak-installer#92](https://github.com/Vasak-OS/vasak-installer/issues/92).
 - 🔧 **No manual partitioning.** Tracked as a feature to add: [vasak-installer#85](https://github.com/Vasak-OS/vasak-installer/issues/85).
 - ✅ **It felt heavy** (Wayfire + WebKit). We tuned the apps' WebKit to cut usage: [vasak-desktop#265](https://github.com/Vasak-OS/vasak-desktop/issues/265); we keep improving performance.
-- 🔧 **Shortcuts had to be read from `wifier.ini`** and jumping between workspaces wasn't obvious. We'll add direct shortcuts by number: [vasak-desktop-settings#14](https://github.com/Vasak-OS/vasak-desktop-settings/issues/14).
+- 🔧 **Shortcuts had to be read from `wayfire.ini`** and jumping between workspaces wasn't obvious. We'll add direct shortcuts by number: [vasak-desktop-settings#14](https://github.com/Vasak-OS/vasak-desktop-settings/issues/14).
 
 As you rightly noted, the cursor thing is a side effect of virtualization —it doesn't happen on real hardware— but we still want the virtual-machine experience to be smooth out of the box. And thanks for highlighting the **native Rust applications**, the **browser, driver and printer** picker in the installer, and the **administrator account** prompt: those are decisions we care about.
 

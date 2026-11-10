@@ -25,7 +25,7 @@ We went through every point in the video. The ones already fixed are marked; the
 
 - 🔧 **The installer didn't pick the combo option when you chose it with the mouse** (you had to press Enter, and if you didn't notice, the old option stayed). We're fixing it: [vasak-installer#91](https://github.com/Vasak-OS/vasak-installer/issues/91).
 - 🔧 **No direct `Super+1…4` shortcut to jump between workspaces** (today it's mouse or the overview). We'll add the direct jump by number: [vasak-desktop-settings#14](https://github.com/Vasak-OS/vasak-desktop-settings/issues/14).
-- ✅ **A new USB drive wasn't detected or mounted in the file manager.** Already fixed: [vasak-file-manager#44](https://github.com/Vasak-OS/vasak-file-manager/issues/44).
+- ✅ **Clicking a drive didn't mount or open it** (and never if it was encrypted). Fixed: [vasak-file-manager#44](https://github.com/Vasak-OS/vasak-file-manager/issues/44). 🔎 Auto-detecting a freshly plugged-in drive is still something we're reviewing.
 - ✅ **The store didn't install apps yet.** It now discovers, searches and installs (AUR included): [vasak-store#5](https://github.com/Vasak-OS/vasak-store/issues/5) and [vasak-store#1](https://github.com/Vasak-OS/vasak-store/issues/1).
 - ✅ **WebKit used too much memory and felt heavy.** We tuned the apps' WebKit to cut usage: [vasak-desktop#265](https://github.com/Vasak-OS/vasak-desktop/issues/265). It's an improvement we keep polishing.
 
