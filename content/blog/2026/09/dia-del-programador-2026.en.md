@@ -4,7 +4,6 @@ tags: ["programmer", "programmers-day", "tauri", "wireplumber", "wayfire", "wayl
 date: "2026-09-13"
 img: "/img/posts/programador-2026.svg"
 description: "Day 256 (13 Sep): Programmer's Day. Thanks to Tauri, WirePlumber, Wayfire and all upstream making VasakOS possible."
-weight: 10
 layout: post
 ---
 

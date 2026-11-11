@@ -4,7 +4,6 @@ tags: ["programador", "dia-del-programador", "tauri", "wireplumber", "wayfire", 
 date: "2026-09-13"
 img: "/img/posts/programador-2026.svg"
 description: "Día 256 (13 sep): Día del Programador. Gracias a Tauri, WirePlumber, Wayfire y todo upstream que hace posible VasakOS."
-weight: 10
 layout: post
 ---
 

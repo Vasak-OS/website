@@ -5,7 +5,6 @@ tags: ["linux", "anniversary", "kernel", "vasakos", "open-source", "arch-linux",
 date: "2026-10-15"
 img: "/img/posts/linux-35.svg"
 description: "This October marks 35 years since the official Linux release (0.02, October 5, 1991). Discover how that small kernel made VasakOS on Arch Linux possible."
-weight: 10
 layout: post
 ---
 

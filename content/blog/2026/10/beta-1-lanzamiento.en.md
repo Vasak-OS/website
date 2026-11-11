@@ -5,7 +5,6 @@ tags: ["beta", "release", "iso", "downloads", "wayland", "rust"]
 date: "2026-10-04"
 img: "/img/posts/beta1-banner.jpg"
 description: "VasakOS Beta 1 is here: first complete release with graphical installer, all native apps working, and a Wayland desktop ready for daily use."
-weight: 10
 layout: post
 ---
 
