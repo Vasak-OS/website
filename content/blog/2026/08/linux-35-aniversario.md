@@ -4,7 +4,6 @@ tags: ["linux", "aniversario", "kernel", "torvalds", "historia", "open-source"]
 date: "2026-08-25"
 img: "/img/posts/linux-35.svg"
 description: "35 años de Linux: el 25/08/1991 Linus anunció su hobby. Hoy impulsa el 96 % de servidores, Android y VasakOS."
-weight: 10
 layout: post
 ---
 

@@ -5,7 +5,6 @@ tags: ["vasakos", "inteligencia artificial", "ia", "desarrollo", "transparencia"
 date: "2026-10-14"
 img: "/img/posts/ia-vasakos.svg"
 description: "Cómo usamos asistencia de IA en VasakOS: qué hacemos, qué no, por qué el código sigue siendo responsabilidad humana y cómo puedes colaborar."
-weight: 10
 layout: post
 ---
 

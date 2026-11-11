@@ -5,7 +5,6 @@ tags: ["vasakos", "artificial intelligence", "ai", "development", "transparency"
 date: "2026-10-14"
 img: "/img/posts/ia-vasakos.svg"
 description: "How we use AI assistance at VasakOS: what we do, what we don't, why the code stays a human responsibility, and how you can help."
-weight: 10
 layout: post
 ---
 

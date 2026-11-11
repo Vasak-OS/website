@@ -4,7 +4,6 @@ tags: ["arch-linux", "aniversario", "rolling-release", "pacman", "aur", "histori
 date: "2026-03-11"
 img: "/img/posts/arch-24.svg"
 description: "24 años de Arch: el 11/03/2002 salió Arch 0.1 Homer. Su filosofía KISS y rolling release son la base de VasakOS."
-weight: 10
 layout: post
 ---
 
