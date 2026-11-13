@@ -115,6 +115,7 @@ describe("las claves que piden las plantillas", () => {
     const texto = readFileSync(ruta, "utf8");
     for (const m of texto.matchAll(/\bT\s+"([^"]+)"/g)) pedidos.add(m[1]);
     for (const m of texto.matchAll(/\bT\s*\(?\s*printf\s+"([^"]+)"/g)) formatos.add(m[1]);
+    for (const m of texto.matchAll(/"featureKey"\s+"([^"]+)"/g)) pedidos.add(m[1]);
   }
 
   test("existen en los dos idiomas", () => {
