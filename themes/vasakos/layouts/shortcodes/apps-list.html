@@ -29,7 +29,7 @@
         <p class="text-tx-muted text-sm mb-4">{{ .text }}</p>
         <a href="{{ .repo }}" target="_blank" rel="noopener"
           class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-text hover:underline">
-          Ver código
+          {{ T "apps.viewCode" }}
           <i class="fa-brands fa-github" aria-hidden="true"></i>
         </a>
       </div>
@@ -41,7 +41,7 @@
   {{- if gt $data.extra 0 }}
   <section class="mt-12 p-6 rounded-xl border border-ui-border bg-ui-surface text-tx-muted">
     <p class="mb-2"><strong>{{ T "state.extraPackages" (dict "Count" $data.extra) }}</strong></p>
-    <p class="text-sm">El repositorio publica además paquetes de soporte (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch).</p>
+    <p class="text-sm">{{ T "apps.extraPackagesDetail" }}</p>
   </section>
   {{- end }}
 </div>
