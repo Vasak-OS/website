@@ -48,6 +48,61 @@
     note = "Tabla honesta: qué hacemos distinto y en qué las otras ganan."
     button = "Ver la comparación"
 
+[comparison]
+  [comparison.intro]
+    title = "Una comparación sin trucos"
+    text = "Cada distribución tiene sus fortalezas. Aquí ponemos VasakOS junto a otras opciones basadas en Arch para que puedas elegir con información clara."
+    subtitle = "No buscamos decir que una sea mejor para todo el mundo: mostramos qué hacemos distinto y en qué las otras pueden ganar."
+  [comparison.distros]
+    eyebrow = "Las distribuciones"
+    title = "Conoce las alternativas"
+    manjaro.tag = "Fácil de empezar"
+    manjaro.desc = "Una distribución accesible y consolidada, con herramientas propias para administrar el sistema."
+    endeavour.tag = "Minimalista"
+    endeavour.desc = "Una base limpia y cercana a Arch para quienes prefieren construir su escritorio paso a paso."
+    garuda.tag = "Potente"
+    garuda.desc = "Una distribución orientada al rendimiento y los juegos, con una estética llamativa."
+    vasak.tag = "Nuestro enfoque"
+    vasak.desc = "Un escritorio propio en Wayland, aplicaciones nativas en Rust y una interfaz modificable con CSS."
+  [comparison.table]
+    eyebrow = "Al grano"
+    title = "Qué incluye cada una"
+    feature = "Característica"
+    yes = "Sí"
+    no = "No"
+  [comparison.features]
+    desktop = "Escritorio propio"
+    wayland = "Wayland como base"
+    rust = "Aplicaciones nativas en Rust"
+    css = "Interfaz modificable con CSS"
+    telemetry = "Telemetría opcional"
+    repo = "Repositorios adicionales"
+    installer = "Instalador gráfico propio"
+  [comparison.others.manjaro]
+    title = "Herramientas listas para usar"
+    text = "Manjaro ofrece una experiencia amigable, con utilidades propias y una comunidad amplia."
+  [comparison.others.endeavour]
+    title = "Una base cercana a Arch"
+    text = "EndeavourOS mantiene una experiencia sencilla y cercana a Arch, ideal para aprender y personalizar."
+  [comparison.others.garuda]
+    title = "Diseñada para el rendimiento"
+    text = "Garuda apuesta por una experiencia visual potente y herramientas pensadas para jugar."
+  [comparison.vasak]
+    eyebrow = "Lo que hace diferente a VasakOS"
+    desktop.title = "Un escritorio propio"
+    desktop.text = "VasakOS no se limita a empaquetar un escritorio existente: construye una experiencia coherente desde cero."
+    wayland.title = "Wayland desde el inicio"
+    wayland.text = "La sesión está pensada para Wayland, con una base moderna y preparada para el futuro."
+    css.title = "Tu interfaz, tus reglas"
+    css.text = "Puedes modificar la apariencia del sistema con CSS, sin tener que rehacer toda la aplicación."
+    telemetry.title = "Sin telemetría obligatoria"
+    telemetry.text = "El sistema no necesita vigilarte para funcionar. Tú decides qué información compartir."
+    repo.title = "Código abierto de verdad"
+    repo.text = "El desarrollo ocurre a la vista de todos, con código y decisiones públicas."
+  [comparison.cta]
+    title = "¿Listo para probar VasakOS?"
+    body = "Descarga la imagen y descubre un escritorio Linux pensado para sentirse tuyo."
+
 [404]
   notFound = "Esta página no existe"
   explanation = "El enlace puede estar viejo o mal escrito. Estos son los lugares a los que suele querer llegar la gente:"
