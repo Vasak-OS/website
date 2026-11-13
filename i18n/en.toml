@@ -128,9 +128,6 @@
   discord_desc = "Chat server with support, development and off-topic channels."
   reddit = "Reddit"
   reddit_desc = "Community in Spanish for discussion, tutorials and news."
-  stars = "Stars on GitHub"
-  members = "Members on Telegram"
-  downloads = "Downloads on SourceForge"
   join = "Join the community"
 
 [community_cta]

@@ -132,9 +132,6 @@
   discord_desc = "Servidor de chat con canales de soporte, desarrollo y off-topic."
   reddit = "Reddit"
   reddit_desc = "Comunidad en español para discusión, tutoriales y noticias."
-  stars = "Estrellas en GitHub"
-  members = "Miembros en Telegram"
-  downloads = "Descargas en SourceForge"
   join = "Únete a la comunidad"
 
 [community_cta]

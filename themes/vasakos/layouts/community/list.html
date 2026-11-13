@@ -46,38 +46,8 @@
           "color" "text-tx-main"
           "bg" "bg-white/50 dark:bg-ui-bg/5") }}
     </div>
-  </div>
-</section>
-
-{{/* Sección de contadores reales */}}
-<section class="bg-ui-bg/80 py-20">
-  <div class="mx-auto max-w-screen-xl px-4">
-    <div class="mx-auto mb-12 max-w-3xl text-center">
-      <span class="inline-flex items-center gap-2 rounded-full bg-brand-text/10 px-4 py-1.5 text-sm font-semibold text-brand-text shadow-sm">
-        <i class="fa-solid fa-chart-pie"></i>
-        {{ T "community.stars" }}
-      </span>
-      <h2 class="section-title mt-6 text-3xl font-bold text-tx-main sm:text-4xl tracking-tight">Contadores reales</h2>
     </div>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-3 px-4">
-      {{ partial "community/counter.html" (dict
-          "label" (T "community.stars")
-          "icon" "fa-brands fa-github"
-          "id" "counter-github-stars"
-          "color" "text-brand-text") }}
-      {{ partial "community/counter.html" (dict
-          "label" (T "community.members")
-          "icon" "fa-brands fa-telegram"
-          "id" "counter-telegram-members"
-          "color" "text-brand-text") }}
-      {{ partial "community/counter.html" (dict
-          "label" (T "community.downloads")
-          "icon" "fa-solid fa-download"
-          "id" "counter-sourceforge-downloads"
-          "color" "text-tx-main") }}
-    </div>
-  </div>
-</section>
+  </section>
 
 {{/* CTA final */}}
 <section class="relative overflow-hidden rounded-xl border border-ui-border bg-gradient-brand-secondary text-white mx-auto max-w-screen-xl px-4 mt-20">
@@ -106,6 +76,5 @@
     </div>
   </section>
 
-{{ partial "community/counter-scripts.html" . }}
 </main>
 {{ end }}
