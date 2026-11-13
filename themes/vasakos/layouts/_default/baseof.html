@@ -31,6 +31,7 @@
    elemento al que se le cambia la clase del modo — `:where` y capas no alcanzan
    a un elemento al que no se le pone nada, y un `!important` habría sido peor. */}}
 <body class="transition-colors duration-200">
+  <a href="#main" class="skip-link">{{ T "a11y.skipLink" }}</a>
   {{- partial "header.html" . -}}
 
   {{/* No <main> wrapper here on purpose: the home page and the section

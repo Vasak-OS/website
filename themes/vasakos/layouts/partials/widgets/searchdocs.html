@@ -111,8 +111,15 @@
 		let s = 0;
 		const title = (item.title || '').toLowerCase();
 		const content = (item.content || '').toLowerCase();
-		if (title.includes(qi)) s += 6; // mayor peso al título
-		if (content.includes(qi)) s += 4;
+		const summary = (item.summary || '').toLowerCase();
+		// Coincidencia exacta de palabra en el título: el mayor peso.
+		if (title.split(/\s+/).includes(qi)) s += 10;
+		else if (title.startsWith(qi)) s += 8;
+		else if (title.includes(qi)) s += 6;
+		if (summary.split(/\s+/).includes(qi)) s += 5;
+		else if (summary.includes(qi)) s += 4;
+		if (content.split(/\s+/).includes(qi)) s += 3;
+		else if (content.includes(qi)) s += 2;
 		return s;
 	};
 
@@ -135,9 +142,12 @@
 		return (start > 0 ? '…' : '') + plain.slice(start, end) + (end < plain.length ? '…' : '');
 	};
 
+	let activeIndex = -1;
+
 	const renderResults = (items, q) => {
 		if (!items.length) {
 			resultsEl.innerHTML = '<p class="text-center text-tx-muted py-8">' + {{ T "search.noResults" | jsonify }} + '</p>';
+			activeIndex = -1;
 			return;
 		}
 		/* Cada resultado es una `.card .card-hover`: el radio de 16, el borde y la
@@ -146,8 +156,8 @@
 		   resultados con radios distintos entre sí se leen como diez cosas
 		   distintas—. El título conserva `hover:underline`: `hover:text-secondary`
 		   daría 3.51:1 sobre la superficie y este es texto de 14 px. */
-		resultsEl.innerHTML = items.map(item => `
-			<article class="card card-hover p-4">
+		resultsEl.innerHTML = items.map((item, i) => `
+			<article class="card card-hover p-4 ${i === activeIndex ? 'ring-2 ring-brand-text' : ''}" data-result="${i}">
 				<a href="${item.permalink}" class="text-sm font-semibold text-brand-text hover:underline flex items-center gap-2">
 					<i class="fa-solid fa-file-lines" aria-hidden="true"></i>
 					${highlight(item.title, q)}
@@ -184,11 +194,27 @@
 	input.addEventListener('input', onSearch);
 	closeBtn.addEventListener('click', hideModal);
 	backdrop.addEventListener('click', hideModal);
-	
+
 	// Cerrar con ESC
 	document.addEventListener('keydown', (e) => {
 		if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
 			hideModal();
+			activeIndex = -1;
+		}
+		// Navegar resultados con flechas
+		if (!modal.classList.contains('hidden') && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+			e.preventDefault();
+			const cards = resultsEl.querySelectorAll('[data-result]');
+			if (!cards.length) return;
+			if (e.key === 'ArrowDown') activeIndex = (activeIndex + 1) % cards.length;
+			else activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+			cards.forEach((c, i) => c.classList.toggle('ring-2 ring-brand-text', i === activeIndex));
+			cards[activeIndex]?.scrollIntoView({ block: 'nearest' });
+		}
+		// Enter abre el resultado activo
+		if (!modal.classList.contains('hidden') && e.key === 'Enter' && activeIndex >= 0) {
+			const link = resultsEl.querySelector(`[data-result="${activeIndex}"] a`);
+			if (link) link.click();
 		}
 	});
 })();

@@ -36,6 +36,14 @@
   releaseNote = "Version {{ .Channel }}: usable every day for testing, still not recommended as your only system."
   seeWhatWorks = "See what works today"
 
+  [home.comparison]
+    eyebrow = "Honest comparison"
+    title = "VasakOS against other Arch-based distros"
+    subtitle = "We compare against Manjaro, EndeavourOS and Garuda: what we do differently and where the others win."
+    vsTitle = "We compare with"
+    note = "Honest table: what we do differently and where the others win."
+    button = "See the comparison"
+
 [404]
   notFound = "This page does not exist"
   explanation = "The link may be old or mistyped. These are the places people are usually trying to reach:"
@@ -103,7 +111,6 @@
   repoOf = "Repository for {{ .Repo }}"
   extraPackages = "The repository also publishes {{ .Count }} support packages (keyring, mirror list, icon theme, wallpapers, and dependencies that are not in Arch)."
   howToAdd = "How to add the repository"
-  seeRoadmap = "See the roadmap"
   showMore = "Show more"
   showLess = "Show less"
 
@@ -223,22 +230,21 @@
 
 [footer]
   links = "Site links"
+  rss = "RSS feed"
   softwareDev = "Software development"
   privacy = "Privacy policy"
   terms = "Terms of service"
   changelogs = "Changelogs"
-  roadmap = "Roadmap"
   rights = "All rights reserved"
   backToTop = "Back to top"
   sourceForge = "VasakOS on SourceForge"
   oinMember = "VasakOS is a member of the Open Invention Network"
-  # Attribution required by CC BY 4.0, the licence of the Font Awesome Free icons.
-  # Not a courtesy: the licence requires visible credit, a link to the licence and
-  # a note that they were modified. The icons are turned into CSS masks with the
-  # SVG paths inlined —see scripts/build-icons.mjs— so they are derivative work.
   iconsCredit = "Icons"
   iconsCreditModified = "adapted to CSS masks"
   iconsLicense = "CC BY 4.0"
+
+[a11y]
+  skipLink = "Skip to content"
 
 [downloads]
   title = "Downloads"
@@ -269,9 +275,8 @@
 [about]
   sourceCode = "Source code"
   behindTitle = "Who is behind it"
-  roadmapLink = "public roadmap"
   behindP1 = "VasakOS is developed by {{ .Group }} together with the community. The project is a member of {{ .Network }}, the patent-defence alliance of the Linux ecosystem."
-  behindP2 = "All of the code is public and under the GPL-3.0 licence. The decisions, the issues and the history of each component can be read on {{ .Code }}, and what is coming next is on the {{ .Roadmap }}."
+  behindP2 = "All of the code is public and under the GPL-3.0 licence. The decisions, the issues and the history of each component can be read on {{ .Code }}."
 
   [about.case.home]
     tag = "AT HOME"

@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@import "syntax.css";
-@import "icons.css";
+@import "./syntax.css";
+@import "./icons.css";
 
 :root {
   /* general */
@@ -1947,4 +1947,10 @@ tbody:has(.extra-row:not(.hidden)) .extra-row:not(.hidden) {
   tbody:has(.extra-row:not(.hidden)) .extra-row:not(.hidden) {
     animation: none;
   }
+}
+
+/* Degradado de marca para cta: de brand-text (rosa) a secondary (morado),
+   usando los tokens del tema para que cambien con el modo oscuro. */
+.bg-gradient-brand-secondary {
+  background-image: linear-gradient(to bottom right, var(--color-brand-text), var(--color-secondary));
 }

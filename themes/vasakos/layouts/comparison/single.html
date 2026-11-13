@@ -1,0 +1,79 @@
+{{ define "main" }}
+{{- $img := .Params.img | default "/img/og-default.jpg" -}}
+{{- $hasImage := and $img (ne $img "") -}}
+
+{{- if $hasImage -}}
+<section class="relative isolate overflow-hidden bg-ui-surface py-16 md:py-24">
+  <div class="mx-auto max-w-screen-xl px-4">
+    <div class="mx-auto mb-12 max-w-3xl text-center">
+      <h1 class="section-title page-title text-3xl font-bold text-tx-main sm:text-5xl">{{ .Title }}</h1>
+      <p class="section-lead mx-auto mt-4 max-w-2xl text-tx-muted">
+        {{ .Description }}
+      </p>
+    </div>
+  </div>
+</section>
+{{- end -}}
+
+<main class="px-4 py-10">
+  <div class="mx-auto max-w-screen-xl px-4">
+    {{ .Content }}
+
+    {{/* Tarjetas comparativas por distro. Cada una resume lo esencial para
+           comparar de un vistazo, sin sustituir la tabla completa de arriba. */}}
+    {{- $distros := slice
+      (dict
+        "name" "Manjaro"
+        "tag" "Facilidad inmediata"
+        "desc" "Repositorios maduros y comunidad enorme. Todo funciona el primer día con el menor esfuerzo."
+        "icon" "fa-brands fa-linux"
+        "color" "text-tx-main")
+      (dict
+        "name" "EndeavourOS"
+        "tag" "Arch puro"
+        "desc" "Básicamente Arch con un instalador amigable. Para quien ya conoce Arch y no quiere cambiar nada."
+        "icon" "fa-solid fa-plug"
+        "color" "text-tx-main")
+      (dict
+        "name" "Garuda"
+        "tag" "Gaming y avanzado"
+        "desc" "Herramientas preconfiguradas, kernels optimizados y opciones listas para usar."
+        "icon" "fa-solid fa-gamepad"
+        "color" "text-tx-main")
+      (dict
+        "name" "VasakOS"
+        "tag" "Propio y moderno"
+        "desc" "Escritorio propio sobre Wayland, apps nativas en Rust, interfaz con CSS y cero telemetría."
+        "icon" "fa-brands fa-rust"
+        "color" "text-brand-text") -}}
+
+    <section class="mt-16">
+      <div class="mx-auto mb-12 max-w-3xl text-center">
+        <span class="inline-flex items-center gap-2 rounded-full bg-brand-text/10 px-4 py-1.5 text-sm font-semibold text-brand-text">
+          <i class="fa-solid fa-layer-group"></i>
+          Un vistazo rápido
+        </span>
+        <h2 class="section-title mt-4 text-3xl font-bold text-tx-main sm:text-4xl">Distribuciones a comparar</h2>
+      </div>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {{- range $distros }}
+        <div class="card p-6 hover:z-30 {{ if eq .name "VasakOS" }}ring-2 ring-brand-text{{ else }}border border-ui-border{{ end }}">
+          <div class="flex items-start gap-3 mb-4">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-ui-bg/80 flex-shrink-0">
+              <i class="{{ .icon }} text-lg {{ .color }}" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-tx-main">{{ .name }}</h3>
+              <span class="inline-flex items-center gap-1 rounded-full bg-ui-bg/80 px-2 py-0.5 text-xs font-medium text-tx-muted uppercase tracking-wider">
+                {{ .tag }}
+              </span>
+            </div>
+          </div>
+          <p class="text-tx-muted text-sm leading-relaxed">{{ .desc }}</p>
+        </div>
+        {{- end }}
+      </div>
+    </section>
+  </div>
+</main>
+{{ end }}

@@ -6,6 +6,7 @@ node_modules/
 # corrida, no código.
 /coverage/
 resources/_gen/
+themes/vasakos/assets/css/styles.compiled.css
 .hugo_build.lock
 
 # Copia de `axe-core` que el script `bun run a11y` deja en `static/` para que el

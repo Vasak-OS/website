@@ -40,6 +40,14 @@
   releaseNote = "Versión {{ .Channel }}: usable a diario para probar, todavía no recomendada como único sistema."
   seeWhatWorks = "Mira qué funciona hoy"
 
+  [home.comparison]
+    eyebrow = "Comparativa honesta"
+    title = "¿VasakOS frente a otras distros basadas en Arch?"
+    subtitle = "Comparamos con Manjaro, EndeavourOS y Garuda: qué hacemos distinto y en qué las otras ganan."
+    vsTitle = "Comparamos con"
+    note = "Tabla honesta: qué hacemos distinto y en qué las otras ganan."
+    button = "Ver la comparación"
+
 [404]
   notFound = "Esta página no existe"
   explanation = "El enlace puede estar viejo o mal escrito. Estos son los lugares a los que suele querer llegar la gente:"
@@ -107,7 +115,6 @@
   repoOf = "Repositorio de {{ .Repo }}"
   extraPackages = "El repositorio publica además {{ .Count }} paquetes de soporte (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch)."
   howToAdd = "Cómo agregar el repositorio"
-  seeRoadmap = "Ver el roadmap"
   showMore = "Ver más"
   showLess = "Ver menos"
 
@@ -227,22 +234,21 @@
 
 [footer]
   links = "Enlaces del sitio"
+  rss = "Feed RSS"
   softwareDev = "Desarrollo de Software"
   privacy = "Política de privacidad"
   terms = "Términos del servicio"
   changelogs = "Changelogs"
-  roadmap = "Roadmap"
   rights = "Todos los derechos reservados"
   backToTop = "Volver arriba"
   sourceForge = "VasakOS en SourceForge"
   oinMember = "VasakOS es miembro de la Open Invention Network"
-  # Atribución que pide CC BY 4.0, que es la licencia de los iconos de Font Awesome
-  # Free. No es cortesía: la licencia exige crédito visible, enlace a la licencia y
-  # mención de que se modificaron. Los iconos se convierten a máscaras CSS con los
-  # paths SVG en línea —ver scripts/build-icons.mjs—, así que son obra derivada.
   iconsCredit = "Iconos"
   iconsCreditModified = "adaptados a máscaras CSS"
   iconsLicense = "CC BY 4.0"
+
+[a11y]
+  skipLink = "Saltar al contenido"
 
 [downloads]
   title = "Descargas"
@@ -273,9 +279,8 @@
 [about]
   sourceCode = "Código fuente"
   behindTitle = "Quién está detrás"
-  roadmapLink = "roadmap público"
   behindP1 = "VasakOS lo desarrolla {{ .Group }} junto a la comunidad. El proyecto es miembro de la {{ .Network }}, la alianza de defensa de patentes del ecosistema Linux."
-  behindP2 = "Todo el código es público y está bajo licencia GPL-3.0. Las decisiones, los issues y el historial de cada componente se pueden leer en {{ .Code }}, y lo que viene está en el {{ .Roadmap }}."
+  behindP2 = "Todo el código es público y está bajo licencia GPL-3.0. Las decisiones, los issues y el historial de cada componente se pueden leer en {{ .Code }}."
 
   [about.case.home]
     tag = "DOMÉSTICO"

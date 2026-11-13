@@ -3,19 +3,20 @@
   "private": true,
   "description": "Sitio oficial de VasakOS — https://os.vasak.net.ar/",
   "scripts": {
-    "icons": "node scripts/build-icons.mjs",
+    "icons": "bun scripts/build-icons.mjs",
+    "css:build": "tailwindcss -i themes/vasakos/assets/css/styles.css -o themes/vasakos/assets/css/styles.compiled.css --minify && cp themes/vasakos/assets/css/styles.compiled.css static/css/styles.css",
     "sponsors": "bun scripts/fetch-sponsors.mjs",
-    "build": "bun run icons && hugo --gc --cleanDestinationDir",
-    "dev": "bun run icons && hugo server --disableFastRender",
+    "build": "bun run icons && bun run css:build && hugo --gc --cleanDestinationDir",
+    "dev": "bun run icons && bun run css:build && hugo server --disableFastRender",
     "preview": "bun run build && hugo server --renderToMemory --disableFastRender",
     "a11y": "cp node_modules/axe-core/axe.min.js static/axe.min.js && hugo server --disableFastRender",
     "test": "bun test"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",
-    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/cli": "^4.3.5",
     "axe-core": "^4.14.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.5"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.11"
