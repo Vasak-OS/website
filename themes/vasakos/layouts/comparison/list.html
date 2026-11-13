@@ -101,13 +101,13 @@
 
   {{/* Tabla de comparación — franja de ancho completo */}}
   {{- $features := slice
-    (dict "featureKey" "comparison.features.desktop" "vasak" true "manjaro" false "endeavour" false "garuda" false)
-    (dict "featureKey" "comparison.features.wayland" "vasak" true "manjaro" false "endeavour" false "garuda" false)
-    (dict "featureKey" "comparison.features.rust" "vasak" true "manjaro" false "endeavour" false "garuda" false)
-    (dict "featureKey" "comparison.features.css" "vasak" true "manjaro" false "endeavour" false "garuda" false)
-    (dict "featureKey" "comparison.features.telemetry" "vasak" true "manjaro" false "endeavour" true "garuda" false)
-    (dict "featureKey" "comparison.features.repo" "vasak" true "manjaro" true "endeavour" false "garuda" true)
-    (dict "featureKey" "comparison.features.installer" "vasak" true "manjaro" false "endeavour" false "garuda" false) -}}
+    (dict "feature" (T "comparison.features.desktop") "vasak" true "manjaro" false "endeavour" false "garuda" false)
+    (dict "feature" (T "comparison.features.wayland") "vasak" true "manjaro" false "endeavour" false "garuda" false)
+    (dict "feature" (T "comparison.features.rust") "vasak" true "manjaro" false "endeavour" false "garuda" false)
+    (dict "feature" (T "comparison.features.css") "vasak" true "manjaro" false "endeavour" false "garuda" false)
+    (dict "feature" (T "comparison.features.telemetry") "vasak" true "manjaro" false "endeavour" true "garuda" false)
+    (dict "feature" (T "comparison.features.repo") "vasak" true "manjaro" true "endeavour" false "garuda" true)
+    (dict "feature" (T "comparison.features.installer") "vasak" true "manjaro" false "endeavour" false "garuda" false) -}}
 
   <section class="bg-ui-bg/80 py-20">
     <div class="mx-auto max-w-screen-xl px-4">
@@ -134,7 +134,7 @@
               {{- range $features }}
               {{- $f := . -}}
               <tr class="group hover:bg-ui-bg/5 dark:hover:bg-ui-bg/10">
-                <td class="px-6 py-4 text-tx-main font-medium">{{ T $f.featureKey }}</td>
+                <td class="px-6 py-4 text-tx-main font-medium">{{ $f.feature }}</td>
                 {{- $cols := slice "vasak" "manjaro" "endeavour" "garuda" -}}
                 {{- range $cols -}}
                 {{- $val := index $f . -}}
