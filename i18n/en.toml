@@ -120,7 +120,7 @@
 [community]
   title = "Community"
   subtitle = "Join the VasakOS community. Participate, report bugs, suggest features and collaborate on development."
-  telegram = "Telegram Community"
+  telegram = "Telegram"
   telegram_desc = "Real-time chat: support, announcements and general discussion about the system."
   github = "GitHub"
   github_desc = "Source code, issues, pull requests and code review."
