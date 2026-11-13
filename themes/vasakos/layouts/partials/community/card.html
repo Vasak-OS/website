@@ -1,0 +1,14 @@
+<div class="group relative h-full rounded-xl border border-ui-border shadow-none p-6 {{ .bg }} hover:-translate-y-1 hover:shadow-l transition-all duration-200">
+  <div class="flex items-start gap-4 mb-6">
+    <div class="flex h-14 w-14 items-center justify-center rounded-xl {{ .bg }} flex-shrink-0 shadow-sm">
+      <i class="{{ .icon }} text-2xl {{ .color }}" aria-hidden="true"></i>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold text-tx-main group-hover:text-brand-text">{{ .name }}</h3>
+      <p class="mt-4 text-tx-muted text-sm leading-relaxed">{{ .desc }}</p>
+    </div>
+  </div>
+  <a href="{{ .url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-semibold text-brand-text hover:underline">
+    {{ T "community.join" }} <i class="fa-solid fa-up-right-from-square text-sm" aria-hidden="true"></i>
+  </a>
+</div>

@@ -1,0 +1,41 @@
+<script>
+(function () {
+  async function fetchCounter(url, parser, fallback) {
+    try {
+      const res = await fetch(url, { mode: 'cors' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      return parser(text);
+    } catch (err) {
+      console.warn('Counter fetch failed:', url, err);
+      return fallback;
+    }
+  }
+
+  // GitHub stars
+  fetchCounter(
+    'https://api.github.com/repos/Vasak-OS/website',
+    (text) => {
+      const data = JSON.parse(text);
+      const el = document.getElementById('counter-github-stars');
+      if (el) el.textContent = (data.stargazers_count || 0).toLocaleString();
+    },
+    '—'
+  );
+
+  // SourceForge downloads (best effort; SourceForge has no public JSON API for totals)
+  fetchCounter(
+    'https://sourceforge.net/projects/vasakos/rss?path=/',
+    (text) => {
+      const m = text.match(/downloads[^\d]*(\d[\d,]*)/i);
+      const el = document.getElementById('counter-sourceforge-downloads');
+      if (el) el.textContent = m ? m[1] : '—';
+    },
+    '—'
+  );
+
+  // Telegram members: no public API; leave as —
+  const tgEl = document.getElementById('counter-telegram-members');
+  if (tgEl) tgEl.textContent = '—';
+})();
+</script>

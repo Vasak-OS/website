@@ -1,0 +1,111 @@
+{{ define "main" }}
+<main class="pb-24">
+  <section class="px-4 py-20 bg-ui-surface">
+  <div class="mx-auto max-w-screen-xl px-4">
+    <div class="mx-auto mb-12 max-w-3xl text-center">
+      <span class="inline-flex items-center gap-2 rounded-full bg-brand-text/10 px-4 py-1.5 text-sm font-semibold text-brand-text shadow-sm">
+        <i class="fa-solid fa-users"></i>
+        {{ T "community.title" }}
+      </span>
+      <h1 class="section-title page-title mt-6 text-4xl font-bold text-tx-main sm:text-6xl tracking-tight">{{ T "community.title" }}</h1>
+      <p class="section-lead mx-auto mt-6 max-w-2xl text-tx-muted text-lg">{{ T "community.subtitle" }}</p>
+    </div>
+  </div>
+</section>
+
+{{/* Tarjetas de cada red social con descripciones */}}
+<section class="py-20">
+  <div class="mx-auto max-w-screen-xl px-4">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      {{ partial "community/card.html" (dict
+          "name" (T "community.telegram")
+          "desc" (T "community.telegram_desc")
+          "icon" "fa-brands fa-telegram"
+          "url" "https://t.me/VasakOS"
+          "color" "text-brand-text"
+          "bg" "bg-brand-text/5 dark:bg-brand-text/10") }}
+      {{ partial "community/card.html" (dict
+          "name" (T "community.github")
+          "desc" (T "community.github_desc")
+          "icon" "fa-brands fa-github"
+          "url" "https://github.com/Vasak-OS"
+          "color" "text-tx-main"
+          "bg" "bg-white/50 dark:bg-ui-bg/5") }}
+      {{ partial "community/card.html" (dict
+          "name" (T "community.discord")
+          "desc" (T "community.discord_desc")
+          "icon" "fa-brands fa-discord"
+          "url" "https://discord.gg/7wKrVNBC"
+          "color" "text-tx-main"
+          "bg" "bg-white/50 dark:bg-ui-bg/5") }}
+      {{ partial "community/card.html" (dict
+          "name" (T "community.reddit")
+          "desc" (T "community.reddit_desc")
+          "icon" "fa-brands fa-reddit"
+          "url" "https://www.reddit.com/r/VasakOS/"
+          "color" "text-tx-main"
+          "bg" "bg-white/50 dark:bg-ui-bg/5") }}
+    </div>
+  </div>
+</section>
+
+{{/* Sección de contadores reales */}}
+<section class="bg-ui-bg/80 py-20">
+  <div class="mx-auto max-w-screen-xl px-4">
+    <div class="mx-auto mb-12 max-w-3xl text-center">
+      <span class="inline-flex items-center gap-2 rounded-full bg-brand-text/10 px-4 py-1.5 text-sm font-semibold text-brand-text shadow-sm">
+        <i class="fa-solid fa-chart-pie"></i>
+        {{ T "community.stars" }}
+      </span>
+      <h2 class="section-title mt-6 text-3xl font-bold text-tx-main sm:text-4xl tracking-tight">Contadores reales</h2>
+    </div>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3 px-4">
+      {{ partial "community/counter.html" (dict
+          "label" (T "community.stars")
+          "icon" "fa-brands fa-github"
+          "id" "counter-github-stars"
+          "color" "text-brand-text") }}
+      {{ partial "community/counter.html" (dict
+          "label" (T "community.members")
+          "icon" "fa-brands fa-telegram"
+          "id" "counter-telegram-members"
+          "color" "text-brand-text") }}
+      {{ partial "community/counter.html" (dict
+          "label" (T "community.downloads")
+          "icon" "fa-solid fa-download"
+          "id" "counter-sourceforge-downloads"
+          "color" "text-tx-main") }}
+    </div>
+  </div>
+</section>
+
+{{/* CTA final */}}
+<section class="relative overflow-hidden rounded-xl border border-ui-border bg-gradient-brand-secondary text-white mx-auto max-w-screen-xl px-4 mt-20">
+  <div class="absolute inset-0 -z-10 opacity-20 blur-[60px] rounded-full bg-white w-[600px] h-[600px] -left-20 -bottom-20" aria-hidden="true"></div>
+  <div class="mx-auto max-w-3xl px-8 py-16 text-center">
+    <h2 class="text-3xl font-bold text-white sm:text-4xl mb-4">{{ T "community_cta.title" }}</h2>
+    <p class="text-white/90 text-lg mb-10 max-w-xl mx-auto">{{ T "community_cta.body" }}</p>
+      <div class="flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
+        {{ partial "ui/action-button.html" (dict
+            "href" "https://t.me/VasakOS"
+            "target" "_blank"
+            "rel" "noopener"
+            "label" (T "community.telegram")
+            "icon" "fa-brands fa-telegram"
+            "size" "lg"
+            "class" "w-full sm:w-auto bg-white text-brand-text hover:bg-brand-text hover:text-white") }}
+        {{ partial "ui/action-button.html" (dict
+            "href" "https://github.com/Vasak-OS"
+            "target" "_blank"
+            "rel" "noopener"
+            "label" (T "community.github")
+            "icon" "fa-brands fa-github"
+            "size" "lg"
+            "class" "w-full sm:w-auto border border-white/30 hover:bg-white/10") }}
+      </div>
+    </div>
+  </section>
+
+{{ partial "community/counter-scripts.html" . }}
+</main>
+{{ end }}

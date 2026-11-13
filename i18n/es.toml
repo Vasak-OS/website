@@ -121,11 +121,31 @@
 [social]
   title = "Redes Sociales"
 
+[community]
+  title = "Comunidad"
+  subtitle = "Únete a la comunidad de VasakOS. Participa, reporta errores, sugiere funciones y colabora con el desarrollo."
+  telegram = "Comunidad Telegram"
+  telegram_desc = "Chat en tiempo real: soporte, anuncios y charla general sobre el sistema."
+  github = "GitHub"
+  github_desc = "Código fuente, issues, pull requests y revisión de código."
+  discord = "Discord"
+  discord_desc = "Servidor de chat con canales de soporte, desarrollo y off-topic."
+  reddit = "Reddit"
+  reddit_desc = "Comunidad en español para discusión, tutoriales y noticias."
+  stars = "Estrellas en GitHub"
+  members = "Miembros en Telegram"
+  downloads = "Descargas en SourceForge"
+  join = "Únete a la comunidad"
+
+[community_cta]
+  title = "Únete a la comunidad"
+  body = "VasakOS es un proyecto comunitario gratuito y de código abierto. Cada aportación suma: reportar un bug, traducir, probar una actualización o contarle a alguien que existimos."
+
 [advantages]
   title = "Por qué VasakOS"
   subtitle = "No es Arch con otro fondo de pantalla: el escritorio, las aplicaciones y los servicios están escritos para este sistema."
 
-  [advantages.arch]
+[advantages.arch]
     name = "Base Arch Linux"
     text = "Rolling release, sin versiones que se queden atrás y con acceso al software más nuevo. Todo el ecosistema y la documentación de Arch siguen valiendo."
   [advantages.rust]
