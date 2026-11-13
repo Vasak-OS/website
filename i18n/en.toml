@@ -528,7 +528,7 @@
 
 [component.vasak-prism]
   title = "Prism"
-  text = "Document and PDF viewer with annotations and search."
+  text = "Application launcher, search tool and quick launcher for the system."
 
 [component.vasak-installer]
   title = "Vasak Installer"
