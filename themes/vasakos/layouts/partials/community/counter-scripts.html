@@ -1,41 +1,57 @@
 <script>
 (function () {
-  async function fetchCounter(url, parser, fallback) {
-    try {
-      const res = await fetch(url, { mode: 'cors' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const text = await res.text();
-      return parser(text);
-    } catch (err) {
-      console.warn('Counter fetch failed:', url, err);
-      return fallback;
-    }
+  async function fetchJson(url, opts = {}) {
+    const res = await fetch(url, { mode: 'cors', ...opts });
+    if (res.status === 403) throw new Error('rate limited');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
   }
 
-  // GitHub stars
-  fetchCounter(
-    'https://api.github.com/repos/Vasak-OS/website',
-    (text) => {
-      const data = JSON.parse(text);
-      const el = document.getElementById('counter-github-stars');
-      if (el) el.textContent = (data.stargazers_count || 0).toLocaleString();
-    },
-    '—'
-  );
+  async function fetchText(url, opts = {}) {
+    const res = await fetch(url, { mode: 'cors', ...opts });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.text();
+  }
 
-  // SourceForge downloads (best effort; SourceForge has no public JSON API for totals)
-  fetchCounter(
-    'https://sourceforge.net/projects/vasakos/rss?path=/',
-    (text) => {
-      const m = text.match(/downloads[^\d]*(\d[\d,]*)/i);
-      const el = document.getElementById('counter-sourceforge-downloads');
-      if (el) el.textContent = m ? m[1] : '—';
-    },
-    '—'
-  );
+  function set(elId, value) {
+    const el = document.getElementById(elId);
+    if (el) el.textContent = value;
+  }
 
-  // Telegram members: no public API; leave as —
-  const tgEl = document.getElementById('counter-telegram-members');
-  if (tgEl) tgEl.textContent = '—';
+  function fmt(n) {
+    return n.toLocaleString();
+  }
+
+  /* ── GitHub stars ──
+     Usa el repo principal del escritorio (el más representativo del proyecto).
+     Si falla por rate limit o red, deja 0 en lugar de un guión. */
+  (async () => {
+    try {
+      const data = await fetchJson('https://api.github.com/repos/Vasak-OS/vasak-desktop');
+      set('counter-github-stars', fmt(data.stargazers_count || 0));
+    } catch (err) {
+      console.warn('GitHub stars failed:', err);
+      set('counter-github-stars', '0');
+    }
+  })();
+
+  /* ── SourceForge downloads ──
+     SourceForge no tiene API JSON pública para totales. Intenta leer la
+     página del proyecto y buscar el número de descargas. Si falla, deja 0. */
+  (async () => {
+    try {
+      const html = await fetchText('https://sourceforge.net/projects/vasakos/');
+      const m = html.match(/Downloads[^\d]*([\d,]+)/i) ||
+                html.match(/([\d,]+)\s*downloads/i);
+      set('counter-sourceforge-downloads', m ? m[1] : '0');
+    } catch (err) {
+      console.warn('SourceForge downloads failed:', err);
+      set('counter-sourceforge-downloads', '0');
+    }
+  })();
+
+  /* ── Telegram members ──
+     No hay API pública sin un bot token. Deja 0. */
+  set('counter-telegram-members', '0');
 })();
 </script>
