@@ -44,61 +44,6 @@
     note = "Honest table: what we do differently and where the others win."
     button = "See the comparison"
 
-[comparison]
-  [comparison.intro]
-    title = "A comparison without tricks"
-    text = "Every distribution has its strengths. Here we put VasakOS alongside other Arch-based options so you can choose with clear information."
-    subtitle = "We are not trying to say one is best for everyone: we show what we do differently and where the others may win."
-  [comparison.distros]
-    eyebrow = "The distributions"
-    title = "Meet the alternatives"
-    manjaro.tag = "Easy to start"
-    manjaro.desc = "An accessible, established distribution with its own tools for managing the system."
-    endeavour.tag = "Minimalist"
-    endeavour.desc = "A clean Arch-adjacent base for people who prefer to build their desktop step by step."
-    garuda.tag = "Powerful"
-    garuda.desc = "A performance- and gaming-focused distribution with a bold visual style."
-    vasak.tag = "Our approach"
-    vasak.desc = "A purpose-built Wayland desktop, native Rust applications, and an interface you can change with CSS."
-  [comparison.table]
-    eyebrow = "The details"
-    title = "What each one includes"
-    feature = "Feature"
-    yes = "Yes"
-    no = "No"
-  [comparison.features]
-    desktop = "Purpose-built desktop"
-    wayland = "Wayland as a foundation"
-    rust = "Native Rust applications"
-    css = "CSS-customizable interface"
-    telemetry = "Optional telemetry"
-    repo = "Additional repositories"
-    installer = "Purpose-built graphical installer"
-  [comparison.others.manjaro]
-    title = "Ready-to-use tools"
-    text = "Manjaro offers a friendly experience with its own utilities and a large community."
-  [comparison.others.endeavour]
-    title = "Close to Arch"
-    text = "EndeavourOS keeps a simple, Arch-adjacent experience that is ideal for learning and customizing."
-  [comparison.others.garuda]
-    title = "Built for performance"
-    text = "Garuda focuses on a bold visual experience and tools designed for gaming."
-  [comparison.vasak]
-    eyebrow = "What makes VasakOS different"
-    desktop.title = "A desktop of its own"
-    desktop.text = "VasakOS does not just package an existing desktop: it builds a coherent experience from the ground up."
-    wayland.title = "Wayland from the start"
-    wayland.text = "The session is designed around Wayland, with a modern foundation ready for the future."
-    css.title = "Your interface, your rules"
-    css.text = "You can change the system's appearance with CSS without rebuilding the whole application."
-    telemetry.title = "No mandatory telemetry"
-    telemetry.text = "The system does not need to watch you to work. You decide what information to share."
-    repo.title = "Truly open source"
-    repo.text = "Development happens in the open, with public code and decisions."
-  [comparison.cta]
-    title = "Ready to try VasakOS?"
-    body = "Download the image and discover a Linux desktop designed to feel like yours."
-
 [404]
   notFound = "This page does not exist"
   explanation = "The link may be old or mistyped. These are the places people are usually trying to reach:"
@@ -281,6 +226,10 @@
   button = "Download"
   imageAlt = "Illustration of a group of people collaborating"
 
+[apps]
+  viewCode = "View code"
+  extraPackagesDetail = "The repository also publishes support packages (keyring, mirror list, icon theme, backgrounds, and dependencies not in Arch)."
+
 [screenshots]
   eyebrow = "Gallery"
   title = "Screenshots"
@@ -299,6 +248,52 @@
     caption = "VasakOS on screen"
   [screenshots.shot05]
     caption = "VasakOS on screen"
+
+[comparison]
+  intro.title = "VasakOS is not \"Arch with a different wallpaper\""
+  intro.text = "It is an operating system built from the ground up on Arch Linux, with its own desktop on Wayland and native applications written in Rust and Tauri."
+  intro.subtitle = "This is an honest comparison against the three Arch-based distributions most often mentioned when someone looks for a ready-to-use alternative."
+  distros.eyebrow = "Distributions to compare"
+  distros.title = "How does VasakOS differ?"
+  distros.manjaro.tag = "Ease of use"
+  distros.manjaro.desc = "Mature repositories and huge community. Everything works on day one with minimal effort."
+  distros.endeavour.tag = "Pure Arch"
+  distros.endeavour.desc = "Basically Arch with a friendly installer. For those who already know Arch and don't want to change."
+  distros.garuda.tag = "Gaming and advanced"
+  distros.garuda.desc = "Preconfigured tools, optimized kernels, and gaming-ready options."
+  distros.vasak.tag = "Own and modern"
+  distros.vasak.desc = "Own desktop on Wayland, native Rust apps, CSS interface, zero telemetry."
+  features.desktop = "Own desktop"
+  features.wayland = "Wayland from the start"
+  features.rust = "Native apps in Rust"
+  features.css = "CSS without recompiling"
+  features.telemetry = "No telemetry"
+  features.repo = "Own GPG repo"
+  features.installer = "Graphical installer"
+  table.eyebrow = "The differences that count"
+  table.title = "Comparison table"
+  table.feature = "Feature"
+  table.yes = "Yes"
+  table.no = "No"
+  others.manjaro.title = "Mature repositories"
+  others.manjaro.text = "Most mature repositories and huge community. Everything works on day one with minimal effort."
+  others.endeavour.title = "Pure Arch"
+  others.endeavour.text = "Basically Arch with a friendly installer. For those who already know Arch and don't want to change."
+  others.garuda.title = "Gaming and advanced"
+  others.garuda.text = "Preconfigured tools, optimized kernels, and gaming-ready options."
+  vasak.eyebrow = "What makes VasakOS different"
+  vasak.desktop.title = "Own desktop"
+  vasak.desktop.text = "Panel, file manager, terminal, settings and gallery written for this system, not themed from another environment."
+  vasak.wayland.title = "Wayland from the start"
+  vasak.wayland.text = "The session is born on Wayfire, managed by systemd, not an option among several."
+  vasak.css.title = "CSS without recompiling"
+  vasak.css.text = "Change the desktop look with colour variables and CSS, without recompiling."
+  vasak.telemetry.title = "No telemetry"
+  vasak.telemetry.text = "The system collects no usage data and sends nothing to any server."
+  vasak.repo.title = "Own GPG repo"
+  vasak.repo.text = "Packages GPG-signed and published from its own repository, not depending on third parties."
+  cta.title = "Ready to try VasakOS?"
+  cta.body = "Download the official image and try VasakOS on your machine or in a virtual machine."
 
 [footer]
   links = "Site links"
