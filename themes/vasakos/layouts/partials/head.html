@@ -49,9 +49,10 @@
 {{- end -}}
 {{- end -}}
 
-{{- $image := "/img/og-default.jpg" -}}
+{{- $image := "" -}}
 {{- with .Params.img }}{{ $image = . }}{{ end -}}
 {{- with .Params.image }}{{ $image = . }}{{ end -}}
+{{- if not $image }}{{ $image = "/img/og-default.jpg" }}{{ end -}}
 {{- $image = $image | absURL -}}
 
 {{- $type := cond (or .IsHome .IsSection) "website" "article" -}}
@@ -178,4 +179,27 @@
   {{- end }}
 
   {{- partial "head/schema.html" . -}}
+  <style>
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      z-index: 99999;
+    }
+    .skip-link:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      padding: 0.75rem 1rem;
+      background: #dd7878;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      text-decoration: none;
+    }
+  </style>
 </head>

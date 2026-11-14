@@ -28,7 +28,7 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-desktop
       - name: vasak-session-manager
         version: "0.2.0"
-        status: beta
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-session-manager
       - name: vasak-desktop-settings
         version: "0.4.0"
@@ -40,7 +40,7 @@ groups:
         repo: https://github.com/Vasak-OS/VasakOS-icon-theme
       - name: vasak-wayfire-plugins
         version: "0.2.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-wayfire-plugins
 
   - id: aplicaciones
@@ -72,19 +72,19 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-text
       - name: vasak-calendar
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-calendar
       - name: vasak-mail
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-mail
       - name: vasak-contacts
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-contacts
       - name: vasak-shot
         version: "0.1.0"
-        status: beta
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-shot
       - name: vasak-monitor
         version: "0.1.0"
@@ -96,7 +96,7 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-store
       - name: vasak-prism
         version: "0.1.0"
-        status: beta
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-prism
 
   - id: servicios
@@ -116,7 +116,7 @@ groups:
         repo: https://github.com/Vasak-OS/polkit-vasak
       - name: vasak-permissions
         version: "0.1.0"
-        status: alpha
+        status: beta
         repo: https://github.com/Vasak-OS/vasak-permissions
       - name: vasak-accounts
         version: "0.2.0"
@@ -132,7 +132,7 @@ groups:
         repo: https://github.com/Vasak-OS/vasak-update
       - name: vasak-wireplumber-modules
         version: "0.1.0"
-        status: alpha
+        status: stable
         repo: https://github.com/Vasak-OS/vasak-wireplumber-modules
 
   - id: entrada

@@ -1,0 +1,47 @@
+{{/*
+  Lista todas las aplicaciones de VasakOS, agrupadas por grupo, con su
+  descripción, versión y estado. Se usa en la página /apps/.
+*/}}
+{{- $data := partial "data/components.html" . -}}
+
+<div class="apps-grid mx-auto max-w-screen-xl px-4">
+  {{- range $data.groups }}
+  <section class="mb-16">
+    <h2 class="section-title text-2xl font-bold text-tx-main mb-6">
+      <i class="{{ .icon }} text-brand-text mr-3" aria-hidden="true"></i>
+      {{ .name }}
+    </h2>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {{- range .items }}
+      <div class="card p-6 hover:z-30">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="flex h-[48px] w-[48px] items-center justify-center rounded-l bg-gradient-to-br from-secondary to-brand-text shadow-s flex-shrink-0">
+            <i class="{{ .icon }} text-xl text-white" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-tx-main">{{ .title }}</h3>
+            <div class="flex items-baseline gap-1 text-xs text-tx-muted mt-1">
+              <span class="font-semibold">{{ .version }}</span>
+              {{ partial "ui/badge.html" (dict "label" (index $data.legend .status).label "class" (index $data.legend .status).class "size" "xs") }}
+            </div>
+          </div>
+        </div>
+        <p class="text-tx-muted text-sm mb-4">{{ .text }}</p>
+        <a href="{{ .repo }}" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-text hover:underline">
+          {{ T "apps.viewCode" }}
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+        </a>
+      </div>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- if gt $data.extra 0 }}
+  <section class="mt-12 p-6 rounded-xl border border-ui-border bg-ui-surface text-tx-muted">
+    <p class="mb-2"><strong>{{ T "state.extraPackages" (dict "Count" $data.extra) }}</strong></p>
+    <p class="text-sm">{{ T "apps.extraPackagesDetail" }}</p>
+  </section>
+  {{- end }}
+</div>

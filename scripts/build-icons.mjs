@@ -84,6 +84,16 @@ const ICONS = {
   users: 'solid',
   wrench: 'solid',
   xmark: 'solid',
+  plug: 'solid',
+  gamepad: 'solid',
+  'chart-pie': 'solid',
+  'layer-group': 'solid',
+  'check-circle': 'solid',
+  star: 'solid',
+  globe: 'solid',
+  'chevron-down': 'solid',
+  check: 'solid',
+  circle: 'solid',
 };
 
 // Font Awesome renamed a few icons between major versions and the templates

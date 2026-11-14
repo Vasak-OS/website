@@ -2,11 +2,10 @@
 Title: "Estado del proyecto"
 seotitle: "Estado de VasakOS: qué funciona hoy y qué falta | VasakOS"
 description: "Estado real de cada componente de VasakOS: escritorio, aplicaciones, servicios e instalador, con su versión publicada y qué falta para considerarlo estable."
-img: "/img/posts/roadmap.svg"
 type: state
 date: "2026-08-10"
 lastmod: "2026-08-10"
-tags: [estado, roadmap, vasakos, beta, desarrollo]
+tags: [estado, vasakos, beta, desarrollo]
 ---
 
 VasakOS está en **Beta**. Esa palabra significa cosas distintas en cada proyecto, así que

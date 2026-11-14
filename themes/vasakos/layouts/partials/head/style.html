@@ -12,18 +12,7 @@
   Both are gone. Mermaid's stylesheet moved to the pages that actually draw
   diagrams — see footer/scripts.html.
 */}}
-{{- with resources.Get "css/styles.css" }}
-  {{- $opts := dict "inlineImports" true "optimize" (not hugo.IsDevelopment) -}}
-  {{- with . | css.TailwindCSS $opts }}
-    {{- if hugo.IsDevelopment }}
-  <link rel="stylesheet" href="{{ .RelPermalink }}" />
-    {{- else }}
-      {{- with . | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" />
-      {{- end }}
-    {{- end }}
-  {{- end }}
-{{- end }}
+<link rel="stylesheet" href="/css/styles.css" />
 
 {{/* The brand font is small and used above the fold in the header and hero. */}}
 <link rel="preload" href="/fonts/VSKRegular.ttf" as="font" type="font/ttf" crossorigin />

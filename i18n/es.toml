@@ -40,6 +40,14 @@
   releaseNote = "Versión {{ .Channel }}: usable a diario para probar, todavía no recomendada como único sistema."
   seeWhatWorks = "Mira qué funciona hoy"
 
+  [home.comparison]
+    eyebrow = "Comparativa honesta"
+    title = "¿VasakOS frente a otras distros basadas en Arch?"
+    subtitle = "Comparamos con Manjaro, EndeavourOS y Garuda: qué hacemos distinto y en qué las otras ganan."
+    vsTitle = "Comparamos con"
+    note = "Tabla honesta: qué hacemos distinto y en qué las otras ganan."
+    button = "Ver la comparación"
+
 [404]
   notFound = "Esta página no existe"
   explanation = "El enlace puede estar viejo o mal escrito. Estos son los lugares a los que suele querer llegar la gente:"
@@ -107,18 +115,34 @@
   repoOf = "Repositorio de {{ .Repo }}"
   extraPackages = "El repositorio publica además {{ .Count }} paquetes de soporte (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch)."
   howToAdd = "Cómo agregar el repositorio"
-  seeRoadmap = "Ver el roadmap"
   showMore = "Ver más"
   showLess = "Ver menos"
 
 [social]
   title = "Redes Sociales"
 
+[community]
+  title = "Comunidad"
+  subtitle = "Únete a la comunidad de VasakOS. Participa, reporta errores, sugiere funciones y colabora con el desarrollo."
+  telegram = "Telegram"
+  telegram_desc = "Chat en tiempo real: soporte, anuncios y charla general sobre el sistema."
+  github = "GitHub"
+  github_desc = "Código fuente, issues, pull requests y revisión de código."
+  discord = "Discord"
+  discord_desc = "Servidor de chat con canales de soporte, desarrollo y off-topic."
+  reddit = "Reddit"
+  reddit_desc = "Comunidad en español para discusión, tutoriales y noticias."
+  join = "Únete a la comunidad"
+
+[community_cta]
+  title = "Únete a la comunidad"
+  body = "VasakOS es un proyecto comunitario gratuito y de código abierto. Cada aportación suma: reportar un bug, traducir, probar una actualización o contarle a alguien que existimos."
+
 [advantages]
   title = "Por qué VasakOS"
   subtitle = "No es Arch con otro fondo de pantalla: el escritorio, las aplicaciones y los servicios están escritos para este sistema."
 
-  [advantages.arch]
+[advantages.arch]
     name = "Base Arch Linux"
     text = "Rolling release, sin versiones que se queden atrás y con acceso al software más nuevo. Todo el ecosistema y la documentación de Arch siguen valiendo."
   [advantages.rust]
@@ -206,6 +230,10 @@
   button = "Descargar"
   imageAlt = "Ilustración de un grupo de personas colaborando"
 
+[apps]
+  viewCode = "Ver código"
+  extraPackagesDetail = "El repositorio publica además paquetes de soporte (llavero, lista de mirrors, tema de iconos, fondos y dependencias que no están en Arch)."
+
 [screenshots]
   eyebrow = "Galería"
   title = "Capturas de pantalla"
@@ -225,24 +253,69 @@
   [screenshots.shot05]
     caption = "VasakOS en pantalla"
 
+[comparison]
+  intro.title = "VasakOS no es \"Arch con otro fondo de pantalla\""
+  intro.text = "Es un sistema operativo construido desde cero sobre Arch Linux, con un escritorio propio sobre Wayland y aplicaciones nativas escritas en Rust y Tauri."
+  intro.subtitle = "Esta es una comparación honesta contra las tres distribuciones basadas en Arch que más se nombran cuando alguien busca una alternativa lista para usar."
+  distros.eyebrow = "Distribuciones a comparar"
+  distros.title = "¿En qué se diferencia VasakOS?"
+  distros.manjaro.tag = "Facilidad inmediata"
+  distros.manjaro.desc = "Repositorios maduros y comunidad enorme. Todo funciona el primer día con el menor esfuerzo."
+  distros.endeavour.tag = "Arch puro"
+  distros.endeavour.desc = "Básicamente Arch con un instalador amigable. Para quien ya conoce Arch y no quiere cambiar nada."
+  distros.garuda.tag = "Gaming y avanzado"
+  distros.garuda.desc = "Herramientas preconfiguradas, kernels optimizados y opciones listas para usar."
+  distros.vasak.tag = "Propio y moderno"
+  distros.vasak.desc = "Escritorio propio sobre Wayland, apps nativas en Rust, interfaz con CSS y cero telemetría."
+  features.desktop = "Escritorio propio"
+  features.wayland = "Wayland de entrada"
+  features.rust = "Apps nativas en Rust"
+  features.css = "CSS sin recompilar"
+  features.telemetry = "Sin telemetría"
+  features.repo = "Repo propio GPG"
+  features.installer = "Instalador gráfico propio"
+  table.eyebrow = "Las diferencias que cuentan"
+  table.title = "Tabla comparativa"
+  table.feature = "Característica"
+  table.yes = "Sí"
+  table.no = "No"
+  others.manjaro.title = "Repositorios maduros"
+  others.manjaro.text = "Tienen los repositorios más maduros y una comunidad enorme. Todo funciona el primer día con el menor esfuerzo."
+  others.endeavour.title = "Arch puro"
+  others.endeavour.text = "Básicamente Arch con un instalador amigable. Para quien ya conoce Arch y no quiere cambiar nada."
+  others.garuda.title = "Gaming y avanzado"
+  others.garuda.text = "Herramientas preconfiguradas, kernels optimizados y opciones listas para usar."
+  vasak.eyebrow = "En qué VasakOS es diferente"
+  vasak.desktop.title = "Escritorio propio"
+  vasak.desktop.text = "Panel, gestor de archivos, terminal, ajustes y galería escritos para este sistema, no tematizados de otro entorno."
+  vasak.wayland.title = "Wayland de entrada"
+  vasak.wayland.text = "La sesión nace sobre Wayfire administrada por systemd, no es una opción entre varias."
+  vasak.css.title = "CSS sin recompilar"
+  vasak.css.text = "Cambia el aspecto del escritorio con variables de color y CSS, sin recompilar nada."
+  vasak.telemetry.title = "Sin telemetría"
+  vasak.telemetry.text = "El sistema no recolecta datos de uso ni envía información a ningún servidor."
+  vasak.repo.title = "Repo propio GPG"
+  vasak.repo.text = "Paquetes firmados con GPG publicados desde un repositorio propio, sin depender de terceros."
+  cta.title = "¿Listo para probar VasakOS?"
+  cta.body = "Descarga la imagen oficial y prueba VasakOS en tu equipo o en una máquina virtual."
+
 [footer]
   links = "Enlaces del sitio"
+  rss = "Feed RSS"
   softwareDev = "Desarrollo de Software"
   privacy = "Política de privacidad"
   terms = "Términos del servicio"
   changelogs = "Changelogs"
-  roadmap = "Roadmap"
   rights = "Todos los derechos reservados"
   backToTop = "Volver arriba"
   sourceForge = "VasakOS en SourceForge"
   oinMember = "VasakOS es miembro de la Open Invention Network"
-  # Atribución que pide CC BY 4.0, que es la licencia de los iconos de Font Awesome
-  # Free. No es cortesía: la licencia exige crédito visible, enlace a la licencia y
-  # mención de que se modificaron. Los iconos se convierten a máscaras CSS con los
-  # paths SVG en línea —ver scripts/build-icons.mjs—, así que son obra derivada.
   iconsCredit = "Iconos"
   iconsCreditModified = "adaptados a máscaras CSS"
   iconsLicense = "CC BY 4.0"
+
+[a11y]
+  skipLink = "Saltar al contenido"
 
 [downloads]
   title = "Descargas"
@@ -273,9 +346,8 @@
 [about]
   sourceCode = "Código fuente"
   behindTitle = "Quién está detrás"
-  roadmapLink = "roadmap público"
   behindP1 = "VasakOS lo desarrolla {{ .Group }} junto a la comunidad. El proyecto es miembro de la {{ .Network }}, la alianza de defensa de patentes del ecosistema Linux."
-  behindP2 = "Todo el código es público y está bajo licencia GPL-3.0. Las decisiones, los issues y el historial de cada componente se pueden leer en {{ .Code }}, y lo que viene está en el {{ .Roadmap }}."
+  behindP2 = "Todo el código es público y está bajo licencia GPL-3.0. Las decisiones, los issues y el historial de cada componente se pueden leer en {{ .Code }}."
 
   [about.case.home]
     tag = "DOMÉSTICO"
@@ -511,7 +583,7 @@
 
 [component.vasak-prism]
   title = "Prism"
-  text = "Visor de documentos y PDF con anotaciones y búsqueda."
+  text = "Lanzador de aplicaciones, buscador y lanzador rápido del sistema."
 
 [component.vasak-installer]
   title = "Instalador Vasak"

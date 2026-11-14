@@ -25,4 +25,14 @@
       "lang" site.Language.Lang
   ) -}}
 {{- end -}}
+{{- range where site.RegularPages "Section" "blog" -}}
+  {{- $index = $index | append (dict
+      "title" .Title
+      "summary" (.Description | default .Summary | plainify | chomp | truncate 180)
+      "content" (.Plain | chomp | truncate 1200)
+      "permalink" .RelPermalink
+      "section" (path.Base .CurrentSection.RelPermalink)
+      "lang" site.Language.Lang
+  ) -}}
+{{- end -}}
 {{- $index | jsonify -}}

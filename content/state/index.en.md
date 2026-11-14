@@ -2,11 +2,10 @@
 Title: "State of the project"
 seotitle: "State of VasakOS: what works, what is missing | VasakOS"
 description: "The real state of every VasakOS component, with its published version and what is still missing before it counts as stable."
-img: "/img/posts/roadmap.svg"
 type: state
 date: "2026-08-10"
 lastmod: "2026-08-10"
-tags: [state, roadmap, vasakos, beta, development]
+tags: [state, vasakos, beta, development]
 ---
 
 VasakOS is in **Beta**. That word means different things in different projects, so here
