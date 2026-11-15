@@ -48,6 +48,11 @@
     note = "Tabla honesta: qué hacemos distinto y en qué las otras ganan."
     button = "Ver la comparación"
 
+  [home.video]
+    eyebrow = "Vista previa"
+    title = "vasak-desktop en movimiento"
+    subtitle = "Así se ve el escritorio en acción."
+
 [404]
   notFound = "Esta página no existe"
   explanation = "El enlace puede estar viejo o mal escrito. Estos son los lugares a los que suele querer llegar la gente:"
