@@ -44,6 +44,11 @@
     note = "Honest table: what we do differently and where the others win."
     button = "See the comparison"
 
+  [home.video]
+    eyebrow = "Preview"
+    title = "vasak-desktop in action"
+    subtitle = "See the desktop in motion."
+
 [404]
   notFound = "This page does not exist"
   explanation = "The link may be old or mistyped. These are the places people are usually trying to reach:"

@@ -1,0 +1,18 @@
+{{/*
+  Vista previa en video del escritorio de VasakOS en la portada.
+*/}}
+<section class="relative overflow-hidden bg-ui-surface py-20">
+  <div class="mx-auto max-w-screen-xl px-4">
+    <div class="mb-12 text-center">
+      <span class="text-sm font-semibold uppercase tracking-wider text-brand-text">{{ T "home.video.eyebrow" }}</span>
+      <h2 class="section-title mt-2 text-3xl font-bold text-tx-main">{{ T "home.video.title" }}</h2>
+      <p class="mt-2 text-tx-muted">{{ T "home.video.subtitle" }}</p>
+    </div>
+
+    <div class="mx-auto max-w-4xl">
+      <div class="relative aspect-video overflow-hidden rounded-xl border border-ui-border shadow-lg bg-black">
+        <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/QEpNrC_w2Ns" title="{{ T "home.video.title" }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
