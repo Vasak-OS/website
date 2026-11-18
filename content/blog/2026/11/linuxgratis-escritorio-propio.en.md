@@ -6,7 +6,8 @@ tags:
   - "community"
   - "linuxgratis"
   - "arch"
-date: "2026-11-18"
+date: "2026-11-07"
+img: "https://linuxgratis.com/articles/vasakos/cover.webp"
 description: "LinuxGratis published an article about VasakOS's own desktop, built on Arch Linux with Wayland and native Rust apps."
 layout: post
 ---
@@ -15,14 +16,20 @@ layout: post
 
 We're glad they focused on what matters most to us: that the desktop, file manager, terminal and settings are made on purpose for this system, not themed from another environment. That's the heart of VasakOS.
 
-**Thank you** for the article and for giving visibility to the project.
+**Thank you, David Carrero Fernández-Baillo, for the article** and for giving visibility to the project.
 
 ## What you talked about
 
-The article highlights that VasakOS is not "just another Arch with a different wallpaper", but a system built from the ground up on Arch with its own desktop on Wayland. That's exactly what we're building, and seeing it reflected in an external article gives us extra motivation to keep polishing performance and the interface.
+The article walks through in detail what we've built: a **rolling desktop on Arch Linux** with a **Wayland** session and the **Wayfire** compositor, no X11 session. It highlights that the panel, menu, file manager, terminal, settings, installer and even the password keyring are programs written for this system —not repackaged from another environment— and that the interface is restyled with CSS on the fly, without recompiling.
 
-If anything in the article raises questions or you run into any issues trying VasakOS, let us know and we'll gladly add it to the list.
+It also mentions the points we're still polishing: memory consumption (every desktop surface is a web view, and each resident WebKitWebProcess occupies RAM), some widgets that don't close when clicking outside, or the Spanish keyboard in certain installer screens. We have it noted.
+
+And it values something that matters a lot to us: that VasakOS is developed by **a single full-time developer** (Joaquín «Pato» Décima, from Argentina), with about fifty public repositories in the `Vasak-OS` organization on GitHub, all under GPL-3.0.
+
+**Thank you, David, for reading it and telling it with so much detail.**
 
 ## Onward
 
-Having the project reach new Spanish-speaking communities makes us very happy. **Thanks again** — the door is open for whatever you'd like to try or comment.
+Having the project reach new Spanish-speaking communities makes us very happy. If you try VasakOS and something bugs you, let us know and we'll gladly add it to the improvements list.
+
+**Thanks again** — the door is open for whatever you'd like to try or comment.
