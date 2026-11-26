@@ -119,6 +119,15 @@
   showMore = "Show more"
   showLess = "Show less"
 
+[usage]
+  title = "Repository usage"
+  updated = "Updated on"
+  last7 = "Unique IPs · 7 days"
+  last30 = "Unique IPs · 30 days"
+  last90 = "Unique IPs · 90 days"
+  note = "It counts the unique IPs that requested the repository index (vasakos.db) with pacman. Several machines behind one connection count as one, and one that changes IP can count twice, so it is not a count of installs or of people."
+  noteLink = "How the repository works"
+
 [social]
   title = "Social"
 

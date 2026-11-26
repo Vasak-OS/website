@@ -1,0 +1,36 @@
+{{- /*
+  Devuelve el contador de uso del repositorio, publicado por
+  repository-script/stats/count-users.py en repo.vasak.net.ar/stats/users.json.
+
+  El JSON se recalcula a diario, así que el build trae la última foto que haya y
+  `state-live.js` la corrige en el navegador para quien entre con JavaScript. Sin
+  JavaScript —o si el servidor no responde— queda la del build, con su fecha a la
+  vista: el número es viejo, pero no es falso.
+
+  Un servidor caído no puede tirar el build entero, igual que con el índice de
+  paquetes: `try` lo envuelve y la página muestra «—» en lugar de romperse.
+
+  Devuelve: { live (bool), unique_7d, unique_30d, unique_90d (int), generated (string) }
+*/ -}}
+
+{{- $stats := dict "live" false -}}
+{{- with site.Params.repository.usage -}}
+  {{- $attempt := try (resources.GetRemote .) -}}
+  {{- with $attempt.Value -}}
+    {{- $parsed := try (transform.Unmarshal .Content) -}}
+    {{- with $parsed.Value -}}
+      {{- if isset . "unique_90d" -}}
+        {{- $stats = dict
+            "live" true
+            "unique_7d" .unique_7d
+            "unique_30d" .unique_30d
+            "unique_90d" .unique_90d
+            "generated" .generated -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- warnf "No se pudo leer el contador de uso del repositorio (%s). /state/ y /downloads/ muestran «—»." site.Params.repository.usage -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $stats -}}

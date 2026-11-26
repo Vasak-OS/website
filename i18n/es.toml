@@ -123,6 +123,15 @@
   showMore = "Ver más"
   showLess = "Ver menos"
 
+[usage]
+  title = "Uso del repositorio"
+  updated = "Actualizado el"
+  last7 = "IPs únicas · 7 días"
+  last30 = "IPs únicas · 30 días"
+  last90 = "IPs únicas · 90 días"
+  note = "Cuenta las IPs únicas que pidieron el índice del repositorio (vasakos.db) con pacman. Varias máquinas detrás de una misma conexión cuentan como una, y una que cambia de IP puede contar dos veces, así que no es una cuenta de instalaciones ni de personas."
+  noteLink = "Cómo funciona el repositorio"
+
 [social]
   title = "Redes Sociales"
 

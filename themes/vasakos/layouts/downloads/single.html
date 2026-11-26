@@ -117,6 +117,10 @@
       </aside>
     </section>
 
+    {{/* Cuántas máquinas consultan el repositorio: va después de la descarga y
+         de los espejos, antes de los requisitos. */}}
+    {{ partial "sections/usage.html" . }}
+
     <section class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
       <article class="card p-6">
         <h2 class="section-title text-lg font-bold text-tx-main">{{ T "downloads.requirements" }} · {{ T "downloads.minimum" }}</h2>

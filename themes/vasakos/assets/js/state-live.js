@@ -101,6 +101,57 @@
     });
 })();
 
+/* El contador de uso del repositorio. El build trae la última foto que había al
+   publicar el sitio; esto la corrige contra el JSON que el servidor reescribe a
+   diario. Va acá y no en un archivo propio porque se carga en las mismas
+   páginas y son veinte líneas. */
+(function () {
+  var root = document.querySelector('[data-usage]');
+  if (!root) return;
+
+  var endpoint = root.dataset.usage;
+  if (!endpoint) return;
+
+  var cells = {};
+  root.querySelectorAll('[data-usage-days]').forEach(function (el) {
+    cells[el.dataset.usageDays] = el;
+  });
+  var generated = root.querySelector('[data-usage-generated]');
+
+  function setDate(iso) {
+    if (!generated || !iso) return;
+    var d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return;
+    generated.setAttribute('datetime', iso);
+    try {
+      generated.textContent = new Intl.DateTimeFormat(
+        document.documentElement.lang || 'es',
+        { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }
+      ).format(d);
+    } catch (e) {
+      generated.textContent = iso.slice(0, 10);
+    }
+  }
+
+  fetch(endpoint, { cache: 'no-cache' })
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function (data) {
+      Object.keys(cells).forEach(function (days) {
+        var value = data['unique_' + days + 'd'];
+        // 0 es un valor posible —nadie actualizó esa semana— y no puede
+        // confundirse con «sin dato».
+        if (typeof value === 'number') cells[days].textContent = String(value);
+      });
+      setDate(data.generated);
+    })
+    .catch(function (err) {
+      console.warn('No se pudo consultar el contador de uso:', err.message);
+    });
+})();
+
 /* Toggle extra rows in state page tables */
 (function () {
   document.querySelectorAll('.toggle-extra-rows').forEach(function (btn) {

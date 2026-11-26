@@ -50,6 +50,11 @@
       </p>
     </header>
 
+    {{/* El contador de uso va antes de la tabla: es el dato que dice si lo que
+         sigue lo está usando alguien, y es lo único de esta página que se mueve
+         todos los días. */}}
+    {{ partial "sections/usage.html" . }}
+
     {{/* The table first: it is the reason anyone opens this page. */}}
     <section class="mt-10 space-y-8">
       {{- range $data.groups }}
