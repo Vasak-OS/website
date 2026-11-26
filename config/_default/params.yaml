@@ -218,3 +218,7 @@ repository:
   name: "vasakos"
   server: "https://repo.vasak.net.ar/repo/x86_64/vasakos"
   index: "https://repo.vasak.net.ar/repo/x86_64/vasakos/vasakos.json"
+  # Contador de uso, escrito a diario por repository-script/stats/count-users.py.
+  # Cuenta IPs únicas que pidieron vasakos.db con pacman; ver /state/ y
+  # /downloads/. Es un piso de instalaciones, no una cuenta de personas.
+  usage: "https://repo.vasak.net.ar/stats/users.json"

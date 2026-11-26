@@ -1,0 +1,42 @@
+{{- /*
+  Bloque de uso del repositorio: cuántas IPs únicas pidieron `vasakos.db` con
+  pacman en los últimos 7, 30 y 90 días. Va en /state/ y en /downloads/.
+
+  No dice «usuarios» ni «instalaciones» a secas a propósito. Lo que el servidor
+  ve es una IP que pidió el índice; varias máquinas detrás de una misma conexión
+  cuentan como una, y una que se reinstala cuenta como una. Publicarlo como
+  «IPs únicas» es lo único que el dato sostiene, y aun así es un piso: nadie que
+  no se actualice aparece.
+
+  Los ganchos `data-usage*` son de `state-live.js`, que vuelve a pedir el JSON en
+  el navegador: el build puede tener días, el contador se recalcula a diario.
+*/ -}}
+{{- $u := partial "data/usage.html" . -}}
+{{- $url := site.Params.repository.usage -}}
+
+<section class="card mt-8 p-6" data-usage="{{ $url }}" aria-labelledby="usage-title">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <h2 id="usage-title" class="section-title text-lg font-bold text-tx-main">{{ T "usage.title" }}</h2>
+    <p class="text-xs text-tx-muted">
+      {{ T "usage.updated" }}
+      <time{{ with $u.generated }} datetime="{{ . }}"{{ end }} data-usage-generated>{{ with $u.generated }}{{ time.Format "2 January 2006" . }}{{ else }}—{{ end }}</time>
+    </p>
+  </div>
+
+  <dl class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+    {{- range slice
+        (dict "days" 7 "value" $u.unique_7d "label" (T "usage.last7"))
+        (dict "days" 30 "value" $u.unique_30d "label" (T "usage.last30"))
+        (dict "days" 90 "value" $u.unique_90d "label" (T "usage.last90")) }}
+    <div class="card-surface flex flex-col-reverse rounded-m border border-ui-border p-4 text-center">
+      <dt class="mt-1 text-xs uppercase tracking-wide text-tx-muted">{{ .label }}</dt>
+      <dd class="text-3xl font-bold text-tx-main" data-usage-days="{{ .days }}">{{ if $u.live }}{{ .value }}{{ else }}—{{ end }}</dd>
+    </div>
+    {{- end }}
+  </dl>
+
+  <p class="mt-4 text-sm text-tx-muted">
+    {{ T "usage.note" }}
+    <a href="{{ "/docs/user/repository/" | relLangURL }}" class="text-brand-text underline">{{ T "usage.noteLink" }}</a>.
+  </p>
+</section>

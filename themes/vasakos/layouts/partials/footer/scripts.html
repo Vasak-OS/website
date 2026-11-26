@@ -20,9 +20,10 @@
 {{- $bundle := slice $darkmode $menu $langSwitch | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 <script defer src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous"></script>
 
-{{/* Consulta en vivo del repositorio de paquetes. Sólo en las dos páginas que
-     muestran versiones: la portada y /state/. */}}
-{{- if or .IsHome (eq .Type "state") }}
+{{/* Consulta en vivo del repositorio de paquetes y de su contador de uso. Sólo
+     en las páginas que muestran una cosa o la otra: la portada, /state/ y
+     /downloads/. */}}
+{{- if or .IsHome (eq .Type "state") (eq .Type "downloads") }}
   {{- with resources.Get "js/state-live.js" }}
     {{- with . | minify | fingerprint }}
 <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
