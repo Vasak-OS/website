@@ -129,7 +129,7 @@
   last7 = "IPs únicas · 7 días"
   last30 = "IPs únicas · 30 días"
   last90 = "IPs únicas · 90 días"
-  note = "Cuenta las IPs únicas que pidieron el índice del repositorio (vasakos.db) con pacman. Varias máquinas detrás de una misma conexión cuentan como una, así que es un piso de instalaciones y no una cuenta de personas."
+  note = "Cuenta las IPs únicas que pidieron el índice del repositorio (vasakos.db) con pacman. Varias máquinas detrás de una misma conexión cuentan como una, y una que cambia de IP puede contar dos veces, así que no es una cuenta de instalaciones ni de personas."
   noteLink = "Cómo funciona el repositorio"
 
 [social]

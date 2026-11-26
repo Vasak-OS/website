@@ -109,19 +109,19 @@
   var root = document.querySelector('[data-usage]');
   if (!root) return;
 
-  var endpoint = root.getAttribute('data-usage');
+  var endpoint = root.dataset.usage;
   if (!endpoint) return;
 
   var cells = {};
   root.querySelectorAll('[data-usage-days]').forEach(function (el) {
-    cells[el.getAttribute('data-usage-days')] = el;
+    cells[el.dataset.usageDays] = el;
   });
   var generated = root.querySelector('[data-usage-generated]');
 
   function setDate(iso) {
     if (!generated || !iso) return;
     var d = new Date(iso);
-    if (isNaN(d)) return;
+    if (Number.isNaN(d.getTime())) return;
     generated.setAttribute('datetime', iso);
     try {
       generated.textContent = new Intl.DateTimeFormat(

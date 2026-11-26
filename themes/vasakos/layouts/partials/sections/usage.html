@@ -5,8 +5,8 @@
   No dice «usuarios» ni «instalaciones» a secas a propósito. Lo que el servidor
   ve es una IP que pidió el índice; varias máquinas detrás de una misma conexión
   cuentan como una, y una que se reinstala cuenta como una. Publicarlo como
-  «IPs únicas» es lo único que el dato sostiene, y aun así es un piso: nadie que
-  no se actualice aparece.
+  «IPs únicas» es lo único que el dato sostiene: una máquina que cambia de IP
+  puede sumar dos, y una que no se actualice no aparece.
 
   Los ganchos `data-usage*` son de `state-live.js`, que vuelve a pedir el JSON en
   el navegador: el build puede tener días, el contador se recalcula a diario.
